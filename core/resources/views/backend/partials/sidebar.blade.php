@@ -20,9 +20,6 @@ use Illuminate\Support\Str;
             <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')" aria-label="Toggle navigation links">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <button class="sidebar-toggler" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar menu">
-                <i class="bi bi-list"></i>
-            </button>
         </div>
 
         <div class="top-nav-links" id="navbarTopNav">
@@ -137,7 +134,7 @@ use Illuminate\Support\Str;
 .navbar-right-group { display: flex; align-items: center; gap: 2px; }
 .home-link-mobile { display: none; }
 .brand-text-desktop { display: inline; }
-.nav-toggler, .sidebar-toggler {
+.nav-toggler {
     display: none;
     background: transparent;
     border: none;
@@ -148,11 +145,11 @@ use Illuminate\Support\Str;
     border-radius: 8px;
     transition: all 0.2s ease;
 }
-.nav-toggler:hover, .sidebar-toggler:hover {
+.nav-toggler:hover {
     color: #60A5FA;
     background: rgba(37,99,235,0.08);
 }
-.nav-toggler:focus, .sidebar-toggler:focus { outline: none; }
+.nav-toggler:focus { outline: none; }
 
 .top-nav-links {
     display: flex;
@@ -289,7 +286,7 @@ use Illuminate\Support\Str;
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
-    .nav-toggler { display: block; }
+    .nav-toggler { display: flex; align-items: center; justify-content: center; }
     .top-nav-links {
         display: none;
         flex-direction: column;
@@ -307,28 +304,29 @@ use Illuminate\Support\Str;
     .top-nav-links.show {
         display: flex;
     }
-    /* Sidebar transforms into sliding panel (handled by app.blade.php) */
+    /* Sidebar stays inline in grid like desktop — just narrower */
     .sidebar { 
-        width: 100%;
-        min-width: 100%;
-        max-height: none;
-        flex-direction: column;
+        width: 200px;
+        min-width: 200px;
     }
-    .sidebar-brand { display: none; }
-    .sidebar-menu {
-        display: flex;
-        flex-direction: column;
-        padding: 12px;
-        gap: 2px;
-    }
-    .sidebar-menu li { margin-bottom: 0; }
-    .sidebar-menu a { font-size: 0.85rem; padding: 10px 14px; }
-    .sidebar-footer { display: none; }
+    .sidebar-brand { padding: 16px 16px 12px; gap: 8px; font-size: 0.7rem; }
+    .sidebar-menu { padding: 10px 8px; }
+    .sidebar-menu a { font-size: 0.82rem; padding: 8px 12px; gap: 10px; }
+    .sidebar-menu a i { font-size: 0.95rem; width: 18px; }
     .brand-text-desktop { display: none; }
-    .sidebar-toggler { display: flex; align-items: center; justify-content: center; }
     .home-link-mobile { display: inline-flex; font-size: 1.1rem; padding: 6px 8px; }
     .navbar-left-group { gap: 2px; }
     .top-nav-brand { font-size: 0.9rem; }
     .top-nav-brand i { font-size: 1.1rem; }
+}
+@media (max-width: 480px) {
+    .sidebar { 
+        width: 160px;
+        min-width: 160px;
+    }
+    .sidebar-brand { padding: 12px 12px 10px; font-size: 0.65rem; }
+    .sidebar-menu { padding: 8px 6px; }
+    .sidebar-menu a { font-size: 0.78rem; padding: 6px 10px; gap: 8px; }
+    .sidebar-menu a i { font-size: 0.85rem; width: 16px; }
 }
 </style>
