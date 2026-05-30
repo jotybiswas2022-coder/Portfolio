@@ -10,15 +10,11 @@ use Illuminate\Support\Str;
                 <i class="bi bi-speedometer2"></i>
                 <span class="brand-text">Admin <span class="brand-text-desktop">Dashboard</span></span>
             </a>
-
-            <a class="nav-link-custom home-link-mobile" href="/" aria-label="Home">
-                <i class="bi bi-house-door"></i>
-            </a>
         </div>
 
         <div class="navbar-right-group">
             <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')" aria-label="Toggle navigation links">
-                <span class="navbar-toggler-icon"></span>
+                <i class="bi bi-list"></i>
             </button>
         </div>
 
@@ -132,7 +128,6 @@ use Illuminate\Support\Str;
 }
 .navbar-left-group { display: flex; align-items: center; gap: 4px; }
 .navbar-right-group { display: flex; align-items: center; gap: 2px; }
-.home-link-mobile { display: none; }
 .brand-text-desktop { display: inline; }
 .nav-toggler {
     display: none;
@@ -314,7 +309,6 @@ use Illuminate\Support\Str;
     .sidebar-menu a { font-size: 0.82rem; padding: 8px 12px; gap: 10px; }
     .sidebar-menu a i { font-size: 0.95rem; width: 18px; }
     .brand-text-desktop { display: none; }
-    .home-link-mobile { display: inline-flex; font-size: 1.1rem; padding: 6px 8px; }
     .navbar-left-group { gap: 2px; }
     .top-nav-brand { font-size: 0.9rem; }
     .top-nav-brand i { font-size: 1.1rem; }
