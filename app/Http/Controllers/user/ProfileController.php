@@ -67,6 +67,13 @@ class ProfileController extends Controller
             'last_donated' => $request->last_donated,
         ]);
 
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile updated successfully.',
+            ]);
+        }
+
         return redirect('/profile')
             ->with('success', 'Profile updated successfully.');
     }
