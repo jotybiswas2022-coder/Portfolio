@@ -2,510 +2,548 @@
 
 @section('content')
 
-<div class="main-content">
-
-    <!-- Success Alert -->
+    <!-- ========== SUCCESS ALERT ========== -->
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert">
+        <div class="alert-custom" id="successAlert">
             <i class="bi bi-check-circle-fill"></i>
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span>{{ session('success') }}</span>
+            <button type="button" class="alert-close" onclick="this.parentElement.remove()">
                 <i class="bi bi-x-lg"></i>
             </button>
         </div>
     @endif
 
-    <!-- Profile Card Wrapper (centered) -->
-    <div class="profile-card-wrapper">
-        <div class="profile-card">
+    <!-- ========== PROFILE SECTION ========== -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-card">
 
-            <!-- Header -->
-            <div class="card-header">
-                <div class="header-icon">
-                    <i class="bi bi-person-circle"></i>
-                </div>
-                <h3>Profile Overview</h3>
-            </div>
-
-            <div class="card-body">
-
-                <!-- Avatar Section -->
-                <div class="profile-avatar-section">
-                    <div class="avatar-circle">
-                        {{ strtoupper(substr($profile->name ?? 'U', 0, 1)) }}
+                <!-- Card Header -->
+                <div class="profile-header">
+                    <div class="avatar-wrapper">
+                        <div class="avatar-circle">
+                            {{ strtoupper(substr($profile->name ?? 'U', 0, 1)) }}
+                        </div>
+                        <div class="avatar-ring"></div>
                     </div>
-                    <div class="avatar-info">
-                        <h4>{{ $profile->name ?? 'Not set' }}</h4>
-                        <span class="blood-badge">
+                    <div class="header-info">
+                        <h2>{{ $profile->name ?? 'Not Set' }}</h2>
+                        <span class="blood-label">
                             <i class="bi bi-droplet-fill"></i>
-                            {{ $profile->blood ?? 'Not set' }}
+                            {{ $profile->blood ?? 'Not Set' }}
                         </span>
                     </div>
                 </div>
 
-                <!-- Fields -->
-                <div class="field-group">
+                <!-- Card Body -->
+                <div class="profile-body">
 
-                    <!-- Mobile Number -->
-                    <div class="field-item">
-                        <div class="field-label"><i class="bi bi-telephone-fill"></i> Mobile Number</div>
-                        <div class="field-value">{{ $profile->number ?? 'Not set' }}</div>
+                    <div class="section-label">
+                        <i class="bi bi-info-circle-fill"></i> প্রোফাইল তথ্য
                     </div>
 
-                    <!-- Blood Group -->
-                    <div class="field-item blood-field">
-                        <div class="field-label"><i class="bi bi-droplet-half"></i> Blood Group</div>
-                        <div class="field-value">
-                            <span class="blood-type-large">{{ $profile->blood ?? '--' }}</span>
-                            <span class="blood-type-text">Blood Group</span>
+                    <div class="info-grid">
+                        <!-- Mobile -->
+                        <div class="info-item">
+                            <div class="info-icon phone-icon">
+                                <i class="bi bi-telephone-fill"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">মোবাইল নম্বর</span>
+                                <span class="info-value">{{ $profile->number ?? 'সেট করা হয়নি' }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Blood -->
+                        <div class="info-item">
+                            <div class="info-icon blood-icon-bg">
+                                <i class="bi bi-droplet-half"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">রক্তের গ্রুপ</span>
+                                <span class="info-value blood-value">{{ $profile->blood ?? '--' }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Division -->
+                        <div class="info-item">
+                            <div class="info-icon div-icon">
+                                <i class="bi bi-geo-alt-fill"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">বিভাগ</span>
+                                <span class="info-value">{{ $profile->division ?? 'সেট করা হয়নি' }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Last Donated -->
+                        <div class="info-item">
+                            <div class="info-icon cal-icon">
+                                <i class="bi bi-calendar-check-fill"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">সর্বশেষ রক্তদান</span>
+                                <span class="info-value">
+                                    @if($profile->last_donated)
+                                        {{ \Carbon\Carbon::parse($profile->last_donated)->timezone('Asia/Dhaka')->format('d M Y') }}
+                                    @else
+                                        <span class="text-muted">এখনো দান করেননি</span>
+                                    @endif
+                                </span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Division -->
-                    <div class="field-item">
-                        <div class="field-label"><i class="bi bi-geo-alt-fill"></i> Division</div>
-                        <div class="field-value">
-                            {{ $profile->division ?? 'Not set' }}
+                    <!-- Donation Status -->
+                    @if($profile->last_donated)
+                    <div class="donation-status">
+                        <div class="status-bar">
+                            @php
+                                $nextDate = $profile->nextDonationDate();
+                                $today = now()->startOfDay();
+                                $diffDays = $today->diffInDays($nextDate, false);
+                                $totalDays = 90;
+                                $elapsed = 90 - max(0, $diffDays);
+                                $percent = min(100, max(0, ($elapsed / $totalDays) * 100));
+                            @endphp
+                            <div class="status-bar-fill" style="width: {{ $percent }}%;"></div>
+                            <div class="status-bar-label">
+                                @if($diffDays <= 0)
+                                    <i class="bi bi-check-circle-fill"></i> আপনি এখন রক্ত দিতে পারবেন!
+                                @else
+                                    পরবর্তী দানের জন্য আর {{ $diffDays }} দিন বাকি
+                                @endif
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Last Donated -->
-                    <div class="field-item">
-                        <div class="field-label"><i class="bi bi-calendar-check-fill"></i> Last Donated</div>
-                        <div class="field-value">
-                            @if($profile->last_donated)
-                                {{ \Carbon\Carbon::parse($profile->last_donated)->timezone('Asia/Dhaka')->format('d M Y') }}
-                            @else
-                                Not yet donated
-                            @endif
-                        </div>
-                    </div>
+                    @endif
 
                 </div>
 
-                <!-- Edit Button -->
-                <a href="{{ url('/profile/edit') }}" class="edit-btn">
-                    <i class="bi bi-pencil-square"></i>
-                    Edit Profile
-                </a>
+                <!-- Card Actions -->
+                <div class="profile-actions">
+                    <a href="{{ url('/profile/edit') }}" class="btn-edit">
+                        <i class="bi bi-pencil-square"></i>
+                        প্রোফাইল এডিট করুন
+                    </a>
+                    <a href="{{ url('/') }}" class="btn-back">
+                        <i class="bi bi-house-fill"></i>
+                        হোম পেজ
+                    </a>
+                </div>
 
             </div>
         </div>
-    </div>
+    </section>
 
-</div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 
-<!-- Footer -->
-<footer>
-    &copy; 2025 <span>BloodBank</span>. Saving lives, one drop at a time.
-</footer>
-
-<style>
-    /* Main content flex */
-    .main-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 3rem 1rem;
-        min-height: 80vh;
-    }
-
-    /* Wrapper to center the card */
-    .profile-card-wrapper {
-        width: 100%;
-        max-width: 480px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .profile-card {
-        width: 100%;
-        /* existing styles... */
-        background: rgba(10, 0, 0, 0.65);
-        border: 1px solid rgba(220, 38, 38, 0.35);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 0 40px rgba(220, 38, 38, 0.2),
-                    0 20px 60px rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(16px);
-    }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #dc2626;
+            --primary-light: #ef4444;
+            --primary-dark: #b91c1c;
+            --dark: #1a1a2e;
+            --dark-2: #16213e;
+            --dark-3: #0f3460;
+            --text: #374151;
+            --text-light: #6b7280;
+            --white: #ffffff;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 50px rgba(220, 38, 38, 0.15);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a0000 0%, #3d0000 40%, #6b0000 100%);
+            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 50%, var(--dark-3) 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding-top: 72px;
         }
 
-        /* ─── NAVBAR ─── */
-        .navbar {
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(10px);
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-            border-bottom: 1px solid rgba(220, 38, 38, 0.4);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar-brand {
+        .alert-custom {
+            max-width: 560px;
+            margin: 24px auto 0;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border-left: 4px solid #22c55e;
+            border-radius: var(--radius);
+            color: #15803d;
+            font-weight: 600;
+            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
-            text-decoration: none;
+            animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .navbar-brand .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #dc2626, #991b1b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #fff;
-            box-shadow: 0 0 12px rgba(220, 38, 38, 0.6);
-        }
+        .alert-custom i { font-size: 18px; flex-shrink: 0; }
 
-        .navbar-brand span {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 0.5px;
-        }
-
-        .navbar-brand span em {
-            color: #f87171;
-            font-style: normal;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #fca5a5;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        .nav-links a.active {
-            color: #fff;
-            border-bottom: 2px solid #ef4444;
-            padding-bottom: 2px;
-        }
-
-        /* ─── MAIN CONTENT ─── */
-        .main-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 1rem;
-        }
-
-        /* ─── ALERT ─── */
-        .alert {
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            color: #86efac;
-            padding: 0.85rem 1.25rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.92rem;
-            position: relative;
-        }
-
-        .alert i {
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .alert .btn-close {
+        .alert-close {
             margin-left: auto;
             background: none;
             border: none;
-            color: #86efac;
+            color: #15803d;
             cursor: pointer;
-            font-size: 1rem;
-            opacity: 0.7;
+            opacity: 0.6;
             transition: opacity 0.2s;
+            padding: 2px 6px;
+            font-size: 14px;
         }
 
-        .alert .btn-close:hover {
-            opacity: 1;
+        .alert-close:hover { opacity: 1; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* ─── PROFILE CARD ─── */
-        .profile-card {
+        .profile-section {
+            padding: 40px 0 60px;
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .profile-section .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 0 20px;
             width: 100%;
-            max-width: 480px;
-            background: rgba(10, 0, 0, 0.65);
-            border: 1px solid rgba(220, 38, 38, 0.35);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow:
-                0 0 40px rgba(220, 38, 38, 0.2),
-                0 20px 60px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(16px);
         }
 
-        /* ─── CARD HEADER ─── */
-        .card-header {
-            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #b91c1c 100%);
-            padding: 2rem 2rem 1.6rem;
+        .profile-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(220, 38, 38, 0.06);
+            animation: cardFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(185, 28, 28, 0.08));
+            padding: 36px 32px 28px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .card-header::before {
+        .profile-header::before {
             content: '';
             position: absolute;
-            top: -30px;
-            right: -30px;
-            width: 120px;
-            height: 120px;
-            background: rgba(255, 255, 255, 0.05);
+            top: -40%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.08), transparent 70%);
             border-radius: 50%;
         }
 
-        .card-header::after {
+        .profile-header::after {
             content: '';
             position: absolute;
-            bottom: -40px;
-            left: -20px;
-            width: 90px;
-            height: 90px;
-            background: rgba(255, 255, 255, 0.04);
+            bottom: -30%;
+            left: -10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.06), transparent 70%);
             border-radius: 50%;
         }
 
-        .header-icon {
-            font-size: 2.5rem;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 0.5rem;
+        .avatar-wrapper {
             position: relative;
-            z-index: 1;
-        }
-
-        .card-header h3 {
-            color: #fff;
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ─── CARD BODY ─── */
-        .card-body {
-            padding: 2rem;
-        }
-
-        /* ─── AVATAR SECTION ─── */
-        .profile-avatar-section {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+            display: inline-block;
+            margin-bottom: 16px;
         }
 
         .avatar-circle {
-            width: 72px;
-            height: 72px;
+            width: 88px; height: 88px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #dc2626, #7f1d1d);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 34px;
             font-weight: 800;
             color: #fff;
-            flex-shrink: 0;
-            box-shadow:
-                0 0 0 3px rgba(220, 38, 38, 0.3),
-                0 0 20px rgba(220, 38, 38, 0.4);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
             letter-spacing: 0;
         }
 
-        .avatar-info h4 {
-            color: #fff;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
+        .avatar-ring {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(239, 68, 68, 0.3);
+            animation: ringPulse 3s ease-in-out infinite;
         }
 
-        .blood-badge {
+        @keyframes ringPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.08); opacity: 0.2; }
+        }
+
+        .header-info h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .blood-label {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             background: rgba(220, 38, 38, 0.2);
-            border: 1px solid rgba(220, 38, 38, 0.5);
-            color: #f87171;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 20px;
+            border: 1px solid rgba(220, 38, 38, 0.4);
+            color: #fca5a5;
+            padding: 5px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        .blood-badge i {
-            font-size: 0.75rem;
-        }
+        .blood-label i { font-size: 12px; }
 
-        /* ─── FIELD GROUP ─── */
-        .field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.8rem;
-        }
+        .profile-body { padding: 28px 32px; }
 
-        .field-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(220, 38, 38, 0.18);
-            border-radius: 12px;
-            padding: 1rem 1.2rem;
-            transition: border-color 0.25s, background 0.25s;
-        }
-
-        .field-item:hover {
-            border-color: rgba(220, 38, 38, 0.45);
-            background: rgba(220, 38, 38, 0.06);
-        }
-
-        .field-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #f87171;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 0.4rem;
+        .section-label {
             display: flex;
             align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.35);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 18px;
+        }
+
+        .section-label i { font-size: 14px; }
+
+        .info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(220, 38, 38, 0.2);
+            transform: translateX(4px);
+        }
+
+        .info-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .phone-icon { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+        .blood-icon-bg { background: rgba(239, 68, 68, 0.15); color: var(--primary-light); }
+        .div-icon { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .cal-icon { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.35);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #f5f5f5;
+            word-break: break-word;
+        }
+
+        .blood-value {
+            font-size: 20px; font-weight: 800;
+            color: var(--primary-light);
+        }
+
+        .text-muted { color: rgba(255,255,255,0.3); }
+
+        .donation-status {
+            margin-top: 20px;
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius);
+        }
+
+        .status-bar {
+            position: relative;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: visible;
+        }
+
+        .status-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 999px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 4px;
+        }
+
+        .status-bar-label {
+            position: absolute;
+            top: 16px; left: 0; right: 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 6px;
         }
 
-        .field-label i {
-            font-size: 0.82rem;
-        }
+        .status-bar-label i { color: #22c55e; font-size: 14px; }
 
-        .field-value {
-            font-size: 1rem;
-            color: #f5f5f5;
-            font-weight: 500;
-        }
-
-        /* ─── BLOOD FIELD SPECIAL ─── */
-        .blood-field .field-value {
+        .profile-actions {
+            padding: 0 32px 32px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 10px;
         }
 
-        .blood-type-large {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #ef4444;
-            line-height: 1;
+        .btn-edit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.35);
         }
 
-        .blood-type-text {
-            font-size: 0.8rem;
-            color: #9ca3af;
-            font-weight: 400;
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.45);
+            color: #fff;
         }
 
-        /* ─── EDIT BUTTON ─── */
-        .edit-btn {
+        .btn-back {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            width: 100%;
-            padding: 0.85rem 1.5rem;
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: #fff;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255,255,255,0.6);
             text-decoration: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
+            border-radius: var(--radius);
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 0.3px;
-            transition: all 0.25s;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .edit-btn:hover {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            box-shadow: 0 6px 22px rgba(220, 38, 38, 0.55);
-            transform: translateY(-2px);
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
         }
 
-        .edit-btn:active {
-            transform: translateY(0);
+        @media (max-width: 991.98px) {
+            body { padding-top: 64px; }
+            .profile-section { padding: 28px 0 40px; }
         }
 
-        /* ─── FOOTER ─── */
-        footer {
-            text-align: center;
-            padding: 1.2rem;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(220, 38, 38, 0.15);
+        @media (max-width: 767.98px) {
+            body { padding-top: 60px; }
+            .profile-section { padding: 20px 0 32px; }
+            .profile-header { padding: 28px 24px 22px; }
+            .profile-body { padding: 22px 24px; }
+            .avatar-circle { width: 72px; height: 72px; font-size: 28px; }
+            .header-info h2 { font-size: 18px; }
+            .info-item { padding: 12px 14px; }
+            .info-icon { width: 38px; height: 38px; font-size: 15px; }
+            .info-value { font-size: 14px; }
+            .blood-value { font-size: 17px; }
+            .profile-actions { padding: 0 24px 24px; }
+            .btn-edit { padding: 12px 20px; font-size: 14px; }
+            .status-bar-label { font-size: 12px; }
         }
 
-        footer span {
-            color: #ef4444;
+        @media (max-width: 480px) {
+            body { padding-top: 56px; }
+            .profile-section .container { padding: 0 14px; }
+            .profile-card { border-radius: 18px; }
+            .profile-header { padding: 22px 18px 18px; }
+            .profile-body { padding: 18px 18px; }
+            .avatar-circle { width: 64px; height: 64px; font-size: 24px; }
+            .header-info h2 { font-size: 16px; }
+            .blood-label { font-size: 11px; padding: 4px 12px; }
+            .info-grid { gap: 10px; }
+            .info-item { padding: 10px 12px; gap: 12px; }
+            .info-icon { width: 34px; height: 34px; font-size: 13px; border-radius: 10px; }
+            .info-value { font-size: 13px; }
+            .blood-value { font-size: 15px; }
+            .profile-actions { padding: 0 18px 18px; gap: 8px; }
+            .btn-edit { padding: 11px 18px; font-size: 13px; }
+            .btn-back { padding: 10px 18px; font-size: 13px; }
+            .donation-status { padding: 12px 14px; }
+            .status-bar-label { font-size: 11px; }
+            .section-label { font-size: 10px; margin-bottom: 14px; }
         }
 
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 520px) {
-            .card-body {
-                padding: 1.4rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .nav-links li:not(:last-child) {
-                display: none;
-            }
-
-            .navbar-brand span {
-                font-size: 1.1rem;
-            }
+        @media (max-width: 360px) {
+            body { padding-top: 52px; }
+            .avatar-circle { width: 54px; height: 54px; font-size: 20px; }
+            .header-info h2 { font-size: 14px; }
+            .blood-label { font-size: 10px; padding: 3px 10px; }
+            .info-icon { width: 30px; height: 30px; font-size: 11px; }
+            .info-value { font-size: 12px; }
+            .blood-value { font-size: 13px; }
         }
     </style>
 

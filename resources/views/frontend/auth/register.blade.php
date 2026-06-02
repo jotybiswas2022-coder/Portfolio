@@ -1,832 +1,326 @@
-<div class="login-container">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Animated Particles -->
-    <div class="particles" id="particles">
-        <span class="particle" style="left:5%;  width:8px;  height:10px; animation-duration:9s;  animation-delay:0s;   bottom:-20px;"></span>
-        <span class="particle" style="left:12%; width:5px;  height:7px;  animation-duration:12s; animation-delay:1.5s; bottom:-20px;"></span>
-        <span class="particle" style="left:22%; width:11px; height:14px; animation-duration:8s;  animation-delay:3s;   bottom:-20px;"></span>
-        <span class="particle" style="left:35%; width:6px;  height:8px;  animation-duration:14s; animation-delay:.8s;  bottom:-20px;"></span>
-        <span class="particle" style="left:48%; width:9px;  height:12px; animation-duration:10s; animation-delay:2s;   bottom:-20px;"></span>
-        <span class="particle" style="left:58%; width:5px;  height:7px;  animation-duration:11s; animation-delay:4s;   bottom:-20px;"></span>
-        <span class="particle" style="left:70%; width:12px; height:15px; animation-duration:7s;  animation-delay:.3s;  bottom:-20px;"></span>
-        <span class="particle" style="left:80%; width:7px;  height:9px;  animation-duration:13s; animation-delay:2.7s; bottom:-20px;"></span>
-        <span class="particle" style="left:90%; width:10px; height:13px; animation-duration:9s;  animation-delay:1s;   bottom:-20px;"></span>
-        <span class="particle" style="left:96%; width:6px;  height:8px;  animation-duration:15s; animation-delay:3.5s; bottom:-20px;"></span>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0f1a 0%,#1a0a0a 50%,#0d0d1a 100%);position:relative;overflow:hidden;padding:24px 16px;font-family:'Inter','Noto Sans Bengali',sans-serif;">
 
-        <span class="cross-particle" style="left:8%;  animation-duration:14s; animation-delay:1s;   bottom:-20px;">+</span>
-        <span class="cross-particle" style="left:28%; animation-duration:11s; animation-delay:3s;   bottom:-20px;">✚</span>
-        <span class="cross-particle" style="left:55%; animation-duration:16s; animation-delay:.5s;  bottom:-20px;">+</span>
-        <span class="cross-particle" style="left:75%; animation-duration:10s; animation-delay:2s;   bottom:-20px;">✚</span>
-        <span class="cross-particle" style="left:92%; animation-duration:13s; animation-delay:4s;   bottom:-20px;">+</span>
+    {{-- ====== ANIMATED BACKGROUND LAYER ====== --}}
+    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+
+        {{-- Orbs --}}
+        <div style="position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,0.2) 0%,transparent 70%);animation:orbPulse 4s ease-in-out infinite;"></div>
+        <div style="position:absolute;bottom:-150px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(102,126,234,0.1) 0%,transparent 70%);animation:orbPulse2 6s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:15%;right:8%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);animation:orbPulse3 8s ease-in-out infinite;"></div>
+
+        {{-- Grid --}}
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:48px 48px;"></div>
+
+        {{-- Floating blood drops --}}
+        <div class="float-drop" style="left:6%;  animation-duration:10s; animation-delay:0s;   bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:20%; animation-duration:11s; animation-delay:2.5s; bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:38%; animation-duration:8s;  animation-delay:4s;   bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:55%; animation-duration:12s; animation-delay:1s;   bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:72%; animation-duration:9s;  animation-delay:3s;   bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:85%; animation-duration:11s; animation-delay:5s;   bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:95%; animation-duration:13s; animation-delay:2s;   bottom:-30px;">🩸</div>
+
+        {{-- Floating plus signs --}}
+        <span class="float-plus" style="left:12%; animation-duration:13s; animation-delay:1.5s; bottom:-20px;">+</span>
+        <span class="float-plus" style="left:30%; animation-duration:15s; animation-delay:3s;   bottom:-20px;">✚</span>
+        <span class="float-plus" style="left:48%; animation-duration:10s; animation-delay:.8s;  bottom:-20px;">+</span>
+        <span class="float-plus" style="left:65%; animation-duration:12s; animation-delay:2.2s; bottom:-20px;">✚</span>
+        <span class="float-plus" style="left:80%; animation-duration:14s; animation-delay:4s;   bottom:-20px;">+</span>
+        <span class="float-plus" style="left:92%; animation-duration:11s; animation-delay:1s;   bottom:-20px;">✚</span>
     </div>
 
-    <div class="login-wrapper">
+    {{-- ====== MAIN CARD ====== --}}
+    <div style="width:100%;max-width:480px;position:relative;z-index:1;animation:cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both;">
 
-        <!-- Brand Logo Above Card -->
-        <div class="brand-top mb-4 text-center">
-            <div class="brand-icon mb-2">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="50" height="50">
-                    <path d="M12 2C12 2 4 10.5 4 15.5a8 8 0 0 0 16 0C20 10.5 12 2 12 2Z" fill="red"/>
-                </svg>
+        {{-- Brand --}}
+        <div style="text-align:center;margin-bottom:24px;">
+            <div style="width:56px;height:56px;margin:0 auto 12px;background:linear-gradient(135deg,#dc2626,#ef4444);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(220,38,38,0.3);transition:transform 0.3s;"
+                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="bi bi-droplet-fill" style="font-size:26px;color:#fff;"></i>
             </div>
-            <div class="brand-text">
-                <span class="brand-name h4 d-block">Blood Bank</span>
-                <span class="brand-sub small">Save a life · Donate blood</span>
-            </div>
+            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">ব্লাড ব্যাংক</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">রক্তদান · জীবন বাঁচান</div>
         </div>
 
-        <!-- Main Card -->
-        <div class="card login-card">
+        {{-- Register Card --}}
+        <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:20px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);">
 
-            <!-- Header -->
-            <div class="card-header login-header d-flex align-items-center justify-content-between">
-                <div class="header-icon">
-                    <svg viewBox="0 0 24 24" width="24" height="24">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <line x1="19" y1="8" x2="19" y2="14"/>
-                        <line x1="22" y1="11" x2="16" y2="11"/>
+            {{-- Header --}}
+            <div style="padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">
+                <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:2px;">
+                    <span style="width:36px;height:36px;border-radius:10px;background:rgba(220,38,38,0.15);display:flex;align-items:center;justify-content:center;transition:transform 0.3s;"
+                          onmouseover="this.style.transform='rotate(-10deg)'" onmouseout="this.style.transform='rotate(0)'">
+                        <i class="bi bi-person-plus-fill" style="font-size:15px;color:#ef4444;"></i>
+                    </span>
+                    <span style="font-size:17px;font-weight:700;color:#fff;">নতুন অ্যাকাউন্ট তৈরি করুন</span>
+                </div>
+                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">রক্তদান যাত্রা শুরু করতে নিবন্ধন করুন</p>
+            </div>
+
+            {{-- Body --}}
+            <div style="padding:26px 32px 22px;">
+
+                {{-- ====== GOOGLE SIGN-IN ====== --}}
+                <a href="{{ route('auth.google') }}"
+                   style="width:100%;padding:11px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:10px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13.5px;font-weight:600;transition:all 0.25s;font-family:inherit;cursor:pointer;"
+                   onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.18)'"
+                   onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.1)'">
+                    <svg style="width:20px;height:20px;flex-shrink:0;" viewBox="0 0 48 48">
+                        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                        <path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                        <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                     </svg>
-                </div>
-                <span>Create Account</span>
-                <div class="blood-drops d-flex gap-1">
-                    <div class="drop"></div>
-                    <div class="drop"></div>
-                    <div class="drop"></div>
-                </div>
-            </div>
+                    Google দিয়ে নিবন্ধন করুন
+                </a>
 
-            <!-- Step Progress Bar -->
-            <div class="step-bar mb-3">
-                <span class="active"></span>
-                <span class="active"></span>
-                <span></span>
-                <span></span>
-            </div>
+                {{-- Divider --}}
+                <div style="display:flex;align-items:center;gap:12px;margin:20px 0;">
+                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
+                    <span style="font-size:11px;color:rgba(255,255,255,0.2);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;">ইমেইল দিয়ে নিবন্ধন</span>
+                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
+                </div>
 
-            <!-- Body -->
-            <div class="card-body login-body">
+                {{-- ====== REGISTER FORM ====== --}}
                 <form method="POST" action="{{ route('register') }}" autocomplete="off">
                     @csrf
 
-                    <!-- Name -->
-                    <div class="input-group-animated mb-3">
-                        <label for="name" class="login-label">Full Name</label>
-                        <div class="input-wrap">
-                            <svg class="field-icon" viewBox="0 0 24 24">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
-                            </svg>
-                            <input id="name" type="text" class="form-control login-input @error('name') is-invalid @enderror" name="name" placeholder="Enter your full name" required autofocus autocomplete="name">
+                    {{-- Name --}}
+                    <div style="margin-bottom:16px;">
+                        <label for="name" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;"></span>পূর্ণ নাম
+                        </label>
+                        <div style="position:relative;">
+                            <i class="bi bi-person-fill" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
+                            <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="আপনার পূর্ণ নাম" required autofocus autocomplete="name"
+                                   style="width:100%;padding:12px 16px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
+                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
+                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
                         </div>
                         @error('name')
-                        <span class="invalid-feedback d-block" role="alert"><strong>{{ $message }}</strong></span>
+                            <span style="display:block;margin-top:5px;font-size:12px;color:#f87171;"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
 
-                    <!-- Email -->
-                    <div class="input-group-animated mb-3">
-                        <label for="email" class="login-label">Email Address</label>
-                        <div class="input-wrap">
-                            <svg class="field-icon" viewBox="0 0 24 24">
-                                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                            </svg>
-                            <input id="email" type="email" class="form-control login-input @error('email') is-invalid @enderror" name="email" placeholder="you@example.com" required autocomplete="email">
+                    {{-- Email --}}
+                    <div style="margin-bottom:16px;">
+                        <label for="email" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;"></span>ইমেইল ঠিকানা
+                        </label>
+                        <div style="position:relative;">
+                            <i class="bi bi-envelope-fill" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" required autocomplete="email"
+                                   style="width:100%;padding:12px 16px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
+                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
+                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
                         </div>
                         @error('email')
-                        <span class="invalid-feedback d-block" role="alert"><strong>{{ $message }}</strong></span>
+                            <span style="display:block;margin-top:5px;font-size:12px;color:#f87171;"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
 
-                    <!-- Password -->
-                    <div class="input-group-animated mb-3">
-                        <label for="password" class="login-label">Password</label>
-                        <div class="input-wrap">
-                            <svg class="field-icon" viewBox="0 0 24 24">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                            </svg>
-                            <input id="password" type="password" class="form-control login-input @error('password') is-invalid @enderror" name="password" placeholder="••••••••" required autocomplete="new-password">
+                    {{-- Password --}}
+                    <div style="margin-bottom:16px;">
+                        <label for="password" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;"></span>পাসওয়ার্ড
+                        </label>
+                        <div style="position:relative;">
+                            <i class="bi bi-key-fill" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
+                            <input id="password" type="password" name="password" placeholder="•••••••• (ন্যূনতম ৮ অক্ষর)" required autocomplete="new-password"
+                                   style="width:100%;padding:12px 42px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
+                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
+                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
+                            {{-- Password toggle --}}
+                            <span onclick="togglePassword()"
+                                  style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);cursor:pointer;font-size:15px;z-index:2;transition:color 0.25s;display:flex;align-items:center;"
+                                  onmouseover="this.style.color='rgba(255,255,255,0.6)'"
+                                  onmouseout="this.style.color='rgba(255,255,255,0.25)'">
+                                <i class="bi bi-eye-slash" id="toggleIcon1"></i>
+                            </span>
                         </div>
                         @error('password')
-                        <span class="invalid-feedback d-block" role="alert"><strong>{{ $message }}</strong></span>
+                            <span style="display:block;margin-top:5px;font-size:12px;color:#f87171;"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
 
-                    <!-- Confirm Password -->
-                    <div class="input-group-animated mb-3">
-                        <label for="password-confirm" class="login-label">Confirm Password</label>
-                        <div class="input-wrap">
-                            <svg class="field-icon" viewBox="0 0 24 24">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                            </svg>
-                            <input id="password-confirm" type="password" class="form-control login-input" name="password_confirmation" placeholder="••••••••" required autocomplete="new-password">
+                    {{-- Confirm Password --}}
+                    <div style="margin-bottom:18px;">
+                        <label for="password-confirm" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;"></span>পাসওয়ার্ড নিশ্চিত করুন
+                        </label>
+                        <div style="position:relative;">
+                            <i class="bi bi-shield-lock-fill" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
+                            <input id="password-confirm" type="password" name="password_confirmation" placeholder="••••••••" required autocomplete="new-password"
+                                   style="width:100%;padding:12px 42px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
+                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
+                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
+                            {{-- Confirm password toggle --}}
+                            <span onclick="togglePasswordConfirm()"
+                                  style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);cursor:pointer;font-size:15px;z-index:2;transition:color 0.25s;display:flex;align-items:center;"
+                                  onmouseover="this.style.color='rgba(255,255,255,0.6)'"
+                                  onmouseout="this.style.color='rgba(255,255,255,0.25)'">
+                                <i class="bi bi-eye-slash" id="toggleIcon2"></i>
+                            </span>
                         </div>
                     </div>
 
-                    <!-- Actions -->
-                    <div class="input-group-animated mt-4 d-flex flex-column gap-3">
-                        <button type="submit" class="btn login-btn">
-                            <svg viewBox="0 0 24 24" width="20" height="20">
-                                <path d="M12 2C12 2 5 9 5 14a7 7 0 0 0 14 0C19 9 12 2 12 2Z"/>
-                            </svg>
-                            Register Now
-                        </button>
-
-                        <div class="divider"><span>or</span></div>
-
-                        <!-- GOOGLE REGISTER -->
-                        <a href="{{ route('auth.google') }}" class="google-btn">
-                            <svg class="google-icon" viewBox="0 0 24 24">
-                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
-                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                            </svg>
-                            <span>Sign up with Google</span>
-                        </a>
-
-                        <div class="mt-3"></div>
-
-                        <a href="{{ route('login') }}" class="login-link">
-                            <svg viewBox="0 0 24 24" width="20" height="20">
-                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-                                <polyline points="10 17 15 12 10 7"/>
-                                <line x1="15" y1="12" x2="3" y2="12"/>
-                            </svg>
-                            Already have an account? Sign In
-                        </a>
-                    </div>
+                    {{-- Submit --}}
+                    <button type="submit" id="registerBtn"
+                            style="width:100%;padding:13px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:15px;font-weight:700;font-family:inherit;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 4px 20px rgba(220,38,38,0.35);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;"
+                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(220,38,38,0.5)'"
+                            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(220,38,38,0.35)'">
+                        <span class="btn-text"><i class="bi bi-person-check-fill"></i> নিবন্ধন করুন</span>
+                        <span class="btn-loader" style="display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
+                    </button>
 
                 </form>
+
+                {{-- Divider --}}
+                <div style="display:flex;align-items:center;gap:12px;margin:20px 0 16px;">
+                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
+                    <span style="font-size:11px;color:rgba(255,255,255,0.2);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;">অথবা</span>
+                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
+                </div>
+
+                {{-- Login --}}
+                <div style="text-align:center;">
+                    <span style="font-size:13px;color:rgba(255,255,255,0.4);">ইতিমধ্যে অ্যাকাউন্ট আছে?</span>
+                    <a href="{{ route('login') }}"
+                       style="display:inline-block;margin-left:6px;padding:9px 22px;border:1.5px solid rgba(239,68,68,0.3);border-radius:8px;color:#ef4444;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.25s;"
+                       onmouseover="this.style.background='rgba(239,68,68,0.12)';this.style.borderColor='#ef4444'"
+                       onmouseout="this.style.background='transparent';this.style.borderColor='rgba(239,68,68,0.3)'">
+                        <i class="bi bi-box-arrow-in-left"></i> লগইন করুন
+                    </a>
+                </div>
+
             </div>
 
-            <!-- Bottom color strip -->
-            <div class="card-footer-strip"></div>
+            {{-- Bottom strip --}}
+            <div style="padding:10px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;gap:6px;">
+                <i class="bi bi-shield-check" style="font-size:11px;color:rgba(255,255,255,0.18);"></i>
+                <span style="font-size:10.5px;color:rgba(255,255,255,0.18);">আপনার তথ্য সম্পূর্ণ সুরক্ষিত</span>
+            </div>
+
         </div>
 
-        <!-- Page footer -->
-        <div class="page-footer mt-3 text-center">
-            &copy; 2025 LifeLine Blood Bank &nbsp;·&nbsp;
-            <a href="#">Privacy</a> &nbsp;·&nbsp;
-            <a href="#">Terms</a>
+        {{-- Page footer --}}
+        <div style="text-align:center;margin-top:22px;font-size:11.5px;color:rgba(255,255,255,0.12);">
+            Developed by <span style="font-weight:700;background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Joty Biswas</span> &copy; {{ date('Y') }}
         </div>
 
     </div>
+
 </div>
 
+<script>
+// ── Password Toggle ──
+function togglePassword() {
+    var pw = document.getElementById('password');
+    var icon = document.getElementById('toggleIcon1');
+    if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.className = 'bi bi-eye';
+    } else {
+        pw.type = 'password';
+        icon.className = 'bi bi-eye-slash';
+    }
+}
+
+function togglePasswordConfirm() {
+    var pw = document.getElementById('password-confirm');
+    var icon = document.getElementById('toggleIcon2');
+    if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.className = 'bi bi-eye';
+    } else {
+        pw.type = 'password';
+        icon.className = 'bi bi-eye-slash';
+    }
+}
+
+// ── Submit Loading State ──
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    var btn = document.getElementById('registerBtn');
+    if (form && btn) {
+        form.addEventListener('submit', function() {
+            btn.querySelector('.btn-text').style.display = 'none';
+            btn.querySelector('.btn-loader').style.display = 'inline-block';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.85';
+        });
+    }
+});
+</script>
+
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --red-deep:    #8B0000;
-            --red-mid:     #C0392B;
-            --red-bright:  #E74C3C;
-            --red-light:   #FF6B6B;
-            --red-pale:    #FDECEA;
-            --white:       #FFFFFF;
-            --grey-soft:   #F8F9FA;
-            --grey-mid:    #6C757D;
-            --grey-dark:   #343A40;
-            --shadow-sm:   0 2px 8px rgba(139,0,0,.15);
-            --shadow-md:   0 8px 32px rgba(139,0,0,.25);
-            --shadow-lg:   0 20px 60px rgba(139,0,0,.35);
-            --radius:      16px;
-            --transition:  .35s cubic-bezier(.4,0,.2,1);
-        }
-
-        html, body {
-            height: 100%;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* ═══════════════════════════════════════
-           BACKGROUND & PARTICLES
-        ═══════════════════════════════════════ */
-        .login-container {
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1a0000 0%, #3d0000 30%, #6b0000 60%, #8B0000 100%);
-            overflow: hidden;
-            padding: 40px 16px;
-        }
-
-        /* Animated gradient orbs */
-        .login-container::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 600px 400px at 10% 20%, rgba(231,76,60,.18) 0%, transparent 70%),
-                radial-gradient(ellipse 500px 500px at 90% 80%, rgba(192,57,43,.22) 0%, transparent 70%),
-                radial-gradient(ellipse 400px 300px at 50% 50%, rgba(139,0,0,.1) 0%, transparent 70%);
-            animation: orb-shift 8s ease-in-out infinite alternate;
-            pointer-events: none;
-        }
-
-        @keyframes orb-shift {
-            0%   { opacity: .6; transform: scale(1) rotate(0deg); }
-            100% { opacity: 1;  transform: scale(1.08) rotate(3deg); }
-        }
-
-        /* Particles canvas area */
-        .particles {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        /* Individual floating blood-drop particles */
-        .particle {
-            position: absolute;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            background: radial-gradient(circle at 40% 35%, rgba(255,120,120,.9), rgba(180,0,0,.7));
-            animation: float-up linear infinite;
-            opacity: 0;
-            filter: blur(.4px);
-        }
-
-        @keyframes float-up {
-            0%   { transform: translateY(0)   scale(1)   rotate(0deg);   opacity: 0; }
-            10%  { opacity: .6; }
-            90%  { opacity: .3; }
-            100% { transform: translateY(-110vh) scale(.4) rotate(360deg); opacity: 0; }
-        }
-
-        /* Cross / plus signs floating */
-        .cross-particle {
-            position: absolute;
-            color: rgba(255,120,120,.25);
-            font-size: 24px;
-            font-weight: 900;
-            animation: float-cross linear infinite;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        @keyframes float-cross {
-            0%   { transform: translateY(0)      rotate(0deg);   opacity: 0; }
-            15%  { opacity: .5; }
-            85%  { opacity: .2; }
-            100% { transform: translateY(-100vh) rotate(180deg); opacity: 0; }
-        }
-
-        /* Grid overlay */
-        .login-container::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-        }
-
-        /* ═══════════════════════════════════════
-           BRAND HEADER (ABOVE CARD)
-        ═══════════════════════════════════════ */
-        .login-wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 480px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .brand-top {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 28px;
-        }
-
-        .brand-top .brand-icon {
-            width: 52px;
-            height: 52px;
-            background: var(--red-bright);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 0 6px rgba(231,76,60,.25), 0 0 0 12px rgba(231,76,60,.1);
-            animation: pulse-ring 2.2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-ring {
-            0%, 100% { box-shadow: 0 0 0 6px rgba(231,76,60,.25), 0 0 0 12px rgba(231,76,60,.1); }
-            50%       { box-shadow: 0 0 0 10px rgba(231,76,60,.35), 0 0 0 22px rgba(231,76,60,.12); }
-        }
-
-        .brand-top .brand-icon svg {
-            width: 26px;
-            height: 26px;
-            fill: white;
-            stroke: none;
-        }
-
-        .brand-top .brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-top .brand-name {
-            font-size: 22px;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: .5px;
-            line-height: 1;
-        }
-
-        .brand-top .brand-sub {
-            font-size: 12px;
-            color: rgba(255,255,255,.55);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-top: 3px;
-        }
-
-        /* ═══════════════════════════════════════
-           CARD
-        ═══════════════════════════════════════ */
-        .card {
-            background: rgba(255,255,255,.97);
-            border-radius: var(--radius);
-            overflow: hidden;
-            width: 100%;
-            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        /* ═══════════════════════════════════════
-           CARD HEADER
-        ═══════════════════════════════════════ */
-        .login-header {
-            background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-mid) 50%, var(--red-bright) 100%);
-            padding: 32px 36px 28px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: .5px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-header::before {
-            content: '';
-            position: absolute;
-            top: -40px;
-            right: -40px;
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: rgba(255,255,255,.07);
-        }
-
-        .login-header::after {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            left: 40%;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background: rgba(255,255,255,.05);
-        }
-
-        .header-icon {
-            width: 52px;
-            height: 52px;
-            background: rgba(255,255,255,.18);
-            border: 2px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 4px 16px rgba(0,0,0,.2);
-        }
-
-        .header-icon svg {
-            width: 26px;
-            height: 26px;
-            stroke: #fff;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* Step badge */
-        .header-badge {
-            margin-left: auto;
-            position: relative;
-            z-index: 1;
-            background: rgba(255,255,255,.2);
-            border: 1px solid rgba(255,255,255,.35);
-            border-radius: 20px;
-            padding: 4px 14px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #fff;
-        }
-
-        /* ═══════════════════════════════════════
-           CARD BODY
-        ═══════════════════════════════════════ */
-        .login-body {
-            padding: 36px 36px 32px;
-        }
-
-        /* ═══════════════════════════════════════
-           FORM ELEMENTS
-        ═══════════════════════════════════════ */
-        .input-group-animated {
-            position: relative;
-        }
-
-        .login-label {
-            display: block;
-            font-size: 12.5px;
-            font-weight: 600;
-            color: var(--grey-dark);
-            margin-bottom: 8px;
-            letter-spacing: .4px;
-            text-transform: uppercase;
-        }
-
-        .login-label::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: var(--red-bright);
-            border-radius: 50%;
-            margin-right: 7px;
-            vertical-align: middle;
-            margin-top: -2px;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 13px 18px 13px 44px;
-            border: 2px solid #E8ECEF;
-            border-radius: 10px;
-            font-size: 14.5px;
-            font-family: 'Inter', sans-serif;
-            color: var(--grey-dark);
-            background: var(--grey-soft);
-            transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
-            outline: none;
-        }
-
-        .login-input::placeholder {
-            color: #B0B7C3;
-            font-weight: 400;
-        }
-
-        .login-input:focus {
-            border-color: var(--red-bright);
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(231,76,60,.12), 0 4px 16px rgba(231,76,60,.08);
-        }
-
-        .login-input:hover:not(:focus) {
-            border-color: #CBD0D8;
-            background: #fff;
-        }
-
-        /* Field icons */
-        .field-icon {
-            position: absolute;
-            left: 14px;
-            bottom: 14px;
-            width: 18px;
-            height: 18px;
-            stroke: #B0B7C3;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            pointer-events: none;
-            transition: stroke var(--transition);
-        }
-
-        .input-group-animated:focus-within .field-icon {
-            stroke: var(--red-bright);
-        }
-
-        /* Wrapper to position icon inside input */
-        .input-wrap {
-            position: relative;
-        }
-
-        /* Invalid state */
-        .login-input.is-invalid {
-            border-color: var(--red-bright);
-            background: var(--red-pale);
-        }
-
-        .invalid-feedback {
-            display: block;
-            margin-top: 6px;
-            font-size: 12px;
-            color: var(--red-mid);
-            font-weight: 500;
-        }
-
-        /* ═══════════════════════════════════════
-           SPACING BETWEEN FIELDS
-        ═══════════════════════════════════════ */
-        .input-group-animated + .input-group-animated,
-        .input-group-animated + br + .input-group-animated {
-            margin-top: 0;
-        }
-
-        /* Override the <br> spacing with targeted gaps */
-        .login-body form br { display: none; }
-
-        .input-group-animated {
-            margin-bottom: 20px;
-        }
-
-        /* ═══════════════════════════════════════
-           SUBMIT BUTTON
-        ═══════════════════════════════════════ */
-        .login-btn {
-            width: 100%;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-mid) 50%, var(--red-bright) 100%);
-            color: #fff;
-            font-size: 15px;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            letter-spacing: .6px;
-            position: relative;
-            overflow: hidden;
-            transition: transform var(--transition), box-shadow var(--transition);
-            box-shadow: 0 6px 20px rgba(192,57,43,.45);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 0;
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity var(--transition);
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(192,57,43,.55);
-        }
-
-        .login-btn:hover::before { opacity: 1; }
-
-        .login-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 12px rgba(192,57,43,.4);
-        }
-
-        .login-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: none;
-            stroke: #fff;
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* ═══════════════════════════════════════
-           DIVIDER & LOGIN LINK
-        ═══════════════════════════════════════ */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 22px 0 18px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #E8ECEF;
-        }
-
-        .divider span {
-            font-size: 11px;
-            color: #B0B7C3;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .login-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: var(--red-mid);
-            font-size: 13.5px;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 11px 20px;
-            border: 2px solid rgba(192,57,43,.25);
-            border-radius: 10px;
-            background: rgba(231,76,60,.04);
-            transition: all var(--transition);
-        }
-
-        .login-link:hover {
-            background: rgba(231,76,60,.1);
-            border-color: var(--red-bright);
-            color: var(--red-deep);
-            transform: translateY(-1px);
-        }
-
-        .login-link svg {
-            width: 15px;
-            height: 15px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* ═══════════════════════════════════════
-           CARD FOOTER STRIP
-        ═══════════════════════════════════════ */
-        .card-footer-strip {
-            background: linear-gradient(90deg, var(--red-deep), var(--red-bright), var(--red-mid));
-            height: 4px;
-            border-radius: 0 0 var(--radius) var(--radius);
-        }
-
-        /* ═══════════════════════════════════════
-           FOOTER BELOW CARD
-        ═══════════════════════════════════════ */
-        .page-footer {
-            margin-top: 24px;
-            text-align: center;
-            color: rgba(255,255,255,.45);
-            font-size: 12px;
-            letter-spacing: .3px;
-        }
-
-        .page-footer a {
-            color: rgba(255,180,180,.7);
-            text-decoration: none;
-        }
-
-        /* ═══════════════════════════════════════
-           BLOOD DROP DECORATION (HEADER)
-        ═══════════════════════════════════════ */
-        .blood-drops {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            margin-left: auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .drop {
-            width: 10px;
-            height: 13px;
-            background: rgba(255,255,255,.6);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: drip 2s ease-in-out infinite;
-        }
-
-        .drop:nth-child(2) { animation-delay: .3s; opacity: .8; transform: scale(.8); }
-        .drop:nth-child(3) { animation-delay: .6s; opacity: .6; transform: scale(.65); }
-
-        @keyframes drip {
-            0%, 100% { transform: scaleY(1); }
-            50%       { transform: scaleY(1.15); }
-        }
-
-        /* ═══════════════════════════════════════
-           STEP PROGRESS (DECORATIVE)
-        ═══════════════════════════════════════ */
-        .step-bar {
-            display: flex;
-            gap: 6px;
-            padding: 16px 36px 0;
-        }
-
-        .step-bar span {
-            flex: 1;
-            height: 3px;
-            border-radius: 99px;
-            background: #E8ECEF;
-        }
-
-        .step-bar span.active {
-            background: linear-gradient(90deg, var(--red-mid), var(--red-bright));
-        }
-
-        /* ═══════════════════════════════════════
-           RESPONSIVE
-        ═══════════════════════════════════════ */
-        @media (max-width: 520px) {
-            .login-header  { padding: 24px 24px 20px; font-size: 19px; }
-            .login-body    { padding: 28px 24px 24px; }
-            .step-bar      { padding: 14px 24px 0; }
-            .brand-top .brand-name { font-size: 19px; }
-        }
-
-        @media (max-width: 360px) {
-            .login-header { gap: 10px; }
-            .blood-drops  { display: none; }
-        }
-
-        /* ═══════════════════════════════════════
-           GOOGLE BUTTON
-        ═══════════════════════════════════════ */
-        .google-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 13px 20px;
-            background: #fff;
-            border: 2px solid #E8ECEF;
-            border-radius: 10px;
-            color: #555;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
-
-        .google-btn:hover {
-            background: #fafafa;
-            border-color: #d0d0d0;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-            color: #333;
-        }
-
-        .google-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        }
-
-        .google-icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
-        .google-btn span {
-            letter-spacing: 0.3px;
-        }
-
-        /* ═══════════════════════════════════════
-           UTILITY
-        ═══════════════════════════════════════ */
-        .btn { display: inline-flex; }
-        .form-control { display: block; }
-        .d-flex { display: flex; }
-        .flex-column { flex-direction: column; }
-        .gap-3 { gap: 12px; }
-        .mt-3  { margin-top: 12px; }
-    </style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap');
+
+@keyframes orbPulse {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+    50% { transform: translateX(-50%) scale(1.12); opacity: 1; }
+}
+@keyframes orbPulse2 {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+@keyframes orbPulse3 {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.25); opacity: 0.6; }
+}
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Floating blood drops */
+.float-drop {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    animation: floatDrop linear infinite;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 0 6px rgba(220,38,38,0.3));
+}
+@keyframes floatDrop {
+    0%   { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+    10%  { opacity: 0.35; transform: translateX(10px) rotate(15deg) scale(0.8); }
+    50%  { opacity: 0.2; transform: translateX(-15px) rotate(45deg) scale(1); }
+    90%  { opacity: 0.3; transform: translateX(8px) rotate(75deg) scale(0.7); }
+    100% { transform: translateY(-105vh) rotate(90deg) scale(0.4); opacity: 0; }
+}
+
+/* Floating plus signs */
+.float-plus {
+    position: absolute;
+    color: rgba(255,120,120,0.2);
+    font-size: 22px;
+    font-weight: 900;
+    animation: floatPlus linear infinite;
+    pointer-events: none;
+    user-select: none;
+}
+@keyframes floatPlus {
+    0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+    15%  { opacity: 0.45; }
+    85%  { opacity: 0.15; }
+    100% { transform: translateY(-110vh) rotate(180deg); opacity: 0; }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+@media (max-width: 480px) {
+    div[style*="padding:28px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    div[style*="padding:26px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    div[style*="padding:28px 32px 20px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    div[style*="padding:10px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+}
+</style>

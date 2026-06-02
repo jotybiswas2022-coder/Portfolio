@@ -1,746 +1,286 @@
-<div class="login-container">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Background Grid -->
-    <div class="grid-bg"></div>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0f1a 0%,#1a0a0a 50%,#0d0d1a 100%);position:relative;overflow:hidden;padding:24px 16px;font-family:'Inter','Noto Sans Bengali',sans-serif;">
 
-    <!-- Glow Orb -->
-    <div class="glow-orb"></div>
+    {{-- ====== ANIMATED BACKGROUND LAYER ====== --}}
+    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
 
-    <!-- Floating Particles -->
-    <div class="particles" id="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <span class="cross-particle" style="left:8%;  animation-duration:14s; animation-delay:1s;   bottom:-20px;">+</span>
-        <span class="cross-particle" style="left:28%; animation-duration:11s; animation-delay:3s;   bottom:-20px;">✚</span>
-        <span class="cross-particle" style="left:55%; animation-duration:16s; animation-delay:.5s;  bottom:-20px;">+</span>
-        <span class="cross-particle" style="left:75%; animation-duration:10s; animation-delay:2s;   bottom:-20px;">✚</span>
-        <span class="cross-particle" style="left:92%; animation-duration:13s; animation-delay:4s;   bottom:-20px;">+</span>
+        {{-- Orbs --}}
+        <div style="position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,0.2) 0%,transparent 70%);animation:orbPulse 4s ease-in-out infinite;"></div>
+        <div style="position:absolute;bottom:-150px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(102,126,234,0.1) 0%,transparent 70%);animation:orbPulse2 6s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:10%;left:5%;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);animation:orbPulse3 8s ease-in-out infinite;"></div>
+
+        {{-- Grid --}}
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:48px 48px;"></div>
+
+        {{-- Floating blood drops --}}
+        <div class="float-drop" style="left:5%;  animation-duration:9s;  animation-delay:0s;   bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:18%; animation-duration:12s; animation-delay:2s;  bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:35%; animation-duration:7.5s;animation-delay:4s;  bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:50%; animation-duration:11s; animation-delay:1s;  bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:68%; animation-duration:8.5s;animation-delay:3.5s;bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:82%; animation-duration:10.5s;animation-delay:5s; bottom:-30px;">🩸</div>
+        <div class="float-drop" style="left:93%; animation-duration:13s; animation-delay:2.5s;bottom:-30px;">🩸</div>
+
+        {{-- Floating plus/cross signs --}}
+        <span class="float-plus" style="left:10%; animation-duration:14s; animation-delay:1s;  bottom:-20px;">+</span>
+        <span class="float-plus" style="left:25%; animation-duration:11s; animation-delay:3s;  bottom:-20px;">✚</span>
+        <span class="float-plus" style="left:42%; animation-duration:16s; animation-delay:.5s;  bottom:-20px;">+</span>
+        <span class="float-plus" style="left:60%; animation-duration:10s; animation-delay:2s;  bottom:-20px;">✚</span>
+        <span class="float-plus" style="left:75%; animation-duration:12.5s;animation-delay:4s; bottom:-20px;">+</span>
+        <span class="float-plus" style="left:88%; animation-duration:13s; animation-delay:1.5s;bottom:-20px;">✚</span>
     </div>
 
-    <div class="container">
-        <div class="row justify-content-center w-100 m-0">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6 d-flex justify-content-center">
-                <div class="card login-card rounded-4 shadow-lg">
+    {{-- ====== MAIN CARD ====== --}}
+    <div style="width:100%;max-width:430px;position:relative;z-index:1;animation:cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both;">
 
-                    <!-- HEADER -->
-                    <div class="login-header text-center">
-
-                        <!-- Logo -->
-                        <div class="logo-area mb-2">
-                            <div class="logo-drop mb-2">
-                                <svg class="logo-drop-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <linearGradient id="dropGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#ff6b6b"/>
-                                            <stop offset="100%" stop-color="#8b0000"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <path d="M50 10 C50 10, 10 55, 10 75 C10 97 28 110 50 110 C72 110 90 97 90 75 C90 55 50 10 50 10Z"
-                                          fill="url(#dropGrad)"/>
-                                    <rect x="42" y="50" width="16" height="42" rx="4" fill="white" opacity="0.9"/>
-                                    <rect x="30" y="62" width="40" height="16" rx="4" fill="white" opacity="0.9"/>
-                                </svg>
-                            </div>
-                            <div class="brand-name">Blood Bank</div>
-                            <div class="brand-sub">রক্তদান · জীবন বাঁচান</div>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center gap-2">
-                            <span class="icon-lock">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                          d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
-                                </svg>
-                            </span>
-                            <span class="header-title">অ্যাকাউন্টে লগইন করুন</span>
-                        </div>
-
-                    </div>
-
-                    <!-- BODY -->
-                    <div class="login-body card-body">
-
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
-                            <!-- EMAIL -->
-                            <div class="form-group-custom">
-                                <label for="email" class="login-label">ইমেইল ঠিকানা</label>
-                                <div class="input-wrap">
-                                    <svg class="field-icon" viewBox="0 0 24 24">
-                                        <rect x="2" y="4" width="20" height="16" rx="2"/>
-                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                                    </svg>
-                                    <input id="email" type="email"
-                                           class="login-input @error('email') is-invalid @enderror"
-                                           name="email"
-                                           value="{{ old('email') }}"
-                                           placeholder="you@example.com"
-                                           required autocomplete="off" autofocus>
-                                </div>
-                                @error('email')
-                                    <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-
-                            <!-- PASSWORD -->
-                            <div class="form-group-custom">
-                                <label for="password" class="login-label">পাসওয়ার্ড</label>
-                                <div class="input-wrap">
-                                    <svg class="field-icon" viewBox="0 0 24 24">
-                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                    </svg>
-                                    <input id="password" type="password"
-                                           class="login-input @error('password') is-invalid @enderror"
-                                           name="password"
-                                           placeholder="••••••••"
-                                           required autocomplete="new-password">
-                                </div>
-                                @error('password')
-                                    <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-
-                            <!-- REMEMBER -->
-                            <div class="form-check custom-check mb-3">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label login-remember" for="remember">
-                                    আমাকে মনে রাখুন
-                                </label>
-                            </div>
-
-                            <!-- BUTTON -->
-                            <button type="submit" class="login-btn mb-3">লগইন করুন</button>
-
-                            <!-- FORGOT PASSWORD -->
-                            @if (Route::has('password.request'))
-                                <div class="text-end mb-3">
-                                    <a class="login-link" href="{{ route('password.request') }}">
-                                        পাসওয়ার্ড ভুলে গেছেন?
-                                    </a>
-                                </div>
-                            @endif
-
-                        </form>
-
-                        <!-- DIVIDER -->
-                        <div class="divider"><span>অথবা</span></div>
-
-                        <!-- GOOGLE LOGIN -->
-                        <div class="text-center mb-3">
-                            <a href="{{ route('auth.google') }}" class="google-btn">
-                                <svg class="google-icon" viewBox="0 0 24 24">
-                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
-                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                                </svg>
-                                <span>Google দিয়ে লগইন করুন</span>
-                            </a>
-                        </div>
-
-                        <!-- SIGN UP -->
-                        <div class="text-center mt-2">
-                            <span class="signup-text me-2">অ্যাকাউন্ট নেই?</span>
-                            <a href="{{ route('register') }}" class="signup-btn">নিবন্ধন করুন</a>
-                        </div>
-
-                    </div>
-
-                    <!-- INFO STRIP -->
-                    <div class="info-strip text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
-                        </svg>
-                        আপনার তথ্য সম্পূর্ণ সুরক্ষিত ও এনক্রিপ্টেড।
-                    </div>
-
-                </div>
+        {{-- Brand --}}
+        <div style="text-align:center;margin-bottom:24px;">
+            <div style="width:56px;height:56px;margin:0 auto 12px;background:linear-gradient(135deg,#dc2626,#ef4444);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(220,38,38,0.3);transition:transform 0.3s;"
+                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="bi bi-droplet-fill" style="font-size:26px;color:#fff;"></i>
             </div>
+            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">ব্লাড ব্যাংক</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">রক্তদান · জীবন বাঁচান</div>
         </div>
+
+        {{-- Login Card --}}
+        <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:20px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);">
+
+            {{-- Header --}}
+            <div style="padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">
+                <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:2px;">
+                    <span style="width:36px;height:36px;border-radius:10px;background:rgba(220,38,38,0.15);display:flex;align-items:center;justify-content:center;transition:transform 0.3s;"
+                          onmouseover="this.style.transform='rotate(10deg)'" onmouseout="this.style.transform='rotate(0)'">
+                        <i class="bi bi-lock-fill" style="font-size:14px;color:#ef4444;"></i>
+                    </span>
+                    <span style="font-size:17px;font-weight:700;color:#fff;">অ্যাকাউন্টে লগইন করুন</span>
+                </div>
+                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">আপনার তথ্য দিন এবং অ্যাকাউন্টে প্রবেশ করুন</p>
+            </div>
+
+            {{-- Body --}}
+            <div style="padding:26px 32px 22px;">
+
+                {{-- ====== GOOGLE SIGN-IN ====== --}}
+                <a href="{{ route('auth.google') }}"
+                   style="width:100%;padding:11px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:10px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13.5px;font-weight:600;transition:all 0.25s;font-family:inherit;cursor:pointer;"
+                   onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.18)'"
+                   onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.1)'">
+                    <svg style="width:20px;height:20px;flex-shrink:0;" viewBox="0 0 48 48">
+                        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                        <path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                        <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                    Google দিয়ে লগইন করুন
+                </a>
+
+                {{-- Divider --}}
+                <div style="display:flex;align-items:center;gap:12px;margin:20px 0;">
+                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
+                    <span style="font-size:11px;color:rgba(255,255,255,0.2);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;">ইমেইল দিয়ে লগইন</span>
+                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
+                </div>
+
+                {{-- ====== LOGIN FORM ====== --}}
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    {{-- Email --}}
+                    <div style="margin-bottom:18px;">
+                        <label for="email" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>ইমেইল ঠিকানা
+                        </label>
+                        <div style="position:relative;">
+                            <i class="bi bi-envelope-fill field-icon-custom" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" required autocomplete="off" autofocus
+                                   style="width:100%;padding:12px 16px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
+                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
+                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
+                        </div>
+                        @error('email')
+                            <span style="display:block;margin-top:5px;font-size:12px;color:#f87171;"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    {{-- Password --}}
+                    <div style="margin-bottom:12px;">
+                        <label for="password" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>পাসওয়ার্ড
+                        </label>
+                        <div style="position:relative;">
+                            <i class="bi bi-key-fill field-icon-custom" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
+                            <input id="password" type="password" name="password" placeholder="••••••••" required autocomplete="new-password"
+                                   style="width:100%;padding:12px 42px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
+                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
+                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
+                            {{-- Password toggle --}}
+                            <span onclick="togglePassword()"
+                                  style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);cursor:pointer;font-size:15px;z-index:2;transition:color 0.25s;display:flex;align-items:center;"
+                                  onmouseover="this.style.color='rgba(255,255,255,0.6)'"
+                                  onmouseout="this.style.color='rgba(255,255,255,0.25)'">
+                                <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                            </span>
+                        </div>
+                        @error('password')
+                            <span style="display:block;margin-top:5px;font-size:12px;color:#f87171;"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    {{-- Remember & Forgot --}}
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}
+                                   style="width:16px;height:16px;border-radius:4px;border:1.5px solid rgba(255,255,255,0.15);background:transparent;appearance:none;-webkit-appearance:none;cursor:pointer;position:relative;flex-shrink:0;transition:all 0.2s;"
+                                   onchange="if(this.checked){this.style.background='#dc2626';this.style.borderColor='#dc2626'}else{this.style.background='transparent';this.style.borderColor='rgba(255,255,255,0.15)'}">
+                            <label for="remember" style="font-size:13px;color:rgba(255,255,255,0.45);cursor:pointer;">আমাকে মনে রাখুন</label>
+                        </div>
+                        @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}"
+                               style="font-size:12px;color:rgba(239,68,68,0.65);text-decoration:none;transition:color 0.2s;"
+                               onmouseover="this.style.color='#ef4444'"
+                               onmouseout="this.style.color='rgba(239,68,68,0.65)'">
+                                পাসওয়ার্ড ভুলে গেছেন?
+                            </a>
+                        @endif
+                    </div>
+
+                    {{-- Submit --}}
+                    <button type="submit" id="loginBtn"
+                            style="width:100%;padding:13px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:15px;font-weight:700;font-family:inherit;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 4px 20px rgba(220,38,38,0.35);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;"
+                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(220,38,38,0.5)'"
+                            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(220,38,38,0.35)'">
+                        <span class="btn-text"><i class="bi bi-box-arrow-in-right"></i> লগইন করুন</span>
+                        <span class="btn-loader" style="display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
+                    </button>
+                </form>
+
+                {{-- ====== SIGN UP ====== --}}
+                <div style="text-align:center;margin-top:18px;">
+                    <span style="font-size:13px;color:rgba(255,255,255,0.4);">অ্যাকাউন্ট নেই?</span>
+                    <a href="{{ route('register') }}"
+                       style="display:inline-block;margin-left:6px;padding:9px 22px;border:1.5px solid rgba(239,68,68,0.3);border-radius:8px;color:#ef4444;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.25s;"
+                       onmouseover="this.style.background='rgba(239,68,68,0.12)';this.style.borderColor='#ef4444'"
+                       onmouseout="this.style.background='transparent';this.style.borderColor='rgba(239,68,68,0.3)'">
+                        নিবন্ধন করুন <i class="bi bi-arrow-right" style="font-size:11px;"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            {{-- Bottom strip --}}
+            <div style="padding:10px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;gap:6px;">
+                <i class="bi bi-shield-check" style="font-size:11px;color:rgba(255,255,255,0.18);"></i>
+                <span style="font-size:10.5px;color:rgba(255,255,255,0.18);">আপনার তথ্য সম্পূর্ণ সুরক্ষিত</span>
+            </div>
+
+        </div>
+
+        {{-- Page footer --}}
+        <div style="text-align:center;margin-top:22px;font-size:11.5px;color:rgba(255,255,255,0.12);">
+            Developed by <span style="font-weight:700;background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Joty Biswas</span> &copy; {{ date('Y') }}
+        </div>
+
     </div>
 
 </div>
 
+<script>
+// ── Password Toggle ──
+function togglePassword() {
+    var pw = document.getElementById('password');
+    var icon = document.getElementById('toggleIcon');
+    if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.className = 'bi bi-eye';
+    } else {
+        pw.type = 'password';
+        icon.className = 'bi bi-eye-slash';
+    }
+}
+
+// ── Submit Loading State ──
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    var btn = document.getElementById('loginBtn');
+    if (form && btn) {
+        form.addEventListener('submit', function() {
+            btn.querySelector('.btn-text').style.display = 'none';
+            btn.querySelector('.btn-loader').style.display = 'inline-block';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.85';
+        });
+    }
+});
+</script>
+
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --blood-red: #c0392b;
-            --blood-dark: #922b21;
-            --blood-deep: #641e16;
-            --blood-light: #e74c3c;
-            --blood-glow: rgba(192, 57, 43, 0.4);
-            --bg-dark: #0a0a0f;
-            --bg-card: rgba(15, 10, 10, 0.85);
-            --text-main: #f5f0f0;
-            --text-muted: #b5a5a5;
-            --border-color: rgba(192, 57, 43, 0.3);
-            --input-bg: rgba(255,255,255,0.05);
-        }
-
-        html, body {
-            height: 100%;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-main);
-        }
-
-        /* ── BACKGROUND ── */
-        .login-container {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: radial-gradient(ellipse at 50% 0%, #2c0a0a 0%, #0a0a0f 60%);
-        }
-
-        /* Grid lines */
-        .grid-bg {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(192,57,43,0.07) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(192,57,43,0.07) 1px, transparent 1px);
-            background-size: 48px 48px;
-            z-index: 0;
-        }
-
-        /* Glow orb */
-        .glow-orb {
-            position: absolute;
-            top: -180px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(192,57,43,0.25) 0%, transparent 70%);
-            animation: orbPulse 4s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        @keyframes orbPulse {
-            0%, 100% { transform: translateX(-50%) scale(1);   opacity: 0.7; }
-            50%       { transform: translateX(-50%) scale(1.12); opacity: 1;   }
-        }
-
-        /* Floating particles */
-        .particles {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--blood-light);
-            opacity: 0;
-            animation: floatUp linear infinite;
-        }
-
-        /* 12 particles */
-        .particle:nth-child(1)  { width:5px;  height:5px;  left:8%;   animation-duration:9s;  animation-delay:0s;   }
-        .particle:nth-child(2)  { width:3px;  height:3px;  left:18%;  animation-duration:12s; animation-delay:1.5s; }
-        .particle:nth-child(3)  { width:7px;  height:7px;  left:28%;  animation-duration:8s;  animation-delay:3s;   }
-        .particle:nth-child(4)  { width:4px;  height:4px;  left:38%;  animation-duration:11s; animation-delay:0.8s; }
-        .particle:nth-child(5)  { width:6px;  height:6px;  left:50%;  animation-duration:10s; animation-delay:2s;   }
-        .particle:nth-child(6)  { width:3px;  height:3px;  left:60%;  animation-duration:13s; animation-delay:4s;   }
-        .particle:nth-child(7)  { width:5px;  height:5px;  left:70%;  animation-duration:9s;  animation-delay:1s;   }
-        .particle:nth-child(8)  { width:4px;  height:4px;  left:78%;  animation-duration:7s;  animation-delay:2.5s; }
-        .particle:nth-child(9)  { width:6px;  height:6px;  left:85%;  animation-duration:11s; animation-delay:0.3s; }
-        .particle:nth-child(10) { width:3px;  height:3px;  left:92%;  animation-duration:14s; animation-delay:3.5s; }
-        .particle:nth-child(11) { width:5px;  height:5px;  left:5%;   animation-duration:10s; animation-delay:5s;   }
-        .particle:nth-child(12) { width:4px;  height:4px;  left:45%;  animation-duration:8s;  animation-delay:6s;   }
-
-        @keyframes floatUp {
-            0%   { bottom: -20px; opacity: 0;   transform: translateX(0)   scale(0.5); }
-            10%  { opacity: 0.6; }
-            90%  { opacity: 0.3; }
-            100% { bottom: 110%;  opacity: 0;   transform: translateX(30px) scale(1);  }
-        }
-
-        /* Cross / plus signs floating */
-        .cross-particle {
-            position: absolute;
-            color: rgba(255,120,120,.25);
-            font-size: 24px;
-            font-weight: 900;
-            animation: floatCross linear infinite;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        @keyframes floatCross {
-            0%   { transform: translateY(0)      rotate(0deg);   opacity: 0; }
-            15%  { opacity: .5; }
-            85%  { opacity: .2; }
-            100% { transform: translateY(-100vh) rotate(180deg); opacity: 0; }
-        }
-
-        /* ── LAYOUT ── */
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            padding: 24px 16px;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* ── CARD ── */
-        .login-card {
-            width: 100%;
-            max-width: 480px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow:
-                0 0 0 1px rgba(192,57,43,0.1),
-                0 20px 60px rgba(0,0,0,0.6),
-                0 0 80px rgba(192,57,43,0.08);
-            overflow: hidden;
-            animation: cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both;
-        }
-
-        @keyframes cardIn {
-            from { opacity: 0; transform: translateY(30px) scale(0.97); }
-            to   { opacity: 1; transform: translateY(0)    scale(1);    }
-        }
-
-        /* ── HEADER ── */
-        .login-header {
-            position: relative;
-            padding: 36px 32px 28px;
-            background: linear-gradient(135deg, #1a0505 0%, #2c0a0a 100%);
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        /* Top red stripe */
-        .login-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--blood-light), var(--blood-red), transparent);
-        }
-
-        /* Blood drop logo */
-        .logo-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-
-        .logo-drop {
-            width: 64px;
-            height: 64px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-drop-svg {
-            width: 56px;
-            height: 56px;
-            filter: drop-shadow(0 0 12px rgba(192,57,43,0.8));
-            animation: dropPulse 2.5s ease-in-out infinite;
-        }
-
-        @keyframes dropPulse {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(192,57,43,0.7)); transform: scale(1);    }
-            50%       { filter: drop-shadow(0 0 22px rgba(231,76,60,1));   transform: scale(1.07); }
-        }
-
-        .brand-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            background: linear-gradient(135deg, #ff6b6b, #c0392b, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .brand-sub {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        /* Lock icon + Login title */
-        .icon-lock {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(192,57,43,0.15);
-            border: 1px solid var(--border-color);
-        }
-
-        .icon-lock svg {
-            width: 20px;
-            height: 20px;
-            color: var(--blood-light);
-            stroke: var(--blood-light);
-        }
-
-        .header-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            letter-spacing: 0.04em;
-        }
-
-        /* ── BODY ── */
-        .login-body {
-            padding: 32px;
-        }
-
-        /* Form group */
-        .form-group-custom {
-            margin-bottom: 22px;
-        }
-
-        .login-label {
-            display: block;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .login-label::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: var(--blood-light);
-            border-radius: 50%;
-            margin-right: 7px;
-            vertical-align: middle;
-            margin-top: -2px;
-        }
-
-        /* Input wrappers for icons */
-        .input-wrap {
-            position: relative;
-        }
-
-        .field-icon {
-            position: absolute;
-            left: 14px;
-            bottom: 14px;
-            width: 18px;
-            height: 18px;
-            stroke: rgba(255,255,255,0.25);
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            pointer-events: none;
-            transition: stroke 0.25s;
-        }
-
-        .form-group-custom:focus-within .field-icon {
-            stroke: var(--blood-light);
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 13px 16px 13px 44px;
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-family: inherit;
-            transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
-            outline: none;
-        }
-
-        .login-input::placeholder {
-            color: rgba(255,255,255,0.2);
-        }
-
-        .login-input:focus {
-            border-color: var(--blood-light);
-            background: rgba(192,57,43,0.06);
-            box-shadow: 0 0 0 3px rgba(192,57,43,0.15), 0 0 20px rgba(192,57,43,0.08);
-        }
-
-        .login-input.is-invalid {
-            border-color: #ff6b6b;
-        }
-
-        .invalid-feedback {
-            font-size: 0.8rem;
-            color: #ff6b6b;
-            margin-top: 6px;
-            display: block;
-        }
-
-        /* Remember */
-        .custom-check {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .form-check-input {
-            width: 17px;
-            height: 17px;
-            border-radius: 5px;
-            border: 1px solid var(--border-color);
-            background: var(--input-bg);
-            appearance: none;
-            -webkit-appearance: none;
-            cursor: pointer;
-            position: relative;
-            flex-shrink: 0;
-            transition: background 0.2s, border-color 0.2s;
-        }
-
-        .form-check-input:checked {
-            background: var(--blood-red);
-            border-color: var(--blood-red);
-        }
-
-        .form-check-input:checked::after {
-            content: '';
-            position: absolute;
-            top: 2px; left: 5px;
-            width: 5px; height: 9px;
-            border: 2px solid #fff;
-            border-top: none;
-            border-left: none;
-            transform: rotate(45deg);
-        }
-
-        .login-remember {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-
-        /* Login button */
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            margin-top: 12px;
-            background: linear-gradient(135deg, var(--blood-red) 0%, var(--blood-dark) 100%);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: inherit;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            letter-spacing: 0.05em;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 20px rgba(192,57,43,0.4);
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(192,57,43,0.55);
-        }
-
-        .login-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Forgot */
-        .text-end {
-            text-align: right;
-            margin-top: 10px;
-        }
-
-        .login-link {
-            font-size: 0.82rem;
-            color: var(--blood-light);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .login-link:hover {
-            color: #ff6b6b;
-            text-decoration: underline;
-        }
-
-        /* Divider */
-        .divider {
-            position: relative;
-            text-align: center;
-            margin: 26px 0;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 0; right: 0;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .divider span {
-            position: relative;
-            background: #110606;
-            padding: 0 14px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            letter-spacing: 0.1em;
-        }
-
-        /* Sign up row */
-        .signup-text {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        .signup-btn {
-            display: inline-block;
-            padding: 6px 20px;
-            border: 1px solid var(--blood-red);
-            border-radius: 8px;
-            color: var(--blood-light);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-left: 8px;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-        }
-
-        .signup-btn:hover {
-            background: var(--blood-red);
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(192,57,43,0.4);
-        }
-
-        /* ── INFO STRIP (bottom of card) ── */
-        .info-strip {
-            padding: 14px 32px;
-            background: rgba(192,57,43,0.05);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .info-strip svg {
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-            stroke: var(--blood-light);
-        }
-
-        /* ── GOOGLE BUTTON ── */
-        .google-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 13px 20px;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 0.9rem;
-            font-weight: 500;
-            font-family: inherit;
-            text-decoration: none;
-            transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .google-btn:hover {
-            background: rgba(255,255,255,0.14);
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-            transform: translateY(-1px);
-            color: var(--text-main);
-        }
-
-        .google-btn:active {
-            transform: translateY(0);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .google-icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
-        .google-btn span {
-            background: linear-gradient(135deg, #f5f0f0, #d5c5c5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .google-btn:hover span {
-            background: linear-gradient(135deg, #ffffff, #e8d5d5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 480px) {
-            .login-header { padding: 28px 20px 22px; }
-            .login-body   { padding: 24px 20px; }
-            .info-strip   { padding: 12px 20px; }
-        }
-    </style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap');
+
+@keyframes orbPulse {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+    50% { transform: translateX(-50%) scale(1.12); opacity: 1; }
+}
+@keyframes orbPulse2 {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+@keyframes orbPulse3 {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.25); opacity: 0.6; }
+}
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Floating blood drops */
+.float-drop {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    animation: floatDrop linear infinite;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 0 6px rgba(220,38,38,0.3));
+}
+@keyframes floatDrop {
+    0%   { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+    10%  { opacity: 0.35; transform: translateX(10px) rotate(15deg) scale(0.8); }
+    50%  { opacity: 0.2; transform: translateX(-15px) rotate(45deg) scale(1); }
+    90%  { opacity: 0.3; transform: translateX(8px) rotate(75deg) scale(0.7); }
+    100% { transform: translateY(-105vh) rotate(90deg) scale(0.4); opacity: 0; }
+}
+
+/* Floating plus signs */
+.float-plus {
+    position: absolute;
+    color: rgba(255,120,120,0.2);
+    font-size: 22px;
+    font-weight: 900;
+    animation: floatPlus linear infinite;
+    pointer-events: none;
+    user-select: none;
+}
+@keyframes floatPlus {
+    0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+    15%  { opacity: 0.45; }
+    85%  { opacity: 0.15; }
+    100% { transform: translateY(-110vh) rotate(180deg); opacity: 0; }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+@media (max-width: 480px) {
+    div[style*="padding:28px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    div[style*="padding:26px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    div[style*="padding:28px 32px 20px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    div[style*="padding:10px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+}
+</style>
