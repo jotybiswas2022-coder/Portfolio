@@ -2,6 +2,23 @@
 
 @section('content')
 
+    <!-- ========== ANIMATED BACKGROUND PARTICLES ========== -->
+    <div class="profile-particles">
+        <div class="particle" style="--x: 8%; --y: 15%; --size: 6px; --delay: 0s;"></div>
+        <div class="particle" style="--x: 30%; --y: 55%; --size: 4px; --delay: 1.4s;"></div>
+        <div class="particle" style="--x: 50%; --y: 25%; --size: 7px; --delay: 0.7s;"></div>
+        <div class="particle" style="--x: 72%; --y: 65%; --size: 4px; --delay: 2.1s;"></div>
+        <div class="particle" style="--x: 88%; --y: 12%; --size: 5px; --delay: 0.4s;"></div>
+        <div class="particle" style="--x: 15%; --y: 80%; --size: 3px; --delay: 1.9s;"></div>
+        <div class="particle" style="--x: 42%; --y: 88%; --size: 5px; --delay: 0.9s;"></div>
+        <div class="particle" style="--x: 65%; --y: 40%; --size: 3px; --delay: 2.5s;"></div>
+        <div class="particle" style="--x: 92%; --y: 78%; --size: 5px; --delay: 1.1s;"></div>
+        <div class="particle" style="--x: 22%; --y: 35%; --size: 4px; --delay: 0.3s;"></div>
+    </div>
+
+    <!-- ========== DECORATIVE GLOW ========== -->
+    <div class="profile-glow"></div>
+
     <!-- ========== SUCCESS ALERT ========== -->
     @if (session('success'))
         <div class="alert-custom" id="successAlert">
@@ -136,6 +153,55 @@
         </div>
     </section>
 
+    <!-- ========== FOOTER ========== -->
+    <footer class="profile-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon">
+                        <i class="bi bi-droplet-fill"></i>
+                    </div>
+                    <div>
+                        <span class="brand-name">ব্লাড ব্যাংক</span>
+                        <span class="brand-tagline">জীবন বাঁচানোর লক্ষ্যে</span>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-links-col">
+                        <h6>কুইক লিংক</h6>
+                        <a href="{{ url('/') }}">হোম</a>
+                        <a href="{{ url('/profile') }}">আমার প্রোফাইল</a>
+                        <a href="{{ url('/profile/edit') }}">প্রোফাইল এডিট</a>
+                        <a href="{{ url('/donor_list') }}">ডোনার তালিকা</a>
+                    </div>
+                    <div class="footer-links-col">
+                        <h6>সেবাসমূহ</h6>
+                        <a href="{{ url('/donor_list/A+') }}">A+ ডোনার</a>
+                        <a href="{{ url('/donor_list/B+') }}">B+ ডোনার</a>
+                        <a href="{{ url('/donor_list/O+') }}">O+ ডোনার</a>
+                        <a href="{{ url('/donor_list/AB+') }}">AB+ ডোনার</a>
+                    </div>
+                </div>
+
+                <div class="footer-social">
+                    <h6>ফলো করুন</h6>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon twitter" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-icon whatsapp" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                        <a href="#" class="social-icon youtube" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; ২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।</p>
+                <p class="footer-made-with">Developed by <span class="dev-name">Joty Biswas</span></p>
+            </div>
+        </div>
+    </footer>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -164,6 +230,54 @@
             padding-top: 72px;
         }
 
+        /* ===== ANIMATED BACKGROUND PARTICLES ===== */
+        .profile-particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .profile-particles .particle {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            left: var(--x);
+            top: var(--y);
+            background: rgba(239, 68, 68, 0.35);
+            border-radius: 50%;
+            animation: float-particle 7s ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+            25% { transform: translate(35px, -25px) scale(1.25); opacity: 0.7; }
+            50% { transform: translate(-25px, 35px) scale(0.75); opacity: 0.2; }
+            75% { transform: translate(25px, 25px) scale(1.15); opacity: 0.55; }
+        }
+
+        /* ===== DECORATIVE GLOW ===== */
+        .profile-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+
         .alert-custom {
             max-width: 560px;
             margin: 24px auto 0;
@@ -178,6 +292,8 @@
             align-items: center;
             gap: 10px;
             animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
         }
 
         .alert-custom i { font-size: 18px; flex-shrink: 0; }
@@ -202,11 +318,13 @@
         }
 
         .profile-section {
-            padding: 40px 0 60px;
-            min-height: calc(100vh - 72px);
+            padding: 40px 0 10px;
+            min-height: 60vh;
             display: flex;
             align-items: flex-start;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .profile-section .container {
@@ -464,10 +582,13 @@
             font-weight: 700;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 20px rgba(220, 38, 38, 0.35);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .btn-edit:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(220, 38, 38, 0.45);
             color: #fff;
         }
@@ -486,6 +607,7 @@
             font-size: 14px;
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
         }
 
         .btn-back:hover {
@@ -493,14 +615,129 @@
             color: #fff;
         }
 
+        /* ===== FOOTER ===== */
+        .profile-footer {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.95), var(--dark-2));
+            color: white;
+            padding: 48px 0 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-footer .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .profile-footer .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .profile-footer .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-footer .logo-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; flex-shrink: 0;
+        }
+
+        .profile-footer .brand-name {
+            display: block; font-size: 17px; font-weight: 800; margin-bottom: 1px;
+        }
+
+        .profile-footer .brand-tagline {
+            display: block; font-size: 12px; color: rgba(255,255,255,0.4);
+        }
+
+        .profile-footer .footer-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .profile-footer .footer-links-col h6,
+        .profile-footer .footer-social h6 {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.2px; color: rgba(255,255,255,0.3); margin-bottom: 12px;
+        }
+
+        .profile-footer .footer-links-col a {
+            display: block;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 3px 0;
+            transition: all 0.3s;
+        }
+
+        .profile-footer .footer-links-col a:hover { color: var(--primary-light); padding-left: 4px; }
+
+        .profile-footer .social-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .profile-footer .social-icon {
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .profile-footer .social-icon:hover { transform: translateY(-3px); }
+        .profile-footer .social-icon.facebook:hover { background: #1877f2; }
+        .profile-footer .social-icon.twitter:hover { background: #1da1f2; }
+        .profile-footer .social-icon.whatsapp:hover { background: #25d366; }
+        .profile-footer .social-icon.youtube:hover { background: #ff0000; }
+
+        .profile-footer .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .profile-footer .footer-bottom p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .profile-footer .dev-name {
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 991.98px) {
             body { padding-top: 64px; }
-            .profile-section { padding: 28px 0 40px; }
+            .profile-section { padding: 28px 0 10px; min-height: 50vh; }
         }
 
         @media (max-width: 767.98px) {
             body { padding-top: 60px; }
-            .profile-section { padding: 20px 0 32px; }
+            .profile-section { padding: 20px 0 10px; min-height: 40vh; }
             .profile-header { padding: 28px 24px 22px; }
             .profile-body { padding: 22px 24px; }
             .avatar-circle { width: 72px; height: 72px; font-size: 28px; }
@@ -512,6 +749,8 @@
             .profile-actions { padding: 0 24px 24px; }
             .btn-edit { padding: 12px 20px; font-size: 14px; }
             .status-bar-label { font-size: 12px; }
+            .profile-footer { padding: 36px 0 0; margin-top: 28px; }
+            .profile-footer .footer-links { gap: 16px; }
         }
 
         @media (max-width: 480px) {
@@ -534,6 +773,15 @@
             .donation-status { padding: 12px 14px; }
             .status-bar-label { font-size: 11px; }
             .section-label { font-size: 10px; margin-bottom: 14px; }
+            .profile-footer { padding: 28px 0 0; margin-top: 20px; }
+            .profile-footer .footer-content { gap: 20px; padding-bottom: 24px; }
+            .profile-footer .footer-links { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .profile-footer .footer-links-col a { font-size: 12px; }
+            .profile-footer .brand-name { font-size: 15px; }
+            .profile-footer .logo-icon { width: 34px; height: 34px; font-size: 15px; }
+            .profile-footer .social-icon { width: 32px; height: 32px; font-size: 13px; }
+            .profile-footer .footer-bottom { flex-direction: column; text-align: center; gap: 4px; }
+            .profile-footer .footer-bottom p { font-size: 11px; }
         }
 
         @media (max-width: 360px) {
@@ -544,6 +792,8 @@
             .info-icon { width: 30px; height: 30px; font-size: 11px; }
             .info-value { font-size: 12px; }
             .blood-value { font-size: 13px; }
+            .profile-footer .footer-links { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+            .profile-footer .social-icons { justify-content: center; }
         }
     </style>
 
