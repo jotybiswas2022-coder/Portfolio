@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Profile;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DonorController extends Controller
 {
@@ -119,5 +120,52 @@ class DonorController extends Controller
         $donor->delete();
 
         return back()->with('success', 'Donor deleted successfully.');
+    }
+
+    // ==============================
+    // Export All Donors as PDF
+    // ==============================
+    public function exportPDF()
+    {
+        $donors = Profile::orderBy('id','desc')->get();
+        $pdf = Pdf::loadView('backend.donor_list.pdf', compact('donors'));
+        return $pdf->download('donor-list-' . date('Y-m-d') . '.pdf');
+    }
+
+    // ==============================
+    // Export All Donors as CSV (opens in Excel)
+    // ==============================
+    public function exportCSV()
+    {
+        $donors = Profile::orderBy('id','desc')->get();
+
+        $filename = 'donor-list-' . date('Y-m-d') . '.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $handle = fopen('php://output', 'w');
+        fwrite($handle, "\xEF\xBB\xBF"); // UTF-8 BOM for Bengali/Excel compatibility
+
+        // CSV header row
+        fputcsv($handle, ['#', 'Name', 'Phone', 'Blood Group', 'Division', 'Last Donation', 'Status']);
+
+        foreach ($donors as $i => $donor) {
+            $status = $donor->canDonateNow() ? 'Eligible' : 'Not Eligible';
+            fputcsv($handle, [
+                $i + 1,
+                $donor->name ?? 'N/A',
+                $donor->number ?? 'N/A',
+                $donor->blood ?? 'N/A',
+                $donor->division ?? 'N/A',
+                $donor->last_donated ? $donor->last_donated->format('d M Y') : 'N/A',
+                $status,
+            ]);
+        }
+
+        fclose($handle);
+
+        return response()->stream(function () {}, 200, $headers);
     }
 }

@@ -24,11 +24,25 @@ $divBg = ['Dhaka'=>'#667eea','Chattogram'=>'#f093fb','Khulna'=>'#4facfe','Rajsha
                 <span style="color:#dc3545;font-weight:600;font-size:0.8rem;">{{ $donorsCount }} donors registered</span>
             </div>
         </div>
-        <a href="/admin/donor_list/create/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;border-radius:50px;background:linear-gradient(135deg,#e35e6f,#dc3545);color:#fff;text-decoration:none;font-weight:600;font-size:0.85rem;box-shadow:0 4px 16px rgba(220,53,69,0.3);transition:all 0.3s ease;"
-           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(220,53,69,0.4)'"
-           onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(220,53,69,0.3)'">
-            <i class="bi bi-plus-circle"></i> Add New Donor
-        </a>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="/admin/donor_list/export/pdf" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:50px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;text-decoration:none;font-weight:600;font-size:0.82rem;box-shadow:0 4px 16px rgba(34,197,94,0.3);transition:all 0.3s ease;"
+               onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(34,197,94,0.4)'"
+               onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(34,197,94,0.3)'"
+               title="Export as PDF">
+                <i class="bi bi-filetype-pdf"></i> PDF
+            </a>
+            <a href="/admin/donor_list/export/csv" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:50px;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;text-decoration:none;font-weight:600;font-size:0.82rem;box-shadow:0 4px 16px rgba(79,172,254,0.3);transition:all 0.3s ease;"
+               onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(79,172,254,0.4)'"
+               onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(79,172,254,0.3)'"
+               title="Export as Excel (CSV)">
+                <i class="bi bi-file-earmark-spreadsheet"></i> Excel
+            </a>
+            <a href="/admin/donor_list/create/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;border-radius:50px;background:linear-gradient(135deg,#e35e6f,#dc3545);color:#fff;text-decoration:none;font-weight:600;font-size:0.85rem;box-shadow:0 4px 16px rgba(220,53,69,0.3);transition:all 0.3s ease;"
+               onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(220,53,69,0.4)'"
+               onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(220,53,69,0.3)'">
+                <i class="bi bi-plus-circle"></i> Add New Donor
+            </a>
+        </div>
     </div>
 
     {{-- Search --}}
