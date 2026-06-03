@@ -94,7 +94,14 @@
 
                     <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;">
                         @if($bloodRequest->status !== 'fulfilled' && $bloodRequest->status !== 'cancelled')
-                        <form action="{{ url('/admin/blood-requests/fulfilled/'.$bloodRequest->id) }}" method="POST">
+                        <form action="{{ url('/admin/blood-requests/cancel/'.$bloodRequest->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-secondary" style="border-radius:10px;font-weight:600;font-size:0.85rem;padding:8px 20px;"
+                                    onclick="return confirm('Are you sure you want to cancel this request?')">
+                                <i class="bi bi-x-lg me-1"></i> Cancel
+                            </button>
+                        </form>
+                        <form action="{{ url('/admin/blood-requests/fulfilled/'.$bloodRequest->id) }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-success" style="border-radius:10px;font-weight:600;font-size:0.85rem;padding:8px 20px;"
                                     onclick="return confirm('Mark this request as fulfilled?')">

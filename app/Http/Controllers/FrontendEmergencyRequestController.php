@@ -118,6 +118,13 @@ class FrontendEmergencyRequestController extends Controller
         return view('backend.blood_requests.show', compact('bloodRequest', 'matchingDonors'));
     }
 
+    public function adminCancel($id)
+    {
+        $bloodRequest = BloodRequest::findOrFail($id);
+        $bloodRequest->update(['status' => 'cancelled']);
+        return back()->with('success', 'Request cancelled successfully.');
+    }
+
     public function markFulfilled($id)
     {
         $bloodRequest = BloodRequest::findOrFail($id);
