@@ -5,7 +5,9 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -55,6 +57,7 @@ class ProfileController extends Controller
             'number' => 'required|string|max:20',
             'division' => 'required|in:Dhaka,Chattogram,Khulna,Rajshahi,Barishal,Sylhet,Rangpur,Mymensingh',
             'last_donated' => 'nullable|date',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
 
         $profile = Profile::where('user_id', Auth::id())->firstOrFail();
@@ -67,10 +70,27 @@ class ProfileController extends Controller
             'last_donated' => $request->last_donated,
         ]);
 
+        // Handle avatar upload
+        if ($request->hasFile('avatar')) {
+            $user = Auth::user();
+
+            // Delete old avatar if exists
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            // Store new avatar
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->update(['avatar' => $path]);
+        }
+
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Profile updated successfully.',
+                'avatar_url' => Auth::user()->avatar 
+                    ? Storage::url(Auth::user()->avatar) 
+                    : null,
             ]);
         }
 

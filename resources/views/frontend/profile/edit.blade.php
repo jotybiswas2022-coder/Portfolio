@@ -105,6 +105,30 @@
                     </div>
                 </div>
 
+                <!-- ===== Avatar Upload Section ===== -->
+                <div class="avatar-upload-section">
+                    <div class="avatar-upload-wrap" id="avatarUploadWrap" onclick="document.getElementById('avatarInput').click()">
+                        <div class="avatar-preview" id="avatarPreview">
+                            @php
+                                $avatarUrl = Auth::user()->avatar ? Storage::url(Auth::user()->avatar) : null;
+                                $initial = strtoupper(mb_substr(($profile->name ?? Auth::user()->name ?? '?'), 0, 1));
+                            @endphp
+                            @if($avatarUrl)
+                                <img src="{{ $avatarUrl }}" alt="Avatar" id="avatarImg" class="avatar-img">
+                            @else
+                                <span class="avatar-initial" id="avatarInitial">{{ $initial }}</span>
+                            @endif
+                        </div>
+                        <div class="avatar-overlay">
+                            <i class="bi bi-camera-fill"></i>
+                            <span>Change Photo</span>
+                        </div>
+                    </div>
+                    <input type="file" id="avatarInput" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none;">
+                    <input type="hidden" name="avatar" id="avatarDataInput">
+                    <p class="avatar-hint">Click to upload. Max 5MB. Crop & adjust before saving.</p>
+                </div>
+
                 <!-- Card Body -->
                 <div class="edit-body">
                     <form id="profileForm" action="{{ url('/profile/update') }}" method="POST" enctype="multipart/form-data" novalidate onsubmit="return submitProfileForm()">
@@ -277,6 +301,45 @@
         </div>
     </footer>
 
+    <!-- ========== CROPPER.JS MODAL ========== -->
+    <div class="cropper-overlay" id="cropperOverlay" onclick="closeCropper()">
+        <div class="cropper-modal" onclick="event.stopPropagation()">
+            <div class="cropper-header">
+                <div class="cropper-header-left">
+                    <i class="bi bi-crop"></i>
+                    <span>Crop Profile Photo</span>
+                </div>
+                <button type="button" class="cropper-close" onclick="closeCropper()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="cropper-body">
+                <div class="cropper-container">
+                    <img id="cropImage" src="" alt="Crop">
+                </div>
+            </div>
+            <div class="cropper-footer">
+                <div class="cropper-tools">
+                    <button type="button" class="cropper-tool-btn" onclick="rotateCropper(-90)" title="Rotate Left">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </button>
+                    <button type="button" class="cropper-tool-btn" onclick="rotateCropper(90)" title="Rotate Right">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                    <button type="button" class="cropper-tool-btn" onclick="flipCropperH()" title="Flip Horizontal">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </button>
+                </div>
+                <div class="cropper-actions">
+                    <button type="button" class="cropper-btn cancel" onclick="closeCropper()">Cancel</button>
+                    <button type="button" class="cropper-btn confirm" onclick="confirmCrop()">
+                        <i class="bi bi-check-lg"></i> Crop & Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ========== RESET CONFIRMATION MODAL ========== -->
     <div class="confirm-overlay" id="confirmOverlay" onclick="cancelReset()">
         <div class="confirm-modal" onclick="event.stopPropagation()">
@@ -303,7 +366,132 @@
         <span class="toast-text">ফর্ম রিসেট করা হয়েছে</span>
     </div>
 
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
+
     <script>
+    // ========== CROPPER.JS ==========
+    var cropper = null;
+    var selectedFile = null;
+
+    document.getElementById('avatarInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+
+        // Validate file size (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            showResetToast('File too large. Maximum 5MB.', 'error');
+            this.value = '';
+            return;
+        }
+
+        // Validate file type
+        var validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            showResetToast('Invalid file type. Use JPG, PNG, GIF, or WebP.', 'error');
+            this.value = '';
+            return;
+        }
+
+        selectedFile = file;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            var cropImg = document.getElementById('cropImage');
+            cropImg.src = ev.target.result;
+
+            // Destroy previous cropper
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+
+            // Show cropper modal
+            document.getElementById('cropperOverlay').classList.add('show');
+
+            // Initialize cropper after modal is visible (small delay for rendering)
+            setTimeout(function() {
+                cropper = new Cropper(cropImg, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    dragMode: 'move',
+                    autoCropArea: 0.8,
+                    restore: false,
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                    minCropBoxWidth: 100,
+                    minCropBoxHeight: 100,
+                });
+            }, 300);
+        };
+        reader.readAsDataURL(file);
+    });
+
+    function rotateCropper(deg) {
+        if (cropper) cropper.rotate(deg);
+    }
+
+    function flipCropperH() {
+        if (cropper) {
+            var data = cropper.getData();
+            cropper.scaleX(-data.scaleX || -1);
+        }
+    }
+
+    function closeCropper() {
+        document.getElementById('cropperOverlay').classList.remove('show');
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+        }
+        document.getElementById('avatarInput').value = '';
+        selectedFile = null;
+    }
+
+    function confirmCrop() {
+        if (!cropper) return;
+
+        var canvas = cropper.getCroppedCanvas({
+            width: 300,
+            height: 300,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: 'high',
+        });
+
+        // Convert canvas to blob and update preview
+        canvas.toBlob(function(blob) {
+            // Create a File from the blob
+            var croppedFile = new File([blob], 'avatar-' + Date.now() + '.jpg', { type: 'image/jpeg', lastModified: Date.now() });
+
+            // Create a DataTransfer to set the file to the input
+            var dt = new DataTransfer();
+            dt.items.add(croppedFile);
+            document.getElementById('avatarInput').files = dt.files;
+
+            // Update preview
+            var url = URL.createObjectURL(blob);
+            var preview = document.getElementById('avatarPreview');
+            var existingImg = document.getElementById('avatarImg');
+            var initial = document.getElementById('avatarInitial');
+
+            if (existingImg) {
+                existingImg.src = url;
+                existingImg.style.display = 'block';
+            } else {
+                preview.innerHTML = '<img src="' + url + '" alt="Avatar" id="avatarImg" class="avatar-img">';
+            }
+            if (initial) initial.style.display = 'none';
+
+            // Close cropper
+            closeCropper();
+
+            showResetToast('Photo cropped successfully. Save to apply.', 'success');
+        }, 'image/jpeg', 0.92);
+    }
+
     // ========== ORIGINAL PROFILE SNAPSHOT (reset point) ==========
     const ORIGINAL_PROFILE = {
         name: {{ Js::from($profile->name ?? '') }},
@@ -437,6 +625,13 @@
         }
 
         const formData = new FormData(form);
+
+        // Append avatar file if one was selected
+        var avatarInput = document.getElementById('avatarInput');
+        if (avatarInput && avatarInput.files && avatarInput.files.length > 0) {
+            formData.set('avatar', avatarInput.files[0]);
+        }
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="spinner"></span> আপডেট হচ্ছে...';
 
@@ -453,6 +648,21 @@
             if (data.success) {
                 // Update the reset snapshot with newly saved values
                 updateResetSnapshot(data);
+
+                // Update avatar preview if new avatar uploaded
+                if (data.avatar_url) {
+                    var preview = document.getElementById('avatarPreview');
+                    var existingImg = document.getElementById('avatarImg');
+                    var initial = document.getElementById('avatarInitial');
+                    if (existingImg) {
+                        existingImg.src = data.avatar_url;
+                    } else {
+                        preview.innerHTML = '<img src="' + data.avatar_url + '" alt="Avatar" id="avatarImg" class="avatar-img">';
+                    }
+                    if (initial) initial.style.display = 'none';
+                    // Clear the file input
+                    document.getElementById('avatarInput').value = '';
+                }
 
                 const alert = document.getElementById('successAlert');
                 alert.querySelector('span').textContent = data.message || 'আপনার প্রোফাইল সফলভাবে আপডেট হয়েছে!';
@@ -1317,6 +1527,341 @@
             .blood-chip { padding: 4px 10px; font-size: 11px; }
             .edit-footer .footer-links { grid-template-columns: 1fr; gap: 16px; text-align: center; }
             .edit-footer .social-icons { justify-content: center; }
+        }
+
+        /* ===== AVATAR UPLOAD SECTION ===== */
+        .avatar-upload-section {
+            padding: 32px 32px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+        }
+
+        .avatar-upload-wrap {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            cursor: pointer;
+            overflow: hidden;
+            border: 3px solid rgba(220, 38, 38, 0.3);
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        .avatar-upload-wrap:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 30px rgba(220, 38, 38, 0.3);
+            transform: scale(1.03);
+        }
+
+        .avatar-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(220, 38, 38, 0.08);
+            overflow: hidden;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar-initial {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary-light);
+            line-height: 1;
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #fff;
+            border-radius: 50%;
+        }
+
+        .avatar-upload-wrap:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        .avatar-overlay i {
+            font-size: 22px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .avatar-overlay span {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .avatar-hint {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 4px;
+        }
+
+        /* ===== CROPPER.JS MODAL ===== */
+        .cropper-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cropper-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cropper-modal {
+            background: #1e1e36;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            max-width: 560px;
+            width: 100%;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+            animation: modalIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cropper-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cropper-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .cropper-header-left i {
+            font-size: 18px;
+            color: var(--primary-light);
+        }
+
+        .cropper-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .cropper-close:hover { color: #fff; }
+
+        .cropper-body {
+            padding: 16px;
+        }
+
+        .cropper-container {
+            max-height: 360px;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #111;
+        }
+
+        .cropper-container img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .cropper-footer {
+            padding: 12px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .cropper-tools {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .cropper-tool-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .cropper-tool-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .cropper-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cropper-btn {
+            flex: 1;
+            padding: 11px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            border: none;
+        }
+
+        .cropper-btn.cancel {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .cropper-btn.cancel:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .cropper-btn.confirm {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+        }
+
+        .cropper-btn.confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(220, 38, 38, 0.4);
+        }
+
+        @media (max-width: 767.98px) {
+            .avatar-upload-section { padding: 24px 24px 8px; }
+            .avatar-upload-wrap { width: 90px; height: 90px; }
+            .avatar-initial { font-size: 34px; }
+            .avatar-overlay i { font-size: 18px; }
+            .cropper-modal { max-width: 100%; margin: 10px; }
+            .cropper-body { padding: 12px; }
+            .cropper-container { max-height: 280px; }
+        }
+
+        @media (max-width: 480px) {
+            .avatar-upload-section { padding: 18px 18px 6px; }
+            .avatar-upload-wrap { width: 78px; height: 78px; border-width: 2px; }
+            .avatar-initial { font-size: 28px; }
+            .avatar-overlay i { font-size: 16px; }
+            .avatar-overlay span { font-size: 9px; }
+            .avatar-hint { font-size: 10px; }
+            .cropper-modal { border-radius: 16px; }
+            .cropper-header { padding: 14px 16px; }
+            .cropper-header-left { font-size: 14px; }
+            .cropper-body { padding: 10px; }
+            .cropper-container { max-height: 220px; }
+            .cropper-footer { padding: 10px 16px 16px; gap: 10px; }
+            .cropper-btn { font-size: 13px; padding: 10px 14px; }
+            .cropper-tool-btn { width: 34px; height: 34px; font-size: 13px; }
+        }
+
+        /* Light mode for cropper */
+        .light-mode .cropper-modal {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .light-mode .cropper-header-left {
+            color: #1f2937;
+        }
+
+        .light-mode .cropper-header {
+            border-bottom-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .cropper-container {
+            background: #f5f5f5;
+        }
+
+        .light-mode .cropper-tool-btn {
+            border-color: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.04);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .cropper-tool-btn:hover {
+            background: rgba(0, 0, 0, 0.08);
+            color: #1f2937;
+        }
+
+        .light-mode .cropper-btn.cancel {
+            background: rgba(0, 0, 0, 0.04);
+            color: rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .light-mode .cropper-btn.cancel:hover {
+            background: rgba(0, 0, 0, 0.08);
+            color: #1f2937;
+        }
+
+        .light-mode .avatar-upload-wrap {
+            border-color: rgba(220, 38, 38, 0.25);
+        }
+
+        .light-mode .avatar-preview {
+            background: rgba(220, 38, 38, 0.05);
+        }
+
+        .light-mode .avatar-initial {
+            color: #dc2626;
+        }
+
+        .light-mode .avatar-hint {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .avatar-upload-section {
+            border-bottom-color: rgba(0, 0, 0, 0.06);
         }
 
         /* ===== LIGHT MODE OVERRIDES ===== */
