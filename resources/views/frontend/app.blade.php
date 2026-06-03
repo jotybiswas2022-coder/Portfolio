@@ -344,5 +344,413 @@
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+{{-- ===== FLOATING ACTION BUTTON ===== --}}
+<div class="fab-container" id="fabContainer">
+    <div class="fab-backdrop" id="fabBackdrop" onclick="closeFab()"></div>
+
+    {{-- Menu Items (reversed order so first appears on top when expanded) --}}
+    <div class="fab-menu" id="fabMenu">
+        {{-- Profile (only shown for authenticated users, but we'll handle with JS) --}}
+        <a href="{{ url('/profile') }}" class="fab-item" data-tooltip="My Profile" data-auth="true" style="--i:3;">
+            <span class="fab-item-bg" style="background:linear-gradient(135deg,#667eea,#764ba2);"></span>
+            <i class="bi bi-person-circle"></i>
+        </a>
+
+        {{-- Donor List --}}
+        <a href="{{ url('/donor_list') }}" class="fab-item" data-tooltip="Donor List" style="--i:2;">
+            <span class="fab-item-bg" style="background:linear-gradient(135deg,#22c55e,#16a34a);"></span>
+            <i class="bi bi-people-fill"></i>
+        </a>
+
+        {{-- Emergency Request --}}
+        <a href="{{ url('/emergency-request') }}" class="fab-item" data-tooltip="Emergency Request" style="--i:1;">
+            <span class="fab-item-bg" style="background:linear-gradient(135deg,#dc2626,#ef4444);"></span>
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </a>
+    </div>
+
+    {{-- Main Toggle Button --}}
+    <button class="fab-toggle" id="fabToggle" onclick="toggleFab()" aria-label="Quick Actions">
+        <span class="fab-toggle-bg"></span>
+        <i class="bi bi-droplet-fill fab-icon-main"></i>
+        <i class="bi bi-x-lg fab-icon-close"></i>
+    </button>
+</div>
+
+<style>
+/* ===== FAB Container ===== */
+.fab-container {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Backdrop */
+.fab-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab-container.active .fab-backdrop {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===== Menu Items ===== */
+.fab-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.fab-item {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    transform: scale(0) translateY(30px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: calc(var(--i) * 0.06s);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+}
+
+.fab-container.active .fab-item {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.fab-item:hover {
+    transform: scale(1.1) translateY(-2px) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.fab-item:active {
+    transform: scale(0.95) !important;
+}
+
+.fab-item .fab-item-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    transition: all 0.3s;
+}
+
+.fab-item i {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.2));
+}
+
+/* ===== Tooltip ===== */
+.fab-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: calc(100% + 14px);
+    top: 50%;
+    transform: translateY(-50%) scale(0.85);
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0s;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.fab-item:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    transition-delay: 0.15s;
+}
+
+/* Small pointer arrow on tooltip */
+.fab-item::before {
+    content: '';
+    position: absolute;
+    right: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid rgba(0,0,0,0.85);
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0s;
+}
+
+.fab-item:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    transition-delay: 0.15s;
+}
+
+/* ===== Main Toggle Button ===== */
+.fab-toggle {
+    position: relative;
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    padding: 0;
+}
+
+.fab-toggle-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    box-shadow: 0 6px 28px rgba(220, 38, 38, 0.45);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fab-toggle:hover .fab-toggle-bg {
+    box-shadow: 0 8px 40px rgba(220, 38, 38, 0.6);
+}
+
+.fab-toggle:active {
+    transform: scale(0.92);
+}
+
+.fab-container.active .fab-toggle {
+    transform: rotate(45deg);
+}
+
+.fab-container.active .fab-toggle-bg {
+    background: linear-gradient(135deg, #1f2937, #374151);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.fab-icon-main {
+    position: absolute;
+    font-size: 26px;
+    color: #fff;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.fab-icon-close {
+    position: absolute;
+    font-size: 22px;
+    color: #fff;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scale(0);
+}
+
+.fab-container.active .fab-icon-main {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+}
+
+.fab-container.active .fab-icon-close {
+    opacity: 1;
+    transform: scale(1) rotate(360deg);
+}
+
+/* ===== Pulse animation on toggle button ===== */
+.fab-toggle::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 22px;
+    background: rgba(220, 38, 38, 0.2);
+    animation: fab-pulse 2.5s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes fab-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0; }
+}
+
+.fab-container.active .fab-toggle::after {
+    animation: none;
+    opacity: 0;
+}
+
+/* ===== Light mode ===== */
+.light-mode .fab-backdrop {
+    background: rgba(0,0,0,0.15);
+}
+
+.light-mode .fab-item::after {
+    background: rgba(0,0,0,0.9);
+    color: #fff;
+    border-color: rgba(255,255,255,0.08);
+}
+
+.light-mode .fab-item::before {
+    border-left-color: rgba(0,0,0,0.9);
+}
+
+.light-mode .fab-container.active .fab-toggle-bg {
+    background: linear-gradient(135deg, #374151, #4b5563);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 767.98px) {
+    .fab-container {
+        bottom: 20px;
+        right: 16px;
+    }
+
+    .fab-toggle {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+    }
+
+    .fab-toggle-bg {
+        border-radius: 16px;
+    }
+
+    .fab-item {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        font-size: 18px;
+    }
+
+    .fab-item .fab-item-bg {
+        border-radius: 14px;
+    }
+
+    .fab-icon-main {
+        font-size: 22px;
+    }
+
+    .fab-icon-close {
+        font-size: 18px;
+    }
+
+    /* Smaller tooltip on mobile */
+    .fab-item::after {
+        font-size: 11px;
+        padding: 5px 10px;
+        right: calc(100% + 10px);
+    }
+
+    .fab-item::before {
+        right: calc(100% + 5px);
+    }
+}
+
+@media (max-width: 480px) {
+    .fab-container {
+        bottom: 16px;
+        right: 12px;
+    }
+
+    .fab-toggle {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+    }
+
+    .fab-toggle-bg {
+        border-radius: 14px;
+    }
+
+    .fab-item {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 16px;
+    }
+
+    .fab-item .fab-item-bg {
+        border-radius: 12px;
+    }
+
+    .fab-icon-main {
+        font-size: 19px;
+    }
+
+    .fab-icon-close {
+        font-size: 16px;
+    }
+
+    .fab-menu {
+        gap: 10px;
+    }
+}
+</style>
+
+<script>
+// ===== FAB TOGGLE =====
+function toggleFab() {
+    var container = document.getElementById('fabContainer');
+    container.classList.toggle('active');
+}
+
+function closeFab() {
+    var container = document.getElementById('fabContainer');
+    container.classList.remove('active');
+}
+
+// Close FAB on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeFab();
+    }
+});
+
+// Hide profile link if user is not authenticated
+(function() {
+    var profileItem = document.querySelector('.fab-item[data-auth="true"]');
+    if (profileItem) {
+        // Check if user is authenticated by looking for auth-related elements
+        var isAuth = document.querySelector('.btn-logout') !== null;
+        if (!isAuth) {
+            profileItem.style.display = 'none';
+        }
+    }
+})();
+</script>
+
 </body>
 </html>
