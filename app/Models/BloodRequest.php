@@ -36,8 +36,12 @@ class BloodRequest extends Model
 
     public function findMatchingDonors()
     {
+        // Exclude the requester's own profile, but INCLUDE donors with no user_id (admin-created)
         $eligibleProfiles = Profile::where('blood', $this->blood_group)
-            ->where('user_id', '!=', $this->user_id)
+            ->where(function ($q) {
+                $q->where('user_id', '!=', $this->user_id)
+                  ->orWhereNull('user_id');
+            })
             ->whereNotNull('number')
             ->whereNotNull('name')
             ->get();
