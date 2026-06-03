@@ -10,8 +10,8 @@
             <span class="brand-text">ব্লাড ব্যাংক</span>
         </a>
 
-        <!-- Theme Toggle -->
-        <button class="theme-toggle-btn" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle dark/light mode">
+        <!-- Theme Toggle (hidden on mobile — mobile toggle is inside collapse) -->
+        <button class="theme-toggle-btn d-none d-lg-flex" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle dark/light mode">
             <i class="bi bi-sun-fill"></i>
         </button>
 
@@ -383,7 +383,7 @@
     .navbar-collapse {
         background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(15, 52, 96, 0.98));
         border-radius: 0 0 18px 18px;
-        padding: 20px 20px 24px;
+        padding: 24px 24px 28px;
         margin-top: 12px;
         border: 1px solid rgba(255,255,255,0.06);
         border-top: none;
@@ -394,17 +394,18 @@
 
     .navbar-nav {
         text-align: center;
-        gap: 6px !important;
+        gap: 8px !important;
     }
 
     .top-nav-link {
-        padding: 10px 16px !important;
-        border-radius: 10px;
+        padding: 12px 18px !important;
+        border-radius: 12px;
         font-size: 0.95rem;
         display: flex !important;
         align-items: center;
-        justify-content: center;
-        gap: 8px;
+        justify-content: flex-start;
+        gap: 10px;
+        width: 100%;
     }
 
     .link-underline {
@@ -416,16 +417,19 @@
     }
 
     .signup-btn {
-        display: inline-flex !important;
-        padding: 11px 28px !important;
+        display: flex !important;
+        justify-content: center;
+        padding: 12px 24px !important;
         font-size: 1rem !important;
+        width: 100%;
     }
 
     .btn-logout {
         width: 100%;
         text-align: center;
-        padding: 11px 20px;
+        padding: 12px 20px;
         font-size: 0.95rem;
+        border-radius: 12px;
     }
 
     .navbar-brand {
@@ -439,6 +443,20 @@
 
     .brand-drop {
         font-size: 1.1rem !important;
+    }
+
+    /* Fix logout form width inside mobile dropdown */
+    .nav-link-wrap form.d-inline {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    .nav-link-wrap form.d-inline .btn-logout {
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 }
 
@@ -487,12 +505,32 @@
     }
 
     .navbar-collapse {
-        padding: 16px 16px 20px;
+        padding: 18px 18px 22px;
+        margin-top: 10px;
     }
 
     .top-nav-link {
-        padding: 8px 12px !important;
+        padding: 10px 14px !important;
         font-size: 0.88rem;
+        border-radius: 10px;
+    }
+
+    .navbar-nav {
+        gap: 6px !important;
+    }
+
+    .signup-btn {
+        padding: 10px 20px !important;
+        font-size: 0.92rem !important;
+    }
+
+    .btn-logout {
+        padding: 10px 16px;
+        font-size: 0.88rem;
+    }
+
+    .mobile-theme-toggle {
+        margin-bottom: 18px !important;
     }
 }
 </style>
