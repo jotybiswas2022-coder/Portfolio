@@ -1,5 +1,77 @@
 @extends('frontend.app')
 
+@section('skeleton')
+    {{-- ===== DONOR LIST SKELETON ===== --}}
+    <div style="padding-top:72px;">
+        {{-- Hero Skeleton --}}
+        <div style="background:rgba(255,255,255,0.02);padding:60px 20px;">
+            <div style="max-width:1200px;margin:0 auto;">
+                <div style="margin-bottom:24px;">
+                    <div class="sk-block" style="width:160px;height:30px;border-radius:50px;"></div>
+                </div>
+                <div class="sk-block" style="width:50%;height:42px;margin-bottom:12px;"></div>
+                <div class="sk-block" style="width:35%;height:42px;margin-bottom:20px;"></div>
+                <div class="sk-block" style="width:40%;height:18px;"></div>
+                <div style="display:flex;gap:40px;margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.05);">
+                    <div><div class="sk-block" style="width:70px;height:32px;margin-bottom:6px;"></div><div class="sk-block" style="width:90px;height:14px;"></div></div>
+                    <div><div class="sk-block" style="width:50px;height:32px;margin-bottom:6px;"></div><div class="sk-block" style="width:80px;height:14px;"></div></div>
+                    <div><div class="sk-block" style="width:60px;height:32px;margin-bottom:6px;"></div><div class="sk-block" style="width:70px;height:14px;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Filter & Table Skeleton --}}
+        <div style="padding:32px 20px 0;background:linear-gradient(180deg,#f8f9fa,#fff);">
+            <div style="max-width:1200px;margin:0 auto;">
+                {{-- Filter Card --}}
+                <div style="padding:24px 28px;background:#fff;border-radius:20px;border:1px solid #f3f4f6;margin-bottom:28px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px;">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <div class="sk-block" style="width:20px;height:20px;border-radius:4px;"></div>
+                            <div class="sk-block" style="width:60px;height:18px;"></div>
+                        </div>
+                        <div style="display:flex;gap:12px;">
+                            <div class="sk-block" style="width:220px;height:40px;border-radius:10px;"></div>
+                            <div class="sk-block" style="width:160px;height:40px;border-radius:10px;"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        @for($i=0;$i<9;$i++)
+                        <div class="sk-block" style="width:{{ 50 + $i * 8 }}px;height:34px;border-radius:50px;"></div>
+                        @endfor
+                    </div>
+                </div>
+
+                {{-- Table Card --}}
+                <div style="background:#fff;border-radius:20px;overflow:hidden;border:1px solid #f3f4f6;">
+                    <div style="padding:18px 28px;background:rgba(220,38,38,0.15);display:flex;align-items:center;justify-content:space-between;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <div class="sk-block" style="width:20px;height:20px;border-radius:4px;"></div>
+                            <div class="sk-block" style="width:160px;height:18px;"></div>
+                        </div>
+                        <div class="sk-block" style="width:100px;height:28px;border-radius:50px;"></div>
+                    </div>
+                    <div style="padding:0 28px;">
+                        @for($i=0;$i<5;$i++)
+                        <div style="display:flex;align-items:center;gap:16px;padding:16px 0;{{ $i < 4 ? 'border-bottom:1px solid #f3f4f6;' : '' }}">
+                            <div class="sk-block" style="width:30px;height:16px;"></div>
+                            <div style="display:flex;align-items:center;gap:12px;flex:2;">
+                                <div class="sk-circle" style="width:38px;height:38px;flex-shrink:0;"></div>
+                                <div class="sk-block" style="width:120px;height:16px;"></div>
+                            </div>
+                            <div style="flex:1.5;"><div class="sk-block" style="width:100px;height:16px;"></div></div>
+                            <div style="flex:1;"><div class="sk-block" style="width:60px;height:24px;border-radius:50px;"></div></div>
+                            <div style="flex:1;"><div class="sk-block" style="width:80px;height:16px;"></div></div>
+                            <div style="flex:1.5;"><div class="sk-block" style="width:110px;height:24px;border-radius:50px;"></div></div>
+                        </div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
 
     <!-- ========== HERO SECTION ========== -->

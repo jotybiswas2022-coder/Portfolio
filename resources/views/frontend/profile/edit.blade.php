@@ -1,5 +1,56 @@
 @extends('frontend.app')
 
+@section('skeleton')
+    {{-- ===== PROFILE EDIT SKELETON ===== --}}
+    <div style="padding-top:72px;display:flex;align-items:flex-start;justify-content:center;padding:72px 20px 40px;min-height:60vh;">
+        <div style="max-width:640px;width:100%;">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:24px;overflow:hidden;">
+                {{-- Header --}}
+                <div style="padding:28px 32px;display:flex;align-items:center;gap:18px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <div class="sk-block" style="width:54px;height:54px;border-radius:16px;flex-shrink:0;"></div>
+                    <div>
+                        <div class="sk-block" style="width:160px;height:20px;margin-bottom:6px;"></div>
+                        <div class="sk-block" style="width:120px;height:14px;"></div>
+                    </div>
+                </div>
+                {{-- Form --}}
+                <div style="padding:28px 32px;">
+                    @for($i=0;$i<3;$i++)
+                    <div style="margin-bottom:22px;">
+                        <div class="sk-block" style="width:100px;height:13px;margin-bottom:10px;"></div>
+                        <div class="sk-block" style="width:100%;height:44px;border-radius:12px;"></div>
+                    </div>
+                    @endfor
+                    <div style="display:flex;align-items:center;gap:12px;margin:6px 0 24px;">
+                        <div class="sk-block" style="flex:1;height:1px;"></div>
+                        <div class="sk-block" style="width:100px;height:12px;"></div>
+                        <div class="sk-block" style="flex:1;height:1px;"></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 20px;">
+                        <div style="margin-bottom:22px;">
+                            <div class="sk-block" style="width:90px;height:13px;margin-bottom:10px;"></div>
+                            <div class="sk-block" style="width:100%;height:44px;border-radius:12px;"></div>
+                        </div>
+                        <div style="margin-bottom:22px;">
+                            <div class="sk-block" style="width:60px;height:13px;margin-bottom:10px;"></div>
+                            <div class="sk-block" style="width:100%;height:44px;border-radius:12px;"></div>
+                        </div>
+                        <div style="margin-bottom:22px;">
+                            <div class="sk-block" style="width:100px;height:13px;margin-bottom:10px;"></div>
+                            <div class="sk-block" style="width:100%;height:44px;border-radius:12px;"></div>
+                        </div>
+                    </div>
+                    <div class="sk-block" style="width:100%;height:42px;border-radius:12px;margin-bottom:12px;"></div>
+                    <div style="display:flex;gap:10px;">
+                        <div class="sk-block" style="flex:1;height:44px;border-radius:12px;"></div>
+                        <div class="sk-block" style="flex:1;height:44px;border-radius:12px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
 
     <!-- ========== ANIMATED BACKGROUND PARTICLES ========== -->

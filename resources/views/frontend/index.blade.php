@@ -1,5 +1,54 @@
 @extends('frontend.app')
 
+@section('skeleton')
+    {{-- ===== HOMEPAGE SKELETON ===== --}}
+    <div style="padding-top:72px;">
+        {{-- Hero Skeleton --}}
+        <div style="background:rgba(255,255,255,0.02);padding:80px 20px;min-height:90vh;display:flex;align-items:center;">
+            <div style="max-width:1200px;margin:0 auto;width:100%;">
+                <div style="margin-bottom:28px;">
+                    <div class="sk-block" style="width:180px;height:32px;border-radius:50px;"></div>
+                </div>
+                <div class="sk-block" style="width:70%;height:48px;margin-bottom:16px;"></div>
+                <div class="sk-block" style="width:55%;height:48px;margin-bottom:24px;"></div>
+                <div class="sk-block" style="width:45%;height:20px;margin-bottom:16px;"></div>
+                <div class="sk-block" style="width:35%;height:20px;margin-bottom:36px;"></div>
+                <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                    <div class="sk-block" style="width:180px;height:52px;border-radius:12px;"></div>
+                    <div class="sk-block" style="width:200px;height:52px;border-radius:12px;"></div>
+                </div>
+                <div style="display:flex;gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.05);">
+                    <div><div class="sk-block" style="width:80px;height:36px;margin-bottom:6px;"></div><div class="sk-block" style="width:100px;height:14px;"></div></div>
+                    <div><div class="sk-block" style="width:60px;height:36px;margin-bottom:6px;"></div><div class="sk-block" style="width:90px;height:14px;"></div></div>
+                    <div><div class="sk-block" style="width:70px;height:36px;margin-bottom:6px;"></div><div class="sk-block" style="width:80px;height:14px;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Blood Groups Skeleton --}}
+        <div style="padding:80px 20px;background:linear-gradient(180deg,#fff,#fef2f2);">
+            <div style="max-width:1200px;margin:0 auto;">
+                <div style="text-align:center;margin-bottom:50px;">
+                    <div class="sk-block" style="width:140px;height:28px;margin:0 auto 18px;border-radius:50px;"></div>
+                    <div class="sk-block" style="width:300px;height:36px;margin:0 auto 14px;"></div>
+                    <div class="sk-block" style="width:400px;height:18px;margin:0 auto;"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+                    @for($i=0;$i<8;$i++)
+                    <div style="padding:32px 20px 28px;text-align:center;background:#fff;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.04);">
+                        <div class="sk-circle" style="width:72px;height:72px;margin:0 auto 14px;"></div>
+                        <div class="sk-block" style="width:50px;height:24px;margin:0 auto 4px;"></div>
+                        <div class="sk-block" style="width:80px;height:12px;margin:0 auto 6px;"></div>
+                        <div class="sk-block" style="width:100px;height:14px;margin:0 auto 18px;"></div>
+                        <div class="sk-block" style="width:120px;height:36px;margin:0 auto;border-radius:10px;"></div>
+                    </div>
+                    @endfor
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
 
     <!-- ========== HERO SECTION ========== -->

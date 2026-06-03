@@ -1,5 +1,46 @@
 @extends('frontend.app')
 
+@section('skeleton')
+    {{-- ===== PROFILE SKELETON ===== --}}
+    <div style="padding-top:72px;display:flex;align-items:flex-start;justify-content:center;padding:72px 20px 40px;min-height:60vh;">
+        <div style="max-width:560px;width:100%;">
+            {{-- Card Skeleton --}}
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:24px;overflow:hidden;">
+                {{-- Header --}}
+                <div style="padding:36px 32px 28px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <div style="position:relative;display:inline-block;margin-bottom:16px;">
+                        <div class="sk-circle" style="width:88px;height:88px;"></div>
+                    </div>
+                    <div class="sk-block" style="width:180px;height:24px;margin:0 auto 10px;"></div>
+                    <div class="sk-block" style="width:100px;height:28px;margin:0 auto;border-radius:50px;"></div>
+                </div>
+                {{-- Body --}}
+                <div style="padding:28px 32px;">
+                    <div class="sk-block" style="width:120px;height:14px;margin-bottom:18px;"></div>
+                    @for($i=0;$i<4;$i++)
+                    <div style="display:flex;align-items:center;gap:16px;padding:14px 18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:12px;margin-bottom:12px;">
+                        <div class="sk-block" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;"></div>
+                        <div style="flex:1;">
+                            <div class="sk-block" style="width:80px;height:11px;margin-bottom:6px;"></div>
+                            <div class="sk-block" style="width:140px;height:16px;"></div>
+                        </div>
+                    </div>
+                    @endfor
+                    {{-- Status --}}
+                    <div style="margin-top:20px;padding:16px 18px;border:1px solid rgba(255,255,255,0.04);border-radius:12px;">
+                        <div class="sk-block" style="width:100%;height:8px;border-radius:50px;"></div>
+                    </div>
+                </div>
+                {{-- Actions --}}
+                <div style="padding:0 32px 32px;">
+                    <div class="sk-block" style="width:100%;height:48px;border-radius:12px;margin-bottom:10px;"></div>
+                    <div class="sk-block" style="width:100%;height:44px;border-radius:12px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
 
     <!-- ========== ANIMATED BACKGROUND PARTICLES ========== -->

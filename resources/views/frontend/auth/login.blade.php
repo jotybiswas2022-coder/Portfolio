@@ -1,6 +1,77 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+<style>
+    /* ===== LOGIN SKELETON ===== */
+    #login-skeleton {
+        position: fixed; inset: 0; z-index: 99999;
+        background: linear-gradient(135deg,#0f0f1a,#1a0a0a,#0d0d1a);
+        display: flex; align-items: center; justify-content: center;
+        transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+        font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+    }
+    #login-skeleton.sk-hidden { opacity: 0; pointer-events: none; }
+    @keyframes sk-login-shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+    .sk-l-block {
+        background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+        background-size: 200% 100%;
+        animation: sk-login-shimmer 1.5s ease-in-out infinite;
+        border-radius: 6px;
+    }
+    .sk-l-circle {
+        border-radius: 50%;
+        background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+        background-size: 200% 100%;
+        animation: sk-login-shimmer 1.5s ease-in-out infinite;
+    }
+</style>
+
+{{-- ===== LOGIN SKELETON OVERLAY ===== --}}
+<div id="login-skeleton">
+    <div style="width:100%;max-width:430px;text-align:center;">
+        {{-- Brand --}}
+        <div style="margin-bottom:24px;">
+            <div class="sk-l-block" style="width:56px;height:56px;border-radius:16px;margin:0 auto 12px;"></div>
+            <div class="sk-l-block" style="width:140px;height:22px;margin:0 auto 8px;"></div>
+            <div class="sk-l-block" style="width:180px;height:12px;margin:0 auto;"></div>
+        </div>
+        {{-- Card --}}
+        <div style="background:rgba(255,255,255,0.02);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);">
+            <div style="padding:28px 32px 20px;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div class="sk-l-block" style="width:180px;height:20px;margin:0 auto;"></div>
+            </div>
+            <div style="padding:26px 32px;">
+                <div class="sk-l-block" style="width:100%;height:42px;border-radius:10px;margin-bottom:20px;"></div>
+                <div style="display:flex;align-items:center;gap:12px;margin:20px 0;">
+                    <div class="sk-l-block" style="flex:1;height:1px;"></div>
+                    <div class="sk-l-block" style="width:120px;height:12px;"></div>
+                    <div class="sk-l-block" style="flex:1;height:1px;"></div>
+                </div>
+                <div style="margin-bottom:18px;">
+                    <div class="sk-l-block" style="width:80px;height:12px;margin-bottom:10px;"></div>
+                    <div class="sk-l-block" style="width:100%;height:44px;border-radius:10px;"></div>
+                </div>
+                <div style="margin-bottom:12px;">
+                    <div class="sk-l-block" style="width:60px;height:12px;margin-bottom:10px;"></div>
+                    <div class="sk-l-block" style="width:100%;height:44px;border-radius:10px;"></div>
+                </div>
+                <div class="sk-l-block" style="width:100%;height:44px;border-radius:10px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    var sk = document.getElementById('login-skeleton');
+    function hide(){ if(sk){ sk.classList.add('sk-hidden'); setTimeout(function(){ sk.style.display='none'; },500); } }
+    if(document.readyState==='complete') hide(); else { window.addEventListener('load',hide); setTimeout(hide,2000); }
+})();
+</script>
+
 <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0f1a 0%,#1a0a0a 50%,#0d0d1a 100%);position:relative;overflow:hidden;padding:24px 16px;font-family:'Inter','Noto Sans Bengali',sans-serif;">
 
     {{-- ====== ANIMATED BACKGROUND LAYER ====== --}}
