@@ -39,6 +39,35 @@
                             >
                         </div>
 
+                        <!-- Phone / WhatsApp -->
+                        <div class="mb-3">
+                            <label for="phone" class="form-label fw-semibold">
+                                <i class="bi bi-whatsapp text-success me-1"></i> WhatsApp Number
+                            </label>
+                            <input 
+                                type="text" 
+                                id="phone" 
+                                name="phone"
+                                class="form-control form-control-lg shadow-sm"
+                                value="{{ $account->phone ?? '' }}"
+                                placeholder="e.g. +8801XXXXXXXXX"
+                            >
+                            <div class="form-text">This number will be used for the WhatsApp floating button.</div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                class="form-control form-control-lg shadow-sm"
+                                value="{{ $account->email ?? '' }}"
+                                placeholder="e.g. hello@example.com"
+                            >
+                        </div>
+
                         <!-- Profile Picture -->
                         <div class="mb-4">
                             <label for="image" class="form-label fw-semibold">Profile Picture</label>

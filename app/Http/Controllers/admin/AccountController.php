@@ -25,6 +25,8 @@ class AccountController extends Controller
     {
         $request->validate([
             'name'  => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
             'image' => 'nullable|image|max:2048',
         ]);
 
@@ -34,6 +36,8 @@ class AccountController extends Controller
             $account->image = ''; 
         }
         $account->name = $request->name;
+        $account->phone = $request->phone;
+        $account->email = $request->email;
 
         // Image upload
         if ($request->hasFile('image')) {

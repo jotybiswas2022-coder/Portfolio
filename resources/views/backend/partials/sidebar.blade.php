@@ -105,6 +105,22 @@ use Illuminate\Support\Str;
                 </a>
             </li>
 
+            <li>
+                <a href="{{ url('/admin/experiences') }}"
+                   class="{{ request()->is('admin/experiences*') ? 'active' : '' }}">
+                    <i class="bi bi-briefcase"></i>
+                    <span>Experiences</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url('/admin/skills') }}"
+                   class="{{ request()->is('admin/skills*') ? 'active' : '' }}">
+                    <i class="bi bi-lightning-charge"></i>
+                    <span>Skills</span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

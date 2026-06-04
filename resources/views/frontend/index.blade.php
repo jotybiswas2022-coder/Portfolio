@@ -73,6 +73,56 @@
     </div>
 </section>
 
+    <!-- Experience Timeline Section -->
+    <section class="timeline-section section-padding" id="experience">
+    <div class="container">
+        <div class="section-title reveal">
+            <div class="line"></div>
+            <h2>Work Experience</h2>
+            <p>My professional journey</p>
+        </div>
+
+        @if($experiences->isNotEmpty())
+            <div class="timeline reveal">
+                <div class="timeline-line"></div>
+
+                @foreach($experiences as $index => $exp)
+                    <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
+                        <div class="timeline-dot">
+                            <i class="bi bi-briefcase-fill"></i>
+                        </div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">
+                                <i class="bi bi-calendar3 me-1"></i>{{ $exp->duration }}
+                            </div>
+                            @if($exp->is_current)
+                                <span class="current-badge">Current</span>
+                            @endif
+                            <h3>{{ $exp->position }}</h3>
+                            <div class="timeline-company">
+                                <i class="bi bi-building me-1"></i>{{ $exp->company }}
+                                @if($exp->location)
+                                    <span class="timeline-location ms-3">
+                                        <i class="bi bi-geo-alt me-1"></i>{{ $exp->location }}
+                                    </span>
+                                @endif
+                            </div>
+                            @if($exp->description)
+                                <p>{{ $exp->description }}</p>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="text-center py-4 reveal">
+                <i class="bi bi-briefcase fs-1 text-muted mb-3 d-block"></i>
+                <p class="text-muted">Experience details coming soon!</p>
+            </div>
+        @endif
+    </div>
+</section>
+
     <!-- Skills Section -->
    <section class="skills-section section-padding" id="skills">
     <div class="container">
@@ -82,41 +132,20 @@
             <p>Technologies I work with</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card reveal reveal-delay-1" data-skill="95">
-                <span class="icon"><i class="bi bi-globe2"></i></span>
-                <span class="name">HTML/CSS</span>
-                <div class="bar-wrapper"><div class="bar-fill" data-width="95%"></div></div>
-            </div>
-            <div class="skill-card reveal reveal-delay-1" data-skill="90">
-                <span class="icon"><i class="bi bi-lightning-fill"></i></span>
-                <span class="name">JavaScript</span>
-                <div class="bar-wrapper"><div class="bar-fill" data-width="90%"></div></div>
-            </div>
-            <div class="skill-card reveal reveal-delay-2" data-skill="92">
-                <span class="icon"><i class="bi bi-fire"></i></span>
-                <span class="name">Laravel</span>
-                <div class="bar-wrapper"><div class="bar-fill" data-width="92%"></div></div>
-            </div>
-            <div class="skill-card reveal reveal-delay-2" data-skill="88">
-                <span class="icon"><i class="bi bi-code-slash"></i></span>
-                <span class="name">PHP</span>
-                <div class="bar-wrapper"><div class="bar-fill" data-width="88%"></div></div>
-            </div>
-            <div class="skill-card reveal reveal-delay-3" data-skill="85">
-                <span class="icon"><i class="bi bi-recycle"></i></span>
-                <span class="name">React</span>
-                <div class="bar-wrapper"><div class="bar-fill" data-width="85%"></div></div>
-            </div>
-            <div class="skill-card reveal reveal-delay-3" data-skill="80">
-                <span class="icon"><i class="bi bi-server"></i></span>
-                <span class="name">MySQL</span>
-                <div class="bar-wrapper"><div class="bar-fill" data-width="80%"></div></div>
-            </div>
-            <div class="skill-card reveal reveal-delay-4" data-skill="82">
-                <span class="icon"><i class="bi bi-palette-fill"></i></span>
-                <span class="name">Bootstrap</span>
-                <div class="bar-wrapper"><div class="bar-fill" data-width="82%"></div></div>
-            </div>
+            @forelse($skills as $index => $skill)
+                @php $delay = ($index % 4) + 1; @endphp
+                <div class="skill-card reveal reveal-delay-{{ $delay }}" data-skill="{{ $skill->percentage }}">
+                    <span class="icon"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i></span>
+                    <span class="name">{{ $skill->name }}</span>
+                    <span class="percentage-label">{{ $skill->percentage }}%</span>
+                    <div class="bar-wrapper"><div class="bar-fill" data-width="{{ $skill->percentage }}%"></div></div>
+                </div>
+            @empty
+                <div class="text-center py-5" style="grid-column: 1 / -1;">
+                    <i class="bi bi-lightning-charge fs-1 text-muted mb-3 d-block"></i>
+                    <p class="text-muted">Skills data coming soon!</p>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -271,7 +300,7 @@
                     <div class="icon-box"><i class="bi bi-envelope-fill"></i></div>
                     <div class="text">
                         <div class="label">Email</div>
-                        <div class="value">joty@example.com</div>
+                        <div class="value">{{ $account->email ?? 'joty@example.com' }}</div>
                     </div>
                 </div>
 
@@ -279,7 +308,7 @@
                     <div class="icon-box"><i class="bi bi-phone-fill"></i></div>
                     <div class="text">
                         <div class="label">Phone</div>
-                        <div class="value">+880 1XXX-XXXXXX</div>
+                        <div class="value">{{ $account->phone ?? '+880 1XXX-XXXXXX' }}</div>
                     </div>
                 </div>
 
@@ -332,6 +361,22 @@
                 </form>
             </div>
         </div>
+
+        <!-- Google Map -->
+        <div class="map-wrapper reveal reveal-delay-1">
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749427.7985686358!2d88.0190403004489!3d23.684993584973406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30ada8e30e97f93d%3A0x8e70e7e2225e28a2!2sBangladesh!5e0!3m2!1sen!2sbd!4v1!4m2!3m1!1s0x30ada8e30e97f93d%3A0x8e70e7e2225e28a2"
+                    width="100%"
+                    height="350"
+                    style="border:0; border-radius: 16px;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Location Map">
+                </iframe>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -349,6 +394,17 @@
         <i class="bi bi-cup-fill"></i>
     </p>
 </footer>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $account->phone ?? '8801XXXXXXXXX') }}"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="whatsapp-float"
+   id="whatsappFloat"
+   aria-label="Chat on WhatsApp">
+    <i class="bi bi-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat on WhatsApp</span>
+</a>
 
 <!-- Back to Top -->
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0})">
@@ -719,6 +775,160 @@
             margin-top: 0.3rem;
         }
 
+        /* ===== TIMELINE ===== */
+        .timeline-section {
+            background: linear-gradient(180deg, #0f172a 0%, #0c1322 100%);
+        }
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.4), rgba(59, 130, 246, 0.1));
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1.5rem 2rem;
+        }
+        .timeline-item.left {
+            left: 0;
+            text-align: right;
+            padding-right: 3rem;
+        }
+        .timeline-item.right {
+            left: 50%;
+            text-align: left;
+            padding-left: 3rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            border: 3px solid #0f172a;
+        }
+        .timeline-item.left .timeline-dot {
+            right: -22px;
+            top: 1.8rem;
+        }
+        .timeline-item.right .timeline-dot {
+            left: -22px;
+            top: 1.8rem;
+        }
+        .timeline-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .timeline-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.1);
+        }
+        .timeline-date {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #60a5fa;
+            font-weight: 600;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+        .current-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: #10b981;
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .timeline-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-company {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .timeline-item.left .timeline-company {
+            justify-content: flex-end;
+        }
+        .timeline-location {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        .timeline-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+        .timeline-item.left .timeline-card p {
+            text-align: right;
+        }
+
+        /* Timeline responsive */
+        @media (max-width: 768px) {
+            .timeline-line { left: 28px; }
+            .timeline-item {
+                width: 100%;
+                padding: 1rem 0 1rem 4rem !important;
+                text-align: left !important;
+            }
+            .timeline-item.left {
+                left: 0;
+                padding-right: 0;
+            }
+            .timeline-item.right {
+                left: 0;
+            }
+            .timeline-item .timeline-dot {
+                left: 6px !important;
+                right: auto !important;
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+                top: 1.5rem;
+            }
+            .timeline-item.left .timeline-company {
+                justify-content: flex-start;
+            }
+            .timeline-item.left .timeline-card p {
+                text-align: left;
+            }
+        }
+
         /* ===== SKILLS ===== */
         .skills-section {
             background: linear-gradient(180deg, #0f172a 0%, #0c1322 100%);
@@ -751,6 +961,13 @@
         .skill-card .name {
             font-weight: 600;
             font-size: 0.9rem;
+        }
+        .skill-card .percentage-label {
+            display: block;
+            font-size: 0.75rem;
+            color: #60a5fa;
+            font-weight: 600;
+            margin-top: 0.3rem;
         }
         .skill-card .bar-wrapper {
             margin-top: 0.8rem;
@@ -1167,6 +1384,78 @@
             transition: all 0.15s ease-out;
         }
 
+        /* ===== WHATSAPP FLOATING BUTTON ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.6rem;
+            z-index: 9999;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: pulseWhatsApp 2s ease-in-out infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.6);
+            color: #fff;
+        }
+        .whatsapp-tooltip {
+            position: absolute;
+            left: 66px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+        }
+        @keyframes pulseWhatsApp {
+            0%, 100% { box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 6px 35px rgba(37, 211, 102, 0.7); }
+        }
+
+        /* ===== GOOGLE MAP ===== */
+        .map-wrapper {
+            margin-top: 3rem;
+        }
+        .map-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .map-container:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 15px 50px rgba(59, 130, 246, 0.12);
+        }
+        .map-container iframe {
+            display: block;
+            filter: invert(0.9) hue-rotate(180deg) saturate(0.5);
+        }
+
         /* ===== BACK TO TOP ===== */
         .back-to-top {
             position: fixed;
@@ -1227,6 +1516,8 @@
         @media (max-width: 480px) {
             .skills-grid { grid-template-columns: repeat(2, 1fr); }
             .section-title h2 { font-size: 2rem; }
+            .whatsapp-tooltip { display: none; }
+            .map-container iframe { height: 250px; }
         }
 
         /* ===== TOAST ===== */

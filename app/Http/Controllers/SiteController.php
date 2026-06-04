@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Project;
 use App\Models\Testimonial;
+use App\Models\Experience;
+use App\Models\Skill;
 
 class SiteController extends Controller
 {
@@ -13,6 +15,8 @@ class SiteController extends Controller
         $account = Account::first(); 
         $projects = Project::active()->get();
         $testimonials = Testimonial::active()->get();
-        return view('frontend.index', compact('account', 'projects', 'testimonials'));
+        $experiences = Experience::active()->get();
+        $skills = Skill::active()->get();
+        return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'skills'));
     }
 }
