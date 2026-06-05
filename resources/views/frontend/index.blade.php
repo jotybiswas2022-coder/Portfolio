@@ -937,7 +937,7 @@
     </a>
 
     <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Back to top">
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="bi bi-arrow-up"></i>
     </button>
 
@@ -945,4 +945,336 @@
     <div class="toast" id="toast">
         <i class="bi bi-check-circle-fill"></i> Message sent successfully!
     </div>
+
+<script>
+// ===== PARTICLES SYSTEM =====
+(function() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: 0, y: 0 };
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.4;
+            this.speedY = (Math.random() - 0.5) * 0.4;
+            this.opacity = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) { this.x -= dx * 0.008; this.y -= dy * 0.008; }
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(59, 130, 246, ' + this.opacity + ')';
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        var count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+        for (var i = 0; i < count; i++) particles.push(new Particle());
+    }
+    initParticles();
+
+    function connectParticles() {
+        for (var i = 0; i < particles.length; i++) {
+            for (var j = i + 1; j < particles.length; j++) {
+                var dx = particles[i].x - particles[j].x;
+                var dy = particles[i].y - particles[j].y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(59, 130, 246, ' + (0.06 * (1 - dist / 150)) + ')';
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); }
+        connectParticles();
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+})();
+
+// ===== CUSTOM CURSOR =====
+(function() {
+    var dot = document.getElementById('cursorDot');
+    var ring = document.getElementById('cursorRing');
+    if (!dot || !ring) return;
+    document.addEventListener('mousemove', function(e) {
+        dot.style.left = e.clientX + 'px';
+        dot.style.top = e.clientY + 'px';
+        ring.style.left = e.clientX + 'px';
+        ring.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .magnetic, .project-card, .skill-card').forEach(function(el) {
+        el.addEventListener('mouseenter', function() { ring.classList.add('active'); dot.classList.add('active'); });
+        el.addEventListener('mouseleave', function() { ring.classList.remove('active'); dot.classList.remove('active'); });
+    });
+})();
+
+// ===== TYPING EFFECT =====
+(function() {
+    var el = document.getElementById('typingText');
+    if (!el) return;
+    var texts = [
+        'Full Stack Web Developer',
+        'Laravel Specialist',
+        'UI/UX Designer',
+        'Problem Solver',
+        'Freelancer'
+    ];
+    var textIndex = 0, charIndex = 0, isDeleting = false;
+    function typeEffect() {
+        var currentText = texts[textIndex];
+        if (!isDeleting) {
+            el.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === currentText.length) { isDeleting = true; setTimeout(typeEffect, 2000); return; }
+        } else {
+            el.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) { isDeleting = false; textIndex = (textIndex + 1) % texts.length; }
+        }
+        setTimeout(typeEffect, isDeleting ? 40 : 80);
+    }
+    typeEffect();
+})();
+
+// ===== NAVBAR SCROLL =====
+(function() {
+    var navbar = document.getElementById('navbar');
+    var backToTop = document.getElementById('backToTop');
+    if (!navbar) return;
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+        if (backToTop) {
+            if (window.scrollY > 400) backToTop.classList.add('visible');
+            else backToTop.classList.remove('visible');
+        }
+    });
+})();
+
+// ===== MOBILE MENU =====
+(function() {
+    var hamburger = document.getElementById('hamburger');
+    var navLinks = document.getElementById('navLinks');
+    if (!hamburger || !navLinks) return;
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('open');
+        });
+    });
+})();
+
+// ===== SCROLL REVEAL =====
+(function() {
+    var elements = document.querySelectorAll('.reveal');
+    function checkReveal() {
+        for (var i = 0; i < elements.length; i++) {
+            var top = elements[i].getBoundingClientRect().top;
+            if (top < window.innerHeight - 80) elements[i].classList.add('active');
+        }
+    }
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', checkReveal);
+    window.addEventListener('resize', checkReveal);
+})();
+
+// ===== COUNTER ANIMATION =====
+(function() {
+    function animateCounters() {
+        document.querySelectorAll('.stat-item .number').forEach(function(el) {
+            var target = parseInt(el.getAttribute('data-count'));
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && !el.dataset.animated) {
+                el.dataset.animated = 'true';
+                var count = 0;
+                var step = Math.ceil(target / 60);
+                var interval = setInterval(function() {
+                    count += step;
+                    if (count >= target) { count = target; clearInterval(interval); }
+                    el.textContent = count + '+';
+                }, 30);
+            }
+        });
+    }
+    window.addEventListener('scroll', animateCounters);
+    window.addEventListener('load', animateCounters);
+})();
+
+// ===== SKILL BAR ANIMATION =====
+(function() {
+    function animateSkillBars() {
+        document.querySelectorAll('.bar-fill').forEach(function(bar) {
+            var rect = bar.getBoundingClientRect();
+            if (rect.top < window.innerHeight && !bar.dataset.animated) {
+                bar.dataset.animated = 'true';
+                setTimeout(function() { bar.style.width = bar.getAttribute('data-width'); }, 300);
+            }
+        });
+    }
+    window.addEventListener('scroll', animateSkillBars);
+    window.addEventListener('load', animateSkillBars);
+})();
+
+// ===== PROJECT CARD TILT =====
+(function() {
+    document.querySelectorAll('.project-card').forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var rotateX = (y - rect.height/2) / 20;
+            var rotateY = (rect.width/2 - x) / 20;
+            card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)';
+        });
+        card.addEventListener('mouseleave', function() {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+    });
+})();
+
+// ===== SMOOTH ANCHOR SCROLL =====
+(function() {
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                var pos = target.getBoundingClientRect().top + window.scrollY - 80;
+                window.scrollTo({ top: pos, behavior: 'smooth' });
+            }
+        });
+    });
+})();
+
+// ===== MAGNETIC BUTTON EFFECT =====
+(function() {
+    document.querySelectorAll('.magnetic').forEach(function(btn) {
+        btn.addEventListener('mousemove', function(e) {
+            var rect = btn.getBoundingClientRect();
+            var x = e.clientX - rect.left - rect.width/2;
+            var y = e.clientY - rect.top - rect.height/2;
+            btn.style.transform = 'translate(' + (x*0.2) + 'px, ' + (y*0.2) + 'px)';
+        });
+        btn.addEventListener('mouseleave', function() { btn.style.transform = 'translate(0, 0)'; });
+    });
+})();
+
+// ===== TESTIMONIAL CAROUSEL =====
+(function() {
+    var track = document.getElementById('testimonialTrack');
+    var dotsContainer = document.getElementById('testDots');
+    var prevBtn = document.getElementById('testPrev');
+    var nextBtn = document.getElementById('testNext');
+    if (!track) return;
+    var cards = track.querySelectorAll('.testimonial-card');
+    var total = cards.length;
+    if (total <= 1) return;
+    var currentIndex = 0;
+    var autoInterval;
+
+    for (var i = 0; i < total; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        (function(idx) { dot.addEventListener('click', function() { goToSlide(idx); }); })(i);
+        dotsContainer.appendChild(dot);
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        track.style.transform = 'translateX(-' + (index * 100) + '%)';
+        dotsContainer.querySelectorAll('.dot').forEach(function(d, i) { d.classList.toggle('active', i === index); });
+    }
+    function startAutoPlay() { autoInterval = setInterval(function() { goToSlide(currentIndex === total - 1 ? 0 : currentIndex + 1); }, 5000); }
+    function stopAutoPlay() { clearInterval(autoInterval); }
+
+    prevBtn.addEventListener('click', function() { stopAutoPlay(); goToSlide(currentIndex === 0 ? total - 1 : currentIndex - 1); startAutoPlay(); });
+    nextBtn.addEventListener('click', function() { stopAutoPlay(); goToSlide(currentIndex === total - 1 ? 0 : currentIndex + 1); startAutoPlay(); });
+
+    var carousel = document.querySelector('.testimonial-carousel');
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+    startAutoPlay();
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+    });
+})();
+
+// ===== CONTACT FORM AJAX =====
+(function() {
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(form);
+        var btn = form.querySelector('.btn-submit');
+        var origText = btn.innerHTML;
+        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending...';
+        btn.disabled = true;
+
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(async function(response) {
+            if (!response.ok) { var err = await response.json(); throw err; }
+            return response.text();
+        })
+        .then(function() {
+            var toast = document.getElementById('toast');
+            if (toast) { toast.classList.add('show'); setTimeout(function() { toast.classList.remove('show'); }, 3000); }
+            form.reset();
+        })
+        .catch(function(error) { console.error('Error:', error); alert('Message send failed!'); })
+        .finally(function() { btn.innerHTML = origText; btn.disabled = false; });
+    });
+})();
+
+// ===== BACK TO TOP =====
+document.getElementById('backToTop').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
 @endsection
