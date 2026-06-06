@@ -24,26 +24,10 @@
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label fw-semibold">Client Name <span class="text-danger">*</span></label>
                                 <input type="text" id="name" name="name"
-                                       class="form-control form-control-lg shadow-sm @error('name') is-invalid @enderror"
+                                       class="form-control shadow-sm @error('name') is-invalid @enderror"
                                        value="{{ old('name', $testimonial->name) }}"
                                        placeholder="e.g. John Doe" required>
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Rating -->
-                            <div class="col-md-3 mb-3">
-                                <label for="rating" class="form-label fw-semibold">Rating</label>
-                                <select id="rating" name="rating"
-                                        class="form-select form-select-lg shadow-sm @error('rating') is-invalid @enderror">
-                                    @for($i = 5; $i >= 1; $i--)
-                                        <option value="{{ $i }}" {{ old('rating', $testimonial->rating) == $i ? 'selected' : '' }}>
-                                            {{ $i }} Star{{ $i > 1 ? 's' : '' }}
-                                        </option>
-                                    @endfor
-                                </select>
-                                @error('rating')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -52,10 +36,25 @@
                             <div class="col-md-3 mb-3">
                                 <label for="sort_order" class="form-label fw-semibold">Sort Order</label>
                                 <input type="number" id="sort_order" name="sort_order" min="0"
-                                       class="form-control form-control-lg shadow-sm @error('sort_order') is-invalid @enderror"
+                                       class="form-control shadow-sm @error('sort_order') is-invalid @enderror"
                                        value="{{ old('sort_order', $testimonial->sort_order) }}">
                                 @error('sort_order')
                                     <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- Rating (Visual Star Picker) -->
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label fw-semibold">Rating</label>
+                                <div class="star-picker" id="starPicker">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <i class="bi bi-star-fill star-btn" data-value="{{ $i }}" 
+                                           style="color: {{ old('rating', $testimonial->rating) >= $i ? '#f59e0b' : '#d1d5db' }}; font-size: 1.6rem; cursor: pointer; transition: all 0.15s ease;"></i>
+                                    @endfor
+                                    <input type="hidden" name="rating" id="ratingInput" value="{{ old('rating', $testimonial->rating) }}">
+                                </div>
+                                @error('rating')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -159,6 +158,32 @@ function previewImage(event) {
         preview.style.display = 'block';
     }
 }
+
+// Star Rating Picker
+document.querySelectorAll('.star-btn').forEach(function(star) {
+    star.addEventListener('click', function() {
+        var value = parseInt(this.getAttribute('data-value'));
+        document.getElementById('ratingInput').value = value;
+        document.querySelectorAll('.star-btn').forEach(function(s) {
+            var v = parseInt(s.getAttribute('data-value'));
+            s.style.color = v <= value ? '#f59e0b' : '#d1d5db';
+        });
+    });
+    star.addEventListener('mouseenter', function() {
+        var value = parseInt(this.getAttribute('data-value'));
+        document.querySelectorAll('.star-btn').forEach(function(s) {
+            var v = parseInt(s.getAttribute('data-value'));
+            s.style.color = v <= value ? '#fbbf24' : '#d1d5db';
+        });
+    });
+    star.addEventListener('mouseleave', function() {
+        var current = parseInt(document.getElementById('ratingInput').value);
+        document.querySelectorAll('.star-btn').forEach(function(s) {
+            var v = parseInt(s.getAttribute('data-value'));
+            s.style.color = v <= current ? '#f59e0b' : '#d1d5db';
+        });
+    });
+});
 </script>
 
 <style>
