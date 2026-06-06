@@ -140,7 +140,6 @@
         window.addEventListener('load', function() {
             setTimeout(function() {
                 loader.classList.add('hidden');
-                if (content) content.style.animation = 'none';
             }, 500);
         });
 
@@ -148,7 +147,6 @@
         setTimeout(function() {
             if (!loader.classList.contains('hidden')) {
                 loader.classList.add('hidden');
-                if (content) content.style.animation = 'none';
             }
         }, 3000);
     })();
