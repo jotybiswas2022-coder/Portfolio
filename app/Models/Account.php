@@ -12,5 +12,10 @@ class Account extends Model
         'phone',
         'email',
         'cv',
+        'github',
+        'linkedin',
+        'facebook',
+        'twitter',
+        'youtube',
     ];
 }

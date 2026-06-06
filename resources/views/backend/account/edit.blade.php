@@ -95,6 +95,69 @@
                             </div>
                         </div>
 
+                        <!-- Social Media Links -->
+                        <div class="card mb-4 border-0 shadow-sm rounded-4">
+                            <div class="card-header bg-dark text-white rounded-top-4 py-2">
+                                <h6 class="mb-0"><i class="bi bi-share me-2"></i>Social Media Links</h6>
+                            </div>
+                            <div class="card-body">
+                                <!-- GitHub -->
+                                <div class="mb-3">
+                                    <label for="github" class="form-label fw-semibold">
+                                        <i class="bi bi-github me-1"></i> GitHub
+                                    </label>
+                                    <input type="url" id="github" name="github"
+                                           class="form-control shadow-sm"
+                                           value="{{ $account->github ?? '' }}"
+                                           placeholder="https://github.com/username">
+                                </div>
+
+                                <!-- LinkedIn -->
+                                <div class="mb-3">
+                                    <label for="linkedin" class="form-label fw-semibold">
+                                        <i class="bi bi-linkedin me-1"></i> LinkedIn
+                                    </label>
+                                    <input type="url" id="linkedin" name="linkedin"
+                                           class="form-control shadow-sm"
+                                           value="{{ $account->linkedin ?? '' }}"
+                                           placeholder="https://linkedin.com/in/username">
+                                </div>
+
+                                <!-- Facebook -->
+                                <div class="mb-3">
+                                    <label for="facebook" class="form-label fw-semibold">
+                                        <i class="bi bi-facebook me-1"></i> Facebook
+                                    </label>
+                                    <input type="url" id="facebook" name="facebook"
+                                           class="form-control shadow-sm"
+                                           value="{{ $account->facebook ?? '' }}"
+                                           placeholder="https://facebook.com/username">
+                                </div>
+
+                                <!-- Twitter / X -->
+                                <div class="mb-3">
+                                    <label for="twitter" class="form-label fw-semibold">
+                                        <i class="bi bi-twitter-x me-1"></i> Twitter / X
+                                    </label>
+                                    <input type="url" id="twitter" name="twitter"
+                                           class="form-control shadow-sm"
+                                           value="{{ $account->twitter ?? '' }}"
+                                           placeholder="https://twitter.com/username">
+                                </div>
+
+                                <!-- YouTube -->
+                                <div class="mb-0">
+                                    <label for="youtube" class="form-label fw-semibold">
+                                        <i class="bi bi-youtube me-1 text-danger"></i> YouTube
+                                    </label>
+                                    <input type="url" id="youtube" name="youtube"
+                                           class="form-control shadow-sm"
+                                           value="{{ $account->youtube ?? '' }}"
+                                           placeholder="https://youtube.com/@channel">
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- CV Upload -->
                         <div class="mb-4">
                             <label for="cv" class="form-label fw-semibold">

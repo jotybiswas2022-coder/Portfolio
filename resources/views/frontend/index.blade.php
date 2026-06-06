@@ -616,6 +616,31 @@
     .footer { background: #080b14; border-top: 1px solid var(--border-color); padding: 3rem 2rem; text-align: center; position: relative; z-index: 1; }
     html.light-theme .footer { background: #e2e8f0 !important; }
     html.light-theme .footer p { color: #64748b; }
+    .social-icon {
+        width: 42px; height: 42px;
+        border-radius: 12px;
+        background: rgba(59,130,246,0.08);
+        border: 1px solid var(--border-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+        text-decoration: none;
+    }
+    .social-icon:hover {
+        background: rgba(59,130,246,0.15) !important;
+        border-color: rgba(59,130,246,0.4) !important;
+        color: #60a5fa !important;
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(59,130,246,0.2);
+    }
+    html.light-theme .social-icon:hover {
+        background: rgba(59,130,246,0.12) !important;
+        border-color: #3b82f6 !important;
+        color: #3b82f6 !important;
+    }
     .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
     .footer-links a { color: var(--text-muted); transition: var(--transition); font-size: 0.88rem; font-weight: 500; text-decoration: none; }
     .footer-links a:hover { color: var(--accent); }
@@ -1206,11 +1231,41 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-links">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <a href="#about">{{ __('messages.about') }}</a>
+            <a href="#skills">{{ __('messages.skills') }}</a>
+            <a href="#projects">{{ __('messages.projects') }}</a>
+            <a href="#contact">{{ __('messages.contact') }}</a>
         </div>
+
+        <!-- Social Media Icons -->
+        <div class="footer-social d-flex justify-content-center gap-2 flex-wrap" style="margin-bottom: 1.5rem;">
+            @if(isset($account) && $account->github)
+                <a href="{{ $account->github }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+                    <i class="bi bi-github"></i>
+                </a>
+            @endif
+            @if(isset($account) && $account->linkedin)
+                <a href="{{ $account->linkedin }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+            @endif
+            @if(isset($account) && $account->facebook)
+                <a href="{{ $account->facebook }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
+                    <i class="bi bi-facebook"></i>
+                </a>
+            @endif
+            @if(isset($account) && $account->twitter)
+                <a href="{{ $account->twitter }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Twitter">
+                    <i class="bi bi-twitter-x"></i>
+                </a>
+            @endif
+            @if(isset($account) && $account->youtube)
+                <a href="{{ $account->youtube }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                    <i class="bi bi-youtube"></i>
+                </a>
+            @endif
+        </div>
+
         <p>© {{ date('Y') }} {{ $account->name }}. {{ __('messages.copyright') }} 
             <i class="bi bi-heart-fill" style="color: #ef4444;"></i> 
             {{ __('messages.and_lots_of') }} 

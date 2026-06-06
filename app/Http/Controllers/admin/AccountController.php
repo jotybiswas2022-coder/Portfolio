@@ -24,11 +24,16 @@ class AccountController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name'  => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
-            'image' => 'nullable|image|max:2048',
-            'cv'    => 'nullable|mimes:pdf,doc,docx|max:5120',
+            'name'    => 'required|string|max:255',
+            'phone'   => 'nullable|string|max:20',
+            'email'   => 'nullable|email|max:255',
+            'image'   => 'nullable|image|max:2048',
+            'cv'      => 'nullable|mimes:pdf,doc,docx|max:5120',
+            'github'  => 'nullable|url|max:500',
+            'linkedin'=> 'nullable|url|max:500',
+            'facebook'=> 'nullable|url|max:500',
+            'twitter' => 'nullable|url|max:500',
+            'youtube' => 'nullable|url|max:500',
         ]);
 
         $account = Account::first();
@@ -39,6 +44,11 @@ class AccountController extends Controller
         $account->name = $request->name;
         $account->phone = $request->phone;
         $account->email = $request->email;
+        $account->github = $request->github;
+        $account->linkedin = $request->linkedin;
+        $account->facebook = $request->facebook;
+        $account->twitter = $request->twitter;
+        $account->youtube = $request->youtube;
 
         // Image upload
         if ($request->hasFile('image')) {
