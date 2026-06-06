@@ -704,6 +704,27 @@
     .back-to-top.visible { opacity: 1; transform: translateY(0); }
     .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.45); }
 
+    /* Floating Admin Button */
+    .admin-float-btn {
+        position: fixed; bottom: 5rem; right: 2rem;
+        width: 48px; height: 48px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.2rem; cursor: pointer; z-index: 99;
+        opacity: 0; transform: translateY(20px);
+        transition: var(--transition); border: none; color: #fff;
+        text-decoration: none;
+        box-shadow: 0 5px 20px rgba(99,102,241,0.3);
+    }
+    .admin-float-btn:hover {
+        opacity: 1 !important;
+        transform: translateY(-5px) !important;
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(99,102,241,0.45);
+    }
+    .admin-float-btn.visible { opacity: 1; transform: translateY(0); }
+
     /* Toast */
     .toast {
         position: fixed; bottom: 2rem; left: 50%;
@@ -1286,6 +1307,15 @@
         <i class="bi bi-arrow-up"></i>
     </button>
 
+    <!-- Floating Admin Button (only for admin users) -->
+    @auth
+        @if(auth()->user()->is_admin == 1)
+            <a href="{{ url('/admin') }}" class="admin-float-btn" aria-label="Admin Panel" title="Go to Admin Panel">
+                <i class="bi bi-speedometer2"></i>
+            </a>
+        @endif
+    @endauth
+
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1422,6 +1452,7 @@
 (function() {
     var navbar = document.getElementById('navbar');
     var backToTop = document.getElementById('backToTop');
+    var adminFloat = document.querySelector('.admin-float-btn');
     if (!navbar) return;
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) navbar.classList.add('scrolled');
@@ -1429,6 +1460,10 @@
         if (backToTop) {
             if (window.scrollY > 400) backToTop.classList.add('visible');
             else backToTop.classList.remove('visible');
+        }
+        if (adminFloat) {
+            if (window.scrollY > 300) adminFloat.classList.add('visible');
+            else adminFloat.classList.remove('visible');
         }
     });
 })();
