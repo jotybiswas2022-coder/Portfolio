@@ -6,15 +6,11 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
 
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-header bg-dark text-white rounded-top-4">
-                    <h5 class="mb-0">
-                        <i class="bi bi-plus-circle me-2"></i>
-                        Add Work Experience
-                    </h5>
+            <div class="card form-card">
+                <div class="card-header">
+                    <h5><i class="bi bi-plus-circle me-2"></i>Add Work Experience</h5>
                 </div>
-
-                <div class="card-body p-4">
+                <div class="card-body">
                     <form action="{{ route('admin.experiences.store') }}" method="POST">
                         @csrf
 
@@ -96,11 +92,9 @@
                                 <i class="bi bi-arrow-left me-1"></i> Back
                             </a>
                             <button type="submit" class="btn btn-dark btn-lg rounded-3 shadow-sm flex-grow-1">
-                                <i class="bi bi-check-circle me-1"></i>
-                                Create Experience
+                                <i class="bi bi-check-circle me-1"></i> Create Experience
                             </button>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -115,21 +109,5 @@ function toggleEndDate(checkbox) {
     if (checkbox.checked) document.getElementById('end_date').value = '';
 }
 </script>
-
-<style>
-.card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-@media (prefers-color-scheme: dark) {
-    .card { background-color: #1c1c1e; }
-    .card-body, .card-header { color: #f1f1f1; }
-    input.form-control, textarea.form-control {
-        background-color: #2c2c2e; color: #f1f1f1; border-color: #444;
-    }
-    input.form-control:focus, textarea.form-control:focus {
-        background-color: #2c2c2e; color: #f1f1f1; border-color: #0d6efd;
-        box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
-    }
-}
-</style>
 
 @endsection

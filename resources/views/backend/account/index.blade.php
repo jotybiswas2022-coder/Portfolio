@@ -1,150 +1,47 @@
 @extends('backend.app')
 
 @section('content')
-<div class="container py-5">
-    <div class="account-card">
-        <div class="profile-section">
+<div class="container py-4">
+    <div class="card-modern" style="max-width: 700px; margin: 0 auto;">
+        <div class="card-header">
+            <i class="bi bi-person-circle me-2"></i> Account Profile
+        </div>
+        <div class="card-body">
+            <div class="d-flex align-items-center flex-wrap gap-4">
+                <!-- Profile Image -->
+                <div>
+                    @if(isset($account) && $account->image)
+                        <img src="{{ config('app.storage_url') }}{{ $account->image }}" 
+                             alt="{{ $account->name ?? 'User' }}"
+                             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--admin-primary);">
+                    @else
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border: 3px solid var(--admin-primary);">
+                            {{ isset($account->name) ? strtoupper(substr($account->name, 0, 1)) : 'U' }}
+                        </div>
+                    @endif
+                </div>
 
-            <!-- Profile Image -->
-            <div class="profile-img">
-                @if(isset($account) && $account->image)
-                    <img src="{{ config('app.storage_url') }}{{ $account->image }}" 
-                         alt="{{ $account->name ?? 'User' }}">
-                @else
-                    <div class="profile-fallback">
-                        {{ isset($account->name) ? strtoupper(substr($account->name, 0, 1)) : 'U' }}
-                    </div>
-                @endif
-            </div>
+                <!-- Account Info -->
+                <div style="flex: 1;">
+                    <h3 class="fw-bold mb-2">{{ $account->name ?? 'Not set' }}</h3>
+                    @if(isset($account) && $account->cv)
+                        <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
+                           target="_blank" class="btn btn-sm btn-outline-danger rounded-3">
+                            <i class="bi bi-file-earmark-pdf-fill me-1"></i> View CV
+                        </a>
+                    @else
+                        <p class="text-muted small mb-0"><i class="bi bi-file-earmark me-1"></i>No CV uploaded</p>
+                    @endif
+                </div>
 
-            <!-- Account Info -->
-            <div class="account-info">
-                <h3>Name: {{ $account->name ?? 'Not set' }}</h3>
-                @if(isset($account) && $account->cv)
-                    <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
-                       target="_blank" class="btn btn-sm btn-outline-danger mt-2">
-                        <i class="bi bi-file-earmark-pdf-fill me-1"></i> View CV
+                <!-- Edit Button -->
+                <div>
+                    <a href="{{ url('/admin/account/edit') }}" class="btn btn-admin btn-admin-primary">
+                        <i class="bi bi-pencil-square me-1"></i> Edit
                     </a>
-                @else
-                    <p class="text-muted small mt-2"><i class="bi bi-file-earmark me-1"></i>No CV uploaded</p>
-                @endif
-            </div>
-
-            <!-- Edit Button -->
-            <div class="edit-btn">
-                <a href="{{ url('/admin/account/edit') }}">
-                    <i class="bi bi-pencil-square me-1"></i> Edit Account
-                </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Custom CSS -->
-<style>
-/* Card Styling */
-.account-card {
-    background-color: #f8f9fa;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 700px;
-    margin: 0 auto;
-    transition: all 0.3s ease;
-}
-.account-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-/* Profile Section */
-.profile-section {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-/* Profile Image */
-.profile-img img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #0d6efd;
-}
-.profile-fallback {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #6c757d;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    border: 3px solid #0d6efd;
-}
-
-/* Account Info */
-.account-info {
-    flex-grow: 1;
-    margin-left: 20px;
-}
-.account-info h3 {
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-.account-info p {
-    margin: 0;
-}
-
-/* Edit Button */
-.edit-btn a {
-    display: inline-flex;
-    align-items: center;
-    background-color: #0d6efd;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.3s ease;
-}
-.edit-btn a i {
-    font-size: 1.1rem;
-}
-.edit-btn a:hover {
-    background-color: #0b5ed7;
-}
-
-/* Responsive */
-@media (max-width: 576px) {
-    .profile-section {
-        flex-direction: column;
-        text-align: center;
-    }
-    .account-info {
-        margin-left: 0;
-        margin-top: 15px;
-    }
-    .edit-btn {
-        margin-top: 15px;
-    }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    .account-card {
-        background-color: #1c1c1e;
-        box-shadow: 0 4px 12px rgba(255,255,255,0.05);
-    }
-    .account-info h3, .account-info p {
-        color: #f1f1f1;
-    }
-    .profile-fallback {
-        background-color: #495057;
-        border-color: #0d6efd;
-    }
-}
-</style>
 @endsection

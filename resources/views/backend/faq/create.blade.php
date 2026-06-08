@@ -1,32 +1,37 @@
 @extends('backend.app')
 
 @section('content')
+
 <div class="container-fluid py-4">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-header bg-dark text-white rounded-top-4">
-                    <h5 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Add New FAQ</h5>
+
+            <div class="card form-card">
+                <div class="card-header">
+                    <h5><i class="bi bi-plus-circle me-2"></i>Add New FAQ</h5>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body">
                     <form action="{{ route('admin.faqs.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Question <span class="text-danger">*</span></label>
-                            <input type="text" name="question" class="form-control form-control-lg shadow-sm @error('question') is-invalid @enderror"
+                            <input type="text" name="question"
+                                   class="form-control form-control-lg shadow-sm @error('question') is-invalid @enderror"
                                    value="{{ old('question') }}" placeholder="e.g. What technologies do you work with?" required>
                             @error('question')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Answer <span class="text-danger">*</span></label>
-                            <textarea name="answer" rows="5" class="form-control shadow-sm @error('answer') is-invalid @enderror"
+                            <textarea name="answer" rows="5"
+                                      class="form-control shadow-sm @error('answer') is-invalid @enderror"
                                       placeholder="Write the answer..." required>{{ old('answer') }}</textarea>
                             @error('answer')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Sort Order</label>
-                                <input type="number" name="sort_order" min="0" class="form-control form-control-lg shadow-sm"
+                                <input type="number" name="sort_order" min="0"
+                                       class="form-control form-control-lg shadow-sm"
                                        value="{{ old('sort_order', 0) }}">
                             </div>
                             <div class="col-md-6 mb-3 d-flex align-items-end">
@@ -47,22 +52,9 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
-<style>
-.card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-@media (prefers-color-scheme: dark) {
-    .card { background-color: #1c1c1e; }
-    .card-body, .card-header { color: #f1f1f1; }
-    textarea.form-control, input.form-control {
-        background-color: #2c2c2e; color: #f1f1f1; border-color: #444;
-    }
-    textarea.form-control:focus, input.form-control:focus {
-        background-color: #2c2c2e; color: #f1f1f1; border-color: #0d6efd;
-        box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
-    }
-}
-</style>
+
 @endsection

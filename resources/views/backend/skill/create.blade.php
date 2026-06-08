@@ -6,15 +6,11 @@
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
 
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-header bg-dark text-white rounded-top-4">
-                    <h5 class="mb-0">
-                        <i class="bi bi-plus-circle me-2"></i>
-                        Add New Skill
-                    </h5>
+            <div class="card form-card">
+                <div class="card-header">
+                    <h5><i class="bi bi-plus-circle me-2"></i>Add New Skill</h5>
                 </div>
-
-                <div class="card-body p-4">
+                <div class="card-body">
                     <form action="{{ route('admin.skills.store') }}" method="POST">
                         @csrf
 
@@ -49,10 +45,7 @@
                             <input type="text" name="icon"
                                    class="form-control shadow-sm @error('icon') is-invalid @enderror"
                                    value="{{ old('icon') }}" placeholder="e.g. bi-fire, bi-globe2, bi-code-slash">
-                            <div class="form-text">
-                                Browse icons at <a href="https://icons.getbootstrap.com" target="_blank">icons.getbootstrap.com</a>
-                                — Use full class like <code>bi-fire</code>
-                            </div>
+                            <div class="form-text">Browse at <a href="https://icons.getbootstrap.com" target="_blank">icons.getbootstrap.com</a></div>
                             @error('icon')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
 
@@ -76,11 +69,9 @@
                                 <i class="bi bi-arrow-left me-1"></i> Back
                             </a>
                             <button type="submit" class="btn btn-dark btn-lg rounded-3 shadow-sm flex-grow-1">
-                                <i class="bi bi-check-circle me-1"></i>
-                                Create Skill
+                                <i class="bi bi-check-circle me-1"></i> Create Skill
                             </button>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -95,21 +86,5 @@ document.querySelector('input[name="icon"]').addEventListener('input', function(
     preview.className = 'bi ' + (this.value || 'bi-star') + ' fs-2';
 });
 </script>
-
-<style>
-.card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-@media (prefers-color-scheme: dark) {
-    .card { background-color: #1c1c1e; }
-    .card-body, .card-header { color: #f1f1f1; }
-    input.form-control {
-        background-color: #2c2c2e; color: #f1f1f1; border-color: #444;
-    }
-    input.form-control:focus {
-        background-color: #2c2c2e; color: #f1f1f1; border-color: #0d6efd;
-        box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
-    }
-}
-</style>
 
 @endsection
