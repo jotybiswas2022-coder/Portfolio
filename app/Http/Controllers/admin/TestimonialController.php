@@ -12,10 +12,30 @@ class TestimonialController extends Controller
     /**
      * Display a listing of the testimonials.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $testimonials = Testimonial::orderBy('sort_order')->get();
-        return view('backend.testimonial.index', compact('testimonials'));
+        $query = $request->input('q');
+
+        $testimonials = Testimonial::query()
+            ->when($query, function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                  ->orWhere('designation', 'like', "%{$query}%")
+                  ->orWhere('company', 'like', "%{$query}%")
+                  ->orWhere('message', 'like', "%{$query}%");
+            })
+            ->orderBy('sort_order')
+            ->get();
+
+        if ($request->ajax()) {
+            $html = view('backend.testimonial._table_rows', compact('testimonials'))->render();
+            return response()->json([
+                'html'  => $html,
+                'count' => $testimonials->count(),
+                'query' => $query,
+            ]);
+        }
+
+        return view('backend.testimonial.index', compact('testimonials', 'query'));
     }
 
     /**
