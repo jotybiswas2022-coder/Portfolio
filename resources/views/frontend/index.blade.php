@@ -967,8 +967,8 @@
         .about-stats { flex-wrap: wrap; gap: 1rem; }
         .about-stats .stat-item { min-width: calc(50% - 0.5rem); flex: 1 1 auto; }
         .stat-item .stat-icon { width: 36px; height: 36px; font-size: 0.95rem; }
-        .about-image .img-wrapper { width: 240px; height: 240px; }
-        .about-image .glow-ring { width: 260px; height: 260px; }
+        .about-image .img-wrapper { width: 180px; height: 180px; }
+        .about-image .glow-ring { width: 200px; height: 200px; }
         .about-text h3 { font-size: 1.5rem; }
         .about-text p { font-size: 0.92rem; }
         .stat-item .number { font-size: 1.6rem; }
@@ -1022,8 +1022,8 @@
         .skill-card .name { font-size: 0.8rem; }
         
         .about-grid { gap: 2rem; }
-        .about-image .img-wrapper { width: 200px; height: 200px; border-radius: 24px; }
-        .about-image .glow-ring { width: 220px; height: 220px; border-radius: 24px; }
+        .about-image .img-wrapper { width: 150px; height: 150px; border-radius: 24px; }
+        .about-image .glow-ring { width: 170px; height: 170px; border-radius: 24px; }
         .about-stats .stat-item { padding: 0.8rem 0.6rem; }
         .stat-item .stat-icon { width: 32px; height: 32px; font-size: 0.85rem; margin-bottom: 0.5rem; }
         .about-stats .stat-item .number { font-size: 1.4rem; }
@@ -1093,8 +1093,8 @@
     /* Very Small Screens (max 360px) */
     @media (max-width: 360px) {
         .hero h1 { font-size: 1.5rem; }
-        .about-image .img-wrapper { width: 160px; height: 160px; }
-        .about-image .glow-ring { width: 180px; height: 180px; }
+        .about-image .img-wrapper { width: 130px; height: 130px; }
+        .about-image .glow-ring { width: 150px; height: 150px; }
         .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
         .skill-card { padding: 1rem 0.4rem; }
         .stat-item { min-width: 100% !important; }
