@@ -26,6 +26,16 @@ class ProjectController extends Controller
             ->orderBy('sort_order')
             ->get();
 
+        // Return JSON for AJAX live search
+        if ($request->ajax()) {
+            $html = view('backend.project._table_rows', compact('projects'))->render();
+            return response()->json([
+                'html'      => $html,
+                'count'     => $projects->count(),
+                'query'     => $query,
+            ]);
+        }
+
         return view('backend.project.index', compact('projects', 'query'));
     }
 
