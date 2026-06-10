@@ -8,10 +8,28 @@ use App\Models\Service;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::orderBy('sort_order')->get();
-        return view('backend.service.index', compact('services'));
+        $query = $request->input('q');
+
+        $services = Service::query()
+            ->when($query, function ($q) use ($query) {
+                $q->where('title', 'like', "%{$query}%")
+                  ->orWhere('short_description', 'like', "%{$query}%");
+            })
+            ->orderBy('sort_order')
+            ->get();
+
+        if ($request->ajax()) {
+            $html = view('backend.service._table_rows', compact('services'))->render();
+            return response()->json([
+                'html'  => $html,
+                'count' => $services->count(),
+                'query' => $query,
+            ]);
+        }
+
+        return view('backend.service.index', compact('services', 'query'));
     }
 
     public function create()
