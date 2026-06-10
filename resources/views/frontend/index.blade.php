@@ -285,20 +285,115 @@
     }
     .about-text h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
     .about-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
-    .about-stats { display: flex; gap: 1.5rem; margin-top: 2rem; }
+
+    /* Stats — Redesigned */
+    .about-stats {
+        display: flex;
+        gap: 1.25rem;
+        margin-top: 2rem;
+    }
     .stat-item {
-        flex: 1; text-align: center; padding: 1.2rem 1rem;
-        background: rgba(59, 130, 246, 0.04);
+        flex: 1;
+        position: relative;
+        padding: 1.6rem 1rem;
+        background: var(--bg-card);
         border: 1px solid var(--border-color);
-        border-radius: var(--radius-md); transition: var(--transition);
+        border-radius: var(--radius-lg);
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+        cursor: default;
+    }
+    .stat-item::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .stat-item:hover::before {
+        transform: scaleX(1);
     }
     .stat-item:hover {
-        transform: translateY(-5px);
-        border-color: rgba(59, 130, 246, 0.35);
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.08);
+        transform: translateY(-8px) scale(1.03);
+        border-color: var(--accent);
+        box-shadow: 0 16px 50px rgba(59, 130, 246, 0.12);
     }
-    .stat-item .number { font-size: 2rem; font-weight: 800; color: var(--accent); }
-    .stat-item .label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem; }
+    .stat-item .stat-icon {
+        width: 44px;
+        height: 44px;
+        margin: 0 auto 0.8rem;
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.15);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        color: var(--accent-light);
+        transition: all 0.4s ease;
+    }
+    .stat-item:hover .stat-icon {
+        background: var(--accent-gradient);
+        border-color: transparent;
+        color: #fff;
+        transform: scale(1.1) rotate(-5deg);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+    }
+    .stat-item .number {
+        font-size: 2.2rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--accent-light), #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 0.25rem;
+        letter-spacing: -1px;
+        transition: all 0.3s ease;
+    }
+    .stat-item:hover .number {
+        background: linear-gradient(135deg, #60a5fa, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .stat-item .label {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: color 0.3s ease;
+    }
+    .stat-item:hover .label {
+        color: var(--text-secondary);
+    }
+    .stat-item .stat-glow {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.06), transparent 70%);
+        top: -40px;
+        right: -40px;
+        pointer-events: none;
+        transition: all 0.5s ease;
+    }
+    .stat-item:hover .stat-glow {
+        transform: scale(2);
+        opacity: 0.5;
+    }
+    html.light-theme .stat-item {
+        background: rgba(255, 255, 255, 0.85) !important;
+    }
+    html.light-theme .stat-item:hover {
+        box-shadow: 0 16px 50px rgba(59, 130, 246, 0.15) !important;
+    }
 
     /* Services */
     .services-section { background: linear-gradient(180deg, #080d1a 0%, var(--bg-secondary) 100%); }
@@ -871,6 +966,7 @@
         
         .about-stats { flex-wrap: wrap; gap: 1rem; }
         .about-stats .stat-item { min-width: calc(50% - 0.5rem); flex: 1 1 auto; }
+        .stat-item .stat-icon { width: 36px; height: 36px; font-size: 0.95rem; }
         .about-image .img-wrapper { width: 240px; height: 240px; }
         .about-image .glow-ring { width: 260px; height: 260px; }
         .about-text h3 { font-size: 1.5rem; }
@@ -929,6 +1025,7 @@
         .about-image .img-wrapper { width: 200px; height: 200px; border-radius: 24px; }
         .about-image .glow-ring { width: 220px; height: 220px; border-radius: 24px; }
         .about-stats .stat-item { padding: 0.8rem 0.6rem; }
+        .stat-item .stat-icon { width: 32px; height: 32px; font-size: 0.85rem; margin-bottom: 0.5rem; }
         .about-stats .stat-item .number { font-size: 1.4rem; }
         .about-stats .stat-item .label { font-size: 0.72rem; }
         .about-text h3 { font-size: 1.3rem; }
@@ -1059,14 +1156,20 @@
                     <p>{{ __('messages.about_desc_2') }}</p>
                     <div class="about-stats">
                         <div class="stat-item">
+                            <div class="stat-glow"></div>
+                            <div class="stat-icon"><i class="bi bi-folder2-open"></i></div>
                             <div class="number" data-count="50">0</div>
                             <div class="label">{{ __('messages.stat_projects') }}</div>
                         </div>
                         <div class="stat-item">
+                            <div class="stat-glow"></div>
+                            <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
                             <div class="number" data-count="30">0</div>
                             <div class="label">{{ __('messages.stat_clients') }}</div>
                         </div>
                         <div class="stat-item">
+                            <div class="stat-glow"></div>
+                            <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
                             <div class="number" data-count="3">0</div>
                             <div class="label">{{ __('messages.stat_years') }}</div>
                         </div>
