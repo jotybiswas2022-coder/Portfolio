@@ -1392,8 +1392,10 @@
     <footer class="footer">
         <div class="footer-links">
             <a href="#about">{{ __('messages.about') }}</a>
+            <a href="#services">{{ __('messages.services') }}</a>
             <a href="#skills">{{ __('messages.skills') }}</a>
             <a href="#projects">{{ __('messages.projects') }}</a>
+            <a href="{{ url('/blog') }}">{{ __('messages.blog') }}</a>
             <a href="#faq">{{ __('messages.faq_title') }}</a>
             <a href="#contact">{{ __('messages.contact') }}</a>
         </div>
