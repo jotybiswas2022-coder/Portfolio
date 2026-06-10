@@ -17,6 +17,9 @@
 
         <!-- Page Loading Animation -->
     <style>
+        /* Remove underline from ALL links across the entire site */
+        a { text-decoration: none !important; }
+
         /* Light Theme - works on ALL pages */
         html.light-theme {
             --bg-primary: #f8fafc;
