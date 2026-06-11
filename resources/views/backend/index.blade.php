@@ -226,15 +226,15 @@
 .dsb-qa {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.4rem 0.75rem;
+    gap: 0.45rem;
+    padding: 0.5rem 0.95rem;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
-    color: #475569;
+    color: #1e293b;
     font-weight: 600;
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     transition: all 0.25s ease;
     white-space: nowrap;
 }
@@ -245,7 +245,7 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(99,102,241,0.1);
 }
-.dsb-qa i { font-size: 0.78rem; }
+.dsb-qa i { font-size: 0.85rem; }
 
 /* ─── Animations ─── */
 @keyframes float {
