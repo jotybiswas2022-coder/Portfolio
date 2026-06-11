@@ -426,7 +426,7 @@
                 </div>
                 <div class="card-body">
                     @forelse($recentMessages as $m)
-                        <div class="recent-item" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#messageModal{{ $m->id }}">
+                        <div class="recent-item" style="cursor:pointer;" onclick="showMessageModal({{ $m->id }})">
                             <span class="av" style="background:rgba(239,68,68,0.1); color:#ef4444;">
                                 {{ strtoupper(substr($m->name, 0, 1)) }}
                             </span>
@@ -442,7 +442,7 @@
                             </span>
                         </div>
 
-                        <div class="modal fade modal-modern" id="messageModal{{ $m->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal fade" id="messageModal{{ $m->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content border-0 shadow">
                                     <div class="modal-header" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border-radius: 12px 12px 0 0;">
@@ -519,4 +519,16 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+function showMessageModal(id) {
+    var el = document.getElementById('messageModal' + id);
+    if (el) {
+        var modal = new bootstrap.Modal(el);
+        modal.show();
+    }
+}
+</script>
 @endsection
