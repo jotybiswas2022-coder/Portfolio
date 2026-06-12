@@ -433,21 +433,19 @@
     }
     .services-section .water-surface .wave:nth-child(1) {
         background: rgba(59, 130, 246, 0.06);
-        animation: surfaceWave1 8s ease-in-out infinite;
+        animation: surfaceWave1 4s linear infinite alternate;
     }
     .services-section .water-surface .wave:nth-child(2) {
         background: rgba(99, 102, 241, 0.04);
-        animation: surfaceWave2 12s ease-in-out infinite;
+        animation: surfaceWave2 6s linear infinite alternate;
     }
     @keyframes surfaceWave1 {
         0%   { transform: translateX(0) rotate(0deg); }
-        50%  { transform: translateX(-15%) rotate(5deg); }
-        100% { transform: translateX(0) rotate(0deg); }
+        100% { transform: translateX(-20%) rotate(5deg); }
     }
     @keyframes surfaceWave2 {
         0%   { transform: translateX(0) rotate(0deg); }
-        50%  { transform: translateX(10%) rotate(-3deg); }
-        100% { transform: translateX(0) rotate(0deg); }
+        100% { transform: translateX(15%) rotate(-3deg); }
     }
 
     /* ===== WAVE SCENE — continuous full-width water body ===== */
@@ -478,7 +476,7 @@
         border-radius: 40%;
         pointer-events: none;
         z-index: 0;
-        animation: waveDeep 14s ease-in-out infinite;
+        animation: waveDeep 6s linear infinite alternate;
         will-change: transform;
     }
     /* Wave Layer 2 — mid, medium speed */
@@ -500,7 +498,7 @@
         border-radius: 36%;
         pointer-events: none;
         z-index: 1;
-        animation: waveMid 10s ease-in-out infinite;
+        animation: waveMid 5s linear infinite alternate;
         will-change: transform;
     }
 
@@ -522,7 +520,7 @@
         border-radius: 44%;
         pointer-events: none;
         z-index: 2;
-        animation: waveFront 8s ease-in-out infinite reverse;
+        animation: waveFront 4s linear infinite alternate;
         will-change: transform;
     }
 
@@ -544,31 +542,26 @@
         border-radius: 38%;
         pointer-events: none;
         z-index: 3;
-        animation: waveFront2 12s ease-in-out infinite;
+        animation: waveFront2 7s linear infinite alternate;
         will-change: transform;
     }
 
-    /* Wave flow keyframes */
+    /* Wave flow keyframes — pure linear translation, no scale, for smooth flowing water */
     @keyframes waveDeep {
-        0%   { transform: translateX(0) scaleY(1); opacity: 0.4; }
-        50%  { transform: translateX(-20%) scaleY(1.15); opacity: 0.6; }
-        100% { transform: translateX(0) scaleY(1); opacity: 0.4; }
+        0%   { transform: translateX(0); opacity: 0.4; }
+        100% { transform: translateX(-25%); opacity: 0.6; }
     }
     @keyframes waveMid {
-        0%   { transform: translateX(-10%) scaleY(1); }
-        50%  { transform: translateX(15%) scaleY(1.08); }
-        100% { transform: translateX(-10%) scaleY(1); }
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-25%); }
     }
     @keyframes waveFront {
-        0%   { transform: translateX(5%) scaleY(1); }
-        50%  { transform: translateX(-25%) scaleY(0.92); }
-        100% { transform: translateX(5%) scaleY(1); }
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(25%); }
     }
     @keyframes waveFront2 {
-        0%   { transform: translateX(-5%) scaleY(1); }
-        33%  { transform: translateX(20%) scaleY(1.06); }
-        66%  { transform: translateX(-15%) scaleY(0.95); }
-        100% { transform: translateX(-5%) scaleY(1); }
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-30%); }
     }
 
     /* Water surface shimmer — sweeps across the full scene */
@@ -587,7 +580,7 @@
         );
         pointer-events: none;
         z-index: 4;
-        animation: shimmerSweep 5s ease-in-out infinite;
+        animation: shimmerSweep 4s linear infinite;
         opacity: 0.5;
     }
     @keyframes shimmerSweep {
@@ -717,30 +710,27 @@
     }
     .services-section .bottom-waves .wave:nth-child(1) {
         background: rgba(59, 130, 246, 0.05);
-        animation: bottomWave1 10s ease-in-out infinite;
+        animation: bottomWave1 5s linear infinite alternate;
     }
     .services-section .bottom-waves .wave:nth-child(2) {
         background: rgba(99, 102, 241, 0.04);
-        animation: bottomWave2 14s ease-in-out infinite;
+        animation: bottomWave2 7s linear infinite alternate;
     }
     .services-section .bottom-waves .wave:nth-child(3) {
         background: rgba(6, 182, 212, 0.03);
-        animation: bottomWave3 8s ease-in-out infinite;
+        animation: bottomWave3 4s linear infinite alternate;
     }
     @keyframes bottomWave1 {
         0%   { transform: translateX(0) rotate(0deg); opacity: 0.4; }
-        50%  { transform: translateX(-20%) rotate(3deg); opacity: 0.6; }
-        100% { transform: translateX(0) rotate(0deg); opacity: 0.4; }
+        100% { transform: translateX(-25%) rotate(4deg); opacity: 0.6; }
     }
     @keyframes bottomWave2 {
-        0%   { transform: translateX(-10%) rotate(0deg); opacity: 0.3; }
-        50%  { transform: translateX(10%) rotate(-2deg); opacity: 0.5; }
-        100% { transform: translateX(-10%) rotate(0deg); opacity: 0.3; }
+        0%   { transform: translateX(0) rotate(0deg); opacity: 0.3; }
+        100% { transform: translateX(20%) rotate(-3deg); opacity: 0.5; }
     }
     @keyframes bottomWave3 {
-        0%   { transform: translateX(10%) rotate(0deg); opacity: 0.2; }
-        50%  { transform: translateX(-15%) rotate(4deg); opacity: 0.4; }
-        100% { transform: translateX(10%) rotate(0deg); opacity: 0.2; }
+        0%   { transform: translateX(0) rotate(0deg); opacity: 0.2; }
+        100% { transform: translateX(-20%) rotate(5deg); opacity: 0.4; }
     }
 
     /* ---- Light theme ---- */
