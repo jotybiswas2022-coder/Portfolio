@@ -58,7 +58,7 @@
         background: rgba(255, 255, 255, 0.85) !important;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
     body {
         font-family: var(--font);
         background: var(--bg-primary);
@@ -2059,13 +2059,17 @@
         mouseInside = false;
     });
 
+    // Cache container dimensions — recalculate ONLY on resize, NOT every frame!
+    var cwCache = container.clientWidth;
+    var chCache = container.clientHeight;
+
     var time = 0;
 
     function animateFloatingBalls() {
         time += 0.005;
-        var rect = container.getBoundingClientRect();
-        var cw = rect.width;
-        var ch = rect.height;
+        // Use cached dimensions to avoid layout thrashing from getBoundingClientRect
+        var cw = cwCache;
+        var ch = chCache;
 
         states.forEach(function(s) {
             // Natural sinusoidal drift — gives organic floating motion
@@ -2114,18 +2118,17 @@
 
     animateFloatingBalls();
 
-    // Recalculate on resize
+    // Recalculate on resize ONLY — no getBoundingClientRect in the animation loop!
     var resizeTimer;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
-            var rect = container.getBoundingClientRect();
-            cw = rect.width;
-            ch = rect.height;
+            cwCache = container.clientWidth;
+            chCache = container.clientHeight;
             states.forEach(function(s) {
                 // Keep balls within new bounds
-                s.x = Math.max(0, Math.min(s.x, cw - s.size));
-                s.y = Math.max(0, Math.min(s.y, ch - s.size));
+                s.x = Math.max(0, Math.min(s.x, cwCache - s.size));
+                s.y = Math.max(0, Math.min(s.y, chCache - s.size));
             });
         }, 200);
     });
