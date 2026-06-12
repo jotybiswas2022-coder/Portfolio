@@ -53,8 +53,7 @@
     html.light-theme .contact-form,
     html.light-theme .contact-item,
     html.light-theme .testimonial-card,
-    html.light-theme .faq-item,
-    html.light-theme .service-card {
+    html.light-theme .faq-item {
         background: rgba(255, 255, 255, 0.85) !important;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -394,214 +393,321 @@
         box-shadow: 0 16px 50px rgba(59, 130, 246, 0.15) !important;
     }
 
-    /* Services */
-    .services-section { background: linear-gradient(180deg, #080d1a 0%, var(--bg-secondary) 100%); }
-    html.light-theme .services-section { background: linear-gradient(180deg, #f1f5f9 0%, #eef2f7 100%); }
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 2rem;
-    }
-
-    /* ===== SERVICE CARD — AURORA PRISM ===== */
-    .service-card {
-        background: linear-gradient(145deg, rgba(22, 32, 50, 0.7), rgba(17, 25, 40, 0.9));
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        padding: 2.5rem 2rem;
-        text-align: center;
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* ===== SERVICES — UNDERWATER BUBBLES ===== */
+    .services-section {
+        background: linear-gradient(180deg, #060b18 0%, #0a1628 40%, #0d1f36 70%, #0f2740 100%);
         position: relative;
         overflow: hidden;
-        z-index: 1;
+    }
+    html.light-theme .services-section {
+        background: linear-gradient(180deg, #e8f0fe 0%, #dce8f8 40%, #d0e0f5 70%, #c8daf2 100%);
     }
 
-    /* Animated aurora background shift */
-    .service-card::before {
+    /* Deep water caustics overlay */
+    .services-section::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.04), transparent 60%),
-                    radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.04), transparent 60%),
-                    radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.02), transparent 50%);
-        background-size: 200% 200%;
-        background-position: 0% 0%;
-        transition: background-position 0.6s ease;
-        z-index: 0;
+        background:
+            radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.03), transparent 50%),
+            radial-gradient(ellipse at 80% 30%, rgba(56, 189, 248, 0.025), transparent 50%),
+            radial-gradient(ellipse at 50% 80%, rgba(99, 102, 241, 0.02), transparent 50%);
         pointer-events: none;
-    }
-    .service-card:hover::before {
-        background-position: 100% 100%;
+        z-index: 0;
     }
 
-    /* Glowing border ring (::after) */
-    .service-card::after {
+    /* Surface water wave at top of section */
+    .services-section .water-surface {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 50px;
+        z-index: 1;
+        pointer-events: none;
+        overflow: hidden;
+    }
+    .services-section .water-surface .wave {
+        position: absolute;
+        top: -20px; left: -50%;
+        width: 200%; height: 60px;
+        border-radius: 45%;
+    }
+    .services-section .water-surface .wave:nth-child(1) {
+        background: rgba(59, 130, 246, 0.06);
+        animation: surfaceWave1 8s ease-in-out infinite;
+    }
+    .services-section .water-surface .wave:nth-child(2) {
+        background: rgba(99, 102, 241, 0.04);
+        animation: surfaceWave2 12s ease-in-out infinite;
+    }
+    @keyframes surfaceWave1 {
+        0%   { transform: translateX(0) rotate(0deg); }
+        50%  { transform: translateX(-15%) rotate(5deg); }
+        100% { transform: translateX(0) rotate(0deg); }
+    }
+    @keyframes surfaceWave2 {
+        0%   { transform: translateX(0) rotate(0deg); }
+        50%  { transform: translateX(10%) rotate(-3deg); }
+        100% { transform: translateX(0) rotate(0deg); }
+    }
+
+    /* Floating bubbles grid — NO BOXES! */
+    .services-bubbles {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2.5rem;
+        padding: 1rem 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Each service is a floating water bubble */
+    .service-bubble {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1.8rem;
+        position: relative;
+        cursor: pointer;
+        background: radial-gradient(circle at 35% 30%, rgba(30, 58, 95, 0.6), rgba(15, 23, 42, 0.8));
+        border: 1px solid rgba(59, 130, 246, 0.12);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.2),
+            inset 0 -4px 12px rgba(59, 130, 246, 0.05),
+            inset 0 4px 12px rgba(255, 255, 255, 0.03);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        user-select: none;
+        animation: bubbleFloat var(--float-dur, 4s) ease-in-out infinite;
+        animation-delay: var(--float-delay, 0s);
+    }
+    .service-bubble::before {
         content: '';
         position: absolute;
-        top: -2px; left: -2px; right: -2px; bottom: -2px;
-        border-radius: calc(var(--radius-lg) + 2px);
-        background: conic-gradient(
-            transparent,
-            rgba(59, 130, 246, 0.06),
-            rgba(139, 92, 246, 0.08),
-            rgba(6, 182, 212, 0.06),
-            rgba(59, 130, 246, 0.1),
-            transparent
-        );
-        z-index: 0;
-        opacity: 0;
-        transition: opacity 0.6s ease;
-        animation: borderSpin 4s linear infinite;
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        padding: 2px;
-    }
-    .service-card:hover::after {
-        opacity: 1;
-    }
-    @keyframes borderSpin {
-        0%   { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    /* Light sweep across card on hover */
-    .service-card .sweep-beam {
-        position: absolute;
-        top: -50%; left: -50%;
-        width: 200%; height: 200%;
+        top: 12%; left: 18%;
+        width: 35%; height: 20%;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255,255,255,0.08), transparent 70%);
         pointer-events: none;
-        z-index: 2;
-        background: linear-gradient(
-            105deg,
-            transparent 30%,
-            rgba(59, 130, 246, 0.03) 45%,
-            rgba(139, 92, 246, 0.05) 50%,
-            rgba(59, 130, 246, 0.03) 55%,
-            transparent 70%
-        );
-        transform: translateX(-100%) rotate(25deg);
-        opacity: 0;
-        transition: none;
     }
-    .service-card:hover .sweep-beam {
-        animation: beamSweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes beamSweep {
-        0%   { transform: translateX(-100%) rotate(25deg); opacity: 0; }
-        10%  { opacity: 1; }
-        90%  { opacity: 1; }
-        100% { transform: translateX(100%) rotate(25deg); opacity: 0; }
-    }
-
-    /* Corner glow dots */
-    .service-card .corner-glow {
+    .service-bubble::after {
+        content: '';
         position: absolute;
-        width: 40px; height: 40px;
+        bottom: 12%; right: 15%;
+        width: 12%; height: 8%;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(59,130,246,0.06), transparent 70%);
         pointer-events: none;
-        z-index: 2;
+    }
+    /* Reflection highlight */
+    .service-bubble .bubble-shine {
+        position: absolute;
+        top: 8%; left: 10%;
+        width: 40%; height: 25%;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255,255,255,0.06), transparent 70%);
+        pointer-events: none;
+        transform: rotate(-30deg);
+        z-index: 3;
+    }
+    /* Glow behind bubble */
+    .service-bubble .bubble-glow {
+        position: absolute;
+        top: -15px; left: -15px; right: -15px; bottom: -15px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.04), transparent 60%);
+        pointer-events: none;
+        z-index: -1;
         opacity: 0;
         transition: opacity 0.5s ease;
     }
-    .service-card .corner-glow.tl {
-        top: -10px; left: -10px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.12), transparent 70%);
-    }
-    .service-card .corner-glow.br {
-        bottom: -10px; right: -10px;
-        background: radial-gradient(circle, rgba(139, 92, 246, 0.12), transparent 70%);
-    }
-    .service-card:hover .corner-glow {
+    .service-bubble:hover .bubble-glow {
         opacity: 1;
     }
-    .service-card:hover .corner-glow.tl {
-        animation: glowPulse 2s ease-in-out infinite 0.2s;
-    }
-    .service-card:hover .corner-glow.br {
-        animation: glowPulse 2s ease-in-out infinite 0.8s;
-    }
-    @keyframes glowPulse {
-        0%, 100% { transform: scale(1); opacity: 0.5; }
-        50% { transform: scale(1.4); opacity: 1; }
+
+    /* Different float durations and heights */
+    .service-bubble:nth-child(1) { --float-dur: 4.2s; --float-delay: 0s; }
+    .service-bubble:nth-child(2) { --float-dur: 5.6s; --float-delay: 0.6s; }
+    .service-bubble:nth-child(3) { --float-dur: 3.8s; --float-delay: 1.2s; }
+    .service-bubble:nth-child(4) { --float-dur: 5.0s; --float-delay: 0.3s; }
+    .service-bubble:nth-child(5) { --float-dur: 4.5s; --float-delay: 0.9s; }
+    .service-bubble:nth-child(6) { --float-dur: 5.2s; --float-delay: 1.5s; }
+
+    @keyframes bubbleFloat {
+        0%, 100% { transform: translateY(0); }
+        25% { transform: translateY(-8px); }
+        50% { transform: translateY(-14px); }
+        75% { transform: translateY(-5px); }
     }
 
-    /* Content sits above effect layers */
-    .service-card .service-icon,
-    .service-card h3,
-    .service-card p {
-        position: relative;
-        z-index: 5;
+    .service-bubble:hover {
+        transform: scale(1.08);
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow:
+            0 12px 48px rgba(59, 130, 246, 0.15),
+            0 0 60px rgba(59, 130, 246, 0.06),
+            inset 0 -4px 20px rgba(59, 130, 246, 0.08),
+            inset 0 4px 20px rgba(255, 255, 255, 0.04);
     }
 
-    .service-card .service-icon {
-        width: 70px; height: 70px;
-        background: rgba(59, 130, 246, 0.08);
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        border-radius: 20px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 2rem; color: var(--accent);
-        margin: 0 auto 1.2rem;
-        transition: all 0.4s ease;
-    }
-    .service-card:hover .service-icon {
-        background: var(--accent-gradient);
-        color: #fff;
-        border-color: transparent;
-        transform: scale(1.1) rotate(-5deg);
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-    }
-    .service-card h3 {
-        font-size: 1.15rem;
-        font-weight: 700;
+    /* Content inside bubble */
+    .service-bubble .service-icon {
+        font-size: 2rem;
+        color: var(--accent-light);
         margin-bottom: 0.6rem;
+        transition: transform 0.4s ease;
+        line-height: 1;
     }
-    .service-card p {
-        color: var(--text-secondary);
-        font-size: 0.88rem;
-        line-height: 1.7;
-        margin-bottom: 0;
+    .service-bubble:hover .service-icon {
+        transform: scale(1.2);
     }
-    .service-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        border-color: var(--accent);
-        box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.06);
+    .service-bubble h3 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.4rem;
+        line-height: 1.3;
+    }
+    .service-bubble p {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Water ripple ring on hover (mouse-responsive via JS) */
+    .service-bubble .ripple-ring {
+        position: absolute;
+        top: -3px; left: -3px; right: -3px; bottom: -3px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .service-bubble:hover .ripple-ring {
+        opacity: 1;
+        border-color: rgba(59, 130, 246, 0.15);
+        animation: ripplePulse 2s ease-in-out infinite;
+    }
+    @keyframes ripplePulse {
+        0%, 100% { transform: scale(1); opacity: 0.4; border-width: 2px; }
+        50% { transform: scale(1.06); opacity: 0.1; border-width: 1px; }
+    }
+
+    /* Bottom water waves */
+    .services-section .bottom-waves {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 70px;
+        z-index: 1;
+        pointer-events: none;
+        overflow: hidden;
+    }
+    .services-section .bottom-waves .wave {
+        position: absolute;
+        bottom: 0; left: -50%;
+        width: 200%; height: 100%;
+        border-radius: 45%;
+    }
+    .services-section .bottom-waves .wave:nth-child(1) {
+        background: rgba(59, 130, 246, 0.05);
+        animation: bottomWave1 10s ease-in-out infinite;
+    }
+    .services-section .bottom-waves .wave:nth-child(2) {
+        background: rgba(99, 102, 241, 0.04);
+        animation: bottomWave2 14s ease-in-out infinite;
+    }
+    .services-section .bottom-waves .wave:nth-child(3) {
+        background: rgba(6, 182, 212, 0.03);
+        animation: bottomWave3 8s ease-in-out infinite;
+    }
+    @keyframes bottomWave1 {
+        0%   { transform: translateX(0) rotate(0deg); opacity: 0.4; }
+        50%  { transform: translateX(-20%) rotate(3deg); opacity: 0.6; }
+        100% { transform: translateX(0) rotate(0deg); opacity: 0.4; }
+    }
+    @keyframes bottomWave2 {
+        0%   { transform: translateX(-10%) rotate(0deg); opacity: 0.3; }
+        50%  { transform: translateX(10%) rotate(-2deg); opacity: 0.5; }
+        100% { transform: translateX(-10%) rotate(0deg); opacity: 0.3; }
+    }
+    @keyframes bottomWave3 {
+        0%   { transform: translateX(10%) rotate(0deg); opacity: 0.2; }
+        50%  { transform: translateX(-15%) rotate(4deg); opacity: 0.4; }
+        100% { transform: translateX(10%) rotate(0deg); opacity: 0.2; }
     }
 
     /* ---- Light theme ---- */
-    html.light-theme .service-card {
-        background: linear-gradient(145deg, #ffffff, #f8fafc);
+    html.light-theme .services-section::before {
+        background:
+            radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.04), transparent 50%),
+            radial-gradient(ellipse at 80% 30%, rgba(56, 189, 248, 0.03), transparent 50%);
     }
-    html.light-theme .service-card::before {
-        background: radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.03), transparent 60%),
-                    radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.03), transparent 60%);
+    html.light-theme .service-bubble {
+        background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), rgba(240, 244, 255, 0.92));
+        border-color: rgba(59, 130, 246, 0.12);
+        box-shadow:
+            0 8px 32px rgba(59, 130, 246, 0.06),
+            inset 0 -4px 12px rgba(59, 130, 246, 0.03),
+            inset 0 4px 12px rgba(255, 255, 255, 0.8);
     }
-    html.light-theme .service-card::after {
-        background: conic-gradient(
-            transparent,
-            rgba(59, 130, 246, 0.08),
-            rgba(139, 92, 246, 0.1),
-            rgba(6, 182, 212, 0.08),
-            rgba(59, 130, 246, 0.12),
-            transparent
-        );
+    html.light-theme .service-bubble::before {
+        background: radial-gradient(ellipse, rgba(255,255,255,0.5), transparent 70%);
     }
-    html.light-theme .service-card .sweep-beam {
-        background: linear-gradient(
-            105deg,
-            transparent 30%,
-            rgba(59, 130, 246, 0.05) 45%,
-            rgba(139, 92, 246, 0.08) 50%,
-            rgba(59, 130, 246, 0.05) 55%,
-            transparent 70%
-        );
+    html.light-theme .service-bubble h3 { color: #0f172a; }
+    html.light-theme .service-bubble p { color: #64748b; }
+    html.light-theme .service-bubble:hover {
+        border-color: rgba(59, 130, 246, 0.25);
+        box-shadow:
+            0 12px 48px rgba(59, 130, 246, 0.12),
+            0 0 60px rgba(59, 130, 246, 0.04),
+            inset 0 -4px 20px rgba(59, 130, 246, 0.06);
+    }
+    html.light-theme .services-section .water-surface .wave:nth-child(1) {
+        background: rgba(59, 130, 246, 0.04);
+    }
+    html.light-theme .services-section .water-surface .wave:nth-child(2) {
+        background: rgba(99, 102, 241, 0.03);
+    }
+    html.light-theme .services-section .bottom-waves .wave:nth-child(1) {
+        background: rgba(59, 130, 246, 0.04);
+    }
+    html.light-theme .services-section .bottom-waves .wave:nth-child(2) {
+        background: rgba(99, 102, 241, 0.03);
+    }
+    html.light-theme .services-section .bottom-waves .wave:nth-child(3) {
+        background: rgba(6, 182, 212, 0.02);
     }
 
-    /* ---- Mobile: disable heavy effects ---- */
+    /* ---- Mobile ---- */
+    @media (max-width: 968px) {
+        .service-bubble { width: 160px; height: 160px; padding: 1.4rem; }
+        .service-bubble .service-icon { font-size: 1.6rem; }
+        .service-bubble h3 { font-size: 0.78rem; }
+        .service-bubble p { font-size: 0.65rem; }
+        .services-bubbles { gap: 1.8rem; }
+    }
     @media (max-width: 768px) {
-        .service-card::after { display: none; }
-        .service-card .sweep-beam { display: none; }
-        .service-card .corner-glow { display: none; }
+        .services-section .water-surface { height: 30px; }
+        .services-section .water-surface .wave { height: 40px; }
+        .services-section .bottom-waves { height: 40px; }
+    }
+    @media (max-width: 480px) {
+        .service-bubble { width: 130px; height: 130px; padding: 1rem; }
+        .service-bubble .service-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+        .service-bubble h3 { font-size: 0.7rem; }
+        .service-bubble p { font-size: 0.6rem; display: none; }
+        .services-bubbles { gap: 1.2rem; }
     }
 
     /* Timeline */
@@ -1191,7 +1297,6 @@
         .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-image { order: -1; }
         .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .services-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
         .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .back-to-top { width: 44px; height: 44px; font-size: 1rem; bottom: 1.5rem; right: 1.5rem; }
@@ -1219,9 +1324,7 @@
         .about-text p { font-size: 0.92rem; }
         .stat-item .number { font-size: 1.6rem; }
         
-        .service-card { padding: 2rem 1.5rem; }
-        .service-card .service-icon { width: 60px; height: 60px; font-size: 1.6rem; }
-        .service-card h3 { font-size: 1.05rem; }
+
         
         .project-card .card-body { padding: 1.4rem; }
         .project-card .card-body h3 { font-size: 1.1rem; }
@@ -1277,8 +1380,7 @@
         .about-stats .stat-item .label { font-size: 0.72rem; }
         .about-text h3 { font-size: 1.3rem; }
         
-        .services-grid { grid-template-columns: 1fr; gap: 1rem; }
-        .service-card { padding: 1.8rem 1.2rem; }
+
         
         .projects-grid { grid-template-columns: 1fr; gap: 1.2rem; }
         .project-card .card-image { height: 160px; }
@@ -1457,13 +1559,17 @@
             </div>
 
             @if($services->isNotEmpty())
-                <div class="services-grid">
+                <div class="water-surface">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="services-bubbles">
                     @foreach($services as $index => $service)
                         @php $delay = ($index % 4) + 1; @endphp
-                        <div class="service-card reveal reveal-delay-{{ $delay }}">
-                            <div class="corner-glow tl"></div>
-                            <div class="corner-glow br"></div>
-                            <div class="sweep-beam"></div>
+                        <div class="service-bubble reveal reveal-delay-{{ $delay }}" style="--float-dur: {{ 3.8 + ($index % 5) * 0.8 }}s; --float-delay: {{ ($index % 6) * 0.4 }}s;">
+                            <div class="bubble-shine"></div>
+                            <div class="bubble-glow"></div>
+                            <div class="ripple-ring"></div>
                             <div class="service-icon">
                                 <i class="bi {{ $service->icon ?: 'bi-star' }}"></i>
                             </div>
@@ -1473,6 +1579,11 @@
                             @endif
                         </div>
                     @endforeach
+                </div>
+                <div class="bottom-waves">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
                 </div>
             @else
                 <div class="empty-state reveal">
