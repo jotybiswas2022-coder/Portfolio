@@ -101,7 +101,6 @@
         /* Fade-in animation for page content */
         .page-content {
             animation: pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
         }
         @keyframes pageFadeIn {
             from { opacity: 0; transform: translateY(12px); }
@@ -192,6 +191,12 @@
                 loader.classList.add('hidden');
             }
         }, 3000);
+
+        // Ensure content is visible even if animation fails
+        setTimeout(function() {
+            var content = document.getElementById('pageContent');
+            if (content) content.style.opacity = '1';
+        }, 2000);
     })();
 
     // ===== SMOOTH PAGE TRANSITIONS (link clicks) =====

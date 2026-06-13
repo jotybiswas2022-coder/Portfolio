@@ -1594,7 +1594,7 @@
     <section class="hero" id="hero">
         <div class="hero-content">
             <div class="hero-badge"><i class="bi bi-briefcase-fill"></i> {{ __('messages.hero_badge') }}</div>
-            <h1>{{ __('messages.hero_greeting') }} <span class="gradient-text">{{ $account->name }}</span></h1>
+            <h1>{{ __('messages.hero_greeting') }} <span class="gradient-text">{{ optional($account)->name ?? 'Portfolio' }}</span></h1>
             <div class="typing-wrapper">
                 <span id="typingText"></span>
                 <span class="typing-cursor"></span>
@@ -1628,12 +1628,12 @@
                 <div class="about-image reveal reveal-delay-1">
                     <div class="glow-ring"></div>
                     <div class="img-wrapper">
-                        <img src="{{ config('app.storage_url') }}{{ $account->image }}" alt="{{ $account->name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 32px;">
+                        <img src="{{ config('app.storage_url') }}{{ optional($account)->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 32px;">
                     </div>
                 </div>
                 <div class="about-text reveal reveal-delay-2">
                     <h3>{{ __('messages.about_heading') }}</h3>
-                    <p>Hi, I'm <span class="about-name-highlight">{{ $account->name }}</span>. {{ __('messages.about_desc_1') }}</p>
+                    <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
                     <p>{{ __('messages.about_desc_2') }}</p>
                     <div class="about-stats">
                         <div class="stat-item">
@@ -2147,7 +2147,7 @@
             @endif
         </div>
 
-        <p>© {{ date('Y') }} {{ $account->name }}. {{ __('messages.copyright') }} 
+                        <p>© {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}. {{ __('messages.copyright') }} 
             <i class="bi bi-heart-fill" style="color: #ef4444;"></i> 
             {{ __('messages.and_lots_of') }} 
             <i class="bi bi-cup-fill" style="color: #f59e0b;"></i>
