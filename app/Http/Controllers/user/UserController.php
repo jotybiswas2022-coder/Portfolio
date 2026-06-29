@@ -19,13 +19,10 @@ class UserController extends Controller
         $token = session('contact_token', bin2hex(random_bytes(16)));
         session(['contact_token' => $token]);
 
-        // Tag this message with the token
+        // Tag this message with the session token (privacy: only this session can see it)
         $data = $request->all();
         $data['session_token'] = $token;
         Contact::create($data);
-
-        // Tag all existing messages with the same email so they share the same token
-        Contact::where('email', $request->email)->where('session_token', '!=', $token)->update(['session_token' => $token]);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
