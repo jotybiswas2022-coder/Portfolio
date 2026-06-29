@@ -482,10 +482,12 @@
         const myMsgLoading = document.getElementById('myMsgLoading');
         const myMsgNoEmail = document.getElementById('myMsgNoEmail');
 
-        function loadMyMessages() {
+        function loadMyMessages(fallbackEmail) {
             myMsgList.style.display = 'none';
             myMsgNoEmail.style.display = 'none';
             myMsgLoading.style.display = 'block';
+
+            const body = fallbackEmail ? JSON.stringify({ email: fallbackEmail }) : null;
 
             fetch('{{ url("/my-messages/fetch") }}', {
                 method: 'POST',
@@ -493,7 +495,8 @@
                     'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                }
+                },
+                body: body
             })
             .then(r => r.json())
             .then(data => {
@@ -596,11 +599,13 @@
             return d.innerHTML;
         }
 
-        // Auto-load when modal opens — uses session-stored email (set when form is submitted)
+        // Auto-load when modal opens
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
             myMsgNoEmail.style.display = 'none';
             myMsgList.style.display = 'none';
-            loadMyMessages();
+            // Try to send form-typed email as fallback if session is empty
+            const formEmail = document.getElementById('email')?.value?.trim();
+            loadMyMessages(formEmail);
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

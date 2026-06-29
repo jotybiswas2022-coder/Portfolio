@@ -10,10 +10,7 @@ class MyMessageController extends Controller
 {
     function fetch(Request $request)
     {
-        $email = session('contact_email');
-        if (!$email) {
-            return response()->json(['success' => false, 'messages' => []]);
-        }
+        $email = session('contact_email') ?: $request->input('email');
 
         $rows = Contact::root()
             ->where('email', $email)
