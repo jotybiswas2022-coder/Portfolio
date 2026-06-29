@@ -288,6 +288,16 @@
                                 </button>
                             </div>
                             <div class="modal-body" style="padding:20px 22px;">
+                                {{-- Email input for manual entry --}}
+                                <div id="myMsgEmailInputWrap" style="display:none;margin-bottom:16px;text-align:center;">
+                                    <label style="display:block;font-size:0.8rem;font-weight:600;color:#555;margin-bottom:6px;">{{ __('আপনার ইমেইল দিন') }}</label>
+                                    <div style="display:flex;gap:8px;max-width:360px;margin:0 auto;">
+                                        <input type="email" id="myMsgEmailInput" placeholder="example@email.com" style="flex:1;padding:10px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;" onfocus="this.style.borderColor='#4facfe'" onblur="this.style.borderColor='#e8e8f0'">
+                                        <button id="myMsgEmailLoadBtn" style="padding:10px 20px;border-radius:12px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.82rem;font-weight:600;cursor:pointer;">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                                 <div id="myMsgNoEmail" style="text-align:center;padding:30px;display:none;">
                                     <i class="bi bi-envelope" style="font-size:2.5rem;color:#ddd;display:block;margin-bottom:10px;"></i>
                                     <span style="font-weight:600;color:#999;">{{ __('কোনো বার্তা নেই') }}</span>
@@ -449,7 +459,7 @@
             const formData = new FormData(form);
             // Store email immediately so My Messages works
             const emailVal = document.getElementById('email')?.value?.trim();
-            if (emailVal) localStorage.setItem('contact_email', emailVal);
+            if (emailVal) setMyEmail(emailVal);
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> {{ __('পাঠানো হচ্ছে...') }}';
 
@@ -486,7 +496,10 @@
         const myMsgNoEmail = document.getElementById('myMsgNoEmail');
 
         function getMyEmail() {
-            return localStorage.getItem('contact_email') || '';
+            return sessionStorage.getItem('contact_email') || '';
+        }
+        function setMyEmail(email) {
+            if (email) sessionStorage.setItem('contact_email', email);
         }
 
         function loadMyMessages(email) {
@@ -605,16 +618,32 @@
             return d.innerHTML;
         }
 
-        // Auto-load when modal opens — only uses email from localStorage (set after form submit)
+        // Auto-load when modal opens — only uses email from sessionStorage (set after form submit)
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
             const email = getMyEmail();
             myMsgNoEmail.style.display = 'none';
             myMsgList.style.display = 'none';
+            document.getElementById('myMsgEmailInputWrap').style.display = 'none';
             if (email) {
                 loadMyMessages(email);
             } else {
-                myMsgNoEmail.style.display = 'block';
+                document.getElementById('myMsgEmailInputWrap').style.display = 'block';
+                document.getElementById('myMsgEmailInput').value = '';
+                document.getElementById('myMsgEmailInput').focus();
             }
+        });
+
+        // Manual email entry in modal
+        document.getElementById('myMsgEmailLoadBtn')?.addEventListener('click', function() {
+            const email = document.getElementById('myMsgEmailInput').value.trim();
+            if (email) {
+                setMyEmail(email);
+                document.getElementById('myMsgEmailInputWrap').style.display = 'none';
+                loadMyMessages(email);
+            }
+        });
+        document.getElementById('myMsgEmailInput')?.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('myMsgEmailLoadBtn')?.click();
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
