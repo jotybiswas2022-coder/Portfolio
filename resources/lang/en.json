@@ -224,5 +224,14 @@
     "Donor List": "Donor List",
     "Blood Requests": "Blood Requests",
     "Contact": "Contact",
-    "AdminPanel": "Admin Panel"
+    "AdminPanel": "Admin Panel",
+    "আমার বার্তাসমূহ": "My Messages",
+    "কোনো বার্তা নেই": "No Messages",
+    "প্রথমে যোগাযোগ ফর্মের মাধ্যমে একটি বার্তা পাঠান": "Submit a message through the contact form first",
+    "প্রশাসক": "Admin",
+    "আপনি": "You",
+    "আপনার উত্তর লিখুন...": "Write your reply...",
+    "উত্তর দিন": "Reply",
+    "সার্ভার ত্রুটি": "Server error",
+    "এই ইমেইলে কোনো বার্তা নেই": "No messages found for this email"
 }
