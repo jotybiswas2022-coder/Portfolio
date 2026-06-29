@@ -8,9 +8,31 @@ use App\Models\Contact;
 
 class MyMessageController extends Controller
 {
+    function checkSession()
+    {
+        return response()->json(['hasSession' => session()->has('contact_email')]);
+    }
+
+    function verify(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $hasMessages = Contact::root()->where('email', $request->email)->where('type', 'message')->exists();
+
+        if (!$hasMessages) {
+            return response()->json(['success' => false, 'message' => 'No messages found for this email.']);
+        }
+
+        session(['contact_email' => $request->email]);
+        return response()->json(['success' => true]);
+    }
+
     function fetch(Request $request)
     {
-        $email = session('contact_email') ?: $request->input('email');
+        $email = session('contact_email');
+        if (!$email) {
+            return response()->json(['success' => false, 'messages' => []]);
+        }
 
         $rows = Contact::root()
             ->where('email', $email)

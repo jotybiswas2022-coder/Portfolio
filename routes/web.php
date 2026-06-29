@@ -16,6 +16,8 @@ Route::get('/lang/{locale}', [App\Http\Controllers\frontend\LanguageController::
 Route::post('/contactus', [UserController::class, 'contactus']);
 
 Route::prefix('my-messages')->controller(\App\Http\Controllers\frontend\MyMessageController::class)->group(function () {
+    Route::get('/check-session', 'checkSession');
+    Route::post('/verify', 'verify');
     Route::post('/fetch', 'fetch');
     Route::post('/reply', 'reply');
 });

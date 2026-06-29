@@ -288,6 +288,18 @@
                                 </button>
                             </div>
                             <div class="modal-body" style="padding:20px 22px;">
+                                {{-- Email verify (shown when no session email) --}}
+                                <div id="myMsgVerify" style="text-align:center;padding:20px 10px;">
+                                    <i class="bi bi-envelope" style="font-size:2.2rem;color:#ddd;display:block;margin-bottom:8px;"></i>
+                                    <p style="margin:0 0 12px;font-size:0.88rem;color:#888;">{{ __('আপনার বার্তা দেখতে ইমেইল দিন') }}</p>
+                                    <div style="display:flex;gap:8px;max-width:340px;margin:0 auto;">
+                                        <input type="email" id="myMsgEmailInput" placeholder="example@email.com" style="flex:1;padding:10px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;" onfocus="this.style.borderColor='#4facfe'" onblur="this.style.borderColor='#e8e8f0'">
+                                        <button id="myMsgVerifyBtn" style="padding:10px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.82rem;font-weight:600;cursor:pointer;">
+                                            <i class="bi bi-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                    <div id="myMsgVerifyError" style="color:#e74c3c;font-size:0.8rem;margin-top:8px;display:none;"></div>
+                                </div>
                                 <div id="myMsgNoEmail" style="text-align:center;padding:30px;display:none;">
                                     <i class="bi bi-envelope" style="font-size:2.5rem;color:#ddd;display:block;margin-bottom:10px;"></i>
                                     <span style="font-weight:600;color:#999;">{{ __('কোনো বার্তা নেই') }}</span>
@@ -481,13 +493,15 @@
         const myMsgList = document.getElementById('myMsgList');
         const myMsgLoading = document.getElementById('myMsgLoading');
         const myMsgNoEmail = document.getElementById('myMsgNoEmail');
+        const myMsgVerify = document.getElementById('myMsgVerify');
+        const myMsgVerifyBtn = document.getElementById('myMsgVerifyBtn');
+        const myMsgEmailInput = document.getElementById('myMsgEmailInput');
+        const myMsgVerifyError = document.getElementById('myMsgVerifyError');
 
-        function loadMyMessages(fallbackEmail) {
+        function loadMyMessages() {
             myMsgList.style.display = 'none';
             myMsgNoEmail.style.display = 'none';
             myMsgLoading.style.display = 'block';
-
-            const body = fallbackEmail ? JSON.stringify({ email: fallbackEmail }) : null;
 
             fetch('{{ url("/my-messages/fetch") }}', {
                 method: 'POST',
@@ -495,8 +509,7 @@
                     'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                },
-                body: body
+                }
             })
             .then(r => r.json())
             .then(data => {
@@ -599,13 +612,71 @@
             return d.innerHTML;
         }
 
+        // My Messages verify button
+        myMsgVerifyBtn?.addEventListener('click', function() {
+            const email = myMsgEmailInput.value.trim();
+            if (!email) return;
+            myMsgVerifyError.style.display = 'none';
+            myMsgVerifyBtn.disabled = true;
+            myMsgVerifyBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+            fetch('{{ url("/my-messages/verify") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(r => r.json())
+            .then(d => {
+                myMsgVerifyBtn.disabled = false;
+                myMsgVerifyBtn.innerHTML = '<i class="bi bi-arrow-right"></i>';
+                if (d.success) {
+                    myMsgVerify.style.display = 'none';
+                    loadMyMessages();
+                } else {
+                    myMsgVerifyError.textContent = d.message || '{{ __('এই ইমেইলে কোনো বার্তা নেই') }}';
+                    myMsgVerifyError.style.display = 'block';
+                }
+            })
+            .catch(() => {
+                myMsgVerifyBtn.disabled = false;
+                myMsgVerifyBtn.innerHTML = '<i class="bi bi-arrow-right"></i>';
+                myMsgVerifyError.textContent = '{{ __('সার্ভার ত্রুটি') }}';
+                myMsgVerifyError.style.display = 'block';
+            });
+        });
+
+        myMsgEmailInput?.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') myMsgVerifyBtn?.click();
+        });
+
         // Auto-load when modal opens
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
             myMsgNoEmail.style.display = 'none';
             myMsgList.style.display = 'none';
-            // Try to send form-typed email as fallback if session is empty
-            const formEmail = document.getElementById('email')?.value?.trim();
-            loadMyMessages(formEmail);
+            myMsgVerifyError.style.display = 'none';
+
+            fetch('{{ url("/my-messages/check-session") }}', {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(r => r.json())
+            .then(d => {
+                if (d.hasSession) {
+                    myMsgVerify.style.display = 'none';
+                    loadMyMessages();
+                } else {
+                    myMsgVerify.style.display = 'block';
+                    myMsgEmailInput.value = '';
+                    myMsgEmailInput.focus();
+                }
+            })
+            .catch(() => {
+                myMsgVerify.style.display = 'block';
+            });
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
