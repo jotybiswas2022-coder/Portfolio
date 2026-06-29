@@ -7,7 +7,7 @@
             <div class="brand-icon-wrap">
                 <i class="bi bi-droplet-fill brand-drop"></i>
             </div>
-            <span class="brand-text">{{ __('ব্লাড ব্যাংক') }}</span>
+            <span class="brand-text">{{ __('Blood Bank') }}</span>
         </a>
 
         <!-- Language Switcher -->
@@ -107,7 +107,7 @@
 
                     <li class="nav-item nav-link-wrap">
                         <a class="nav-link signup-btn text-center" href="/register">
-                            <i class="bi bi-person-plus me-1"></i> {{ __('Signup') }}
+                            <i class="bi bi-person-plus me-1"></i> {{ __('Sign Up') }}
                         </a>
                     </li>
                 @endauth
