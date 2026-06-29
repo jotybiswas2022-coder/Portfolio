@@ -18,6 +18,10 @@ class UserController extends Controller
 
         Contact::create($request->all());
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
+        }
+
         return back()->with('success', 'Message sent successfully!');
     }
 }
