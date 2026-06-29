@@ -40,16 +40,14 @@
 
         <!-- Top Nav Links -->
         <div class="collapse navbar-collapse" id="navbarTopNav">
-            <!-- Mobile-only theme toggle inside collapse -->
-            <div class="mobile-lang-toggle d-lg-none text-center mb-2">
+            <!-- Mobile-only lang & theme toggle (side by side) -->
+            <div class="d-lg-none text-center mb-3" style="display:flex!important;gap:10px;justify-content:center;">
                 <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
-                   class="lang-switch-btn mobile">
+                   class="lang-switch-btn mobile flex-fill">
                     <i class="bi bi-globe2"></i>
                     <span class="ms-2">{{ app()->getLocale() === 'bn' ? 'English' : 'বাংলা' }}</span>
                 </a>
-            </div>
-            <div class="mobile-theme-toggle d-lg-none text-center mb-3">
-                <button class="theme-toggle-btn mobile" id="mobileThemeToggle" type="button" title="Toggle theme">
+                <button class="theme-toggle-btn mobile flex-fill" id="mobileThemeToggle" type="button" title="Toggle theme">
                     <i class="bi bi-sun-fill"></i>
                     <span class="ms-2">{{ __('Theme') }}</span>
                 </button>
@@ -253,14 +251,6 @@
     .signup-btn:hover {
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45) !important;
-    }
-
-    .mobile-lang-toggle {
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-        padding-bottom: 12px;
-    }
-    .light-mode .mobile-lang-toggle {
-        border-bottom-color: rgba(0,0,0,0.06);
     }
 
 /* ===== Logout Button ===== */
