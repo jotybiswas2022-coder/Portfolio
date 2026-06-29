@@ -28,7 +28,7 @@
         <!-- Top Nav Links -->
         <div class="collapse navbar-collapse" id="navbarTopNav">
             <!-- Mobile-only lang & theme toggle (side by side) -->
-            <div class="d-lg-none text-center mb-3" style="display:flex!important;gap:10px;justify-content:center;">
+            <div class="d-lg-none d-flex text-center justify-content-center gap-2 mb-3">
                 <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
                    class="lang-switch-btn mobile flex-fill">
                     <i class="bi bi-globe2"></i>
