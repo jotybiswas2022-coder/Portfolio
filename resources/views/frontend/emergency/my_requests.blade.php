@@ -49,11 +49,11 @@
                         <i class="bi bi-clock-history"></i>
                     </div>
                     <div>
-                        <h2>আমার অনুরোধসমূহ</h2>
-                        <p>আপনার জরুরি রক্তের অনুরোধের তালিকা</p>
+                        <h2>{{ __('আমার অনুরোধসমূহ') }}</h2>
+                        <p>{{ __('আপনার জরুরি রক্তের অনুরোধের তালিকা') }}</p>
                     </div>
                     <a href="{{ url('/emergency-request') }}" class="req-new-btn">
-                        <i class="bi bi-plus-lg"></i> নতুন অনুরোধ
+                        <i class="bi bi-plus-lg"></i> {{ __('নতুন অনুরোধ') }}
                     </a>
                 </div>
 
@@ -62,10 +62,10 @@
                     @if($requests->isEmpty())
                         <div class="empty-state">
                             <i class="bi bi-inbox"></i>
-                            <h4>কোনো অনুরোধ নেই</h4>
-                            <p>আপনি এখনো কোনো জরুরি রক্তের অনুরোধ করেননি।</p>
+                            <h4>{{ __('কোনো অনুরোধ নেই') }}</h4>
+                            <p>{{ __('আপনি এখনো কোনো জরুরি রক্তের অনুরোধ করেননি।') }}</p>
                             <a href="{{ url('/emergency-request') }}" class="empty-btn">
-                                <i class="bi bi-plus-circle"></i> প্রথম অনুরোধ করুন
+                                <i class="bi bi-plus-circle"></i> {{ __('প্রথম অনুরোধ করুন') }}
                             </a>
                         </div>
                     @else
@@ -74,9 +74,9 @@
                                 <div class="req-item-left">
                                     @php
                                         $statusColors = ['pending'=>'#f59e0b','matched'=>'#3b82f6','fulfilled'=>'#22c55e','cancelled'=>'#6b7280'];
-                                        $statusLabels = ['pending'=>'অপেক্ষমাণ','matched'=>'ডোনার ম্যাচ','fulfilled'=>'পূরণ হয়েছে','cancelled'=>'বাতিল'];
+                                        $statusLabels = ['pending'=>__('অপেক্ষমাণ'),'matched'=>__('ডোনার ম্যাচ'),'fulfilled'=>__('পূরণ হয়েছে'),'cancelled'=>__('বাতিল')];
                                         $urgencyIcons = ['critical'=>'bi-exclamation-triangle-fill','urgent'=>'bi-clock-fill','normal'=>'bi-calendar-check'];
-                                        $urgencyLabels = ['critical'=>'ক্রিটিক্যাল','urgent'=>'জরুরি','normal'=>'সাধারণ'];
+                                        $urgencyLabels = ['critical'=>__('ক্রিটিক্যাল'),'urgent'=>__('জরুরি'),'normal'=>__('সাধারণ')];
                                     @endphp
                                     <div class="req-blood-badge">{{ $req->blood_group }}</div>
                                     <div class="req-info">
@@ -97,14 +97,14 @@
                                     </span>
                                     <span class="req-date">{{ \Carbon\Carbon::parse($req->created_at)->timezone('Asia/Dhaka')->format('d M Y, h:i A') }}</span>
                                     @if($req->matched_donors_count > 0)
-                                        <span class="req-matched-badge"><i class="bi bi-people"></i> {{ $req->matched_donors_count }} জন ডোনার</span>
+                                        <span class="req-matched-badge"><i class="bi bi-people"></i> {{ $req->matched_donors_count }} {{ __('জন ডোনার') }}</span>
                                     @endif
                                     @if($req->status === 'pending' || $req->status === 'matched')
-                                        <form action="{{ url('/emergency-request/cancel/'.$req->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('আপনি কি এই অনুরোধটি বাতিল করতে চান?')">
+                                        <form action="{{ url('/emergency-request/cancel/'.$req->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('{{ __("আপনি কি এই অনুরোধটি বাতিল করতে চান?") }}')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="req-cancel-link" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:11px;color:#f87171;display:flex;align-items:center;gap:4px;padding:0;">
-                                                <i class="bi bi-x-circle"></i> বাতিল
+                                                <i class="bi bi-x-circle"></i> {{ __('বাতিল') }}
                                             </button>
                                         </form>
                                     @endif

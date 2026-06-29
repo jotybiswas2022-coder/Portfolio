@@ -83,7 +83,7 @@
 
     <div class="alert-custom" id="successAlert" style="display:none;">
         <i class="bi bi-check-circle-fill"></i>
-        <span>আপনার প্রোফাইল সফলভাবে আপডেট হয়েছে!</span>
+        <span>{{ __('আপনার প্রোফাইল সফলভাবে আপডেট হয়েছে!') }}</span>
         <button type="button" class="alert-close" onclick="this.style.display='none'">
             <i class="bi bi-x-lg"></i>
         </button>
@@ -100,8 +100,8 @@
                         <i class="bi bi-pencil-square"></i>
                     </div>
                     <div>
-                        <h2>প্রোফাইল এডিট করুন</h2>
-                        <p class="edit-header-sub">আপনার প্রোফাইল তথ্য পরিবর্তন করুন</p>
+                        <h2>{{ __('প্রোফাইল এডিট করুন') }}</h2>
+                        <p class="edit-header-sub">{{ __('আপনার প্রোফাইল তথ্য পরিবর্তন করুন') }}</p>
                     </div>
                 </div>
 
@@ -135,18 +135,18 @@
 
                         <!-- Name -->
                         <div class="form-group">
-                            <label for="name">নাম (Name) <span class="required">*</span></label>
+                            <label for="name">{{ __('নাম (Name)') }} <span class="required">*</span></label>
                             <div class="input-group-custom">
                                 <input type="text" id="name" name="name"
                                     value="{{ $profile->name ?? '' }}"
-                                    placeholder="আপনার পূর্ণ নাম লিখুন" required>
+                                    placeholder="{{ __('আপনার পূর্ণ নাম লিখুন') }}" required>
                                 <span class="input-icon-custom"><i class="bi bi-person-fill"></i></span>
                             </div>
                         </div>
 
                         <!-- Blood Group -->
                         <div class="form-group">
-                            <label>রক্তের গ্রুপ (Blood Group) <span class="required">*</span></label>
+                            <label>{{ __('রক্তের গ্রুপ (Blood Group)') }} <span class="required">*</span></label>
                             <div class="blood-chips" id="bloodChips">
                                 @php $groups = ['A+','A-','B+','B-','O+','O-','AB+','AB-']; @endphp
                                 @foreach($groups as $group)
@@ -159,7 +159,7 @@
                             </div>
                             <div class="input-group-custom">
                                 <select id="blood" name="blood" required onchange="syncChips(this.value)">
-                                    <option value="">রক্তের গ্রুপ নির্বাচন করুন</option>
+                                    <option value="">{{ __('রক্তের গ্রুপ নির্বাচন করুন') }}</option>
                                     @foreach($groups as $group)
                                         <option value="{{ $group }}" {{ ($profile->blood ?? '') == $group ? 'selected' : '' }}>
                                             {{ $group }}
@@ -173,14 +173,14 @@
                         <!-- Divider -->
                         <div class="form-divider">
                             <div class="divider-line"></div>
-                            <span class="divider-text"><i class="bi bi-phone-fill"></i> যোগাযোগ তথ্য</span>
+                            <span class="divider-text"><i class="bi bi-phone-fill"></i> {{ __('যোগাযোগ তথ্য') }}</span>
                             <div class="divider-line"></div>
                         </div>
 
                         <div class="form-row">
                             <!-- Mobile -->
                             <div class="form-group" data-aos="fade-up" data-aos-delay="100">
-                                <label for="number">মোবাইল নম্বর <span class="required">*</span></label>
+                                <label for="number">{{ __('মোবাইল নম্বর') }} <span class="required">*</span></label>
                                 <div class="input-group-custom">
                                     <input type="tel" id="number" name="number"
                                         value="{{ $profile->number ?? '' }}"
@@ -191,10 +191,10 @@
 
                             <!-- Division -->
                             <div class="form-group" data-aos="fade-up" data-aos-delay="200">
-                                <label for="division">বিভাগ <span class="required">*</span></label>
+                                <label for="division">{{ __('বিভাগ') }} <span class="required">*</span></label>
                                 <div class="input-group-custom">
                                     <select id="division" name="division" required>
-                                        <option value="">বিভাগ নির্বাচন করুন</option>
+                                        <option value="">{{ __('বিভাগ নির্বাচন করুন') }}</option>
                                         @foreach(['Dhaka','Chattogram','Khulna','Rajshahi','Barishal','Sylhet','Rangpur','Mymensingh'] as $div)
                                             <option value="{{ $div }}" {{ ($profile->division ?? '') == $div ? 'selected' : '' }}>
                                                 {{ $div }}
@@ -207,7 +207,7 @@
 
                             <!-- Last Donated -->
                             <div class="form-group" data-aos="fade-up" data-aos-delay="300">
-                                <label for="last_donated">সর্বশেষ রক্তদান <span class="optional">(ঐচ্ছিক)</span></label>
+                                <label for="last_donated">{{ __('সর্বশেষ রক্তদান') }} <span class="optional">{{ __('(ঐচ্ছিক)') }}</span></label>
                                 <div class="input-group-custom">
                                     <input type="date" id="last_donated" name="last_donated"
                                         value="{{ isset($profile->last_donated) ? \Carbon\Carbon::parse($profile->last_donated)->format('Y-m-d') : '' }}">
@@ -219,30 +219,30 @@
                         <!-- Info Note -->
                         <div class="info-note">
                             <i class="bi bi-info-circle-fill"></i>
-                            <span>রক্তদানের পর কমপক্ষে <strong>৯০ দিন</strong> অপেক্ষা করতে হবে। সর্বশেষ দানের তারিখ সঠিকভাবে পূরণ করুন।</span>
+                            <span>{{ __('রক্তদানের পর কমপক্ষে') }} <strong>{{ __('৯০ দিন') }}</strong> {{ __('অপেক্ষা করতে হবে। সর্বশেষ দানের তারিখ সঠিকভাবে পূরণ করুন।') }}</span>
                         </div>
 
                         <!-- Buttons -->
                         <button type="submit" class="btn-submit" id="submitBtn" data-aos="fade-up" data-aos-delay="200">
                             <i class="bi bi-check-lg"></i>
-                            আপডেট করুন
+                            {{ __('আপডেট করুন') }}
                         </button>
 
                         <div class="btn-row">
                             <a href="{{ url('/profile') }}" class="btn-cancel">
                                 <i class="bi bi-arrow-left"></i>
-                                প্রোফাইলে ফিরুন
+                                {{ __('প্রোফাইলে ফিরুন') }}
                             </a>
                             <button type="button" class="btn-reset" onclick="resetForm()">
                                 <i class="bi bi-arrow-counterclockwise"></i>
-                                রিসেট
+                                {{ __('রিসেট') }}
                             </button>
                         </div>
 
                         <!-- Reset info badge -->
                         <div class="reset-info-badge">
                             <i class="bi bi-clock-history"></i>
-                            <span>রিসেট বাটন সর্বশেষ <strong>সেভ করা তথ্য</strong>-এ ফিরিয়ে নিয়ে যাবে</span>
+                            <span>{{ __('রিসেট বাটন সর্বশেষ') }} <strong>{{ __('সেভ করা তথ্য') }}</strong>{{ __('-এ ফিরিয়ে নিয়ে যাবে') }}</span>
                         </div>
                     </form>
                 </div>
@@ -260,30 +260,30 @@
                         <i class="bi bi-droplet-fill"></i>
                     </div>
                     <div>
-                        <span class="brand-name">ব্লাড ব্যাংক</span>
-                        <span class="brand-tagline">জীবন বাঁচানোর লক্ষ্যে</span>
+                        <span class="brand-name">{{ __('ব্লাড ব্যাংক') }}</span>
+                        <span class="brand-tagline">{{ __('জীবন বাঁচানোর লক্ষ্যে') }}</span>
                     </div>
                 </div>
 
                 <div class="footer-links">
                     <div class="footer-links-col">
-                        <h6>কুইক লিংক</h6>
-                        <a href="{{ url('/') }}">হোম</a>
-                        <a href="{{ url('/profile') }}">আমার প্রোফাইল</a>
-                        <a href="{{ url('/profile/edit') }}">প্রোফাইল এডিট</a>
-                        <a href="{{ url('/donor_list') }}">ডোনার তালিকা</a>
+                        <h6>{{ __('কুইক লিংক') }}</h6>
+                        <a href="{{ url('/') }}">{{ __('হোম') }}</a>
+                        <a href="{{ url('/profile') }}">{{ __('আমার প্রোফাইল') }}</a>
+                        <a href="{{ url('/profile/edit') }}">{{ __('প্রোফাইল এডিট') }}</a>
+                        <a href="{{ url('/donor_list') }}">{{ __('ডোনার তালিকা') }}</a>
                     </div>
                     <div class="footer-links-col">
-                        <h6>সেবাসমূহ</h6>
-                        <a href="{{ url('/donor_list/A+') }}">A+ ডোনার</a>
-                        <a href="{{ url('/donor_list/B+') }}">B+ ডোনার</a>
-                        <a href="{{ url('/donor_list/O+') }}">O+ ডোনার</a>
-                        <a href="{{ url('/donor_list/AB+') }}">AB+ ডোনার</a>
+                        <h6>{{ __('সেবাসমূহ') }}</h6>
+                        <a href="{{ url('/donor_list/A+') }}">{{ __('A+ ডোনার') }}</a>
+                        <a href="{{ url('/donor_list/B+') }}">{{ __('B+ ডোনার') }}</a>
+                        <a href="{{ url('/donor_list/O+') }}">{{ __('O+ ডোনার') }}</a>
+                        <a href="{{ url('/donor_list/AB+') }}">{{ __('AB+ ডোনার') }}</a>
                     </div>
                 </div>
 
                 <div class="footer-social">
-                    <h6>ফলো করুন</h6>
+                    <h6>{{ __('ফলো করুন') }}</h6>
                     <div class="social-icons">
                         <a href="#" class="social-icon facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="social-icon twitter" title="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -294,7 +294,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; ২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।</p>
+                <p>&copy; {{ __('২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।') }}</p>
                 <p class="footer-made-with">Developed by <span class="dev-name">Joty Biswas</span></p>
             </div>
         </div>
@@ -345,15 +345,15 @@
             <div class="confirm-icon-wrap">
                 <i class="bi bi-arrow-repeat"></i>
             </div>
-            <h4 class="confirm-title">ফর্ম রিসেট করবেন?</h4>
+            <h4 class="confirm-title">{{ __('ফর্ম রিসেট করবেন?') }}</h4>
             <p class="confirm-desc">
-                সমস্ত ক্ষেত্র তাদের <strong>সর্বশেষ সেভ করা মান</strong>-এ ফিরে যাবে।
-                <br>আপনি এখনও পর্যন্ত করা যেকোনো পরিবর্তন হারিয়ে যাবে।
+                {{ __('সমস্ত ক্ষেত্র তাদের') }} <strong>{{ __('সর্বশেষ সেভ করা মান') }}</strong>{{ __('-এ ফিরে যাবে।') }}
+                <br>{{ __('আপনি এখনও পর্যন্ত করা যেকোনো পরিবর্তন হারিয়ে যাবে।') }}
             </p>
             <div class="confirm-actions">
-                <button type="button" class="confirm-btn cancel" onclick="cancelReset()">বাতিল</button>
+                <button type="button" class="confirm-btn cancel" onclick="cancelReset()">{{ __('বাতিল') }}</button>
                 <button type="button" class="confirm-btn confirm" onclick="confirmReset()">
-                    <i class="bi bi-check-lg"></i> হ্যাঁ, রিসেট করুন
+                    <i class="bi bi-check-lg"></i> {{ __('হ্যাঁ, রিসেট করুন') }}
                 </button>
             </div>
         </div>
@@ -362,7 +362,7 @@
     <!-- ========== RESET TOAST ========== -->
     <div class="reset-toast" id="resetToast">
         <i class="toast-icon bi bi-check-circle-fill"></i>
-        <span class="toast-text">ফর্ম রিসেট করা হয়েছে</span>
+        <span class="toast-text">{{ __('ফর্ম রিসেট করা হয়েছে') }}</span>
     </div>
 
     <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css" rel="stylesheet">
@@ -556,7 +556,7 @@
             && currentLastDonated === ORIGINAL_PROFILE.last_donated;
 
         if (isSame) {
-            showResetToast('ফর্মে কোনো পরিবর্তন হয়নি।', 'info');
+            showResetToast('{{ __('ফর্মে কোনো পরিবর্তন হয়নি।') }}', 'info');
             return;
         }
 
@@ -568,7 +568,7 @@
     function confirmReset() {
         document.getElementById('confirmOverlay').classList.remove('show');
         restoreOriginalValues();
-        showResetToast('ফর্ম রিসেট করা হয়েছে', 'success');
+        showResetToast('{{ __('ফর্ম রিসেট করা হয়েছে') }}', 'success');
     }
 
     function cancelReset() {
@@ -637,7 +637,7 @@
         }
 
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span> আপডেট হচ্ছে...';
+        submitBtn.innerHTML = '<span class="spinner"></span> {{ __('আপডেট হচ্ছে...') }}';
 
         fetch(form.getAttribute('action'), {
             method: 'POST',
@@ -669,7 +669,7 @@
                 }
 
                 const alert = document.getElementById('successAlert');
-                alert.querySelector('span').textContent = data.message || 'আপনার প্রোফাইল সফলভাবে আপডেট হয়েছে!';
+                alert.querySelector('span').textContent = data.message || '{{ __('আপনার প্রোফাইল সফলভাবে আপডেট হয়েছে!') }}';
                 alert.style.display = 'flex';
                 alert.style.background = '';
                 alert.style.borderLeftColor = '';
@@ -696,7 +696,7 @@
         .catch(error => {
             console.error('Error:', error);
             const alert = document.getElementById('successAlert');
-            alert.querySelector('span').textContent = 'একটি ত্রুটি হয়েছে। দয়া করে পুনরায় চেষ্টা করুন।';
+            alert.querySelector('span').textContent = '{{ __('একটি ত্রুটি হয়েছে। দয়া করে পুনরায় চেষ্টা করুন।') }}';
             alert.style.display = 'flex';
             alert.style.background = 'linear-gradient(135deg, #fef2f2, #fecaca)';
             alert.style.borderLeftColor = '#ef4444';
@@ -710,7 +710,7 @@
         })
         .finally(() => {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="bi bi-check-lg"></i> আপডেট করুন';
+            submitBtn.innerHTML = '<i class="bi bi-check-lg"></i> {{ __('আপডেট করুন') }}';
         });
         
         return false; // prevents native form submission

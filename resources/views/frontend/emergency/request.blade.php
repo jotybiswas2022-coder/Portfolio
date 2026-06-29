@@ -59,14 +59,14 @@
                         <i class="bi bi-exclamation-triangle-fill"></i>
                     </div>
                     <div style="position:relative;z-index:1;flex:1;">
-                        <h2 style="font-size:20px;font-weight:800;color:#fff;margin:0;line-height:1.2;">জরুরি রক্তের অনুরোধ</h2>
-                        <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;">নিচের ফর্ম পূরণ করে দ্রুত ডোনার খুঁজুন</p>
+                        <h2 style="font-size:20px;font-weight:800;color:#fff;margin:0;line-height:1.2;">{{ __('জরুরি রক্তের অনুরোধ') }}</h2>
+                        <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;">{{ __('নিচের ফর্ম পূরণ করে দ্রুত ডোনার খুঁজুন') }}</p>
                     </div>
                     <a href="{{ url('/emergency-request/my-requests') }}" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);text-decoration:none;font-size:12px;font-weight:600;transition:all 0.25s;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;position:relative;z-index:1;white-space:nowrap;"
                        onmouseover="this.style.background='rgba(255,255,255,0.2)';this.style.borderColor='rgba(255,255,255,0.3)'"
                        onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.1)'">
                         <i class="bi bi-clock-history" style="font-size:13px;"></i>
-                        <span>আমার অনুরোধ</span>
+                        <span>{{ __('আমার অনুরোধ') }}</span>
                     </a>
                 </div>
 
@@ -78,10 +78,10 @@
                         {{-- Patient Name --}}
                         <div class="form-group" style="margin-bottom:20px;">
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
-                                রোগীর নাম <span style="color:#ef4444;">*</span>
+                                {{ __('রোগীর নাম') }} <span style="color:#ef4444;">*</span>
                             </label>
                             <div class="input-group-custom">
-                                <input type="text" name="patient_name" placeholder="রোগীর পূর্ণ নাম লিখুন" required
+                                <input type="text" name="patient_name" placeholder="{{ __('রোগীর পূর্ণ নাম লিখুন') }}" required
                                        style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Noto Sans Bengali',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
                                 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-person-fill"></i>
@@ -92,7 +92,7 @@
                         {{-- Blood Group --}}
                         <div class="form-group" style="margin-bottom:20px;">
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
-                                প্রয়োজনীয় রক্তের গ্রুপ <span style="color:#ef4444;">*</span>
+                                {{ __('প্রয়োজনীয় রক্তের গ্রুপ') }} <span style="color:#ef4444;">*</span>
                             </label>
                             <div class="blood-chips" id="bloodChips" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
                                 @php $groups = ['A+','A-','B+','B-','O+','O-','AB+','AB-']; @endphp
@@ -108,12 +108,12 @@
                             </div>
                             <div id="selectedBloodDisplay" style="display:none;align-items:center;gap:8px;margin-top:4px;padding:6px 12px;border-radius:8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);font-size:12px;font-weight:600;color:#fca5a5;">
                                 <i class="bi bi-check-circle-fill" style="font-size:11px;"></i>
-                                <span>নির্বাচিত: <strong id="selectedBloodText"></strong></span>
+                                <span>{{ __('নির্বাচিত:') }} <strong id="selectedBloodText"></strong></span>
                             </div>
                             <div class="input-group-custom" style="position:relative;">
                                 <select name="blood_group" id="bloodGroup" required onchange="syncBloodChips(this.value)"
                                         style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Noto Sans Bengali',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:40px;box-sizing:border-box;">
-                                    <option value="">রক্তের গ্রুপ নির্বাচন করুন</option>
+                                    <option value="">{{ __('রক্তের গ্রুপ নির্বাচন করুন') }}</option>
                                     @foreach($groups as $group)
                                     <option value="{{ $group }}">{{ $group }}</option>
                                     @endforeach
@@ -127,13 +127,13 @@
                         {{-- Urgency --}}
                         <div class="form-group" style="margin-bottom:20px;">
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
-                                জরুরিতার মাত্রা <span style="color:#ef4444;">*</span>
+                                {{ __('জরুরিতার মাত্রা') }} <span style="color:#ef4444;">*</span>
                             </label>
                             <div class="urgency-chips" id="urgencyChips" style="display:flex;gap:10px;flex-wrap:wrap;">
                                 <button type="button" class="urgency-chip selected" data-value="critical" onclick="selectUrgency('critical', this)"
                                         style="flex:1;padding:10px 14px;border-radius:12px;border:2px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.22s ease;font-family:inherit;text-align:center;min-width:100px;position:relative;">
                                     <i class="bi bi-exclamation-triangle-fill"></i><br>
-                                    <span style="font-size:11px;">ক্রিটিক্যাল</span>
+                                    <span style="font-size:11px;">{{ __('ক্রিটিক্যাল') }}</span>
                                     <span class="urgency-chip-check" style="display:inline-flex;align-items:center;justify-content:center;position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#22c55e;color:#fff;font-size:9px;box-shadow:0 2px 6px rgba(34,197,94,0.4);">
                                         <i class="bi bi-check"></i>
                                     </span>
@@ -141,7 +141,7 @@
                                 <button type="button" class="urgency-chip" data-value="urgent" onclick="selectUrgency('urgent', this)"
                                         style="flex:1;padding:10px 14px;border-radius:12px;border:2px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.22s ease;font-family:inherit;text-align:center;min-width:100px;position:relative;">
                                     <i class="bi bi-clock-fill"></i><br>
-                                    <span style="font-size:11px;">জরুরি</span>
+                                    <span style="font-size:11px;">{{ __('জরুরি') }}</span>
                                     <span class="urgency-chip-check" style="display:none;align-items:center;justify-content:center;position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#22c55e;color:#fff;font-size:9px;box-shadow:0 2px 6px rgba(34,197,94,0.4);">
                                         <i class="bi bi-check"></i>
                                     </span>
@@ -149,7 +149,7 @@
                                 <button type="button" class="urgency-chip" data-value="normal" onclick="selectUrgency('normal', this)"
                                         style="flex:1;padding:10px 14px;border-radius:12px;border:2px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.22s ease;font-family:inherit;text-align:center;min-width:100px;position:relative;">
                                     <i class="bi bi-calendar-check"></i><br>
-                                    <span style="font-size:11px;">সাধারণ</span>
+                                    <span style="font-size:11px;">{{ __('সাধারণ') }}</span>
                                     <span class="urgency-chip-check" style="display:none;align-items:center;justify-content:center;position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#22c55e;color:#fff;font-size:9px;box-shadow:0 2px 6px rgba(34,197,94,0.4);">
                                         <i class="bi bi-check"></i>
                                     </span>
@@ -158,7 +158,7 @@
                             <input type="hidden" name="urgency" id="urgencyInput" value="critical">
                             <div id="selectedUrgencyDisplay" style="display:flex;align-items:center;gap:8px;margin-top:6px;padding:6px 12px;border-radius:8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);font-size:12px;font-weight:600;color:#fca5a5;">
                                 <i class="bi bi-check-circle-fill" style="font-size:11px;"></i>
-                                <span>নির্বাচিত: <strong id="selectedUrgencyText">ক্রিটিক্যাল</strong></span>
+                                <span>{{ __('নির্বাচিত:') }} <strong id="selectedUrgencyText">{{ __('ক্রিটিক্যাল') }}</strong></span>
                             </div>
                         </div>
 
@@ -166,7 +166,7 @@
                         <div class="form-divider" style="display:flex;align-items:center;gap:12px;margin:6px 0 24px;">
                             <span style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></span>
                             <span style="font-size:11px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;display:flex;align-items:center;gap:6px;">
-                                <i class="bi bi-info-circle-fill" style="font-size:13px;"></i> যোগাযোগ তথ্য
+                                <i class="bi bi-info-circle-fill" style="font-size:13px;"></i> {{ __('যোগাযোগ তথ্য') }}
                             </span>
                             <span style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></span>
                         </div>
@@ -174,10 +174,10 @@
                         {{-- Hospital --}}
                         <div class="form-group" style="margin-bottom:20px;">
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
-                                হাসপাতালের নাম <span style="color:rgba(255,255,255,0.3);font-weight:400;">(ঐচ্ছিক)</span>
+                                {{ __('হাসপাতালের নাম') }} <span style="color:rgba(255,255,255,0.3);font-weight:400;">({{ __('ঐচ্ছিক') }})</span>
                             </label>
                             <div class="input-group-custom" style="position:relative;">
-                                <input type="text" name="hospital" placeholder="যেখানে রক্তের প্রয়োজন (ঐচ্ছিক)"
+                                <input type="text" name="hospital" placeholder="{{ __('যেখানে রক্তের প্রয়োজন (ঐচ্ছিক)') }}"
                                        style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Noto Sans Bengali',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
                                 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-building"></i>
@@ -188,10 +188,10 @@
                         {{-- Location --}}
                         <div class="form-group" style="margin-bottom:20px;">
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
-                                ঠিকানা / অবস্থান <span style="color:#ef4444;">*</span>
+                                {{ __('ঠিকানা / অবস্থান') }} <span style="color:#ef4444;">*</span>
                             </label>
                             <div class="input-group-custom" style="position:relative;">
-                                <input type="text" name="location" placeholder="যেখানে রক্তের প্রয়োজন (জেলা, বিভাগ, ঠিকানা)" required
+                                <input type="text" name="location" placeholder="{{ __('যেখানে রক্তের প্রয়োজন (জেলা, বিভাগ, ঠিকানা)') }}" required
                                        style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Noto Sans Bengali',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
                                 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-geo-alt-fill"></i>
@@ -202,7 +202,7 @@
                         {{-- Contact Phone --}}
                         <div class="form-group" style="margin-bottom:20px;">
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
-                                যোগাযোগের নম্বর <span style="color:#ef4444;">*</span>
+                                {{ __('যোগাযোগের নম্বর') }} <span style="color:#ef4444;">*</span>
                             </label>
                             <div class="input-group-custom" style="position:relative;">
                                 <input type="tel" name="contact_phone" placeholder="01XXXXXXXXX" maxlength="15" required
@@ -216,10 +216,10 @@
                         {{-- Message --}}
                         <div class="form-group" style="margin-bottom:22px;">
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
-                                বিস্তারিত বার্তা <span style="color:rgba(255,255,255,0.3);font-weight:400;">(ঐচ্ছিক)</span>
+                                {{ __('বিস্তারিত বার্তা') }} <span style="color:rgba(255,255,255,0.3);font-weight:400;">({{ __('ঐচ্ছিক') }})</span>
                             </label>
                             <div class="input-group-custom" style="position:relative;">
-                                <textarea name="message" rows="3" placeholder="অতিরিক্ত তথ্য থাকলে লিখুন..." 
+                                <textarea name="message" rows="3" placeholder="{{ __('অতিরিক্ত তথ্য থাকলে লিখুন...') }}" 
                                           style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Noto Sans Bengali',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;resize:vertical;min-height:80px;box-sizing:border-box;"></textarea>
                                 <span style="position:absolute;left:14px;top:16px;color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-chat-dots"></i>
@@ -231,14 +231,14 @@
                         <button type="submit" id="submitBtn"
                                 style="width:100%;padding:15px 24px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-family:inherit;font-size:16px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 20px rgba(220,38,38,0.35);position:relative;overflow:hidden;">
                             <i class="bi bi-send-fill"></i>
-                            <span class="btn-text">জরুরি অনুরোধ পাঠান</span>
+                            <span class="btn-text">{{ __('জরুরি অনুরোধ পাঠান') }}</span>
                             <span class="btn-loader" style="display:none;width:20px;height:20px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
                         </button>
 
                         {{-- Info --}}
                         <div style="display:flex;align-items:center;gap:8px;margin-top:14px;padding:10px 14px;border-radius:10px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);font-size:11px;color:rgba(255,255,255,0.5);line-height:1.4;">
                             <i class="bi bi-shield-check" style="font-size:14px;color:#60a5fa;flex-shrink:0;"></i>
-                            <span>আপনার অনুরোধটি একই ব্লাড গ্রুপের ডোনারদের ইমেইল নোটিফিকেশন পাঠানো হবে। জরুরি প্রয়োজনে সরাসরি <strong style="color:rgba(255,255,255,0.6);">হটলাইনে</strong> কল করুন।</span>
+                            <span>{{ __('আপনার অনুরোধটি একই ব্লাড গ্রুপের ডোনারদের ইমেইল নোটিফিকেশন পাঠানো হবে। জরুরি প্রয়োজনে সরাসরি') }} <strong style="color:rgba(255,255,255,0.6);">{{ __('হটলাইনে') }}</strong> {{ __('কল করুন।') }}</span>
                         </div>
                     </form>
                 </div>
@@ -423,7 +423,7 @@
         if (check) check.style.display = 'inline-flex';
 
         // Update selection indicator
-        var labels = { 'critical': 'ক্রিটিক্যাল', 'urgent': 'জরুরি', 'normal': 'সাধারণ' };
+        var labels = { 'critical': '{{ __("ক্রিটিক্যাল") }}', 'urgent': '{{ __("জরুরি") }}', 'normal': '{{ __("সাধারণ") }}' };
         var text = document.getElementById('selectedUrgencyText');
         text.textContent = labels[value] || value;
     }

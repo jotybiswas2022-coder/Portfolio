@@ -41,8 +41,8 @@
                  onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <i class="bi bi-droplet-fill" style="font-size:26px;color:#fff;"></i>
             </div>
-            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">ব্লাড ব্যাংক</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">রক্তদান · জীবন বাঁচান</div>
+            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">{{ __('ব্লাড ব্যাংক') }}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">{{ __('রক্তদান · জীবন বাঁচান') }}</div>
         </div>
 
         {{-- Card --}}
@@ -55,9 +55,9 @@
                           onmouseover="this.style.transform='rotate(10deg)'" onmouseout="this.style.transform='rotate(0)'">
                         <i class="bi bi-shield-lock-fill" style="font-size:15px;color:#ef4444;"></i>
                     </span>
-                    <span style="font-size:17px;font-weight:700;color:#fff;">পাসওয়ার্ড রিসেট করুন</span>
+                    <span style="font-size:17px;font-weight:700;color:#fff;">{{ __('পাসওয়ার্ড রিসেট করুন') }}</span>
                 </div>
-                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">আপনার ইমেইল ঠিকানা দিন, আমরা একটি লিংক পাঠাব</p>
+                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">{{ __('আপনার ইমেইল ঠিকানা দিন, আমরা একটি লিংক পাঠাব') }}</p>
             </div>
 
             {{-- Body --}}
@@ -76,7 +76,7 @@
                     {{-- Email --}}
                     <div style="margin-bottom:22px;">
                         <label for="email" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
-                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>ইমেইল ঠিকানা
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>{{ __('ইমেইল ঠিকানা') }}
                         </label>
                         <div style="position:relative;">
                             <i class="bi bi-envelope-fill field-icon-custom" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
@@ -95,7 +95,7 @@
                             style="width:100%;padding:13px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:15px;font-weight:700;font-family:inherit;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 4px 20px rgba(220,38,38,0.35);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;"
                             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(220,38,38,0.5)'"
                             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(220,38,38,0.35)'">
-                        <span class="btn-text"><i class="bi bi-send-fill"></i> রিসেট লিংক পাঠান</span>
+                        <span class="btn-text"><i class="bi bi-send-fill"></i> {{ __('রিসেট লিংক পাঠান') }}</span>
                         <span class="btn-loader" style="display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
                     </button>
 
@@ -107,7 +107,7 @@
                        style="font-size:13px;color:rgba(239,68,68,0.6);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;"
                        onmouseover="this.style.color='#ef4444'"
                        onmouseout="this.style.color='rgba(239,68,68,0.6)'">
-                        <i class="bi bi-arrow-left"></i> লগইন পৃষ্ঠায় ফিরুন
+                        <i class="bi bi-arrow-left"></i> {{ __('লগইন পৃষ্ঠায় ফিরুন') }}
                     </a>
                 </div>
 
@@ -116,7 +116,7 @@
             {{-- Bottom strip --}}
             <div style="padding:12px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;gap:6px;">
                 <i class="bi bi-shield-check" style="font-size:12px;color:rgba(255,255,255,0.2);"></i>
-                <span style="font-size:11px;color:rgba(255,255,255,0.2);">আপনার তথ্য সম্পূর্ণ সুরক্ষিত</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.2);">{{ __('আপনার তথ্য সম্পূর্ণ সুরক্ষিত') }}</span>
             </div>
 
         </div>

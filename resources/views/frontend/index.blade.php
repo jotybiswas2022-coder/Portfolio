@@ -71,41 +71,41 @@
             <div class="hero-content animate-in">
                 <div class="hero-badge">
                     <div class="pulse-dot"></div>
-                    <span class="badge-text">জরুরি রক্তদান সেবা</span>
+                    <span class="badge-text">{{ __('জরুরি রক্তদান সেবা') }}</span>
                 </div>
 
                 <h1>
-                    একটি রক্তের ফোঁটা<br>
-                    <span class="highlight">একটি জীবন বাঁচাতে পারে</span>
+                    {{ __('একটি রক্তের ফোঁটা') }}<br>
+                    <span class="highlight">{{ __('একটি জীবন বাঁচাতে পারে') }}</span>
                 </h1>
                 <p>
-                    আমরা রক্তদাতা ও রোগীদের মধ্যে সেতুবন্ধন তৈরি করি। জরুরি মুহূর্তে <br class="hide-mobile">
-                    সঠিক রক্তের গ্রুপ খুঁজে পেতে আমাদের সাথে যুক্ত হোন।
+                    {{ __('আমরা রক্তদাতা ও রোগীদের মধ্যে সেতুবন্ধন তৈরি করি। জরুরি মুহূর্তে') }} <br class="hide-mobile">
+                    {{ __('সঠিক রক্তের গ্রুপ খুঁজে পেতে আমাদের সাথে যুক্ত হোন।') }}
                 </p>
                 <div class="hero-buttons">
                     <a href="#blood-groups" class="btn-primary-custom">
-                        <i class="bi bi-search"></i> ডোনার খুঁজুন
+                        <i class="bi bi-search"></i> {{ __('ডোনার খুঁজুন') }}
                     </a>
                     <a href="{{ url('/emergency-request') }}" class="btn-emergency-pulse">
-                        <i class="bi bi-exclamation-triangle-fill"></i> জরুরি রক্তের অনুরোধ
+                        <i class="bi bi-exclamation-triangle-fill"></i> {{ __('জরুরি রক্তের অনুরোধ') }}
                     </a>
                     <a href="#contact" class="btn-secondary-custom">
-                        <i class="bi bi-telephone-fill"></i> জরুরি যোগাযোগ
+                        <i class="bi bi-telephone-fill"></i> {{ __('জরুরি যোগাযোগ') }}
                     </a>
                 </div>
 
                 <div class="hero-stats">
                     <div class="stat-item">
                         <span class="stat-number" data-target="{{ $donorsCount }}">0</span>
-                        <span class="stat-label">নিবন্ধিত ডোনার</span>
+                        <span class="stat-label">{{ __('নিবন্ধিত ডোনার') }}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number" data-target="8" data-display="৮">০</span>
-                        <span class="stat-label">ব্লাড গ্রুপ</span>
+                        <span class="stat-number" data-target="8" data-display="{{ __('৮') }}">{{ __('০') }}</span>
+                        <span class="stat-label">{{ __('ব্লাড গ্রুপ') }}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number" data-target="24" data-display="২৪/৭">০</span>
-                        <span class="stat-label">জরুরি সেবা</span>
+                        <span class="stat-number" data-target="24" data-display="{{ __('২৪/৭') }}">{{ __('০') }}</span>
+                        <span class="stat-label">{{ __('জরুরি সেবা') }}</span>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
 
     <!-- ========== SUCCESS ALERT ========== -->
     <div class="alert-success" id="successAlert">
-        <i class="bi bi-check-circle-fill"></i> আপনার বার্তা সফলভাবে পাঠানো হয়েছে!
+        <i class="bi bi-check-circle-fill"></i> {{ __('আপনার বার্তা সফলভাবে পাঠানো হয়েছে!') }}
     </div>
 
     <!-- ========== BLOOD GROUPS ========== -->
@@ -122,10 +122,10 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="section-subtitle">
-                    <i class="bi bi-droplet-fill"></i> রক্তের গ্রুপ
+                    <i class="bi bi-droplet-fill"></i> {{ __('রক্তের গ্রুপ') }}
                 </div>
-                <h2 class="section-title">উপলব্ধ রক্তের গ্রুপসমূহ</h2>
-                <p class="section-desc">আপনার প্রয়োজনীয় রক্তের গ্রুপ নির্বাচন করে ডোনারদের তালিকা দেখুন</p>
+                <h2 class="section-title">{{ __('উপলব্ধ রক্তের গ্রুপসমূহ') }}</h2>
+                <p class="section-desc">{{ __('আপনার প্রয়োজনীয় রক্তের গ্রুপ নির্বাচন করে ডোনারদের তালিকা দেখুন') }}</p>
             </div>
 
             @php
@@ -141,10 +141,10 @@
                             <span class="group-text">{{ $group }}</span>
                         </div>
                         <h3>{{ $group }}</h3>
-                        <p class="label">ব্লাড গ্রুপ</p>
-                        <p class="donor-count"><span>{{ $count }}</span> জন ডোনার</p>
+                        <p class="label">{{ __('ব্লাড গ্রুপ') }}</p>
+                        <p class="donor-count"><span>{{ $count }}</span> {{ __('জন ডোনার') }}</p>
                         <a href="{{ url('/donor_list/'.$group) }}" class="view-donors-btn">
-                            ডোনার দেখুন <i class="bi bi-arrow-right"></i>
+                            {{ __('ডোনার দেখুন') }} <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
                 @endforeach
@@ -157,38 +157,38 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="section-subtitle">
-                    <i class="bi bi-gear-fill"></i> প্রক্রিয়া
+                    <i class="bi bi-gear-fill"></i> {{ __('প্রক্রিয়া') }}
                 </div>
-                <h2 class="section-title">কিভাবে কাজ করে</h2>
-                <p class="section-desc">মাত্র তিনটি সহজ ধাপে আপনি রক্তদাতা খুঁজে পেতে পারেন</p>
+                <h2 class="section-title">{{ __('কিভাবে কাজ করে') }}</h2>
+                <p class="section-desc">{{ __('মাত্র তিনটি সহজ ধাপে আপনি রক্তদাতা খুঁজে পেতে পারেন') }}</p>
             </div>
 
             <div class="features-grid">
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-step">১</div>
+                    <div class="feature-step">{{ __('১') }}</div>
                     <div class="feature-icon red">
                         <i class="bi bi-person-plus-fill"></i>
                     </div>
-                    <h4>রেজিস্ট্রেশন করুন</h4>
-                    <p>আপনার রক্তের গ্রুপ ও যোগাযোগের তথ্য দিয়ে নিবন্ধন করুন। এটি সম্পূর্ণ বিনামূল্যে।</p>
+                    <h4>{{ __('রেজিস্ট্রেশন করুন') }}</h4>
+                    <p>{{ __('আপনার রক্তের গ্রুপ ও যোগাযোগের তথ্য দিয়ে নিবন্ধন করুন। এটি সম্পূর্ণ বিনামূল্যে।') }}</p>
                 </div>
 
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="250">
-                    <div class="feature-step">২</div>
+                    <div class="feature-step">{{ __('২') }}</div>
                     <div class="feature-icon blue">
                         <i class="bi bi-search-heart-fill"></i>
                     </div>
-                    <h4>ডোনার খুঁজুন</h4>
-                    <p>আপনার প্রয়োজনীয় ব্লাড গ্রুপ নির্বাচন করুন এবং নিকটস্থ ডোনারদের তালিকা দেখুন।</p>
+                    <h4>{{ __('ডোনার খুঁজুন') }}</h4>
+                    <p>{{ __('আপনার প্রয়োজনীয় ব্লাড গ্রুপ নির্বাচন করুন এবং নিকটস্থ ডোনারদের তালিকা দেখুন।') }}</p>
                 </div>
 
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-step">৩</div>
+                    <div class="feature-step">{{ __('৩') }}</div>
                     <div class="feature-icon green">
                         <i class="bi bi-telephone-fill"></i>
                     </div>
-                    <h4>যোগাযোগ করুন</h4>
-                    <p>সরাসরি ডোনারের সাথে যোগাযোগ করে রক্ত সংগ্রহ করুন এবং একটি জীবন বাঁচান।</p>
+                    <h4>{{ __('যোগাযোগ করুন') }}</h4>
+                    <p>{{ __('সরাসরি ডোনারের সাথে যোগাযোগ করে রক্ত সংগ্রহ করুন এবং একটি জীবন বাঁচান।') }}</p>
                 </div>
             </div>
         </div>
@@ -201,11 +201,11 @@
                 <div class="why-icon">
                     <i class="bi bi-heart-pulse-fill"></i>
                 </div>
-                <h2>কেন রক্ত দান করবেন?</h2>
-                <p>প্রতি বছর লাখ লাখ মানুষের রক্তের প্রয়োজন হয়। একটি রক্তদান তিনটি জীবন বাঁচাতে পারে।<br>
-                আপনার এক ফোঁটা রক্ত কারো জন্য হতে পারে নতুন জীবনের আশীর্বাদ।</p>
+                <h2>{{ __('কেন রক্ত দান করবেন?') }}</h2>
+                <p>{{ __('প্রতি বছর লাখ লাখ মানুষের রক্তের প্রয়োজন হয়। একটি রক্তদান তিনটি জীবন বাঁচাতে পারে।') }}<br>
+                {{ __('আপনার এক ফোঁটা রক্ত কারো জন্য হতে পারে নতুন জীবনের আশীর্বাদ।') }}</p>
                 <a href="#contact" class="btn-primary-custom">
-                    <i class="bi bi-hand-index-thumb-fill"></i> এখনই যুক্ত হোন
+                    <i class="bi bi-hand-index-thumb-fill"></i> {{ __('এখনই যুক্ত হোন') }}
                 </a>
             </div>
         </div>
@@ -216,10 +216,10 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="section-subtitle">
-                    <i class="bi bi-envelope-fill"></i> যোগাযোগ
+                    <i class="bi bi-envelope-fill"></i> {{ __('যোগাযোগ') }}
                 </div>
-                <h2 class="section-title">আমাদের সাথে যোগাযোগ করুন</h2>
-                <p class="section-desc">যেকোনো প্রশ্ন বা জরুরি প্রয়োজনে আমাদের জানান। আমরা ২৪/৭ সেবা দিতে প্রস্তুত।</p>
+                <h2 class="section-title">{{ __('আমাদের সাথে যোগাযোগ করুন') }}</h2>
+                <p class="section-desc">{{ __('যেকোনো প্রশ্ন বা জরুরি প্রয়োজনে আমাদের জানান। আমরা ২৪/৭ সেবা দিতে প্রস্তুত।') }}</p>
             </div>
 
             <div class="contact-grid">
@@ -229,27 +229,27 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">
-                                <i class="bi bi-person"></i> আপনার নাম
+                                <i class="bi bi-person"></i> {{ __('আপনার নাম') }}
                             </label>
-                            <input type="text" id="name" name="name" placeholder="আপনার পূর্ণ নাম লিখুন" required>
+                            <input type="text" id="name" name="name" placeholder="{{ __('আপনার পূর্ণ নাম লিখুন') }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="email">
-                                <i class="bi bi-envelope"></i> আপনার ইমেইল
+                                <i class="bi bi-envelope"></i> {{ __('আপনার ইমেইল') }}
                             </label>
                             <input type="email" id="email" name="email" placeholder="example@email.com" required>
                         </div>
 
                         <div class="form-group">
                             <label for="message">
-                                <i class="bi bi-chat-dots"></i> বার্তা
+                                <i class="bi bi-chat-dots"></i> {{ __('বার্তা') }}
                             </label>
-                            <textarea id="message" name="message" rows="5" placeholder="আপনার বার্তা এখানে লিখুন..." required></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder="{{ __('আপনার বার্তা এখানে লিখুন...') }}" required></textarea>
                         </div>
 
                         <button type="submit" class="submit-btn" id="contactSubmitBtn">
-                            <i class="bi bi-send-fill"></i> বার্তা পাঠান
+                            <i class="bi bi-send-fill"></i> {{ __('বার্তা পাঠান') }}
                             <span class="btn-shimmer"></span>
                         </button>
                     </form>
@@ -261,12 +261,12 @@
                         <div class="emergency-icon">
                             <i class="fas fa-ambulance"></i>
                         </div>
-                        <div class="emergency-badge">২৪/৭ জরুরি সেবা</div>
-                        <h4>জরুরি হটলাইন</h4>
-                        <p>২৪ ঘন্টা জরুরি রক্তের জন্য কল করুন</p>
+                        <div class="emergency-badge">{{ __('২৪/৭ জরুরি সেবা') }}</div>
+                        <h4>{{ __('জরুরি হটলাইন') }}</h4>
+                        <p>{{ __('২৪ ঘন্টা জরুরি রক্তের জন্য কল করুন') }}</p>
                         <div class="phone">{{ $account->phone ?? '' }}</div>
                         <a href="tel:{{ $account->phone ?? '' }}" class="emergency-call-btn">
-                            <i class="bi bi-telephone-fill"></i> এখনই কল করুন
+                            <i class="bi bi-telephone-fill"></i> {{ __('এখনই কল করুন') }}
                         </a>
                     </div>
 
@@ -275,7 +275,7 @@
                             <i class="bi bi-envelope-fill"></i>
                         </div>
                         <div>
-                            <h5>ইমেইল</h5>
+                            <h5>{{ __('ইমেইল') }}</h5>
                             <p>{{ $account->email ?? '' }}</p>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
                             <i class="bi bi-globe2"></i>
                         </div>
                         <div>
-                            <h5>ওয়েবসাইট</h5>
+                            <h5>{{ __('ওয়েবসাইট') }}</h5>
                             <p>{{ $account->website ?? '' }}</p>
                         </div>
                     </div>
@@ -303,29 +303,29 @@
                         <i class="bi bi-droplet-fill"></i>
                     </div>
                     <div>
-                        <span class="brand-name">ব্লাড ব্যাংক</span>
-                        <span class="brand-tagline">জীবন বাঁচানোর লক্ষ্যে</span>
+                        <span class="brand-name">{{ __('ব্লাড ব্যাংক') }}</span>
+                        <span class="brand-tagline">{{ __('জীবন বাঁচানোর লক্ষ্যে') }}</span>
                     </div>
                 </div>
 
                 <div class="footer-links">
                     <div class="footer-links-col">
-                        <h6>কুইক লিংক</h6>
-                        <a href="#home">হোম</a>
-                        <a href="#blood-groups">রক্তের গ্রুপ</a>
-                        <a href="#how-it-works">প্রক্রিয়া</a>
-                        <a href="#contact">যোগাযোগ</a>
+                        <h6>{{ __('কুইক লিংক') }}</h6>
+                        <a href="#home">{{ __('হোম') }}</a>
+                        <a href="#blood-groups">{{ __('রক্তের গ্রুপ') }}</a>
+                        <a href="#how-it-works">{{ __('প্রক্রিয়া') }}</a>
+                        <a href="#contact">{{ __('যোগাযোগ') }}</a>
                     </div>
                     <div class="footer-links-col">
-                        <h6>সেবাসমূহ</h6>
-                        <a href="/donor_list">ডোনার তালিকা</a>
-                        <a href="/login">লগইন</a>
-                        <a href="/register">রেজিস্ট্রেশন</a>
+                        <h6>{{ __('সেবাসমূহ') }}</h6>
+                        <a href="/donor_list">{{ __('ডোনার তালিকা') }}</a>
+                        <a href="/login">{{ __('লগইন') }}</a>
+                        <a href="/register">{{ __('রেজিস্ট্রেশন') }}</a>
                     </div>
                 </div>
 
                 <div class="footer-social">
-                    <h6>ফলো করুন</h6>
+                    <h6>{{ __('ফলো করুন') }}</h6>
                     <div class="social-icons">
                         <a href="#" class="social-icon facebook" title="Facebook">
                             <i class="bi bi-facebook"></i>
@@ -344,7 +344,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; ২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।</p>
+                <p>&copy; {{ __('২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।') }}</p>
                 <p class="footer-made-with">Developed by <span style="font-weight:800;background:linear-gradient(135deg,var(--primary-light),#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Joty Biswas</span></p>
             </div>
         </div>
@@ -399,7 +399,7 @@
             const submitBtn = document.getElementById('contactSubmitBtn');
             const formData = new FormData(form);
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> পাঠানো হচ্ছে...';
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> {{ __('পাঠানো হচ্ছে...') }}';
 
             fetch(form.action, {
                 method: 'POST',
@@ -424,7 +424,7 @@
             })
             .finally(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="bi bi-send-fill"></i> বার্তা পাঠান<span class="btn-shimmer"></span>';
+                submitBtn.innerHTML = '<i class="bi bi-send-fill"></i> {{ __('বার্তা পাঠান') }}<span class="btn-shimmer"></span>';
             });
         });
 

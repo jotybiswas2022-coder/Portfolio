@@ -41,8 +41,8 @@
                  onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <i class="bi bi-droplet-fill" style="font-size:26px;color:#fff;"></i>
             </div>
-            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">ব্লাড ব্যাংক</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">রক্তদান · জীবন বাঁচান</div>
+            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">{{ __('ব্লাড ব্যাংক') }}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">{{ __('রক্তদান · জীবন বাঁচান') }}</div>
         </div>
 
         {{-- Card --}}
@@ -55,9 +55,9 @@
                           onmouseover="this.style.transform='rotate(10deg)'" onmouseout="this.style.transform='rotate(0)'">
                         <i class="bi bi-envelope-check-fill" style="font-size:16px;color:#ef4444;"></i>
                     </span>
-                    <span style="font-size:17px;font-weight:700;color:#fff;">ইমেইল ভেরিফিকেশন</span>
+                    <span style="font-size:17px;font-weight:700;color:#fff;">{{ __('ইমেইল ভেরিফিকেশন') }}</span>
                 </div>
-                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">আপনার ইমেইল ঠিকানা নিশ্চিত করুন</p>
+                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">{{ __('আপনার ইমেইল ঠিকানা নিশ্চিত করুন') }}</p>
             </div>
 
             {{-- Body --}}
@@ -72,17 +72,17 @@
 
                 @if (session('resent'))
                     <div style="padding:10px 14px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:10px;color:#4ade80;font-size:13px;margin-bottom:18px;">
-                        <i class="bi bi-check-circle-fill" style="margin-right:6px;"></i> একটি নতুন ভেরিফিকেশন লিংক আপনার ইমেইলে পাঠানো হয়েছে
+                        <i class="bi bi-check-circle-fill" style="margin-right:6px;"></i> {{ __('একটি নতুন ভেরিফিকেশন লিংক আপনার ইমেইলে পাঠানো হয়েছে') }}
                     </div>
                 @endif
 
                 <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin:0 0 8px;">
-                    আপনার ইমেইলে একটি ভেরিফিকেশন লিংক পাঠানো হয়েছে। <br>
-                    চালিয়ে যেতে অনুগ্রহ করে ইমেইল চেক করুন।
+                    {{ __('আপনার ইমেইলে একটি ভেরিফিকেশন লিংক পাঠানো হয়েছে।') }} <br>
+                    {{ __('চালিয়ে যেতে অনুগ্রহ করে ইমেইল চেক করুন।') }}
                 </p>
 
                 <p style="font-size:13px;color:rgba(255,255,255,0.3);margin:0 0 24px;">
-                    যদি আপনি ইমেইল না পেয়ে থাকেন,
+                    {{ __('যদি আপনি ইমেইল না পেয়ে থাকেন,') }}
                 </p>
 
                 {{-- Resend --}}
@@ -92,7 +92,7 @@
                             style="padding:12px 28px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:14px;font-weight:700;font-family:inherit;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 4px 20px rgba(220,38,38,0.35);display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden;"
                             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(220,38,38,0.5)'"
                             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(220,38,38,0.35)'">
-                        <span class="btn-text"><i class="bi bi-arrow-clockwise"></i> পুনরায় পাঠান</span>
+                        <span class="btn-text"><i class="bi bi-arrow-clockwise"></i> {{ __('পুনরায় পাঠান') }}</span>
                         <span class="btn-loader" style="display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
                     </button>
                 </form>
@@ -102,7 +102,7 @@
             {{-- Bottom strip --}}
             <div style="padding:12px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;gap:6px;">
                 <i class="bi bi-shield-check" style="font-size:12px;color:rgba(255,255,255,0.2);"></i>
-                <span style="font-size:11px;color:rgba(255,255,255,0.2);">আপনার তথ্য সম্পূর্ণ সুরক্ষিত</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.2);">{{ __('আপনার তথ্য সম্পূর্ণ সুরক্ষিত') }}</span>
             </div>
 
         </div>

@@ -91,26 +91,26 @@
             <div class="hero-content animate-in">
                 <div class="hero-badge">
                     <div class="pulse-dot"></div>
-                    <span class="badge-text">রক্তদাতা তালিকা</span>
+                    <span class="badge-text">{{ __('রক্তদাতা তালিকা') }}</span>
                 </div>
                 <h1>
-                    রক্তদাতা খুঁজুন<br>
-                    <span class="highlight">জীবন বাঁচান</span>
+                    {{ __('রক্তদাতা খুঁজুন') }}<br>
+                    <span class="highlight">{{ __('জীবন বাঁচান') }}</span>
                 </h1>
-                <p>জীবন বাঁচান, রক্ত দিন। আমাদের নিবন্ধিত রক্তদাতাদের সাথে যোগাযোগ করুন।</p>
+                <p>{{ __('জীবন বাঁচান, রক্ত দিন। আমাদের নিবন্ধিত রক্তদাতাদের সাথে যোগাযোগ করুন।') }}</p>
 
                 <div class="hero-stats">
                     <div class="stat-item">
                         <span class="stat-number">{{ $sortedDonors->count() }}</span>
-                        <span class="stat-label">মোট ডোনার</span>
+                        <span class="stat-label">{{ __('মোট ডোনার') }}</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">৮</span>
-                        <span class="stat-label">ব্লাড গ্রুপ</span>
+                        <span class="stat-label">{{ __('ব্লাড গ্রুপ') }}</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">২৪/৭</span>
-                        <span class="stat-label">জরুরি সেবা</span>
+                        <span class="stat-label">{{ __('জরুরি সেবা') }}</span>
                     </div>
                 </div>
             </div>
@@ -123,25 +123,25 @@
             <div class="filter-card" data-aos="fade-up">
                 <div class="filter-header">
                     <div class="filter-label">
-                        <i class="bi bi-funnel-fill"></i> ফিল্টার
+                        <i class="bi bi-funnel-fill"></i> {{ __('ফিল্টার') }}
                     </div>
                     <div class="filter-header-right">
                         <div class="search-wrap">
                             <i class="bi bi-search"></i>
-                            <input type="text" id="searchInput" placeholder="নাম বা মোবাইল দিয়ে খুঁজুন..." onkeyup="searchDonors(this.value)">
+                            <input type="text" id="searchInput" placeholder="{{ __('নাম বা মোবাইল দিয়ে খুঁজুন...') }}" onkeyup="searchDonors(this.value)">
                         </div>
                         <div class="select-wrap">
                             <i class="bi bi-geo-alt-fill"></i>
                             <select onchange="filterDivision(this.value)">
-                                <option value="all">সব বিভাগ</option>
-                                <option value="Dhaka">ঢাকা</option>
-                                <option value="Chattogram">চট্টগ্রাম</option>
-                                <option value="Khulna">খুলনা</option>
-                                <option value="Rajshahi">রাজশাহী</option>
-                                <option value="Barishal">বরিশাল</option>
-                                <option value="Sylhet">সিলেট</option>
-                                <option value="Rangpur">রংপুর</option>
-                                <option value="Mymensingh">ময়মনসিংহ</option>
+                                <option value="all">{{ __('সব বিভাগ') }}</option>
+                                <option value="Dhaka">{{ __('ঢাকা') }}</option>
+                                <option value="Chattogram">{{ __('চট্টগ্রাম') }}</option>
+                                <option value="Khulna">{{ __('খুলনা') }}</option>
+                                <option value="Rajshahi">{{ __('রাজশাহী') }}</option>
+                                <option value="Barishal">{{ __('বরিশাল') }}</option>
+                                <option value="Sylhet">{{ __('সিলেট') }}</option>
+                                <option value="Rangpur">{{ __('রংপুর') }}</option>
+                                <option value="Mymensingh">{{ __('ময়মনসিংহ') }}</option>
                             </select>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
 
                 <div class="filter-chips-wrap">
                     <div class="filter-chips">
-                        <a href="/donor_list" class="filter-chip {{ !$bloodGroup ? 'active' : '' }}">সব</a>
+                        <a href="/donor_list" class="filter-chip {{ !$bloodGroup ? 'active' : '' }}">{{ __('সব') }}</a>
                         <a href="/donor_list/A%2B" class="filter-chip {{ $bloodGroup === 'A+' ? 'active' : '' }}">A+</a>
                         <a href="/donor_list/A%2D" class="filter-chip {{ $bloodGroup === 'A-' ? 'active' : '' }}">A−</a>
                         <a href="/donor_list/B%2B" class="filter-chip {{ $bloodGroup === 'B+' ? 'active' : '' }}">B+</a>
@@ -171,9 +171,9 @@
                 <div class="donor-card-header">
                     <h3>
                         <i class="bi bi-people-fill"></i>
-                        <span id="header-title">@if($bloodGroup) {{ $bloodGroup }} ব্লাড গ্রুপের ডোনার @else সব ডোনার @endif</span>
+                        <span id="header-title">@if($bloodGroup) {{ $bloodGroup }} {{ __('ব্লাড গ্রুপের ডোনার') }} @else {{ __('সব ডোনার') }} @endif</span>
                     </h3>
-                    <span class="donor-count-badge" id="donor-count">মোট: {{ $sortedDonors->count() }} জন</span>
+                    <span class="donor-count-badge" id="donor-count">{{ __('মোট:') }} {{ $sortedDonors->count() }} {{ __('জন') }}</span>
                 </div>
 
                 <div class="table-scroll-top" id="tableScrollTop"></div>
@@ -182,11 +182,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>নাম</th>
-                                <th>মোবাইল</th>
-                                <th>রক্তের গ্রুপ</th>
-                                <th>বিভাগ</th>
-                                <th>পরবর্তী রক্তদান</th>
+                                <th>{{ __('নাম') }}</th>
+                                <th>{{ __('মোবাইল') }}</th>
+                                <th>{{ __('রক্তের গ্রুপ') }}</th>
+                                <th>{{ __('বিভাগ') }}</th>
+                                <th>{{ __('পরবর্তী রক্তদান') }}</th>
                             </tr>
                         </thead>
                         <tbody id="donor-tbody">
@@ -229,15 +229,15 @@
                                             @elseif($diffDays === 1) eligible-soon
                                             @else eligible-waiting @endif">
                                             @if($diffDays <= 0)
-                                                <i class="bi bi-check-circle-fill"></i> এখনই দিতে পারবেন
+                                                <i class="bi bi-check-circle-fill"></i> {{ __('এখনই দিতে পারবেন') }}
                                             @else
                                                 {{ $nextDate->format('d M Y') }}
-                                                (আর {{ $diffDays }} দিন)
+                                                ({{ __('আর') }} {{ $diffDays }} {{ __('দিন') }})
                                             @endif
                                         </span>
                                     @else
                                         <span class="eligible-badge eligible-now">
-                                            <i class="bi bi-check-circle-fill"></i> এখনই দিতে পারবেন
+                                            <i class="bi bi-check-circle-fill"></i> {{ __('এখনই দিতে পারবেন') }}
                                         </span>
                                     @endif
                                 </td>
@@ -247,8 +247,8 @@
                                 <td colspan="6" class="empty-state">
                                     <div class="empty-content">
                                         <i class="bi bi-people"></i>
-                                        <h4>কোনো ডোনার পাওয়া যায়নি</h4>
-                                        <p>এই ফিল্টারে কোনো রক্তদাতা নেই। অনুগ্রহ করে ভিন্ন গ্রুপ বা বিভাগ নির্বাচন করুন।</p>
+                                        <h4>{{ __('কোনো ডোনার পাওয়া যায়নি') }}</h4>
+                                        <p>{{ __('এই ফিল্টারে কোনো রক্তদাতা নেই। অনুগ্রহ করে ভিন্ন গ্রুপ বা বিভাগ নির্বাচন করুন।') }}</p>
                                     </div>
                                 </td>
                             </tr>
@@ -269,30 +269,30 @@
                         <i class="bi bi-droplet-fill"></i>
                     </div>
                     <div>
-                        <span class="brand-name">ব্লাড ব্যাংক</span>
-                        <span class="brand-tagline">জীবন বাঁচানোর লক্ষ্যে</span>
+                        <span class="brand-name">{{ __('ব্লাড ব্যাংক') }}</span>
+                        <span class="brand-tagline">{{ __('জীবন বাঁচানোর লক্ষ্যে') }}</span>
                     </div>
                 </div>
 
                 <div class="footer-links">
                     <div class="footer-links-col">
-                        <h6>কুইক লিংক</h6>
-                        <a href="/">হোম</a>
-                        <a href="/donor_list">ডোনার তালিকা</a>
-                        <a href="/login">লগইন</a>
-                        <a href="/register">রেজিস্ট্রেশন</a>
+                        <h6>{{ __('কুইক লিংক') }}</h6>
+                        <a href="/">{{ __('হোম') }}</a>
+                        <a href="/donor_list">{{ __('ডোনার তালিকা') }}</a>
+                        <a href="/login">{{ __('লগইন') }}</a>
+                        <a href="/register">{{ __('রেজিস্ট্রেশন') }}</a>
                     </div>
                     <div class="footer-links-col">
-                        <h6>সেবাসমূহ</h6>
-                        <a href="/donor_list/A+">A+ ডোনার</a>
-                        <a href="/donor_list/B+">B+ ডোনার</a>
-                        <a href="/donor_list/O+">O+ ডোনার</a>
-                        <a href="/donor_list/AB+">AB+ ডোনার</a>
+                        <h6>{{ __('সেবাসমূহ') }}</h6>
+                        <a href="/donor_list/A+">{{ __('A+ ডোনার') }}</a>
+                        <a href="/donor_list/B+">{{ __('B+ ডোনার') }}</a>
+                        <a href="/donor_list/O+">{{ __('O+ ডোনার') }}</a>
+                        <a href="/donor_list/AB+">{{ __('AB+ ডোনার') }}</a>
                     </div>
                 </div>
 
                 <div class="footer-social">
-                    <h6>ফলো করুন</h6>
+                    <h6>{{ __('ফলো করুন') }}</h6>
                     <div class="social-icons">
                         <a href="#" class="social-icon facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="social-icon twitter" title="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -303,8 +303,8 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; ২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।</p>
-                <p class="footer-made-with">হৃদয় দিয়ে তৈরি <span class="heart">❤️</span></p>
+                <p>&copy; {{ __('২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।') }}</p>
+                <p class="footer-made-with">{{ __('হৃদয় দিয়ে তৈরি') }} <span class="heart">❤️</span></p>
             </div>
         </div>
     </footer>
@@ -390,14 +390,14 @@
             }
         });
 
-        document.getElementById('donor-count').textContent = 'মোট: ' + visible + ' জন';
+        document.getElementById('donor-count').textContent = '{{ __('মোট:') }} ' + visible + ' {{ __('জন') }}';
 
         let emptyRow = document.getElementById('empty-row');
         if (visible === 0) {
             if (!emptyRow) {
                 emptyRow = document.createElement('tr');
                 emptyRow.id = 'empty-row';
-                emptyRow.innerHTML = '<td colspan="6" class="empty-state"><div class="empty-content"><i class="bi bi-people"></i><h4>কোনো ডোনার পাওয়া যায়নি</h4><p>এই ফিল্টারে কোনো রক্তদাতা নেই। অনুগ্রহ করে ভিন্ন গ্রুপ বা বিভাগ নির্বাচন করুন।</p></div></td>';
+                emptyRow.innerHTML = '<td colspan="6" class="empty-state"><div class="empty-content"><i class="bi bi-people"></i><h4>{{ __('কোনো ডোনার পাওয়া যায়নি') }}</h4><p>{{ __('এই ফিল্টারে কোনো রক্তদাতা নেই। অনুগ্রহ করে ভিন্ন গ্রুপ বা বিভাগ নির্বাচন করুন।') }}</p></div></td>';
                 document.getElementById('donor-tbody').appendChild(emptyRow);
             }
             emptyRow.style.display = '';

@@ -112,8 +112,8 @@
                  onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <i class="bi bi-droplet-fill" style="font-size:26px;color:#fff;"></i>
             </div>
-            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">ব্লাড ব্যাংক</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">রক্তদান · জীবন বাঁচান</div>
+            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">{{ __('ব্লাড ব্যাংক') }}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">{{ __('রক্তদান · জীবন বাঁচান') }}</div>
         </div>
 
         {{-- Login Card --}}
@@ -126,9 +126,9 @@
                           onmouseover="this.style.transform='rotate(10deg)'" onmouseout="this.style.transform='rotate(0)'">
                         <i class="bi bi-lock-fill" style="font-size:14px;color:#ef4444;"></i>
                     </span>
-                    <span style="font-size:17px;font-weight:700;color:#fff;">অ্যাকাউন্টে লগইন করুন</span>
+                    <span style="font-size:17px;font-weight:700;color:#fff;">{{ __('অ্যাকাউন্টে লগইন করুন') }}</span>
                 </div>
-                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">আপনার তথ্য দিন এবং অ্যাকাউন্টে প্রবেশ করুন</p>
+                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">{{ __('আপনার তথ্য দিন এবং অ্যাকাউন্টে প্রবেশ করুন') }}</p>
             </div>
 
             {{-- Body --}}
@@ -145,13 +145,13 @@
                         <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
                         <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                     </svg>
-                    Google দিয়ে লগইন করুন
+                    {{ __('Google দিয়ে লগইন করুন') }}
                 </a>
 
                 {{-- Divider --}}
                 <div style="display:flex;align-items:center;gap:12px;margin:20px 0;">
                     <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
-                    <span style="font-size:11px;color:rgba(255,255,255,0.2);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;">ইমেইল দিয়ে লগইন</span>
+                    <span style="font-size:11px;color:rgba(255,255,255,0.2);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;">{{ __('ইমেইল দিয়ে লগইন') }}</span>
                     <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
                 </div>
 
@@ -162,7 +162,7 @@
                     {{-- Email --}}
                     <div style="margin-bottom:18px;">
                         <label for="email" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
-                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>ইমেইল ঠিকানা
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>{{ __('ইমেইল ঠিকানা') }}
                         </label>
                         <div style="position:relative;">
                             <i class="bi bi-envelope-fill field-icon-custom" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
@@ -179,7 +179,7 @@
                     {{-- Password --}}
                     <div style="margin-bottom:12px;">
                         <label for="password" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
-                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>পাসওয়ার্ড
+                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>{{ __('পাসওয়ার্ড') }}
                         </label>
                         <div style="position:relative;">
                             <i class="bi bi-key-fill field-icon-custom" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
@@ -206,14 +206,14 @@
                             <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}
                                    style="width:16px;height:16px;border-radius:4px;border:1.5px solid rgba(255,255,255,0.15);background:transparent;appearance:none;-webkit-appearance:none;cursor:pointer;position:relative;flex-shrink:0;transition:all 0.2s;"
                                    onchange="if(this.checked){this.style.background='#dc2626';this.style.borderColor='#dc2626'}else{this.style.background='transparent';this.style.borderColor='rgba(255,255,255,0.15)'}">
-                            <label for="remember" style="font-size:13px;color:rgba(255,255,255,0.45);cursor:pointer;">আমাকে মনে রাখুন</label>
+                            <label for="remember" style="font-size:13px;color:rgba(255,255,255,0.45);cursor:pointer;">{{ __('আমাকে মনে রাখুন') }}</label>
                         </div>
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}"
                                style="font-size:12px;color:rgba(239,68,68,0.65);text-decoration:none;transition:color 0.2s;"
                                onmouseover="this.style.color='#ef4444'"
                                onmouseout="this.style.color='rgba(239,68,68,0.65)'">
-                                পাসওয়ার্ড ভুলে গেছেন?
+                                {{ __('পাসওয়ার্ড ভুলে গেছেন?') }}
                             </a>
                         @endif
                     </div>
@@ -223,19 +223,19 @@
                             style="width:100%;padding:13px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:15px;font-weight:700;font-family:inherit;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 4px 20px rgba(220,38,38,0.35);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;"
                             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(220,38,38,0.5)'"
                             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(220,38,38,0.35)'">
-                        <span class="btn-text"><i class="bi bi-box-arrow-in-right"></i> লগইন করুন</span>
+                        <span class="btn-text"><i class="bi bi-box-arrow-in-right"></i> {{ __('লগইন করুন') }}</span>
                         <span class="btn-loader" style="display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
                     </button>
                 </form>
 
                 {{-- ====== SIGN UP ====== --}}
                 <div style="text-align:center;margin-top:18px;">
-                    <span style="font-size:13px;color:rgba(255,255,255,0.4);">অ্যাকাউন্ট নেই?</span>
+                    <span style="font-size:13px;color:rgba(255,255,255,0.4);">{{ __('অ্যাকাউন্ট নেই?') }}</span>
                     <a href="{{ route('register') }}"
                        style="display:inline-block;margin-left:6px;padding:9px 22px;border:1.5px solid rgba(239,68,68,0.3);border-radius:8px;color:#ef4444;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.25s;"
                        onmouseover="this.style.background='rgba(239,68,68,0.12)';this.style.borderColor='#ef4444'"
                        onmouseout="this.style.background='transparent';this.style.borderColor='rgba(239,68,68,0.3)'">
-                        নিবন্ধন করুন <i class="bi bi-arrow-right" style="font-size:11px;"></i>
+                        {{ __('নিবন্ধন করুন') }} <i class="bi bi-arrow-right" style="font-size:11px;"></i>
                     </a>
                 </div>
 
@@ -244,7 +244,7 @@
             {{-- Bottom strip --}}
             <div style="padding:10px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;gap:6px;">
                 <i class="bi bi-shield-check" style="font-size:11px;color:rgba(255,255,255,0.18);"></i>
-                <span style="font-size:10.5px;color:rgba(255,255,255,0.18);">আপনার তথ্য সম্পূর্ণ সুরক্ষিত</span>
+                <span style="font-size:10.5px;color:rgba(255,255,255,0.18);">{{ __('আপনার তথ্য সম্পূর্ণ সুরক্ষিত') }}</span>
             </div>
 
         </div>

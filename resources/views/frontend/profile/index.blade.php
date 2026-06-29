@@ -97,7 +97,7 @@
                 <div class="profile-body">
 
                     <div class="section-label">
-                        <i class="bi bi-info-circle-fill"></i> প্রোফাইল তথ্য
+                        <i class="bi bi-info-circle-fill"></i> {{ __('প্রোফাইল তথ্য') }}
                     </div>
 
                     <div class="info-grid">
@@ -107,8 +107,8 @@
                                 <i class="bi bi-telephone-fill"></i>
                             </div>
                             <div class="info-content">
-                                <span class="info-label">মোবাইল নম্বর</span>
-                                <span class="info-value">{{ $profile->number ?? 'সেট করা হয়নি' }}</span>
+                                <span class="info-label">{{ __('মোবাইল নম্বর') }}</span>
+                                <span class="info-value">{{ $profile->number ?? __('সেট করা হয়নি') }}</span>
                             </div>
                         </div>
 
@@ -118,7 +118,7 @@
                                 <i class="bi bi-droplet-half"></i>
                             </div>
                             <div class="info-content">
-                                <span class="info-label">রক্তের গ্রুপ</span>
+                                <span class="info-label">{{ __('রক্তের গ্রুপ') }}</span>
                                 <span class="info-value blood-value">{{ $profile->blood ?? '--' }}</span>
                             </div>
                         </div>
@@ -129,8 +129,8 @@
                                 <i class="bi bi-geo-alt-fill"></i>
                             </div>
                             <div class="info-content">
-                                <span class="info-label">বিভাগ</span>
-                                <span class="info-value">{{ $profile->division ?? 'সেট করা হয়নি' }}</span>
+                                <span class="info-label">{{ __('বিভাগ') }}</span>
+                                <span class="info-value">{{ $profile->division ?? __('সেট করা হয়নি') }}</span>
                             </div>
                         </div>
 
@@ -140,12 +140,12 @@
                                 <i class="bi bi-calendar-check-fill"></i>
                             </div>
                             <div class="info-content">
-                                <span class="info-label">সর্বশেষ রক্তদান</span>
+                                <span class="info-label">{{ __('সর্বশেষ রক্তদান') }}</span>
                                 <span class="info-value">
                                     @if($profile->last_donated)
                                         {{ \Carbon\Carbon::parse($profile->last_donated)->timezone('Asia/Dhaka')->format('d M Y') }}
                                     @else
-                                        <span class="text-muted">এখনো দান করেননি</span>
+                                        <span class="text-muted">{{ __('এখনো দান করেননি') }}</span>
                                     @endif
                                 </span>
                             </div>
@@ -167,9 +167,9 @@
                             <div class="status-bar-fill" style="width: {{ $percent }}%;"></div>
                             <div class="status-bar-label">
                                 @if($diffDays <= 0)
-                                    <i class="bi bi-check-circle-fill"></i> আপনি এখন রক্ত দিতে পারবেন!
+                                    <i class="bi bi-check-circle-fill"></i> {{ __('আপনি এখন রক্ত দিতে পারবেন!') }}
                                 @else
-                                    পরবর্তী দানের জন্য আর {{ $diffDays }} দিন বাকি
+                                    {{ __('পরবর্তী দানের জন্য আর') }} {{ $diffDays }} {{ __('দিন বাকি') }}
                                 @endif
                             </div>
                         </div>
@@ -182,11 +182,11 @@
                 <div class="profile-actions" data-aos="fade-up" data-aos-delay="200">
                     <a href="{{ url('/profile/edit') }}" class="btn-edit">
                         <i class="bi bi-pencil-square"></i>
-                        প্রোফাইল এডিট করুন
+                        {{ __('প্রোফাইল এডিট করুন') }}
                     </a>
                     <a href="{{ url('/') }}" class="btn-back">
                         <i class="bi bi-house-fill"></i>
-                        হোম পেজ
+                        {{ __('হোম পেজ') }}
                     </a>
                 </div>
 
@@ -203,30 +203,30 @@
                         <i class="bi bi-droplet-fill"></i>
                     </div>
                     <div>
-                        <span class="brand-name">ব্লাড ব্যাংক</span>
-                        <span class="brand-tagline">জীবন বাঁচানোর লক্ষ্যে</span>
+                        <span class="brand-name">{{ __('ব্লাড ব্যাংক') }}</span>
+                        <span class="brand-tagline">{{ __('জীবন বাঁচানোর লক্ষ্যে') }}</span>
                     </div>
                 </div>
 
                 <div class="footer-links">
                     <div class="footer-links-col">
-                        <h6>কুইক লিংক</h6>
-                        <a href="{{ url('/') }}">হোম</a>
-                        <a href="{{ url('/profile') }}">আমার প্রোফাইল</a>
-                        <a href="{{ url('/profile/edit') }}">প্রোফাইল এডিট</a>
-                        <a href="{{ url('/donor_list') }}">ডোনার তালিকা</a>
+                        <h6>{{ __('কুইক লিংক') }}</h6>
+                        <a href="{{ url('/') }}">{{ __('হোম') }}</a>
+                        <a href="{{ url('/profile') }}">{{ __('আমার প্রোফাইল') }}</a>
+                        <a href="{{ url('/profile/edit') }}">{{ __('প্রোফাইল এডিট') }}</a>
+                        <a href="{{ url('/donor_list') }}">{{ __('ডোনার তালিকা') }}</a>
                     </div>
                     <div class="footer-links-col">
-                        <h6>সেবাসমূহ</h6>
-                        <a href="{{ url('/donor_list/A+') }}">A+ ডোনার</a>
-                        <a href="{{ url('/donor_list/B+') }}">B+ ডোনার</a>
-                        <a href="{{ url('/donor_list/O+') }}">O+ ডোনার</a>
-                        <a href="{{ url('/donor_list/AB+') }}">AB+ ডোনার</a>
+                        <h6>{{ __('সেবাসমূহ') }}</h6>
+                        <a href="{{ url('/donor_list/A+') }}">{{ __('A+ ডোনার') }}</a>
+                        <a href="{{ url('/donor_list/B+') }}">{{ __('B+ ডোনার') }}</a>
+                        <a href="{{ url('/donor_list/O+') }}">{{ __('O+ ডোনার') }}</a>
+                        <a href="{{ url('/donor_list/AB+') }}">{{ __('AB+ ডোনার') }}</a>
                     </div>
                 </div>
 
                 <div class="footer-social">
-                    <h6>ফলো করুন</h6>
+                    <h6>{{ __('ফলো করুন') }}</h6>
                     <div class="social-icons">
                         <a href="#" class="social-icon facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="social-icon twitter" title="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -237,7 +237,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; ২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।</p>
+                <p>&copy; {{ __('২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।') }}</p>
                 <p class="footer-made-with">Developed by <span class="dev-name">Joty Biswas</span></p>
             </div>
         </div>
