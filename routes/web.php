@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\ProfileController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\SiteController;
 
 Route::controller(SiteController::class)->group(function () {
@@ -44,12 +43,6 @@ Route::middleware('auth')->prefix('/donor_list')->controller(SiteController::cla
     Route::get('/{bloodGroup?}', 'donorList'); 
 });
 
-
-// Google Login Routes
-Route::controller(SocialAuthController::class)->group(function () {
-    Route::get('/auth/google', 'redirectToGoogle')->name('auth.google');
-    Route::get('/auth/google/callback', 'handleGoogleCallback');
-});
 
 Auth::routes();
 
