@@ -13,16 +13,9 @@ class MyMessageController extends Controller
         return response()->json(['hasSession' => session()->has('contact_email')]);
     }
 
-    function verify(Request $request)
+    function setEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
-
-        $hasMessages = Contact::root()->where('email', $request->email)->where('type', 'message')->exists();
-
-        if (!$hasMessages) {
-            return response()->json(['success' => false, 'message' => 'No messages found for this email.']);
-        }
-
         session(['contact_email' => $request->email]);
         return response()->json(['success' => true]);
     }
