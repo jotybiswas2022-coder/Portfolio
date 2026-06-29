@@ -264,8 +264,8 @@
                         <div class="emergency-badge">২৪/৭ জরুরি সেবা</div>
                         <h4>জরুরি হটলাইন</h4>
                         <p>২৪ ঘন্টা জরুরি রক্তের জন্য কল করুন</p>
-                        <div class="phone">{{ $account->phone }}</div>
-                        <a href="tel:{{ $account->phone }}" class="emergency-call-btn">
+                        <div class="phone">{{ $account->phone ?? '' }}</div>
+                        <a href="tel:{{ $account->phone ?? '' }}" class="emergency-call-btn">
                             <i class="bi bi-telephone-fill"></i> এখনই কল করুন
                         </a>
                     </div>
@@ -276,7 +276,7 @@
                         </div>
                         <div>
                             <h5>ইমেইল</h5>
-                            <p>{{ $account->email }}</p>
+                            <p>{{ $account->email ?? '' }}</p>
                         </div>
                     </div>
 
@@ -286,7 +286,7 @@
                         </div>
                         <div>
                             <h5>ওয়েবসাইট</h5>
-                            <p>{{ $account->website }}</p>
+                            <p>{{ $account->website ?? '' }}</p>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ class SiteController extends Controller
 {
     public function index(){
         $account = Account::first(); 
-        $donorsCount = Profile::count(); 
+        $donorsCount = Profile::whereNotNull('blood')->count(); 
 
         // Blood group wise donor counts
         $bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
@@ -26,7 +26,7 @@ class SiteController extends Controller
     if($bloodGroup) {
         $donors = Profile::where('blood', $bloodGroup)->get();
     } else {
-        $donors = Profile::all();
+        $donors = Profile::whereNotNull('blood')->get();
     }
 
     $sortedDonors = $donors->sortBy(function($donor) {

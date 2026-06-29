@@ -13,7 +13,7 @@ class DonorController extends Controller
     // Donor List
     // ==============================
     public function index(Request $request){
-        $query = Profile::query();
+        $query = Profile::whereNotNull('blood');
 
         if ($request->filled('search_name')) {
             $query->where('name', 'like', '%' . $request->search_name . '%');
@@ -25,7 +25,7 @@ class DonorController extends Controller
 
         // Pagination (10 per page)
         $donors = $query->orderBy('id','desc')->paginate(10);
-        $donorsCount = Profile::count(); 
+        $donorsCount = Profile::whereNotNull('blood')->count(); 
         
         return view('backend.donor_list.index', compact('donors', 'donorsCount'));
     }
@@ -163,7 +163,7 @@ class DonorController extends Controller
     // ==============================
     public function exportPDF()
     {
-        $donors = Profile::orderBy('id','desc')->get();
+        $donors = Profile::whereNotNull('blood')->orderBy('id','desc')->get();
         $pdf = Pdf::loadView('backend.donor_list.pdf', compact('donors'));
         return $pdf->download('donor-list-' . date('Y-m-d') . '.pdf');
     }
@@ -173,7 +173,7 @@ class DonorController extends Controller
     // ==============================
     public function exportCSV()
     {
-        $donors = Profile::orderBy('id','desc')->get();
+        $donors = Profile::whereNotNull('blood')->orderBy('id','desc')->get();
 
         $filename = 'donor-list-' . date('Y-m-d') . '.csv';
         $headers = [
