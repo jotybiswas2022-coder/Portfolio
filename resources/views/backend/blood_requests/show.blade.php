@@ -94,22 +94,60 @@
 
                     <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;">
                         @if($bloodRequest->status !== 'fulfilled' && $bloodRequest->status !== 'cancelled')
-                        <form action="{{ url('/admin/blood-requests/cancel/'.$bloodRequest->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ url('/admin/blood-requests/cancel/'.$bloodRequest->id) }}" method="POST" style="display:inline;" id="cancelForm">
                             @csrf
-                            <button type="submit" class="btn btn-secondary" style="border-radius:10px;font-weight:600;font-size:0.85rem;padding:8px 20px;"
-                                    onclick="return confirm('Are you sure you want to cancel this request?')">
+                            <button type="button" class="btn btn-secondary" id="cancelBtn" style="border-radius:10px;font-weight:600;font-size:0.85rem;padding:8px 20px;">
                                 <i class="bi bi-x-lg me-1"></i> Cancel
                             </button>
                         </form>
-                        <form action="{{ url('/admin/blood-requests/fulfilled/'.$bloodRequest->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ url('/admin/blood-requests/fulfilled/'.$bloodRequest->id) }}" method="POST" style="display:inline;" id="fulfillForm">
                             @csrf
-                            <button type="submit" class="btn btn-success" style="border-radius:10px;font-weight:600;font-size:0.85rem;padding:8px 20px;"
-                                    onclick="return confirm('Mark this request as fulfilled?')">
+                            <button type="button" class="btn btn-success" id="fulfillBtn" style="border-radius:10px;font-weight:600;font-size:0.85rem;padding:8px 20px;">
                                 <i class="bi bi-check-lg me-1"></i> Mark as Fulfilled
                             </button>
                         </form>
                         @endif
                     </div>
+@section('scripts')
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var cancelBtn = document.getElementById('cancelBtn');
+                        var fulfillBtn = document.getElementById('fulfillBtn');
+                        if (cancelBtn) {
+                            cancelBtn.addEventListener('click', function () {
+                                Swal.fire({
+                                    title: 'Cancel Request?',
+                                    text: 'This blood request will be cancelled.',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#6b7280',
+                                    confirmButtonText: '<i class="bi bi-x-lg me-1"></i> Yes, cancel it!',
+                                    cancelButtonText: 'Go Back',
+                                    buttonsStyling: true
+                                }).then(function (result) {
+                                    if (result.isConfirmed) document.getElementById('cancelForm').submit();
+                                });
+                            });
+                        }
+                        if (fulfillBtn) {
+                            fulfillBtn.addEventListener('click', function () {
+                                Swal.fire({
+                                    title: 'Mark as Fulfilled?',
+                                    text: 'This blood request will be marked as fulfilled.',
+                                    icon: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#22c55e',
+                                    confirmButtonText: '<i class="bi bi-check-lg me-1"></i> Yes, fulfill it!',
+                                    cancelButtonText: 'Cancel',
+                                    buttonsStyling: true
+                                }).then(function (result) {
+                                    if (result.isConfirmed) document.getElementById('fulfillForm').submit();
+                                });
+                            });
+                        }
+                    });
+                    </script>
+@endsection
                 </div>
             </div>
         </div>

@@ -142,19 +142,17 @@
                                             <i class="bi bi-eye"></i>
                                         </a>
                                         @if($req->status !== 'fulfilled' && $req->status !== 'cancelled')
-                                        <form action="{{ url('/admin/blood-requests/fulfilled/'.$req->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ url('/admin/blood-requests/fulfilled/'.$req->id) }}" method="POST" style="display:inline;" class="fulfill-form">
                                             @csrf
-                                            <button type="submit" class="btn btn-sm" style="border-radius:8px;background:#22c55e15;color:#22c55e;border:1px solid #22c55e30;font-size:0.72rem;font-weight:600;padding:4px 10px;"
-                                                    onclick="return confirm('Mark this request as fulfilled?')"
+                                            <button type="button" class="btn btn-sm fulfill-btn" style="border-radius:8px;background:#22c55e15;color:#22c55e;border:1px solid #22c55e30;font-size:0.72rem;font-weight:600;padding:4px 10px;"
                                                     onmouseover="this.style.background='#22c55e';this.style.color='#fff'" onmouseout="this.style.background='#22c55e15';this.style.color='#22c55e'">
                                                 <i class="bi bi-check-lg"></i>
                                             </button>
                                         </form>
                                         @endif
-                                        <form action="{{ url('/admin/blood-requests/delete/'.$req->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ url('/admin/blood-requests/delete/'.$req->id) }}" method="POST" style="display:inline;" class="delete-form">
                                             @csrf @method('DELETE')
-                                            <button type="submit" class="btn btn-sm" style="border-radius:8px;background:#dc354515;color:#dc3545;border:1px solid #dc354530;font-size:0.72rem;font-weight:600;padding:4px 10px;"
-                                                    onclick="return confirm('Delete this request?')"
+                                            <button type="button" class="btn btn-sm delete-btn" style="border-radius:8px;background:#dc354515;color:#dc3545;border:1px solid #dc354530;font-size:0.72rem;font-weight:600;padding:4px 10px;"
                                                     onmouseover="this.style.background='#dc3545';this.style.color='#fff'" onmouseout="this.style.background='#dc354515';this.style.color='#dc3545'">
                                                 <i class="bi bi-trash"></i>
                                             </button>
@@ -200,6 +198,44 @@ document.addEventListener('DOMContentLoaded', function () {
         window.addEventListener('resize', sw);
         if (window.ResizeObserver) { new ResizeObserver(sw).observe(tw); }
     }
+
+    // ===== Fulfill SweetAlert =====
+    document.querySelectorAll('.fulfill-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var form = this.closest('.fulfill-form');
+            Swal.fire({
+                title: 'Mark as Fulfilled?',
+                text: 'This blood request will be marked as fulfilled.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#22c55e',
+                confirmButtonText: '<i class="bi bi-check-lg me-1"></i> Yes, fulfill it!',
+                cancelButtonText: 'Cancel',
+                buttonsStyling: true
+            }).then(function (result) {
+                if (result.isConfirmed) form.submit();
+            });
+        });
+    });
+
+    // ===== Delete SweetAlert =====
+    document.querySelectorAll('.delete-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var form = this.closest('.delete-form');
+            Swal.fire({
+                title: 'Delete Request?',
+                text: 'This blood request will be deleted permanently!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                confirmButtonText: '<i class="bi bi-trash me-1"></i> Yes, delete it!',
+                cancelButtonText: 'Cancel',
+                buttonsStyling: true
+            }).then(function (result) {
+                if (result.isConfirmed) form.submit();
+            });
+        });
+    });
 });
 </script>
 <style>
