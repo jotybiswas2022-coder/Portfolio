@@ -5,29 +5,44 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Auth;
 
 class MyMessageController extends Controller
 {
     function checkSession()
     {
-        return response()->json(['hasSession' => session()->has('contact_token')]);
+        $hasToken = session()->has('contact_token');
+        return response()->json(['hasSession' => $hasToken || Auth::check()]);
     }
 
     function fetch(Request $request)
     {
-        $token = session('contact_token');
-        if (!$token) {
-            return response()->json(['success' => false, 'messages' => []]);
-        }
+        if (Auth::check()) {
+            // Logged-in user: see all messages with their email
+            $rows = Contact::root()
+                ->where('email', Auth::user()->email)
+                ->where('type', 'message')
+                ->latest()
+                ->with(['replies' => function ($q) {
+                    $q->orderBy('created_at');
+                }])
+                ->get();
+        } else {
+            // Guest: only see messages from this session
+            $token = session('contact_token');
+            if (!$token) {
+                return response()->json(['success' => false, 'messages' => []]);
+            }
 
-        $rows = Contact::root()
-            ->where('session_token', $token)
-            ->where('type', 'message')
-            ->latest()
-            ->with(['replies' => function ($q) {
-                $q->orderBy('created_at');
-            }])
-            ->get();
+            $rows = Contact::root()
+                ->where('session_token', $token)
+                ->where('type', 'message')
+                ->latest()
+                ->with(['replies' => function ($q) {
+                    $q->orderBy('created_at');
+                }])
+                ->get();
+        }
 
         $messages = $rows->map(function ($msg) {
             $thread = collect([$msg])->concat($msg->replies);
@@ -60,11 +75,6 @@ class MyMessageController extends Controller
 
     function reply(Request $request)
     {
-        $token = session('contact_token');
-        if (!$token) {
-            return response()->json(['success' => false, 'message' => 'Not authenticated.'], 403);
-        }
-
         $request->validate([
             'parent_id' => 'required|exists:contacts,id',
             'name' => 'required|string|max:255',
@@ -73,9 +83,21 @@ class MyMessageController extends Controller
 
         $parent = Contact::findOrFail($request->parent_id);
 
-        if ($parent->session_token !== $token) {
-            return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
+        if (Auth::check()) {
+            // Logged-in user: must own the parent message by email
+            if ($parent->email !== Auth::user()->email) {
+                return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
+            }
+        } else {
+            // Guest: must own the parent message by session token
+            $token = session('contact_token');
+            if (!$token || $parent->session_token !== $token) {
+                return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
+            }
         }
+
+        $token = session('contact_token', bin2hex(random_bytes(16)));
+        session(['contact_token' => $token]);
 
         $reply = Contact::create([
             'parent_id' => $request->parent_id,
