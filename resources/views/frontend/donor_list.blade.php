@@ -105,11 +105,11 @@
                         <span class="stat-label">{{ __('মোট ডোনার') }}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">৮</span>
+                        <span class="stat-number">{{ __('৮') }}</span>
                         <span class="stat-label">{{ __('ব্লাড গ্রুপ') }}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">২৪/৭</span>
+                        <span class="stat-number">{{ __('২৪/৭') }}</span>
                         <span class="stat-label">{{ __('জরুরি সেবা') }}</span>
                     </div>
                 </div>
