@@ -25,6 +25,15 @@ class ContactController extends Controller
             'replied_at' => Carbon::now(),
         ]);
 
+        // Create a child record so user sees it in My Messages
+        Contact::create([
+            'parent_id' => $contact->id,
+            'name' => 'Admin',
+            'email' => $contact->email,
+            'message' => $request->reply,
+            'type' => 'reply',
+        ]);
+
         return back()->with('success', 'Reply sent successfully!');
     }
 }

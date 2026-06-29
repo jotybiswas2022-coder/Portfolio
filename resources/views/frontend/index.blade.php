@@ -265,7 +265,58 @@
                             <i class="bi bi-send-fill"></i> {{ __('বার্তা পাঠান') }}
                             <span class="btn-shimmer"></span>
                         </button>
+
+                        <button type="button" id="myMessagesBtn" style="margin-top:12px;width:100%;padding:12px;border-radius:12px;border:1.5px dashed rgba(79,172,254,0.3);background:rgba(79,172,254,0.04);color:#4facfe;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;"
+                                onmouseover="this.style.borderColor='#4facfe';this.style.background='rgba(79,172,254,0.08)'"
+                                onmouseout="this.style.borderColor='rgba(79,172,254,0.3)';this.style.background='rgba(79,172,254,0.04)'"
+                                data-bs-toggle="modal" data-bs-target="#myMessagesModal">
+                            <i class="bi bi-chat-dots-fill"></i> {{ __('আমার বার্তাসমূহ') }}
+                        </button>
                     </form>
+                </div>
+
+                <!-- My Messages Modal -->
+                <div class="modal fade" id="myMessagesModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                        <div class="modal-content" style="background:#fff;border-radius:20px;border:none;box-shadow:0 24px 80px rgba(0,0,0,0.25);overflow:hidden;">
+                            <div style="background:linear-gradient(135deg,#4facfe,#667eea);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;">
+                                <h5 style="margin:0;color:#fff;font-weight:600;font-size:0.95rem;">
+                                    <i class="bi bi-chat-dots me-2"></i> {{ __('আমার বার্তাসমূহ') }}
+                                </h5>
+                                <button type="button" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;opacity:0.85;line-height:1;padding:0;display:flex;" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="bi bi-x-lg" style="font-size:0.9rem;"></i>
+                                </button>
+                            </div>
+                            <div style="padding:20px 22px;">
+                                <!-- Email input to fetch messages -->
+                                <div id="myMsgEmailStep">
+                                    <label style="display:block;font-size:0.85rem;font-weight:600;color:#555;margin-bottom:6px;">
+                                        <i class="bi bi-envelope"></i> {{ __('আপনার ইমেইল দিন') }}
+                                    </label>
+                                    <div style="display:flex;gap:8px;">
+                                        <input type="email" id="myMsgEmail" value="" placeholder="example@email.com" style="flex:1;padding:12px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;transition:border-color 0.2s;"
+                                               onfocus="this.style.borderColor='#4facfe'" onblur="this.style.borderColor='#e8e8f0'">
+                                        <button id="myMsgFetchBtn" style="padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s;box-shadow:0 3px 10px rgba(79,172,254,0.25);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;"
+                                                onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 5px 16px rgba(79,172,254,0.35)'"
+                                                onmouseout="this.style.transform='';this.style.boxShadow='0 3px 10px rgba(79,172,254,0.25)'">
+                                            <i class="bi bi-search"></i> {{ __('দেখুন') }}
+                                        </button>
+                                    </div>
+                                    <div id="myMsgError" style="margin-top:8px;font-size:0.8rem;color:#ef4444;display:none;"></div>
+                                </div>
+
+                                <!-- Messages list -->
+                                <div id="myMsgList" style="display:none;margin-top:4px;"></div>
+
+                                <!-- Loading -->
+                                <div id="myMsgLoading" style="display:none;text-align:center;padding:30px;">
+                                    <div class="spinner-border" style="width:2rem;height:2rem;color:#4facfe;" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Contact Info -->
@@ -439,6 +490,160 @@
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="bi bi-send-fill"></i> {{ __('বার্তা পাঠান') }}<span class="btn-shimmer"></span>';
             });
+        });
+
+        // ===== My Messages =====
+        const myMsgEmail = document.getElementById('myMsgEmail');
+        const myMsgFetchBtn = document.getElementById('myMsgFetchBtn');
+        const myMsgList = document.getElementById('myMsgList');
+        const myMsgError = document.getElementById('myMsgError');
+        const myMsgLoading = document.getElementById('myMsgLoading');
+        const myMsgEmailStep = document.getElementById('myMsgEmailStep');
+
+        // Auto-fill email from contact form
+        const contactEmail = document.getElementById('email');
+        if (contactEmail && myMsgEmail) {
+            contactEmail.addEventListener('input', function() {
+                myMsgEmail.value = this.value;
+            });
+        }
+        // Also after successful submit
+        const origThen = null;
+
+        function loadMyMessages(email) {
+            myMsgError.style.display = 'none';
+            myMsgList.style.display = 'none';
+            myMsgLoading.style.display = 'block';
+
+            fetch('{{ url("/my-messages/fetch") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(r => r.json())
+            .then(data => {
+                myMsgLoading.style.display = 'none';
+                if (data.success && data.messages.length) {
+                    renderMessages(data.messages);
+                } else {
+                    myMsgList.innerHTML = '<div style="text-align:center;padding:30px;"><i class="bi bi-inbox" style="font-size:2.5rem;color:#ddd;display:block;margin-bottom:10px;"></i><span style="font-weight:600;color:#999;">{{ __('কোনো বার্তা পাওয়া যায়নি') }}</span></div>';
+                    myMsgList.style.display = 'block';
+                }
+            })
+            .catch(() => {
+                myMsgLoading.style.display = 'none';
+                myMsgError.textContent = '{{ __('একটি ত্রুটি ঘটেছে') }}';
+                myMsgError.style.display = 'block';
+            });
+        }
+
+        function renderMessages(messages) {
+            let html = '';
+            messages.forEach(msg => {
+                const date = new Date(msg.created_at);
+                const dateStr = date.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + date.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                html += '<div style="background:#fafafe;border-radius:14px;border:1px solid #f0f0f5;margin-bottom:16px;overflow:hidden;">';
+                html += '<div style="padding:14px 16px;border-bottom:1px solid #f0f0f5;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">';
+                html += '<span style="font-weight:600;font-size:0.82rem;color:#333;">' + escapeHtml(msg.name) + ' <span style="font-weight:400;color:#999;font-size:0.75rem;">&lt;' + escapeHtml(msg.email) + '&gt;</span></span>';
+                html += '<span style="font-size:0.72rem;color:#aaa;">' + dateStr + '</span>';
+                html += '</div>';
+                html += '<div style="padding:12px 16px;"><p style="margin:0;font-size:0.88rem;color:#444;line-height:1.6;">' + escapeHtml(msg.message) + '</p></div>';
+
+                // Show admin reply if exists on the original record
+                if (msg.reply) {
+                    html += '<div style="margin:0 16px 12px;background:#f0fdf4;border-radius:10px;padding:12px 14px;border:1px solid #bbf7d0;">';
+                    html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><i class="bi bi-shield-fill-check" style="color:#22c55e;font-size:0.75rem;"></i><span style="font-weight:600;font-size:0.75rem;color:#15803d;">{{ __('প্রশাসকের উত্তর') }}</span></div>';
+                    html += '<p style="margin:0;font-size:0.85rem;color:#166534;line-height:1.5;">' + escapeHtml(msg.reply) + '</p></div>';
+                }
+
+                // Show thread replies
+                if (msg.thread && msg.thread.length > 1) {
+                    msg.thread.forEach(function(rep, idx) {
+                        if (idx === 0) return;
+                        const rDate = new Date(rep.created_at);
+                        const rDateStr = rDate.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short' }) + ' ' + rDate.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                        const isAdmin = rep.type === 'reply';
+                        html += '<div style="margin:0 16px 8px;padding:10px 14px;border-radius:10px;' + (isAdmin ? 'background:#f0fdf4;border:1px solid #bbf7d0;' : 'background:#eff6ff;border:1px solid #bfdbfe;margin-left:32px;') + '">';
+                        html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">';
+                        html += isAdmin ? '<i class="bi bi-shield-fill-check" style="color:#22c55e;font-size:0.7rem;"></i><span style="font-weight:600;font-size:0.72rem;color:#15803d;">{{ __('প্রশাসক') }}</span>' : '<i class="bi bi-person-fill" style="color:#3b82f6;font-size:0.7rem;"></i><span style="font-weight:600;font-size:0.72rem;color:#1d4ed8;">{{ __('আপনি') }}</span>';
+                        html += '<span style="font-size:0.65rem;color:#aaa;margin-left:auto;">' + rDateStr + '</span>';
+                        html += '</div><p style="margin:0;font-size:0.84rem;color:#444;line-height:1.5;">' + escapeHtml(rep.message) + '</p></div>';
+                    });
+                }
+
+                // Reply textarea for this thread
+                const replyId = 'followup_' + msg.id;
+                html += '<div style="padding:8px 16px 14px;border-top:1px solid #f0f0f5;">';
+                html += '<textarea id="' + replyId + '" rows="2" placeholder="{{ __('আপনার উত্তর লিখুন...') }}" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e8e8f0;font-size:0.82rem;color:#444;resize:vertical;outline:none;font-family:inherit;transition:border-color 0.2s;" onfocus="this.style.borderColor=\'#4facfe\'" onblur="this.style.borderColor=\'#e8e8f0\'"></textarea>';
+                html += '<div style="text-align:right;margin-top:6px;">';
+                html += '<button class="followUpBtn" data-parent="' + msg.id + '" data-reply-id="' + replyId + '" style="padding:7px 18px;border-radius:50px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 10px rgba(79,172,254,0.25);">';
+                html += '<i class="bi bi-reply-fill"></i> {{ __('উত্তর দিন') }}</button>';
+                html += '</div></div>';
+
+                html += '</div>';
+            });
+            myMsgList.innerHTML = html;
+            myMsgList.style.display = 'block';
+
+            // Attach follow-up handlers
+            document.querySelectorAll('.followUpBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const parentId = this.dataset.parent;
+                    const replyId = this.dataset.replyId;
+                    const textarea = document.getElementById(replyId);
+                    const msg = textarea.value.trim();
+                    if (!msg) return;
+                    const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+                    const email = myMsgEmail.value.trim();
+                    const name = document.getElementById('name')?.value.trim() || email;
+
+                    fetch('{{ url("/my-messages/reply") }}', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': csrf },
+                        body: JSON.stringify({ parent_id: parentId, email: email, name: name, message: msg })
+                    })
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.success) {
+                            textarea.value = '';
+                            loadMyMessages(email);
+                        }
+                    })
+                    .catch(() => {});
+                });
+            });
+        }
+
+        function escapeHtml(text) {
+            var d = document.createElement('div');
+            d.textContent = text;
+            return d.innerHTML;
+        }
+
+        if (myMsgFetchBtn && myMsgEmail) {
+            myMsgFetchBtn.addEventListener('click', function() {
+                var email = myMsgEmail.value.trim();
+                if (!email) {
+                    myMsgError.textContent = '{{ __('ইমেইল দিন') }}';
+                    myMsgError.style.display = 'block';
+                    return;
+                }
+                loadMyMessages(email);
+            });
+            myMsgEmail.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') myMsgFetchBtn.click();
+            });
+        }
+
+        // When modal opens, auto-fill email
+        document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
+            if (myMsgEmail && contactEmail && contactEmail.value) {
+                myMsgEmail.value = contactEmail.value;
+            }
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

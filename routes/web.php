@@ -15,6 +15,11 @@ Route::get('/lang/{locale}', [App\Http\Controllers\frontend\LanguageController::
 
 Route::post('/contactus', [UserController::class, 'contactus']);
 
+Route::prefix('my-messages')->controller(\App\Http\Controllers\frontend\MyMessageController::class)->group(function () {
+    Route::post('/fetch', 'fetch');
+    Route::post('/reply', 'reply');
+});
+
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('password.request');
 

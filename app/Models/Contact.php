@@ -11,6 +11,23 @@ class Contact extends Model
         'email',
         'message',
         'reply',
-        'replied_at'
+        'replied_at',
+        'parent_id',
+        'type'
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(Contact::class, 'parent_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Contact::class, 'parent_id');
+    }
+
+    public function scopeRoot($query)
+    {
+        return $query->whereNull('parent_id');
+    }
 }
