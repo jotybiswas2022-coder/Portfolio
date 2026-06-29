@@ -512,7 +512,6 @@
 
         function renderMessages(messages) {
             let html = '';
-            const myEmail = getMyEmail();
             messages.forEach(msg => {
                 let dateStr = '';
                 try {
