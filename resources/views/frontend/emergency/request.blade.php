@@ -345,27 +345,47 @@
         @media (max-width: 767.98px) { body { padding-top: 60px; } .emergency-section { padding: 20px 0 10px; } }
         @media (max-width: 480px) { body { padding-top: 56px; } .emergency-section .container { padding: 0 14px; } }
 
-        .light-mode body { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #fef2f2 100%); }
-        .light-mode .emergency-card-main { background: rgba(255,255,255,0.9); border-color: rgba(0,0,0,0.08); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-        .light-mode .emergency-card-main h2 { color: #1f2937; }
-        .light-mode .emergency-card-main > div:first-of-type { background: linear-gradient(135deg, rgba(220,38,38,0.08), rgba(185,28,28,0.04)) !important; }
-        .light-mode .emergency-card-main p { color: rgba(0,0,0,0.5); }
+        .light-mode body { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #fef2f2 100%) !important; }
+        .light-mode .emergency-card-main { background: rgba(255,255,255,0.95) !important; border-color: rgba(0,0,0,0.08) !important; box-shadow: 0 20px 60px rgba(0,0,0,0.08) !important; }
+        .light-mode .emergency-card-main h2 { color: #1f2937 !important; }
+        .light-mode .emergency-card-main > div:first-of-type { background: linear-gradient(135deg, rgba(220,38,38,0.06), rgba(185,28,28,0.03)) !important; border-bottom-color: rgba(0,0,0,0.06) !important; }
+        .light-mode .emergency-card-main p { color: rgba(0,0,0,0.5) !important; }
         .light-mode .emergency-card-main label { color: rgba(0,0,0,0.6); }
-        .light-mode .input-group-custom input, .light-mode .input-group-custom select, .light-mode .input-group-custom textarea { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.1); color: #1f2937; }
-        .light-mode .input-group-custom input::placeholder, .light-mode .input-group-custom textarea::placeholder { color: rgba(0,0,0,0.3); }
-        .light-mode .input-group-custom select option { background: #ffffff; color: #1f2937; }
-        .light-mode .input-group-custom span i { color: rgba(0,0,0,0.3); }
-        .light-mode .blood-chip { border-color: rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
-        .light-mode .urgency-chip { border-color: rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
+        .light-mode .input-group-custom input, .light-mode .input-group-custom select, .light-mode .input-group-custom textarea { background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; color: #1f2937 !important; }
+        .light-mode .input-group-custom input:hover, .light-mode .input-group-custom select:hover, .light-mode .input-group-custom textarea:hover { border-color: rgba(0,0,0,0.2) !important; }
+        .light-mode .input-group-custom input::placeholder, .light-mode .input-group-custom textarea::placeholder { color: rgba(0,0,0,0.3) !important; }
+        .light-mode .input-group-custom select option { background: #ffffff !important; color: #1f2937 !important; }
+        .light-mode .input-group-custom span i { color: rgba(0,0,0,0.3) !important; }
+        .light-mode .blood-chip { border-color: rgba(0,0,0,0.12) !important; background: rgba(0,0,0,0.04) !important; color: rgba(0,0,0,0.5) !important; }
+        .light-mode .urgency-chip { border-color: rgba(0,0,0,0.12) !important; background: rgba(0,0,0,0.04) !important; color: rgba(0,0,0,0.5) !important; }
         .light-mode .urgency-chip.selected { border-color: #dc2626 !important; background: rgba(220,38,38,0.1) !important; color: #dc2626 !important; }
         .light-mode .form-divider span:first-child, .light-mode .form-divider span:last-child { background: rgba(0,0,0,0.08) !important; }
         .light-mode .form-divider span:nth-child(2) { color: rgba(0,0,0,0.35); }
         .light-mode div[style*=\"background:rgba(59,130,246,0.08)\"] { background: rgba(59,130,246,0.05) !important; border-color: rgba(59,130,246,0.15) !important; color: rgba(0,0,0,0.5) !important; }
+        .light-mode a[style*=\"background:rgba(255,255,255,0.1)\"] { background: rgba(220,38,38,0.08) !important; color: #dc2626 !important; border-color: rgba(220,38,38,0.15) !important; }
+        .light-mode a[style*=\"background:rgba(255,255,255,0.1)\"]:hover { background: rgba(220,38,38,0.12) !important; border-color: rgba(220,38,38,0.25) !important; }
 
         .light-mode .blood-chip:hover {
             border-color: rgba(220,38,38,0.3) !important;
             background: rgba(220,38,38,0.06) !important;
             color: #dc2626 !important;
+        }
+
+        .light-mode .blood-chip.selected {
+            background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+            color: #fff !important;
+        }
+
+        .light-mode .urgency-chip.selected {
+            color: #dc2626 !important;
+        }
+
+        .light-mode .emergency-glow {
+            background: radial-gradient(circle,rgba(220,38,38,0.06) 0%,transparent 70%) !important;
+        }
+
+        .light-mode .emergency-particles .particle {
+            background: rgba(220,38,38,0.2) !important;
         }
 
         .light-mode #selectedBloodDisplay,
