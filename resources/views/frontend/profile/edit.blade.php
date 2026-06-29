@@ -726,7 +726,7 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
 
         :root {
             --primary: #dc2626;
@@ -747,7 +747,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
             background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 50%, var(--dark-3) 100%);
             min-height: 100vh;
             padding-top: 72px;
@@ -956,7 +956,7 @@
             background: rgba(255, 255, 255, 0.06);
             border: 1.5px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius);
-            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
             font-size: 14px;
             color: #f5f5f5;
             outline: none;
