@@ -401,6 +401,7 @@
 
     <!-- ========== SCRIPTS ========== -->
     <script>
+        const dateLocale = '{{ app()->getLocale() === 'bn' ? 'bn-BD' : 'en-US' }}';
         function animateCounter(el) {
             const target = parseInt(el.dataset.target);
             if (isNaN(target)) return;
@@ -516,7 +517,7 @@
                 let dateStr = '';
                 try {
                     const date = new Date(msg.created_at);
-                    dateStr = date.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + date.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                    dateStr = date.toLocaleDateString(dateLocale, { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + date.toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' });
                 } catch(e) {
                     dateStr = msg.created_at;
                 }
@@ -534,7 +535,7 @@
                         let rDateStr = '';
                         try {
                             const rDate = new Date(rep.created_at);
-                            rDateStr = rDate.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short' }) + ' ' + rDate.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                            rDateStr = rDate.toLocaleDateString(dateLocale, { day: 'numeric', month: 'short' }) + ' ' + rDate.toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' });
                         } catch(e) {
                             rDateStr = rep.created_at;
                         }
