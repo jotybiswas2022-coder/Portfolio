@@ -498,7 +498,6 @@
             .then(r => r.json())
             .then(data => {
                 myMsgLoading.style.display = 'none';
-                console.log('[\u{1F50D} MyMessages] fetch response - email:', data.email, 'count:', data.messages?.length);
                 if (data.success && data.messages.length) {
                     renderMessages(data.messages);
                 } else {
@@ -613,7 +612,6 @@
                     // Try form field email as fallback
                     const formEmail = document.getElementById('email')?.value?.trim();
                     if (formEmail) {
-                        console.log('[\u{1F50D} MyMessages] No session, setting email from form:', formEmail);
                         fetch('{{ url("/my-messages/set-email") }}', {
                             method: 'POST',
                             headers: {
