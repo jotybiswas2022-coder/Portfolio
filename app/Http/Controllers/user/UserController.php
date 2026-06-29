@@ -28,6 +28,12 @@ class UserController extends Controller
         }
         Contact::create($data);
 
+        // Link existing guest messages (same email) to this session so user sees them too
+        Contact::where('email', $request->email)
+            ->whereNull('user_id')
+            ->where('session_token', '!=', $token)
+            ->update(['session_token' => $token]);
+
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
         }
