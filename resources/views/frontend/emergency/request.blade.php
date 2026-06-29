@@ -348,6 +348,7 @@
         .light-mode body { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #fef2f2 100%); }
         .light-mode .emergency-card-main { background: rgba(255,255,255,0.9); border-color: rgba(0,0,0,0.08); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
         .light-mode .emergency-card-main h2 { color: #1f2937; }
+        .light-mode .emergency-card-main > div:first-of-type { background: linear-gradient(135deg, rgba(220,38,38,0.08), rgba(185,28,28,0.04)) !important; }
         .light-mode .emergency-card-main p { color: rgba(0,0,0,0.5); }
         .light-mode .emergency-card-main label { color: rgba(0,0,0,0.6); }
         .light-mode .input-group-custom input, .light-mode .input-group-custom select, .light-mode .input-group-custom textarea { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.1); color: #1f2937; }

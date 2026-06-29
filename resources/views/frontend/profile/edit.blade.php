@@ -2067,6 +2067,20 @@
         .light-mode .alert-close {
             color: #15803d;
         }
+
+        .light-mode .reset-toast {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            color: #1f2937;
+            border-left-color: #22c55e;
+        }
+
+        .light-mode .cropper-close {
+            color: rgba(0, 0, 0, 0.4);
+        }
     </style>
 
 @endsection

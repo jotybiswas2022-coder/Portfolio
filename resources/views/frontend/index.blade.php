@@ -1515,6 +1515,11 @@
             color: rgba(255, 255, 255, 0.35);
         }
 
+        .light-mode .emergency-card {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            box-shadow: 0 8px 35px rgba(220, 38, 38, 0.15);
+        }
+
         .light-mode .particle {
             background: rgba(220, 38, 38, 0.3);
         }

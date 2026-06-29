@@ -89,7 +89,10 @@
         .alert-custom, .reset-info-badge, .form-group input, .form-group select,
         .form-group textarea, .input-group-custom input, .input-group-custom select,
         .search-wrap input, .select-wrap select, .btn-cancel, .btn-reset,
-        .btn-back, .profile-footer, .edit-footer, .confirm-modal {
+        .btn-back, .profile-footer, .edit-footer, .confirm-modal,
+        .donor-card-header, .donor-count-badge, .reset-toast,
+        .req-card, .req-card-header, .req-item,
+        .emergency-card-main, .blood-chip, .urgency-chip {
             transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                         background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                         border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),

@@ -1361,6 +1361,20 @@
             background: var(--theme-footer-bg);
         }
 
+        .light-mode .donor-card-header {
+            background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+        }
+
+        .light-mode .donor-card-header h3 {
+            color: #fff;
+        }
+
+        .light-mode .donor-count-badge {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border-color: rgba(255,255,255,0.3);
+        }
+
         .light-mode .particle {
             background: rgba(220, 38, 38, 0.3);
         }

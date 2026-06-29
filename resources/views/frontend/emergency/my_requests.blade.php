@@ -167,7 +167,7 @@
         @media(max-width:480px){body{padding-top:56px}.req-section .container{padding:0 14px}.req-card-header{flex-direction:column;text-align:center}.req-new-btn{margin-left:0;width:100%;justify-content:center}}
         .light-mode body{background:linear-gradient(135deg,#f8f9fa,#fff,#fef2f2)}
         .light-mode .req-card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.08)}
-        .light-mode .req-card-header{border-bottom-color:rgba(0,0,0,0.06)}
+        .light-mode .req-card-header{background:linear-gradient(135deg,rgba(220,38,38,0.06),rgba(185,28,28,0.03))!important;border-bottom-color:rgba(0,0,0,0.06)}
         .light-mode .req-card-header h2{color:#1f2937}
         .light-mode .req-card-header p{color:rgba(0,0,0,0.4)}
         .light-mode .req-item{background:rgba(0,0,0,0.02);border-color:rgba(0,0,0,0.06)}
