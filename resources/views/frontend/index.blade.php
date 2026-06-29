@@ -287,7 +287,7 @@
                                     <i class="bi bi-x-lg" style="font-size:0.9rem;"></i>
                                 </button>
                             </div>
-                            <div style="padding:20px 22px;">
+                            <div class="modal-body" style="padding:20px 22px;">
                                 <div id="myMsgNoEmail" style="text-align:center;padding:30px;display:none;">
                                     <i class="bi bi-envelope" style="font-size:2.5rem;color:#ddd;display:block;margin-bottom:10px;"></i>
                                     <span style="font-weight:600;color:#999;">{{ __('কোনো বার্তা নেই') }}</span>
