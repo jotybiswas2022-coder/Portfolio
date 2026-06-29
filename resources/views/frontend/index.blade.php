@@ -485,11 +485,8 @@
         const myMsgLoading = document.getElementById('myMsgLoading');
         const myMsgNoEmail = document.getElementById('myMsgNoEmail');
 
-        // Store email in localStorage after successful submit
-        const contactFormEmail = document.getElementById('email');
-
         function getMyEmail() {
-            return localStorage.getItem('contact_email') || (contactFormEmail ? contactFormEmail.value.trim() : '');
+            return localStorage.getItem('contact_email') || '';
         }
 
         function loadMyMessages(email) {
@@ -608,11 +605,8 @@
             return d.innerHTML;
         }
 
-        // Auto-load when modal opens
+        // Auto-load when modal opens — only uses email from localStorage (set after form submit)
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
-            // Also grab email from form if user just typed it but hasn't submitted yet
-            const formEmail = document.getElementById('email')?.value?.trim();
-            if (formEmail) localStorage.setItem('contact_email', formEmail);
             const email = getMyEmail();
             myMsgNoEmail.style.display = 'none';
             myMsgList.style.display = 'none';
