@@ -96,7 +96,7 @@
 
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <span class="stat-number" data-target="{{ $donorsCount }}">0</span>
+                        <span class="stat-number" data-target="{{ $donorsCount }}" data-display="{{ bn_number($donorsCount) }}">{{ bn_number(0) }}</span>
                         <span class="stat-label">{{ __('নিবন্ধিত ডোনার') }}</span>
                     </div>
                     <div class="stat-item">
