@@ -85,20 +85,32 @@
                                         <i class="bi bi-calendar"></i>{{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('d M Y, h:i A') }}
                                     </span>
                                 </div>
-                                <div style="background:#fafafe;border-radius:14px;padding:16px 18px;border:1px solid #f0f0f5;">
-                                    <p style="margin:0;font-size:0.9rem;color:#444;line-height:1.7;">{{ $contact->message }}</p>
-                                </div>
 
-                                @if($contact->reply)
-                                <div style="margin-top:16px;background:#f0fdf4;border-radius:14px;padding:16px 18px;border:1px solid #bbf7d0;">
-                                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
-                                        <i class="bi bi-reply-fill" style="color:#22c55e;font-size:0.9rem;"></i>
-                                        <span style="font-weight:600;font-size:0.78rem;color:#15803d;">{{ __('Your Reply') }}</span>
-                                        <span style="font-size:0.7rem;color:#86efac;margin-left:auto;">{{ \Carbon\Carbon::parse($contact->replied_at)->timezone('Asia/Dhaka')->format('d M Y, h:i A') }}</span>
+                                {{-- Conversation Thread --}}
+                                @php
+                                    $thread = collect([$contact])->concat($contact->replies->sortBy('created_at'));
+                                @endphp
+                                @foreach ($thread as $entry)
+                                    @php $isAdmin = $entry->type === 'reply'; @endphp
+                                    <div style="margin-top:12px;border-radius:14px;padding:14px 16px;{{ $isAdmin ? 'background:#f0fdf4;border:1px solid #bbf7d0;' : ($loop->first ? 'background:#fafafe;border:1px solid #f0f0f5;' : 'background:#eff6ff;border:1px solid #bfdbfe;') }}">
+                                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
+                                            @if ($isAdmin)
+                                                <i class="bi bi-shield-fill-check" style="color:#22c55e;font-size:0.8rem;"></i>
+                                                <span style="font-weight:600;font-size:0.78rem;color:#15803d;">{{ __('Admin') }}</span>
+                                            @elseif ($loop->first)
+                                                <i class="bi bi-person-fill" style="color:#4facfe;font-size:0.8rem;"></i>
+                                                <span style="font-weight:600;font-size:0.78rem;color:#4facfe;">{{ $contact->name }}</span>
+                                            @else
+                                                <i class="bi bi-person-fill" style="color:#3b82f6;font-size:0.8rem;"></i>
+                                                <span style="font-weight:600;font-size:0.78rem;color:#1d4ed8;">{{ __('User') }}</span>
+                                            @endif
+                                            <span style="font-size:0.7rem;color:#aaa;margin-left:auto;">
+                                                {{ \Carbon\Carbon::parse($entry->created_at)->timezone('Asia/Dhaka')->format('d M Y, h:i A') }}
+                                            </span>
+                                        </div>
+                                        <p style="margin:0;font-size:0.88rem;color:#444;line-height:1.6;">{{ $entry->message }}</p>
                                     </div>
-                                    <p style="margin:0;font-size:0.88rem;color:#166534;line-height:1.6;">{{ $contact->reply }}</p>
-                                </div>
-                                @endif
+                                @endforeach
 
                                 <form action="{{ route('contact.reply', $contact->id) }}" method="POST" style="margin-top:16px;">
                                     @csrf
@@ -113,7 +125,7 @@
                                         <button type="submit" style="padding:8px 24px;border-radius:50px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s;box-shadow:0 3px 10px rgba(79,172,254,0.25);display:inline-flex;align-items:center;gap:6px;"
                                                 onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 5px 16px rgba(79,172,254,0.35)'"
                                                 onmouseout="this.style.transform='';this.style.boxShadow='0 3px 10px rgba(79,172,254,0.25)'">
-                                            <i class="bi bi-send-fill" style="font-size:0.75rem;"></i> {{ $contact->reply ? __('Update Reply') : __('Send Reply') }}
+                                            <i class="bi bi-send-fill" style="font-size:0.75rem;"></i> {{ $contact->reply ? __('Send Another Reply') : __('Send Reply') }}
                                         </button>
                                     </div>
                                 </form>

@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class ContactController extends Controller
 {
     function index(){
-        $contacts = Contact::latest()->get();
+        $contacts = Contact::root()->with('replies')->latest()->get();
         return view('backend.contact.index', compact('contacts'));
     }
 
