@@ -109,6 +109,19 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Hero Blood Bank Animation -->
+            <div class="hero-visual" aria-hidden="true">
+                <div class="blood-drop-main">
+                    <i class="bi bi-droplet-fill"></i>
+                </div>
+                <div class="ripple r1"></div>
+                <div class="ripple r2"></div>
+                <div class="ripple r3"></div>
+                <div class="mini-drop md-1"><i class="bi bi-droplet"></i></div>
+                <div class="mini-drop md-2"><i class="bi bi-droplet"></i></div>
+                <div class="mini-drop md-3"><i class="bi bi-droplet"></i></div>
+            </div>
         </div>
     </section>
 
@@ -727,6 +740,94 @@
             margin-top: 4px;
         }
 
+        /* ===== Hero Blood Animation ===== */
+        .hero-visual {
+            flex: 0 0 320px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .blood-drop-main {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 58px;
+            color: rgba(255,255,255,0.9);
+            box-shadow: 0 0 40px rgba(220, 38, 38, 0.4), 0 0 80px rgba(220, 38, 38, 0.2);
+            animation: heartbeat-pulse 1.4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blood-drop-main i {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        @keyframes heartbeat-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(220, 38, 38, 0.4), 0 0 80px rgba(220, 38, 38, 0.2); }
+            14% { transform: scale(1.12); box-shadow: 0 0 60px rgba(220, 38, 38, 0.6), 0 0 100px rgba(220, 38, 38, 0.3); }
+            28% { transform: scale(0.95); box-shadow: 0 0 30px rgba(220, 38, 38, 0.3); }
+            42% { transform: scale(1.08); box-shadow: 0 0 50px rgba(220, 38, 38, 0.5), 0 0 90px rgba(220, 38, 38, 0.25); }
+            56% { transform: scale(1); box-shadow: 0 0 40px rgba(220, 38, 38, 0.4), 0 0 80px rgba(220, 38, 38, 0.2); }
+        }
+
+        .ripple {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            z-index: 1;
+            animation: ripple-expand 2.8s ease-out infinite;
+        }
+
+        .ripple.r1 { animation-delay: 0s; }
+        .ripple.r2 { animation-delay: 0.7s; }
+        .ripple.r3 { animation-delay: 1.4s; }
+
+        @keyframes ripple-expand {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(2.8); opacity: 0; }
+        }
+
+        .mini-drop {
+            position: absolute;
+            font-size: 18px;
+            color: rgba(239, 68, 68, 0.35);
+            animation: float-drop 5s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .mini-drop.md-1 { top: 5%; left: 10%; animation-delay: 0s; font-size: 14px; }
+        .mini-drop.md-2 { top: 60%; left: 80%; animation-delay: 1.6s; font-size: 22px; }
+        .mini-drop.md-3 { top: 20%; right: 5%; animation-delay: 3.2s; font-size: 16px; }
+
+        @keyframes float-drop {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.35; }
+            25% { transform: translateY(-18px) rotate(8deg); opacity: 0.6; }
+            50% { transform: translateY(0) rotate(0deg); opacity: 0.35; }
+            75% { transform: translateY(12px) rotate(-6deg); opacity: 0.5; }
+        }
+
+        .light-mode .blood-drop-main {
+            box-shadow: 0 0 40px rgba(220, 38, 38, 0.25), 0 0 80px rgba(220, 38, 38, 0.1);
+        }
+
+        .light-mode .ripple {
+            border-color: rgba(220, 38, 38, 0.2);
+        }
+
+        .light-mode .mini-drop {
+            color: rgba(220, 38, 38, 0.25);
+        }
+
         .alert-success {
             max-width: 1200px;
             margin: 20px auto;
@@ -1258,6 +1359,7 @@
             .hero-buttons { justify-content: center; }
             .hero-stats { justify-content: center; }
             .stat-item { text-align: center; }
+            .hero-visual { display: none; }
             .hide-mobile { display: none; }
             .blood-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
             .section-title { font-size: 30px; }
