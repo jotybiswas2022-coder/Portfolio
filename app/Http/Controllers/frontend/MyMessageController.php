@@ -17,32 +17,27 @@ class MyMessageController extends Controller
 
     function fetch(Request $request)
     {
-        if (Auth::check()) {
-            // Logged-in user: see all messages linked to their account
-            $rows = Contact::root()
-                ->where('user_id', Auth::id())
-                ->where('type', 'message')
-                ->latest()
-                ->with(['replies' => function ($q) {
-                    $q->orderBy('created_at');
-                }])
-                ->get();
-        } else {
-            // Guest: only see messages from this session
-            $token = session('contact_token');
-            if (!$token) {
-                return response()->json(['success' => false, 'messages' => []]);
-            }
+        $token = session('contact_token');
 
-            $rows = Contact::root()
-                ->where('session_token', $token)
-                ->where('type', 'message')
-                ->latest()
-                ->with(['replies' => function ($q) {
-                    $q->orderBy('created_at');
-                }])
-                ->get();
-        }
+        $rows = Contact::root()
+            ->where('type', 'message')
+            ->where(function ($q) use ($token) {
+                if (Auth::check()) {
+                    $q->where('user_id', Auth::id());
+                    if ($token) {
+                        $q->orWhere('session_token', $token);
+                    }
+                } elseif ($token) {
+                    $q->where('session_token', $token);
+                } else {
+                    $q->whereRaw('1 = 0');
+                }
+            })
+            ->latest()
+            ->with(['replies' => function ($q) {
+                $q->orderBy('created_at');
+            }])
+            ->get();
 
         $messages = $rows->map(function ($msg) {
             $thread = collect([$msg])->concat($msg->replies);
@@ -83,17 +78,19 @@ class MyMessageController extends Controller
 
         $parent = Contact::findOrFail($request->parent_id);
 
-        if (Auth::check()) {
-            // Logged-in user: must own the parent message by user_id
-            if ($parent->user_id !== Auth::id()) {
-                return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
-            }
-        } else {
-            // Guest: must own the parent message by session token
-            $token = session('contact_token');
-            if (!$token || $parent->session_token !== $token) {
-                return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
-            }
+        $token = session('contact_token');
+        $authorized = false;
+
+        if (Auth::check() && $parent->user_id === Auth::id()) {
+            $authorized = true;
+        }
+
+        if ($token && $parent->session_token === $token) {
+            $authorized = true;
+        }
+
+        if (!$authorized) {
+            return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
         }
 
         $token = session('contact_token', bin2hex(random_bytes(16)));
