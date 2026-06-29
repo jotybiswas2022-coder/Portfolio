@@ -28,11 +28,6 @@ $isActive = function($path) {
             </a>
         </div>
 
-        <div style="display:flex;align-items:center;gap:6px;">
-            <button onclick="toggleSidebar()" style="background:none;border:none;font-size:1.3rem;color:#444;cursor:pointer;padding:4px;">
-                <i class="bi bi-list"></i>
-            </button>
-        </div>
     </div>
 </nav>
 
