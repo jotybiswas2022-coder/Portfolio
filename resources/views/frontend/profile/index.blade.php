@@ -244,7 +244,7 @@
     </footer>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
         :root {
             --primary: #dc2626;
@@ -265,7 +265,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
             background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 50%, var(--dark-3) 100%);
             min-height: 100vh;
             padding-top: 72px;

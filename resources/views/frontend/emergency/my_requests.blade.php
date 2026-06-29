@@ -123,10 +123,10 @@
     </section>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
         :root { --primary:#dc2626;--primary-light:#ef4444;--dark:#1a1a2e;--dark-2:#16213e;--dark-3:#0f3460;--radius:12px;--radius-lg:20px; }
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter','Hind Siliguri',sans-serif;background:linear-gradient(135deg,var(--dark),var(--dark-2),var(--dark-3));min-height:100vh;padding-top:72px}
+        body{font-family:'Poppins','Hind Siliguri',sans-serif;background:linear-gradient(135deg,var(--dark),var(--dark-2),var(--dark-3));min-height:100vh;padding-top:72px}
         .req-particles{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
         .req-particles .particle{position:absolute;width:var(--size);height:var(--size);left:var(--x);top:var(--y);background:rgba(239,68,68,0.3);border-radius:50%;animation:float-particle 7s ease-in-out infinite;animation-delay:var(--delay)}
         @keyframes float-particle{0%,100%{transform:translate(0,0)scale(1);opacity:.3}25%{transform:translate(30px,-20px)scale(1.2);opacity:.6}50%{transform:translate(-20px,30px)scale(.8);opacity:.15}75%{transform:translate(20px,20px)scale(1.1);opacity:.45}}

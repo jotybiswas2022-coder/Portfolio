@@ -82,7 +82,7 @@
                             </label>
                             <div class="input-group-custom">
                                 <input type="text" name="patient_name" placeholder="{{ __('রোগীর পূর্ণ নাম লিখুন') }}" required
-                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
+                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Poppins','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
                                 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-person-fill"></i>
                                 </span>
@@ -112,7 +112,7 @@
                             </div>
                             <div class="input-group-custom" style="position:relative;">
                                 <select name="blood_group" id="bloodGroup" required onchange="syncBloodChips(this.value)"
-                                        style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:40px;box-sizing:border-box;">
+                                        style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Poppins','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:40px;box-sizing:border-box;">
                                     <option value="">{{ __('রক্তের গ্রুপ নির্বাচন করুন') }}</option>
                                     @foreach($groups as $group)
                                     <option value="{{ $group }}">{{ $group }}</option>
@@ -178,7 +178,7 @@
                             </label>
                             <div class="input-group-custom" style="position:relative;">
                                 <input type="text" name="hospital" placeholder="{{ __('যেখানে রক্তের প্রয়োজন (ঐচ্ছিক)') }}"
-                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
+                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Poppins','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
                                 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-building"></i>
                                 </span>
@@ -192,7 +192,7 @@
                             </label>
                             <div class="input-group-custom" style="position:relative;">
                                 <input type="text" name="location" placeholder="{{ __('যেখানে রক্তের প্রয়োজন (জেলা, বিভাগ, ঠিকানা)') }}" required
-                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
+                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Poppins','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
                                 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-geo-alt-fill"></i>
                                 </span>
@@ -206,7 +206,7 @@
                             </label>
                             <div class="input-group-custom" style="position:relative;">
                                 <input type="tel" name="contact_phone" placeholder="01XXXXXXXXX" maxlength="15" required
-                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
+                                       style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Poppins','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;box-sizing:border-box;">
                                 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-telephone-fill"></i>
                                 </span>
@@ -220,7 +220,7 @@
                             </label>
                             <div class="input-group-custom" style="position:relative;">
                                 <textarea name="message" rows="3" placeholder="{{ __('অতিরিক্ত তথ্য থাকলে লিখুন...') }}" 
-                                          style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Inter','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;resize:vertical;min-height:80px;box-sizing:border-box;"></textarea>
+                                          style="width:100%;padding:12px 16px 12px 44px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;font-family:'Poppins','Hind Siliguri',sans-serif;font-size:14px;color:#f5f5f5;outline:none;transition:all 0.25s;resize:vertical;min-height:80px;box-sizing:border-box;"></textarea>
                                 <span style="position:absolute;left:14px;top:16px;color:rgba(255,255,255,0.25);font-size:16px;pointer-events:none;">
                                     <i class="bi bi-chat-dots"></i>
                                 </span>
@@ -247,7 +247,7 @@
     </section>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
         :root {
             --primary: #dc2626; --primary-light: #ef4444; --primary-dark: #b91c1c;
@@ -258,7 +258,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', 'Hind Siliguri', sans-serif; background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 50%, var(--dark-3) 100%); min-height: 100vh; padding-top: 72px; }
+        body { font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 50%, var(--dark-3) 100%); min-height: 100vh; padding-top: 72px; }
         html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 
         .emergency-particles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
