@@ -62,7 +62,7 @@ class MyMessageController extends Controller
             ];
         });
 
-        return response()->json(['success' => true, 'messages' => $messages]);
+        return response()->json(['success' => true, 'email' => $email, 'messages' => $messages]);
     }
 
     function reply(Request $request)
