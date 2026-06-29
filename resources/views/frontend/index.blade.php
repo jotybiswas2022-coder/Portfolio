@@ -1359,7 +1359,20 @@
             .hero-buttons { justify-content: center; }
             .hero-stats { justify-content: center; }
             .stat-item { text-align: center; }
-            .hero-visual { display: none; }
+            .hero-visual {
+                min-height: 200px;
+                flex: none;
+                order: 1;
+            }
+            .hero-visual .blood-drop-main {
+                width: 80px;
+                height: 80px;
+                font-size: 38px;
+            }
+            .hero-visual .ripple {
+                width: 80px;
+                height: 80px;
+            }
             .hide-mobile { display: none; }
             .blood-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
             .section-title { font-size: 30px; }
@@ -1421,6 +1434,9 @@
             .hero-stats { gap: 16px; }
             .stat-number { font-size: 22px; }
             .stat-label { font-size: 11px; }
+            .hero-visual { min-height: 140px; }
+            .hero-visual .blood-drop-main { width: 56px; height: 56px; font-size: 26px; }
+            .hero-visual .ripple { width: 56px; height: 56px; }
             .blood-grid { gap: 10px; }
             .blood-card { padding: 18px 10px 16px; border-radius: 14px; }
             .blood-icon { width: 48px; height: 48px; margin-bottom: 10px; }
