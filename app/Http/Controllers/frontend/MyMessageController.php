@@ -11,7 +11,11 @@ class MyMessageController extends Controller
 {
     function checkSession()
     {
-        return response()->json(['hasSession' => session()->has('contact_token') || Auth::check()]);
+        // Generate a persistent token on first visit so user always has one
+        if (!session()->has('contact_token') && !Auth::check()) {
+            session(['contact_token' => bin2hex(random_bytes(16))]);
+        }
+        return response()->json(['hasSession' => true]);
     }
 
     function fetch(Request $request)
@@ -86,7 +90,7 @@ class MyMessageController extends Controller
             return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
         }
 
-        // Keep using the same session token for replies
+        // Reuse or create persistent token
         if (!$token) {
             $token = bin2hex(random_bytes(16));
             session(['contact_token' => $token]);

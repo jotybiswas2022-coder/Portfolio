@@ -17,8 +17,8 @@ class UserController extends Controller
             'message' => 'required',
         ]);
 
-        // Generate a fresh random token for each submission (true privacy)
-        $token = bin2hex(random_bytes(16));
+        // Reuse existing persistent token (generated on first page visit)
+        $token = session('contact_token', bin2hex(random_bytes(16)));
         session(['contact_token' => $token]);
 
         $data = $request->all();
@@ -27,6 +27,12 @@ class UserController extends Controller
             $data['user_id'] = Auth::id();
         }
         Contact::create($data);
+
+        // Link old unlinked guest messages (same email) to this token
+        Contact::where('email', $request->email)
+            ->whereNull('user_id')
+            ->whereNull('session_token')
+            ->update(['session_token' => $token]);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
