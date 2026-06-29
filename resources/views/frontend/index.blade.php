@@ -447,6 +447,9 @@
             const form = this;
             const submitBtn = document.getElementById('contactSubmitBtn');
             const formData = new FormData(form);
+            // Store email immediately so My Messages works
+            const emailVal = document.getElementById('email')?.value?.trim();
+            if (emailVal) localStorage.setItem('contact_email', emailVal);
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> {{ __('পাঠানো হচ্ছে...') }}';
 
@@ -461,8 +464,6 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    const emailInput = document.getElementById('email');
-                    if (emailInput) localStorage.setItem('contact_email', emailInput.value);
                     form.reset();
                     document.getElementById('successAlert').classList.add('show');
                     setTimeout(() => {
@@ -606,16 +607,18 @@
 
         // Auto-load when modal opens
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
+            // Also grab email from form if user just typed it but hasn't submitted yet
+            const formEmail = document.getElementById('email')?.value?.trim();
+            if (formEmail) localStorage.setItem('contact_email', formEmail);
             const email = getMyEmail();
+            myMsgNoEmail.style.display = 'none';
+            myMsgList.style.display = 'none';
             if (email) {
                 loadMyMessages(email);
             } else {
                 myMsgNoEmail.style.display = 'block';
             }
         });
-
-        // After contact form submits successfully, store email and update button
-        const origSuccessHandler = null;
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
