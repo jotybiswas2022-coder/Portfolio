@@ -288,27 +288,12 @@
                                 </button>
                             </div>
                             <div style="padding:20px 22px;">
-                                <!-- Email input to fetch messages -->
-                                <div id="myMsgEmailStep">
-                                    <label style="display:block;font-size:0.85rem;font-weight:600;color:#555;margin-bottom:6px;">
-                                        <i class="bi bi-envelope"></i> {{ __('আপনার ইমেইল দিন') }}
-                                    </label>
-                                    <div style="display:flex;gap:8px;">
-                                        <input type="email" id="myMsgEmail" value="" placeholder="example@email.com" style="flex:1;padding:12px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;transition:border-color 0.2s;"
-                                               onfocus="this.style.borderColor='#4facfe'" onblur="this.style.borderColor='#e8e8f0'">
-                                        <button id="myMsgFetchBtn" style="padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s;box-shadow:0 3px 10px rgba(79,172,254,0.25);display:inline-flex;align-items:center;gap:6px;flex-shrink:0;"
-                                                onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 5px 16px rgba(79,172,254,0.35)'"
-                                                onmouseout="this.style.transform='';this.style.boxShadow='0 3px 10px rgba(79,172,254,0.25)'">
-                                            <i class="bi bi-search"></i> {{ __('দেখুন') }}
-                                        </button>
-                                    </div>
-                                    <div id="myMsgError" style="margin-top:8px;font-size:0.8rem;color:#ef4444;display:none;"></div>
+                                <div id="myMsgNoEmail" style="text-align:center;padding:30px;display:none;">
+                                    <i class="bi bi-envelope" style="font-size:2.5rem;color:#ddd;display:block;margin-bottom:10px;"></i>
+                                    <span style="font-weight:600;color:#999;">{{ __('কোনো বার্তা নেই') }}</span>
+                                    <p style="margin:6px 0 0;font-size:0.85rem;color:#bbb;">{{ __('প্রথমে যোগাযোগ ফর্মের মাধ্যমে একটি বার্তা পাঠান') }}</p>
                                 </div>
-
-                                <!-- Messages list -->
-                                <div id="myMsgList" style="display:none;margin-top:4px;"></div>
-
-                                <!-- Loading -->
+                                <div id="myMsgList" style="display:none;"></div>
                                 <div id="myMsgLoading" style="display:none;text-align:center;padding:30px;">
                                     <div class="spinner-border" style="width:2rem;height:2rem;color:#4facfe;" role="status">
                                         <span class="visually-hidden">Loading...</span>
@@ -476,6 +461,8 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    const emailInput = document.getElementById('email');
+                    if (emailInput) localStorage.setItem('contact_email', emailInput.value);
                     form.reset();
                     document.getElementById('successAlert').classList.add('show');
                     setTimeout(() => {
@@ -493,26 +480,20 @@
         });
 
         // ===== My Messages =====
-        const myMsgEmail = document.getElementById('myMsgEmail');
-        const myMsgFetchBtn = document.getElementById('myMsgFetchBtn');
         const myMsgList = document.getElementById('myMsgList');
-        const myMsgError = document.getElementById('myMsgError');
         const myMsgLoading = document.getElementById('myMsgLoading');
-        const myMsgEmailStep = document.getElementById('myMsgEmailStep');
+        const myMsgNoEmail = document.getElementById('myMsgNoEmail');
 
-        // Auto-fill email from contact form
-        const contactEmail = document.getElementById('email');
-        if (contactEmail && myMsgEmail) {
-            contactEmail.addEventListener('input', function() {
-                myMsgEmail.value = this.value;
-            });
+        // Store email in localStorage after successful submit
+        const contactFormEmail = document.getElementById('email');
+
+        function getMyEmail() {
+            return localStorage.getItem('contact_email') || (contactFormEmail ? contactFormEmail.value.trim() : '');
         }
-        // Also after successful submit
-        const origThen = null;
 
         function loadMyMessages(email) {
-            myMsgError.style.display = 'none';
             myMsgList.style.display = 'none';
+            myMsgNoEmail.style.display = 'none';
             myMsgLoading.style.display = 'block';
 
             fetch('{{ url("/my-messages/fetch") }}', {
@@ -530,28 +511,27 @@
                 if (data.success && data.messages.length) {
                     renderMessages(data.messages);
                 } else {
-                    myMsgList.innerHTML = '<div style="text-align:center;padding:30px;"><i class="bi bi-inbox" style="font-size:2.5rem;color:#ddd;display:block;margin-bottom:10px;"></i><span style="font-weight:600;color:#999;">{{ __('কোনো বার্তা পাওয়া যায়নি') }}</span></div>';
-                    myMsgList.style.display = 'block';
+                    myMsgNoEmail.style.display = 'block';
                 }
             })
             .catch(() => {
                 myMsgLoading.style.display = 'none';
-                myMsgError.textContent = '{{ __('একটি ত্রুটি ঘটেছে') }}';
-                myMsgError.style.display = 'block';
+                myMsgNoEmail.style.display = 'block';
             });
         }
 
         function renderMessages(messages) {
             let html = '';
+            const myEmail = getMyEmail();
             messages.forEach(msg => {
                 const date = new Date(msg.created_at);
                 const dateStr = date.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + date.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
                 html += '<div style="background:#fafafe;border-radius:14px;border:1px solid #f0f0f5;margin-bottom:16px;overflow:hidden;">';
-                html += '<div style="padding:14px 16px;border-bottom:1px solid #f0f0f5;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">';
-                html += '<span style="font-weight:600;font-size:0.82rem;color:#333;">' + escapeHtml(msg.name) + ' <span style="font-weight:400;color:#999;font-size:0.75rem;">&lt;' + escapeHtml(msg.email) + '&gt;</span></span>';
+                html += '<div style="padding:12px 16px;border-bottom:1px solid #f0f0f5;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">';
+                html += '<span style="font-weight:600;font-size:0.85rem;color:#333;">' + escapeHtml(msg.name) + '</span>';
                 html += '<span style="font-size:0.72rem;color:#aaa;">' + dateStr + '</span>';
                 html += '</div>';
-                html += '<div style="padding:12px 16px;"><p style="margin:0;font-size:0.88rem;color:#444;line-height:1.6;">' + escapeHtml(msg.message) + '</p></div>';
+                html += '<div style="padding:12px 16px 8px;"><p style="margin:0;font-size:0.88rem;color:#444;line-height:1.6;">' + escapeHtml(msg.message) + '</p></div>';
 
                 // Show admin reply if exists on the original record
                 if (msg.reply) {
@@ -576,7 +556,7 @@
                 }
 
                 // Reply textarea for this thread
-                const replyId = 'followup_' + msg.id;
+                const replyId = 'fup_' + msg.id;
                 html += '<div style="padding:8px 16px 14px;border-top:1px solid #f0f0f5;">';
                 html += '<textarea id="' + replyId + '" rows="2" placeholder="{{ __('আপনার উত্তর লিখুন...') }}" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e8e8f0;font-size:0.82rem;color:#444;resize:vertical;outline:none;font-family:inherit;transition:border-color 0.2s;" onfocus="this.style.borderColor=\'#4facfe\'" onblur="this.style.borderColor=\'#e8e8f0\'"></textarea>';
                 html += '<div style="text-align:right;margin-top:6px;">';
@@ -598,7 +578,7 @@
                     const msg = textarea.value.trim();
                     if (!msg) return;
                     const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-                    const email = myMsgEmail.value.trim();
+                    const email = getMyEmail();
                     const name = document.getElementById('name')?.value.trim() || email;
 
                     fetch('{{ url("/my-messages/reply") }}', {
@@ -624,27 +604,18 @@
             return d.innerHTML;
         }
 
-        if (myMsgFetchBtn && myMsgEmail) {
-            myMsgFetchBtn.addEventListener('click', function() {
-                var email = myMsgEmail.value.trim();
-                if (!email) {
-                    myMsgError.textContent = '{{ __('ইমেইল দিন') }}';
-                    myMsgError.style.display = 'block';
-                    return;
-                }
-                loadMyMessages(email);
-            });
-            myMsgEmail.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') myMsgFetchBtn.click();
-            });
-        }
-
-        // When modal opens, auto-fill email
+        // Auto-load when modal opens
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
-            if (myMsgEmail && contactEmail && contactEmail.value) {
-                myMsgEmail.value = contactEmail.value;
+            const email = getMyEmail();
+            if (email) {
+                loadMyMessages(email);
+            } else {
+                myMsgNoEmail.style.display = 'block';
             }
         });
+
+        // After contact form submits successfully, store email and update button
+        const origSuccessHandler = null;
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
