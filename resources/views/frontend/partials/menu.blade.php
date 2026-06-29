@@ -7,7 +7,15 @@
             <div class="brand-icon-wrap">
                 <i class="bi bi-droplet-fill brand-drop"></i>
             </div>
-            <span class="brand-text">ব্লাড ব্যাংক</span>
+            <span class="brand-text">{{ __('ব্লাড ব্যাংক') }}</span>
+        </a>
+
+        <!-- Language Switcher -->
+        <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
+           class="lang-switch-btn"
+           title="{{ __('Language') }}"
+           aria-label="{{ __('Language') }}">
+            <span>{{ app()->getLocale() === 'bn' ? 'EN' : 'বাংলা' }}</span>
         </a>
 
         <!-- Theme Toggle (hidden on mobile — mobile toggle is inside collapse) -->
@@ -33,24 +41,31 @@
         <!-- Top Nav Links -->
         <div class="collapse navbar-collapse" id="navbarTopNav">
             <!-- Mobile-only theme toggle inside collapse -->
+            <div class="mobile-lang-toggle d-lg-none text-center mb-2">
+                <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
+                   class="lang-switch-btn mobile">
+                    <i class="bi bi-globe2"></i>
+                    <span class="ms-2">{{ app()->getLocale() === 'bn' ? 'English' : 'বাংলা' }}</span>
+                </a>
+            </div>
             <div class="mobile-theme-toggle d-lg-none text-center mb-3">
                 <button class="theme-toggle-btn mobile" id="mobileThemeToggle" type="button" title="Toggle theme">
                     <i class="bi bi-sun-fill"></i>
-                    <span class="ms-2">Theme</span>
+                    <span class="ms-2">{{ __('Theme') }}</span>
                 </button>
             </div>
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
                 <li class="nav-item nav-link-wrap">
                     <a class="nav-link top-nav-link {{ request()->is('profile') ? 'active-link' : '' }}" href="{{ url('/profile') }}">
-                        <i class="bi bi-person-circle me-1"></i> My Profile
+                        <i class="bi bi-person-circle me-1"></i> {{ __('My Profile') }}
                         <span class="link-underline"></span>
                     </a>
                 </li>
 
                 <li class="nav-item nav-link-wrap">
                     <a class="nav-link top-nav-link {{ request()->is('emergency-request') ? 'active-link' : '' }}" href="{{ url('/emergency-request') }}">
-                        <i class="bi bi-exclamation-triangle-fill me-1" style="color:#ef4444;"></i> Emergency
+                        <i class="bi bi-exclamation-triangle-fill me-1" style="color:#ef4444;"></i> {{ __('Emergency') }}
                         <span class="link-underline"></span>
                     </a>
                 </li>
@@ -58,7 +73,7 @@
                 @auth
                 <li class="nav-item nav-link-wrap">
                     <a class="nav-link top-nav-link {{ request()->is('emergency-request/my-requests') ? 'active-link' : '' }}" href="{{ url('/emergency-request/my-requests') }}">
-                        <i class="bi bi-clock-history me-1"></i> My Requests
+                        <i class="bi bi-clock-history me-1"></i> {{ __('My Requests') }}
                         <span class="link-underline"></span>
                     </a>
                 </li>
@@ -68,7 +83,7 @@
                     @if(auth()->user()->is_admin == 1)
                         <li class="nav-item nav-link-wrap">
                             <a class="nav-link top-nav-link {{ request()->is('admin') ? 'active-link' : '' }}" href="/admin">
-                                <i class="bi bi-speedometer2 me-1"></i> Admin Panel
+                                <i class="bi bi-speedometer2 me-1"></i> {{ __('Admin Panel') }}
                                 <span class="link-underline"></span>
                             </a>
                         </li>
@@ -78,21 +93,21 @@
                         <form action="{{ route('logout') }}" method="POST" class="d-inline w-100">
                             @csrf
                             <button type="submit" class="btn-logout w-100 text-start">
-                                <i class="bi bi-box-arrow-right me-1"></i> Logout
+                                <i class="bi bi-box-arrow-right me-1"></i> {{ __('Logout') }}
                             </button>
                         </form>
                     </li>
                 @else
                     <li class="nav-item nav-link-wrap">
                         <a class="nav-link top-nav-link {{ request()->is('login') ? 'active-link' : '' }}" href="/login">
-                            <i class="bi bi-person-circle me-1"></i> Login
+                            <i class="bi bi-person-circle me-1"></i> {{ __('Login') }}
                             <span class="link-underline"></span>
                         </a>
                     </li>
 
                     <li class="nav-item nav-link-wrap">
                         <a class="nav-link signup-btn text-center" href="/register">
-                            <i class="bi bi-person-plus me-1"></i> Signup
+                            <i class="bi bi-person-plus me-1"></i> {{ __('Signup') }}
                         </a>
                     </li>
                 @endauth
@@ -235,10 +250,18 @@
     box-shadow: 0 3px 12px rgba(220, 38, 38, 0.3);
 }
 
-.signup-btn:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45) !important;
-}
+    .signup-btn:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45) !important;
+    }
+
+    .mobile-lang-toggle {
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding-bottom: 12px;
+    }
+    .light-mode .mobile-lang-toggle {
+        border-bottom-color: rgba(0,0,0,0.06);
+    }
 
 /* ===== Logout Button ===== */
 .btn-logout {
@@ -281,6 +304,65 @@
         border-color: rgba(255, 255, 255, 0.3);
         color: #fff;
         transform: rotate(15deg);
+    }
+
+    /* ===== Language Switcher Button ===== */
+    .lang-switch-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1.5px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-right: 6px;
+        flex-shrink: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .lang-switch-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .lang-switch-btn.mobile {
+        width: auto;
+        height: 40px;
+        padding: 0 18px;
+        border-radius: 10px;
+        margin: 0 auto;
+        display: inline-flex;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: none;
+    }
+
+    .light-mode .lang-switch-btn {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: rgba(0, 0, 0, 0.04);
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    .light-mode .lang-switch-btn:hover {
+        background: rgba(0, 0, 0, 0.08);
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .light-mode .lang-switch-btn.mobile {
+        border-color: rgba(220, 38, 38, 0.2);
+        background: rgba(220, 38, 38, 0.06);
+        color: var(--theme-primary);
     }
 
     .theme-toggle-btn.mobile {

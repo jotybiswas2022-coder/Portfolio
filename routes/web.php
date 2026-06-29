@@ -11,6 +11,8 @@ Route::controller(SiteController::class)->group(function () {
     Route::get('/', 'index');
 });
 
+Route::get('/lang/{locale}', [App\Http\Controllers\frontend\LanguageController::class, 'switch']);
+
 Route::post('/contactus', [UserController::class, 'contactus']);
 
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
