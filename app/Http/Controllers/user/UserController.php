@@ -17,10 +17,11 @@ class UserController extends Controller
             'message' => 'required',
         ]);
 
-        $token = session('contact_token', bin2hex(random_bytes(16)));
+        // Deterministic token from email + app key (same email = same token across sessions)
+        $token = hash('sha256', $request->email . config('app.key'));
         session(['contact_token' => $token]);
 
-        // Tag this message with the session token (privacy: only this session can see it)
+        // Tag this message with the deterministic token
         $data = $request->all();
         $data['session_token'] = $token;
         if (Auth::check()) {
@@ -28,7 +29,7 @@ class UserController extends Controller
         }
         Contact::create($data);
 
-        // Link existing guest messages (same email) to this session so user sees them too
+        // Ensure all guest messages with this email share the same token
         Contact::where('email', $request->email)
             ->whereNull('user_id')
             ->where('session_token', '!=', $token)

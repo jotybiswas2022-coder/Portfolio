@@ -19,6 +19,7 @@ Route::prefix('my-messages')->controller(\App\Http\Controllers\frontend\MyMessag
     Route::get('/check-session', 'checkSession');
     Route::post('/fetch', 'fetch');
     Route::post('/reply', 'reply');
+    Route::post('/lookup', 'lookup');
 });
 
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])

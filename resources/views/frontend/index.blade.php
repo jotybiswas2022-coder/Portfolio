@@ -292,6 +292,10 @@
                                     <i class="bi bi-envelope" style="font-size:2.5rem;color:#ddd;display:block;margin-bottom:10px;"></i>
                                     <span style="font-weight:600;color:#999;">{{ __('কোনো বার্তা নেই') }}</span>
                                     <p style="margin:6px 0 0;font-size:0.85rem;color:#bbb;">{{ __('প্রথমে যোগাযোগ ফর্মের মাধ্যমে একটি বার্তা পাঠান') }}</p>
+                                    <div style="margin-top:16px;display:flex;gap:8px;max-width:360px;margin-left:auto;margin-right:auto;">
+                                        <input type="email" id="myMsgEmailInput" placeholder="{{ __('আপনার ইমেইল লিখুন') }}" style="flex:1;padding:10px 14px;border-radius:10px;border:1.5px solid #e8e8f0;font-size:0.82rem;outline:none;">
+                                        <button id="myMsgFindBtn" style="padding:10px 20px;border-radius:10px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-weight:600;font-size:0.82rem;cursor:pointer;">{{ __('খুঁজুন') }}</button>
+                                    </div>
                                 </div>
                                 <div id="myMsgList" style="display:none;"></div>
                                 <div id="myMsgLoading" style="display:none;text-align:center;padding:30px;">
@@ -490,6 +494,47 @@
         const myMsgList = document.getElementById('myMsgList');
         const myMsgLoading = document.getElementById('myMsgLoading');
         const myMsgNoEmail = document.getElementById('myMsgNoEmail');
+        const myMsgEmailInput = document.getElementById('myMsgEmailInput');
+        const myMsgFindBtn = document.getElementById('myMsgFindBtn');
+
+        function doLookup(email) {
+            myMsgList.style.display = 'none';
+            myMsgNoEmail.style.display = 'none';
+            myMsgLoading.style.display = 'block';
+            fetch('{{ url("/my-messages/lookup") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(r => r.json())
+            .then(data => {
+                myMsgLoading.style.display = 'none';
+                if (data.success && data.messages.length) {
+                    renderMessages(data.messages);
+                } else {
+                    myMsgNoEmail.style.display = 'block';
+                }
+            })
+            .catch(() => {
+                myMsgLoading.style.display = 'none';
+                myMsgNoEmail.style.display = 'block';
+            });
+        }
+
+        myMsgFindBtn?.addEventListener('click', function() {
+            const email = myMsgEmailInput?.value?.trim();
+            if (email) doLookup(email);
+        });
+        myMsgEmailInput?.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const email = this.value?.trim();
+                if (email) doLookup(email);
+            }
+        });
 
         function loadMyMessages() {
             myMsgList.style.display = 'none';
