@@ -10,25 +10,18 @@ class MyMessageController extends Controller
 {
     function checkSession()
     {
-        return response()->json(['hasSession' => session()->has('contact_email')]);
-    }
-
-    function setEmail(Request $request)
-    {
-        $request->validate(['email' => 'required|email']);
-        session(['contact_email' => $request->email]);
-        return response()->json(['success' => true]);
+        return response()->json(['hasSession' => session()->has('contact_token')]);
     }
 
     function fetch(Request $request)
     {
-        $email = session('contact_email');
-        if (!$email) {
+        $token = session('contact_token');
+        if (!$token) {
             return response()->json(['success' => false, 'messages' => []]);
         }
 
         $rows = Contact::root()
-            ->where('email', $email)
+            ->where('session_token', $token)
             ->where('type', 'message')
             ->latest()
             ->with(['replies' => function ($q) {
@@ -62,13 +55,13 @@ class MyMessageController extends Controller
             ];
         });
 
-        return response()->json(['success' => true, 'email' => $email, 'messages' => $messages]);
+        return response()->json(['success' => true, 'messages' => $messages]);
     }
 
     function reply(Request $request)
     {
-        $email = session('contact_email');
-        if (!$email) {
+        $token = session('contact_token');
+        if (!$token) {
             return response()->json(['success' => false, 'message' => 'Not authenticated.'], 403);
         }
 
@@ -80,16 +73,17 @@ class MyMessageController extends Controller
 
         $parent = Contact::findOrFail($request->parent_id);
 
-        if ($parent->email !== $email) {
-            return response()->json(['success' => false, 'message' => 'Email does not match.'], 403);
+        if ($parent->session_token !== $token) {
+            return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
         }
 
         $reply = Contact::create([
             'parent_id' => $request->parent_id,
             'name' => $request->name,
-            'email' => $email,
+            'email' => $parent->email,
             'message' => $request->message,
             'type' => 'follow_up',
+            'session_token' => $token,
         ]);
 
         return response()->json(['success' => true, 'reply' => $reply]);

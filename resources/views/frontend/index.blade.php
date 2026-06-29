@@ -596,7 +596,7 @@
             return d.innerHTML;
         }
 
-        // Auto-load when modal opens — uses PHP session or form field email
+        // Auto-load when modal opens — uses session token for privacy
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
             myMsgNoEmail.style.display = 'none';
             myMsgList.style.display = 'none';
@@ -610,30 +610,7 @@
                 if (d.hasSession) {
                     loadMyMessages();
                 } else {
-                    // Try form field email as fallback
-                    const formEmail = document.getElementById('email')?.value?.trim();
-                    if (formEmail) {
-                        fetch('{{ url("/my-messages/set-email") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Requested-With': 'XMLHttpRequest',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                            },
-                            body: JSON.stringify({ email: formEmail })
-                        })
-                        .then(r2 => r2.json())
-                        .then(d2 => {
-                            if (d2.success) {
-                                loadMyMessages();
-                            } else {
-                                myMsgNoEmail.style.display = 'block';
-                            }
-                        })
-                        .catch(() => { myMsgNoEmail.style.display = 'block'; });
-                    } else {
-                        myMsgNoEmail.style.display = 'block';
-                    }
+                    myMsgNoEmail.style.display = 'block';
                 }
             })
             .catch(() => { myMsgNoEmail.style.display = 'block'; });

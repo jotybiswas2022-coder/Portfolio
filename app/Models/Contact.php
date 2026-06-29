@@ -13,7 +13,8 @@ class Contact extends Model
          'reply',
          'replied_at',
          'parent_id',
-         'type'
+         'type',
+         'session_token'
      ];
 
 

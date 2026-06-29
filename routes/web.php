@@ -17,7 +17,6 @@ Route::post('/contactus', [UserController::class, 'contactus']);
 
 Route::prefix('my-messages')->controller(\App\Http\Controllers\frontend\MyMessageController::class)->group(function () {
     Route::get('/check-session', 'checkSession');
-    Route::post('/set-email', 'setEmail');
     Route::post('/fetch', 'fetch');
     Route::post('/reply', 'reply');
 });

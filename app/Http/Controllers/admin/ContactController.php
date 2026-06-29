@@ -32,6 +32,7 @@ class ContactController extends Controller
             'email' => $contact->email,
             'message' => $request->reply,
             'type' => 'reply',
+            'session_token' => $contact->session_token,
         ]);
 
         return back()->with('success', 'Reply sent successfully!');
