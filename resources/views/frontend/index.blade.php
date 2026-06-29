@@ -525,8 +525,13 @@
             let html = '';
             const myEmail = getMyEmail();
             messages.forEach(msg => {
-                const date = new Date(msg.created_at);
-                const dateStr = date.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + date.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                let dateStr = '';
+                try {
+                    const date = new Date(msg.created_at);
+                    dateStr = date.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + date.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                } catch(e) {
+                    dateStr = msg.created_at;
+                }
                 html += '<div style="background:#fafafe;border-radius:14px;border:1px solid #f0f0f5;margin-bottom:16px;overflow:hidden;">';
                 html += '<div style="padding:12px 16px;border-bottom:1px solid #f0f0f5;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">';
                 html += '<span style="font-weight:600;font-size:0.85rem;color:#333;">' + escapeHtml(msg.name) + '</span>';
@@ -534,19 +539,17 @@
                 html += '</div>';
                 html += '<div style="padding:12px 16px 8px;"><p style="margin:0;font-size:0.88rem;color:#444;line-height:1.6;">' + escapeHtml(msg.message) + '</p></div>';
 
-                // Show admin reply if exists on the original record
-                if (msg.reply) {
-                    html += '<div style="margin:0 16px 12px;background:#f0fdf4;border-radius:10px;padding:12px 14px;border:1px solid #bbf7d0;">';
-                    html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><i class="bi bi-shield-fill-check" style="color:#22c55e;font-size:0.75rem;"></i><span style="font-weight:600;font-size:0.75rem;color:#15803d;">{{ __('প্রশাসকের উত্তর') }}</span></div>';
-                    html += '<p style="margin:0;font-size:0.85rem;color:#166534;line-height:1.5;">' + escapeHtml(msg.reply) + '</p></div>';
-                }
-
-                // Show thread replies
+                // Show thread replies (admin reply is included here as type='reply')
                 if (msg.thread && msg.thread.length > 1) {
                     msg.thread.forEach(function(rep, idx) {
                         if (idx === 0) return;
-                        const rDate = new Date(rep.created_at);
-                        const rDateStr = rDate.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short' }) + ' ' + rDate.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                        let rDateStr = '';
+                        try {
+                            const rDate = new Date(rep.created_at);
+                            rDateStr = rDate.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short' }) + ' ' + rDate.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+                        } catch(e) {
+                            rDateStr = rep.created_at;
+                        }
                         const isAdmin = rep.type === 'reply';
                         html += '<div style="margin:0 16px 8px;padding:10px 14px;border-radius:10px;' + (isAdmin ? 'background:#f0fdf4;border:1px solid #bbf7d0;' : 'background:#eff6ff;border:1px solid #bfdbfe;margin-left:32px;') + '">';
                         html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">';

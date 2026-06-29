@@ -28,8 +28,6 @@ class MyMessageController extends Controller
                 'name'       => $msg->name,
                 'email'      => $msg->email,
                 'message'    => $msg->message,
-                'reply'      => $msg->reply,
-                'replied_at' => $msg->replied_at,
                 'type'       => $msg->type,
                 'parent_id'  => $msg->parent_id,
                 'created_at' => $msg->created_at,
