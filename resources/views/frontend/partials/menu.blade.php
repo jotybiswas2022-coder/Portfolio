@@ -36,7 +36,6 @@
                 </a>
                 <button class="theme-toggle-btn mobile flex-fill" id="mobileThemeToggle" type="button" title="Toggle theme">
                     <i class="bi bi-sun-fill"></i>
-                    <span class="ms-2">{{ __('Theme') }}</span>
                 </button>
             </div>
             <div class="d-flex ms-auto align-items-lg-center gap-lg-2">
@@ -699,8 +698,8 @@ document.addEventListener('DOMContentLoaded', function() {
         function syncMobileIcon() {
             var isLight = document.documentElement.classList.contains('light-mode');
             mobileToggle.innerHTML = isLight
-                ? '<i class="bi bi-moon-stars-fill"></i> <span class="ms-2">Dark</span>'
-                : '<i class="bi bi-sun-fill"></i> <span class="ms-2">Light</span>';
+                ? '<i class="bi bi-moon-stars-fill"></i>'
+                : '<i class="bi bi-sun-fill"></i>';
         }
 
         syncMobileIcon();
