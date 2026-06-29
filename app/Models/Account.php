@@ -8,9 +8,14 @@ class Account extends Model
 {
     protected $fillable = [
         'name',
+        'image',
         'phone',
         'email',
-        'website',
-        'image'
+        'cv',
+        'github',
+        'linkedin',
+        'facebook',
+        'twitter',
+        'youtube',
     ];
 }

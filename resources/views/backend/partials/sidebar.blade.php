@@ -1,134 +1,185 @@
-@php
-use Illuminate\Support\Str;
+<!-- Sidebar (desktop only) -->
+<aside class="sidebar" id="sidebarCollapse"
+     style="width:260px; min-width:260px; background:linear-gradient(180deg,#0f172a,#1e293b); min-height:100%; border-right:none; box-shadow:4px 0 20px rgba(0,0,0,0.1); position:sticky; top:0; height:calc(100vh - 57px); overflow-y:auto; display:flex; flex-direction:column; transition:transform 0.3s cubic-bezier(0.16,1,0.3,1); z-index:1040;">
 
-$menuItems = [
-    ['url' => '/admin/account', 'icon' => 'person-circle', 'label' => 'Account', 'color' => '#667eea'],
-    ['url' => '/admin/donor_list', 'icon' => 'people-fill', 'label' => 'Donor List', 'color' => '#e35e6f'],
-    ['url' => '/admin/blood-requests', 'icon' => 'exclamation-triangle-fill', 'label' => 'Blood Requests', 'color' => '#dc2626'],
-    ['url' => '/admin/contact', 'icon' => 'envelope-fill', 'label' => 'Contact', 'color' => '#4facfe'],
-];
-
-$isActive = function($path) {
-    return request()->is(trim($path, '/'));
-};
-@endphp
-
-{{-- Top Navbar --}}
-<nav style="background:#fff;border-bottom:1px solid rgba(0,0,0,0.05);padding:8px 16px;box-shadow:0 2px 16px rgba(0,0,0,0.04);position:sticky;top:0;z-index:1020;">
-    <div style="display:flex;align-items:center;justify-content:space-between;max-width:100%;">
-        <div style="display:flex;align-items:center;gap:10px;">
-            <button onclick="toggleSidebar()" style="background:none;border:none;font-size:1.5rem;color:#444;cursor:pointer;padding:4px;" class="d-md-none">
-                <i class="bi bi-list"></i>
-            </button>
-            <a href="/admin" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
-                <span style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;">
-                    <i class="bi bi-speedometer2" style="color:#fff;font-size:1.1rem;"></i>
-                </span>
-                <span style="font-weight:700;font-size:1rem;color:#333;">Admin<span style="color:#667eea;">Panel</span></span>
-            </a>
-        </div>
-
-    </div>
-</nav>
-
-{{-- Sidebar + Content wrapper --}}
-<div style="display:flex;min-height:calc(100vh - 57px);">
-
-    {{-- Mobile Offcanvas --}}
-    <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="sidebarOffcanvas" style="--bs-offcanvas-width:260px;">
-        <div style="padding:16px 18px;border-bottom:1px solid #f0f0f5;display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-weight:700;font-size:1rem;color:#333;display:flex;align-items:center;gap:8px;">
-                <span style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;">
-                    <i class="bi bi-speedometer2" style="color:#fff;font-size:0.9rem;"></i>
-                </span>
-                Admin Panel
-            </span>
-            <button type="button" style="background:none;border:none;font-size:1.3rem;color:#999;cursor:pointer;padding:0;line-height:1;" data-bs-dismiss="offcanvas">&times;</button>
-        </div>
-        <div style="padding:8px 0;">
-            @foreach($menuItems as $item)
-            @php
-                $active = $isActive($item['url']);
-                $r = hexdec(substr($item['color'],1,2));
-                $g = hexdec(substr($item['color'],3,2));
-                $b = hexdec(substr($item['color'],5,2));
-            @endphp
-            <a href="{{ $item['url'] }}"
-               style="display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:0.9rem;font-weight:500;text-decoration:none;transition:all 0.2s;border-left:3px solid transparent;{{ $active ? 'background:rgba('.$r.','.$g.','.$b.',0.08);color:'.$item['color'].';border-left-color:'.$item['color'].';' : 'color:#555;' }}"
-               onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea';this.style.borderLeftColor='#667eea'"
-               onmouseout="this.style.background='{{ $active ? 'rgba('.$r.','.$g.','.$b.',0.08)' : 'transparent' }}';this.style.color='{{ $active ? $item['color'] : '#555' }}';this.style.borderLeftColor='{{ $active ? $item['color'] : 'transparent' }}'">
-                <span style="width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;{{ $active ? 'background:'.$item['color'].';color:#fff;' : 'background:#f0f1fe;color:'.$item['color'].';' }}">
-                    <i class="bi bi-{{ $item['icon'] }}" style="font-size:0.85rem;"></i>
-                </span>
-                <span>{{ $item['label'] }}</span>
-            </a>
-            @endforeach
-        </div>
-        <div style="padding:12px 20px;border-top:1px solid #f0f0f5;margin-top:auto;display:flex;flex-direction:column;gap:6px;">
-            <a href="/" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;text-decoration:none;color:#555;transition:color 0.2s;" onmouseover="this.style.color='#667eea'" onmouseout="this.style.color='#555'"><i class="bi bi-house-door"></i> Home</a>
-            @auth
-                @if(auth()->user()->is_admin == 1)
-                    <a href="/admin" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;text-decoration:none;color:#555;transition:color 0.2s;" onmouseover="this.style.color='#667eea'" onmouseout="this.style.color='#555'"><i class="bi bi-speedometer2"></i> Dashboard</a>
-                @endif
-                <form action="{{ route('logout') }}" method="POST" style="display:inline;margin:0;">
-                    @csrf
-                    <button type="submit" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;border:none;background:none;color:#dc3545;cursor:pointer;transition:color 0.2s;"><i class="bi bi-box-arrow-right"></i> Logout</button>
-                </form>
-            @else
-                <a href="/login" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;text-decoration:none;color:#555;transition:color 0.2s;" onmouseover="this.style.color='#667eea'" onmouseout="this.style.color='#555'"><i class="bi bi-person-circle"></i> Login</a>
-                <a href="/register" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:600;text-decoration:none;color:#667eea;transition:color 0.2s;" onmouseover="this.style.color='#764ba2'" onmouseout="this.style.color='#667eea'"><i class="bi bi-person-plus"></i> Sign Up</a>
-            @endauth
-        </div>
+    {{-- Mobile close button --}}
+    <div class="sidebar-close" style="display:none;">
+        <button type="button" aria-label="Close sidebar">&times;</button>
     </div>
 
-    {{-- Desktop Sidebar --}}
-    <div class="d-none d-md-block" style="width:230px;flex-shrink:0;background:#fff;border-right:1px solid rgba(0,0,0,0.06);padding:16px 0;">
-        <div style="display:flex;flex-direction:column;gap:4px;padding:0 10px;">
-            @foreach($menuItems as $item)
-            @php
-                $active = $isActive($item['url']);
-                $r = hexdec(substr($item['color'],1,2));
-                $g = hexdec(substr($item['color'],3,2));
-                $b = hexdec(substr($item['color'],5,2));
-            @endphp
-            <a href="{{ $item['url'] }}"
-               style="display:flex;align-items:center;gap:12px;padding:10px 14px;font-size:0.85rem;font-weight:{{ $active ? '600' : '500' }};text-decoration:none;border-radius:12px;transition:all 0.2s;{{ $active ? 'background:rgba('.$r.','.$g.','.$b.',0.08);color:'.$item['color'].';' : 'color:#555;' }}"
-               onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea'"
-               onmouseout="this.style.background='{{ $active ? 'rgba('.$r.','.$g.','.$b.',0.08)' : 'transparent' }}';this.style.color='{{ $active ? $item['color'] : '#555' }}'">
-                <span style="width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;{{ $active ? 'background:'.$item['color'].';color:#fff;' : 'background:#f0f1fe;color:'.$item['color'].';' }}">
-                    <i class="bi bi-{{ $item['icon'] }}" style="font-size:0.85rem;"></i>
-                </span>
-                <span>{{ $item['label'] }}</span>
-            </a>
-            @endforeach
-        </div>
-        <div style="border-top:1px solid #f0f0f5;margin:8px 14px;padding-top:8px;display:flex;flex-direction:column;gap:4px;">
-            <a href="/" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;text-decoration:none;border-radius:12px;color:#555;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea'" onmouseout="this.style.background='transparent';this.style.color='#555'"><i class="bi bi-house-door"></i> Home</a>
-            @auth
-                @if(auth()->user()->is_admin == 1)
-                    <a href="/admin" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;text-decoration:none;border-radius:12px;color:#555;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea'" onmouseout="this.style.background='transparent';this.style.color='#555'"><i class="bi bi-speedometer2"></i> Dashboard</a>
-                @endif
-                <form action="{{ route('logout') }}" method="POST" style="display:inline;margin:0;">
-                    @csrf
-                    <button type="submit" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;border:none;border-radius:12px;background:none;color:#dc3545;cursor:pointer;transition:all 0.2s;width:100%;" onmouseover="this.style.background='rgba(220,53,69,0.06)'" onmouseout="this.style.background='transparent'"><i class="bi bi-box-arrow-right"></i> Logout</button>
-                </form>
-            @else
-                <a href="/login" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;text-decoration:none;border-radius:12px;color:#555;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea'" onmouseout="this.style.background='transparent';this.style.color='#555'"><i class="bi bi-person-circle"></i> Login</a>
-                <a href="/register" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:600;text-decoration:none;border-radius:12px;color:#667eea;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#764ba2'" onmouseout="this.style.background='transparent';this.style.color='#667eea'"><i class="bi bi-person-plus"></i> Sign Up</a>
-            @endauth
-        </div>
+    <div class="sidebar-header" style="padding:0.9rem 1.2rem; border-bottom:1px solid rgba(255,255,255,0.06); margin-bottom:0.25rem; flex-shrink:0;">
+        <a href="/admin" class="brand"
+           style="font-size:0.92rem; font-weight:800; color:#fff; text-decoration:none; display:flex; align-items:center; gap:0.55rem; letter-spacing:-0.2px;">
+            <i class="bi bi-grid-1x2-fill" style="font-size:1.2rem; color:#6366f1;"></i>
+            <span style="background:linear-gradient(135deg,#fff 60%,#94a3b8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">{{ __('messages.admin') }} Panel</span>
+        </a>
     </div>
 
-    {{-- Mobile toggle script --}}
-    <script>
-    function toggleSidebar() {
-        var el = document.getElementById('sidebarOffcanvas');
-        if (el) {
-            var offcanvas = new bootstrap.Offcanvas(el);
-            offcanvas.toggle();
-        }
+    <ul class="sidebar-menu" style="list-style:none; padding:0; margin:0; flex:1;">
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin') }}"
+               class="{{ request()->is('admin') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-speedometer2" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/account') }}"
+               class="{{ request()->is('admin/account') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-person-circle" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Account</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/services') }}"
+               class="{{ request()->is('admin/services*') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-gear" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Services</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/case-studies') }}"
+               class="{{ request()->is('admin/case-studies*') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-journal-code" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Case Studies</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/experiences') }}"
+               class="{{ request()->is('admin/experiences*') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-briefcase" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Experiences</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/skills') }}"
+               class="{{ request()->is('admin/skills*') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-lightning-charge" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Skills</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/projects') }}"
+               class="{{ request()->is('admin/projects*') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-folder2-open" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Projects</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/testimonials') }}"
+               class="{{ request()->is('admin/testimonials*') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-chat-quote" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Testimonials</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/faqs') }}"
+               class="{{ request()->is('admin/faqs*') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-question-circle" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>FAQs</span>
+            </a>
+        </li>
+        <li style="margin-bottom:1px;">
+            <a href="{{ url('/admin/contact') }}"
+               class="{{ request()->is('admin/contact') ? 'active' : '' }}"
+               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                <i class="bi bi-envelope-paper" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                <span>Messages</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<style>
+/* Sidebar hover & active states (inline CSS can't handle :hover, ::after) */
+.sidebar-menu a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0);
+    width: 3px;
+    height: 18px;
+    border-radius: 0 3px 3px 0;
+    background: #6366f1;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sidebar-menu a:hover {
+    background: rgba(99,102,241,0.1);
+    color: #fff;
+    padding-left: 16px;
+}
+.sidebar-menu a:hover i {
+    color: #a5b4fc;
+}
+.sidebar-menu a.active {
+    background: rgba(99,102,241,0.15);
+    color: #fff;
+    font-weight: 600;
+    padding-left: 16px;
+}
+.sidebar-menu a.active::after {
+    transform: translateY(-50%) scaleY(1);
+}
+.sidebar-menu a.active i {
+    color: #818cf8;
+}
+
+/* Sidebar custom scrollbar */
+#sidebarCollapse::-webkit-scrollbar { width: 4px; }
+#sidebarCollapse::-webkit-scrollbar-track { background: transparent; }
+#sidebarCollapse::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+#sidebarCollapse::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ===== Off-canvas mobile ===== */
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        z-index: 1040 !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s cubic-bezier(0.16,1,0.3,1) !important;
+        box-shadow: none !important;
     }
-    </script>
-
-    {{-- Content Area --}}
-    <div style="flex-grow:1;overflow-x:auto;width:100%;background:#f8f9fe;min-height:calc(100vh - 57px);padding:16px 20px;display:flex;flex-direction:column;" id="mainContent">
+    .sidebar.open {
+        transform: translateX(0) !important;
+        box-shadow: 4px 0 30px rgba(0,0,0,0.3) !important;
+    }
+    .sidebar-close {
+        display: flex !important;
+        justify-content: flex-end;
+        padding: 0.5rem 0.8rem;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-close button {
+        background: none;
+        border: none;
+        color: rgba(255,255,255,0.5);
+        font-size: 1.3rem;
+        cursor: pointer;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        transition: all 0.2s;
+    }
+    .sidebar-close button:hover {
+        color: #fff;
+        background: rgba(255,255,255,0.08);
+    }
+    .admin-main {
+        padding: 1rem !important;
+        width: 100% !important;
+    }
+}
+</style>

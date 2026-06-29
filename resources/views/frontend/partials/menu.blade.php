@@ -1,714 +1,532 @@
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar navbar-expand-lg py-2 dark-navbar" id="mainNavbar">
-    <div class="container-fluid">
-
-        <!-- Brand -->
-        <a class="navbar-brand d-flex align-items-center fw-bold text-light" href="/">
-            <div class="brand-icon-wrap">
-                <i class="bi bi-droplet-fill brand-drop"></i>
-            </div>
-            <span class="brand-text">{{ __('Blood Bank') }}</span>
-        </a>
-
-        <!-- Animated Hamburger Toggler -->
-        <button class="navbar-toggler border-0 custom-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarTopNav"
-                aria-controls="navbarTopNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                id="navToggler">
-            <div class="hamburger-lines">
-                <span class="hamb-line ham-top"></span>
-                <span class="hamb-line ham-mid"></span>
-                <span class="hamb-line ham-bot"></span>
-            </div>
-        </button>
-
-        <!-- Top Nav Links -->
-        <div class="collapse navbar-collapse" id="navbarTopNav">
-            <!-- Mobile-only lang & theme toggle (side by side) -->
-            <div class="d-lg-none d-flex text-center justify-content-center gap-2 mb-3">
-                <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
-                   class="lang-switch-btn mobile flex-fill">
-                    <i class="bi bi-globe2"></i>
-                    <span class="ms-2">{{ app()->getLocale() === 'bn' ? 'English' : 'বাংলা' }}</span>
-                </a>
-                <button class="theme-toggle-btn mobile flex-fill" id="mobileThemeToggle" type="button" title="Toggle theme">
-                    <i class="bi bi-sun-fill"></i>
-                </button>
-            </div>
-            <div class="d-flex ms-auto align-items-lg-center gap-lg-2">
-                <!-- Desktop Lang Toggle -->
-                <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
-                   class="lang-switch-btn d-none d-lg-inline-flex"
-                   title="{{ __('Language') }}"
-                   aria-label="{{ __('Language') }}">
-                    <span>{{ app()->getLocale() === 'bn' ? 'EN' : 'বাংলা' }}</span>
-                </a>
-                <!-- Desktop Theme Toggle -->
-                <button class="theme-toggle-btn d-none d-lg-flex" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle dark/light mode">
-                    <i class="bi bi-sun-fill"></i>
-                </button>
-                <!-- Nav Links -->
-                <ul class="navbar-nav align-items-lg-center gap-lg-2">
-
-                <li class="nav-item nav-link-wrap">
-                    <a class="nav-link top-nav-link {{ request()->is('profile') ? 'active-link' : '' }}" href="{{ url('/profile') }}">
-                        <i class="bi bi-person-circle me-1"></i> {{ __('My Profile') }}
-                        <span class="link-underline"></span>
-                    </a>
-                </li>
-
-                <li class="nav-item nav-link-wrap">
-                    <a class="nav-link top-nav-link {{ request()->is('emergency-request') ? 'active-link' : '' }}" href="{{ url('/emergency-request') }}">
-                        <i class="bi bi-exclamation-triangle-fill me-1" style="color:#ef4444;"></i> {{ __('Emergency') }}
-                        <span class="link-underline"></span>
-                    </a>
-                </li>
-
-                @auth
-                <li class="nav-item nav-link-wrap">
-                    <a class="nav-link top-nav-link {{ request()->is('emergency-request/my-requests') ? 'active-link' : '' }}" href="{{ url('/emergency-request/my-requests') }}">
-                        <i class="bi bi-clock-history me-1"></i> {{ __('My Requests') }}
-                        <span class="link-underline"></span>
-                    </a>
-                </li>
-                @endauth
-
-                @auth
-                    @if(auth()->user()->is_admin == 1)
-                        <li class="nav-item nav-link-wrap">
-                            <a class="nav-link top-nav-link {{ request()->is('admin') ? 'active-link' : '' }}" href="/admin">
-                                <i class="bi bi-speedometer2 me-1"></i> {{ __('Admin Panel') }}
-                                <span class="link-underline"></span>
-                            </a>
-                        </li>
-                    @endif
-
-                    <li class="nav-item nav-link-wrap">
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline w-100">
-                            @csrf
-                            <button type="submit" class="btn-logout w-100 text-start">
-                                <i class="bi bi-box-arrow-right me-1"></i> {{ __('Logout') }}
-                            </button>
-                        </form>
-                    </li>
-                @else
-                    <li class="nav-item nav-link-wrap">
-                        <a class="nav-link top-nav-link {{ request()->is('login') ? 'active-link' : '' }}" href="/login">
-                            <i class="bi bi-person-circle me-1"></i> {{ __('Login') }}
-                            <span class="link-underline"></span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item nav-link-wrap">
-                        <a class="nav-link signup-btn text-center" href="/register">
-                            <i class="bi bi-person-plus me-1"></i> {{ __('Sign Up') }}
-                        </a>
-                    </li>
-                @endauth
-
-            </ul>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<!-- ===== CSS ===== -->
 <style>
-/* ===== Navbar Base ===== */
-.dark-navbar {
-    background: var(--theme-nav-bg);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 14px 0;
-}
-
-/* ===== Scroll Effect (glassmorphism) ===== */
-.dark-navbar.navbar-scrolled {
-    background: var(--theme-nav-scrolled);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    padding: 8px 0;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
-    border-bottom: 1px solid var(--theme-border-light);
-}
-
-/* ===== Brand ===== */
-.navbar-brand {
-    gap: 10px;
-    display: flex;
-    align-items: center;
-    font-size: 1.4rem !important;
-}
-
-.brand-icon-wrap {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #dc2626, #ef4444);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 2px 12px rgba(220, 38, 38, 0.35);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar-brand:hover .brand-icon-wrap {
-    transform: scale(1.05) rotate(-5deg);
-    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.5);
-}
-
-.brand-drop {
-    font-size: 1.3rem !important;
-    color: #fff !important;
-    animation: brand-drop-pulse 3s ease-in-out infinite;
-}
-
-@keyframes brand-drop-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-}
-
-.brand-text {
-    font-size: 1.3rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #fff 60%, rgba(255,255,255,0.7));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* ===== Nav Links ===== */
-.nav-link-wrap {
-    position: relative;
-}
-
-.top-nav-link {
-    color: rgba(255,255,255,0.8) !important;
-    font-weight: 500;
-    padding: 8px 18px !important;
-    border-radius: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    font-size: 0.92rem;
-}
-
-.top-nav-link:hover {
-    color: #fff !important;
-    background: rgba(255,255,255,0.08);
-    transform: translateY(-1px);
-}
-
-/* ===== Animated Underline ===== */
-.link-underline {
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    width: 0;
-    height: 2.5px;
-    background: linear-gradient(90deg, #dc2626, #ef4444);
-    border-radius: 4px;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateX(-50%);
-    opacity: 0;
-}
-
-.top-nav-link:hover .link-underline {
-    width: 60%;
-    opacity: 1;
-}
-
-/* ===== Active Link ===== */
-.active-link {
-    color: #fff !important;
-    background: rgba(220, 38, 38, 0.25) !important;
-    border: 1px solid rgba(220, 38, 38, 0.3);
-}
-
-.active-link .link-underline {
-    width: 60%;
-    opacity: 1;
-}
-
-/* ===== Signup Button ===== */
-.signup-btn {
-    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
-    color: #fff !important;
-    padding: 8px 24px !important;
-    border-radius: 25px !important;
-    font-weight: 700 !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    border: none !important;
-    box-shadow: 0 3px 12px rgba(220, 38, 38, 0.3);
-}
-
-    .signup-btn:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45) !important;
+    /* ===== NAVBAR (SHARED ACROSS ALL PAGES) ===== */
+    .navbar-main {
+        position: fixed; top: 0; left: 0; right: 0;
+        z-index: 1000; padding: 1rem 2rem;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(10, 15, 30, 0.88);
+        backdrop-filter: blur(24px) saturate(1.4);
+        -webkit-backdrop-filter: blur(24px) saturate(1.4);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.12);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html.light-theme .navbar-main {
+        background: rgba(248, 250, 252, 0.92);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.12);
+    }
+    .navbar-main.scrolled {
+        padding: 0.6rem 2rem;
+        background: rgba(10, 15, 30, 0.96);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.25);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+    html.light-theme .navbar-main.scrolled {
+        background: rgba(248, 250, 252, 0.96);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    }
+    .nav-logo {
+        font-size: 1.4rem; font-weight: 800;
+        background: linear-gradient(135deg, #3b82f6, #60a5fa, #a78bfa, #3b82f6);
+        background-size: 300% 300%;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: navGradient 4s ease infinite;
+        letter-spacing: -0.5px;
+        text-decoration: none;
+    }
+    @keyframes navGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
-/* ===== Logout Button ===== */
-.btn-logout {
-    background: transparent;
-    border: 1.5px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.8);
-    padding: 8px 20px;
-    border-radius: 10px;
-    font-size: 0.92rem;
-    font-family: inherit;
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-}    .btn-logout:hover {
-        background: rgba(220, 38, 38, 0.15);
-        border-color: #dc2626;
-        color: #fff;
+    /* ===== DESKTOP NAV LINKS ===== */
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; align-items: center; margin: 0; padding: 0; }
+    .nav-links a { 
+        color: #94a3b8; font-weight: 500; font-size: 0.88rem;
+        padding: 0.5rem 0.9rem; border-radius: 8px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none; white-space: nowrap;
     }
+    html.light-theme .nav-links a { color: #475569; }
+    .nav-links a:hover { color: #60a5fa; background: rgba(59, 130, 246, 0.08); }
+    .nav-links a.nav-active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
 
-    /* ===== Theme Toggle Button ===== */
-    .theme-toggle-btn {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        border: 1.5px solid rgba(255, 255, 255, 0.15);
-        background: rgba(255, 255, 255, 0.06);
-        color: rgba(255, 255, 255, 0.7);
+    .nav-action-login { 
+        color: #60a5fa !important; border: 1px solid rgba(59, 130, 246, 0.25); 
+        padding: 0.45rem 1rem !important; border-radius: 8px !important; font-weight: 600 !important;
+    }
+    .nav-action-login:hover { background: rgba(59, 130, 246, 0.12) !important; border-color: #3b82f6 !important; }
+    .nav-action-signup { 
+        background: linear-gradient(135deg, #3b82f6, #2563eb) !important; color: #fff !important; 
+        border: none !important; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+        padding: 0.45rem 1rem !important; border-radius: 8px !important; font-weight: 600 !important;
+    }
+    .nav-action-signup:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important; }
+    .nav-action-admin { 
+        background: rgba(59, 130, 246, 0.1) !important; color: #60a5fa !important; 
+        border: 1px solid rgba(59, 130, 246, 0.2) !important; font-weight: 600 !important;
+    }
+    .nav-action-logout { 
+        color: #f87171 !important; border: 1px solid rgba(248, 113, 113, 0.2) !important; font-weight: 600 !important;
+    }
+    .nav-action-logout:hover { background: rgba(248, 113, 113, 0.1) !important; }
+
+    /* ===== RIGHT GROUP ===== */
+    .nav-right-group {
         display: flex;
         align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 16px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-right: 6px;
-        flex-shrink: 0;
+        gap: 0.3rem;
     }
 
+    /* Theme Toggle */
+    .theme-toggle-btn {
+        width: 36px; height: 36px;
+        border-radius: 50%; border: 1px solid rgba(59, 130, 246, 0.25);
+        background: rgba(59, 130, 246, 0.08);
+        color: #60a5fa; font-size: 1rem;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 0;
+    }
     .theme-toggle-btn:hover {
-        background: rgba(255, 255, 255, 0.12);
-        border-color: rgba(255, 255, 255, 0.3);
-        color: #fff;
-        transform: rotate(15deg);
+        background: rgba(59, 130, 246, 0.18);
+        transform: scale(1.1);
+    }
+    html.light-theme .theme-toggle-btn {
+        color: #f59e0b;
+        border-color: rgba(245, 158, 11, 0.3);
+        background: rgba(245, 158, 11, 0.1);
+    }
+    html.light-theme .theme-toggle-btn:hover {
+        background: rgba(245, 158, 11, 0.2);
     }
 
-    /* ===== Language Switcher Button ===== */
-    .lang-switch-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 12px;
-        height: 38px;
-        border-radius: 10px;
-        border: 1.5px solid rgba(255, 255, 255, 0.15);
-        background: rgba(255, 255, 255, 0.06);
-        color: rgba(255, 255, 255, 0.7);
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+        display: none; flex-direction: column; gap: 5px;
+        cursor: pointer; z-index: 1002; padding: 5px;
+        background: none; border: none;
+    }
+    .hamburger span {
+        width: 24px; height: 2px; background: #e2e8f0;
+        border-radius: 2px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-origin: center;
+    }
+    html.light-theme .hamburger span { background: #334155; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang-switcher { display: flex; align-items: center; gap: 2px; margin: 0 0.3rem; }
+    .lang-btn {
+        color: #64748b; font-size: 0.78rem; font-weight: 600;
+        padding: 3px 6px; border-radius: 4px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none !important;
+        letter-spacing: 0.3px;
+    }
+    .lang-btn:hover { color: #60a5fa; }
+    .lang-btn.active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
+    .lang-divider { color: #475569; font-size: 0.75rem; }
+
+    /* ===== MOBILE: DRAWER + BACKDROP ===== */
+    .mobile-backdrop {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
         cursor: pointer;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-right: 6px;
+    }
+    .mobile-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    html.light-theme .mobile-backdrop {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .mobile-drawer {
+        position: fixed;
+        top: 0; right: 0;
+        width: 85%; max-width: 360px;
+        height: 100vh;
+        z-index: 1002;
+        background: rgba(10, 15, 30, 0.98);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+    }
+    html.light-theme .mobile-drawer {
+        background: rgba(248, 250, 252, 0.98);
+    }
+    .mobile-drawer.open {
+        transform: translateX(0);
+    }
+
+    /* Drawer Header */
+    .drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.2rem;
+        border-bottom: 1px solid rgba(59, 130, 246, 0.1);
         flex-shrink: 0;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
     }
-
-    .lang-switch-btn:hover {
-        background: rgba(255, 255, 255, 0.12);
-        border-color: rgba(255, 255, 255, 0.3);
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .lang-switch-btn.mobile {
-        width: auto;
-        height: 40px;
-        padding: 0 18px;
-        border-radius: 10px;
-        margin: 0 auto;
-        display: inline-flex;
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: none;
-    }
-
-    .light-mode .lang-switch-btn {
-        border-color: rgba(0, 0, 0, 0.12);
-        background: rgba(0, 0, 0, 0.04);
-        color: rgba(0, 0, 0, 0.5);
-    }
-
-    .light-mode .lang-switch-btn:hover {
-        background: rgba(0, 0, 0, 0.08);
-        border-color: rgba(0, 0, 0, 0.2);
-        color: rgba(0, 0, 0, 0.8);
-    }
-
-    .light-mode .lang-switch-btn.mobile {
-        border-color: rgba(220, 38, 38, 0.2);
-        background: rgba(220, 38, 38, 0.06);
-        color: var(--theme-primary);
-    }
-
-    .theme-toggle-btn.mobile {
-        width: auto;
-        height: 40px;
-        padding: 0 18px;
-        border-radius: 10px;
-        margin: 0 auto;
-        display: inline-flex;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    .theme-toggle-btn.mobile:hover {
-        transform: none;
-    }
-
-    .light-mode .theme-toggle-btn {
-        border-color: rgba(0, 0, 0, 0.12);
-        background: rgba(0, 0, 0, 0.04);
-        color: rgba(0, 0, 0, 0.5);
-    }
-
-    .light-mode .theme-toggle-btn:hover {
-        background: rgba(0, 0, 0, 0.08);
-        border-color: rgba(0, 0, 0, 0.2);
-        color: rgba(0, 0, 0, 0.8);
-    }
-
-    .light-mode .theme-toggle-btn.mobile {
-        border-color: rgba(220, 38, 38, 0.2);
-        background: rgba(220, 38, 38, 0.06);
-        color: var(--theme-primary);
-    }
-
-    /* ===== Light Mode Navbar ===== */
-    .light-mode .top-nav-link {
-        color: rgba(0, 0, 0, 0.7) !important;
-    }
-
-    .light-mode .top-nav-link:hover {
-        color: #000 !important;
-        background: rgba(0, 0, 0, 0.05);
-    }
-
-    .light-mode .active-link {
-        color: #dc2626 !important;
-        background: rgba(220, 38, 38, 0.08) !important;
-        border-color: rgba(220, 38, 38, 0.2);
-    }
-
-    .light-mode .brand-text {
-        background: linear-gradient(135deg, #1f2937 60%, rgba(31, 41, 55, 0.7));
+    .drawer-logo {
+        font-size: 1.1rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #3b82f6, #60a5fa, #a78bfa, #3b82f6);
+        background-size: 300% 300%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        animation: navGradient 4s ease infinite;
+        letter-spacing: -0.5px;
+        text-decoration: none;
+    }
+    .drawer-close {
+        width: 34px; height: 34px;
+        border-radius: 10px;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        background: rgba(59, 130, 246, 0.06);
+        color: var(--text-muted, #64748b);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+    }
+    .drawer-close:hover {
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+        transform: rotate(90deg);
     }
 
-    .light-mode .hamb-line {
-        background: #1f2937;
+    /* Drawer Body */
+    .drawer-body {
+        flex: 1;
+        padding: 0.8rem 1rem 1rem;
+        display: flex;
+        flex-direction: column;
     }
-
-    .light-mode .btn-logout {
-        border-color: rgba(0, 0, 0, 0.15);
-        color: rgba(0, 0, 0, 0.7);
+    .drawer-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
-
-    .light-mode .btn-logout:hover {
-        background: rgba(220, 38, 38, 0.08);
-        border-color: #dc2626;
-        color: #dc2626;
+    .drawer-nav li {
+        margin-bottom: 2px;
     }
-
-/* ===== Animated Hamburger ===== */
-.custom-toggler {
-    padding: 4px 8px !important;
-    background: transparent !important;
-    position: relative;
-    z-index: 1050;
-}
-
-.custom-toggler:focus,
-.custom-toggler:active {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.hamburger-lines {
-    width: 28px;
-    height: 22px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.hamb-line {
-    display: block;
-    height: 2.5px;
-    width: 100%;
-    background: #fff;
-    border-radius: 4px;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-}
-
-/* Active (open) state - hamburger to X */
-.custom-toggler[aria-expanded="true"] .ham-top {
-    transform: translateY(9.75px) rotate(45deg);
-    width: 100%;
-}
-
-.custom-toggler[aria-expanded="true"] .ham-mid {
-    opacity: 0;
-    transform: scaleX(0);
-}
-
-.custom-toggler[aria-expanded="true"] .ham-bot {
-    transform: translateY(-9.75px) rotate(-45deg);
-    width: 100%;
-}
-
-/* ===== Mobile Menu ===== */
-.navbar-collapse {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-@media (max-width: 991.98px) {
-    .dark-navbar {
-        padding: 10px 0 !important;
-    }
-
-    .dark-navbar.navbar-scrolled {
-        padding: 6px 0 !important;
-    }
-
-    .navbar-collapse {
-        background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(15, 52, 96, 0.98));
-        border-radius: 0 0 18px 18px;
-        padding: 24px 24px 28px;
-        margin-top: 12px;
-        border: 1px solid rgba(255,255,255,0.06);
-        border-top: none;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.4);
-        max-height: calc(100vh - 80px);
-        overflow-y: auto;
-    }
-
-    .light-mode .navbar-collapse {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 249, 250, 0.98));
-        border-color: rgba(0, 0, 0, 0.06);
-        box-shadow: 0 24px 60px rgba(0,0,0,0.1);
-    }
-
-    .navbar-nav {
-        text-align: center;
-        gap: 8px !important;
-    }
-
-    .top-nav-link {
-        padding: 12px 18px !important;
-        border-radius: 12px;
-        font-size: 0.95rem;
-        display: flex !important;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 10px;
-        width: 100%;
-    }
-
-    .link-underline {
-        display: none;
-    }
-
-    .active-link {
-        border: 1px solid rgba(220, 38, 38, 0.4);
-    }
-
-    .signup-btn {
-        display: flex !important;
-        justify-content: center;
-        padding: 12px 24px !important;
-        font-size: 1rem !important;
-        width: 100%;
-    }
-
-    .btn-logout {
-        width: 100%;
-        text-align: center;
-        padding: 12px 20px;
-        font-size: 0.95rem;
-        border-radius: 12px;
-    }
-
-    .navbar-brand {
-        font-size: 1.2rem !important;
-    }
-
-    .brand-icon-wrap {
-        width: 34px;
-        height: 34px;
-    }
-
-    .brand-drop {
-        font-size: 1.1rem !important;
-    }
-
-    /* Fix logout form width inside mobile dropdown */
-    .nav-link-wrap form.d-inline {
-        width: 100% !important;
-        display: block !important;
-    }
-
-    .nav-link-wrap form.d-inline .btn-logout {
-        text-align: center;
-        justify-content: center;
+    .drawer-nav a,
+    .drawer-nav button {
         display: flex;
         align-items: center;
-        gap: 8px;
-    }
-}
-
-@media (max-width: 575.98px) {
-    .dark-navbar {
-        padding: 8px 0 !important;
-    }
-
-    .dark-navbar.navbar-scrolled {
-        padding: 5px 0 !important;
-    }
-
-    .navbar-brand {
-        font-size: 1rem !important;
-    }
-
-    .brand-text {
-        font-size: 1.1rem;
-    }
-
-    .brand-icon-wrap {
-        width: 30px;
-        height: 30px;
+        gap: 0.8rem;
+        padding: 0.7rem 0.8rem;
         border-radius: 10px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text-secondary, #94a3b8);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        width: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        text-align: left;
+    }
+    .drawer-nav a i,
+    .drawer-nav button i {
+        width: 22px;
+        text-align: center;
+        font-size: 1.05rem;
+        color: var(--text-muted, #64748b);
+        transition: color 0.2s;
+    }
+    .drawer-nav a:hover {
+        background: rgba(59, 130, 246, 0.08);
+        color: #60a5fa;
+    }
+    .drawer-nav a:hover i {
+        color: #60a5fa;
+    }
+    .drawer-nav a.active {
+        background: rgba(59, 130, 246, 0.12);
+        color: #3b82f6;
+    }
+    .drawer-nav a.active i {
+        color: #3b82f6;
     }
 
-    .brand-drop {
-        font-size: 0.95rem !important;
+    /* Divider */
+    .drawer-divider {
+        height: 1px;
+        background: rgba(59, 130, 246, 0.1);
+        margin: 0.6rem 0;
     }
 
-    .hamburger-lines {
-        width: 24px;
-        height: 18px;
+    /* Auth buttons in drawer */
+    .drawer-login-btn {
+        justify-content: center !important;
+        background: rgba(59, 130, 246, 0.08) !important;
+        border: 1px solid rgba(59, 130, 246, 0.25) !important;
+        color: #60a5fa !important;
+        font-weight: 600 !important;
+    }
+    .drawer-login-btn:hover {
+        background: rgba(59, 130, 246, 0.15) !important;
+    }
+    .drawer-signup-btn {
+        justify-content: center !important;
+        background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+        border: none !important;
+        color: #fff !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    .drawer-signup-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+    }
+    .drawer-logout-btn {
+        color: #f87171 !important;
+    }
+    .drawer-logout-btn:hover {
+        background: rgba(248, 113, 113, 0.08) !important;
+        color: #f87171 !important;
+    }
+    .drawer-admin-btn {
+        color: #60a5fa !important;
+        border: 1px solid rgba(59, 130, 246, 0.2) !important;
+    }
+    .drawer-admin-btn:hover {
+        background: rgba(59, 130, 246, 0.1) !important;
     }
 
-    .hamb-line {
-        height: 2px;
+    /* Drawer Footer (lang) */
+    .drawer-footer {
+        margin-top: auto;
+        padding-top: 0.8rem;
+        border-top: 1px solid rgba(59, 130, 246, 0.08);
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
     }
 
-    .custom-toggler[aria-expanded="true"] .ham-top {
-        transform: translateY(8px) rotate(45deg);
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+        .navbar-main {
+            padding: 0.8rem 1.2rem;
+        }
+        .navbar-main.scrolled {
+            padding: 0.5rem 1.2rem;
+        }
+        .nav-logo {
+            font-size: 1.2rem;
+        }
+        .nav-links {
+            display: none !important;
+        }
+        .hamburger {
+            display: flex;
+        }
     }
 
-    .custom-toggler[aria-expanded="true"] .ham-bot {
-        transform: translateY(-8px) rotate(-45deg);
+    @media (max-width: 480px) {
+        .navbar-main {
+            padding: 0.65rem 1rem;
+        }
+        .navbar-main.scrolled {
+            padding: 0.4rem 1rem;
+        }
+        .nav-logo {
+            font-size: 1.05rem;
+        }
+        .theme-toggle-btn {
+            width: 32px; height: 32px; font-size: 0.85rem;
+        }
+        .lang-btn { font-size: 0.7rem; padding: 2px 4px; }
+        .mobile-drawer { width: 100%; max-width: none; }
+        .drawer-nav a, .drawer-nav button { font-size: 0.9rem; padding: 0.6rem 0.7rem; }
     }
 
-    .navbar-collapse {
-        padding: 18px 18px 22px;
-        margin-top: 10px;
+    /* ===== BODY SCROLL LOCK ===== */
+    body.menu-open {
+        overflow: hidden !important;
     }
-
-    .top-nav-link {
-        padding: 10px 14px !important;
-        font-size: 0.88rem;
-        border-radius: 10px;
-    }
-
-    .navbar-nav {
-        gap: 6px !important;
-    }
-
-    .signup-btn {
-        padding: 10px 20px !important;
-        font-size: 0.92rem !important;
-    }
-
-    .btn-logout {
-        padding: 10px 16px;
-        font-size: 0.88rem;
-    }
-
-    .mobile-theme-toggle {
-        margin-bottom: 18px !important;
-    }
-}
 </style>
 
-<!-- ===== Scroll Effect Script ===== -->
+<nav class="navbar-main" id="navbar">
+    <!-- Logo -->
+    <a href="/" class="nav-logo">{{ config('app.name', 'Portfolio') }}</a>
+
+    <!-- Desktop Nav Links -->
+    <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="{{ request()->is('/') ? 'nav-active' : '' }}"><i class="bi bi-house-fill me-1"></i>{{ __('messages.home') }}</a></li>
+        @auth
+            @if(auth()->user()->is_admin == 1)
+                <li><a href="/admin" class="nav-action-admin">{{ __('messages.admin') }}</a></li>
+            @endif
+            <li>
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="nav-action-logout" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:0.88rem; display:inline-flex; align-items:center; gap:0.4rem; padding:0.45rem 1rem; border-radius:8px; font-weight:600;">
+                        {{ __('messages.logout') }}
+                    </button>
+                </form>
+            </li>
+        @else
+            <li><a href="/login" class="nav-action-login">{{ __('messages.login') }}</a></li>
+            <li><a href="/register" class="nav-action-signup">{{ __('messages.signup') }}</a></li>
+        @endauth
+    </ul>
+
+    <!-- Right Group -->
+    <div class="nav-right-group">
+        <div class="lang-switcher">
+            <a href="{{ route('language.switch', 'en') }}" 
+               class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
+               title="{{ __('messages.english') }}">EN</a>
+            <span class="lang-divider">|</span>
+            <a href="{{ route('language.switch', 'bn') }}" 
+               class="lang-btn {{ app()->getLocale() == 'bn' ? 'active' : '' }}"
+               title="{{ __('messages.bengali') }}">বাংলা</a>
+        </div>
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="{{ __('messages.toggle_theme') }}">
+            <i class="bi bi-sun-fill"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Backdrop -->
+<div class="mobile-backdrop" id="mobileBackdrop"></div>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <!-- Drawer Header -->
+    <div class="drawer-header">
+        <a href="/" class="drawer-logo">{{ config('app.name', 'Portfolio') }}</a>
+        <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="drawer-body">
+        <ul class="drawer-nav">
+            <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}"><i class="bi bi-house-fill"></i>{{ __('messages.home') }}</a></li>
+        </ul>
+
+        <div class="drawer-divider"></div>
+
+        <ul class="drawer-nav">
+            @auth
+                @if(auth()->user()->is_admin == 1)
+                    <li><a href="/admin" class="drawer-admin-btn"><i class="bi bi-speedometer2"></i>{{ __('messages.admin') }}</a></li>
+                @endif
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="drawer-logout-btn">
+                            <i class="bi bi-box-arrow-right"></i>{{ __('messages.logout') }}
+                        </button>
+                    </form>
+                </li>
+            @else
+                <li><a href="/login" class="drawer-login-btn"><i class="bi bi-person-circle"></i>{{ __('messages.login') }}</a></li>
+                <li><a href="/register" class="drawer-signup-btn"><i class="bi bi-person-plus"></i>{{ __('messages.signup') }}</a></li>
+            @endauth
+        </ul>
+
+        <div class="drawer-footer">
+            <a href="{{ route('language.switch', 'en') }}" 
+               class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
+               title="{{ __('messages.english') }}">EN</a>
+            <span class="lang-divider">|</span>
+            <a href="{{ route('language.switch', 'bn') }}" 
+               class="lang-btn {{ app()->getLocale() == 'bn' ? 'active' : '' }}"
+               title="{{ __('messages.bengali') }}">বাংলা</a>
+        </div>
+    </div>
+</div>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const navbar = document.getElementById('mainNavbar');
-    let ticking = false;
+// ===== MOBILE MENU TOGGLE =====
+(function() {
+    var hamburger = document.getElementById('hamburger');
+    var drawer = document.getElementById('mobileDrawer');
+    var backdrop = document.getElementById('mobileBackdrop');
+    var closeBtn = document.getElementById('drawerClose');
+    var body = document.body;
 
-    function updateNavbar() {
-        if (window.scrollY > 30) {
-            navbar.classList.add('navbar-scrolled');
+    if (!hamburger || !drawer || !backdrop) return;
+
+    function openMenu() {
+        drawer.classList.add('open');
+        backdrop.classList.add('show');
+        hamburger.classList.add('active');
+        body.classList.add('menu-open');
+    }
+
+    function closeMenu() {
+        drawer.classList.remove('open');
+        backdrop.classList.remove('show');
+        hamburger.classList.remove('active');
+        body.classList.remove('menu-open');
+    }
+
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (drawer.classList.contains('open')) {
+            closeMenu();
         } else {
-            navbar.classList.remove('navbar-scrolled');
-        }
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateNavbar);
-            ticking = true;
+            openMenu();
         }
     });
 
-    // Collapse mobile menu on link click
-    const navLinks = document.querySelectorAll('#navbarTopNav .nav-link, #navbarTopNav .btn-logout, #navbarTopNav .signup-btn');
-    const collapseEl = document.getElementById('navbarTopNav');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeMenu);
+    }
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (collapseEl.classList.contains('show')) {
-                const bsCollapse = bootstrap.Collapse.getInstance(collapseEl);
-                if (bsCollapse) bsCollapse.hide();
-            }
+    // Click backdrop to close
+    backdrop.addEventListener('click', closeMenu);
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && drawer.classList.contains('open')) {
+            closeMenu();
+        }
+    });
+
+    // Close when a nav link is clicked
+    drawer.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Close when logout form is submitted (but allow form to submit)
+    drawer.querySelectorAll('form').forEach(function(form) {
+        form.addEventListener('submit', function() {
+            // Small delay to allow form submission
+            setTimeout(closeMenu, 100);
         });
     });
 
-    // Sync mobile theme toggle with desktop
-    const desktopToggle = document.getElementById('themeToggle');
-    const mobileToggle = document.getElementById('mobileThemeToggle');
-    if (desktopToggle && mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
-            desktopToggle.click();
-        });
-
-        // Sync icon on load and on toggle
-        function syncMobileIcon() {
-            var isLight = document.documentElement.classList.contains('light-mode');
-            mobileToggle.innerHTML = isLight
-                ? '<i class="bi bi-moon-stars-fill"></i>'
-                : '<i class="bi bi-sun-fill"></i>';
-        }
-
-        syncMobileIcon();
-
-        // Observe class changes on html element
-        var observer = new MutationObserver(function() {
-            syncMobileIcon();
-        });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    }
-});
+    // Prevent clicks inside drawer from closing via backdrop
+    drawer.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+})();
 </script>

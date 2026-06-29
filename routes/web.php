@@ -2,47 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\UserController;
-use App\Http\Controllers\user\ProfileController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\SiteController;
+use Illuminate\Support\Facades\Session;
+
+// Language Switch Route
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'bn'])) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back() ?: redirect('/');
+})->name('language.switch');
 
 Route::controller(SiteController::class)->group(function () {
     Route::get('/', 'index');
 });
 
-Route::get('/lang/{locale}', [App\Http\Controllers\frontend\LanguageController::class, 'switch']);
-
 Route::post('/contactus', [UserController::class, 'contactus']);
-
-Route::prefix('my-messages')->controller(\App\Http\Controllers\frontend\MyMessageController::class)->group(function () {
-    Route::get('/check-session', 'checkSession');
-    Route::post('/fetch', 'fetch');
-    Route::post('/reply', 'reply');
-});
 
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('password.request');
-
-// Emergency Blood Request
-Route::middleware('auth')->prefix('/emergency-request')->controller(\App\Http\Controllers\FrontendEmergencyRequestController::class)->group(function () {
-    Route::get('/', 'showForm');
-    Route::post('/submit', 'submitRequest');
-    Route::get('/my-requests', 'myRequests');
-    Route::delete('/cancel/{id}', 'cancelRequest');
-});
-
-//Profile
-Route::middleware('auth')->prefix('/profile')->controller(ProfileController::class)->group(function () {
-    Route::get('/', 'index');               
-    Route::get('/edit',  'edit');
-    Route::post('/update', 'update');
-});
-
-//Donor List
-Route::middleware('auth')->prefix('/donor_list')->controller(SiteController::class)->group(function () {
-    Route::get('/{bloodGroup?}', 'donorList'); 
-});
-
 
 Auth::routes();
 

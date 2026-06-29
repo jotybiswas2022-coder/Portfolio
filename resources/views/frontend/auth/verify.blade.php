@@ -1,201 +1,266 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0f1a 0%,#1a0a0a 50%,#0d0d1a 100%);position:relative;overflow:hidden;padding:24px 16px;font-family:'Poppins','Hind Siliguri',sans-serif;">
-
-    {{-- ====== ANIMATED BACKGROUND LAYER ====== --}}
-    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-
-        {{-- Orbs --}}
-        <div style="position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,0.2) 0%,transparent 70%);animation:orbPulse 4s ease-in-out infinite;"></div>
-        <div style="position:absolute;bottom:-150px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(102,126,234,0.1) 0%,transparent 70%);animation:orbPulse2 6s ease-in-out infinite;"></div>
-        <div style="position:absolute;top:15%;right:8%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);animation:orbPulse3 8s ease-in-out infinite;"></div>
-
-        {{-- Grid --}}
-        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:48px 48px;"></div>
-
-        {{-- Floating blood drops --}}
-        <div class="float-drop" style="left:6%;  animation-duration:10s; animation-delay:0s;   bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:20%; animation-duration:11s; animation-delay:2.5s; bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:38%; animation-duration:8s;  animation-delay:4s;   bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:55%; animation-duration:12s; animation-delay:1s;   bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:72%; animation-duration:9s;  animation-delay:3s;   bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:85%; animation-duration:11s; animation-delay:5s;   bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:95%; animation-duration:13s; animation-delay:2s;   bottom:-30px;">🩸</div>
-
-        {{-- Floating plus signs --}}
-        <span class="float-plus" style="left:12%; animation-duration:13s; animation-delay:1.5s; bottom:-20px;">+</span>
-        <span class="float-plus" style="left:30%; animation-duration:15s; animation-delay:3s;   bottom:-20px;">✚</span>
-        <span class="float-plus" style="left:48%; animation-duration:10s; animation-delay:.8s;  bottom:-20px;">+</span>
-        <span class="float-plus" style="left:65%; animation-duration:12s; animation-delay:2.2s; bottom:-20px;">✚</span>
-        <span class="float-plus" style="left:80%; animation-duration:14s; animation-delay:4s;   bottom:-20px;">+</span>
-        <span class="float-plus" style="left:92%; animation-duration:11s; animation-delay:1s;   bottom:-20px;">✚</span>
-    </div>
-
-    {{-- ====== MAIN CARD ====== --}}
-    <div style="width:100%;max-width:480px;position:relative;z-index:1;animation:cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both;">
-
-        {{-- Brand --}}
-        <div style="text-align:center;margin-bottom:24px;">
-            <div style="width:56px;height:56px;margin:0 auto 12px;background:linear-gradient(135deg,#dc2626,#ef4444);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(220,38,38,0.3);transition:transform 0.3s;"
-                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <i class="bi bi-droplet-fill" style="font-size:26px;color:#fff;"></i>
-            </div>
-            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">{{ __('ব্লাড ব্যাংক') }}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">{{ __('রক্তদান · জীবন বাঁচান') }}</div>
-        </div>
-
-        {{-- Card --}}
-        <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:20px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);">
-
-            {{-- Header --}}
-            <div style="padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">
-                <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px;">
-                    <span style="width:36px;height:36px;border-radius:10px;background:rgba(220,38,38,0.15);display:flex;align-items:center;justify-content:center;transition:transform 0.3s;"
-                          onmouseover="this.style.transform='rotate(10deg)'" onmouseout="this.style.transform='rotate(0)'">
-                        <i class="bi bi-envelope-check-fill" style="font-size:16px;color:#ef4444;"></i>
-                    </span>
-                    <span style="font-size:17px;font-weight:700;color:#fff;">{{ __('ইমেইল ভেরিফিকেশন') }}</span>
+<div class="login-container">
+    <div class="particles" id="particles"></div>
+    <div class="login-wrapper">
+        <div class="card login-card">
+            <div class="card-header login-header">
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
                 </div>
-                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">{{ __('আপনার ইমেইল ঠিকানা নিশ্চিত করুন') }}</p>
+                {{ __('Verify Your Email Address') }}
             </div>
 
-            {{-- Body --}}
-            <div style="padding:32px;text-align:center;">
-
-                {{-- Mail icon --}}
-                <div style="width:72px;height:72px;margin:0 auto 20px;background:rgba(220,38,38,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(220,38,38,0.15);transition:all 0.3s;"
-                     onmouseover="this.style.transform='scale(1.08)';this.style.background='rgba(220,38,38,0.18)';this.style.borderColor='rgba(220,38,38,0.3)'"
-                     onmouseout="this.style.transform='scale(1)';this.style.background='rgba(220,38,38,0.1)';this.style.borderColor='rgba(220,38,38,0.15)'">
-                    <i class="bi bi-envelope-fill" style="font-size:30px;color:#ef4444;"></i>
-                </div>
-
+            <div class="card-body login-body">
                 @if (session('resent'))
-                    <div style="padding:10px 14px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:10px;color:#4ade80;font-size:13px;margin-bottom:18px;">
-                        <i class="bi bi-check-circle-fill" style="margin-right:6px;"></i> {{ __('একটি নতুন ভেরিফিকেশন লিংক আপনার ইমেইলে পাঠানো হয়েছে') }}
+                    <div class="alert-custom alert-success-custom">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        {{ __('A fresh verification link has been sent to your email address.') }}
                     </div>
                 @endif
 
-                <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin:0 0 8px;">
-                    {{ __('আপনার ইমেইলে একটি ভেরিফিকেশন লিংক পাঠানো হয়েছে।') }} <br>
-                    {{ __('চালিয়ে যেতে অনুগ্রহ করে ইমেইল চেক করুন।') }}
+                <div class="verify-icon-wrapper">
+                    <div class="verify-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M8 21h8"/>
+                            <path d="M12 17v4"/>
+                            <path d="M17 9l-5 5-3-3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <p class="verify-text">
+                    {{ __('Before proceeding, please check your email for a verification link.') }}
+                </p>
+                <p class="verify-text verify-text-small">
+                    {{ __('If you did not receive the email') }},
                 </p>
 
-                <p style="font-size:13px;color:rgba(255,255,255,0.3);margin:0 0 24px;">
-                    {{ __('যদি আপনি ইমেইল না পেয়ে থাকেন,') }}
-                </p>
-
-                {{-- Resend --}}
-                <form method="POST" action="{{ route('verification.resend') }}">
+                <form class="w-100" method="POST" action="{{ route('verification.resend') }}">
                     @csrf
-                    <button type="submit" id="resendBtn"
-                            style="padding:12px 28px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:14px;font-weight:700;font-family:inherit;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 4px 20px rgba(220,38,38,0.35);display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden;"
-                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(220,38,38,0.5)'"
-                            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(220,38,38,0.35)'">
-                        <span class="btn-text"><i class="bi bi-arrow-clockwise"></i> {{ __('পুনরায় পাঠান') }}</span>
-                        <span class="btn-loader" style="display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
+                    <button type="submit" class="btn login-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            <line x1="12" y1="8" x2="12" y2="14"/>
+                            <line x1="9" y1="11" x2="15" y2="11"/>
+                        </svg>
+                        {{ __('Click here to request another') }}
                     </button>
                 </form>
-
             </div>
-
-            {{-- Bottom strip --}}
-            <div style="padding:12px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;gap:6px;">
-                <i class="bi bi-shield-check" style="font-size:12px;color:rgba(255,255,255,0.2);"></i>
-                <span style="font-size:11px;color:rgba(255,255,255,0.2);">{{ __('আপনার তথ্য সম্পূর্ণ সুরক্ষিত') }}</span>
-            </div>
-
         </div>
-
-        {{-- Footer --}}
-        <div style="text-align:center;margin-top:24px;font-size:11.5px;color:rgba(255,255,255,0.12);">
-            Developed by <span style="font-weight:700;background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Joty Biswas</span> &copy; {{ date('Y') }}
-        </div>
-
     </div>
-
 </div>
 
-<script>
-// ── Submit Loading State ──
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.querySelector('form');
-    var btn = document.getElementById('resendBtn');
-    if (form && btn) {
-        form.addEventListener('submit', function() {
-            btn.querySelector('.btn-text').style.display = 'none';
-            btn.querySelector('.btn-loader').style.display = 'inline-block';
-            btn.style.pointerEvents = 'none';
-            btn.style.opacity = '0.85';
-        });
-    }
-});
-</script>
-
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0f172a;
+    margin:0;
+    padding:0;
+    overflow-x: hidden;
+}
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+}
+.login-container::before {
+    content:'';
+    position:absolute;
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background: radial-gradient(ellipse at 20% 50%, rgba(59,130,246,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(59,130,246,0.06) 0%, transparent 50%);
+    animation: bgPulse 8s ease-in-out infinite alternate;
+    z-index:0;
+}
+@keyframes bgPulse {0%{transform:scale(1) rotate(0deg);}100%{transform:scale(1.1) rotate(3deg);}}
+.particles {
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    pointer-events:none; z-index:0;
+}
+.particle {
+    position:absolute; border-radius:50%;
+    background: rgba(59,130,246,0.4);
+    animation: floatUp linear infinite;
+}
+@keyframes floatUp {0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(-10vh) scale(1);opacity:0;}}
+.login-wrapper {
+    width: 100%; max-width: 440px;
+    z-index:1; padding-bottom: 40px;
+}
+.login-card {
+    background: rgba(20,28,45,0.95);
+    border-radius:36px;
+    box-shadow:0 25px 60px rgba(0,0,0,0.6),0 0 40px rgba(59,130,246,0.2);
+    backdrop-filter: blur(28px);
+    border:1px solid rgba(59,130,246,0.2);
+    opacity:0; transform: translateY(20px);
+    animation: cardEntry 0.8s forwards;
+}
+.login-header {
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color:#fff;
+    text-align:center;
+    font-size:22px;
+    font-weight:700;
+    padding:28px 20px;
+    border-radius:36px 36px 0 0;
+    border-bottom:1px solid rgba(59,130,246,0.25);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+}
+.header-icon {
+    width:50px; height:50px;
+    background: linear-gradient(135deg,#3b82f6,#2563eb);
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 12px 35px rgba(59,130,246,0.4);
+    transition: all 0.3s ease;
+}
+.header-icon:hover { transform:scale(1.1); }
+.header-icon svg { width:24px; height:24px; }
+.login-body {
+    padding:32px 36px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+}
+.verify-icon-wrapper {
+    display:flex;
+    justify-content:center;
+}
+.verify-icon {
+    width:72px; height:72px;
+    background: rgba(59,130,246,0.1);
+    border:2px solid rgba(59,130,246,0.2);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#3b82f6;
+    animation: verifyPulse 2s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+.verify-icon:hover { transform:scale(1.08); }
+.verify-icon svg { width:32px; height:32px; }
+@keyframes verifyPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.3); }
+    50% { box-shadow: 0 0 0 12px rgba(59,130,246,0); }
+}
+.verify-text {
+    color:#94a3b8;
+    font-size:14.5px;
+    line-height:1.6;
+    text-align:center;
+    margin:0;
+}
+.verify-text-small {
+    font-size:13.5px;
+    color:#64748b;
+}
+.alert-custom {
+    padding:12px 16px;
+    border-radius:14px;
+    font-size:13.5px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+}
+.alert-success-custom {
+    background: rgba(16,185,129,0.12);
+    border:1px solid rgba(16,185,129,0.25);
+    color:#34d399;
+}
+.login-btn {
+    background: linear-gradient(135deg,#3b82f6,#2563eb);
+    border:none; color:#fff;
+    padding:14px 24px; font-size:15px; border-radius:32px;
+    font-weight:600; width:100%;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:all 0.3s ease;
+}
+.login-btn:hover {
+    transform:scale(1.03);
+    box-shadow:0 12px 28px rgba(59,130,246,0.45);
+}
+@keyframes cardEntry { to{opacity:1; transform:translateY(0);} }
 
-@keyframes orbPulse {
-    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
-    50% { transform: translateX(-50%) scale(1.12); opacity: 1; }
-}
-@keyframes orbPulse2 {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-}
-@keyframes orbPulse3 {
-    0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.25); opacity: 0.6; }
-}
-@keyframes cardIn {
-    from { opacity: 0; transform: translateY(30px) scale(0.97); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes spin {
-    to { transform: rotate(360deg); }
+/* ===== Mobile Responsive ===== */
+@media(max-width:768px){
+    .login-wrapper { max-width:92%; padding-bottom:30px; }
+    .login-body { padding:28px 28px; gap:14px; }
+    .login-header { font-size:20px; padding:22px 16px; }
+    .verify-icon { width:64px; height:64px; }
+    .verify-icon svg { width:28px; height:28px; }
 }
 
-/* Floating blood drops */
-.float-drop {
-    position: absolute;
-    font-size: 20px;
-    opacity: 0;
-    animation: floatDrop linear infinite;
-    pointer-events: none;
-    user-select: none;
-    filter: drop-shadow(0 0 6px rgba(220,38,38,0.3));
-}
-@keyframes floatDrop {
-    0%   { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
-    10%  { opacity: 0.35; transform: translateX(10px) rotate(15deg) scale(0.8); }
-    50%  { opacity: 0.2; transform: translateX(-15px) rotate(45deg) scale(1); }
-    90%  { opacity: 0.3; transform: translateX(8px) rotate(75deg) scale(0.7); }
-    100% { transform: translateY(-105vh) rotate(90deg) scale(0.4); opacity: 0; }
-}
-
-/* Floating plus signs */
-.float-plus {
-    position: absolute;
-    color: rgba(255,120,120,0.2);
-    font-size: 22px;
-    font-weight: 900;
-    animation: floatPlus linear infinite;
-    pointer-events: none;
-    user-select: none;
-}
-@keyframes floatPlus {
-    0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
-    15%  { opacity: 0.45; }
-    85%  { opacity: 0.15; }
-    100% { transform: translateY(-110vh) rotate(180deg); opacity: 0; }
+@media(max-width:576px){
+    .login-wrapper { max-width:95%; }
+    .login-card { border-radius:28px; }
+    .login-header {
+        font-size:18px;
+        padding:18px 14px;
+        border-radius:28px 28px 0 0;
+        gap:12px;
+    }
+    .header-icon { width:44px; height:44px; }
+    .header-icon svg { width:20px; height:20px; }
+    .login-body { padding:20px 16px; gap:12px; }
+    .login-btn { padding:12px 20px; font-size:14px; border-radius:28px; }
+    .verify-icon { width:56px; height:56px; }
+    .verify-icon svg { width:24px; height:24px; }
+    .verify-text { font-size:13.5px; }
+    .verify-text-small { font-size:12.5px; }
+    .alert-custom { padding:10px 12px; font-size:12.5px; flex-wrap:wrap; }
+    .particle { display:none; }
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; }
-
-@media (max-width: 480px) {
-    div[style*="padding:28px 32px 20px"] { padding-left: 20px !important; padding-right: 20px !important; }
-    div[style*="padding:32px"] { padding-left: 20px !important; padding-right: 20px !important; }
-    div[style*="padding:12px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+@media(max-width:400px){
+    .login-wrapper { max-width:98%; padding-bottom:20px; }
+    .login-header { font-size:16px; padding:14px 10px; gap:10px; }
+    .header-icon { width:38px; height:38px; border-radius:12px; }
+    .header-icon svg { width:18px; height:18px; }
+    .login-body { padding:16px 12px; }
+    .verify-icon { width:48px; height:48px; }
+    .verify-icon svg { width:20px; height:20px; }
+    .login-btn { padding:10px 16px; font-size:13px; }
+    .verify-text { font-size:12.5px; }
 }
 </style>
+
+<script>
+const particlesContainer=document.getElementById('particles');
+const isMobile=window.innerWidth<=576;
+const particleCount=isMobile?0:30;
+
+for(let i=0;i<particleCount;i++){
+    const p=document.createElement('div');
+    p.classList.add('particle');
+    const size=Math.random()*5+3;
+    p.style.width=size+'px';
+    p.style.height=size+'px';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDuration=(Math.random()*6+6)+'s';
+    p.style.animationDelay=(Math.random()*10)+'s';
+    p.style.opacity=Math.random()*0.5+0.1;
+    particlesContainer.appendChild(p);
+}
+</script>
