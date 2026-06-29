@@ -121,7 +121,7 @@
 <style>
 /* ===== Navbar Base ===== */
 .dark-navbar {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: var(--theme-nav-bg);
     position: fixed;
     top: 0;
     width: 100%;
@@ -132,12 +132,12 @@
 
 /* ===== Scroll Effect (glassmorphism) ===== */
 .dark-navbar.navbar-scrolled {
-    background: rgba(26, 26, 46, 0.92);
+    background: var(--theme-nav-scrolled);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     padding: 8px 0;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--theme-border-light);
 }
 
 /* ===== Brand ===== */
@@ -398,6 +398,44 @@
         color: var(--theme-primary);
     }
 
+    /* ===== Light Mode Navbar ===== */
+    .light-mode .top-nav-link {
+        color: rgba(0, 0, 0, 0.7) !important;
+    }
+
+    .light-mode .top-nav-link:hover {
+        color: #000 !important;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .light-mode .active-link {
+        color: #dc2626 !important;
+        background: rgba(220, 38, 38, 0.08) !important;
+        border-color: rgba(220, 38, 38, 0.2);
+    }
+
+    .light-mode .brand-text {
+        background: linear-gradient(135deg, #1f2937 60%, rgba(31, 41, 55, 0.7));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .light-mode .hamb-line {
+        background: #1f2937;
+    }
+
+    .light-mode .btn-logout {
+        border-color: rgba(0, 0, 0, 0.15);
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .light-mode .btn-logout:hover {
+        background: rgba(220, 38, 38, 0.08);
+        border-color: #dc2626;
+        color: #dc2626;
+    }
+
 /* ===== Animated Hamburger ===== */
 .custom-toggler {
     padding: 4px 8px !important;
@@ -472,6 +510,12 @@
         box-shadow: 0 24px 60px rgba(0,0,0,0.4);
         max-height: calc(100vh - 80px);
         overflow-y: auto;
+    }
+
+    .light-mode .navbar-collapse {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 249, 250, 0.98));
+        border-color: rgba(0, 0, 0, 0.06);
+        box-shadow: 0 24px 60px rgba(0,0,0,0.1);
     }
 
     .navbar-nav {
