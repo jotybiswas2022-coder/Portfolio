@@ -40,6 +40,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     // ===============================
     Route::prefix('contact')->controller(ContactController::class)->group(function () {
         Route::get('/', 'index')->name('contact.index');
+        Route::post('/reply/{id}', 'reply')->name('contact.reply');
     });
 
     // ===============================

@@ -35,6 +35,7 @@
             <div style="flex:1;font-size:0.78rem;font-weight:600;color:#888;text-align:center;">Message</div>
             <div style="flex:1.2;font-size:0.78rem;font-weight:600;color:#888;">Date</div>
             <div style="flex:0.9;font-size:0.78rem;font-weight:600;color:#888;">Time</div>
+            <div style="flex:0.8;font-size:0.78rem;font-weight:600;color:#888;text-align:center;">Status</div>
         </div>
 
         @forelse ($contacts as $contact)
@@ -87,11 +88,35 @@
                                 <div style="background:#fafafe;border-radius:14px;padding:16px 18px;border:1px solid #f0f0f5;">
                                     <p style="margin:0;font-size:0.9rem;color:#444;line-height:1.7;">{{ $contact->message }}</p>
                                 </div>
-                            </div>
-                            <div style="padding:0 22px 18px;display:flex;justify-content:flex-end;">
-                                <button type="button" style="padding:8px 24px;border-radius:50px;border:1.5px solid #e8e8f0;background:#fff;color:#888;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.2s;" data-bs-dismiss="modal"
-                                        onmouseover="this.style.borderColor='#ccc';this.style.color='#555'"
-                                        onmouseout="this.style.borderColor='#e8e8f0';this.style.color='#888'">Close</button>
+
+                                @if($contact->reply)
+                                <div style="margin-top:16px;background:#f0fdf4;border-radius:14px;padding:16px 18px;border:1px solid #bbf7d0;">
+                                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                                        <i class="bi bi-reply-fill" style="color:#22c55e;font-size:0.9rem;"></i>
+                                        <span style="font-weight:600;font-size:0.78rem;color:#15803d;">{{ __('Your Reply') }}</span>
+                                        <span style="font-size:0.7rem;color:#86efac;margin-left:auto;">{{ \Carbon\Carbon::parse($contact->replied_at)->timezone('Asia/Dhaka')->format('d M Y, h:i A') }}</span>
+                                    </div>
+                                    <p style="margin:0;font-size:0.88rem;color:#166534;line-height:1.6;">{{ $contact->reply }}</p>
+                                </div>
+                                @endif
+
+                                <form action="{{ route('contact.reply', $contact->id) }}" method="POST" style="margin-top:16px;">
+                                    @csrf
+                                    <label for="reply_{{ $contact->id }}" style="display:block;font-size:0.8rem;font-weight:600;color:#555;margin-bottom:6px;">
+                                        <i class="bi bi-reply"></i> {{ __('Write a Reply') }}
+                                    </label>
+                                    <textarea id="reply_{{ $contact->id }}" name="reply" rows="3" style="width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;color:#444;resize:vertical;outline:none;font-family:inherit;transition:border-color 0.2s;" placeholder="{{ __('Type your reply...') }}" required onfocus="this.style.borderColor='#4facfe'" onblur="this.style.borderColor='#e8e8f0'"></textarea>
+                                    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
+                                        <button type="button" style="padding:8px 24px;border-radius:50px;border:1.5px solid #e8e8f0;background:#fff;color:#888;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.2s;" data-bs-dismiss="modal"
+                                                onmouseover="this.style.borderColor='#ccc';this.style.color='#555'"
+                                                onmouseout="this.style.borderColor='#e8e8f0';this.style.color='#888'">Close</button>
+                                        <button type="submit" style="padding:8px 24px;border-radius:50px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s;box-shadow:0 3px 10px rgba(79,172,254,0.25);display:inline-flex;align-items:center;gap:6px;"
+                                                onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 5px 16px rgba(79,172,254,0.35)'"
+                                                onmouseout="this.style.transform='';this.style.boxShadow='0 3px 10px rgba(79,172,254,0.25)'">
+                                            <i class="bi bi-send-fill" style="font-size:0.75rem;"></i> {{ $contact->reply ? __('Update Reply') : __('Send Reply') }}
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -104,6 +129,18 @@
 
             <div style="flex:0.9;overflow:hidden;">
                 <span style="font-size:0.82rem;color:#999;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}</span>
+            </div>
+
+            <div style="flex:0.8;text-align:center;">
+                @if($contact->reply)
+                    <span style="display:inline-flex;align-items:center;gap:3px;padding:3px 12px;border-radius:50px;background:rgba(67,233,123,0.1);color:#2d7d4a;font-size:0.72rem;font-weight:600;">
+                        <i class="bi bi-check-circle-fill" style="font-size:0.6rem;"></i> Replied
+                    </span>
+                @else
+                    <span style="display:inline-flex;align-items:center;gap:3px;padding:3px 12px;border-radius:50px;background:rgba(255,159,67,0.1);color:#cc7a2a;font-size:0.72rem;font-weight:600;">
+                        <i class="bi bi-clock" style="font-size:0.6rem;"></i> Pending
+                    </span>
+                @endif
             </div>
         </div>
         @empty
