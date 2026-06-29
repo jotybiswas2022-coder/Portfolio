@@ -447,9 +447,6 @@
             const form = this;
             const submitBtn = document.getElementById('contactSubmitBtn');
             const formData = new FormData(form);
-            // Store email immediately so My Messages works
-            const emailVal = document.getElementById('email')?.value?.trim();
-            if (emailVal) setMyEmail(emailVal);
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> {{ __('পাঠানো হচ্ছে...') }}';
 
@@ -485,19 +482,7 @@
         const myMsgLoading = document.getElementById('myMsgLoading');
         const myMsgNoEmail = document.getElementById('myMsgNoEmail');
 
-        function getMyEmail() {
-            const formEmail = document.getElementById('email')?.value?.trim();
-            if (formEmail) {
-                sessionStorage.setItem('contact_email', formEmail);
-                return formEmail;
-            }
-            return sessionStorage.getItem('contact_email') || '';
-        }
-        function setMyEmail(email) {
-            if (email) sessionStorage.setItem('contact_email', email);
-        }
-
-        function loadMyMessages(email) {
+        function loadMyMessages() {
             myMsgList.style.display = 'none';
             myMsgNoEmail.style.display = 'none';
             myMsgLoading.style.display = 'block';
@@ -508,8 +493,7 @@
                     'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                },
-                body: JSON.stringify({ email: email })
+                }
             })
             .then(r => r.json())
             .then(data => {
@@ -587,19 +571,18 @@
                     const msg = textarea.value.trim();
                     if (!msg) return;
                     const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-                    const email = getMyEmail();
-                    const name = document.getElementById('name')?.value.trim() || email;
+                    const name = document.getElementById('name')?.value.trim() || '';
 
                     fetch('{{ url("/my-messages/reply") }}', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': csrf },
-                        body: JSON.stringify({ parent_id: parentId, email: email, name: name, message: msg })
+                        body: JSON.stringify({ parent_id: parentId, name: name, message: msg })
                     })
                     .then(r => r.json())
                     .then(d => {
                         if (d.success) {
                             textarea.value = '';
-                            loadMyMessages(email);
+                            loadMyMessages();
                         }
                     })
                     .catch(() => {});
@@ -613,16 +596,11 @@
             return d.innerHTML;
         }
 
-        // Auto-load when modal opens — uses email from form field or sessionStorage
+        // Auto-load when modal opens — uses session-stored email (set when form is submitted)
         document.getElementById('myMessagesModal')?.addEventListener('show.bs.modal', function() {
-            const email = getMyEmail();
             myMsgNoEmail.style.display = 'none';
             myMsgList.style.display = 'none';
-            if (email) {
-                loadMyMessages(email);
-            } else {
-                myMsgNoEmail.style.display = 'block';
-            }
+            loadMyMessages();
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -10,10 +10,13 @@ class MyMessageController extends Controller
 {
     function fetch(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $email = session('contact_email');
+        if (!$email) {
+            return response()->json(['success' => false, 'messages' => []]);
+        }
 
         $rows = Contact::root()
-            ->where('email', $request->email)
+            ->where('email', $email)
             ->where('type', 'message')
             ->latest()
             ->with(['replies' => function ($q) {
@@ -52,23 +55,27 @@ class MyMessageController extends Controller
 
     function reply(Request $request)
     {
+        $email = session('contact_email');
+        if (!$email) {
+            return response()->json(['success' => false, 'message' => 'Not authenticated.'], 403);
+        }
+
         $request->validate([
             'parent_id' => 'required|exists:contacts,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
             'message' => 'required|string',
         ]);
 
         $parent = Contact::findOrFail($request->parent_id);
 
-        if ($parent->email !== $request->email) {
+        if ($parent->email !== $email) {
             return response()->json(['success' => false, 'message' => 'Email does not match.'], 403);
         }
 
         $reply = Contact::create([
             'parent_id' => $request->parent_id,
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $email,
             'message' => $request->message,
             'type' => 'follow_up',
         ]);
