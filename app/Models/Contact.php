@@ -14,7 +14,8 @@ class Contact extends Model
          'replied_at',
          'parent_id',
          'type',
-         'session_token'
+         'session_token',
+         'user_id'
      ];
 
 

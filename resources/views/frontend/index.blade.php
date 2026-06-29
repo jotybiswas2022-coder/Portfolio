@@ -459,7 +459,12 @@
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw new Error(err.message || 'Request failed'); });
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     form.reset();
@@ -467,14 +472,17 @@
                     setTimeout(() => {
                         document.getElementById('successAlert').classList.remove('show');
                     }, 4000);
+                } else {
+                    alert(data.message || '{{ __("বার্তা পাঠানো সম্ভব হয়নি") }}');
                 }
             })
             .catch(error => {
+                alert('{{ __("বার্তা পাঠানো সম্ভব হয়নি। আবার চেষ্টা করুন।") }}');
                 console.error('Error:', error);
             })
             .finally(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="bi bi-send-fill"></i> {{ __('বার্তা পাঠান') }}<span class="btn-shimmer"></span>';
+                submitBtn.innerHTML = '<i class="bi bi-send-fill"></i> {{ __("বার্তা পাঠান") }}<span class="btn-shimmer"></span>';
             });
         });
 

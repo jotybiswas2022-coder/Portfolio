@@ -18,9 +18,9 @@ class MyMessageController extends Controller
     function fetch(Request $request)
     {
         if (Auth::check()) {
-            // Logged-in user: see all messages with their email
+            // Logged-in user: see all messages linked to their account
             $rows = Contact::root()
-                ->where('email', Auth::user()->email)
+                ->where('user_id', Auth::id())
                 ->where('type', 'message')
                 ->latest()
                 ->with(['replies' => function ($q) {
@@ -84,8 +84,8 @@ class MyMessageController extends Controller
         $parent = Contact::findOrFail($request->parent_id);
 
         if (Auth::check()) {
-            // Logged-in user: must own the parent message by email
-            if ($parent->email !== Auth::user()->email) {
+            // Logged-in user: must own the parent message by user_id
+            if ($parent->user_id !== Auth::id()) {
                 return response()->json(['success' => false, 'message' => 'Not authorized.'], 403);
             }
         } else {

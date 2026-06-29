@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -22,6 +23,9 @@ class UserController extends Controller
         // Tag this message with the session token (privacy: only this session can see it)
         $data = $request->all();
         $data['session_token'] = $token;
+        if (Auth::check()) {
+            $data['user_id'] = Auth::id();
+        }
         Contact::create($data);
 
         if ($request->ajax()) {
