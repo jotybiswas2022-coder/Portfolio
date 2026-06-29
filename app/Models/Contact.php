@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-   protected $fillable = [
-        'name',
-        'email',
-        'message',
-        'reply',
-        'replied_at',
-        'parent_id',
-        'type'
-    ];
+    protected $fillable = [
+         'name',
+         'email',
+         'message',
+         'reply',
+         'replied_at',
+         'parent_id',
+         'type'
+     ];
+
+
 
     public function parent()
     {

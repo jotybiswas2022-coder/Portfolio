@@ -12,18 +12,42 @@ class MyMessageController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        $messages = Contact::root()
+        $rows = Contact::root()
             ->where('email', $request->email)
             ->where('type', 'message')
             ->latest()
             ->with(['replies' => function ($q) {
                 $q->orderBy('created_at');
             }])
-            ->get()
-            ->map(function ($msg) {
-                $msg->thread = collect([$msg])->concat($msg->replies);
-                return $msg;
-            });
+            ->get();
+
+        $messages = $rows->map(function ($msg) {
+            $thread = collect([$msg])->concat($msg->replies);
+            return [
+                'id'         => $msg->id,
+                'name'       => $msg->name,
+                'email'      => $msg->email,
+                'message'    => $msg->message,
+                'reply'      => $msg->reply,
+                'replied_at' => $msg->replied_at,
+                'type'       => $msg->type,
+                'parent_id'  => $msg->parent_id,
+                'created_at' => $msg->created_at,
+                'updated_at' => $msg->updated_at,
+                'thread'     => $thread->map(function ($t) {
+                    return [
+                        'id'         => $t->id,
+                        'name'       => $t->name,
+                        'email'      => $t->email,
+                        'message'    => $t->message,
+                        'type'       => $t->type,
+                        'parent_id'  => $t->parent_id,
+                        'created_at' => $t->created_at,
+                        'updated_at' => $t->updated_at,
+                    ];
+                }),
+            ];
+        });
 
         return response()->json(['success' => true, 'messages' => $messages]);
     }
