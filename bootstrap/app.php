@@ -15,11 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => AdminMiddleware::class,
         ]);
-
-        // Exclude AI chat API routes from CSRF protection
-        $middleware->validateCsrfTokens(except: [
-            'api/ai/*',
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

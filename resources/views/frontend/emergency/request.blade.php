@@ -160,12 +160,6 @@
                                 <i class="bi bi-check-circle-fill" style="font-size:11px;"></i>
                                 <span>নির্বাচিত: <strong id="selectedUrgencyText">ক্রিটিক্যাল</strong></span>
                             </div>
-                            <div id="urgencyGuidance" style="margin-top:8px;padding:10px 14px;border-radius:10px;font-size:12px;line-height:1.5;display:flex;align-items:flex-start;gap:8px;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.25);color:#fca5a5;">
-                                <i class="bi bi-info-circle-fill" style="font-size:14px;flex-shrink:0;margin-top:1px;"></i>
-                                <span id="urgencyGuidanceText">
-                                    <strong>জীবন-মরণ অবস্থা:</strong> রোগীর বেঁচে থাকার জন্য অবিলম্বে রক্ত প্রয়োজন। যত দ্রুত সম্ভব ডোনার খুঁজুন।
-                                </span>
-                            </div>
                         </div>
 
                         {{-- Divider --}}
@@ -379,12 +373,6 @@
             border-color: rgba(220,38,38,0.15) !important;
             color: #dc2626 !important;
         }
-
-        .light-mode #urgencyGuidance {
-            background: rgba(220,38,38,0.06) !important;
-            border-color: rgba(220,38,38,0.15) !important;
-            color: #b91c1c !important;
-        }
     </style>
 
     <script>
@@ -409,7 +397,7 @@
         document.querySelectorAll('.blood-chip').forEach(function(chip) {
             chip.classList.remove('selected');
             chip.querySelector('.blood-chip-check').style.display = 'none';
-            if (value && chip.textContent.trim().includes(value)) {
+            if (chip.textContent.trim().includes(value)) {
                 chip.classList.add('selected');
                 chip.querySelector('.blood-chip-check').style.display = 'inline';
             }
@@ -438,17 +426,6 @@
         var labels = { 'critical': 'ক্রিটিক্যাল', 'urgent': 'জরুরি', 'normal': 'সাধারণ' };
         var text = document.getElementById('selectedUrgencyText');
         text.textContent = labels[value] || value;
-
-        // Update guidance text
-        var guidance = document.getElementById('urgencyGuidance');
-        var guidanceText = document.getElementById('urgencyGuidanceText');
-        var guides = {
-            'critical': '<strong>জীবন-মরণ অবস্থা:</strong> রোগীর বেঁচে থাকার জন্য অবিলম্বে রক্ত প্রয়োজন। যত দ্রুত সম্ভব ডোনার খুঁজুন।',
-            'urgent': '<strong>জরুরি প্রয়োজন:</strong> ২৪-৪৮ ঘন্টার মধ্যে রক্ত প্রয়োজন। দ্রুত ডোনার খোঁজা শুরু করা উচিত।',
-            'normal': '<strong>সাধারণ প্রয়োজন:</strong> নির্দিষ্ট সময়সীমার মধ্যে রক্ত প্রয়োজন, তবে তাৎক্ষণিক ঝুঁকি নেই। পরিকল্পিতভাবে ডোনার খুঁজুন।'
-        };
-        guidanceText.innerHTML = guides[value] || '';
-        guidance.style.display = 'flex';
     }
 
     document.getElementById('emergencyRequestForm').addEventListener('submit', function(e) {

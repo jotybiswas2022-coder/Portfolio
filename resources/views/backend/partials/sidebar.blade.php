@@ -28,6 +28,46 @@ $isActive = function($path) {
             </a>
         </div>
 
+        <div style="display:flex;align-items:center;gap:6px;" id="navbarTopNav">
+            <a href="/"
+               style="padding:6px 14px;border-radius:50px;font-size:0.82rem;font-weight:500;text-decoration:none;transition:all 0.2s;{{ request()->is('/') ? 'background:rgba(102,126,234,0.1);color:#667eea;' : 'color:#666;' }}"
+               onmouseover="this.style.background='rgba(102,126,234,0.08)';this.style.color='#667eea'"
+               onmouseout="this.style.background='{{ request()->is('/') ? 'rgba(102,126,234,0.1)' : 'transparent' }}';this.style.color='{{ request()->is('/') ? '#667eea' : '#666' }}'">
+                <i class="bi bi-house-door me-1"></i> Home
+            </a>
+            @auth
+                @if(auth()->user()->is_admin == 1)
+                    <a href="/admin"
+                       style="padding:6px 14px;border-radius:50px;font-size:0.82rem;font-weight:500;text-decoration:none;transition:all 0.2s;{{ Str::startsWith(request()->path(), 'admin') && !request()->is('admin/account') && !request()->is('admin/donor_list') && !request()->is('admin/contact') ? 'background:rgba(102,126,234,0.1);color:#667eea;' : 'color:#666;' }}"
+                       onmouseover="this.style.background='rgba(102,126,234,0.08)';this.style.color='#667eea'"
+                       onmouseout="this.style.background='{{ Str::startsWith(request()->path(), 'admin') && !request()->is('admin/account') && !request()->is('admin/donor_list') && !request()->is('admin/contact') ? 'rgba(102,126,234,0.1)' : 'transparent' }}';this.style.color='{{ Str::startsWith(request()->path(), 'admin') && !request()->is('admin/account') && !request()->is('admin/donor_list') && !request()->is('admin/contact') ? '#667eea' : '#666' }}'">
+                        <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                    </a>
+                @endif
+                <form action="{{ route('logout') }}" method="POST" style="display:inline;margin:0;">
+                    @csrf
+                    <button type="submit"
+                            style="padding:6px 14px;border-radius:50px;font-size:0.82rem;font-weight:600;border:none;background:rgba(220,53,69,0.06);color:#dc3545;cursor:pointer;transition:all 0.2s;"
+                            onmouseover="this.style.background='#dc3545';this.style.color='#fff'"
+                            onmouseout="this.style.background='rgba(220,53,69,0.06)';this.style.color='#dc3545'">
+                        <i class="bi bi-box-arrow-right me-1"></i> Logout
+                    </button>
+                </form>
+            @else
+                <a href="/login"
+                   style="padding:6px 14px;border-radius:50px;font-size:0.82rem;font-weight:500;text-decoration:none;transition:all 0.2s;{{ request()->is('login') ? 'background:rgba(102,126,234,0.1);color:#667eea;' : 'color:#666;' }}"
+                   onmouseover="this.style.background='rgba(102,126,234,0.08)';this.style.color='#667eea'"
+                   onmouseout="this.style.background='{{ request()->is('login') ? 'rgba(102,126,234,0.1)' : 'transparent' }}';this.style.color='{{ request()->is('login') ? '#667eea' : '#666' }}'">
+                    <i class="bi bi-person-circle me-1"></i> Login
+                </a>
+                <a href="/register"
+                   style="padding:6px 16px;border-radius:50px;font-size:0.82rem;font-weight:600;text-decoration:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;transition:all 0.3s;box-shadow:0 3px 10px rgba(102,126,234,0.2);"
+                   onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 5px 16px rgba(102,126,234,0.3)'"
+                   onmouseout="this.style.transform='';this.style.boxShadow='0 3px 10px rgba(102,126,234,0.2)'">
+                    <i class="bi bi-person-plus me-1"></i> Signup
+                </a>
+            @endauth
+        </div>
     </div>
 </nav>
 
@@ -64,20 +104,8 @@ $isActive = function($path) {
             </a>
             @endforeach
         </div>
-        <div style="padding:12px 20px;border-top:1px solid #f0f0f5;margin-top:auto;display:flex;flex-direction:column;gap:6px;">
-            <a href="/" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;text-decoration:none;color:#555;transition:color 0.2s;" onmouseover="this.style.color='#667eea'" onmouseout="this.style.color='#555'"><i class="bi bi-house-door"></i> হোম</a>
-            @auth
-                @if(auth()->user()->is_admin == 1)
-                    <a href="/admin" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;text-decoration:none;color:#555;transition:color 0.2s;" onmouseover="this.style.color='#667eea'" onmouseout="this.style.color='#555'"><i class="bi bi-speedometer2"></i> ড্যাশবোর্ড</a>
-                @endif
-                <form action="{{ route('logout') }}" method="POST" style="display:inline;margin:0;">
-                    @csrf
-                    <button type="submit" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;border:none;background:none;color:#dc3545;cursor:pointer;transition:color 0.2s;"><i class="bi bi-box-arrow-right"></i> লগআউট</button>
-                </form>
-            @else
-                <a href="/login" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:500;text-decoration:none;color:#555;transition:color 0.2s;" onmouseover="this.style.color='#667eea'" onmouseout="this.style.color='#555'"><i class="bi bi-person-circle"></i> লগইন</a>
-                <a href="/register" style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.85rem;font-weight:600;text-decoration:none;color:#667eea;transition:color 0.2s;" onmouseover="this.style.color='#764ba2'" onmouseout="this.style.color='#667eea'"><i class="bi bi-person-plus"></i> সাইনআপ</a>
-            @endauth
+        <div style="padding:12px 20px;border-top:1px solid #f0f0f5;margin-top:auto;">
+            <small style="color:#bbb;font-size:0.75rem;">Blood Bank Admin v1.0</small>
         </div>
     </div>
 
@@ -101,21 +129,6 @@ $isActive = function($path) {
                 <span>{{ $item['label'] }}</span>
             </a>
             @endforeach
-        </div>
-        <div style="border-top:1px solid #f0f0f5;margin:8px 14px;padding-top:8px;display:flex;flex-direction:column;gap:4px;">
-            <a href="/" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;text-decoration:none;border-radius:12px;color:#555;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea'" onmouseout="this.style.background='transparent';this.style.color='#555'"><i class="bi bi-house-door"></i> হোম</a>
-            @auth
-                @if(auth()->user()->is_admin == 1)
-                    <a href="/admin" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;text-decoration:none;border-radius:12px;color:#555;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea'" onmouseout="this.style.background='transparent';this.style.color='#555'"><i class="bi bi-speedometer2"></i> ড্যাশবোর্ড</a>
-                @endif
-                <form action="{{ route('logout') }}" method="POST" style="display:inline;margin:0;">
-                    @csrf
-                    <button type="submit" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;border:none;border-radius:12px;background:none;color:#dc3545;cursor:pointer;transition:all 0.2s;width:100%;" onmouseover="this.style.background='rgba(220,53,69,0.06)'" onmouseout="this.style.background='transparent'"><i class="bi bi-box-arrow-right"></i> লগআউট</button>
-                </form>
-            @else
-                <a href="/login" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:500;text-decoration:none;border-radius:12px;color:#555;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#667eea'" onmouseout="this.style.background='transparent';this.style.color='#555'"><i class="bi bi-person-circle"></i> লগইন</a>
-                <a href="/register" style="display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:0.85rem;font-weight:600;text-decoration:none;border-radius:12px;color:#667eea;transition:all 0.2s;" onmouseover="this.style.background='rgba(102,126,234,0.06)';this.style.color='#764ba2'" onmouseout="this.style.background='transparent';this.style.color='#667eea'"><i class="bi bi-person-plus"></i> সাইনআপ</a>
-            @endauth
         </div>
     </div>
 

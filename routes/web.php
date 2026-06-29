@@ -46,11 +46,3 @@ Route::controller(SocialAuthController::class)->group(function () {
 Auth::routes();
 
 include('admin.php');
-
-// ===============================
-// AI Agent Chat Routes
-// ===============================
-Route::prefix('api/ai')->controller(\App\Http\Controllers\AiChatController::class)->group(function () {
-    Route::post('/chat', 'chat')->name('ai.chat');
-    Route::get('/status', 'status')->name('ai.status');
-});

@@ -14,7 +14,6 @@
     <script src="https://junait.com/tiny_pro.js"></script>
 
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
 </head>
 <body>
@@ -77,8 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
-
 
 @yield('scripts')
 </body>
