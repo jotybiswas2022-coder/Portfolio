@@ -10,19 +10,6 @@
             <span class="brand-text">{{ __('Blood Bank') }}</span>
         </a>
 
-        <!-- Language Switcher -->
-        <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
-           class="lang-switch-btn"
-           title="{{ __('Language') }}"
-           aria-label="{{ __('Language') }}">
-            <span>{{ app()->getLocale() === 'bn' ? 'EN' : 'বাংলা' }}</span>
-        </a>
-
-        <!-- Theme Toggle (hidden on mobile — mobile toggle is inside collapse) -->
-        <button class="theme-toggle-btn d-none d-lg-flex" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle dark/light mode">
-            <i class="bi bi-sun-fill"></i>
-        </button>
-
         <!-- Animated Hamburger Toggler -->
         <button class="navbar-toggler border-0 custom-toggler" type="button"
                 data-bs-toggle="collapse"
@@ -52,7 +39,20 @@
                     <span class="ms-2">{{ __('Theme') }}</span>
                 </button>
             </div>
-            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <div class="d-flex ms-auto align-items-lg-center gap-lg-2">
+                <!-- Desktop Lang Toggle -->
+                <a href="{{ url('/lang', app()->getLocale() === 'bn' ? 'en' : 'bn') }}"
+                   class="lang-switch-btn d-none d-lg-inline-flex"
+                   title="{{ __('Language') }}"
+                   aria-label="{{ __('Language') }}">
+                    <span>{{ app()->getLocale() === 'bn' ? 'EN' : 'বাংলা' }}</span>
+                </a>
+                <!-- Desktop Theme Toggle -->
+                <button class="theme-toggle-btn d-none d-lg-flex" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle dark/light mode">
+                    <i class="bi bi-sun-fill"></i>
+                </button>
+                <!-- Nav Links -->
+                <ul class="navbar-nav align-items-lg-center gap-lg-2">
 
                 <li class="nav-item nav-link-wrap">
                     <a class="nav-link top-nav-link {{ request()->is('profile') ? 'active-link' : '' }}" href="{{ url('/profile') }}">
@@ -111,6 +111,7 @@
                 @endauth
 
             </ul>
+            </div>
         </div>
     </div>
 </nav>
