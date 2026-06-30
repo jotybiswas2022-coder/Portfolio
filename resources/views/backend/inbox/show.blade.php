@@ -135,11 +135,31 @@
                                 <span onclick="clearImage()" style="color:#f87171; cursor:pointer; margin-left:0.5rem; font-size:0.85rem;">✕ Remove</span>
                             </div>
 
+                            <div class="emoji-picker" id="emojiPicker" style="display:none; padding:0.5rem; gap:0.3rem; flex-wrap:wrap; border-bottom:1px solid #e2e8f0; margin-bottom:0.5rem;">
+                                <button type="button" onclick="insertEmoji('😊')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">😊</button>
+                                <button type="button" onclick="insertEmoji('👍')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">👍</button>
+                                <button type="button" onclick="insertEmoji('😍')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">😍</button>
+                                <button type="button" onclick="insertEmoji('🎉')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">🎉</button>
+                                <button type="button" onclick="insertEmoji('🔥')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">🔥</button>
+                                <button type="button" onclick="insertEmoji('💯')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">💯</button>
+                                <button type="button" onclick="insertEmoji('✅')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">✅</button>
+                                <button type="button" onclick="insertEmoji('❓')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">❓</button>
+                                <button type="button" onclick="insertEmoji('👋')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">👋</button>
+                                <button type="button" onclick="insertEmoji('📸')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">📸</button>
+                                <button type="button" onclick="insertEmoji('🚀')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">🚀</button>
+                                <button type="button" onclick="insertEmoji('💪')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">💪</button>
+                                <button type="button" onclick="insertEmoji('🙏')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">🙏</button>
+                                <button type="button" onclick="insertEmoji('😎')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">😎</button>
+                                <button type="button" onclick="insertEmoji('💰')" style="background:none; border:none; font-size:1.4rem; cursor:pointer; padding:2px 4px; border-radius:4px; line-height:1;">💰</button>
+                            </div>
                             <div class="d-flex gap-2 align-items-start">
                                 <div style="flex:1;">
                                     <textarea name="message" id="msgInput" class="form-control" rows="2" placeholder="Type your reply..." style="border-radius:12px; resize:none;"></textarea>
                                 </div>
                                 <div class="d-flex gap-1">
+                                    <button type="button" class="btn btn-outline-secondary rounded-3" onclick="toggleEmojiPicker()" title="Emoji" style="padding:0.4rem 0.7rem;">
+                                        <i class="bi bi-emoji-smile"></i>
+                                    </button>
                                     <label class="btn btn-outline-secondary rounded-3" style="cursor:pointer; padding:0.4rem 0.7rem;" title="Send Image">
                                         <i class="bi bi-image"></i>
                                         <input type="file" name="image" accept="image/*" onchange="previewImage(event)" style="display:none;">
@@ -167,7 +187,28 @@
     document.addEventListener('DOMContentLoaded', function() {
         const box = document.getElementById('messagesBox');
         if (box) box.scrollTop = box.scrollHeight;
+        const textarea = document.getElementById('msgInput');
+        if (textarea) {
+            textarea.addEventListener('input', function() { autoResize(this); });
+        }
     });
+    function toggleEmojiPicker() {
+        const picker = document.getElementById('emojiPicker');
+        picker.style.display = picker.style.display === 'none' ? 'flex' : 'none';
+    }
+    function insertEmoji(emoji) {
+        const input = document.getElementById('msgInput');
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        input.value = input.value.substring(0, start) + emoji + input.value.substring(end);
+        input.focus();
+        input.selectionStart = input.selectionEnd = start + emoji.length;
+        autoResize(input);
+    }
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+    }
     function previewImage(event) {
         const file = event.target.files[0];
         if (file) {
