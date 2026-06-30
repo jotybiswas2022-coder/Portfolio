@@ -7,11 +7,14 @@
     {{-- Header --}}
     <div class="d-flex align-items-center justify-content-between mb-4">
         <div>
-            <h4 class="fw-bold mb-1"><i class="bi bi-music-note-list me-2" style="color:#6366f1;"></i>Gigs</h4>
+            <h4 class="fw-bold mb-1" style="color:var(--text-primary, #0f172a);">
+                <i class="bi bi-music-note-list me-2" style="color:#6366f1;"></i>Gigs
+            </h4>
             <p class="text-muted small mb-0">Manage your service packages</p>
         </div>
         <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500;">
+            <span class="badge rounded-pill px-3 py-2" id="countBadge"
+                  style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500; font-size:0.8rem;">
                 <i class="bi bi-database me-1"></i> {{ $gigs->count() }} Gigs
             </span>
             <a href="{{ route('admin.gigs.create') }}" class="btn btn-primary rounded-3 px-3" style="background:#6366f1; border-color:#6366f1;">
@@ -20,24 +23,24 @@
         </div>
     </div>
 
-    {{-- Live Search Bar --}}
+    {{-- Search --}}
     <div class="mb-4">
         <div class="d-flex gap-2 align-items-center">
-            <div class="input-group" style="max-width:600px;">
-                <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-search text-muted"></i>
+            <div class="input-group" style="max-width:500px;">
+                <span class="input-group-text bg-white border-end-0 rounded-start-pill" style="border-color:#e2e8f0;">
+                    <i class="bi bi-search text-muted" style="font-size:0.9rem;"></i>
                 </span>
-                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}" 
-                       class="form-control border-start-0 ps-0" 
-                       placeholder="Live search by title..."
-                       style="border-color:#e2e8f0; box-shadow:none;"
+                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
+                       class="form-control border-start-0 border-end-0"
+                       placeholder="Search gigs by title..."
+                       style="border-color:#e2e8f0; box-shadow:none; font-size:0.9rem;"
                        autocomplete="off">
-                <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
+                <span class="input-group-text bg-white border-start-0 rounded-end-pill" style="border-color:#e2e8f0;" id="searchSpinner">
                     <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
                 </span>
             </div>
             @if(request()->has('q') && request()->q != '')
-                <a href="{{ route('admin.gigs.index') }}" class="btn btn-outline-secondary rounded-3" style="border-color:#e2e8f0;">
+                <a href="{{ route('admin.gigs.index') }}" class="btn btn-outline-secondary rounded-pill" style="border-color:#e2e8f0;">
                     <i class="bi bi-x-lg"></i>
                 </a>
             @endif
@@ -46,57 +49,234 @@
             @if($query ?? false)
                 <small class="text-muted">
                     <i class="bi bi-info-circle me-1"></i>
-                    Showing results for "<strong>{{ $query }}</strong>" — 
+                    Showing results for "<strong>{{ $query }}</strong>" —
                     <span id="resultCount">{{ $gigs->count() }}</span> gig(s) found
                 </small>
             @endif
         </div>
     </div>
 
-    {{-- Table Card --}}
+    {{-- Gigs Grid --}}
     @if($gigs->isEmpty() && !request()->ajax())
         <div class="text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-music-note-list"></i>
-                <div class="fw-semibold mb-2">No Gigs Found</div>
-                <p class="text-muted small">Add your service packages to showcase what you offer!</p>
-                <a href="{{ route('admin.gigs.create') }}" class="btn btn-primary rounded-3 px-4" style="background:#6366f1; border-color:#6366f1;">
+            <div class="empty-state" style="padding:4rem 2rem;">
+                <div style="width:80px;height:80px;border-radius:20px;background:rgba(99,102,241,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+                    <i class="bi bi-music-note-list" style="font-size:2.2rem;color:#6366f1;"></i>
+                </div>
+                <div class="fw-semibold fs-5 mb-2" style="color:var(--text-primary, #0f172a);">No Gigs Found</div>
+                <p class="text-muted mb-3" style="max-width:400px;margin:0 auto 1.5rem;">Add your service packages to showcase what you offer!</p>
+                <a href="{{ route('admin.gigs.create') }}" class="btn btn-primary rounded-pill px-4" style="background:#6366f1; border-color:#6366f1;">
                     <i class="bi bi-plus-lg me-1"></i> Add Gig
                 </a>
             </div>
         </div>
     @else
-        <div class="card border-0 shadow-sm rounded-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0" style="min-width:900px;">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="ps-4 py-3 text-muted small fw-semibold" style="width:50px;">#</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:70px;">Image</th>
-                            <th class="py-3 text-muted small fw-semibold">Title</th>
-                            <th class="py-3 text-muted small fw-semibold">Basic</th>
-                            <th class="py-3 text-muted small fw-semibold">Standard</th>
-                            <th class="py-3 text-muted small fw-semibold">Premium</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:70px;">Order</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:90px;">Status</th>
-                            <th class="pe-4 py-3 text-muted small fw-semibold" style="width:120px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="gigsTableBody">
-                        @include('backend.gig._table_rows', ['gigs' => $gigs])
-                    </tbody>
-                </table>
-            </div>
+        <div class="gigs-grid" id="gigsGrid">
+            @include('backend.gig._table_rows', ['gigs' => $gigs])
         </div>
     @endif
 
 </div>
 
 <style>
-.status-badge { transition: all 0.2s; }
-.status-badge:hover { transform: scale(1.05); }
-.active-badge { background: rgba(16,185,129,0.12); color: #059669; }
-.inactive-badge { background: #f1f5f9; color: #94a3b8; }
+    .gigs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .gig-card {
+        background: #fff;
+        border: 1px solid #e8edf5;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        position: relative;
+    }
+    .gig-card:hover {
+        border-color: #d0d9eb;
+        box-shadow: 0 8px 30px rgba(99,102,241,0.1);
+        transform: translateY(-3px);
+    }
+
+    .gig-card-top {
+        display: flex;
+        gap: 1rem;
+        padding: 1.25rem 1.25rem 0.75rem;
+        align-items: flex-start;
+    }
+
+    .gig-thumb {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        object-fit: cover;
+        flex-shrink: 0;
+        background: #f1f5f9;
+    }
+    .gig-thumb-placeholder {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+
+    .gig-card-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .gig-card-info h5 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 0.25rem;
+        color: #0f172a;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .gig-card-info .gig-id {
+        font-size: 0.75rem;
+        color: #94a3b8;
+    }
+
+    .gig-card-actions {
+        display: flex;
+        gap: 0.35rem;
+        flex-shrink: 0;
+    }
+    .gig-card-actions .btn-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        color: #64748b;
+        transition: all 0.2s;
+        cursor: pointer;
+        padding: 0;
+    }
+    .gig-card-actions .btn-icon:hover {
+        border-color: #6366f1;
+        color: #6366f1;
+        background: rgba(99,102,241,0.04);
+    }
+    .gig-card-actions .btn-icon.danger:hover {
+        border-color: #ef4444;
+        color: #ef4444;
+        background: rgba(239,68,68,0.04);
+    }
+
+    .gig-card-body {
+        padding: 0 1.25rem 1rem;
+    }
+
+    .pricing-chips {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    .pricing-chip {
+        flex: 1;
+        min-width: 0;
+        padding: 0.6rem 0.7rem;
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid #e8edf5;
+        background: #fafbff;
+        transition: all 0.2s;
+        cursor: default;
+    }
+    .pricing-chip:hover {
+        border-color: #d0d9eb;
+        background: #f1f4ff;
+    }
+    .pricing-chip .chip-name {
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        color: #94a3b8;
+        margin-bottom: 0.15rem;
+    }
+    .pricing-chip .chip-price {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #059669;
+    }
+    .pricing-chip .chip-price.basic { color: #64748b; }
+    .pricing-chip .chip-price.standard { color: #6366f1; }
+    .pricing-chip .chip-price.premium { color: #d97706; }
+
+    .gig-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.7rem 1.25rem;
+        border-top: 1px solid #f1f5f9;
+        background: #fafbff;
+    }
+    .gig-card-footer .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .gig-card-footer .order-badge {
+        font-size: 0.75rem;
+        color: #64748b;
+        background: #f1f5f9;
+        padding: 0.15rem 0.6rem;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+    .gig-card-footer .order-badge i { margin-right: 0.25rem; }
+
+    .status-toggle {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.8rem;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+    .status-toggle.active {
+        background: rgba(16,185,129,0.12);
+        color: #059669;
+    }
+    .status-toggle.active:hover {
+        background: rgba(16,185,129,0.2);
+    }
+    .status-toggle.inactive {
+        background: #f1f5f9;
+        color: #94a3b8;
+    }
+    .status-toggle.inactive:hover {
+        background: #e2e8f0;
+    }
+
+    @media (max-width: 420px) {
+        .gigs-grid { grid-template-columns: 1fr; }
+        .pricing-chips { flex-direction: column; }
+    }
+
+    .empty-state {
+        background: #fff;
+        border: 1px solid #e8edf5;
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        text-align: center;
+    }
 </style>
 
 @section('scripts')
@@ -125,7 +305,7 @@
             });
         });
 
-        document.querySelectorAll('.status-badge').forEach(badge => {
+        document.querySelectorAll('.status-toggle').forEach(badge => {
             badge.addEventListener('click', function (e) {
                 e.preventDefault();
                 const href = this.getAttribute('href');
@@ -156,11 +336,12 @@
 
 (function() {
     var searchInput = document.getElementById('liveSearch');
-    var tableBody = document.getElementById('gigsTableBody');
+    var grid = document.getElementById('gigsGrid');
     var searchInfo = document.getElementById('searchInfo');
     var searchLoading = document.getElementById('searchLoading');
+    var countBadge = document.getElementById('countBadge');
 
-    if (!searchInput || !tableBody) return;
+    if (!searchInput || !grid) return;
 
     var debounceTimer;
 
@@ -177,9 +358,8 @@
         })
         .then(function(response) { return response.json(); })
         .then(function(data) {
-            tableBody.innerHTML = data.html;
+            grid.innerHTML = data.html;
 
-            var countBadge = document.querySelector('.badge.rounded-pill.px-3.py-2');
             if (countBadge) {
                 countBadge.innerHTML = '<i class="bi bi-database me-1"></i> ' + data.count + ' Gigs';
             }
