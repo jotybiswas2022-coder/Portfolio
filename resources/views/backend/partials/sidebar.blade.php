@@ -158,6 +158,13 @@
 
 /* ===== Off-canvas mobile ===== */
 @media (max-width: 767.98px) {
+    #sidebarCollapse {
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #sidebarCollapse.open {
+        transform: translateX(0);
+    }
     .sidebar-close {
         display: flex !important;
         justify-content: flex-end;
