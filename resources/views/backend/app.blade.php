@@ -68,6 +68,33 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/backend/js/custom.js') }}"></script>
 
+    <script>
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebarCollapse');
+        var overlay = document.getElementById('sidebarOverlay');
+        if (!sidebar) return;
+        if (sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        } else {
+            sidebar.classList.add('open');
+            if (overlay) overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    document.addEventListener('click', function(e) {
+        var sidebar = document.getElementById('sidebarCollapse');
+        var overlay = document.getElementById('sidebarOverlay');
+        if (!sidebar || !overlay) return;
+        if (e.target === overlay) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    </script>
+
     @yield('scripts')
 </body>
 

@@ -27,8 +27,8 @@ use Illuminate\Support\Str;
 
 <nav class="navbar navbar-expand-md py-0" style="height:auto; min-height:57px; background:linear-gradient(180deg,#0f172a,#1e293b); border-bottom:1px solid rgba(255,255,255,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.15); color:#fff; position:sticky; top:0; z-index:1050;">
     <div class="container-fluid px-3">
-        {{-- Sidebar Toggle (mobile) --}}
-        <button class="sidebar-toggle-btn" type="button" aria-label="Toggle sidebar">
+        {{-- Sidebar Toggle --}}
+        <button class="sidebar-toggle-btn" type="button" aria-label="Toggle sidebar" onclick="toggleSidebar()">
             <i class="bi bi-list"></i>
         </button>
 
