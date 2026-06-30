@@ -3,7 +3,8 @@ $file = 'index.blade.php';
 $content = file_get_contents($file);
 
 // ====== CHANGE 1: Replace the Gigs CSS section ======
-$oldStart = '/* Gigs */
+$oldStart = <<<'EOT'
+/* Gigs */
     .gigs-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -56,9 +57,11 @@ $oldStart = '/* Gigs */
         border-radius: 20px;
         font-size: 0.85rem;
         font-weight: 600;
-    }';
+    }
+EOT;
 
-$newStart = '/* ===== GIGS — MODERN GLASS GRID ===== */
+$newStart = <<<'EOT'
+/* ===== GIGS — MODERN GLASS GRID ===== */
     .gigs-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -145,7 +148,8 @@ $newStart = '/* ===== GIGS — MODERN GLASS GRID ===== */
         border-color: transparent;
         color: #fff;
         box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    }';
+    }
+EOT;
 
 $pos = strpos($content, $oldStart);
 if ($pos === false) {
@@ -170,10 +174,11 @@ $content = str_replace($old480, $new480, $content, $count);
 echo "OK: 480px responsive updated (count: $count)\n";
 
 // ====== CHANGE 4: Update HTML ======
-$oldHtml = '                    <a href="{{ route(\'gig.detail\', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+$oldHtml = <<<'EOT'
+                    <a href="{{ route('gig.detail', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
                         <div class="gig-image" style="background: {{ $gradients[$index % count($gradients)] }};">
                             @if($gig->image)
-                                <img src="{{ config(\'app.storage_url\') }}{{ $gig->image }}" alt="{{ $gig->title }}">
+                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
                             @else
                                 <i class="{{ $icons[$index % count($icons)] }} gig-icon"></i>
                             @endif
@@ -187,12 +192,14 @@ $oldHtml = '                    <a href="{{ route(\'gig.detail\', $gig->id) }}" 
                                 {{ $gig->basic_price }} USD
                             </span>
                         </div>
-                    </a>';
+                    </a>
+EOT;
 
-$newHtml = '                    <a href="{{ route(\'gig.detail\', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}">
+$newHtml = <<<'EOT'
+                    <a href="{{ route('gig.detail', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}">
                         <div class="gig-image" style="background: {{ $gradients[$index % count($gradients)] }};">
                             @if($gig->image)
-                                <img src="{{ config(\'app.storage_url\') }}{{ $gig->image }}" alt="{{ $gig->title }}">
+                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
                             @else
                                 <i class="{{ $icons[$index % count($icons)] }} gig-icon"></i>
                             @endif
@@ -207,47 +214,23 @@ $newHtml = '                    <a href="{{ route(\'gig.detail\', $gig->id) }}" 
                                 {{ $gig->basic_price }} USD
                             </span>
                         </div>
-                    </a>';
+                    </a>
+EOT;
 
 $pos2 = strpos($content, $oldHtml);
 if ($pos2 === false) {
-    // Try without style attribute
-    $oldHtml2 = '                    <a href="{{ route(\'gig.detail\', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}">
-                        <div class="gig-image" style="background: {{ $gradients[$index % count($gradients)] }};">
-                            @if($gig->image)
-                                <img src="{{ config(\'app.storage_url\') }}{{ $gig->image }}" alt="{{ $gig->title }}">
-                            @else
-                                <i class="{{ $icons[$index % count($icons)] }} gig-icon"></i>
-                            @endif
-                        </div>
-                        <div class="gig-body">
-                            <h3>{{ $gig->title }}</h3>
-                            @if($gig->short_description)
-                                <p>{{ $gig->short_description }}</p>
-                            @endif
-                            <span class="gig-price-badge">
-                                {{ $gig->basic_price }} USD
-                            </span>
-                        </div>
-                    </a>';
-    if (strpos($content, $oldHtml2) !== false) {
-        echo "Found HTML without style attr\n";
-        $content = str_replace($oldHtml2, $newHtml, $content);
-        echo "OK: Gig card HTML replaced (no style)\n";
-    } else {
-        echo "ERROR: Could not find old gig card HTML\n";
-        // Debug: show what's around the gig card
-        $search = 'class="gig-card reveal';
-        $pos3 = strpos($content, $search);
-        if ($pos3 !== false) {
-            echo "Found at $pos3: " . substr($content, $pos3, 500) . "\n";
-        }
-        exit(1);
+    echo "ERROR: Could not find old gig card HTML\n";
+    // Try partial search
+    $search = 'class="gig-card reveal reveal-delay-';
+    $pos3 = strpos($content, $search);
+    if ($pos3 !== false) {
+        echo "Found at $pos3\n";
+        echo substr($content, $pos3, 500) . "\n";
     }
-} else {
-    $content = substr_replace($content, $newHtml, $pos2, strlen($oldHtml));
-    echo "OK: Gig card HTML replaced (with style)\n";
+    exit(1);
 }
+$content = substr_replace($content, $newHtml, $pos2, strlen($oldHtml));
+echo "OK: Gig card HTML replaced\n";
 
 // Save
 file_put_contents($file, $content);

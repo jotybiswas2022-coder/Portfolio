@@ -40,11 +40,6 @@ use Illuminate\Support\Str;
             <span class="d-sm-none">Admin</span>
         </a>
 
-        {{-- Mobile 3-dot Toggler --}}
-        <button class="navbar-toggler border-0 py-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopNav" aria-label="Toggle navigation" style="color:rgba(255,255,255,0.7);">
-            <span class="navbar-toggler-icon" style="filter:brightness(0) invert(1);"></span>
-        </button>
-
         {{-- Desktop quick links (always visible) + Mobile nav (collapsible) --}}
         <div class="collapse navbar-collapse" id="navbarTopNav">
             <ul class="navbar-nav ms-auto gap-1 align-items-center d-none d-md-flex">
