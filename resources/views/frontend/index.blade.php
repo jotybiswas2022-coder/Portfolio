@@ -2479,8 +2479,9 @@
         .project-card .card-body p { font-size: 0.85rem; }
         .project-card .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
         .project-card .card-link { font-size: 0.82rem; }
-        .gigs-grid { gap: 1rem; }
-        .gig-card { width: 100%; min-width: 0; }
+        .gigs-grid { display: block; gap: unset; }
+        .gig-card { width: 100%; display: block; }
+        .gig-card + .gig-card { margin-top: 1rem; }
         .gig-image { height: 140px; }
         .gig-body { padding: 1rem; }
         .gig-body h3 { font-size: 0.9rem; margin-bottom: 0.3rem; }
