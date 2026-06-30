@@ -15,7 +15,8 @@ Route::get('/lang/{locale}', function ($locale) {
 })->name('language.switch');
 
 Route::controller(SiteController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('home');
+    Route::get('/gig/{id}', 'gigDetail')->name('gig.detail');
 });
 
 Route::post('/contactus', [UserController::class, 'contactus']);

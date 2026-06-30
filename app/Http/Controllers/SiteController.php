@@ -11,6 +11,7 @@ use App\Models\Skill;
 use App\Models\Service;
 use App\Models\Faq;
 use App\Models\CaseStudy;
+use App\Models\Gig;
 
 class SiteController extends Controller
 {
@@ -23,6 +24,12 @@ class SiteController extends Controller
         $services = Service::active()->get();
         $faqs = Faq::active()->get();
         $caseStudies = CaseStudy::active()->get();
-        return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'skills', 'services', 'faqs', 'caseStudies'));
+        $gigs = Gig::active()->get();
+        return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'skills', 'services', 'faqs', 'caseStudies', 'gigs'));
+    }
+
+    public function gigDetail($id){
+        $gig = Gig::findOrFail($id);
+        return view('frontend.gig-detail', compact('gig'));
     }
 }

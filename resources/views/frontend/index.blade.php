@@ -1029,6 +1029,7 @@
 
     /* ===== GLASS CARD SHINE EFFECT (all glass cards) ===== */
     .project-card::after,
+    .gig-card::after,
     .testimonial-card::after,
     .faq-item::after,
     .wave-service::after,
@@ -1039,6 +1040,7 @@
         pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
     }
     html.light-theme .project-card::after,
+    html.light-theme .gig-card::after,
     html.light-theme .testimonial-card::after,
     html.light-theme .faq-item::after,
     html.light-theme .wave-service::after,
@@ -1047,6 +1049,7 @@
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 30%, transparent 60%);
     }
     .project-card:hover::after,
+    .gig-card:hover::after,
     .testimonial-card:hover::after,
     .faq-item:hover::after,
     .wave-service:hover::after,
@@ -1054,6 +1057,8 @@
     .contact-item:hover::after { opacity: 1; }
     /* Ensure content stays above shine */
     .project-card .card-image,
+    .gig-card .gig-image,
+    .gig-card .gig-body,
     .project-card .card-body,
     .testimonial-card .quote-icon,
     .testimonial-card .testimonial-stars,
@@ -1475,6 +1480,61 @@
     .project-card .tag { padding: 0.25rem 0.8rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.18); border-radius: 20px; font-size: 0.73rem; color: var(--accent-light); font-weight: 500; }
     .project-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-weight: 600; font-size: 0.88rem; transition: gap 0.3s ease; }
     .project-card .card-link:hover { gap: 0.8rem; }
+
+    /* Gigs */
+    .gigs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.8rem;
+    }
+    .gig-card {
+        display: block;
+        text-decoration: none;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: var(--transition);
+    }
+    html.light-theme .gig-card { background: rgba(255, 255, 255, 0.92); }
+    .gig-card:hover {
+        border-color: var(--border-hover);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-6px);
+    }
+    .gig-image {
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .gig-image .gig-icon { font-size: 4rem; opacity: 0.5; transition: var(--transition); }
+    .gig-card:hover .gig-image .gig-icon { transform: scale(1.3); opacity: 1; }
+    .gig-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gig-card:hover .gig-image img { transform: scale(1.08); }
+    .gig-image::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 70px;
+        background: linear-gradient(transparent, rgba(30, 41, 59, 0.95));
+    }
+    html.light-theme .gig-image::after { background: linear-gradient(transparent, rgba(255, 255, 255, 0.95)) !important; }
+    .gig-body { padding: 1.5rem; }
+    .gig-body h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-primary); }
+    .gig-body p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.8rem; }
+    .gig-price-badge {
+        display: inline-block;
+        padding: 0.3rem 1rem;
+        background: rgba(59, 130, 246, 0.12);
+        color: var(--accent-light);
+        border: 1px solid rgba(59, 130, 246, 0.25);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
 
     /* Testimonials */
     .testimonials-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
@@ -2340,6 +2400,10 @@
         .project-card .card-body { padding: 1.4rem; }
         .project-card .card-body h3 { font-size: 1.1rem; }
         .project-card .card-image { height: 180px; }
+        .gigs-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.4rem; }
+        .gig-image { height: 180px; }
+        .gig-body { padding: 1.3rem; }
+        .gig-body h3 { font-size: 1.1rem; }
         .filter-tabs { gap: 0.4rem; }
         .filter-btn { font-size: 0.75rem; padding: 0.4rem 1rem; }
         
@@ -2409,6 +2473,11 @@
         .project-card .card-body p { font-size: 0.85rem; }
         .project-card .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
         .project-card .card-link { font-size: 0.82rem; }
+        .gigs-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+        .gig-image { height: 160px; }
+        .gig-body { padding: 1.2rem; }
+        .gig-body h3 { font-size: 1rem; }
+        .gig-body p { font-size: 0.85rem; }
         .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
         .filter-tabs::-webkit-scrollbar { height: 2px; }
         .filter-tabs::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
@@ -2682,6 +2751,51 @@
             @endif
         </div>
     </section>
+
+    <!-- Gigs Section -->
+    @if($gigs->isNotEmpty())
+    <section class="gigs-section section-padding" id="gigs">
+        <div class="container">
+            <div class="section-title reveal">
+                <div class="line"></div>
+                <h2>{{ __('messages.gigs_title') }}</h2>
+                <p>{{ __('messages.gigs_subtitle') }}</p>
+            </div>
+            <div class="gigs-grid">
+                @foreach($gigs as $index => $gig)
+                    @php
+                        $delay = ($index % 4) + 1;
+                        $gradients = [
+                            'linear-gradient(135deg, #1e3a5f, #1a1a3e)',
+                            'linear-gradient(135deg, #1e4040, #1a2e3e)',
+                            'linear-gradient(135deg, #2e1e5f, #1a1a3e)',
+                            'linear-gradient(135deg, #3a1e3e, #1a1a3e)',
+                        ];
+                        $icons = ['bi bi-star-fill', 'bi bi-rocket-takeoff-fill', 'bi bi-lightning-fill', 'bi bi-diamond-fill'];
+                    @endphp
+                    <a href="{{ route('gig.detail', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                        <div class="gig-image" style="background: {{ $gradients[$index % count($gradients)] }};">
+                            @if($gig->image)
+                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
+                            @else
+                                <span class="gig-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
+                            @endif
+                        </div>
+                        <div class="gig-body">
+                            <h3>{{ $gig->title }}</h3>
+                            @if($gig->short_description)
+                                <p>{{ $gig->short_description }}</p>
+                            @endif
+                            <span class="gig-price-badge">
+                                {{ $gig->basic_price }}
+                            </span>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
 
     <!-- Case Studies Section -->
     @if($caseStudies->isNotEmpty())
@@ -3396,7 +3510,7 @@
         ring.style.left = e.clientX + 'px';
         ring.style.top = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .magnetic, .project-card, .skill-ball').forEach(function(el) {
+    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball').forEach(function(el) {
         el.addEventListener('mouseenter', function() { ring.classList.add('active'); dot.classList.add('active'); });
         el.addEventListener('mouseleave', function() { ring.classList.remove('active'); dot.classList.remove('active'); });
     });
@@ -3906,7 +4020,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item';
+    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
