@@ -21,9 +21,8 @@ use Illuminate\Support\Str;
 .mobile-nav .logout-btn i { width:20px; text-align:center; color:rgba(248,113,113,0.5); }
 
 /* Sidebar toggle button (mobile) */
-.sidebar-toggle-btn { display:none; background:none; border:none; color:rgba(255,255,255,0.7); font-size:1.3rem; padding:0.25rem 0.5rem; border-radius:6px; cursor:pointer; transition:all 0.2s; line-height:1; }
+.sidebar-toggle-btn { display:inline-flex; align-items:center; justify-content:center; background:none; border:none; color:rgba(255,255,255,0.7); font-size:1.3rem; padding:0.25rem 0.5rem; border-radius:6px; cursor:pointer; transition:all 0.2s; line-height:1; }
 .sidebar-toggle-btn:hover { color:#fff; background:rgba(255,255,255,0.08); }
-@media (max-width:767.98px) { .sidebar-toggle-btn { display:inline-flex; align-items:center; justify-content:center; } }
 </style>
 
 <nav class="navbar navbar-expand-md py-0" style="height:auto; min-height:57px; background:linear-gradient(180deg,#0f172a,#1e293b); border-bottom:1px solid rgba(255,255,255,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.15); color:#fff; position:sticky; top:0; z-index:1050;">
