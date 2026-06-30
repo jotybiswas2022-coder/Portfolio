@@ -2479,7 +2479,7 @@
         .project-card .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
         .project-card .card-link { font-size: 0.82rem; }
         .gigs-grid { gap: 1rem; }
-        .gig-card { width: 100%; min-width: 0; max-width: 420px; margin: 0 auto; }
+        .gig-card { width: 100%; min-width: 0; }
         .gig-image { height: 140px; }
         .gig-body { padding: 1.1rem; }
         .gig-body h3 { font-size: 1.1rem; }
