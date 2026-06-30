@@ -2441,7 +2441,8 @@
     
     /* Mobile Small (max 480px) */
     @media (max-width: 480px) {
-        .section-padding { padding: 3.5rem 1rem; }
+        .section-padding { padding: 3.5rem 0.5rem; }
+        .container { padding-left: 0.5rem; padding-right: 0.5rem; }
         .section-title { margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .section-title .line { width: 45px; height: 3px; }
