@@ -2478,13 +2478,13 @@
         .project-card .card-body p { font-size: 0.85rem; }
         .project-card .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
         .project-card .card-link { font-size: 0.82rem; }
-        .gigs-grid { gap: 0.8rem; }
-        .gig-card { width: calc(50% - 0.4rem); min-width: 0; }
-        .gig-image { height: 110px; }
-        .gig-body { padding: 0.8rem; }
-        .gig-body h3 { font-size: 0.85rem; margin-bottom: 0.25rem; }
-        .gig-body p { font-size: 0.72rem; margin-bottom: 0.4rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .gig-price-badge { font-size: 0.65rem; padding: 0.15rem 0.5rem; }
+        .gigs-grid { gap: 1rem; }
+        .gig-card { width: 100%; min-width: 0; }
+        .gig-image { height: 140px; }
+        .gig-body { padding: 1rem; }
+        .gig-body h3 { font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .gig-body p { font-size: 0.8rem; margin-bottom: 0.5rem; line-height: 1.4; }
+        .gig-price-badge { font-size: 0.72rem; padding: 0.2rem 0.7rem; }
         .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
         .filter-tabs::-webkit-scrollbar { height: 2px; }
         .filter-tabs::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
