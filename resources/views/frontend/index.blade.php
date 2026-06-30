@@ -1481,13 +1481,17 @@
     .project-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-weight: 600; font-size: 0.88rem; transition: gap 0.3s ease; }
     .project-card .card-link:hover { gap: 0.8rem; }
 
-    /* Gigs */
+/* ===== GIGS — FLEX GRID (3+2 centered) ===== */
     .gigs-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1.8rem;
     }
     .gig-card {
+        width: calc(33.333% - 1.2rem);
+        min-width: 280px;
+        flex-shrink: 0;
         display: block;
         text-decoration: none;
         background: var(--bg-card);
@@ -2400,7 +2404,8 @@
         .project-card .card-body { padding: 1.4rem; }
         .project-card .card-body h3 { font-size: 1.1rem; }
         .project-card .card-image { height: 180px; }
-        .gigs-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.4rem; }
+        .gigs-grid { gap: 1.4rem; }
+        .gig-card { width: calc(50% - 0.7rem); min-width: 240px; }
         .gig-image { height: 180px; }
         .gig-body { padding: 1.3rem; }
         .gig-body h3 { font-size: 1.1rem; }
@@ -2473,7 +2478,8 @@
         .project-card .card-body p { font-size: 0.85rem; }
         .project-card .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
         .project-card .card-link { font-size: 0.82rem; }
-        .gigs-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+        .gigs-grid { gap: 1.2rem; }
+        .gig-card { width: 100%; min-width: 0; }
         .gig-image { height: 160px; }
         .gig-body { padding: 1.2rem; }
         .gig-body h3 { font-size: 1rem; }
