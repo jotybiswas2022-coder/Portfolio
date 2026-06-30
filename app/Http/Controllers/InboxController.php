@@ -101,7 +101,7 @@ class InboxController extends Controller
             'status'          => 'open',
         ]);
 
-        $initialMessage = "I would like to order the {$packageNames[$package]} package ({$packagePrices[$package]}) for \"{$gig->title}\". Please provide more details.";
+        $initialMessage = "I would like to order the {$packageNames[$package]} package ({$packagePrices[$package]} USD) for \"{$gig->title}\". Please provide more details.";
 
         Message::create([
             'conversation_id' => $conversation->id,
