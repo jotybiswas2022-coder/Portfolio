@@ -302,7 +302,7 @@
             <div class="package-summary">
                 <h5>{{ __('messages.package_details') }}</h5>
                 <span class="pkg-name">{{ $conversation->package_name }}</span>
-                <span class="pkg-price ms-3">{{ $conversation->package_price }}</span>
+                                <span class="pkg-price ms-3">{{ $conversation->package_price }} USD</span>
                 @if($conversation->package_details)
                     <div style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-secondary); white-space:pre-line;">{{ $conversation->package_details }}</div>
                 @endif

@@ -13,15 +13,15 @@
         <td class="fw-semibold">{{ $gig->title }}</td>
         <td>
             <span class="badge bg-secondary">{{ $gig->basic_name }}</span>
-            <span class="fw-bold ms-1" style="color:#059669;">{{ $gig->basic_price }}</span>
+            <span class="fw-bold ms-1" style="color:#059669;">{{ $gig->basic_price }} USD</span>
         </td>
         <td>
             <span class="badge bg-primary">{{ $gig->standard_name }}</span>
-            <span class="fw-bold ms-1" style="color:#059669;">{{ $gig->standard_price }}</span>
+            <span class="fw-bold ms-1" style="color:#059669;">{{ $gig->standard_price }} USD</span>
         </td>
         <td>
             <span class="badge bg-warning text-dark">{{ $gig->premium_name }}</span>
-            <span class="fw-bold ms-1" style="color:#059669;">{{ $gig->premium_price }}</span>
+            <span class="fw-bold ms-1" style="color:#059669;">{{ $gig->premium_price }} USD</span>
         </td>
         <td><span class="badge rounded-pill px-3 py-1" style="background:#f1f5f9; color:#475569; font-weight:500;">{{ $gig->sort_order }}</span></td>
         <td>

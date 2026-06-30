@@ -223,7 +223,7 @@
             <div class="pricing-card">
                 <span class="pricing-badge">{{ $gig->basic_name ?: 'Basic' }}</span>
                 <h3>{{ $gig->basic_name ?: 'Basic' }}</h3>
-                <div class="pricing-price">{{ $gig->basic_price }}</div>
+                <div class="pricing-price">{{ $gig->basic_price }} USD</div>
                 @if($gig->basic_features)
                     <ul class="pricing-features">
                         @foreach(explode("\n", $gig->basic_features) as $feature)
@@ -242,7 +242,7 @@
             <div class="pricing-card featured">
                 <span class="pricing-badge">{{ $gig->standard_name ?: 'Standard' }}</span>
                 <h3>{{ $gig->standard_name ?: 'Standard' }}</h3>
-                <div class="pricing-price">{{ $gig->standard_price }}</div>
+                <div class="pricing-price">{{ $gig->standard_price }} USD</div>
                 @if($gig->standard_features)
                     <ul class="pricing-features">
                         @foreach(explode("\n", $gig->standard_features) as $feature)
@@ -261,7 +261,7 @@
             <div class="pricing-card">
                 <span class="pricing-badge">{{ $gig->premium_name ?: 'Premium' }}</span>
                 <h3>{{ $gig->premium_name ?: 'Premium' }}</h3>
-                <div class="pricing-price">{{ $gig->premium_price }}</div>
+                <div class="pricing-price">{{ $gig->premium_price }} USD</div>
                 @if($gig->premium_features)
                     <ul class="pricing-features">
                         @foreach(explode("\n", $gig->premium_features) as $feature)

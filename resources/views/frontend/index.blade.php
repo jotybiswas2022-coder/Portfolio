@@ -2787,7 +2787,7 @@
                                 <p>{{ $gig->short_description }}</p>
                             @endif
                             <span class="gig-price-badge">
-                                {{ $gig->basic_price }}
+                                {{ $gig->basic_price }} USD
                             </span>
                         </div>
                     </a>

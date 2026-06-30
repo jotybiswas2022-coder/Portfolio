@@ -81,7 +81,7 @@
                         <small class="text-muted text-uppercase" style="font-size:0.7rem; letter-spacing:0.5px;">Package</small>
                         <div class="d-flex align-items-center gap-3">
                             <span class="fw-bold" style="color:#6366f1;">{{ $conversation->package_name }}</span>
-                            <span class="fw-semibold">{{ $conversation->package_price }}</span>
+                            <span class="fw-semibold">{{ $conversation->package_price }} USD</span>
                             @if($conversation->gig)
                                 <a href="{{ route('admin.gigs.edit', $conversation->gig->id) }}" class="text-decoration-none small" style="color:#6366f1;">
                                     <i class="bi bi-box-arrow-up-right"></i> View Gig

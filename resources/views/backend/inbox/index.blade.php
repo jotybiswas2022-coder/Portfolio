@@ -54,7 +54,7 @@
                                     <td>
                                         @if($conv->package_name)
                                             <span class="badge" style="background:rgba(99,102,241,0.12); color:#6366f1; font-size:0.78rem; font-weight:500;">
-                                                {{ $conv->package_name }} - {{ $conv->package_price }}
+                                                {{ $conv->package_name }} - {{ $conv->package_price }} USD
                                             </span>
                                         @else
                                             <span style="color:#94a3b8; font-size:0.85rem;">—</span>
