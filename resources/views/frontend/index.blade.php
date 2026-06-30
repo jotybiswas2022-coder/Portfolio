@@ -1469,7 +1469,7 @@
     .project-card .card-image { height: 210px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .project-card .card-image .project-icon { font-size: 4rem; opacity: 0.5; transition: var(--transition); }
     .project-card:hover .card-image .project-icon { transform: scale(1.3); opacity: 1; }
-    .project-card .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .project-card .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
     .project-card:hover .card-image img { transform: scale(1.08); }
     .project-card .card-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: linear-gradient(transparent, rgba(30, 41, 59, 0.95)); }
     html.light-theme .project-card .card-image::after { background: linear-gradient(transparent, rgba(255, 255, 255, 0.95)) !important; }
@@ -1500,7 +1500,7 @@
         overflow: hidden;
         transition: var(--transition);
     }
-    html.light-theme .gig-card { background: rgba(255, 255, 255, 0.92); }
+    html.light-theme .gig-card { background: rgba(255, 255, 255, 0.85); }
     .gig-card:hover {
         border-color: var(--border-hover);
         box-shadow: var(--shadow-md);
@@ -1516,7 +1516,7 @@
     }
     .gig-image .gig-icon { font-size: 4rem; opacity: 0.5; transition: var(--transition); }
     .gig-card:hover .gig-image .gig-icon { transform: scale(1.3); opacity: 1; }
-    .gig-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gig-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
     .gig-card:hover .gig-image img { transform: scale(1.08); }
     .gig-image::after {
         content: '';
@@ -1525,10 +1525,10 @@
         height: 70px;
         background: linear-gradient(transparent, rgba(30, 41, 59, 0.95));
     }
-    html.light-theme .gig-image::after { background: linear-gradient(transparent, rgba(255, 255, 255, 0.95)) !important; }
-    .gig-body { padding: 1.5rem; }
-    .gig-body h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-primary); }
-    .gig-body p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.8rem; }
+    html.light-theme .gig-image::after { background: linear-gradient(transparent, rgba(248, 250, 252, 0.9)) !important; }
+    .gig-body { padding: 1.5rem 1.5rem 1.8rem; position: relative; z-index: 2; }
+    .gig-body h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); }
+    .gig-body p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
     .gig-price-badge {
         display: inline-block;
         padding: 0.3rem 1rem;
@@ -2478,12 +2478,13 @@
         .project-card .card-body p { font-size: 0.85rem; }
         .project-card .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
         .project-card .card-link { font-size: 0.82rem; }
-        .gigs-grid { gap: 1.2rem; }
-        .gig-card { width: 100%; min-width: 0; }
-        .gig-image { height: 160px; }
-        .gig-body { padding: 1.2rem; }
-        .gig-body h3 { font-size: 1rem; }
-        .gig-body p { font-size: 0.85rem; }
+        .gigs-grid { gap: 1rem; }
+        .gig-card { width: 100%; min-width: 0; max-width: 420px; margin: 0 auto; }
+        .gig-image { height: 140px; }
+        .gig-body { padding: 1.1rem; }
+        .gig-body h3 { font-size: 1.1rem; }
+        .gig-body p { font-size: 0.82rem; margin-bottom: 0.7rem; }
+        .gig-price-badge { font-size: 0.78rem; padding: 0.2rem 0.8rem; }
         .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
         .filter-tabs::-webkit-scrollbar { height: 2px; }
         .filter-tabs::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
@@ -2656,19 +2657,19 @@
                     <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
                     <p>{{ __('messages.about_desc_2') }}</p>
                     <div class="about-stats">
-                        <div class="stat-item" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                        <div class="stat-item">
                             <div class="stat-glow"></div>
                             <div class="stat-icon"><i class="bi bi-folder2-open"></i></div>
                             <div class="number" data-count="50">0</div>
                             <div class="label">{{ __('messages.stat_projects') }}</div>
                         </div>
-                        <div class="stat-item" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                        <div class="stat-item">
                             <div class="stat-glow"></div>
                             <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
                             <div class="number" data-count="30">0</div>
                             <div class="label">{{ __('messages.stat_clients') }}</div>
                         </div>
-                        <div class="stat-item" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                        <div class="stat-item">
                             <div class="stat-glow"></div>
                             <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
                             <div class="number" data-count="5">0</div>
@@ -2779,7 +2780,7 @@
                         ];
                         $icons = ['bi bi-star-fill', 'bi bi-rocket-takeoff-fill', 'bi bi-lightning-fill', 'bi bi-diamond-fill'];
                     @endphp
-                    <a href="{{ route('gig.detail', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                    <a href="{{ route('gig.detail', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}">
                         <div class="gig-image" style="background: {{ $gradients[$index % count($gradients)] }};">
                             @if($gig->image)
                                 <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
@@ -2814,7 +2815,7 @@
             </div>
             <div class="casestudy-grid">
                 @foreach($caseStudies as $cs)
-                    <div class="casestudy-card reveal" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                    <div class="casestudy-card reveal">
                         @if($cs->image)
                             <div class="casestudy-image">
                                 <img src="{{ config('app.storage_url') }}{{ $cs->image }}" alt="{{ $cs->title }}">
@@ -2893,7 +2894,7 @@
                             <div class="timeline-dot">
                                 <i class="bi bi-briefcase-fill"></i>
                             </div>
-                            <div class="timeline-card" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                            <div class="timeline-card">
                                 <div class="timeline-date">
                                     <i class="bi bi-calendar3 me-1"></i>{{ $exp->duration }}
                                 </div>
@@ -2940,7 +2941,7 @@
                     <div class="skills-grid">
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
-                                <div class="skill-circle" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                                <div class="skill-circle">
                                     <svg class="skill-circle-svg" viewBox="0 0 120 120">
                                         <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
                                         <circle class="skill-circle-progress" cx="60" cy="60" r="52"
@@ -2966,7 +2967,7 @@
                         @endforeach
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
-                                <div class="skill-circle" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                                <div class="skill-circle">
                                     <svg class="skill-circle-svg" viewBox="0 0 120 120">
                                         <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
                                         <circle class="skill-circle-progress" cx="60" cy="60" r="52"
@@ -3052,7 +3053,7 @@
                         ];
                         $delay = ($index % 4) + 1;
                     @endphp
-                    <div class="project-card reveal reveal-delay-{{ $delay }}" data-tech="{{ implode(' ', $techSlugs) }}" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                    <div class="project-card reveal reveal-delay-{{ $delay }}" data-tech="{{ implode(' ', $techSlugs) }}">
                         <div class="card-image" style="background: {{ $gradients[$index % count($gradients)] }};">
                             @if($project->image)
                                 <img src="{{ config('app.storage_url') }}{{ $project->image }}"
@@ -3107,7 +3108,7 @@
                 <div class="testimonial-carousel reveal">
                     <div class="testimonial-track" id="testimonialTrack">
                         @foreach($testimonials as $testimonial)
-                            <div class="testimonial-card" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                            <div class="testimonial-card">
                                 <div class="quote-icon"><i class="bi bi-quote"></i></div>
                                 <div class="testimonial-stars">
                                     @foreach($testimonial->stars as $filled)
@@ -3166,11 +3167,11 @@
             </div>
 
             <div class="contact-grid">
-                <div class="contact-info-card reveal reveal-delay-1" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                <div class="contact-info-card reveal reveal-delay-1">
                     <h3><i class="bi bi-chat-dots-fill me-2"></i>{{ __("messages.contact_heading") }}</h3>
                     <p>{{ __("messages.contact_desc") }}</p>
 
-                    <div class="contact-item" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                    <div class="contact-item">
                         <div class="icon-box"><i class="bi bi-envelope-fill"></i></div>
                         <div class="text">
                             <div class="label">{{ __("messages.email_label") }}</div>
@@ -3178,7 +3179,7 @@
                         </div>
                     </div>
 
-                    <div class="contact-item" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                    <div class="contact-item">
                         <div class="icon-box"><i class="bi bi-phone-fill"></i></div>
                         <div class="text">
                             <div class="label">{{ __("messages.phone_label") }}</div>
@@ -3186,7 +3187,7 @@
                         </div>
                     </div>
 
-                    <div class="contact-item" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                    <div class="contact-item">
                         <div class="icon-box"><i class="bi bi-geo-alt-fill"></i></div>
                         <div class="text">
                             <div class="label">{{ __("messages.location_label") }}</div>
@@ -3218,7 +3219,7 @@
                     @endif
                 </div>
 
-                <div class="contact-form reveal reveal-delay-2" style="filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
+                <div class="contact-form reveal reveal-delay-2">
                     <div class="form-header">
                         <h4><i class="bi bi-pencil-square me-2"></i>{{ __("messages.send_message") }}</h4>
                         <p>{{ __("messages.contact_desc") }}</p>
