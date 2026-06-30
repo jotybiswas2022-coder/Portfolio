@@ -50,8 +50,12 @@
         color: #94a3b8; margin-top: 0.4rem;
     }
     .bubble img {
-        max-width: 200px; max-height: 200px;
-        border-radius: 10px; margin-top: 0.3rem; display: block;
+        max-width: 260px; max-height: 260px;
+        width: auto; height: auto;
+        border-radius: 12px; margin-top: 0.4rem; display: block;
+        object-fit: cover;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border: 1px solid #e2e8f0;
     }
     .bubble .sender-label {
         font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.2rem;
