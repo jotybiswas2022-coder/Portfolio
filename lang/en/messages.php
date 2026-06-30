@@ -119,6 +119,19 @@ return [
     'back_to_gigs'     => 'Back to Gigs',
     'order_now'        => 'Order Now',
 
+    // Inbox
+    'inbox'                 => 'Inbox',
+    'no_conversations'      => 'No Conversations Yet',
+    'no_conversations_desc' => 'Order a gig to start a conversation with the admin.',
+    'browse_gigs'           => 'Browse Gigs',
+    'package_details'       => 'Package Details',
+    'no_messages_yet'       => 'No messages yet. Start the conversation!',
+    'type_message'          => 'Type your message...',
+    'send_image'            => 'Send Image',
+    'send'                  => 'Send',
+    'remove'                => 'Remove',
+    'conversation_closed'   => 'This conversation is closed.',
+
     // Misc
     'loading'          => 'Loading...',
     'current'          => 'Current',

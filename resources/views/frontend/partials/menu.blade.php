@@ -374,6 +374,7 @@
     <ul class="nav-links" id="navLinks">
         <li><a href="/" class="{{ request()->is('/') ? 'nav-active' : '' }}"><i class="bi bi-house-fill me-1"></i>{{ __('messages.home') }}</a></li>
         @auth
+            <li><a href="{{ route('inbox.index') }}" class="{{ request()->is('inbox*') ? 'nav-active' : '' }}"><i class="bi bi-chat-dots me-1"></i>{{ __('messages.inbox') }}</a></li>
             @if(auth()->user()->is_admin == 1)
                 <li><a href="/admin" class="nav-action-admin">{{ __('messages.admin') }}</a></li>
             @endif
@@ -434,6 +435,7 @@
 
         <ul class="drawer-nav">
             @auth
+                <li><a href="{{ route('inbox.index') }}" class="{{ request()->is('inbox*') ? 'active' : '' }}"><i class="bi bi-chat-dots"></i>{{ __('messages.inbox') }}</a></li>
                 @if(auth()->user()->is_admin == 1)
                     <li><a href="/admin" class="drawer-admin-btn"><i class="bi bi-speedometer2"></i>{{ __('messages.admin') }}</a></li>
                 @endif

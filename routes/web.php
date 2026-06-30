@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\InboxController;
 use Illuminate\Support\Facades\Session;
 
 // Language Switch Route
@@ -17,6 +18,13 @@ Route::get('/lang/{locale}', function ($locale) {
 Route::controller(SiteController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/gig/{id}', 'gigDetail')->name('gig.detail');
+});
+
+Route::prefix('/inbox')->name('inbox.')->controller(InboxController::class)->middleware('auth')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{id}', 'show')->name('show');
+    Route::post('/{id}/send', 'sendMessage')->name('send');
+    Route::post('/order/{gigId}/{package}', 'orderFromGig')->name('order');
 });
 
 Route::post('/contactus', [UserController::class, 'contactus']);

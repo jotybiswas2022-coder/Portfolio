@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\FaqController;
 use App\Http\Controllers\admin\CaseStudyController;
 use App\Http\Controllers\admin\GigController;
+use App\Http\Controllers\admin\InboxController;
 
 
 Route::prefix('/admin')->middleware('admin')->group(function () {
@@ -119,5 +120,12 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('destroy');
         Route::get('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
+    });
+
+    // Inbox
+    Route::prefix('/inbox')->name('admin.inbox.')->controller(InboxController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'show')->name('show');
+        Route::post('/{id}/send', 'sendMessage')->name('send');
     });
 });

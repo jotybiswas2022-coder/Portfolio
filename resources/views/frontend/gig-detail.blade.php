@@ -233,7 +233,10 @@
                         @endforeach
                     </ul>
                 @endif
-                <a href="#contact" class="btn-order">{{ __('messages.order_now') }} <i class="bi bi-arrow-right"></i></a>
+                <form action="{{ route('inbox.order', [$gig->id, 'basic']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-order" style="border:none; cursor:pointer;">{{ __('messages.order_now') }} <i class="bi bi-arrow-right"></i></button>
+                </form>
             </div>
 
             <div class="pricing-card featured">
@@ -249,7 +252,10 @@
                         @endforeach
                     </ul>
                 @endif
-                <a href="#contact" class="btn-order">{{ __('messages.order_now') }} <i class="bi bi-arrow-right"></i></a>
+                <form action="{{ route('inbox.order', [$gig->id, 'standard']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-order" style="border:none; cursor:pointer;">{{ __('messages.order_now') }} <i class="bi bi-arrow-right"></i></button>
+                </form>
             </div>
 
             <div class="pricing-card">
@@ -265,7 +271,10 @@
                         @endforeach
                     </ul>
                 @endif
-                <a href="#contact" class="btn-order">{{ __('messages.order_now') }} <i class="bi bi-arrow-right"></i></a>
+                <form action="{{ route('inbox.order', [$gig->id, 'premium']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-order" style="border:none; cursor:pointer;">{{ __('messages.order_now') }} <i class="bi bi-arrow-right"></i></button>
+                </form>
             </div>
         </div>
 

@@ -118,6 +118,19 @@ return [
     'back_to_gigs'     => 'গিগে ফিরে যান',
     'order_now'        => 'অর্ডার করুন',
 
+    // Inbox
+    'inbox'                 => 'ইনবক্স',
+    'no_conversations'      => 'কোনো কথোপকথন নেই',
+    'no_conversations_desc' => 'এডমিনের সাথে কথা বলতে একটি গিগ অর্ডার করুন।',
+    'browse_gigs'           => 'গিগ ব্রাউজ করুন',
+    'package_details'       => 'প্যাকেজের বিবরণ',
+    'no_messages_yet'       => 'কোনো বার্তা নেই। কথোপকথন শুরু করুন!',
+    'type_message'          => 'আপনার বার্তা লিখুন...',
+    'send_image'            => 'ছবি পাঠান',
+    'send'                  => 'পাঠান',
+    'remove'                => 'মুছুন',
+    'conversation_closed'   => 'এই কথোপকথন বন্ধ করা হয়েছে।',
+
     // Misc
     'loading'          => 'লোড হচ্ছে...',
     'current'          => 'বর্তমান',
