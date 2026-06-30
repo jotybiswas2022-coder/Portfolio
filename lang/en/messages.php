@@ -131,6 +131,14 @@ return [
     'send'                  => 'Send',
     'remove'                => 'Remove',
     'conversation_closed'   => 'This conversation is closed.',
+    'search_conversations' => 'Search conversations...',
+    'message'              => 'message',
+    'messages'             => 'messages',
+    'conversation'         => 'conversation',
+    'conversations_count'  => 'conversations',
+    'back_to_inbox'        => 'Back to inbox',
+    'no_results_found'     => 'No conversations match your search',
+    'clear'                => 'Clear',
 
     // Misc
     'loading'          => 'Loading...',

@@ -2,6 +2,26 @@
 
 @section('content')
 <style>
+    /* ===== CSS VARIABLES (self-contained for dark/light theme) ===== */
+    :root {
+        --bg-primary: #0a0f1e;
+        --bg-secondary: #0f172a;
+        --bg-card: rgba(17, 28, 46, 0.8);
+        --accent: #3b82f6;
+        --accent-light: #60a5fa;
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --border-color: rgba(59, 130, 246, 0.12);
+        --border-hover: rgba(59, 130, 246, 0.3);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        --radius-xl: 24px;
+        --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===== CHAT PAGE — MODERN GLASS DESIGN ===== */
     .chat-page {
         padding-top: 100px;
         padding-bottom: 4rem;
@@ -14,44 +34,143 @@
     html.light-theme body { background: #f8fafc; }
 
     .chat-container {
-        max-width: 800px;
+        max-width: 820px;
         margin: 0 auto;
     }
 
+    /* ===== HEADER ===== */
     .chat-header {
         display: flex;
         align-items: center;
         gap: 1rem;
         margin-bottom: 1.5rem;
+        padding: 1rem 1.4rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.3s ease;
     }
-    .chat-header a {
-        color: var(--accent-light);
+    .chat-header:hover {
+        border-color: var(--border-hover);
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.05);
+    }
+    .chat-header .back-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
         text-decoration: none;
-        font-size: 1.2rem;
-        transition: var(--transition);
+        font-size: 1.1rem;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        flex-shrink: 0;
+        background: rgba(59, 130, 246, 0.06);
+        border: 1px solid var(--border-color);
     }
-    .chat-header a:hover { color: var(--accent); }
-    .chat-header h2 {
-        font-size: 1.3rem;
-        font-weight: 600;
+    .chat-header .back-btn:hover {
+        background: rgba(59, 130, 246, 0.12);
+        color: var(--accent-light);
+        transform: translateX(-3px);
+    }
+    .chat-header .header-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .chat-header .header-info h2 {
+        font-size: 1.15rem;
+        font-weight: 700;
         color: var(--text-primary);
         margin: 0;
-        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: -0.2px;
+    }
+    .chat-header .header-info .header-sub {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        margin-top: 0.1rem;
+    }
+    .chat-header .header-status {
+        flex-shrink: 0;
+    }
+    .header-status .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.9rem;
+        border-radius: 20px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+    .header-status .status-badge.open {
+        background: rgba(34, 197, 94, 0.1);
+        color: #22c55e;
+        border: 1px solid rgba(34, 197, 94, 0.15);
+        box-shadow: 0 0 12px rgba(34, 197, 94, 0.08);
+    }
+    .header-status .status-badge.closed {
+        background: rgba(248, 113, 113, 0.08);
+        color: #f87171;
+        border: 1px solid rgba(248, 113, 113, 0.12);
     }
 
+    /* ===== PACKAGE SUMMARY ===== */
     .package-summary {
         background: var(--bg-card);
         border: 1px solid var(--border-color);
         border-radius: var(--radius-lg);
         padding: 1.2rem 1.5rem;
         margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.3s ease;
     }
-    .package-summary h5 {
-        font-size: 0.85rem;
+    .package-summary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+        border-radius: 0 3px 3px 0;
+    }
+    .package-summary:hover {
+        border-color: var(--border-hover);
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.05);
+    }
+    .package-summary .pkg-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.4rem;
+    }
+    .package-summary .pkg-header h5 {
+        font-size: 0.72rem;
         color: var(--text-muted);
-        margin-bottom: 0.5rem;
+        margin: 0;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+    }
+    .package-summary .pkg-header .pkg-icon {
+        font-size: 0.8rem;
+        color: var(--accent-light);
+    }
+    .package-summary .pkg-body {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.5rem;
     }
     .package-summary .pkg-name {
         font-size: 1.1rem;
@@ -59,31 +178,86 @@
         color: var(--accent-light);
     }
     .package-summary .pkg-price {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 700;
         color: var(--text-primary);
     }
+    .package-summary .pkg-price span {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--text-muted);
+    }
+    .package-summary .pkg-details {
+        width: 100%;
+        margin-top: 0.5rem;
+        padding-top: 0.6rem;
+        border-top: 1px solid var(--border-color);
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        white-space: pre-line;
+        line-height: 1.6;
+    }
 
+    /* ===== MESSAGES BOX ===== */
     .messages-box {
         background: var(--bg-card);
         border: 1px solid var(--border-color);
         border-radius: var(--radius-lg);
         padding: 1.5rem;
         margin-bottom: 1rem;
-        max-height: 500px;
+        max-height: 520px;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.2rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        position: relative;
     }
     .messages-box::-webkit-scrollbar { width: 4px; }
     .messages-box::-webkit-scrollbar-track { background: transparent; }
-    .messages-box::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
+    .messages-box::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.25); border-radius: 2px; }
+    .messages-box::-webkit-scrollbar-thumb:hover { background: rgba(59,130,246,0.4); }
 
+    /* Date divider */
+    .msg-date-divider {
+        text-align: center;
+        margin: 0.5rem 0;
+        position: relative;
+    }
+    .msg-date-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--border-color);
+    }
+    .msg-date-divider span {
+        display: inline-block;
+        padding: 0.2rem 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ===== SINGLE MESSAGE ===== */
     .message {
         display: flex;
         gap: 0.75rem;
         max-width: 85%;
+        animation: msgFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    @keyframes msgFadeIn {
+        to { opacity: 1; transform: translateY(0); }
     }
     .message.incoming { align-self: flex-start; }
     .message.outgoing { align-self: flex-end; flex-direction: row-reverse; }
@@ -91,7 +265,8 @@
     .msg-avatar {
         width: 34px;
         height: 34px;
-        border-radius: 50%;
+        min-width: 34px;
+        border-radius: 12px;
         background: linear-gradient(135deg, #3b82f6, #8b5cf6);
         display: flex;
         align-items: center;
@@ -100,127 +275,210 @@
         font-weight: 700;
         color: #fff;
         flex-shrink: 0;
+        box-shadow: 0 2px 10px rgba(59, 130, 246, 0.15);
     }
     .message.outgoing .msg-avatar {
         background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
     }
 
     .msg-bubble {
-        padding: 0.7rem 1rem;
-        border-radius: 16px;
+        padding: 0.75rem 1.1rem;
+        border-radius: 18px;
         font-size: 0.92rem;
-        line-height: 1.5;
+        line-height: 1.55;
         word-break: break-word;
+        position: relative;
     }
     .message.incoming .msg-bubble {
-        background: rgba(59, 130, 246, 0.08);
-        border: 1px solid rgba(59, 130, 246, 0.12);
+        background: rgba(59, 130, 246, 0.06);
+        border: 1px solid rgba(59, 130, 246, 0.1);
         color: var(--text-primary);
         border-bottom-left-radius: 4px;
     }
     .message.outgoing .msg-bubble {
-        background: rgba(59, 130, 246, 0.15);
-        border: 1px solid rgba(59, 130, 246, 0.2);
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.1));
+        border: 1px solid rgba(59, 130, 246, 0.18);
         color: var(--text-primary);
         border-bottom-right-radius: 4px;
     }
-    .msg-bubble .msg-time {
-        display: block;
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        margin-top: 0.4rem;
+    html.light-theme .message.outgoing .msg-bubble {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.06));
     }
-    .msg-bubble img {
+    .msg-bubble .sender-label {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: var(--accent-light);
+        margin-bottom: 0.25rem;
+        display: block;
+    }
+    .msg-bubble .msg-text {
+        display: block;
+    }
+    .msg-bubble .msg-text img {
         max-width: 200px;
         max-height: 200px;
-        border-radius: 10px;
+        border-radius: 12px;
         margin-top: 0.3rem;
         display: block;
+        border: 1px solid var(--border-color);
     }
-    .msg-bubble .msg-label {
-        font-size: 0.7rem;
+    .msg-bubble .msg-time {
+        display: block;
+        font-size: 0.65rem;
         color: var(--text-muted);
-        margin-bottom: 0.2rem;
+        margin-top: 0.5rem;
+        opacity: 0.7;
     }
 
+    /* ===== EMPTY MESSAGES ===== */
+    .messages-empty {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--text-muted);
+    }
+    .messages-empty i {
+        font-size: 2.5rem;
+        display: block;
+        margin-bottom: 0.75rem;
+        opacity: 0.5;
+    }
+    .messages-empty p {
+        font-size: 0.9rem;
+    }
+
+    /* ===== CHAT FORM ===== */
     .chat-form {
         background: var(--bg-card);
         border: 1px solid var(--border-color);
         border-radius: var(--radius-lg);
-        padding: 1rem;
+        padding: 1.2rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.3s ease;
     }
-    .chat-form .input-group {
+    .chat-form:focus-within {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.05);
+    }
+
+    /* Emoji picker */
+    .emoji-picker {
+        display: none;
+        padding: 0.6rem 0.5rem 0.5rem;
+        gap: 0.25rem;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 0.75rem;
+    }
+    .emoji-picker.open { display: flex; }
+    .emoji-picker button {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        padding: 3px 5px;
+        border-radius: 6px;
+        transition: background 0.2s, transform 0.2s;
+        line-height: 1;
+    }
+    .emoji-picker button:hover {
+        background: rgba(59, 130, 246, 0.1);
+        transform: scale(1.2);
+    }
+
+    /* Image preview */
+    #imagePreview {
+        display: none;
+        padding: 0.6rem 0;
+        border-top: 1px solid var(--border-color);
+        margin-top: 0.5rem;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    #imagePreview img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        object-fit: cover;
+    }
+    #imagePreview .remove-image {
+        color: #f87171;
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-weight: 500;
+        transition: color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    #imagePreview .remove-image:hover { color: #ef4444; }
+
+    /* ===== INPUT GROUP ===== */
+    .input-group {
         display: flex;
         gap: 0.5rem;
         align-items: flex-end;
     }
-    .chat-form textarea {
+    .input-group textarea {
         flex: 1;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
+        background: rgba(255,255,255,0.03);
+        border: 1.5px solid var(--border-color);
+        border-radius: 14px;
         color: var(--text-primary);
-        padding: 0.7rem 1rem;
+        padding: 0.75rem 1rem;
         font-size: 0.9rem;
+        font-family: 'Inter', sans-serif;
         resize: none;
-        min-height: 44px;
-        max-height: 120px;
+        min-height: 46px;
+        max-height: 130px;
         outline: none;
-        transition: var(--transition);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        line-height: 1.5;
     }
-    html.light-theme .chat-form textarea { background: rgba(0,0,0,0.02); }
-    .chat-form textarea:focus { border-color: #3b82f6; }
+    html.light-theme .input-group textarea { background: rgba(0,0,0,0.02); }
+    .input-group textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.06);
+    }
 
-    .chat-form .emoji-btn {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        background: rgba(255,255,255,0.04);
+    .input-group .action-btn {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        border: 1.5px solid var(--border-color);
+        background: rgba(255,255,255,0.03);
         color: var(--text-secondary);
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: var(--transition);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         padding: 0;
-    }
-    .chat-form .emoji-btn:hover {
-        border-color: var(--border-hover);
-        color: var(--accent-light);
-    }
-    .chat-form .image-btn {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        background: rgba(255,255,255,0.04);
-        color: var(--text-secondary);
-        font-size: 1.1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: var(--transition);
+        flex-shrink: 0;
         position: relative;
         overflow: hidden;
     }
-    .chat-form .image-btn:hover {
+    .input-group .action-btn:hover {
         border-color: var(--border-hover);
         color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.06);
+        transform: translateY(-2px);
     }
-    .chat-form .image-btn input[type="file"] {
+    .input-group .action-btn.image-btn input[type="file"] {
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
         opacity: 0;
         cursor: pointer;
     }
-    .chat-form .send-btn {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
+
+    .input-group .send-btn {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
         border: none;
         background: linear-gradient(135deg, #3b82f6, #2563eb);
         color: #fff;
@@ -229,86 +487,100 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: var(--transition);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+        flex-shrink: 0;
+        padding: 0;
     }
-    .chat-form .send-btn:hover {
-        transform: translateY(-2px);
+    .input-group .send-btn:hover {
+        transform: translateY(-3px) scale(1.05);
         box-shadow: 0 8px 25px rgba(59,130,246,0.4);
     }
+    .input-group .send-btn:active {
+        transform: translateY(-1px) scale(0.98);
+    }
 
-    .emoji-picker {
-        display: none;
-        padding: 0.5rem;
-        gap: 0.3rem;
-        flex-wrap: wrap;
-        border-top: 1px solid var(--border-color);
-        margin-top: 0.5rem;
-    }
-    .emoji-picker.open { display: flex; }
-    .emoji-picker button {
-        background: none;
-        border: none;
-        font-size: 1.4rem;
-        cursor: pointer;
-        padding: 2px 4px;
-        border-radius: 4px;
-        transition: background 0.2s;
-        line-height: 1;
-    }
-    .emoji-picker button:hover { background: rgba(59,130,246,0.1); }
-
-    #imagePreview {
-        display: none;
-        padding: 0.5rem 0;
-        border-top: 1px solid var(--border-color);
-        margin-top: 0.5rem;
-    }
-    #imagePreview img {
-        max-width: 120px;
-        max-height: 120px;
-        border-radius: 8px;
+    /* Closed conversation */
+    .conversation-closed {
+        text-align: center;
+        padding: 1.2rem;
+        color: var(--text-muted);
+        background: var(--bg-card);
         border: 1px solid var(--border-color);
-    }
-    #imagePreview .remove-image {
-        display: inline-block;
-        margin-left: 0.5rem;
-        color: #f87171;
-        cursor: pointer;
-        font-size: 0.85rem;
-        vertical-align: top;
+        border-radius: var(--radius-lg);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
     }
 
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+        .chat-page { padding-top: 85px; }
+        .messages-box { max-height: 420px; padding: 1.2rem; }
+        .message { max-width: 92%; }
+        .chat-header { padding: 0.85rem 1.1rem; }
+        .chat-header .header-info h2 { font-size: 1rem; }
+        .package-summary { padding: 1rem 1.2rem; }
+        .chat-form { padding: 1rem; }
+    }
     @media (max-width: 480px) {
-        .chat-page { padding-top: 80px; }
-        .messages-box { max-height: 400px; padding: 1rem; }
+        .chat-page { padding-top: 75px; }
+        .messages-box { max-height: 360px; padding: 1rem; gap: 1rem; }
         .message { max-width: 95%; }
+        .msg-avatar { width: 28px; height: 28px; min-width: 28px; font-size: 0.7rem; border-radius: 10px; }
+        .msg-bubble { padding: 0.6rem 0.9rem; font-size: 0.85rem; border-radius: 14px; }
+        .chat-header { padding: 0.75rem 0.9rem; gap: 0.65rem; }
+        .chat-header .back-btn { width: 32px; height: 32px; font-size: 0.9rem; }
+        .chat-header .header-info h2 { font-size: 0.9rem; }
+        .header-status .status-badge { font-size: 0.65rem; padding: 0.25rem 0.65rem; }
+        .package-summary { padding: 0.8rem 1rem; }
+        .package-summary .pkg-name { font-size: 0.95rem; }
+        .chat-form { padding: 0.8rem; }
+        .input-group textarea { padding: 0.6rem 0.8rem; font-size: 0.85rem; min-height: 40px; }
+        .input-group .action-btn, .input-group .send-btn { width: 40px; height: 40px; font-size: 1rem; }
     }
 </style>
 
 <div class="chat-page">
     <div class="container">
         <div class="chat-container">
+            {{-- Header --}}
             <div class="chat-header">
-                <a href="{{ route('inbox.index') }}"><i class="bi bi-arrow-left"></i></a>
-                <h2>{{ $conversation->subject }}</h2>
-                <span class="conv-status {{ $conversation->status }}" style="font-size:0.75rem; padding:0.2rem 0.6rem; border-radius:10px; font-weight:600;
-                    {{ $conversation->status == 'open' ? 'background:rgba(34,197,94,0.12); color:#22c55e;' : 'background:rgba(248,113,113,0.12); color:#f87171;' }}">
-                    {{ ucfirst($conversation->status) }}
-                </span>
+                <a href="{{ route('inbox.index') }}" class="back-btn" title="{{ __('messages.back_to_inbox') }}">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+                <div class="header-info">
+                    <h2>{{ $conversation->subject }}</h2>
+                    <div class="header-sub">{{ $conversation->messages->count() }} {{ $conversation->messages->count() === 1 ? __('messages.message') : __('messages.messages') }}</div>
+                </div>
+                <div class="header-status">
+                    <span class="status-badge {{ $conversation->status }}">
+                        <i class="bi bi-{{ $conversation->status == 'open' ? 'unlock' : 'lock' }}-fill"></i>
+                        {{ ucfirst($conversation->status) }}
+                    </span>
+                </div>
             </div>
 
+            {{-- Package Summary --}}
             @if($conversation->package_name)
             <div class="package-summary">
-                <h5>{{ __('messages.package_details') }}</h5>
-                <span class="pkg-name">{{ $conversation->package_name }}</span>
-                                <span class="pkg-price ms-3">{{ $conversation->package_price }} USD</span>
-                @if($conversation->package_details)
-                    <div style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-secondary); white-space:pre-line;">{{ $conversation->package_details }}</div>
-                @endif
+                <div class="pkg-header">
+                    <i class="bi bi-box-seam pkg-icon"></i>
+                    <h5>{{ __('messages.package_details') }}</h5>
+                </div>
+                <div class="pkg-body">
+                    <span class="pkg-name">{{ $conversation->package_name }}</span>
+                    <span class="pkg-price">{{ number_format($conversation->package_price, 2) }} <span>USD</span></span>
+                    @if($conversation->package_details)
+                        <div class="pkg-details">{{ $conversation->package_details }}</div>
+                    @endif
+                </div>
             </div>
             @endif
 
+            {{-- Messages Box --}}
             <div class="messages-box" id="messagesBox">
                 @forelse($conversation->messages as $msg)
                     @php $isMine = $msg->sender_id == auth()->id(); @endphp
@@ -316,28 +588,31 @@
                         <div class="msg-avatar">{{ substr($msg->sender->name, 0, 1) }}</div>
                         <div class="msg-bubble">
                             @if($msg->sender->is_admin)
-                                <div class="msg-label">Admin</div>
+                                <span class="sender-label"><i class="bi bi-shield-check me-1"></i>Admin</span>
                             @endif
                             @if($msg->message)
-                                <span>{!! nl2br(e($msg->message)) !!}</span>
+                                <span class="msg-text">{!! nl2br(e($msg->message)) !!}</span>
                             @endif
                             @if($msg->image)
-                                <img src="{{ config('app.storage_url') }}{{ $msg->image }}" alt="Shared image">
+                                <img src="{{ config('app.storage_url') }}{{ $msg->image }}" alt="Shared image" class="msg-text">
                             @endif
-                            <span class="msg-time">{{ $msg->created_at->diffForHumans() }}</span>
+                            <span class="msg-time">{{ $msg->created_at->format('g:i A') }} · {{ $msg->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
                 @empty
-                    <div style="text-align:center; color:var(--text-muted); padding:2rem;">
-                        <i class="bi bi-chat-dots" style="font-size:2rem; display:block; margin-bottom:0.5rem;"></i>
-                        {{ __('messages.no_messages_yet') }}
+                    <div class="messages-empty">
+                        <i class="bi bi-chat-dots"></i>
+                        <p>{{ __('messages.no_messages_yet') }}</p>
                     </div>
                 @endforelse
             </div>
 
+            {{-- Chat Form --}}
             @if($conversation->status == 'open')
             <form method="POST" action="{{ route('inbox.send', $conversation->id) }}" enctype="multipart/form-data" class="chat-form">
                 @csrf
+
+                {{-- Emoji Picker --}}
                 <div class="emoji-picker" id="emojiPicker">
                     <button type="button" onclick="insertEmoji('😊')">😊</button>
                     <button type="button" onclick="insertEmoji('👍')">👍</button>
@@ -355,25 +630,37 @@
                     <button type="button" onclick="insertEmoji('😎')">😎</button>
                     <button type="button" onclick="insertEmoji('💰')">💰</button>
                 </div>
+
+                {{-- Image Preview --}}
                 <div id="imagePreview">
                     <img id="previewImg" src="" alt="Preview">
-                    <span class="remove-image" onclick="clearImageInput()">✕ {{ __('messages.remove') }}</span>
+                    <span class="remove-image" onclick="clearImageInput()">
+                        <i class="bi bi-x-circle"></i> {{ __('messages.remove') }}
+                    </span>
                 </div>
+
+                {{-- Input Row --}}
                 <div class="input-group">
-                    <textarea name="message" id="messageInput" rows="1" placeholder="{{ __('messages.type_message') }}"></textarea>
-                    <button type="button" class="emoji-btn" onclick="toggleEmojiPicker()" title="Emoji"><i class="bi bi-emoji-smile"></i></button>
-                    <label class="image-btn" title="{{ __('messages.send_image') }}">
+                    <textarea name="message" id="messageInput" rows="1" placeholder="{{ __('messages.type_message') }}" autocomplete="off"></textarea>
+                    <button type="button" class="action-btn" onclick="toggleEmojiPicker()" title="Emoji">
+                        <i class="bi bi-emoji-smile"></i>
+                    </button>
+                    <label class="action-btn image-btn" title="{{ __('messages.send_image') }}">
                         <i class="bi bi-image"></i>
                         <input type="file" name="image" accept="image/*" onchange="previewSelectedImage(event)">
                     </label>
-                    <button type="submit" class="send-btn" title="{{ __('messages.send') }}"><i class="bi bi-send-fill"></i></button>
+                    <button type="submit" class="send-btn" title="{{ __('messages.send') }}">
+                        <i class="bi bi-send-fill"></i>
+                    </button>
                 </div>
-                @error('message')<div style="color:#f87171; font-size:0.8rem; margin-top:0.3rem;">{{ $message }}</div>@enderror
-                @error('image')<div style="color:#f87171; font-size:0.8rem; margin-top:0.3rem;">{{ $message }}</div>@enderror
+
+                @error('message')<div style="color:#f87171; font-size:0.8rem; margin-top:0.4rem;">{{ $message }}</div>@enderror
+                @error('image')<div style="color:#f87171; font-size:0.8rem; margin-top:0.4rem;">{{ $message }}</div>@enderror
             </form>
             @else
-                <div style="text-align:center; padding:1rem; color:var(--text-muted); background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg);">
-                    <i class="bi bi-lock-fill me-1"></i> {{ __('messages.conversation_closed') }}
+                <div class="conversation-closed">
+                    <i class="bi bi-lock-fill"></i>
+                    {{ __('messages.conversation_closed') }}
                 </div>
             @endif
 
@@ -400,7 +687,7 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('previewImg').src = e.target.result;
-                document.getElementById('imagePreview').style.display = 'block';
+                document.getElementById('imagePreview').style.display = 'flex';
             };
             reader.readAsDataURL(file);
         }
@@ -412,12 +699,18 @@
     }
     function autoResize(textarea) {
         textarea.style.height = 'auto';
-        textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        textarea.style.height = Math.min(textarea.scrollHeight, 130) + 'px';
     }
     document.addEventListener('DOMContentLoaded', function() {
         const textarea = document.getElementById('messageInput');
         if (textarea) {
             textarea.addEventListener('input', function() { autoResize(this); });
+            textarea.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.closest('form').submit();
+                }
+            });
         }
         const box = document.getElementById('messagesBox');
         if (box) box.scrollTop = box.scrollHeight;

@@ -130,6 +130,14 @@ return [
     'send'                  => 'পাঠান',
     'remove'                => 'মুছুন',
     'conversation_closed'   => 'এই কথোপকথন বন্ধ করা হয়েছে।',
+    'search_conversations' => 'কথোপকথন খুঁজুন...',
+    'message'              => 'বার্তা',
+    'messages'             => 'বার্তা',
+    'conversation'         => 'কথোপকথন',
+    'conversations_count'  => 'টি কথোপকথন',
+    'back_to_inbox'        => 'ইনবক্সে ফিরুন',
+    'no_results_found'     => 'আপনার খোঁজে কোনো কথোপকথন পাওয়া যায়নি',
+    'clear'                => 'মুছুন',
 
     // Misc
     'loading'          => 'লোড হচ্ছে...',
