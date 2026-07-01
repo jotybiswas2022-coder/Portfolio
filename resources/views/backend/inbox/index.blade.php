@@ -1,7 +1,25 @@
 @extends('backend.app')
 
 @section('content')
-<div class="container-fluid py-3">
+<style>
+@media (max-width: 767.98px) {
+    .inbox-page h4 { font-size: 0.9rem; }
+    .inbox-page p.text-muted { font-size: 0.75rem; }
+    .inbox-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
+    .inbox-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
+    .inbox-page .table tbody td .fw-semibold { font-size: 0.78rem !important; }
+    .inbox-page .table tbody td [style*="font-size:0.75rem"] { font-size: 0.65rem !important; }
+    .inbox-page .table tbody td [style*="font-size:0.9rem"] { font-size: 0.78rem !important; }
+    .inbox-page .table tbody td [style*="font-size:0.78rem"] { font-size: 0.68rem !important; }
+    .inbox-page .table tbody td [style*="font-size:0.82rem"] { font-size: 0.7rem !important; }
+    .inbox-page .badge { font-size: 0.65rem !important; padding: 0.2rem 0.4rem !important; }
+    .inbox-page .btn { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+    .inbox-page .card-body { padding: 0 !important; }
+    .inbox-page [style*="width:36px"] { width: 28px !important; height: 28px !important; font-size: 0.7rem !important; }
+}
+</style>
+
+<div class="container-fluid py-3 inbox-page">
     <div class="d-flex align-items-center justify-content-between mb-4">
         <div>
             <h4 class="fw-bold mb-1"><i class="bi bi-chat-dots me-2" style="color:#6366f1;"></i>Inbox</h4>

@@ -2,6 +2,24 @@
 
 @section('content')
 <style>
+@media (max-width: 767.98px) {
+    .inbox-show-page h4 { font-size: 0.9rem; }
+    .inbox-show-page p.text-muted { font-size: 0.75rem; }
+    .inbox-show-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
+    .inbox-show-page .card-header { padding: 0.6rem 0.8rem !important; }
+    .inbox-show-page .card-body { padding: 0.6rem !important; }
+    .inbox-show-page .chat-messages { padding: 0.5rem; gap: 0.5rem; max-height: 350px; }
+    .inbox-show-page .msg { max-width: 95%; }
+    .inbox-show-page .msg-avatar { width: 26px !important; height: 26px !important; font-size: 0.65rem !important; }
+    .inbox-show-page .msg-bubble { padding: 0.4rem 0.7rem !important; font-size: 0.78rem; }
+    .inbox-show-page .msg-bubble small { font-size: 0.62rem !important; }
+    .inbox-show-page .msg-bubble .text-muted { font-size: 0.62rem !important; }
+    .inbox-show-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.6rem; }
+    .inbox-show-page .form-text { font-size: 0.7rem; }
+    .inbox-show-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+    .inbox-show-page .fw-semibold[style*="font-size"] { font-size: 0.82rem !important; }
+    .inbox-show-page .text-muted[style*="font-size"] { font-size: 0.68rem !important; }
+}
     .chat-messages {
         max-height: 500px;
         overflow-y: auto;
@@ -62,7 +80,7 @@
     }
 </style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 inbox-show-page">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
             <div class="d-flex align-items-center gap-2 mb-3">
