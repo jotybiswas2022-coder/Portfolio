@@ -57,7 +57,7 @@
 
 <style>
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: #0f172a;
     margin:0;
     padding:0;

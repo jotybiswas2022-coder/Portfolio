@@ -108,7 +108,7 @@
         border-radius: 16px;
         color: var(--text-primary);
         font-size: 0.9rem;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Poppins', sans-serif;
         outline: none;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         backdrop-filter: blur(12px);

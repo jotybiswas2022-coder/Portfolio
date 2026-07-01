@@ -73,7 +73,7 @@
 <style>
 /* Body */
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: #0f172a;
     margin: 0;
     overflow-x: hidden;

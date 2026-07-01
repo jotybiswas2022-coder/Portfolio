@@ -444,7 +444,7 @@
         color: var(--text-primary);
         padding: 0.75rem 1rem;
         font-size: 0.9rem;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Poppins', sans-serif;
         resize: none;
         min-height: 46px;
         max-height: 130px;

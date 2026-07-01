@@ -185,7 +185,7 @@
     padding: 24px 16px;
     overflow: hidden;
     background: var(--login-primary);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
 }
 
 /* ==========================================
@@ -430,7 +430,7 @@
     border-radius: var(--login-radius-sm);
     color: var(--login-text);
     font-size: 15px;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
     transition: all 0.25s ease;
     height: 56px;
     outline: none;
@@ -697,7 +697,7 @@
     color: #fff;
     font-size: 15px;
     font-weight: 600;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
     cursor: pointer;
     transition: all 0.25s ease;
     position: relative;

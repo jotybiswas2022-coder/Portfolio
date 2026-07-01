@@ -27,7 +27,7 @@
         --radius-lg: 20px;
         --radius-xl: 24px;
         --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        --font: 'Inter', sans-serif;
+        --font: 'Poppins', sans-serif;
     }
 
     /* Light Theme — full override with higher specificity than :root */
