@@ -1,6 +1,22 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .account-edit-page h4 { font-size: 0.9rem; }
+    .account-edit-page h6 { font-size: 0.82rem; }
+    .account-edit-page p.text-muted { font-size: 0.75rem; }
+    .account-edit-page .form-label { font-size: 0.75rem; }
+    .account-edit-page .form-control { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
+    .account-edit-page .form-text { font-size: 0.7rem; }
+    .account-edit-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+    .account-edit-page .card-body { padding: 0.8rem !important; }
+    .account-edit-page .card-header { padding: 0.6rem 0.8rem !important; }
+    .account-edit-page .rounded-circle[style*="110px"] { width: 70px !important; height: 70px !important; font-size: 1.5rem !important; }
+    .account-edit-page img[style*="110px"] { width: 70px !important; height: 70px !important; }
+    .account-edit-page .form-check-label { font-size: 0.72rem; }
+}
+</style>
 
 @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show alert-modern mx-3" role="alert">
@@ -10,7 +26,7 @@
     </div>
 @endif
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 account-edit-page">
     <div class="row justify-content-center">
         <div class="col-lg-9 col-md-11">
 
