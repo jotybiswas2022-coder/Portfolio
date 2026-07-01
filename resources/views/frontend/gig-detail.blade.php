@@ -361,6 +361,165 @@
         }
         .pricing-card.featured:hover { transform: translateY(-6px); }
     }
+    /* ===== SUGGESTED GIGS ===== */
+    .suggested-section {
+        margin-top: 4.5rem;
+        padding-top: 1rem;
+    }
+    .suggested-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+    .suggested-header h2 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin-bottom: 0.4rem;
+        letter-spacing: -0.5px;
+    }
+    .suggested-header p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin: 0;
+    }
+    .suggested-header .title-line {
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        margin: 0.8rem auto 0;
+        border-radius: 2px;
+    }
+    .suggested-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    .suggested-card {
+        width: calc(33.333% - 1rem);
+        min-width: 280px;
+        max-width: 360px;
+        flex-shrink: 0;
+        display: block;
+        text-decoration: none;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+    }
+    html.light-theme .suggested-card { background: rgba(255, 255, 255, 0.92); }
+    .suggested-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.45) 0%, rgba(99,102,241,0.18) 30%, transparent 60%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 1;
+        border-radius: inherit;
+    }
+    .suggested-card:hover::after { opacity: 1; }
+    .suggested-card:hover {
+        border-color: rgba(99,102,241,0.25);
+        box-shadow: 0 20px 60px rgba(99,102,241,0.08), 0 8px 20px rgba(0,0,0,0.12);
+        transform: translateY(-6px);
+    }
+    html.light-theme .suggested-card:hover {
+        box-shadow: 0 20px 60px rgba(99,102,241,0.1);
+    }
+    .suggested-card .sc-image {
+        height: 180px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-secondary);
+    }
+    .suggested-card .sc-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .suggested-card:hover .sc-image img { transform: scale(1.08); }
+    .suggested-card .sc-image .sc-fallback {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1a3e 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .suggested-card .sc-image .sc-fallback i {
+        font-size: 3.5rem;
+        opacity: 0.12;
+        color: var(--accent);
+    }
+    .suggested-card .sc-image::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 60px;
+        background: linear-gradient(transparent, rgba(10,15,30,0.95));
+        pointer-events: none;
+        z-index: 1;
+    }
+    html.light-theme .suggested-card .sc-image::after {
+        background: linear-gradient(transparent, rgba(248,250,252,0.9));
+    }
+    .suggested-card .sc-body {
+        padding: 1.25rem 1.5rem 1.5rem;
+        position: relative;
+        z-index: 2;
+    }
+    .suggested-card .sc-body h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+        color: var(--text-primary);
+        line-height: 1.3;
+    }
+    .suggested-card .sc-body p {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .suggested-card .sc-price {
+        display: inline-block;
+        padding: 0.3rem 1rem;
+        background: rgba(59, 130, 246, 0.12);
+        color: var(--accent-light);
+        border: 1px solid rgba(59, 130, 246, 0.25);
+        border-radius: 20px;
+        font-size: 0.82rem;
+        font-weight: 600;
+    }
+    .suggested-card .sc-body .sc-body-inner { position: relative; z-index: 2; }
+    @media (max-width: 968px) {
+        .suggested-grid { gap: 1.2rem; }
+        .suggested-card { min-width: 250px; }
+    }
+    @media (max-width: 768px) {
+        .suggested-section { margin-top: 3rem; }
+        .suggested-header h2 { font-size: 1.4rem; }
+        .suggested-card { width: 100%; max-width: 400px; }
+        .suggested-card .sc-image { height: 200px; }
+    }
+    @media (max-width: 480px) {
+        .suggested-section { margin-top: 2rem; }
+        .suggested-header { margin-bottom: 1.5rem; }
+        .suggested-header h2 { font-size: 1.2rem; }
+    }
+
     @media (max-width: 768px) {
         .gig-detail-page { padding-top: 70px; padding-bottom: 3rem; }
         .gd-container { padding: 0 1rem; }
@@ -504,12 +663,44 @@
                 </form>
             </div>
         </div>
+
+        @if($suggestedGigs->count() > 0)
+            <div class="suggested-section">
+                <div class="suggested-header">
+                    <h2>{{ __('messages.suggested_gigs') }}</h2>
+                    <p>{{ __('messages.choose_package') }}</p>
+                    <div class="title-line"></div>
+                </div>
+                <div class="suggested-grid">
+                    @foreach($suggestedGigs as $suggested)
+                        <a href="{{ route('gig.detail', $suggested->id) }}" class="suggested-card">
+                            <div class="sc-image">
+                                @if($suggested->image)
+                                    <img src="{{ config('app.storage_url') }}{{ $suggested->image }}" alt="{{ $suggested->title }}">
+                                @else
+                                    <div class="sc-fallback">
+                                        <i class="bi bi-image"></i>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="sc-body">
+                                <h3>{{ $suggested->title }}</h3>
+                                @if($suggested->short_description)
+                                    <p>{{ $suggested->short_description }}</p>
+                                @endif
+                                <span class="sc-price">{{ __('messages.starting_from') }} ${{ number_format(min($suggested->basic_price, $suggested->standard_price, $suggested->premium_price), 0) }}</span>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 
 <script>
 (function() {
-    var selectors = '.back-link, .gd-image-wrap, .gd-description-card, .pricing-card';
+    var selectors = '.back-link, .gd-image-wrap, .gd-description-card, .pricing-card, .suggested-card';
     document.querySelectorAll(selectors).forEach(function(el) {
         var rafId = null;
         el.addEventListener('mousemove', function(e) {

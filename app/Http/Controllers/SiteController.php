@@ -30,7 +30,8 @@ class SiteController extends Controller
 
     public function gigDetail($id){
         $gig = Gig::findOrFail($id);
-        return view('frontend.gig-detail', compact('gig'));
+        $suggestedGigs = Gig::active()->where('id', '!=', $id)->take(3)->get();
+        return view('frontend.gig-detail', compact('gig', 'suggestedGigs'));
     }
 
     public function caseStudyDetail($id){

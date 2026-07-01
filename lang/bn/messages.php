@@ -134,6 +134,8 @@ return [
     'premium_package'    => 'প্রিমিয়াম প্যাকেজ',
     'one_time'           => 'একবারিক',
     'service'            => 'সেবা',
+    'suggested_gigs'     => 'আপনি আরও পছন্দ করতে পারেন',
+    'starting_from'      => 'শুরু হচ্ছে',
 
     // Inbox
     'inbox'                 => 'ইনবক্স',

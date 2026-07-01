@@ -135,6 +135,8 @@ return [
     'premium_package'    => 'Premium Package',
     'one_time'           => 'One Time',
     'service'            => 'Service',
+    'suggested_gigs'     => 'You May Also Like',
+    'starting_from'      => 'Starting from',
 
     // Inbox
     'inbox'                 => 'Inbox',
