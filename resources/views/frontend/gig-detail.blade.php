@@ -405,13 +405,13 @@
                 </div>
             @endif
             <div class="hero-badge">
-                <i class="bi bi-star-fill"></i> {{ __('messages.premium_service') ?? 'Premium Service' }}
+                <i class="bi bi-star-fill"></i> {{ __('messages.premium_service') }}
             </div>
         </div>
 
         <div class="gd-hero-content">
             <div class="hero-meta">
-                <span class="hero-category"><i class="bi bi-gear-fill"></i> {{ __('messages.service') ?? 'Service' }}</span>
+                <span class="hero-category"><i class="bi bi-gear-fill"></i> {{ __('messages.service') }}</span>
             </div>
             <h1>{{ $gig->title }}</h1>
             @if($gig->short_description)
@@ -424,7 +424,7 @@
                 <div class="gd-description-card">
                     <div class="desc-accent"></div>
                     <div class="desc-label">
-                        <i class="bi bi-info-circle"></i> {{ __('messages.about_this_gig') ?? 'About This Gig' }}
+                        <i class="bi bi-info-circle"></i> {{ __('messages.about_this_gig') }}
                     </div>
                     <p class="desc-text">{{ $gig->description }}</p>
                 </div>
@@ -432,8 +432,8 @@
         @endif
 
         <div class="pricing-section-title">
-            <h2>{{ __('messages.pricing_plans') ?? 'Choose Your Plan' }}</h2>
-            <p>{{ __('messages.choose_package') ?? 'Select the perfect package for your project needs' }}</p>
+            <h2>{{ __('messages.pricing_plans') }}</h2>
+            <p>{{ __('messages.choose_package') }}</p>
             <div class="title-line"></div>
         </div>
 
@@ -442,9 +442,9 @@
                 <div class="pkg-accent"></div>
                 <div class="pkg-icon"><i class="bi bi-rocket-takeoff"></i></div>
                 <div class="pkg-name">{{ $gig->basic_name ?: 'Basic' }}</div>
-                <div class="pkg-subtitle">{{ __('messages.starter_package') ?? 'Starter Package' }}</div>
+                <div class="pkg-subtitle">{{ __('messages.starter_package') }}</div>
                 <div class="pkg-price"><span class="currency">$</span>{{ number_format($gig->basic_price, 0) }}</div>
-                <div class="pkg-duration">{{ __('messages.one_time') ?? 'One Time' }}</div>
+                <div class="pkg-duration">{{ __('messages.one_time') }}</div>
                 <div class="pkg-divider"></div>
                 @if($gig->basic_features)
                     <ul class="pricing-features">
@@ -462,13 +462,13 @@
             </div>
 
             <div class="pricing-card featured">
-                <div class="featured-tag">{{ __('messages.popular') ?? 'Popular' }}</div>
+                <div class="featured-tag">{{ __('messages.popular') }}</div>
                 <div class="pkg-accent"></div>
                 <div class="pkg-icon"><i class="bi bi-stars"></i></div>
                 <div class="pkg-name">{{ $gig->standard_name ?: 'Standard' }}</div>
-                <div class="pkg-subtitle">{{ __('messages.best_value') ?? 'Best Value' }}</div>
+                <div class="pkg-subtitle">{{ __('messages.best_value') }}</div>
                 <div class="pkg-price"><span class="currency">$</span>{{ number_format($gig->standard_price, 0) }}</div>
-                <div class="pkg-duration">{{ __('messages.one_time') ?? 'One Time' }}</div>
+                <div class="pkg-duration">{{ __('messages.one_time') }}</div>
                 <div class="pkg-divider"></div>
                 @if($gig->standard_features)
                     <ul class="pricing-features">
@@ -489,9 +489,9 @@
                 <div class="pkg-accent"></div>
                 <div class="pkg-icon"><i class="bi bi-gem"></i></div>
                 <div class="pkg-name">{{ $gig->premium_name ?: 'Premium' }}</div>
-                <div class="pkg-subtitle">{{ __('messages.premium_package') ?? 'Premium Package' }}</div>
+                <div class="pkg-subtitle">{{ __('messages.premium_package') }}</div>
                 <div class="pkg-price"><span class="currency">$</span>{{ number_format($gig->premium_price, 0) }}</div>
-                <div class="pkg-duration">{{ __('messages.one_time') ?? 'One Time' }}</div>
+                <div class="pkg-duration">{{ __('messages.one_time') }}</div>
                 <div class="pkg-divider"></div>
                 @if($gig->premium_features)
                     <ul class="pricing-features">
