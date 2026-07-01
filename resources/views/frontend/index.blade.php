@@ -993,8 +993,10 @@
         letter-spacing: 0.3px; box-shadow: 0 4px 15px rgba(99,102,241,0.3);
     }
     .casestudy-body { padding: 1.75rem 1.75rem 1.5rem; position: relative; z-index: 1; }
-    .casestudy-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.2rem; letter-spacing: -0.3px; }
-    .casestudy-client { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.4rem; }
+    .casestudy-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.2rem; letter-spacing: -0.3px; color: #fff; }
+    html.light-theme .casestudy-body h3 { color: #0f172a; }
+    .casestudy-client { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.4rem; }
+    html.light-theme .casestudy-client { color: #64748b; }
 
 
     /* ===== GLASS CARD SHINE EFFECT (all glass cards) ===== */
