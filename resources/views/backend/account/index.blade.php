@@ -1,7 +1,19 @@
 @extends('backend.app')
 
 @section('content')
-<div class="container-fluid py-3">
+<style>
+@media (max-width: 767.98px) {
+    .account-page h4 { font-size: 0.9rem; }
+    .account-page h3 { font-size: 1rem; }
+    .account-page h6 { font-size: 0.82rem; }
+    .account-page .text-muted { font-size: 0.75rem; }
+    .account-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
+    .account-page .card-body { padding: 0.8rem !important; }
+    .account-page .rounded-circle[style*="120px"] { width: 70px !important; height: 70px !important; font-size: 1.8rem !important; }
+    .account-page .card-body img[style*="120px"] { width: 70px !important; height: 70px !important; }
+}
+</style>
+<div class="container-fluid py-3 account-page">
     <div class="row justify-content-center">
         <div class="col-lg-9 col-md-11">
 
