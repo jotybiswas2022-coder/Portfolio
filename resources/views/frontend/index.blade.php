@@ -1416,6 +1416,11 @@
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.5), rgba(22, 32, 50, 0.5));
         border: 1px solid var(--border-color); border-radius: var(--radius-lg);
         overflow: hidden; transition: var(--transition); position: relative;
+        text-decoration: none; display: block; cursor: pointer;
+    }
+    html.light-theme .project-card {
+        background: rgba(255,255,255,0.7);
+        border-color: rgba(99,102,241,0.12);
     }
     .project-card::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -1424,25 +1429,24 @@
     }
     .project-card:hover::before { opacity: 1; }
     .project-card:hover {
-        transform: translateY(-8px); border-color: var(--border-hover);
-        box-shadow: var(--shadow-lg), 0 0 40px rgba(59, 130, 246, 0.08);
+        transform: translateY(-6px); border-color: rgba(99,102,241,0.25);
+        box-shadow: 0 20px 60px rgba(99,102,241,0.08), 0 8px 20px rgba(0,0,0,0.12);
+    }
+    html.light-theme .project-card:hover {
+        box-shadow: 0 20px 60px rgba(99,102,241,0.1);
     }
     .project-card .card-image { height: 210px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .project-card .card-image .project-icon { font-size: 4rem; opacity: 0.5; transition: var(--transition); }
     .project-card:hover .card-image .project-icon { transform: scale(1.3); opacity: 1; }
     .project-card .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
     .project-card:hover .card-image img { transform: scale(1.08); }
-    .project-card .card-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: linear-gradient(transparent, rgba(30, 41, 59, 0.95)); }
-    html.light-theme .project-card .card-image::after { background: linear-gradient(transparent, rgba(255, 255, 255, 0.95)) !important; }
-    .project-card .card-body { padding: 1.8rem; }
-    .project-card .card-body h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    .project-card .card-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(0deg, rgba(8,13,26,0.8) 0%, transparent 100%); pointer-events: none; }
+    html.light-theme .project-card .card-image::after { background: linear-gradient(0deg, rgba(248,250,252,0.8) 0%, transparent 100%); }
+    .project-card .card-body { padding: 1.75rem 1.75rem 1.5rem; position: relative; z-index: 1; }
+    .project-card .card-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0; color: #fff; letter-spacing: -0.3px; }
     html.light-theme .project-card .card-body h3 { color: #0f172a; }
-    .project-card .card-body p { color: #94a3b8; font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.2rem; }
-    html.light-theme .project-card .card-body p { color: #475569; }
-    .project-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
-    .project-card .tag { padding: 0.25rem 0.8rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.18); border-radius: 20px; font-size: 0.73rem; color: var(--accent-light); font-weight: 500; }
-    .project-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-weight: 600; font-size: 0.88rem; transition: gap 0.3s ease; }
-    .project-card .card-link:hover { gap: 0.8rem; }
+    .project-card:hover .view-details-btn { background: rgba(59,130,246,0.12); gap: 0.7rem; }
+    .project-card:hover .view-details-btn i { transform: translateX(3px); }
 
 /* ===== GIGS — FLEX GRID (3+2 centered, matches casestudy width) ===== */
     .gigs-grid {
@@ -2367,6 +2371,7 @@
         .project-card .card-body { padding: 1.4rem; }
         .project-card .card-body h3 { font-size: 1.1rem; }
         .project-card .card-image { height: 180px; }
+        .project-card .card-body .view-details-btn { font-size: 0.8rem; }
         .gigs-grid { gap: 1.5rem; }
         .gig-card { width: calc(50% - 0.75rem); min-width: 240px; }
         .gig-image { height: 180px; }
@@ -2438,9 +2443,6 @@
         .project-card .card-image { height: 160px; }
         .project-card .card-body { padding: 1.2rem; }
         .project-card .card-body h3 { font-size: 1rem; }
-        .project-card .card-body p { font-size: 0.85rem; }
-        .project-card .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
-        .project-card .card-link { font-size: 0.82rem; }
         .gigs-grid { display: block !important; gap: unset; width: 100% !important; }
         .gig-card { width: 100% !important; min-width: 0 !important; display: block; max-width: none !important; }
         .gig-card + .gig-card { margin-top: 1rem; }
@@ -2991,7 +2993,7 @@
                         ];
                         $delay = ($index % 4) + 1;
                     @endphp
-                    <div class="project-card reveal reveal-delay-{{ $delay }}" data-tech="{{ implode(' ', $techSlugs) }}">
+                    <a href="{{ route('project.detail', $project->id) }}" class="project-card reveal reveal-delay-{{ $delay }}" data-tech="{{ implode(' ', $techSlugs) }}">
                         <div class="card-image" style="background: {{ $gradients[$index % count($gradients)] }};">
                             @if($project->image)
                                 <img src="{{ config('app.storage_url') }}{{ $project->image }}"
@@ -3000,29 +3002,15 @@
                             @else
                                 <span class="project-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
                             @endif
+                            @if($project->category)<span class="casestudy-category">{{ $project->category }}</span>@endif
                         </div>
                         <div class="card-body">
                             <h3>{{ $project->title }}</h3>
-                            <p>{{ $project->description ?? 'No description available.' }}</p>
-                            <div class="tags">
-                                @foreach($project->getTechStackArray() as $tech)
-                                    <span class="tag">{{ $tech }}</span>
-                                @endforeach
-                            </div>
-                            <div class="project-links d-flex gap-3">
-                                @if($project->live_link)
-                                    <a href="{{ $project->live_link }}" target="_blank" class="card-link">
-                                        <i class="bi bi-box-arrow-up-right"></i> {{ __('messages.live_demo') }} →
-                                    </a>
-                                @endif
-                                @if($project->github_link)
-                                    <a href="{{ $project->github_link }}" target="_blank" class="card-link" style="color: #94a3b8;">
-                                        <i class="bi bi-github"></i> {{ __('messages.source') }}
-                                    </a>
-                                @endif
+                            <div class="project-links d-flex gap-3" style="margin-top: 1rem;">
+                                <span class="view-details-btn">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <div class="empty-state" style="grid-column: 1 / -1;">
                         <i class="bi bi-folder-plus"></i>

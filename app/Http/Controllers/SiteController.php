@@ -37,4 +37,9 @@ class SiteController extends Controller
         $caseStudy = CaseStudy::findOrFail($id);
         return view('frontend.case-study-detail', compact('caseStudy'));
     }
+
+    public function projectDetail($id){
+        $project = Project::findOrFail($id);
+        return view('frontend.project-detail', compact('project'));
+    }
 }
