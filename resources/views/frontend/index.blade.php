@@ -1417,6 +1417,12 @@
         border: 1px solid var(--border-color); border-radius: var(--radius-lg);
         overflow: hidden; transition: var(--transition); position: relative;
     }
+    .project-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, transparent, #6366f1, #8b5cf6, transparent);
+        opacity: 0; transition: opacity 0.5s ease; z-index: 2;
+    }
+    .project-card:hover::before { opacity: 1; }
     .project-card:hover {
         transform: translateY(-8px); border-color: var(--border-hover);
         box-shadow: var(--shadow-lg), 0 0 40px rgba(59, 130, 246, 0.08);
@@ -1429,8 +1435,10 @@
     .project-card .card-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: linear-gradient(transparent, rgba(30, 41, 59, 0.95)); }
     html.light-theme .project-card .card-image::after { background: linear-gradient(transparent, rgba(255, 255, 255, 0.95)) !important; }
     .project-card .card-body { padding: 1.8rem; }
-    .project-card .card-body h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .project-card .card-body p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.2rem; }
+    .project-card .card-body h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    html.light-theme .project-card .card-body h3 { color: #0f172a; }
+    .project-card .card-body p { color: #94a3b8; font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.2rem; }
+    html.light-theme .project-card .card-body p { color: #475569; }
     .project-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
     .project-card .tag { padding: 0.25rem 0.8rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.18); border-radius: 20px; font-size: 0.73rem; color: var(--accent-light); font-weight: 500; }
     .project-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-weight: 600; font-size: 0.88rem; transition: gap 0.3s ease; }
