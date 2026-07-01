@@ -31,6 +31,13 @@
                 </a>
             </div>
 
+            {{-- Delete Image Form (outside the main form to avoid nested form issue) --}}
+            @if($caseStudy->image)
+                <form action="{{ route('admin.casestudies.deleteImage', $caseStudy->id) }}" method="POST" id="deleteImageForm" style="display:none;">
+                    @csrf
+                </form>
+            @endif
+
             <form action="{{ route('admin.casestudies.update', $caseStudy->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -141,16 +148,13 @@
                             <div>
                                 @if($caseStudy->image)
                                     <div class="d-flex align-items-start gap-2">
-                                        <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}"
+                                        <img src="{{ asset('storage/' . $caseStudy->image) }}"
                                              id="preview"
                                              class="rounded shadow-sm"
                                              style="width:120px; height:80px; object-fit:cover;">
-                                        <form action="{{ route('admin.casestudies.deleteImage', $caseStudy->id) }}" method="POST" onsubmit="return confirm('Delete this image?')">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
-                                                <i class="bi bi-trash3"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" onclick="confirmDeleteImage()" class="btn btn-sm btn-outline-danger rounded-3">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
                                     </div>
                                     <div id="previewPlaceholder" style="display:none;"
                                          class="rounded d-inline-flex align-items-center justify-content-center"
@@ -212,6 +216,11 @@ function previewImage(event) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'inline-block';
         if (placeholder) placeholder.style.display = 'none';
+    }
+}
+function confirmDeleteImage() {
+    if (confirm('Delete this image?')) {
+        document.getElementById('deleteImageForm').submit();
     }
 }
 </script>
