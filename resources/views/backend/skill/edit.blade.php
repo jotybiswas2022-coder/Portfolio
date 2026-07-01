@@ -1,8 +1,22 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .skill-form-page h4 { font-size: 0.9rem; }
+    .skill-form-page p.text-muted { font-size: 0.75rem; }
+    .skill-form-page h6 { font-size: 0.82rem; }
+    .skill-form-page .form-label { font-size: 0.75rem; }
+    .skill-form-page .form-control { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
+    .skill-form-page .form-text { font-size: 0.7rem; }
+    .skill-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+    .skill-form-page .card-body { padding: 0.8rem !important; }
+    .skill-form-page .card-header { padding: 0.6rem 0.8rem !important; }
+    .skill-form-page .invalid-feedback { font-size: 0.72rem; }
+}
+</style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 skill-form-page">
     <div class="row justify-content-center">
         <div class="col-lg-7 col-md-9">
 
