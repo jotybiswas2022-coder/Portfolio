@@ -49,8 +49,46 @@ body {
 @media (max-width: 767.98px) {
     .admin-main {
         margin-left: 0;
-        padding: 1rem;
+        padding: 0.75rem;
         width: 100%;
+        font-size: 0.85rem;
+    }
+    .admin-main h1 { font-size: 1.25rem; }
+    .admin-main h2 { font-size: 1.1rem; }
+    .admin-main h3 { font-size: 1rem; }
+    .admin-main h4 { font-size: 0.95rem; }
+    .admin-main h5 { font-size: 0.9rem; }
+    .admin-main p, .admin-main li, .admin-main td, .admin-main label, .admin-main .form-control, .admin-main .form-select {
+        font-size: 0.82rem;
+    }
+    .admin-main .card-modern .card-header {
+        font-size: 0.85rem;
+        padding: 0.8rem 1rem;
+    }
+    .admin-main .card-modern .card-body {
+        padding: 1rem;
+    }
+    .admin-main .page-header {
+        padding: 12px 14px;
+        font-size: 0.85rem;
+    }
+    .admin-main .table-modern thead th {
+        font-size: 0.7rem;
+        padding: 0.5rem 0.6rem;
+    }
+    .admin-main .table-modern tbody td {
+        font-size: 0.78rem;
+        padding: 0.5rem 0.6rem;
+    }
+    .admin-main .btn-admin {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.9rem;
+    }
+    .admin-main .stat-card .stat-number {
+        font-size: 1.5rem;
+    }
+    .admin-main .stat-card .stat-label {
+        font-size: 0.75rem;
     }
 }
 

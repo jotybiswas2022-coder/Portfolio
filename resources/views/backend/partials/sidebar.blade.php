@@ -113,6 +113,29 @@
             </a>
         </li>
     </ul>
+
+    {{-- Bottom section: Home + Logout (visible on mobile, always in sidebar) --}}
+    <div class="sidebar-bottom" style="border-top:1px solid rgba(255,255,255,0.06); padding:0.5rem 0; flex-shrink:0;">
+        <ul class="sidebar-menu" style="list-style:none; padding:0; margin:0;">
+            <li style="margin-bottom:1px;">
+                <a href="/"
+                   style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                    <i class="bi bi-house-door" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li style="margin-bottom:1px;">
+                <form action="{{ route('logout') }}" method="POST" style="margin:0 0;">
+                    @csrf
+                    <button type="submit"
+                       style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(248,113,113,0.8); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border:none; background:none; width:calc(100% - 16px); cursor:pointer; font-family:inherit; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
+                        <i class="bi bi-box-arrow-right" style="font-size:15px; width:20px; text-align:center; color:rgba(248,113,113,0.5); transition:all 0.2s; flex-shrink:0;"></i>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
 </aside>
 
 <style>
@@ -150,6 +173,24 @@
     color: #818cf8;
 }
 
+/* Sidebar bottom hover */
+.sidebar-bottom .sidebar-menu a:hover {
+    background: rgba(99,102,241,0.1);
+    color: #fff;
+    padding-left: 16px;
+}
+.sidebar-bottom .sidebar-menu a:hover i {
+    color: #a5b4fc;
+}
+.sidebar-bottom .sidebar-menu form button:hover {
+    background: rgba(248,113,113,0.1);
+    color: #f87171;
+    padding-left: 16px;
+}
+.sidebar-bottom .sidebar-menu form button:hover i {
+    color: #f87171;
+}
+
 /* Sidebar custom scrollbar */
 #sidebarCollapse::-webkit-scrollbar { width: 4px; }
 #sidebarCollapse::-webkit-scrollbar-track { background: transparent; }
@@ -184,6 +225,24 @@
     .sidebar-close button:hover {
         color: #fff;
         background: rgba(255,255,255,0.08);
+    }
+    .sidebar-menu a,
+    .sidebar-bottom .sidebar-menu a,
+    .sidebar-bottom .sidebar-menu form button {
+        font-size: 0.75rem !important;
+        padding: 5px 12px !important;
+    }
+    .sidebar-menu a i,
+    .sidebar-bottom .sidebar-menu a i,
+    .sidebar-bottom .sidebar-menu form button i {
+        font-size: 13px !important;
+        width: 18px !important;
+    }
+    .sidebar-header .brand {
+        font-size: 0.82rem !important;
+    }
+    .sidebar-header .brand i {
+        font-size: 1rem !important;
     }
 }
 </style>

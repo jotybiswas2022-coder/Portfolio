@@ -6,23 +6,15 @@ use Illuminate\Support\Str;
 .topbar-link:hover { color:#fff !important; background:rgba(255,255,255,0.08) !important; }
 .topbar-link.active-link { color:#fff !important; background:rgba(99,102,241,0.2) !important; }
 
-/* Mobile nav dropdown */
-.mobile-nav { background:rgba(15,23,42,0.98); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.06); border-radius:12px; margin-top:0.5rem; padding:0.5rem; }
-.mobile-nav .nav-item { width:100%; }
-.mobile-nav .nav-link { display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.85rem; border-radius:8px; color:rgba(255,255,255,0.7); font-weight:500; font-size:0.85rem; transition:all 0.2s; }
-.mobile-nav .nav-link:hover { color:#fff !important; background:rgba(99,102,241,0.12) !important; }
-.mobile-nav .nav-link i { width:20px; text-align:center; color:rgba(255,255,255,0.4); }
-.mobile-nav .nav-link:hover i { color:#818cf8; }
-.mobile-nav .nav-link.active-link { color:#fff !important; background:rgba(99,102,241,0.18) !important; }
-.mobile-nav .nav-link.active-link i { color:#818cf8; }
-.mobile-nav .nav-divider { height:1px; background:rgba(255,255,255,0.06); margin:0.4rem 0; }
-.mobile-nav .logout-btn { display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.85rem; border-radius:8px; color:rgba(248,113,113,0.8); font-weight:500; font-size:0.85rem; background:none; border:none; width:100%; text-align:left; font-family:inherit; cursor:pointer; transition:all 0.2s; }
-.mobile-nav .logout-btn:hover { color:#f87171 !important; background:rgba(248,113,113,0.1) !important; }
-.mobile-nav .logout-btn i { width:20px; text-align:center; color:rgba(248,113,113,0.5); }
-
 /* Sidebar toggle button (mobile) */
 .sidebar-toggle-btn { display:inline-flex; align-items:center; justify-content:center; background:none; border:none; color:rgba(255,255,255,0.7); font-size:1.3rem; padding:0.25rem 0.5rem; border-radius:6px; cursor:pointer; transition:all 0.2s; line-height:1; }
 .sidebar-toggle-btn:hover { color:#fff; background:rgba(255,255,255,0.08); }
+
+@media (max-width: 767.98px) {
+    .topbar-link { font-size: 0.78rem !important; padding: 0.3rem 0.65rem !important; }
+    .navbar-brand { font-size: 0.9rem !important; }
+    .navbar-brand i { font-size: 1.2rem !important; }
+}
 </style>
 
 <nav class="navbar navbar-expand-md py-0" style="height:auto; min-height:57px; background:linear-gradient(180deg,#0f172a,#1e293b); border-bottom:1px solid rgba(255,255,255,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.15); color:#fff; position:sticky; top:0; z-index:1050;">
@@ -39,9 +31,9 @@ use Illuminate\Support\Str;
             <span class="d-sm-none">Admin</span>
         </a>
 
-        {{-- Desktop quick links (always visible) + Mobile nav (collapsible) --}}
-        <div class="collapse navbar-collapse" id="navbarTopNav">
-            <ul class="navbar-nav ms-auto gap-1 align-items-center d-none d-md-flex">
+        {{-- Desktop quick links --}}
+        <div class="ms-auto">
+            <ul class="navbar-nav gap-1 align-items-center flex-row">
                 <li class="nav-item">
                     <a class="nav-link topbar-link {{ request()->is('/') ? 'active-link' : '' }}" href="/" style="color:rgba(255,255,255,0.7); font-size:0.85rem; font-weight:500; padding:0.4rem 0.85rem; border-radius:8px; transition:all 0.2s;">
                         <i class="bi bi-house-door me-1"></i> Home
@@ -57,76 +49,6 @@ use Illuminate\Support\Str;
                         @csrf
                         <button type="submit" class="btn btn-link fw-semibold topbar-link" style="color:rgba(255,255,255,0.7); font-size:0.85rem; text-decoration:none; font-weight:500; padding:0.4rem 0.85rem; border-radius:8px; transition:all 0.2s; border:none; background:transparent;">
                             <i class="bi bi-box-arrow-right me-1"></i> Logout
-                        </button>
-                    </form>
-                </li>
-            </ul>
-
-            {{-- Mobile nav: sidebar links in dropdown --}}
-            <ul class="navbar-nav d-md-none w-100 mobile-nav">
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin') ? 'active-link' : '' }}" href="{{ url('/admin') }}">
-                        <i class="bi bi-speedometer2"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/account') ? 'active-link' : '' }}" href="{{ url('/admin/account') }}">
-                        <i class="bi bi-person-circle"></i> Account
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/services*') ? 'active-link' : '' }}" href="{{ url('/admin/services') }}">
-                        <i class="bi bi-gear"></i> Services
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/case-studies*') ? 'active-link' : '' }}" href="{{ url('/admin/case-studies') }}">
-                        <i class="bi bi-journal-code"></i> Case Studies
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/experiences*') ? 'active-link' : '' }}" href="{{ url('/admin/experiences') }}">
-                        <i class="bi bi-briefcase"></i> Experiences
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/skills*') ? 'active-link' : '' }}" href="{{ url('/admin/skills') }}">
-                        <i class="bi bi-lightning-charge"></i> Skills
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/projects*') ? 'active-link' : '' }}" href="{{ url('/admin/projects') }}">
-                        <i class="bi bi-folder2-open"></i> Projects
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/testimonials*') ? 'active-link' : '' }}" href="{{ url('/admin/testimonials') }}">
-                        <i class="bi bi-chat-quote"></i> Testimonials
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/faqs*') ? 'active-link' : '' }}" href="{{ url('/admin/faqs') }}">
-                        <i class="bi bi-question-circle"></i> FAQs
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link topbar-link {{ request()->is('admin/contact') ? 'active-link' : '' }}" href="{{ url('/admin/contact') }}">
-                        <i class="bi bi-envelope-paper"></i> Messages
-                    </a>
-                </li>
-
-                <li class="nav-divider"></li>
-
-                <li class="nav-item">
-                    <a class="nav-link topbar-link" href="/">
-                        <i class="bi bi-house-door"></i> Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline w-100">
-                        @csrf
-                        <button type="submit" class="logout-btn">
-                            <i class="bi bi-box-arrow-right"></i> Logout
                         </button>
                     </form>
                 </li>
