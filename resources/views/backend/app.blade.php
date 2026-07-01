@@ -410,6 +410,41 @@
     })();
     </script>
 
+    {{-- SweetAlert2 Global Delete Handler (uses event delegation for AJAX-loaded rows) --}}
+    <script>
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.delete-btn');
+        if (!btn) return;
+        e.preventDefault();
+        var id = btn.getAttribute('data-id');
+        var title = btn.getAttribute('data-title') || 'this item';
+        var form = document.getElementById('delete-form-' + id);
+        if (!form) return;
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Delete "' + title + '"? This action cannot be undone.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: '<i class="bi bi-trash3 me-1"></i> Yes, delete it!',
+            cancelButtonText: '<i class="bi bi-x-lg me-1"></i> Cancel',
+            reverseButtons: true,
+            customClass: {
+                popup: 'rounded-4',
+                confirmButton: 'btn btn-danger rounded-3 px-4 py-2',
+                cancelButton: 'btn btn-light border rounded-3 px-4 py-2',
+            },
+            buttonsStyling: false
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+    </script>
+
     @yield('scripts')
 </body>
 

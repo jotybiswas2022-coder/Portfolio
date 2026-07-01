@@ -229,9 +229,27 @@ function previewImage(event) {
     }
 }
 function confirmDeleteImage() {
-    if (confirm('Delete this image?')) {
-        document.getElementById('deleteImageForm').submit();
-    }
+    Swal.fire({
+        title: 'Delete Gig Image?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-trash3 me-1"></i> Yes, delete it!',
+        cancelButtonText: '<i class="bi bi-x-lg me-1"></i> Cancel',
+        reverseButtons: true,
+        customClass: {
+            popup: 'rounded-4',
+            confirmButton: 'btn btn-danger rounded-3 px-4 py-2',
+            cancelButton: 'btn btn-light border rounded-3 px-4 py-2',
+        },
+        buttonsStyling: false
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            document.getElementById('deleteImageForm').submit();
+        }
+    });
 }
 </script>
 @endsection
