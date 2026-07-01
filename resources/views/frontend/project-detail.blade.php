@@ -26,6 +26,9 @@
         --border-color: rgba(59, 130, 246, 0.15);
     }
     html.light-theme body { background: #f8fafc; }
+    body {
+        font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+    }
 
     .project-detail-page {
         padding-top: 80px;
