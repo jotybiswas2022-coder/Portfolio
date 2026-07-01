@@ -234,7 +234,7 @@
     /* Drawer Body */
     .drawer-body {
         flex: 1;
-        padding: 0.6rem 0.8rem 1rem;
+        padding: 0.5rem 0.8rem 1rem;
         display: flex;
         flex-direction: column;
     }
@@ -243,8 +243,11 @@
         padding: 0;
         margin: 0;
     }
+    .drawer-nav + .drawer-nav {
+        margin-top: 0.3rem;
+    }
     .drawer-nav li {
-        margin-bottom: 2px;
+        margin-bottom: 4px;
         opacity: 0;
         transform: translateX(20px);
         transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -265,8 +268,8 @@
     .drawer-nav button {
         display: flex;
         align-items: center;
-        gap: 0.7rem;
-        padding: 0.65rem 0.8rem;
+        gap: 0.75rem;
+        padding: 0.7rem 0.85rem;
         border-radius: 10px;
         font-size: 0.92rem;
         font-weight: 500;
@@ -307,7 +310,7 @@
     .drawer-divider {
         height: 1px;
         background: rgba(59, 130, 246, 0.1);
-        margin: 0.6rem 0;
+        margin: 0.4rem 0.8rem;
     }
 
     /* Auth buttons in drawer */
@@ -351,7 +354,7 @@
     /* Drawer Footer (lang) */
     .drawer-footer {
         margin-top: auto;
-        padding-top: 0.8rem;
+        padding: 0.8rem 0.5rem 0.4rem;
         border-top: 1px solid rgba(59, 130, 246, 0.08);
         display: flex;
         justify-content: center;
@@ -417,20 +420,26 @@
             width: 30px; height: 30px; font-size: 0.85rem;
         }
         .drawer-body {
-            padding: 0.4rem 0.6rem 0.8rem;
+            padding: 0.3rem 0.6rem 0.8rem;
         }
         .drawer-nav a,
         .drawer-nav button {
             font-size: 0.85rem;
-            padding: 0.55rem 0.7rem;
+            padding: 0.6rem 0.75rem;
         }
         .drawer-nav a i,
         .drawer-nav button i {
             font-size: 0.9rem;
             width: 18px;
         }
+        .drawer-nav li {
+            margin-bottom: 3px;
+        }
+        .drawer-divider {
+            margin: 0.3rem 0.6rem;
+        }
         .drawer-footer {
-            padding-top: 0.6rem;
+            padding: 0.6rem 0.3rem 0.3rem;
         }
     }
 
