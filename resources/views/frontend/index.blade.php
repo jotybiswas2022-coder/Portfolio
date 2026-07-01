@@ -1142,6 +1142,13 @@
         .timeline-item .timeline-dot { left: 6px !important; right: auto !important; width: 38px; height: 38px; font-size: 0.9rem; top: 1.5rem; }
         .timeline-item.left .timeline-company { justify-content: flex-start; }
         .timeline-item.left .timeline-card p { text-align: left; }
+        .timeline-card { padding: 1rem; }
+        .timeline-card h3 { font-size: 0.95rem; }
+        .timeline-company { font-size: 0.78rem; margin-bottom: 0.5rem; }
+        .timeline-card p { font-size: 0.78rem; line-height: 1.6; }
+        .timeline-date { font-size: 0.68rem; padding: 0.2rem 0.7rem; }
+        .current-badge { font-size: 0.55rem; }
+        .timeline-location { font-size: 0.72rem; }
     }
 
     /* Skills */
@@ -2421,6 +2428,14 @@
         .hero-buttons .btn-outline-custom { width: 100%; justify-content: center; padding: 0.75rem 1.5rem; font-size: 0.88rem; }
         .hero::before { width: 300px; height: 300px; }
         
+        .timeline-card { padding: 0.85rem; }
+        .timeline-card h3 { font-size: 0.88rem; }
+        .timeline-company { font-size: 0.72rem; margin-bottom: 0.4rem; }
+        .timeline-card p { font-size: 0.72rem; line-height: 1.5; }
+        .timeline-date { font-size: 0.62rem; padding: 0.15rem 0.6rem; }
+        .current-badge { font-size: 0.5rem; padding: 0.15rem 0.5rem; }
+        .timeline-location { font-size: 0.68rem; }
+
         .skills-grid { gap: 1.2rem; }
         .skill-card .skill-circle { width: 100px; height: 100px; }
         .skill-card .skill-icon { font-size: 1.5rem; }
