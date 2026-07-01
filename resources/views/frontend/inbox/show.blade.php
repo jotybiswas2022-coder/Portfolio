@@ -28,6 +28,13 @@
         min-height: 100vh;
         background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%);
     }
+    html.light-theme {
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #94a3b8;
+        --border-color: rgba(59, 130, 246, 0.15);
+        --bg-card: rgba(255, 255, 255, 0.9);
+    }
     html.light-theme .chat-page {
         background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     }
@@ -445,7 +452,8 @@
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         line-height: 1.5;
     }
-    html.light-theme .input-group textarea { background: rgba(0,0,0,0.02); }
+    html.light-theme .input-group textarea { background: #fff; color: #1e293b; border-color: #e2e8f0; }
+    html.light-theme .input-group textarea:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
     .input-group textarea:focus {
         border-color: #3b82f6;
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.06);

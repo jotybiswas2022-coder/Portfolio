@@ -1866,7 +1866,7 @@
         background: rgba(10, 15, 30, 0.5);
         border: 1.5px solid rgba(59, 130, 246, 0.1);
         border-radius: 14px;
-        color: var(--text-primary);
+        color: var(--text-primary) !important;
         font-family: var(--font);
         font-size: 0.92rem;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1884,6 +1884,7 @@
             0 0 0 3px rgba(59, 130, 246, 0.08),
             0 4px 20px rgba(59, 130, 246, 0.05);
         background: rgba(10, 15, 30, 0.7);
+        color: var(--text-primary) !important;
     }
     html.light-theme .form-group input:focus,
     html.light-theme .form-group textarea:focus {
