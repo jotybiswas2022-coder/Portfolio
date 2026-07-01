@@ -285,12 +285,38 @@
 .dsb-fade:nth-child(9) { animation-delay: 0.4s; }
 
 /* ─── Responsive ─── */
-@media (max-width: 768px) {
-    .dsb-header { padding: 1.5rem; }
-    .dsb-stat { padding: 1rem; }
-    .dsb-stat-num { font-size: 1.3rem; }
-    .dsb-stat-icon { width: 38px; height: 38px; font-size: 1rem; }
-    .dsb-item { padding: 0.6rem 1rem; }
+@media (max-width: 767.98px) {
+    .dsb-body h4 { font-size: 0.9rem; }
+    .dsb-body .fw-bold.fs-4 { font-size: 0.9rem; }
+    .dsb-header { padding: 1rem 1rem; }
+    .dsb-header .fw-bold { font-size: 0.95rem; }
+    .dsb-header p { font-size: 0.72rem !important; }
+    .dsb-header [style*="font-size:0.78rem"] { font-size: 0.68rem !important; }
+    .dsb-header [style*="font-size:1.2rem"] { font-size: 0.95rem !important; }
+    .dsb-header [style*="font-size:0.65rem"] { font-size: 0.58rem !important; }
+    .dsb-header [style*="width:48px"] { width: 36px !important; height: 36px !important; font-size: 1rem !important; }
+    .dsb-stat { padding: 0.75rem; }
+    .dsb-stat-num { font-size: 1.1rem; }
+    .dsb-stat-icon { width: 32px; height: 32px; font-size: 0.85rem; }
+    .dsb-stat-label { font-size: 0.62rem; }
+    .dsb-stat-sub { font-size: 0.6rem; }
+    .dsb-item { padding: 0.5rem 0.8rem; gap: 0.6rem; }
+    .dsb-item-av { width: 30px; height: 30px; font-size: 0.78rem; }
+    .dsb-item-title { font-size: 0.78rem; }
+    .dsb-item-meta { font-size: 0.65rem; }
+    .dsb-badge { font-size: 0.6rem; padding: 0.1rem 0.5rem; }
+    .dsb-card-hd { padding: 0.7rem 0.9rem; font-size: 0.78rem; }
+    .dsb-card-hd .btn { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
+    .dsb-qa { padding: 0.35rem 0.7rem; font-size: 0.7rem; }
+    .dsb-qa i { font-size: 0.75rem; }
+    .modal-header { padding: 0.8rem 1rem !important; }
+    .modal-header h5 { font-size: 0.9rem; }
+    .modal-body { padding: 0.8rem !important; }
+    .modal-body p { font-size: 0.78rem; }
+    .modal-body small { font-size: 0.65rem; }
+    .modal-body [style*="font-size:0.82rem"] { font-size: 0.72rem !important; }
+    .modal-footer .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+    .dsb-fade:nth-child(n) { animation: none; opacity: 1; }
 }
 </style>
 
