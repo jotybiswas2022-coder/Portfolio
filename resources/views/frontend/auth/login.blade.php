@@ -367,7 +367,7 @@
         background: var(--login-input-bg);
         border: 1.5px solid var(--login-input-border);
         border-radius: var(--login-radius-sm);
-        color: var(--login-text);
+        color: #ffffff;
         font-size: 15px;
         font-family: 'Poppins', system-ui, -apple-system, sans-serif;
         transition: all 0.25s ease;
@@ -396,6 +396,9 @@
             0 0 20px rgba(59, 130, 246, 0.05);
     }
 
+    html.light-theme .login-input {
+        color: #0f172a !important;
+    }
     html.light-theme .login-input:focus {
         background: #ffffff;
     }

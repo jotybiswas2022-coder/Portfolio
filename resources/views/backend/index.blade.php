@@ -334,10 +334,7 @@
                     <div>
                         <h4 class="fw-bold mb-0" style="color:#fff;letter-spacing:-0.3px;">Dashboard</h4>
                         <p class="mb-0" style="color:rgba(255,255,255,0.6);font-size:0.82rem;">
-                            Welcome back, <strong style="color:#a5b4fc;">{{ auth()->user()->name }}</strong>
-                            @if($account)
-                                <span style="color:rgba(255,255,255,0.35);"> &middot; {{ $account->name }}</span>
-                            @endif
+                            Welcome back, {{ auth()->user()->name }}!
                         </p>
                     </div>
                 </div>
