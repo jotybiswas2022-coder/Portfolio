@@ -1004,7 +1004,8 @@
     .faq-item::after,
     .wave-service::after,
     .contact-info-card::after,
-    .contact-item::after {
+    .contact-item::after,
+    .casestudy-card::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.18) 30%, transparent 60%);
         pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
@@ -1015,7 +1016,8 @@
     html.light-theme .faq-item::after,
     html.light-theme .wave-service::after,
     html.light-theme .contact-info-card::after,
-    html.light-theme .contact-item::after {
+    html.light-theme .contact-item::after,
+    html.light-theme .casestudy-card::after {
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 30%, transparent 60%);
     }
     .project-card:hover::after,
@@ -1024,7 +1026,8 @@
     .faq-item:hover::after,
     .wave-service:hover::after,
     .contact-info-card:hover::after,
-    .contact-item:hover::after { opacity: 1; }
+    .contact-item:hover::after,
+    .casestudy-card:hover::after { opacity: 1; }
     /* Ensure content stays above shine */
     .project-card .card-image,
     .gig-card .gig-image,
@@ -1043,7 +1046,9 @@
     .contact-info-card p,
     .contact-info-card .contact-item,
     .contact-item .icon-box,
-    .contact-item .info { position: relative; z-index: 2; }
+    .contact-item .info,
+    .casestudy-card .casestudy-image,
+    .casestudy-card .casestudy-body { position: relative; z-index: 2; }
 
 
     .casestudy-cta {
@@ -3950,7 +3955,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item';
+    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
