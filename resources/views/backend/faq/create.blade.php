@@ -1,8 +1,19 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .faq-form-page h4 { font-size: 0.9rem; }
+    .faq-form-page p.text-muted { font-size: 0.75rem; }
+    .faq-form-page .form-label { font-size: 0.75rem; }
+    .faq-form-page .form-control { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
+    .faq-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+    .faq-form-page .card-body { padding: 0.8rem !important; }
+    .faq-form-page .invalid-feedback { font-size: 0.72rem; }
+}
+</style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 faq-form-page">
 
     <div class="mb-4">
         <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add New FAQ</h4>
