@@ -212,7 +212,7 @@ body {
 /* Input */
 .login-input {
     background: rgba(15,23,42,0.85);
-    color: #e2e8f0;
+    color: #ffffff !important;
     border: 1px solid rgba(59,130,246,0.25);
     border-radius: 12px;
     padding: 12px 16px;

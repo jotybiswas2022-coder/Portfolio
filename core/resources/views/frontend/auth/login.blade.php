@@ -428,7 +428,7 @@
     background: var(--login-input-bg);
     border: 1.5px solid var(--login-input-border);
     border-radius: var(--login-radius-sm);
-    color: var(--login-text);
+    color: #ffffff !important;
     font-size: 15px;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     transition: all 0.25s ease;

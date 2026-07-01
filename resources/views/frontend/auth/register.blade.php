@@ -266,7 +266,7 @@
         width: 100%; padding: 18px 44px 6px 16px;
         background: var(--login-input-bg);
         border: 1.5px solid var(--login-input-border);
-        border-radius: var(--login-radius-sm); color: #ffffff;
+        border-radius: var(--login-radius-sm); color: #ffffff !important;
         font-size: 15px; font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
         transition: all 0.25s ease; height: 56px;
         outline: none; box-shadow: none; line-height: 1.5;

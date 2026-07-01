@@ -89,7 +89,7 @@
     .lock-icon svg { width: 28px; height: 28px; color: #3b82f6; }
     .login-label { color: #94a3b8; font-weight: 500; }
     .login-input {
-        background: rgba(15,23,42,0.85); color: #ffffff;
+        background: rgba(15,23,42,0.85); color: #ffffff !important;
         border: 1px solid rgba(59,130,246,0.25); border-radius: 12px;
         padding: 12px 16px; width: 100%; transition: all .3s ease;
     }

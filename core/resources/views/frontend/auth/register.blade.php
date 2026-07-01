@@ -151,7 +151,7 @@ body {
     border-radius:16px; padding:12px 16px; font-size:15px;
     border:1px solid rgba(59,130,246,0.25);
     background: rgba(15,23,42,0.55);
-    color:#e2e8f0;
+    color:#ffffff !important;
     width:100%; line-height:1.5;
     transition: all 0.3s ease;
 }

@@ -115,6 +115,7 @@ body {
     font-size: 15px;
     border-radius: 10px;
     border: 1px solid #ddd;
+    color: #ffffff !important;
 }
 
 .login-input:focus {
