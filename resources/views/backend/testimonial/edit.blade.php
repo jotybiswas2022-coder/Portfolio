@@ -1,8 +1,22 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .testimonial-form-page h4 { font-size: 0.9rem; }
+    .testimonial-form-page p.text-muted { font-size: 0.75rem; }
+    .testimonial-form-page h6 { font-size: 0.82rem; }
+    .testimonial-form-page .form-label { font-size: 0.75rem; }
+    .testimonial-form-page .form-control, .testimonial-form-page .form-select { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
+    .testimonial-form-page .form-text { font-size: 0.7rem; }
+    .testimonial-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+    .testimonial-form-page .card-body { padding: 0.8rem !important; }
+    .testimonial-form-page .card-header { padding: 0.6rem 0.8rem !important; }
+    .testimonial-form-page .invalid-feedback { font-size: 0.72rem; }
+}
+</style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 testimonial-form-page">
     <div class="row justify-content-center">
         <div class="col-lg-9 col-md-11">
 
