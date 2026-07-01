@@ -1,8 +1,30 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .gigs-page h4 { font-size: 0.9rem; }
+    .gigs-page p.text-muted { font-size: 0.75rem; }
+    .gigs-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+    .gigs-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
+    .gigs-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
+    .gigs-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
+    .gigs-page .small.text-muted { font-size: 0.7rem; }
+    .gigs-page .gigs-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    .gigs-page .gig-card { border-radius: 12px; }
+    .gigs-page .gig-card-top { padding: 0.8rem 0.8rem 0.5rem; }
+    .gigs-page .gig-card-top h6 { font-size: 0.82rem; }
+    .gigs-page .gig-card-top .text-muted { font-size: 0.7rem; }
+    .gigs-page .gig-card-top small { font-size: 0.65rem; }
+    .gigs-page .gig-card-pricing { padding: 0.5rem 0.8rem 0.8rem; }
+    .gigs-page .gig-card-pricing .badge { font-size: 0.6rem; padding: 0.15rem 0.4rem !important; }
+    .gigs-page .gig-card-actions { padding: 0.5rem 0.8rem; }
+    .gigs-page .gig-card-actions .btn { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+    .gigs-page .gig-card .fs-5 { font-size: 0.9rem !important; }
+}
+</style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 gigs-page">
 
     {{-- Header --}}
     <div class="d-flex align-items-center justify-content-between mb-4">
