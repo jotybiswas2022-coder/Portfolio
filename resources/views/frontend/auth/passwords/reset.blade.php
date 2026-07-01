@@ -1,4 +1,62 @@
-<div class="login-container">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{{ config('app.name', 'Portfolio') }} | {{ __('Reset Password') }}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Poppins + Hind Siliguri Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light-theme');
+        }
+    </script>
+
+    <style>
+
+    html.light-theme body {
+        background: #f8fafc !important;
+    }
+    html.light-theme .login-card {
+        background: rgba(255,255,255,0.85) !important;
+        border-color: rgba(59,130,246,0.2) !important;
+    }
+    html.light-theme .login-card:hover {
+        border-color: rgba(59,130,246,0.35);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.1), 0 0 60px rgba(59,130,246,0.15) !important;
+    }
+    html.light-theme .login-header {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0) !important;
+        border-bottom-color: rgba(59,130,246,0.2) !important;
+    }
+    html.light-theme .login-header .header-icon svg { color: #3b82f6; }
+    html.light-theme .login-label { color: #475569; }
+    html.light-theme .login-input {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        border-color: rgba(59,130,246,0.2) !important;
+    }
+    html.light-theme .login-input:focus {
+        background: #ffffff !important;
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 5px rgba(59,130,246,0.15) !important;
+    }
+    html.light-theme .confirm-text,
+    html.light-theme .verify-text,
+    html.light-theme .instructions { color: #475569 !important; }
+    html.light-theme .verify-text-small { color: #94a3b8 !important; }
+    html.light-theme .login-link { color: #3b82f6; }
+
+
+    <div class="login-container">
     <div class="particles" id="particles"></div>
     <div class="login-wrapper">
         <div class="card login-card">
@@ -120,9 +178,15 @@ body {
     background: rgba(20,28,45,0.95);
     border-radius:36px;
     box-shadow:0 25px 60px rgba(0,0,0,0.6),0 0 40px rgba(59,130,246,0.2);
+    transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
     backdrop-filter: blur(28px);
     border:1px solid rgba(59,130,246,0.2);
     opacity:0; transform: translateY(20px);
+    .login-card:hover {
+        border-color: rgba(59,130,246,0.3) !important;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 60px rgba(59,130,246,0.12) !important;
+        transform: translateY(-2px);
+    }
     animation: cardEntry 0.8s forwards;
 }
 .login-header {
@@ -227,6 +291,8 @@ body {
     .login-btn { padding:10px; font-size:13px; }
 }
 </style>
+</head>
+<body>
 
 <script>
 const particlesContainer=document.getElementById('particles');
@@ -256,3 +322,7 @@ document.querySelectorAll('.login-input').forEach(input=>{
     });
 });
 </script>
+
+
+</body>
+</html>
