@@ -287,34 +287,7 @@
         border-top: 1px solid var(--admin-border);
         padding: 1rem 1.5rem;
     }
-    .sidebar {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        bottom: 0 !important;
-        width: 260px !important;
-        z-index: 1040 !important;
-        padding-top: 57px !important;
-    }
-    @media (max-width: 767.98px) {
-        .sidebar {
-            top: 0 !important;
-            height: 100vh !important;
-            height: 100dvh !important;
-            padding-top: 0 !important;
-            transform: translateX(-100%) !important;
-            transition: transform 0.3s cubic-bezier(0.16,1,0.3,1) !important;
-            box-shadow: none !important;
-        }
-        .sidebar.open {
-            transform: translateX(0) !important;
-            box-shadow: 4px 0 30px rgba(0,0,0,0.3) !important;
-        }
-    }
-    .sidebar::-webkit-scrollbar { width: 4px; }
-    .sidebar::-webkit-scrollbar-track { background: transparent; }
-    .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-    .sidebar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
     @keyframes slideUp {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }

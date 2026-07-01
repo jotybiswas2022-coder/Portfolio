@@ -202,29 +202,40 @@
     #sidebarCollapse {
         transform: translateX(-100%);
         transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: none;
+        height: 100vh;
+        height: 100dvh;
+        padding-top: 57px;
     }
     #sidebarCollapse.open {
         transform: translateX(0);
+        box-shadow: 4px 0 30px rgba(0,0,0,0.3);
     }
     .sidebar-close {
         display: flex !important;
         justify-content: flex-end;
-        padding: 0.5rem 0.8rem;
+        padding: 0.3rem 0.6rem;
         border-bottom: 1px solid rgba(255,255,255,0.06);
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
     .sidebar-close button {
         background: none;
         border: none;
         color: rgba(255,255,255,0.5);
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         cursor: pointer;
-        padding: 0.25rem 0.5rem;
+        padding: 0.2rem 0.4rem;
         border-radius: 6px;
         transition: all 0.2s;
     }
     .sidebar-close button:hover {
         color: #fff;
         background: rgba(255,255,255,0.08);
+    }
+    .sidebar-header {
+        padding: 0.6rem 1rem !important;
     }
     .sidebar-menu a,
     .sidebar-bottom .sidebar-menu a,
