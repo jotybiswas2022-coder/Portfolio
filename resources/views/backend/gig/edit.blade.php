@@ -31,6 +31,13 @@
                 </a>
             </div>
 
+            {{-- Delete Image Form (outside the main form to avoid nested form issue) --}}
+            @if($gig->image)
+                <form action="{{ route('admin.gigs.deleteImage', $gig->id) }}" method="POST" id="deleteImageForm" style="display:none;">
+                    @csrf
+                </form>
+            @endif
+
             <form action="{{ route('admin.gigs.update', $gig->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -79,14 +86,11 @@
                                 <div class="mt-2">
                                     @if($gig->image)
                                         <div class="d-flex align-items-start gap-2">
-                                            <img id="preview" src="{{ config('app.storage_url') }}{{ $gig->image }}"
+                                            <img id="preview" src="{{ asset('storage/' . $gig->image) }}"
                                                  style="max-width:300px; max-height:180px; object-fit:cover;" class="rounded shadow-sm">
-                                            <form action="{{ route('admin.gigs.deleteImage', $gig->id) }}" method="POST" onsubmit="return confirm('Delete this image?')">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
-                                                    <i class="bi bi-trash3"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" onclick="confirmDeleteImage()" class="btn btn-sm btn-outline-danger rounded-3">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
                                         </div>
                                     @else
                                         <img id="preview" src="" style="display:none; max-width:300px; max-height:180px; object-fit:cover;" class="rounded shadow-sm">
@@ -222,6 +226,11 @@ function previewImage(event) {
     if (input.files && input.files[0]) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'inline-block';
+    }
+}
+function confirmDeleteImage() {
+    if (confirm('Delete this image?')) {
+        document.getElementById('deleteImageForm').submit();
     }
 }
 </script>
