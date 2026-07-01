@@ -37,8 +37,8 @@
 
     /* ===== TOP BAR ===== */
     .top-bar {
-        display: flex; align-items: center; justify-content: space-between;
-        margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;
+        display: flex; align-items: center;
+        margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
     }
     .back-link {
         display: inline-flex; align-items: center; gap: 0.5rem;
@@ -52,78 +52,59 @@
         border-color: rgba(59,130,246,0.3); color: var(--accent-light);
         transform: translateX(-4px); box-shadow: 0 4px 20px rgba(59,130,246,0.08);
     }
-    .back-link i { font-size: 0.9rem; }
 
-    /* ===== HERO ===== */
-    .cs-hero {
-        position: relative; width: 100%; border-radius: 24px;
-        overflow: hidden; margin-bottom: 3rem;
-        min-height: 480px;
-        display: flex; align-items: flex-end;
-        box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+    /* ===== HERO IMAGE (no text overlay) ===== */
+    .cs-image-wrap {
+        width: 100%; aspect-ratio: 16 / 9;
+        border-radius: 24px; overflow: hidden;
+        margin-bottom: 2.5rem;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+        background: var(--bg-secondary);
+        position: relative;
     }
-    .cs-hero .hero-bg {
-        position: absolute; inset: 0; z-index: 0;
-    }
-    .cs-hero .hero-bg img {
+    .cs-image-wrap img {
         width: 100%; height: 100%; object-fit: cover;
+        display: block;
     }
-    .cs-hero .hero-bg .bg-fallback {
+    .cs-image-wrap .img-fallback {
         width: 100%; height: 100%;
         background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1a3e 100%);
         display: flex; align-items: center; justify-content: center;
     }
-    .cs-hero .hero-bg .bg-fallback i { font-size: 6rem; opacity: 0.2; color: var(--accent); }
-    .cs-hero .hero-gradient {
-        position: absolute; inset: 0; z-index: 1;
-        background: linear-gradient(180deg,
-            rgba(10,15,30,0.05) 0%,
-            rgba(10,15,30,0.15) 50%,
-            rgba(10,15,30,0.55) 75%,
-            rgba(10,15,30,0.75) 100%
-        );
-        pointer-events: none;
+    .cs-image-wrap .img-fallback i { font-size: 5rem; opacity: 0.2; color: var(--accent); }
+
+    /* ===== HERO CONTENT (separate from image) ===== */
+    .cs-hero-content {
+        margin-bottom: 3rem;
+        padding: 0 0.5rem;
     }
-    html.light-theme .cs-hero .hero-gradient {
-        background: linear-gradient(180deg,
-            rgba(248,250,252,0.05) 0%,
-            rgba(248,250,252,0.15) 50%,
-            rgba(248,250,252,0.55) 75%,
-            rgba(248,250,252,0.75) 100%
-        );
-    }
-    .cs-hero .hero-content {
-        position: relative; z-index: 2; width: 100%;
-        padding: 3rem 3rem 2.5rem;
-    }
-    .cs-hero .hero-meta {
+    .cs-hero-content .hero-meta {
         display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
         margin-bottom: 1rem;
     }
-    .cs-hero .hero-category {
+    .cs-hero-content .hero-category {
         display: inline-flex; align-items: center; gap: 0.4rem;
-        background: linear-gradient(135deg, rgba(99,102,241,0.9), rgba(139,92,246,0.9));
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
         color: #fff; padding: 0.35rem 1.2rem; border-radius: 50px;
-        font-size: 0.75rem; font-weight: 700; letter-spacing: 0.3px;
-        backdrop-filter: blur(4px);
+        font-size: 0.78rem; font-weight: 700; letter-spacing: 0.3px;
     }
-    .cs-hero .hero-category i { font-size: 0.7rem; }
-    .cs-hero .hero-client {
+    .cs-hero-content .hero-category i { font-size: 0.7rem; }
+    .cs-hero-content .hero-client {
         display: inline-flex; align-items: center; gap: 0.4rem;
         padding: 0.35rem 1rem; border-radius: 50px;
-        font-size: 0.78rem; font-weight: 500;
-        background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85);
-        backdrop-filter: blur(4px);
+        font-size: 0.82rem; font-weight: 500;
+        background: rgba(59,130,246,0.08); color: var(--accent-light);
     }
-    html.light-theme .cs-hero .hero-client {
-        background: rgba(0,0,0,0.06); color: var(--text-secondary);
+    html.light-theme .cs-hero-content .hero-client {
+        background: rgba(59,130,246,0.06); color: var(--accent);
     }
-    .cs-hero h1 {
+    .cs-hero-content .hero-client i { font-size: 0.8rem; }
+    .cs-hero-content h1 {
         font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900;
-        color: #fff; margin: 0; letter-spacing: -1px;
-        line-height: 1.15; text-shadow: 0 4px 40px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3);
+        color: var(--text-primary); margin: 0; letter-spacing: -1px;
+        line-height: 1.15;
     }
-    html.light-theme .cs-hero h1 { color: var(--text-primary); text-shadow: 0 4px 40px rgba(255,255,255,0.3), 0 2px 10px rgba(255,255,255,0.15); }
 
     /* ===== CONTENT GRID ===== */
     .cs-body {
@@ -151,7 +132,6 @@
         width: 40px; height: 40px; border-radius: 12px;
         display: flex; align-items: center; justify-content: center;
         font-size: 1rem; font-weight: 800; flex-shrink: 0;
-        background: rgba(59,130,246,0.1); color: var(--accent-light);
     }
     .cs-block .block-icon.ic-problem { background: rgba(239,68,68,0.1); color: #ef4444; }
     .cs-block .block-icon.ic-solution { background: rgba(59,130,246,0.1); color: var(--accent-light); }
@@ -268,7 +248,6 @@
         transform: translateY(-3px);
         box-shadow: 0 12px 40px rgba(99,102,241,0.3);
     }
-    .sidebar-cta .btn-cta i { font-size: 1rem; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 968px) {
@@ -279,9 +258,9 @@
     @media (max-width: 768px) {
         .cs-detail-page { padding-top: 70px; padding-bottom: 3rem; }
         .cs-container { padding: 0 1rem; }
-        .cs-hero { min-height: 360px; border-radius: 16px; margin-bottom: 2rem; }
-        .cs-hero .hero-content { padding: 2rem 1.5rem 1.5rem; }
-        .cs-hero h1 { font-size: 1.6rem; }
+        .cs-image-wrap { aspect-ratio: 16 / 9; border-radius: 16px; margin-bottom: 1.5rem; }
+        .cs-hero-content { margin-bottom: 2rem; padding: 0; }
+        .cs-hero-content h1 { font-size: 1.6rem; }
         .cs-block { padding: 1.5rem; }
         .cs-tech-wrap { padding: 1.5rem; }
         .cs-sidebar { grid-template-columns: 1fr; }
@@ -289,9 +268,11 @@
     }
 
     @media (max-width: 480px) {
-        .cs-hero { min-height: 300px; }
-        .cs-hero .hero-content { padding: 1.5rem 1rem; }
-        .cs-hero h1 { font-size: 1.3rem; }
+        .cs-image-wrap { aspect-ratio: 16 / 9; border-radius: 12px; }
+        .cs-hero-content h1 { font-size: 1.3rem; }
+        .cs-hero-content .hero-meta { gap: 0.5rem; }
+        .cs-hero-content .hero-category { font-size: 0.7rem; padding: 0.25rem 0.9rem; }
+        .cs-hero-content .hero-client { font-size: 0.75rem; padding: 0.25rem 0.8rem; }
         .cs-block { padding: 1.2rem; border-radius: 16px; }
         .cs-tech-wrap { padding: 1.2rem; }
         .cs-block .block-icon { width: 34px; height: 34px; font-size: 0.85rem; }
@@ -306,29 +287,28 @@
             </a>
         </div>
 
-        <!-- Hero -->
-        <div class="cs-hero">
-            <div class="hero-bg">
-                @if($caseStudy->image)
-                    <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}" alt="{{ $caseStudy->title }}">
-                @else
-                    <div class="bg-fallback">
-                        <i class="bi bi-folder2-open"></i>
-                    </div>
+        <!-- Hero Image (no text overlay - fully visible) -->
+        <div class="cs-image-wrap">
+            @if($caseStudy->image)
+                <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}" alt="{{ $caseStudy->title }}">
+            @else
+                <div class="img-fallback">
+                    <i class="bi bi-folder2-open"></i>
+                </div>
+            @endif
+        </div>
+
+        <!-- Hero Content (separate from image) -->
+        <div class="cs-hero-content">
+            <div class="hero-meta">
+                @if($caseStudy->category)
+                    <span class="hero-category"><i class="bi bi-tag-fill"></i> {{ $caseStudy->category }}</span>
+                @endif
+                @if($caseStudy->client)
+                    <span class="hero-client"><i class="bi bi-building"></i> {{ $caseStudy->client }}</span>
                 @endif
             </div>
-            <div class="hero-gradient"></div>
-            <div class="hero-content">
-                <div class="hero-meta">
-                    @if($caseStudy->category)
-                        <span class="hero-category"><i class="bi bi-tag-fill"></i> {{ $caseStudy->category }}</span>
-                    @endif
-                    @if($caseStudy->client)
-                        <span class="hero-client"><i class="bi bi-building"></i> {{ $caseStudy->client }}</span>
-                    @endif
-                </div>
-                <h1>{{ $caseStudy->title }}</h1>
-            </div>
+            <h1>{{ $caseStudy->title }}</h1>
         </div>
 
         <!-- Content Grid -->
