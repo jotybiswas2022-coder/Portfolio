@@ -3,6 +3,8 @@
 @section('content')
 <style>
     /* ===== CSS VARIABLES (self-contained for dark/light theme) ===== */
+    body { font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: #0a0f1e; margin:0; padding:0; }
+
     :root {
         --bg-primary: #0a0f1e;
         --bg-secondary: #0f172a;
