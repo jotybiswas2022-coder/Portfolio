@@ -341,12 +341,13 @@
     }
     .about-image .glow-ring {
         position: absolute; width: 340px; height: 340px;
+        top: 50%; left: 50%; transform: translate(-50%, -50%);
         border-radius: 32px; border: 2px solid rgba(59, 130, 246, 0.15);
         animation: rotateRing 8s linear infinite;
     }
     @keyframes rotateRing {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
     .about-text h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
     .about-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
@@ -940,6 +941,7 @@
         border: 1px solid rgba(99,102,241,0.1);
         border-radius: 20px; overflow: hidden;
         transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none; display: block; cursor: pointer;
     }
     html.light-theme .casestudy-card {
         background: rgba(255,255,255,0.7);
@@ -959,6 +961,19 @@
     html.light-theme .casestudy-card:hover {
         box-shadow: 0 20px 60px rgba(99,102,241,0.1);
     }
+    .casestudy-view-link { margin-top: 1rem; }
+    .view-details-btn {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none;
+        padding: 0.4rem 1rem; border-radius: 10px;
+        background: rgba(59,130,246,0.06); transition: all 0.3s ease;
+    }
+    .casestudy-card:hover .view-details-btn {
+        background: rgba(59,130,246,0.12);
+        gap: 0.7rem;
+    }
+    .view-details-btn i { font-size: 0.8rem; transition: transform 0.3s ease; }
+    .casestudy-card:hover .view-details-btn i { transform: translateX(3px); }
     .casestudy-image { position: relative; width: 100%; height: 180px; overflow: hidden; }
     .casestudy-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
     .casestudy-card:hover .casestudy-image img { transform: scale(1.06); }
@@ -980,52 +995,7 @@
     .casestudy-body { padding: 1.75rem 1.75rem 1.5rem; position: relative; z-index: 1; }
     .casestudy-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.2rem; letter-spacing: -0.3px; }
     .casestudy-client { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.4rem; }
-    .casestudy-steps {
-        display: grid; grid-template-columns: 1fr; gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-    .cs-step {
-        background: rgba(255,255,255,0.03); border: 1px solid rgba(99,102,241,0.08);
-        border-radius: 14px; padding: 1.25rem 1rem;
-        position: relative; overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    html.light-theme .cs-step { background: rgba(255,255,255,0.5); }
-    .cs-step::after {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        opacity: 0.6;
-    }
-    .cs-step.cs-problem::after { background: var(--accent); }
-    .cs-step.cs-solution::after { background: var(--accent); }
-    .cs-step.cs-result::after { background: var(--accent); }
-    .cs-step::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.6) 0%, rgba(59,130,246,0.3) 30%, transparent 60%);
-        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
-    }
-    html.light-theme .cs-step::before {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.5) 0%, rgba(59,130,246,0.22) 30%, transparent 60%);
-    }
-    .cs-step:hover::before { opacity: 1; }
-    .cs-step:hover {
-        border-color: rgba(99,102,241,0.2);
-        box-shadow: 0 8px 30px rgba(99,102,241,0.06);
-        transform: translateY(-3px);
-    }
-    .cs-step-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem; position: relative; z-index: 2; }
-    .cs-step-num {
-        width: 30px; height: 26px; border-radius: 7px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 0.7rem; font-weight: 800; flex-shrink: 0;
-    }
-    .cs-step-num.cs-problem { background: rgba(59,130,246,0.12); color: var(--accent); }
-    .cs-step-num.cs-solution { background: rgba(59,130,246,0.12); color: var(--accent); }
-    .cs-step-num.cs-result { background: rgba(59,130,246,0.12); color: var(--accent); }
-    .cs-step-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-    .cs-step-label.lb-problem { color: var(--accent); }
-    .cs-step-label.lb-solution { color: var(--accent); }
-    .cs-step-label.lb-result { color: var(--accent); }
-    .cs-step p { font-size: 0.85rem; line-height: 1.65; color: var(--text-primary); margin: 0; position: relative; z-index: 2; }
+
 
     /* ===== GLASS CARD SHINE EFFECT (all glass cards) ===== */
     .project-card::after,
@@ -1075,26 +1045,7 @@
     .contact-item .icon-box,
     .contact-item .info { position: relative; z-index: 2; }
 
-    .casestudy-footer {
-        display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
-        padding-top: 1rem; border-top: 1px solid var(--border-color);
-    }
-    .casestudy-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .tech-badge {
-        font-size: 0.68rem; font-weight: 600; padding: 0.25rem 0.8rem;
-        background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08));
-        color: var(--accent-light); border-radius: 20px; white-space: nowrap;
-        border: 1px solid rgba(99,102,241,0.06);
-    }
-    .casestudy-link {
-        font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none;
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        padding: 0.4rem 1rem; border-radius: 10px;
-        background: rgba(59,130,246,0.06); transition: all 0.3s ease;
-    }
-    .casestudy-link:hover {
-        background: rgba(59,130,246,0.12); text-decoration: none; transform: translateX(3px);
-    }
+
     .casestudy-cta {
         text-align: center; margin-top: 3.5rem; padding: 2.5rem 2rem;
         background: linear-gradient(135deg, rgba(99,102,241,0.04), rgba(139,92,246,0.04));
@@ -1115,9 +1066,6 @@
     @media (max-width: 768px) {
         .casestudy-grid { grid-template-columns: 1fr; gap: 1.25rem; }
         .casestudy-image { height: 200px; }
-        .casestudy-steps { grid-template-columns: 1fr; gap: 0.75rem; }
-        .cs-step { padding: 1rem; }
-        .casestudy-footer { flex-direction: column; align-items: flex-start; }
         .casestudy-body { padding: 1.25rem; }
     }
 
@@ -2441,8 +2389,7 @@
     
     /* Mobile Small (max 480px) */
     @media (max-width: 480px) {
-        .section-padding { padding: 3rem 0; }
-        .container { padding-left: 0 !important; padding-right: 0 !important; }
+        .section-padding { padding: 3rem 1rem; }
         .section-title { padding: 0 0.5rem; margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .section-title .line { width: 45px; height: 3px; }
@@ -2545,10 +2492,16 @@
         .vis-glow { width: 300px; height: 300px; }
         .vis-stripes-svg.diagonal { opacity: 0.15; }
         .vis-stripes-svg.infinity { opacity: 0.1; }
+
+        /* Extra size reductions for very small screens */
+        .hero-content { max-width: 100%; }
+        .hero-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
+        .btn-primary-custom, .btn-outline-custom { font-size: 0.82rem; padding: 0.65rem 1.5rem; }
     }
     
     /* Very Small Screens (max 360px) */
     @media (max-width: 360px) {
+        html { font-size: 13px; }
         .hero h1 { font-size: 1.5rem; }
         .about-image .img-wrapper { width: 130px; height: 130px; }
         .about-image .glow-ring { width: 150px; height: 150px; }
@@ -2560,6 +2513,10 @@
         .about-stats { flex-direction: row; flex-wrap: nowrap; gap: 0.5rem; }
         .stat-item { min-width: 0; flex: 1; padding: 0.6rem 0.3rem; }
         .section-title h2 { font-size: 1.4rem; }
+        .hero { padding: 3.5rem 0.75rem 1rem; }
+        .hero p { font-size: 0.82rem; }
+        .hero-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
+        .btn-primary-custom, .btn-outline-custom { font-size: 0.78rem; padding: 0.55rem 1.2rem; }
     }
 </style>
     <!-- Custom Cursor -->
@@ -2817,7 +2774,7 @@
             </div>
             <div class="casestudy-grid">
                 @foreach($caseStudies as $cs)
-                    <div class="casestudy-card reveal">
+                    <a href="{{ route('case-study.detail', $cs->id) }}" class="casestudy-card reveal">
                         @if($cs->image)
                             <div class="casestudy-image">
                                 <img src="{{ config('app.storage_url') }}{{ $cs->image }}" alt="{{ $cs->title }}">
@@ -2827,47 +2784,11 @@
                         <div class="casestudy-body">
                             <h3>{{ $cs->title }}</h3>
                             @if($cs->client)<div class="casestudy-client"><i class="bi bi-building me-1"></i>{{ $cs->client }}</div>@endif
-                            <div class="casestudy-steps">
-                                <div class="cs-step cs-problem">
-                                    <div class="cs-step-header">
-                                        <div class="cs-step-num cs-problem">01</div>
-                                        <span class="cs-step-label lb-problem">{{ __('messages.problem') }}</span>
-                                    </div>
-                                    <p>{{ $cs->problem }}</p>
-                                </div>
-                                <div class="cs-step cs-solution">
-                                    <div class="cs-step-header">
-                                        <div class="cs-step-num cs-solution">02</div>
-                                        <span class="cs-step-label lb-solution">{{ __('messages.solution') }}</span>
-                                    </div>
-                                    <p>{{ $cs->solution }}</p>
-                                </div>
-                                <div class="cs-step cs-result">
-                                    <div class="cs-step-header">
-                                        <div class="cs-step-num cs-result">03</div>
-                                        <span class="cs-step-label lb-result">{{ __('messages.result') }}</span>
-                                    </div>
-                                    <p>{{ $cs->result }}</p>
-                                </div>
+                            <div class="casestudy-view-link">
+                                <span class="view-details-btn">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
                             </div>
-                            @if($cs->technologies || $cs->url)
-                            <div class="casestudy-footer">
-                                @if($cs->technologies)
-                                    <div class="casestudy-tech">
-                                        @foreach($cs->tech_list as $tech)
-                                            <span class="tech-badge">{{ $tech }}</span>
-                                        @endforeach
-                                    </div>
-                                @endif
-                                @if($cs->url)
-                                    <a href="{{ $cs->url }}" target="_blank" rel="noopener noreferrer" class="casestudy-link">
-                                        {{ __('messages.view_project') }} <i class="bi bi-box-arrow-up-right ms-1"></i>
-                                    </a>
-                                @endif
-                            </div>
-                            @endif
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
             <div class="casestudy-cta reveal">

@@ -109,6 +109,13 @@ return [
     'view_project'       => 'প্রকল্প দেখুন',
     'casestudy_cta'      => 'দেখুন কীভাবে Infinite IT ব্যবসার সমস্যাকে সুযোগে রূপান্তরিত করে।',
     'start_project'      => 'আপনার প্রকল্প শুরু করুন',
+    'back'               => 'পেছনে',
+    'technologies_used'  => 'ব্যবহৃত প্রযুক্তি',
+    'project_details'    => 'প্রকল্পের বিবরণ',
+    'client'             => 'ক্লায়েন্ট',
+    'category'           => 'শ্রেণী',
+    'status'             => 'অবস্থা',
+    'completed'          => 'সম্পন্ন',
 
     // Gigs
     'gigs_title'       => 'মূল্যের তালিকা',

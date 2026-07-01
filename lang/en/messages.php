@@ -110,6 +110,13 @@ return [
     'view_project'       => 'View Project',
     'casestudy_cta'      => 'See how Infinite IT transforms business problems into competitive advantages.',
     'start_project'      => 'Start Your Project',
+    'back'               => 'Back',
+    'technologies_used'  => 'Technologies Used',
+    'project_details'    => 'Project Details',
+    'client'             => 'Client',
+    'category'           => 'Category',
+    'status'             => 'Status',
+    'completed'          => 'Completed',
 
     // Gigs
     'gigs_title'       => 'Pricing Plans',

@@ -32,4 +32,9 @@ class SiteController extends Controller
         $gig = Gig::findOrFail($id);
         return view('frontend.gig-detail', compact('gig'));
     }
+
+    public function caseStudyDetail($id){
+        $caseStudy = CaseStudy::findOrFail($id);
+        return view('frontend.case-study-detail', compact('caseStudy'));
+    }
 }

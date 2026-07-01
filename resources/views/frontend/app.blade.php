@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{{ config('app.name', 'Portfolio') }} | {{ __('messages.home') }}</title>
 
     <!-- Bootstrap -->
@@ -18,8 +18,8 @@
         <!-- Page Loading Animation -->
     <style>
         /* Ensure full-width layout */
-        html { width: 100%; margin: 0; padding: 0; }
-        body { width: 100%; margin: 0; padding: 0; }
+        html { width: 100%; max-width: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+        body { width: 100%; max-width: 100%; margin: 0; padding: 0; overflow-x: hidden; }
 
         /* Remove underline from ALL links across the entire site */
         a { text-decoration: none !important; }
@@ -157,6 +157,9 @@
         ::view-transition-new(root) {
             animation: viewTransitionFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
         }
+
+        /* Prevent overflow from large decorative elements */
+        section, .hero { overflow: hidden; }
     </style>
 </head>
 <body>
