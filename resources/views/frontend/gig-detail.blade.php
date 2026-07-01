@@ -333,7 +333,7 @@
         background: linear-gradient(135deg, #3b82f6, #2563eb);
         color: #fff; border: none; border-radius: 14px;
         font-weight: 700; font-size: 0.95rem;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
         text-decoration: none; cursor: pointer;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 4px 15px rgba(59,130,246,0.25);

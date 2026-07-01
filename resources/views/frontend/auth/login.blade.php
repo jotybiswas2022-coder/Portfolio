@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <!-- Poppins Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         // Apply saved theme immediately
@@ -92,7 +92,7 @@
         width: 100%;
         max-width: 100%;
         overflow-x: hidden;
-        font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
         background: var(--login-primary);
     }
     a { text-decoration: none !important; }

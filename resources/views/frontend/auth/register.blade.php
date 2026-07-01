@@ -215,7 +215,7 @@
     padding: 24px 16px;
     overflow: hidden;
     background: var(--login-primary);
-    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
 }
 
 /* ==========================================

@@ -75,7 +75,7 @@
 
 <style>
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Hind Siliguri', sans-serif;
     background: #0f172a;
     margin:0;
     padding:0;

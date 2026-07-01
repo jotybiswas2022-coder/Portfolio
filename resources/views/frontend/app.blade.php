@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Page Loading Animation -->
     <style>
@@ -82,7 +82,7 @@
             100% { transform: rotate(360deg); }
         }
         .loader-text {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-muted, #64748b);
