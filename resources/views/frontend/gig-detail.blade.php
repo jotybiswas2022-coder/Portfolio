@@ -97,20 +97,7 @@
         display: flex; align-items: center; justify-content: center;
     }
     .gd-image-wrap .img-fallback i { font-size: 5rem; opacity: 0.15; color: var(--accent); }
-    .gd-image-wrap .hero-badge {
-        position: absolute; top: 1.5rem; right: 1.5rem; z-index: 2;
-        display: flex; align-items: center; gap: 0.4rem;
-        padding: 0.4rem 1rem;
-        background: rgba(10,15,30,0.6);
-        backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 50px; color: #fff;
-        font-size: 0.78rem; font-weight: 600;
-    }
-    html.light-theme .gd-image-wrap .hero-badge {
-        background: rgba(248,250,252,0.7);
-        border-color: rgba(59,130,246,0.15); color: var(--text-primary);
-    }
-    .gd-image-wrap .hero-badge i { color: var(--accent-light); }
+
 
     /* ===== HERO CONTENT ===== */
     .gd-hero-content {
@@ -129,6 +116,18 @@
         box-shadow: 0 4px 15px rgba(99,102,241,0.25);
     }
     .gd-hero-content .hero-category i { font-size: 0.7rem; }
+    .gd-hero-content .hero-badge-meta {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.35rem 1.2rem; border-radius: 50px;
+        font-size: 0.78rem; font-weight: 600;
+        background: rgba(255,215,0,0.08); color: #fbbf24;
+        border: 1px solid rgba(255,215,0,0.12);
+    }
+    html.light-theme .gd-hero-content .hero-badge-meta {
+        background: rgba(255,215,0,0.06); color: #b8860b;
+        border-color: rgba(255,215,0,0.15);
+    }
+    .gd-hero-content .hero-badge-meta i { font-size: 0.7rem; }
     .gd-hero-content h1 {
         font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 900;
         color: var(--text-primary); margin: 0 0 0.5rem; letter-spacing: -1.5px;
@@ -379,7 +378,6 @@
         .gd-hero-content h1 { font-size: 1.3rem; }
         .gd-hero-content .hero-meta { gap: 0.5rem; }
         .gd-hero-content .hero-category { font-size: 0.7rem; padding: 0.25rem 0.9rem; }
-        .gd-image-wrap .hero-badge { top: 1rem; right: 1rem; font-size: 0.7rem; padding: 0.3rem 0.8rem; }
         .pricing-card { padding: 1.8rem 1.2rem 1.5rem; }
         .pricing-card .pkg-price { font-size: 2rem; }
         .top-bar { margin-bottom: 1.5rem; }
@@ -396,22 +394,20 @@
             </a>
         </div>
 
-        <div class="gd-image-wrap">
-            @if($gig->image)
-                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
-            @else
-                <div class="img-fallback">
-                    <i class="bi bi-image"></i>
-                </div>
-            @endif
-            <div class="hero-badge">
-                <i class="bi bi-star-fill"></i> {{ __('messages.premium_service') }}
+            <div class="gd-image-wrap">
+                @if($gig->image)
+                    <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
+                @else
+                    <div class="img-fallback">
+                        <i class="bi bi-image"></i>
+                    </div>
+                @endif
             </div>
-        </div>
 
         <div class="gd-hero-content">
             <div class="hero-meta">
                 <span class="hero-category"><i class="bi bi-gear-fill"></i> {{ __('messages.service') }}</span>
+                <span class="hero-badge-meta"><i class="bi bi-star-fill"></i> {{ __('messages.premium_service') }}</span>
             </div>
             <h1>{{ $gig->title }}</h1>
             @if($gig->short_description)
