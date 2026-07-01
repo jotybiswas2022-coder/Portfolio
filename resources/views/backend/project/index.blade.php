@@ -1,8 +1,25 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .projects-page h4 { font-size: 0.9rem; }
+    .projects-page p.text-muted { font-size: 0.75rem; }
+    .projects-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+    .projects-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
+    .projects-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
+    .projects-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
+    .projects-page .small.text-muted { font-size: 0.7rem; }
+    .projects-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
+    .projects-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
+    .projects-page .table tbody td .btn { font-size: 0.65rem; padding: 0.15rem 0.4rem; }
+    .projects-page .card-header { padding: 0.6rem 0.8rem !important; }
+    .projects-page .card-body { padding: 0.6rem !important; }
+    .projects-page .tech-tag { font-size: 0.65rem; padding: 1px 6px; }
+}
+</style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 projects-page">
 
     {{-- Header --}}
     <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
