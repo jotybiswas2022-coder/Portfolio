@@ -1,8 +1,22 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .casestudy-form-page h4 { font-size: 0.9rem; }
+    .casestudy-form-page p.text-muted { font-size: 0.75rem; }
+    .casestudy-form-page h6 { font-size: 0.82rem; }
+    .casestudy-form-page .form-label { font-size: 0.75rem; }
+    .casestudy-form-page .form-control, .casestudy-form-page .form-select { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
+    .casestudy-form-page .form-text { font-size: 0.7rem; }
+    .casestudy-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+    .casestudy-form-page .card-body { padding: 0.8rem !important; }
+    .casestudy-form-page .card-header { padding: 0.6rem 0.8rem !important; }
+    .casestudy-form-page .invalid-feedback { font-size: 0.72rem; }
+}
+</style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 casestudy-form-page">
     <div class="row justify-content-center">
         <div class="col-lg-9 col-md-11">
 
