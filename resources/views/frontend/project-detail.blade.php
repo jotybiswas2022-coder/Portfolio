@@ -62,7 +62,7 @@
     }
     .back-link::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.15) 0%, transparent 60%);
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.4) 0%, rgba(99,102,241,0.1) 30%, transparent 60%);
         opacity: 0; transition: opacity 0.4s; pointer-events: none;
     }
     .back-link:hover::after { opacity: 1; }
@@ -84,9 +84,9 @@
     }
     .pd-image-wrap::after {
         content: ''; position: absolute; inset: 0;
-        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.1) 0%, transparent 60%);
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.3) 0%, rgba(99,102,241,0.08) 30%, transparent 60%);
         pointer-events: none; z-index: 1;
-        opacity: 0; transition: opacity 0.6s ease;
+        opacity: 0; transition: opacity 0.5s ease;
     }
     .pd-image-wrap:hover::after { opacity: 1; }
     .pd-image-wrap img {
@@ -149,14 +149,14 @@
     .sidebar-card::after,
     .sidebar-link::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.2) 0%, rgba(99,102,241,0.06) 30%, transparent 60%);
-        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 0; border-radius: inherit;
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.5) 0%, rgba(99,102,241,0.15) 25%, rgba(99,102,241,0.04) 45%, transparent 65%);
+        pointer-events: none; opacity: 0; transition: opacity 0.4s ease; z-index: 0; border-radius: inherit;
     }
     html.light-theme .pd-desc-block::after,
     html.light-theme .pd-tech-wrap::after,
     html.light-theme .sidebar-card::after,
     html.light-theme .sidebar-link::after {
-        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(59,130,246,0.12) 0%, rgba(59,130,246,0.04) 30%, transparent 60%);
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 25%, rgba(59,130,246,0.03) 45%, transparent 65%);
     }
     .pd-desc-block:hover::after,
     .pd-tech-wrap:hover::after,
