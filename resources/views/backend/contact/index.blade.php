@@ -1,8 +1,24 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+@media (max-width: 767.98px) {
+    .contact-page h4 { font-size: 0.9rem; }
+    .contact-page p.text-muted { font-size: 0.75rem; }
+    .contact-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
+    .contact-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
+    .contact-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
+    .contact-page .table tbody td .fw-semibold { font-size: 0.78rem; }
+    .contact-page .table tbody td .btn { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+    .contact-page .modal-header h5 { font-size: 0.9rem; }
+    .contact-page .modal-body { padding: 0.8rem !important; }
+    .contact-page .modal-body p { font-size: 0.78rem; }
+    .contact-page .modal-body small { font-size: 0.68rem; }
+    .contact-page .modal-footer .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+}
+</style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 contact-page">
 
     {{-- Header --}}
     <div class="d-flex align-items-center justify-content-between mb-4">
