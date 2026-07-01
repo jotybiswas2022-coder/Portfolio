@@ -35,7 +35,7 @@
         color: var(--admin-text);
         -webkit-font-smoothing: antialiased;
     }
-    .admin-layout { min-height: calc(100vh - 57px); }
+    .admin-layout { min-height: calc(100vh - 57px); padding-top: 57px; }
     .admin-main {
         margin-left: 260px !important;
         min-height: calc(100vh - 57px);
