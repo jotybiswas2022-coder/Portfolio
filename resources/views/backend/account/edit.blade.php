@@ -41,6 +41,13 @@
                 </a>
             </div>
 
+            {{-- Delete Image Form (outside the main form to avoid nested form issue) --}}
+            @if(isset($account) && $account->image)
+                <form action="{{ url('/admin/account/delete-image') }}" method="POST" id="deleteImageForm" style="display:none;">
+                    @csrf
+                </form>
+            @endif
+
             <form action="{{ url('/admin/account/update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -91,7 +98,7 @@
                             <div>
                                 <img id="preview"
                                      @if(isset($account) && $account->image)
-                                         src="{{ config('app.storage_url') }}{{ $account->image }}"
+                                         src="{{ asset('storage/' . $account->image) }}"
                                      @else
                                          src=""
                                      @endif
@@ -109,12 +116,11 @@
                                        class="form-control" onchange="previewImage(event)">
                                 <div class="form-text mt-1">Recommended: Square image, at least 200x200px.</div>
                                 @if(isset($account) && $account->image)
-                                    <form action="{{ url('/admin/account/delete-image') }}" method="POST" class="mt-2" onsubmit="return confirm('Delete profile picture?')">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
+                                    <div class="mt-2">
+                                        <button type="button" onclick="confirmDeleteImage()" class="btn btn-sm btn-outline-danger rounded-3">
                                             <i class="bi bi-trash3 me-1"></i> Delete Image
                                         </button>
-                                    </form>
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -167,7 +173,7 @@
                         <div class="form-text mt-1">Maximum 5MB. Accepted: PDF, DOC, DOCX.</div>
                         @if(isset($account) && $account->cv)
                             <div class="mt-3 d-flex align-items-center gap-3 flex-wrap">
-                                <a href="{{ config('app.storage_url') }}{{ $account->cv }}"
+                                <a href="{{ asset('storage/' . $account->cv) }}"
                                    target="_blank" class="btn btn-sm btn-outline-primary rounded-3 px-3">
                                     <i class="bi bi-eye me-1"></i> View Current CV
                                 </a>
@@ -203,6 +209,11 @@ function previewImage(event) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'inline-block';
         if (placeholder) placeholder.style.display = 'none';
+    }
+}
+function confirmDeleteImage() {
+    if (confirm('Delete profile picture?')) {
+        document.getElementById('deleteImageForm').submit();
     }
 }
 </script>
