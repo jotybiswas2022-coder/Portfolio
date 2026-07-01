@@ -222,6 +222,21 @@
         position: relative;
         z-index: 5;
         animation: cardEntry 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .login-card:hover {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.55),
+            0 0 60px rgba(59, 130, 246, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+    }
+    html.light-theme .login-card:hover {
+        border-color: rgba(59, 130, 246, 0.35);
+        box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.1),
+            0 0 60px rgba(59, 130, 246, 0.15);
     }
 
     /* Animated gradient border */
@@ -1505,7 +1520,7 @@
                 this.style.setProperty('--mouse-x', x + 'px');
                 this.style.setProperty('--mouse-y', y + 'px');
                 this.style.background = `
-                    radial-gradient(circle 250px at ${x}px ${y}px, rgba(59,130,246,0.04), transparent),
+                    radial-gradient(circle 350px at ${x}px ${y}px, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.06) 40%, transparent 70%),
                     var(--login-card-bg, rgba(15, 23, 42, 0.75))
                 `;
             });
