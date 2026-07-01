@@ -289,17 +289,19 @@
     }
     .sidebar {
         position: fixed !important;
-        top: 57px !important;
+        top: 0 !important;
         left: 0 !important;
         bottom: 0 !important;
         width: 260px !important;
         z-index: 1040 !important;
+        padding-top: 57px !important;
     }
     @media (max-width: 767.98px) {
         .sidebar {
             top: 0 !important;
             height: 100vh !important;
             height: 100dvh !important;
+            padding-top: 0 !important;
             transform: translateX(-100%) !important;
             transition: transform 0.3s cubic-bezier(0.16,1,0.3,1) !important;
             box-shadow: none !important;

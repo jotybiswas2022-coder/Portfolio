@@ -1,6 +1,6 @@
 <!-- Sidebar (desktop only) -->
 <aside class="sidebar" id="sidebarCollapse"
-     style="position:fixed; top:57px; left:0; bottom:0; width:260px; min-width:260px; background:linear-gradient(180deg,#0f172a,#1e293b); border-right:none; box-shadow:4px 0 20px rgba(0,0,0,0.1); overflow-y:auto; display:flex; flex-direction:column; z-index:1040;">
+     style="position:fixed; top:0; left:0; bottom:0; width:260px; min-width:260px; background:linear-gradient(180deg,#0f172a,#1e293b); border-right:none; overflow-y:auto; display:flex; flex-direction:column; z-index:1040; padding-top:57px;">
 
     {{-- Mobile close button --}}
     <div class="sidebar-close" style="display:none;">
