@@ -31,6 +31,13 @@
                 </a>
             </div>
 
+            {{-- Delete Avatar Form (outside the main form to avoid nested form issue) --}}
+            @if($testimonial->avatar)
+                <form action="{{ route('admin.testimonials.deleteImage', $testimonial->id) }}" method="POST" id="deleteImageForm" style="display:none;">
+                    @csrf
+                </form>
+            @endif
+
             <form action="{{ route('admin.testimonials.update', $testimonial->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -120,16 +127,13 @@
                             <div>
                                 @if($testimonial->avatar)
                                     <div class="d-flex align-items-start gap-2">
-                                        <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
+                                        <img src="{{ asset('storage/' . $testimonial->avatar) }}"
                                              alt="{{ $testimonial->name }}"
                                              class="rounded-circle shadow-sm"
                                              style="width:80px; height:80px; object-fit:cover;">
-                                        <form action="{{ route('admin.testimonials.deleteImage', $testimonial->id) }}" method="POST" onsubmit="return confirm('Delete this avatar?')">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
-                                                <i class="bi bi-trash3"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" onclick="confirmDeleteImage()" class="btn btn-sm btn-outline-danger rounded-3">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
                                     </div>
                                 @else
                                     <div class="rounded-circle d-inline-flex align-items-center justify-content-center"
@@ -172,6 +176,11 @@ function previewImage(event) {
     if (input.files && input.files[0]) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'inline-block';
+    }
+}
+function confirmDeleteImage() {
+    if (confirm('Delete this avatar?')) {
+        document.getElementById('deleteImageForm').submit();
     }
 }
 
