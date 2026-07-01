@@ -77,19 +77,19 @@
     .cs-hero .hero-gradient {
         position: absolute; inset: 0; z-index: 1;
         background: linear-gradient(180deg,
-            rgba(10,15,30,0.3) 0%,
-            rgba(10,15,30,0.5) 40%,
-            rgba(10,15,30,0.85) 70%,
-            rgba(10,15,30,0.95) 100%
+            rgba(10,15,30,0.05) 0%,
+            rgba(10,15,30,0.15) 50%,
+            rgba(10,15,30,0.55) 75%,
+            rgba(10,15,30,0.75) 100%
         );
         pointer-events: none;
     }
     html.light-theme .cs-hero .hero-gradient {
         background: linear-gradient(180deg,
-            rgba(248,250,252,0.3) 0%,
-            rgba(248,250,252,0.5) 40%,
-            rgba(248,250,252,0.85) 70%,
-            rgba(248,250,252,0.95) 100%
+            rgba(248,250,252,0.05) 0%,
+            rgba(248,250,252,0.15) 50%,
+            rgba(248,250,252,0.55) 75%,
+            rgba(248,250,252,0.75) 100%
         );
     }
     .cs-hero .hero-content {
@@ -121,9 +121,9 @@
     .cs-hero h1 {
         font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900;
         color: #fff; margin: 0; letter-spacing: -1px;
-        line-height: 1.15; text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+        line-height: 1.15; text-shadow: 0 4px 40px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3);
     }
-    html.light-theme .cs-hero h1 { color: var(--text-primary); text-shadow: none; }
+    html.light-theme .cs-hero h1 { color: var(--text-primary); text-shadow: 0 4px 40px rgba(255,255,255,0.3), 0 2px 10px rgba(255,255,255,0.15); }
 
     /* ===== CONTENT GRID ===== */
     .cs-body {
