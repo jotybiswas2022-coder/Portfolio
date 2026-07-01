@@ -137,6 +137,12 @@
                                      alt="{{ $project->title }}"
                                      class="rounded shadow-sm"
                                      style="max-width:300px; max-height:180px; object-fit:cover;">
+                                <form action="{{ route('admin.projects.deleteImage', $project->id) }}" method="POST" class="mt-2" onsubmit="return confirm('Delete this image?')">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
+                                        <i class="bi bi-trash3 me-1"></i> Delete Image
+                                    </button>
+                                </form>
                             </div>
                         @endif
                         <input type="file" accept="image/*" id="image" name="image"

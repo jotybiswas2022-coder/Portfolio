@@ -119,10 +119,18 @@
                         <div class="d-flex align-items-center gap-3 flex-wrap">
                             <div>
                                 @if($testimonial->avatar)
-                                    <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
-                                         alt="{{ $testimonial->name }}"
-                                         class="rounded-circle shadow-sm"
-                                         style="width:80px; height:80px; object-fit:cover;">
+                                    <div class="d-flex align-items-start gap-2">
+                                        <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
+                                             alt="{{ $testimonial->name }}"
+                                             class="rounded-circle shadow-sm"
+                                             style="width:80px; height:80px; object-fit:cover;">
+                                        <form action="{{ route('admin.testimonials.deleteImage', $testimonial->id) }}" method="POST" onsubmit="return confirm('Delete this avatar?')">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 @else
                                     <div class="rounded-circle d-inline-flex align-items-center justify-content-center"
                                          style="width:80px; height:80px; background:#f1f5f9; color:#94a3b8; font-size:2rem;">

@@ -124,6 +124,17 @@ class GigController extends Controller
             ->with('success', 'Gig deleted successfully!');
     }
 
+    public function deleteImage($id)
+    {
+        $gig = Gig::findOrFail($id);
+        if ($gig->image && Storage::disk('public')->exists($gig->image)) {
+            Storage::disk('public')->delete($gig->image);
+        }
+        $gig->image = null;
+        $gig->save();
+        return redirect()->back()->with('success', 'Gig image deleted successfully!');
+    }
+
     public function toggleStatus($id)
     {
         $gig = Gig::findOrFail($id);

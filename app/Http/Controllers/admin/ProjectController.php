@@ -150,6 +150,17 @@ class ProjectController extends Controller
             ->with('success', 'Project deleted successfully!');
     }
 
+    public function deleteImage($id)
+    {
+        $project = Project::findOrFail($id);
+        if ($project->image && Storage::disk('public')->exists($project->image)) {
+            Storage::disk('public')->delete($project->image);
+        }
+        $project->image = null;
+        $project->save();
+        return redirect()->back()->with('success', 'Project image deleted successfully!');
+    }
+
     /**
      * Toggle project active status.
      */

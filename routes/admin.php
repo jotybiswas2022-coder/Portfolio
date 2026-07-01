@@ -27,6 +27,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::get('/', 'index');               
         Route::get('/edit',  'edit');
         Route::post('/update', 'update');
+        Route::post('/delete-image', 'deleteImage');
     });
 
      // Contact
@@ -43,6 +44,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('destroy');
         Route::get('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
+        Route::post('/delete-image/{id}', 'deleteImage')->name('deleteImage');
     });
 
     // Testimonials
@@ -54,6 +56,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('destroy');
         Route::get('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
+        Route::post('/delete-image/{id}', 'deleteImage')->name('deleteImage');
     });
 
     // Experiences
@@ -98,6 +101,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('destroy');
         Route::get('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
+        Route::post('/delete-image/{id}', 'deleteImage')->name('deleteImage');
     });
 
     // Gigs
@@ -109,6 +113,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/delete/{id}', 'destroy')->name('destroy');
         Route::get('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
+        Route::post('/delete-image/{id}', 'deleteImage')->name('deleteImage');
     });
 
     // FAQs

@@ -140,10 +140,18 @@
                         <div class="d-flex align-items-center gap-3 flex-wrap">
                             <div>
                                 @if($caseStudy->image)
-                                    <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}"
-                                         id="preview"
-                                         class="rounded shadow-sm"
-                                         style="width:120px; height:80px; object-fit:cover;">
+                                    <div class="d-flex align-items-start gap-2">
+                                        <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}"
+                                             id="preview"
+                                             class="rounded shadow-sm"
+                                             style="width:120px; height:80px; object-fit:cover;">
+                                        <form action="{{ route('admin.casestudies.deleteImage', $caseStudy->id) }}" method="POST" onsubmit="return confirm('Delete this image?')">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                     <div id="previewPlaceholder" style="display:none;"
                                          class="rounded d-inline-flex align-items-center justify-content-center"
                                          style="width:120px; height:80px; background:#f1f5f9; color:#94a3b8; font-size:2rem;">

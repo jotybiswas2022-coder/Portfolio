@@ -143,6 +143,17 @@ class TestimonialController extends Controller
             ->with('success', 'Testimonial deleted successfully!');
     }
 
+    public function deleteImage($id)
+    {
+        $testimonial = Testimonial::findOrFail($id);
+        if ($testimonial->avatar && Storage::disk('public')->exists($testimonial->avatar)) {
+            Storage::disk('public')->delete($testimonial->avatar);
+        }
+        $testimonial->avatar = null;
+        $testimonial->save();
+        return redirect()->back()->with('success', 'Client avatar deleted successfully!');
+    }
+
     /**
      * Toggle testimonial active status.
      */

@@ -78,8 +78,16 @@
                                 @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 <div class="mt-2">
                                     @if($gig->image)
-                                        <img id="preview" src="{{ config('app.storage_url') }}{{ $gig->image }}"
-                                             style="max-width:300px; max-height:180px; object-fit:cover;" class="rounded shadow-sm">
+                                        <div class="d-flex align-items-start gap-2">
+                                            <img id="preview" src="{{ config('app.storage_url') }}{{ $gig->image }}"
+                                                 style="max-width:300px; max-height:180px; object-fit:cover;" class="rounded shadow-sm">
+                                            <form action="{{ route('admin.gigs.deleteImage', $gig->id) }}" method="POST" onsubmit="return confirm('Delete this image?')">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
+                                                    <i class="bi bi-trash3"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     @else
                                         <img id="preview" src="" style="display:none; max-width:300px; max-height:180px; object-fit:cover;" class="rounded shadow-sm">
                                     @endif

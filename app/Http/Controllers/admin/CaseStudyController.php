@@ -129,6 +129,17 @@ class CaseStudyController extends Controller
             ->with('success', 'Case study deleted successfully!');
     }
 
+    public function deleteImage($id)
+    {
+        $caseStudy = CaseStudy::findOrFail($id);
+        if ($caseStudy->image && Storage::disk('public')->exists($caseStudy->image)) {
+            Storage::disk('public')->delete($caseStudy->image);
+        }
+        $caseStudy->image = null;
+        $caseStudy->save();
+        return redirect()->back()->with('success', 'Case study image deleted successfully!');
+    }
+
     public function toggleStatus($id)
     {
         $caseStudy = CaseStudy::findOrFail($id);

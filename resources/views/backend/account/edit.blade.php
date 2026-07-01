@@ -108,6 +108,14 @@
                                 <input type="file" accept="image/*" id="image" name="image"
                                        class="form-control" onchange="previewImage(event)">
                                 <div class="form-text mt-1">Recommended: Square image, at least 200x200px.</div>
+                                @if(isset($account) && $account->image)
+                                    <form action="{{ url('/admin/account/delete-image') }}" method="POST" class="mt-2" onsubmit="return confirm('Delete profile picture?')">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
+                                            <i class="bi bi-trash3 me-1"></i> Delete Image
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>

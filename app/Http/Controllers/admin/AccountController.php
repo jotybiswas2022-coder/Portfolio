@@ -79,4 +79,17 @@ class AccountController extends Controller
 
         return redirect()->back()->with('success', 'Account updated successfully!');
     }
+
+    public function deleteImage()
+    {
+        $account = Account::first();
+        if ($account && $account->image && Storage::disk('public')->exists($account->image)) {
+            Storage::disk('public')->delete($account->image);
+        }
+        if ($account) {
+            $account->image = null;
+            $account->save();
+        }
+        return redirect()->back()->with('success', 'Profile picture deleted successfully!');
+    }
 }
