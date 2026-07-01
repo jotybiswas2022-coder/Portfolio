@@ -4,21 +4,33 @@
 <style>
 @media (max-width: 767.98px) {
     .inbox-show-page h4 { font-size: 0.9rem; }
+    .inbox-show-page h5 { font-size: 0.85rem; }
     .inbox-show-page p.text-muted { font-size: 0.75rem; }
     .inbox-show-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
     .inbox-show-page .card-header { padding: 0.6rem 0.8rem !important; }
     .inbox-show-page .card-body { padding: 0.6rem !important; }
     .inbox-show-page .chat-messages { padding: 0.5rem; gap: 0.5rem; max-height: 350px; }
-    .inbox-show-page .msg { max-width: 95%; }
+    .inbox-show-page .msg { max-width: 98%; }
+    .inbox-show-page .msg .bubble { font-size: 0.78rem; padding: 0.4rem 0.7rem; }
+    .inbox-show-page .bubble img { max-width: 100% !important; max-height: 200px !important; }
+    .inbox-show-page .bubble .time { font-size: 0.6rem; }
+    .inbox-show-page .bubble .sender-label { font-size: 0.6rem; }
     .inbox-show-page .msg-avatar { width: 26px !important; height: 26px !important; font-size: 0.65rem !important; }
-    .inbox-show-page .msg-bubble { padding: 0.4rem 0.7rem !important; font-size: 0.78rem; }
-    .inbox-show-page .msg-bubble small { font-size: 0.62rem !important; }
-    .inbox-show-page .msg-bubble .text-muted { font-size: 0.62rem !important; }
     .inbox-show-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.6rem; }
     .inbox-show-page .form-text { font-size: 0.7rem; }
     .inbox-show-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
     .inbox-show-page .fw-semibold[style*="font-size"] { font-size: 0.82rem !important; }
     .inbox-show-page .text-muted[style*="font-size"] { font-size: 0.68rem !important; }
+    .inbox-show-page .emoji-picker button { font-size: 1rem !important; }
+    .inbox-show-page .d-flex.gap-2.align-items-start { flex-wrap: wrap; }
+    .inbox-show-page .d-flex.gap-2.align-items-start > div:first-child { flex: 1 1 100%; margin-bottom: 0.4rem; }
+    .inbox-show-page .d-flex.gap-2.align-items-start .d-flex.gap-1 { flex: 1 1 100%; justify-content: flex-end; }
+    .inbox-show-page .d-flex.gap-2.align-items-start .d-flex.gap-1 .btn { padding: 0.35rem 0.6rem !important; }
+    .inbox-show-page .d-flex.align-items-center.gap-2.mb-3 { flex-wrap: wrap; }
+    .inbox-show-page .d-flex.align-items-center.gap-2.mb-3 .badge { margin-left: 0 !important; }
+    .inbox-show-page .card-body.py-2.px-3 .d-flex { flex-wrap: wrap; gap: 0.3rem; }
+    .inbox-show-page .card-body.py-2.px-3 .d-flex .fw-bold { font-size: 0.78rem; }
+    .inbox-show-page .card-body.py-2.px-3 .d-flex .fw-semibold { font-size: 0.78rem; }
 }
     .chat-messages {
         max-height: 500px;
