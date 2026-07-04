@@ -69,7 +69,7 @@ class ExperienceController extends Controller
             ->with('success', 'Experience created successfully!');
     }
 
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $experience = Experience::findOrFail($id);
         return view('backend.experience.edit', compact('experience'));
