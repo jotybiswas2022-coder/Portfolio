@@ -25,7 +25,7 @@ class InboxController extends Controller
         return view('backend.inbox.show', compact('conversation'));
     }
 
-    public function sendMessage(Request $request, $id)
+    public function sendMessage(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $conversation = Conversation::findOrFail($id);
 
