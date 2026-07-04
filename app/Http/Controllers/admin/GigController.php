@@ -32,7 +32,7 @@ class GigController extends Controller
         return view('backend.gig.index', compact('gigs', 'query'));
     }
 
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('backend.gig.create');
     }
