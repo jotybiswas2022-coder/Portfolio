@@ -54,7 +54,7 @@ class FaqController extends Controller
             ->with('success', 'FAQ created successfully!');
     }
 
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $faq = Faq::findOrFail($id);
         return view('backend.faq.edit', compact('faq'));
