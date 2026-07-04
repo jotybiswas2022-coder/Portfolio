@@ -72,7 +72,7 @@ class CaseStudyController extends Controller
             ->with('success', 'Case study created successfully!');
     }
 
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $caseStudy = CaseStudy::findOrFail($id);
         return view('backend.casestudy.edit', compact('caseStudy'));
