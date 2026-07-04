@@ -42,7 +42,7 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new project.
      */
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('backend.project.create');
     }
