@@ -129,7 +129,7 @@ class TestimonialController extends Controller
     /**
      * Remove the specified testimonial from storage.
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $testimonial = Testimonial::findOrFail($id);
 
