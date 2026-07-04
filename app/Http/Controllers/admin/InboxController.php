@@ -19,7 +19,7 @@ class InboxController extends Controller
         return view('backend.inbox.index', compact('conversations'));
     }
 
-    public function show($id)
+    public function show($id): \Illuminate\View\View
     {
         $conversation = Conversation::with('messages.sender', 'user', 'gig')->findOrFail($id);
         return view('backend.inbox.show', compact('conversation'));
