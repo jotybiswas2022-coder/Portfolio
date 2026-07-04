@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class InboxController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $conversations = Conversation::with('user', 'lastMessage.sender', 'gig')
             ->orderBy('updated_at', 'desc')
