@@ -54,7 +54,7 @@ class SkillController extends Controller
             ->with('success', 'Skill created successfully!');
     }
 
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $skill = Skill::findOrFail($id);
         return view('backend.skill.edit', compact('skill'));
