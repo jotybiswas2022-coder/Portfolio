@@ -38,7 +38,7 @@ class ExperienceController extends Controller
         return view('backend.experience.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'company'     => 'required|string|max:255',
