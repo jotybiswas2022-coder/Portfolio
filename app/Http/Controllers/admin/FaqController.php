@@ -60,7 +60,7 @@ class FaqController extends Controller
         return view('backend.faq.edit', compact('faq'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $faq = Faq::findOrFail($id);
 
