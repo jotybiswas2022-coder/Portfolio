@@ -88,7 +88,7 @@ class FaqController extends Controller
             ->with('success', 'FAQ deleted successfully!');
     }
 
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $faq = Faq::findOrFail($id);
         $faq->update(['is_active' => !$faq->is_active]);
