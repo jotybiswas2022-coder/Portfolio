@@ -37,7 +37,7 @@ class FaqController extends Controller
         return view('backend.faq.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'question'   => 'required|string|max:500',
