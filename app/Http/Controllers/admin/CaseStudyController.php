@@ -129,7 +129,7 @@ class CaseStudyController extends Controller
             ->with('success', 'Case study deleted successfully!');
     }
 
-    public function deleteImage($id)
+    public function deleteImage($id): \Illuminate\Http\RedirectResponse
     {
         $caseStudy = CaseStudy::findOrFail($id);
         if ($caseStudy->image && Storage::disk('public')->exists($caseStudy->image)) {
