@@ -82,7 +82,7 @@ class TestimonialController extends Controller
     /**
      * Show the form for editing the specified testimonial.
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $testimonial = Testimonial::findOrFail($id);
         return view('backend.testimonial.edit', compact('testimonial'));
