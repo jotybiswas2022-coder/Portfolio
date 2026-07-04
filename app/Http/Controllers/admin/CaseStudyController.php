@@ -140,7 +140,7 @@ class CaseStudyController extends Controller
         return redirect()->back()->with('success', 'Case study image deleted successfully!');
     }
 
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $caseStudy = CaseStudy::findOrFail($id);
         $caseStudy->update(['is_active' => !$caseStudy->is_active]);
