@@ -62,7 +62,7 @@ class ServiceController extends Controller
         return view('backend.service.edit', compact('service'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $service = Service::findOrFail($id);
 
