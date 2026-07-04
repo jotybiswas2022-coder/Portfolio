@@ -60,7 +60,7 @@ class SkillController extends Controller
         return view('backend.skill.edit', compact('skill'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $skill = Skill::findOrFail($id);
 
