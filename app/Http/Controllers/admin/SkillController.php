@@ -31,7 +31,7 @@ class SkillController extends Controller
         return view('backend.skill.index', compact('skills', 'query'));
     }
 
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('backend.skill.create');
     }
