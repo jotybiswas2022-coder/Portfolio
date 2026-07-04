@@ -117,7 +117,7 @@ class ExperienceController extends Controller
             ->with('success', 'Experience deleted successfully!');
     }
 
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $experience = Experience::findOrFail($id);
         $experience->update(['is_active' => !$experience->is_active]);
