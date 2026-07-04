@@ -15,7 +15,7 @@ use App\Models\Gig;
 
 class SiteController extends Controller
 {
-    public function index(){
+    public function index(): \Illuminate\View\View{
         $account = Account::first(); 
         $projects = Project::active()->get();
         $testimonials = Testimonial::active()->get();
