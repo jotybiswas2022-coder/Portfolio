@@ -91,7 +91,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified testimonial in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $testimonial = Testimonial::findOrFail($id);
 
