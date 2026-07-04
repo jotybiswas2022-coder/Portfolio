@@ -35,7 +35,7 @@ class CaseStudyController extends Controller
         return view('backend.casestudy.index', compact('caseStudies', 'query'));
     }
 
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('backend.casestudy.create');
     }
