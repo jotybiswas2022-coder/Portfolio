@@ -36,7 +36,7 @@ class SkillController extends Controller
         return view('backend.skill.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'name'       => 'required|string|max:255',
