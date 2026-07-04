@@ -9,7 +9,7 @@ use App\Models\CaseStudy;
 
 class CaseStudyController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\View\View|\Illuminate\Http\JsonResponse
     {
         $query = $request->input('q');
 
