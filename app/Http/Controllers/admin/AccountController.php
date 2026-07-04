@@ -80,7 +80,7 @@ class AccountController extends Controller
         return redirect()->back()->with('success', 'Account updated successfully!');
     }
 
-    public function deleteImage()
+    public function deleteImage(): \Illuminate\Http\RedirectResponse
     {
         $account = Account::first();
         if ($account && $account->image && Storage::disk('public')->exists($account->image)) {
