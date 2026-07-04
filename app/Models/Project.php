@@ -47,7 +47,7 @@ class Project extends Model
     /**
      * Scope for active projects sorted by order.
      */
-    public function scopeActive($query)
+    public function scopeActive($query): \Illuminate\Database\Eloquent\Builder
     {
         return $query->where('is_active', true)->orderBy('sort_order');
     }
