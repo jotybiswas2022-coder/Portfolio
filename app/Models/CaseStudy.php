@@ -24,7 +24,7 @@ class CaseStudy extends Model
         'is_active' => 'boolean',
     ];
 
-    public function scopeActive($query)
+    public function scopeActive($query): \Illuminate\Database\Eloquent\Builder
     {
         return $query->where('is_active', true)->orderBy('sort_order');
     }
