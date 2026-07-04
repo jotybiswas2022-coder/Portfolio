@@ -78,7 +78,7 @@ class CaseStudyController extends Controller
         return view('backend.casestudy.edit', compact('caseStudy'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $caseStudy = CaseStudy::findOrFail($id);
 
