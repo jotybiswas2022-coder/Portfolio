@@ -18,7 +18,7 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $account     = Account::first();
         $usersCount  = User::count();
