@@ -34,7 +34,7 @@ class SiteController extends Controller
         return view('frontend.gig-detail', compact('gig', 'suggestedGigs'));
     }
 
-    public function caseStudyDetail($id){
+    public function caseStudyDetail($id): \Illuminate\View\View{
         $caseStudy = CaseStudy::findOrFail($id);
         return view('frontend.case-study-detail', compact('caseStudy'));
     }
