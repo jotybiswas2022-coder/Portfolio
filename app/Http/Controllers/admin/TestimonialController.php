@@ -143,7 +143,7 @@ class TestimonialController extends Controller
             ->with('success', 'Testimonial deleted successfully!');
     }
 
-    public function deleteImage($id)
+    public function deleteImage($id): \Illuminate\Http\RedirectResponse
     {
         $testimonial = Testimonial::findOrFail($id);
         if ($testimonial->avatar && Storage::disk('public')->exists($testimonial->avatar)) {
