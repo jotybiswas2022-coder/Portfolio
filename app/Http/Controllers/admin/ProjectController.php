@@ -164,7 +164,7 @@ class ProjectController extends Controller
     /**
      * Toggle project active status.
      */
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $project = Project::findOrFail($id);
         $project->update(['is_active' => !$project->is_active]);
