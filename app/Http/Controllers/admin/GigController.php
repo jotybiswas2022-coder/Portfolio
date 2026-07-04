@@ -112,7 +112,7 @@ class GigController extends Controller
             ->with('success', 'Gig updated successfully!');
     }
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $gig = Gig::findOrFail($id);
         if ($gig->image) {
