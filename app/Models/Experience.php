@@ -25,7 +25,7 @@ class Experience extends Model
         'end_date'   => 'date',
     ];
 
-    public function scopeActive($query)
+    public function scopeActive($query): \Illuminate\Database\Eloquent\Builder
     {
         return $query->where('is_active', true)->orderBy('sort_order');
     }
