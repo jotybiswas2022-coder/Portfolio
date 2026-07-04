@@ -75,7 +75,7 @@ class ExperienceController extends Controller
         return view('backend.experience.edit', compact('experience'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $experience = Experience::findOrFail($id);
 
