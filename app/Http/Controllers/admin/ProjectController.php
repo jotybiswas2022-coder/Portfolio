@@ -150,7 +150,7 @@ class ProjectController extends Controller
             ->with('success', 'Project deleted successfully!');
     }
 
-    public function deleteImage($id)
+    public function deleteImage($id): \Illuminate\Http\RedirectResponse
     {
         $project = Project::findOrFail($id);
         if ($project->image && Storage::disk('public')->exists($project->image)) {
