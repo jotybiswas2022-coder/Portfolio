@@ -157,7 +157,7 @@ class TestimonialController extends Controller
     /**
      * Toggle testimonial active status.
      */
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $testimonial = Testimonial::findOrFail($id);
         $testimonial->update(['is_active' => !$testimonial->is_active]);
