@@ -75,7 +75,7 @@ class GigController extends Controller
         return view('backend.gig.edit', compact('gig'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $gig = Gig::findOrFail($id);
 
