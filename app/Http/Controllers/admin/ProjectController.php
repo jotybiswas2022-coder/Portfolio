@@ -85,7 +85,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified project.
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $project = Project::findOrFail($id);
         return view('backend.project.edit', compact('project'));
