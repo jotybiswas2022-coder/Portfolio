@@ -37,7 +37,7 @@ class ServiceController extends Controller
         return view('backend.service.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'title'             => 'required|string|max:255',
