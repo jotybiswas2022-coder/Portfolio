@@ -15,7 +15,7 @@ class AccountController extends Controller
         return view('backend.account.index', compact('account'));
     }
 
-    public function edit()
+    public function edit(): \Illuminate\View\View
     {
         $account = Account::first();
         return view('backend.account.edit', compact('account'));
