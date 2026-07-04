@@ -92,7 +92,7 @@ class ServiceController extends Controller
             ->with('success', 'Service deleted successfully!');
     }
 
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $service = Service::findOrFail($id);
         $service->update(['is_active' => !$service->is_active]);
