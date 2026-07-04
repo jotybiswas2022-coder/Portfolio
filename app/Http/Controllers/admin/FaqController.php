@@ -32,7 +32,7 @@ class FaqController extends Controller
         return view('backend.faq.index', compact('faqs', 'query'));
     }
 
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('backend.faq.create');
     }
