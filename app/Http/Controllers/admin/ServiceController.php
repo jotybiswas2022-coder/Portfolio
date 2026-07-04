@@ -32,7 +32,7 @@ class ServiceController extends Controller
         return view('backend.service.index', compact('services', 'query'));
     }
 
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('backend.service.create');
     }
