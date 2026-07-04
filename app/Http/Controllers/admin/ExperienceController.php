@@ -108,7 +108,7 @@ class ExperienceController extends Controller
             ->with('success', 'Experience updated successfully!');
     }
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $experience = Experience::findOrFail($id);
         $experience->delete();
