@@ -79,7 +79,7 @@ class FaqController extends Controller
             ->with('success', 'FAQ updated successfully!');
     }
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $faq = Faq::findOrFail($id);
         $faq->delete();
