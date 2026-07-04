@@ -8,7 +8,7 @@ use App\Models\Skill;
 
 class SkillController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\View\View|\Illuminate\Http\JsonResponse
     {
         $query = $request->input('q');
 
