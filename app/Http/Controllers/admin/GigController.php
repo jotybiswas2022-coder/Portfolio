@@ -135,7 +135,7 @@ class GigController extends Controller
         return redirect()->back()->with('success', 'Gig image deleted successfully!');
     }
 
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $gig = Gig::findOrFail($id);
         $gig->update(['is_active' => !$gig->is_active]);
