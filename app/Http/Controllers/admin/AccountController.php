@@ -21,7 +21,7 @@ class AccountController extends Controller
         return view('backend.account.edit', compact('account'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'name'    => 'required|string|max:255',
