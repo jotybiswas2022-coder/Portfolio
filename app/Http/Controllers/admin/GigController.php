@@ -69,7 +69,7 @@ class GigController extends Controller
             ->with('success', 'Gig created successfully!');
     }
 
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $gig = Gig::findOrFail($id);
         return view('backend.gig.edit', compact('gig'));
