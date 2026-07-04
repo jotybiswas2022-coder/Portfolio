@@ -9,7 +9,7 @@ use App\Models\Account;
 
 class AccountController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $account = Account::first();
         return view('backend.account.index', compact('account'));
