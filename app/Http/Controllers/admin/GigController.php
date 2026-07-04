@@ -124,7 +124,7 @@ class GigController extends Controller
             ->with('success', 'Gig deleted successfully!');
     }
 
-    public function deleteImage($id)
+    public function deleteImage($id): \Illuminate\Http\RedirectResponse
     {
         $gig = Gig::findOrFail($id);
         if ($gig->image && Storage::disk('public')->exists($gig->image)) {
