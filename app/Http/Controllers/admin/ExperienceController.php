@@ -33,7 +33,7 @@ class ExperienceController extends Controller
         return view('backend.experience.index', compact('experiences', 'query'));
     }
 
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('backend.experience.create');
     }
