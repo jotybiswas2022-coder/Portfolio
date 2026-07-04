@@ -89,7 +89,7 @@ class SkillController extends Controller
             ->with('success', 'Skill deleted successfully!');
     }
 
-    public function toggleStatus($id)
+    public function toggleStatus($id): \Illuminate\Http\RedirectResponse
     {
         $skill = Skill::findOrFail($id);
         $skill->update(['is_active' => !$skill->is_active]);
