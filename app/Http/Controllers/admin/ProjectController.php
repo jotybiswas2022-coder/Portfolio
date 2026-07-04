@@ -13,7 +13,7 @@ class ProjectController extends Controller
     /**
      * Display a listing of the projects.
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\View\View|\Illuminate\Http\JsonResponse
     {
         $query = $request->input('q');
 
