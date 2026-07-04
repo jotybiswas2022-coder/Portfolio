@@ -80,7 +80,7 @@ class SkillController extends Controller
             ->with('success', 'Skill updated successfully!');
     }
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $skill = Skill::findOrFail($id);
         $skill->delete();
