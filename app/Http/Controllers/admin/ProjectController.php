@@ -135,7 +135,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified project from storage.
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $project = Project::findOrFail($id);
 
