@@ -56,7 +56,7 @@ class ServiceController extends Controller
             ->with('success', 'Service created successfully!');
     }
 
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
         $service = Service::findOrFail($id);
         return view('backend.service.edit', compact('service'));
