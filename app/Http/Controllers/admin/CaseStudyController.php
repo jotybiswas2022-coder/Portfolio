@@ -115,7 +115,7 @@ class CaseStudyController extends Controller
             ->with('success', 'Case study updated successfully!');
     }
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $caseStudy = CaseStudy::findOrFail($id);
 
