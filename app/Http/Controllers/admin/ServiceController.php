@@ -83,7 +83,7 @@ class ServiceController extends Controller
             ->with('success', 'Service updated successfully!');
     }
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $service = Service::findOrFail($id);
         $service->delete();
