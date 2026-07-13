@@ -207,7 +207,7 @@
         line-height: 1.6;
     }
 
-    /* ===== MESSAGES BOX ===== */
+    /* ===== Messages box ===== */
     .messages-box {
         background: var(--bg-card);
         border: 1px solid var(--border-color);
