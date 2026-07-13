@@ -34,7 +34,7 @@
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
                     <h4 class="fw-bold mb-1"><i class="bi bi-person-gear me-2" style="color:#6366f1;"></i>Edit Account</h4>
-                    <p class="text-muted small mb-0">Update your profile details and social links</p>
+                    <p class="text-muted small mb-0">Update your profile details and social links.</p>
                 </div>
                 <a href="{{ route('admin.account.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
                     <i class="bi bi-arrow-left me-1"></i> Back
