@@ -1,4 +1,4 @@
-@extends('frontend.app')
+﻿@extends('frontend.app')
 
 @section('content')
 <style>
@@ -49,7 +49,7 @@
 
     .pd-container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
 
-    /* ===== BACK BAR ===== */
+    /* ===== Back bar ===== */
     .top-bar {
         display: flex; align-items: center; justify-content: space-between;
         margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;
