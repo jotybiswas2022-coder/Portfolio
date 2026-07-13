@@ -63,7 +63,7 @@ class InboxController extends Controller
         return back();
     }
 
-    public function orderFromGig(Request $request, $gigId, $package): \Illuminate\Http\RedirectResponse
+    public function orderFromGig(Request $request, $gigId, $package): \Illuminate\Http\RedirectResponse: \Illuminate\Http\RedirectResponse
     {
         $gig = Gig::findOrFail($gigId);
 
