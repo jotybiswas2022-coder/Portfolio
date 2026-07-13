@@ -122,7 +122,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== PAGE EXIT TRANSITION OVERLAY ===== */
+        /* ===== Page exit transition overlay ===== */
         .page-transition-overlay {
             position: fixed;
             inset: 0;
