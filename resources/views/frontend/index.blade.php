@@ -1237,7 +1237,7 @@
         display: block;
     }
 
-    /* ===== THUNDER / LIGHTNING EFFECTS ===== */
+    /* ===== Thunder and Lightning Effects ===== */
     .skill-card {
         position: relative;
     }
