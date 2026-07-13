@@ -134,7 +134,7 @@
                             <polyline points="22 4 12 14.01 9 11.01"/>
                         </svg>
                     </div>
-                    {{ __('Verify Your Email Address') }}
+{{ __('Verify your email address') }}
                 </div>
 
                 <div class="card-body login-body">
