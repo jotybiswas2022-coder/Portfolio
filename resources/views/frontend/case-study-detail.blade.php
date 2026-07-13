@@ -252,7 +252,7 @@
         box-shadow: 0 12px 40px rgba(99,102,241,0.3);
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* ===== Responsive ===== */
     @media (max-width: 968px) {
         .cs-body { grid-template-columns: 1fr; }
         .cs-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
