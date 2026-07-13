@@ -41,7 +41,7 @@
         position: relative;
     }
 
-    /* ===== HEADER SECTION ===== */
+    /* ===== Header section ===== */
     .inbox-header {
         display: flex;
         flex-direction: column;
