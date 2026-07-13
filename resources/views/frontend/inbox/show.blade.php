@@ -256,7 +256,7 @@
         z-index: 1;
     }
 
-    /* ===== SINGLE MESSAGE ===== */
+    /* ===== Single message ===== */
     .message {
         display: flex;
         gap: 0.75rem;
