@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(Conversation::class, 'admin_id');
     }
 
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany: \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
