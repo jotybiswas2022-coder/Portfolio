@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('live_link')->nullable();
             $table->string('github_link')->nullable();
             $table->string('category')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true)->comment('Toggle project visibility')->default(true);
             $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
