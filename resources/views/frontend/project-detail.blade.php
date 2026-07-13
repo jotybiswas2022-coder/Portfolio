@@ -146,7 +146,7 @@
 
     .pd-main { display: flex; flex-direction: column; gap: 1.5rem; }
 
-    /* ===== SHINE EFFECT ON ALL CARDS ===== */
+    /* ===== Shine effect on all cards ===== */
     .pd-desc-block::after,
     .pd-tech-wrap::after,
     .sidebar-card::after,
