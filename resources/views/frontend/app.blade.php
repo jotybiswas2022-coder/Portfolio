@@ -160,7 +160,7 @@
             animation: viewTransitionFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
         }
 
-        /* Prevent overflow from large decorative elements */
+        /* Prevent overflow from decorative elements */
         section, .hero { overflow: hidden; }
     </style>
 </head>
