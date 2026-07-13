@@ -19,19 +19,19 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
 
     // Dashboard
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('admin.dashboard.index');
     });
 
     //Account
-    Route::prefix('/account')->controller(AccountController::class)->group(function () {
-        Route::get('/', 'index');               
-        Route::get('/edit',  'edit');
-        Route::post('/update', 'update');
-        Route::post('/delete-image', 'deleteImage');
+    Route::prefix('/account')->name('admin.account.')->controller(AccountController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/edit', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete-image', 'deleteImage')->name('deleteImage');
     });
 
      // Contact
-    Route::prefix('/contact')->controller(ContactController::class)->group(function () {
+    Route::prefix('/contact')->name('admin.contact.')->controller(ContactController::class)->group(function () {
         Route::get('/', 'index');
     });
 
