@@ -30,7 +30,7 @@
                     <h6 class="fw-semibold mb-1 pb-0" style="color:#6366f1;">
                         <i class="bi bi-question-lg me-1"></i> Question
                     </h6>
-                    <p class="text-muted small mb-3">The question visitors will see</p>
+                    <p class="text-muted small mb-3">The question that visitors will see</p>
                     <input type="text" name="question"
                            class="form-control form-control-lg @error('question') is-invalid @enderror"
                            value="{{ old('question') }}" placeholder="e.g. What technologies do you work with?" required>
