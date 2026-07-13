@@ -1,4 +1,4 @@
-<!-- Sidebar (desktop only) -->
+﻿<!-- Sidebar (desktop only) -->
 <aside class="sidebar" id="sidebarCollapse"
      style="position:fixed; top:0; left:0; bottom:0; width:260px; min-width:260px; background:linear-gradient(180deg,#0f172a,#1e293b); border-right:none; overflow-y:auto; display:flex; flex-direction:column; z-index:1040; padding-top:57px;">
 
@@ -45,7 +45,7 @@
                class="{{ request()->is('admin/case-studies*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-journal-code" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
-                <span>Case Studies</span>
+                <span>Case studies</span>
             </a>
         </li>
         <li style="margin-bottom:1px;">
