@@ -74,7 +74,7 @@
                     <div class="card-body px-4 pb-4">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="tech_stack" class="form-label fw-medium">Tech Stack</label>
+                                <label for="tech_stack" class="form-label fw-medium">Tech stack</label>
                                 <input type="text" id="tech_stack" name="tech_stack"
                                        class="form-control @error('tech_stack') is-invalid @enderror"
                                        value="{{ old('tech_stack') }}" placeholder="e.g. Laravel, MySQL, Stripe">
