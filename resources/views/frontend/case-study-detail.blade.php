@@ -1,4 +1,4 @@
-@extends('frontend.app')
+﻿@extends('frontend.app')
 
 @section('content')
 <style>
@@ -38,7 +38,7 @@
 
     .cs-container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-    /* ===== TOP BAR ===== */
+    /* ===== Top bar ===== */
     .top-bar {
         display: flex; align-items: center;
         margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
