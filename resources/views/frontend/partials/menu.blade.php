@@ -361,7 +361,7 @@
         gap: 0.5rem;
     }
 
-    /* ===== MOBILE RESPONSIVE ===== */
+    /* ===== Mobile responsive ===== */
     @media (max-width: 768px) {
         .navbar-main {
             padding: 0.7rem 1rem;
