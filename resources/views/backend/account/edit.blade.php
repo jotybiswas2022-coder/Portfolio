@@ -159,6 +159,27 @@
                                 <input type="url" id="youtube" name="youtube" class="form-control"
                                        value="{{ $account->youtube ?? '' }}" placeholder="https://youtube.com/@channel">
                             </div>
+                            <div class="col-12 mt-2 mb-1">
+                                <hr class="m-0 opacity-25">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-medium text-muted small mb-2"><i class="bi bi-briefcase me-1"></i> Freelance Profiles</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fiverr" class="form-label fw-medium"><i class="fab fa-fiverr me-1" style="color:#1DBF73;"></i> Fiverr</label>
+                                <input type="url" id="fiverr" name="fiverr" class="form-control"
+                                       value="{{ $account->fiverr ?? '' }}" placeholder="https://fiverr.com/username">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="upwork" class="form-label fw-medium"><i class="fab fa-upwork me-1" style="color:#6FDA44;"></i> Upwork</label>
+                                <input type="url" id="upwork" name="upwork" class="form-control"
+                                       value="{{ $account->upwork ?? '' }}" placeholder="https://upwork.com/freelancers/username">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="freelancer" class="form-label fw-medium"><i class="fas fa-user-tie me-1" style="color:#29B2FE;"></i> Freelancer</label>
+                                <input type="url" id="freelancer" name="freelancer" class="form-control"
+                                       value="{{ $account->freelancer ?? '' }}" placeholder="https://freelancer.com/u/username">
+                            </div>
                         </div>
                     </div>
                 </div>

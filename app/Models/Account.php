@@ -17,5 +17,8 @@ class Account extends Model
         'facebook',
         'twitter',
         'youtube',
+        'fiverr',
+        'upwork',
+        'freelancer',
     ];
 }

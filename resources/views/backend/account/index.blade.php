@@ -112,6 +112,36 @@
             </div>
             @endif
 
+            @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
+            <div class="card border-0 shadow-sm rounded-4 mt-4">
+                <div class="card-header bg-white border-bottom-0 pb-0 pt-3 px-4">
+                    <h6 class="fw-bold mb-0"><i class="bi bi-briefcase me-2" style="color:#6366f1;"></i>Freelance Profiles</h6>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    <div class="d-flex flex-wrap gap-2">
+                        @if($account->fiverr)
+                            <a href="{{ $account->fiverr }}" target="_blank"
+                               class="btn btn-light border rounded-3 px-3 d-inline-flex align-items-center gap-2">
+                                <i class="fab fa-fiverr" style="color:#1DBF73;"></i> Fiverr
+                            </a>
+                        @endif
+                        @if($account->upwork)
+                            <a href="{{ $account->upwork }}" target="_blank"
+                               class="btn btn-light border rounded-3 px-3 d-inline-flex align-items-center gap-2">
+                                <i class="fab fa-upwork" style="color:#6FDA44;"></i> Upwork
+                            </a>
+                        @endif
+                        @if($account->freelancer)
+                            <a href="{{ $account->freelancer }}" target="_blank"
+                               class="btn btn-light border rounded-3 px-3 d-inline-flex align-items-center gap-2">
+                                <i class="fas fa-user-tie" style="color:#29B2FE;"></i> Freelancer
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
+
         </div>
     </div>
 </div>

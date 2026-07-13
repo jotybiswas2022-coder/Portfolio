@@ -1800,6 +1800,71 @@
         box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
 
+    /* ===== FREELANCE PROFILES ===== */
+    .freelance-profiles {
+        margin-top: 1.2rem;
+        padding-top: 1.2rem;
+        border-top: 1px solid rgba(59, 130, 246, 0.08);
+    }
+    .freelance-profiles .freelance-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+    }
+    .freelance-profiles .freelance-row {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+    .freelance-profiles .freelance-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 12px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid transparent;
+    }
+    .freelance-profiles .freelance-btn.fiverr {
+        background: rgba(29, 191, 115, 0.1);
+        color: #1DBF73;
+        border-color: rgba(29, 191, 115, 0.2);
+    }
+    .freelance-profiles .freelance-btn.fiverr:hover {
+        background: #1DBF73;
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(29, 191, 115, 0.3);
+    }
+    .freelance-profiles .freelance-btn.upwork {
+        background: rgba(106, 218, 68, 0.1);
+        color: #6FDA44;
+        border-color: rgba(106, 218, 68, 0.2);
+    }
+    .freelance-profiles .freelance-btn.upwork:hover {
+        background: #6FDA44;
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(106, 218, 68, 0.3);
+    }
+    .freelance-profiles .freelance-btn.freelancer {
+        background: rgba(41, 178, 254, 0.1);
+        color: #29B2FE;
+        border-color: rgba(41, 178, 254, 0.2);
+    }
+    .freelance-profiles .freelance-btn.freelancer:hover {
+        background: #29B2FE;
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(41, 178, 254, 0.3);
+    }
+
     /* ===== CONTACT FORM — GLASS CARD ===== */
     .contact-form {
         background: rgba(17, 28, 46, 0.6);
@@ -3159,6 +3224,29 @@
                             </div>
                         </div>
                     @endif
+
+                    @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
+                        <div class="freelance-profiles">
+                            <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
+                            <div class="freelance-row">
+                                @if(isset($account) && $account->fiverr)
+                                    <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
+                                        <i class="fab fa-fiverr"></i> Fiverr
+                                    </a>
+                                @endif
+                                @if(isset($account) && $account->upwork)
+                                    <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork">
+                                        <i class="fab fa-upwork"></i> Upwork
+                                    </a>
+                                @endif
+                                @if(isset($account) && $account->freelancer)
+                                    <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer">
+                                        <i class="fas fa-user-tie"></i> Freelancer
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="contact-form reveal reveal-delay-2">
@@ -3314,6 +3402,21 @@
                 @if(isset($account) && $account->youtube)
                     <a href="{{ $account->youtube }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
                         <i class="bi bi-youtube"></i>
+                    </a>
+                @endif
+                @if(isset($account) && $account->fiverr)
+                    <a href="{{ $account->fiverr }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Fiverr">
+                        <i class="fab fa-fiverr"></i>
+                    </a>
+                @endif
+                @if(isset($account) && $account->upwork)
+                    <a href="{{ $account->upwork }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Upwork">
+                        <i class="fab fa-upwork"></i>
+                    </a>
+                @endif
+                @if(isset($account) && $account->freelancer)
+                    <a href="{{ $account->freelancer }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Freelancer">
+                        <i class="fas fa-user-tie"></i>
                     </a>
                 @endif
             </div>

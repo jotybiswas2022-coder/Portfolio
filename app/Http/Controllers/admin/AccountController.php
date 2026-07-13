@@ -33,7 +33,10 @@ class AccountController extends Controller
             'linkedin'=> 'nullable|url|max:500',
             'facebook'=> 'nullable|url|max:500',
             'twitter' => 'nullable|url|max:500',
-            'youtube' => 'nullable|url|max:500',
+            'youtube'   => 'nullable|url|max:500',
+            'fiverr'    => 'nullable|url|max:500',
+            'upwork'    => 'nullable|url|max:500',
+            'freelancer'=> 'nullable|url|max:500',
         ]);
 
         $account = Account::first();
@@ -49,6 +52,9 @@ class AccountController extends Controller
         $account->facebook = $request->facebook;
         $account->twitter = $request->twitter;
         $account->youtube = $request->youtube;
+        $account->fiverr = $request->fiverr;
+        $account->upwork = $request->upwork;
+        $account->freelancer = $request->freelancer;
 
         // Image upload
         if ($request->hasFile('image')) {
