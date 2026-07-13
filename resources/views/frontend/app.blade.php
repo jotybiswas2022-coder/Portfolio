@@ -51,7 +51,7 @@
         .light-theme .footer { background: #e2e8f0; }
         .light-theme .map-container iframe { filter: none; }
 
-        /* ===== LOADING OVERLAY ===== */
+        /* ===== Loading overlay ===== */
         .page-loader {
             position: fixed;
             inset: 0;
