@@ -426,7 +426,7 @@
 
         Swal.fire({
             title: 'Confirm Deletion',
-            text: 'Delete "' + title + '"? This action cannot be undone.',
+            text: 'Are you sure you want to delete "' + title + '"? This action cannot be undone.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ef4444',
