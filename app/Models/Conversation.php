@@ -32,7 +32,7 @@ class Conversation extends Model
         return $this->belongsTo(Gig::class);
     }
 
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany: \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class);
     }
