@@ -102,7 +102,7 @@
         background: rgba(245, 158, 11, 0.2);
     }
 
-    /* ===== HAMBURGER ===== */
+    /* ===== Hamburger ===== */
     .hamburger {
         display: none; flex-direction: column; gap: 4px;
         cursor: pointer; z-index: 1002; padding: 7px;
