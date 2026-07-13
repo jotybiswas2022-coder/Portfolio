@@ -1800,69 +1800,74 @@
         box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
 
-    /* ===== FREELANCE PROFILES ===== */
-    .freelance-profiles {
-        margin-top: 1.2rem;
-        padding-top: 1.2rem;
-        border-top: 1px solid rgba(59, 130, 246, 0.08);
+    /* ===== FREELANCE PROFILES - ABOUT SECTION ===== */
+    .about-freelance {
+        margin-top: 1.8rem;
+        padding: 1.2rem 1.5rem;
+        background: rgba(59, 130, 246, 0.04);
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        border-radius: 16px;
     }
-    .freelance-profiles .freelance-label {
-        font-size: 0.75rem;
+    .about-freelance .freelance-label {
+        font-size: 0.78rem;
         color: var(--text-muted);
         text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 600;
-        margin-bottom: 0.8rem;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        margin-bottom: 1rem;
     }
-    .freelance-profiles .freelance-row {
+    .about-freelance .freelance-label i {
+        color: var(--accent);
+    }
+    .about-freelance .freelance-row {
         display: flex;
-        gap: 0.6rem;
+        gap: 0.75rem;
         flex-wrap: wrap;
     }
-    .freelance-profiles .freelance-btn {
+    .about-freelance .freelance-btn {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        padding: 0.55rem 1.1rem;
+        gap: 0.6rem;
+        padding: 0.65rem 1.3rem;
         border-radius: 12px;
-        font-size: 0.82rem;
+        font-size: 0.85rem;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid transparent;
     }
-    .freelance-profiles .freelance-btn.fiverr {
-        background: rgba(29, 191, 115, 0.1);
+    .about-freelance .freelance-btn.fiverr {
+        background: rgba(29, 191, 115, 0.12);
         color: #1DBF73;
-        border-color: rgba(29, 191, 115, 0.2);
+        border-color: rgba(29, 191, 115, 0.25);
     }
-    .freelance-profiles .freelance-btn.fiverr:hover {
+    .about-freelance .freelance-btn.fiverr:hover {
         background: #1DBF73;
         color: #fff;
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(29, 191, 115, 0.3);
+        box-shadow: 0 10px 30px rgba(29, 191, 115, 0.35);
     }
-    .freelance-profiles .freelance-btn.upwork {
-        background: rgba(106, 218, 68, 0.1);
+    .about-freelance .freelance-btn.upwork {
+        background: rgba(106, 218, 68, 0.12);
         color: #6FDA44;
-        border-color: rgba(106, 218, 68, 0.2);
+        border-color: rgba(106, 218, 68, 0.25);
     }
-    .freelance-profiles .freelance-btn.upwork:hover {
+    .about-freelance .freelance-btn.upwork:hover {
         background: #6FDA44;
         color: #fff;
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(106, 218, 68, 0.3);
+        box-shadow: 0 10px 30px rgba(106, 218, 68, 0.35);
     }
-    .freelance-profiles .freelance-btn.freelancer {
-        background: rgba(41, 178, 254, 0.1);
+    .about-freelance .freelance-btn.freelancer {
+        background: rgba(41, 178, 254, 0.12);
         color: #29B2FE;
-        border-color: rgba(41, 178, 254, 0.2);
+        border-color: rgba(41, 178, 254, 0.25);
     }
-    .freelance-profiles .freelance-btn.freelancer:hover {
+    .about-freelance .freelance-btn.freelancer:hover {
         background: #29B2FE;
         color: #fff;
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(41, 178, 254, 0.3);
+        box-shadow: 0 10px 30px rgba(41, 178, 254, 0.35);
     }
 
     /* ===== CONTACT FORM — GLASS CARD ===== */
@@ -2751,6 +2756,29 @@
                             </span>
                         </div>
                     @endif
+
+                    @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
+                        <div class="about-freelance">
+                            <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
+                            <div class="freelance-row">
+                                @if(isset($account) && $account->fiverr)
+                                    <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
+                                        <i class="fab fa-fiverr"></i> Fiverr
+                                    </a>
+                                @endif
+                                @if(isset($account) && $account->upwork)
+                                    <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork">
+                                        <i class="fab fa-upwork"></i> Upwork
+                                    </a>
+                                @endif
+                                @if(isset($account) && $account->freelancer)
+                                    <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer">
+                                        <i class="fas fa-user-tie"></i> Freelancer
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -3225,28 +3253,6 @@
                         </div>
                     @endif
 
-                    @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
-                        <div class="freelance-profiles">
-                            <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
-                            <div class="freelance-row">
-                                @if(isset($account) && $account->fiverr)
-                                    <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
-                                        <i class="fab fa-fiverr"></i> Fiverr
-                                    </a>
-                                @endif
-                                @if(isset($account) && $account->upwork)
-                                    <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork">
-                                        <i class="fab fa-upwork"></i> Upwork
-                                    </a>
-                                @endif
-                                @if(isset($account) && $account->freelancer)
-                                    <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer">
-                                        <i class="fas fa-user-tie"></i> Freelancer
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    @endif
                 </div>
 
                 <div class="contact-form reveal reveal-delay-2">
