@@ -138,7 +138,7 @@
         background-clip: text;
     }
 
-    /* ===== CONTENT GRID ===== */
+    /* ===== Content grid ===== */
     .pd-body {
         display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem;
         align-items: start;
