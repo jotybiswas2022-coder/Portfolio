@@ -159,6 +159,10 @@ return [
     'no_results_found'     => 'No conversations match your search',
     'clear'                => 'Clear',
 
+    // Hire Me On
+    'hire_me'          => 'Hire Me On',
+    'avail_for_work'   => 'Available for work',
+
     // Misc
     'loading'          => 'Loading...',
     'current'          => 'Current',

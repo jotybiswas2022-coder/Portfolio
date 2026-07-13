@@ -2978,9 +2978,9 @@
                             <div class="freelance-header">
                                 <div class="freelance-header-left">
                                     <div class="freelance-avatar">🚀</div>
-                                    <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
+                                    <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> {{ __("messages.hire_me") }}</div>
                                 </div>
-                                <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>Available for work</span>
+                                <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>{{ __("messages.avail_for_work") }}</span>
                             </div>
                             <div class="freelance-row">
                                 @if(isset($account) && $account->fiverr)
