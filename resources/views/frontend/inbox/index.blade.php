@@ -87,7 +87,7 @@
         font-weight: 500;
     }
 
-    /* ===== SEARCH BAR ===== */
+    /* ===== Search bar ===== */
     .inbox-search {
         position: relative;
         width: 100%;
