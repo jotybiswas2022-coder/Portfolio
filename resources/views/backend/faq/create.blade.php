@@ -17,7 +17,7 @@
 
     <div class="mb-4">
         <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add a New FAQ</h4>
-        <p class="text-muted small mb-0">Create a new frequently asked question</p>
+        <p class="text-muted small mb-0">Create a new frequently asked question.</p>
     </div>
 
     <div class="card border-0 shadow-sm rounded-4">
