@@ -128,7 +128,7 @@
         background: rgba(255, 255, 255, 0.85);
     }
 
-    /* ===== EMPTY STATE ===== */
+    /* ===== Empty state ===== */
     .inbox-empty {
         text-align: center;
         padding: 5rem 2rem;
