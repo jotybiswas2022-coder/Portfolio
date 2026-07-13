@@ -336,7 +336,7 @@
         text-overflow: ellipsis;
     }
 
-    /* ===== META (time + status) ===== */
+    /* ===== Meta (time and status) ===== */
     .conv-meta {
         text-align: right;
         flex-shrink: 0;
