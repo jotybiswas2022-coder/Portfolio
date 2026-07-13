@@ -191,7 +191,7 @@
         position: relative; z-index: 1;
     }
 
-    /* ===== PRICING ===== */
+    /* ===== Pricing ===== */
     .pricing-section-title {
         text-align: center; margin-bottom: 2.5rem;
     }
