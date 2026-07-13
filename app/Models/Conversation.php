@@ -37,7 +37,7 @@ class Conversation extends Model
         return $this->hasMany(Message::class);
     }
 
-    public function lastMessage(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function lastMessage(): \Illuminate\Database\Eloquent\Relations\HasOne: \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Message::class)->latestOfMany();
     }
