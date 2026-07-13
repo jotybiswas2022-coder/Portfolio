@@ -89,7 +89,7 @@ return [
 
     // Footer
     'copyright'        => 'Made with love',
-    'and_lots_of'      => 'and lots of',
+    'and_lots_of'      => 'and lots of coffee',
 
     // Toast
     'msg_sent'         => 'Message sent successfully!',
