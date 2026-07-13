@@ -77,7 +77,7 @@
     }
     .cs-image-wrap .img-fallback i { font-size: 5rem; opacity: 0.2; color: var(--accent); }
 
-    /* ===== HERO CONTENT (separate from image) ===== */
+    /* ===== Hero content (separate from image) ===== */
     .cs-hero-content {
         margin-bottom: 3rem;
         padding: 0 0.5rem;
