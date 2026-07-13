@@ -22,7 +22,7 @@ class Conversation extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
