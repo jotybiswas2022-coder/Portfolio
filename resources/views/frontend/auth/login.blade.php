@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
@@ -1318,7 +1318,7 @@
                                 </svg>
                             </div>
                             <div class="header-text">
-                                <h1>{{ __('Welcome Back') }}</h1>
+                                <h1>{{ __('Welcome back') }}</h1>
                                 <p>{{ __('Sign in to your account') }}</p>
                             </div>
                         </div>
