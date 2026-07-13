@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->unsignedTinyInteger('rating')->default(5);
             $table->integer('sort_order')->default(0);
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true)->comment('Toggle project visibility')->default(true);
             $table->timestamps();
         });
     }
