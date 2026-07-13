@@ -138,7 +138,7 @@
     .vis-stripes-svg.infinity { opacity: 0.2; animation: stripeDrift 10s ease-in-out infinite reverse; }
     @keyframes stripeDrift { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-5%); } }
 
-    /* Glow Disc */
+    /* Glow disc */
     .vis-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle at center, rgba(59,130,246,0.15), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 0; animation: glowPulse 4s ease-in-out infinite; }
     @keyframes glowPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; } }
 
