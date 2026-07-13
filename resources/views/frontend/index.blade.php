@@ -1,4 +1,4 @@
-@extends('frontend.app')
+﻿@extends('frontend.app')
 
 @section('content')
 <style>
@@ -112,7 +112,7 @@
         z-index: 0; pointer-events: none;
     }
 
-    /* ===== HERO DECORATIVE EFFECTS ===== */
+    /* ===== Hero Decorative Effects ===== */
 
     /* Speed Lines */
     .hero-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0; }
