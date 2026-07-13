@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
 <head>
     <meta charset="UTF-8">
@@ -425,7 +425,7 @@
         if (!form) return;
 
         Swal.fire({
-            title: 'Are you sure?',
+            title: 'Confirm Deletion',
             text: 'Delete "' + title + '"? This action cannot be undone.',
             icon: 'warning',
             showCancelButton: true,
