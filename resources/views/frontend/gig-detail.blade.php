@@ -151,7 +151,7 @@
         line-height: 1.6; max-width: 600px; margin: 0;
     }
 
-    /* ===== DESCRIPTION ===== */
+    /* ===== Description ===== */
     .gd-description-wrap { max-width: 800px; margin: 0 auto 3.5rem; }
     .gd-description-card {
         background: var(--bg-card); border: 1px solid var(--border-color);
