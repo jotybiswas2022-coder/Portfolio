@@ -1,4 +1,4 @@
-@extends('backend.app')
+﻿@extends('backend.app')
 
 @section('content')
 <style>
@@ -23,7 +23,7 @@
             {{-- Header --}}
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
-                    <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add New Project</h4>
+                    <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add a New Project</h4>
                     <p class="text-muted small mb-0">Create a new project to showcase in your portfolio</p>
                 </div>
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
