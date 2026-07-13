@@ -42,7 +42,7 @@
                     <div class="card-body px-4 pb-4">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Skill Name <span class="text-danger">*</span></label>
+                                <label class="form-label fw-medium">Skill name <span class="text-danger">*</span></label>
                                 <input type="text" name="name"
                                        class="form-control @error('name') is-invalid @enderror"
                                        value="{{ old('name') }}" placeholder="e.g. Laravel" required>
