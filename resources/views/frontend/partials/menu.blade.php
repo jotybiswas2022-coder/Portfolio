@@ -135,7 +135,7 @@
     .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); width: 18px; }
 
-    /* ===== LANGUAGE SWITCHER ===== */
+    /* ===== Language switcher ===== */
     .lang-switcher { display: flex; align-items: center; gap: 2px; margin: 0 0.3rem; }
     .lang-btn {
         color: #64748b; font-size: 0.78rem; font-weight: 600;
