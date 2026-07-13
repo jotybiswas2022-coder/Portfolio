@@ -15,7 +15,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->boolean('is_current')->default(false);
+            $table->boolean('is_current')->default(false)->comment('Whether this is the current position')->default(false);
             $table->string('location')->nullable();
             $table->integer('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
