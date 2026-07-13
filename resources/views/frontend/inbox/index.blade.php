@@ -207,7 +207,7 @@
         color: #fff;
     }
 
-    /* ===== CONVERSATION LIST ===== */
+    /* ===== Conversation list ===== */
     .conversation-list {
         display: flex;
         flex-direction: column;
