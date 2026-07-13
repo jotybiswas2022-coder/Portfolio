@@ -109,7 +109,7 @@
         line-height: 1.15;
     }
 
-    /* ===== CONTENT GRID ===== */
+    /* ===== Content grid ===== */
     .cs-body {
         display: grid; grid-template-columns: 1fr 320px; gap: 2rem;
         align-items: start;
