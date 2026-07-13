@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 return [
     // Navbar
@@ -34,7 +34,7 @@ return [
     'about_desc_2'   => 'My toolkit includes Laravel, PHP, JavaScript, React, and modern CSS frameworks. I believe in writing maintainable code and creating intuitive user interfaces that drive results.',
     'stat_projects'  => 'Projects',
     'stat_clients'   => 'Clients',
-    'stat_years'     => 'Years Exp',
+    'stat_years'     => 'Years of Experience',
     'download_cv'       => 'Download CV',
     'click_to_download' => 'Click to download',
 
