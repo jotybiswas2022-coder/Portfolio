@@ -27,7 +27,7 @@ class Conversation extends Model
         return $this->belongsTo(User::class, 'admin_id');
     }
 
-    public function gig(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function gig(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Gig::class);
     }
