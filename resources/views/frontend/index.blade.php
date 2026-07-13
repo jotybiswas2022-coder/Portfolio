@@ -1908,6 +1908,16 @@
         box-shadow: 0 12px 35px rgba(41, 178, 254, 0.35);
         border-color: transparent;
     }
+    @media (max-width: 480px) {
+        .about-freelance { padding: 1rem; }
+        .about-freelance .freelance-row { gap: 0.5rem; flex-wrap: nowrap; }
+        .about-freelance .freelance-btn {
+            padding: 0.5rem 0.7rem; font-size: 0.72rem; gap: 0.3rem;
+            flex: 1; justify-content: center; border-radius: 10px;
+        }
+        .about-freelance .freelance-btn i, .about-freelance .freelance-btn svg { font-size: 0.85rem; }
+        .about-freelance .freelance-header { margin-bottom: 0.8rem; }
+    }
 
     /* ===== CONTACT FORM — GLASS CARD ===== */
     .contact-form {
