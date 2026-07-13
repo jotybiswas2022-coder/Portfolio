@@ -24,7 +24,7 @@
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
                     <h4 class="fw-bold mb-1"><i class="bi bi-pencil-square me-2" style="color:#6366f1;"></i>Edit Case Study</h4>
-                    <p class="text-muted small mb-0">Update details for <strong>{{ $caseStudy->title }}</strong></p>
+                    <p class="text-muted small mb-0">Update details for <strong>{{ $caseStudy->title }}</strong>.</p>
                 </div>
                 <a href="{{ route('admin.casestudies.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
                     <i class="bi bi-arrow-left me-1"></i> Back
