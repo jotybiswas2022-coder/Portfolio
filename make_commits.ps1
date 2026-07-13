@@ -440,7 +440,8 @@ Write-Host "=== Section 6: Topbar improvements ==="
 # 42: topbar - use route for home
 $c = [System.IO.File]::ReadAllText((Resolve-Path 'resources\views\backend\partials\topbar.blade.php').Path)
 $oldHref = 'href="/"'
-$c = $c -replace [regex]::Escape($oldHref), 'href="{{ route(' + "'" + 'home' + "'" + ') }}"'
+$newHref = 'href="{{ route(' + "'" + 'home' + "'" + ') }}"'
+$c = $c -replace [regex]::Escape($oldHref), $newHref
 [System.IO.File]::WriteAllText((Resolve-Path 'resources\views\backend\partials\topbar.blade.php').Path, $c, $enc)
 $commitCount++; Write-Host "$commitCount. Use named route for home link in topbar"
 if ($commitCount -ge 108) { return }
@@ -701,7 +702,9 @@ if ($commitCount -ge 108) { return }
 
 # 73: Contacts migration - message
 $c = [System.IO.File]::ReadAllText((Resolve-Path 'database\migrations\2026_03_01_140515_create_contacts_table.php').Path)
-$c = $c -replace "\$table->text\('message'\)", '$table->text('"'"'message'"'"')->comment('"'"'The message content'"'"')'
+$oldStr = '$table->text(' + "'" + 'message' + "'" + ')'
+$newStr = '$table->text(' + "'" + 'message' + "'" + ')->comment(' + "'" + 'The message content' + "'" + ')'
+$c = $c -replace [regex]::Escape($oldStr), $newStr
 [System.IO.File]::WriteAllText((Resolve-Path 'database\migrations\2026_03_01_140515_create_contacts_table.php').Path, $c, $enc)
 $commitCount++; Write-Host "$commitCount. Add comment to message column in contacts migration"
 if ($commitCount -ge 108) { return }

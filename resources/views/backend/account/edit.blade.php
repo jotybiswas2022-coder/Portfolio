@@ -36,19 +36,19 @@
                     <h4 class="fw-bold mb-1"><i class="bi bi-person-gear me-2" style="color:#6366f1;"></i>Edit Account</h4>
                     <p class="text-muted small mb-0">Update your profile details and social links</p>
                 </div>
-                <a href="{{ url('/admin/account') }}" class="btn btn-outline-secondary rounded-3 px-3">
+                <a href="{{ route('admin.account.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
                     <i class="bi bi-arrow-left me-1"></i> Back
                 </a>
             </div>
 
             {{-- Delete Image Form (outside the main form to avoid nested form issue) --}}
             @if(isset($account) && $account->image)
-                <form action="{{ url('/admin/account/delete-image') }}" method="POST" id="deleteImageForm" style="display:none;">
+                <form action="{{ route('admin.account.deleteImage') }}" method="POST" id="deleteImageForm" style="display:none;">
                     @csrf
                 </form>
             @endif
 
-            <form action="{{ url('/admin/account/update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.account.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 {{-- Basic Info --}}
@@ -209,7 +209,7 @@
 
                 {{-- Submit --}}
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="{{ url('/admin/account') }}" class="btn btn-light border rounded-3 px-4">Cancel</a>
+                    <a href="{{ route('admin.account.index') }}" class="btn btn-light border rounded-3 px-4">Cancel</a>
                     <button type="submit" class="btn btn-primary rounded-3 px-5" style="background:#6366f1; border-color:#6366f1;">
                         <i class="bi bi-check-circle me-1"></i> Update Profile
                     </button>

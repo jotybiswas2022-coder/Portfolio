@@ -20,7 +20,7 @@
             {{-- Header --}}
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h4 class="fw-bold mb-0"><i class="bi bi-person-circle me-2" style="color:#6366f1;"></i>Account Profile</h4>
-                <a href="{{ url('/admin/account/edit') }}" class="btn btn-admin btn-admin-primary px-4">
+                <a href="{{ route('admin.account.edit') }}" class="btn btn-admin btn-admin-primary px-4">
                     <i class="bi bi-pencil-square me-1"></i> Edit
                 </a>
             </div>
