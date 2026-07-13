@@ -1811,10 +1811,6 @@
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: 0.7; transform: scale(0.97); }
     }
-    @keyframes countUp {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
     @keyframes glowPulse {
         0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.2); }
         50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
@@ -2035,41 +2031,6 @@
     }
     .about-freelance .freelance-rating span { font-weight: 600; color: var(--text-primary); }
 
-    /* Counter stats row (idea 5) */
-    .about-freelance .freelance-stats {
-        display: flex;
-        gap: 1.2rem;
-        margin-top: 1rem;
-        padding-top: 0.8rem;
-        border-top: 1px solid rgba(59, 130, 246, 0.06);
-        position: relative;
-        z-index: 1;
-        flex-wrap: wrap;
-    }
-    .about-freelance .freelance-stats .stat {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.72rem;
-        color: var(--text-muted);
-    }
-    .about-freelance .freelance-stats .stat .num {
-        font-weight: 800;
-        font-size: 0.9rem;
-        color: var(--text-primary);
-        animation: countUp 0.6s ease forwards;
-    }
-    .about-freelance .freelance-stats .stat .stat-label {
-        font-size: 0.65rem;
-        color: var(--text-muted);
-        margin-left: 0.1rem;
-    }
-    .about-freelance .freelance-stats .stat i {
-        font-size: 0.8rem;
-        color: var(--accent);
-        opacity: 0.7;
-    }
-
     /* Light theme fixes (idea 6) */
     html.light-theme .about-freelance {
         background: linear-gradient(135deg, rgba(59, 130, 246, 0.03), rgba(139, 92, 246, 0.03));
@@ -2102,7 +2063,6 @@
             width: 26px; height: 26px; font-size: 0.85rem;
         }
         .about-freelance .freelance-avatar { width: 34px; height: 34px; font-size: 1.1rem; }
-        .about-freelance .freelance-stats { gap: 0.8rem; }
     }
     @media (max-width: 480px) {
         .about-freelance { padding: 0.8rem; }
@@ -2124,9 +2084,6 @@
         .about-freelance .freelance-tag { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
         .about-freelance .freelance-tag i { display: none; }
         .about-freelance .freelance-rating { font-size: 0.5rem; }
-        .about-freelance .freelance-stats { gap: 0.5rem; }
-        .about-freelance .freelance-stats .stat { font-size: 0.6rem; }
-        .about-freelance .freelance-stats .stat .num { font-size: 0.75rem; }
     }
 
     /* ===== CONTACT FORM — GLASS CARD ===== */
@@ -3055,11 +3012,6 @@
                                         <span class="freelance-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span>5.0</span></span>
                                     </div>
                                 @endif
-                            </div>
-                            <div class="freelance-stats">
-                                <div class="stat"><i class="bi bi-check2-circle"></i> <span class="num" data-count="150">0</span> <span class="stat-label">Projects</span></div>
-                                <div class="stat"><i class="bi bi-people"></i> <span class="num" data-count="80">0</span> <span class="stat-label">Clients</span></div>
-                                <div class="stat"><i class="bi bi-clock-history"></i> <span class="num" data-count="6">0</span> <span class="stat-label">Years</span></div>
                             </div>
                         </div>
                     @endif
