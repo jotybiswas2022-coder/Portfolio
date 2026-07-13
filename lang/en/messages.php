@@ -88,7 +88,7 @@ return [
     'location_label'   => 'Location',
 
     // Footer
-    'copyright'        => 'Made with',
+    'copyright'        => 'Made with love',
     'and_lots_of'      => 'and lots of',
 
     // Toast
