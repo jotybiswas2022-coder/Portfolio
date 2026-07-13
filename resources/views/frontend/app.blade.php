@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* Light Theme - works on ALL pages */
+        /* Light theme - works on all pages */
         html.light-theme {
             --bg-primary: #f8fafc;
             --bg-secondary: #f1f5f9;
