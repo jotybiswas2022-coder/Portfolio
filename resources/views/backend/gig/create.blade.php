@@ -37,7 +37,7 @@
                 {{-- Basic Info --}}
                 <div class="card border-0 shadow-sm rounded-4 mb-4">
                     <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-info-circle me-2" style="color:#6366f1;"></i>Basic Information</h6>
+                        <h6 class="fw-bold mb-0"><i class="bi bi-info-circle me-2" style="color:#6366f1;"></i>Basic information</h6>
                     </div>
                     <div class="card-body px-4 pb-4">
                         <div class="row g-3">
