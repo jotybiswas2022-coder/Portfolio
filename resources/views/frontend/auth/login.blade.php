@@ -1319,7 +1319,7 @@
                             </div>
                             <div class="header-text">
                                 <h1>{{ __('Welcome back') }}</h1>
-                                <p>{{ __('Sign in to your account') }}</p>
+                                <p>{{ __('Sign in to your account.') }}</p>
                             </div>
                         </div>
 
