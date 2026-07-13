@@ -1,5 +1,5 @@
-<style>
-    /* ===== NAVBAR (SHARED ACROSS ALL PAGES) ===== */
+﻿<style>
+    /* ===== Navbar (shared across all pages) ===== */
     .navbar-main {
         position: fixed; top: 0; left: 0; right: 0;
         z-index: 1000; padding: 1rem 2rem;
