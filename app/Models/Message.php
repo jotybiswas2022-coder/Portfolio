@@ -18,7 +18,7 @@ class Message extends Model
         return $this->belongsTo(Conversation::class);
     }
 
-    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'sender_id');
     }
