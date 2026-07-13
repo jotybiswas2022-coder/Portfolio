@@ -1801,38 +1801,95 @@
     }
 
     /* ===== FREELANCE PROFILES - ABOUT SECTION ===== */
+    /* ===== KEYFRAME ANIMATIONS ===== */
+    @keyframes borderRotate {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    @keyframes pulseTag {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(0.97); }
+    }
+    @keyframes countUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes glowPulse {
+        0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.2); }
+        50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+    }
+
+    /* ===== FREELANCE PROFILES - ABOUT SECTION ===== */
     .about-freelance {
         margin-top: 2rem;
         padding: 1.5rem 1.8rem;
         background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
-        border: 1px solid rgba(59, 130, 246, 0.12);
         border-radius: 20px;
         position: relative;
         overflow: hidden;
+        isolation: isolate;
     }
+    /* Animated gradient border (idea 8) */
     .about-freelance::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #1DBF73, #6FDA44, #29B2FE);
-        opacity: 0.6;
+        inset: 0;
+        border-radius: 20px;
+        padding: 1.5px;
+        background: linear-gradient(90deg, #1DBF73, #6FDA44, #29B2FE, #1DBF73, #6FDA44, #29B2FE);
+        background-size: 300% 100%;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderRotate 4s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 0;
+    }
+    .about-freelance::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
     }
     .about-freelance .freelance-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 1.2rem;
+        margin-bottom: 1rem;
         flex-wrap: wrap;
         gap: 0.5rem;
+        position: relative;
+        z-index: 1;
+    }
+    .about-freelance .freelance-header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    /* Avatar/illustration (idea 4) */
+    .about-freelance .freelance-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.08));
+        border: 1px solid rgba(59, 130, 246, 0.15);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        flex-shrink: 0;
     }
     .about-freelance .freelance-label {
         font-size: 0.85rem;
         color: var(--text-primary);
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
     }
     .about-freelance .freelance-label i {
         color: var(--accent);
@@ -1841,82 +1898,235 @@
         border-radius: 8px;
         font-size: 0.9rem;
     }
+    /* Pulse animation tag (idea 10) */
     .about-freelance .freelance-tag {
         font-size: 0.7rem;
-        color: var(--text-muted);
-        background: rgba(59, 130, 246, 0.06);
-        padding: 0.25rem 0.7rem;
+        color: #1DBF73;
+        background: rgba(29, 191, 115, 0.1);
+        padding: 0.3rem 0.8rem;
         border-radius: 20px;
-        border: 1px solid rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(29, 191, 115, 0.2);
         letter-spacing: 0.3px;
+        font-weight: 600;
+        animation: pulseTag 2s ease-in-out infinite;
+        position: relative;
+        z-index: 1;
+    }
+    .about-freelance .freelance-tag i {
+        font-size: 0.65rem;
     }
     .about-freelance .freelance-row {
         display: flex;
         gap: 0.8rem;
         flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+    }
+    /* Button wrapper per platform (for rating badge) */
+    .about-freelance .freelance-btn-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        flex: 0 1 auto;
     }
     .about-freelance .freelance-btn {
         display: inline-flex;
         align-items: center;
         gap: 0.6rem;
-        padding: 0.7rem 1.4rem;
+        padding: 0.65rem 1.3rem;
         border-radius: 14px;
-        font-size: 0.88rem;
+        font-size: 0.85rem;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1.5px solid transparent;
-        flex: 0 1 auto;
         position: relative;
+        width: 100%;
     }
-    .about-freelance .freelance-btn i {
-        font-size: 1.1rem;
+    /* Icon in colored box (idea 1) */
+    .about-freelance .freelance-btn .btn-icon-box {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        flex-shrink: 0;
+        transition: all 0.4s ease;
+    }
+    .about-freelance .freelance-btn.fiverr .btn-icon-box {
+        background: rgba(29, 191, 115, 0.15);
+        color: #1DBF73;
+    }
+    .about-freelance .freelance-btn.upwork .btn-icon-box {
+        background: rgba(106, 218, 68, 0.15);
+        color: #6FDA44;
+    }
+    .about-freelance .freelance-btn.freelancer .btn-icon-box {
+        background: rgba(41, 178, 254, 0.15);
+        color: #29B2FE;
     }
     .about-freelance .freelance-btn.fiverr {
-        background: linear-gradient(135deg, rgba(29, 191, 115, 0.08), rgba(29, 191, 115, 0.03));
+        background: linear-gradient(135deg, rgba(29, 191, 115, 0.06), rgba(29, 191, 115, 0.02));
         color: #1DBF73;
         border-color: rgba(29, 191, 115, 0.2);
     }
+    /* Neon glow hover (idea 2) */
     .about-freelance .freelance-btn.fiverr:hover {
         background: linear-gradient(135deg, #1DBF73, #17a864);
         color: #fff;
-        transform: translateY(-4px);
-        box-shadow: 0 12px 35px rgba(29, 191, 115, 0.35);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 0 25px rgba(29, 191, 115, 0.4), 0 8px 30px rgba(29, 191, 115, 0.25);
         border-color: transparent;
     }
+    .about-freelance .freelance-btn.fiverr:hover .btn-icon-box {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+    /* Icon color shift: hover e brand color -> white (idea 9) */
+    .about-freelance .freelance-btn.fiverr:hover .btn-icon-box svg rect { fill: rgba(255,255,255,0.3); }
+    .about-freelance .freelance-btn.fiverr:hover .btn-icon-box svg text { fill: #fff; }
     .about-freelance .freelance-btn.upwork {
-        background: linear-gradient(135deg, rgba(106, 218, 68, 0.08), rgba(106, 218, 68, 0.03));
+        background: linear-gradient(135deg, rgba(106, 218, 68, 0.06), rgba(106, 218, 68, 0.02));
         color: #6FDA44;
         border-color: rgba(106, 218, 68, 0.2);
     }
     .about-freelance .freelance-btn.upwork:hover {
         background: linear-gradient(135deg, #6FDA44, #5ac43a);
         color: #fff;
-        transform: translateY(-4px);
-        box-shadow: 0 12px 35px rgba(106, 218, 68, 0.35);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 0 25px rgba(106, 218, 68, 0.4), 0 8px 30px rgba(106, 218, 68, 0.25);
         border-color: transparent;
     }
+    .about-freelance .freelance-btn.upwork:hover .btn-icon-box {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
     .about-freelance .freelance-btn.freelancer {
-        background: linear-gradient(135deg, rgba(41, 178, 254, 0.08), rgba(41, 178, 254, 0.03));
+        background: linear-gradient(135deg, rgba(41, 178, 254, 0.06), rgba(41, 178, 254, 0.02));
         color: #29B2FE;
         border-color: rgba(41, 178, 254, 0.2);
     }
     .about-freelance .freelance-btn.freelancer:hover {
         background: linear-gradient(135deg, #29B2FE, #1a9ee8);
         color: #fff;
-        transform: translateY(-4px);
-        box-shadow: 0 12px 35px rgba(41, 178, 254, 0.35);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 0 25px rgba(41, 178, 254, 0.4), 0 8px 30px rgba(41, 178, 254, 0.25);
         border-color: transparent;
     }
-    @media (max-width: 480px) {
-        .about-freelance { padding: 1rem; }
-        .about-freelance .freelance-row { gap: 0.5rem; flex-wrap: nowrap; }
+    .about-freelance .freelance-btn.freelancer:hover .btn-icon-box {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+    /* Rating badge (idea 3) */
+    .about-freelance .freelance-rating {
+        font-size: 0.62rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+        white-space: nowrap;
+    }
+    .about-freelance .freelance-rating i {
+        color: #f59e0b;
+        font-size: 0.55rem;
+    }
+    .about-freelance .freelance-rating span { font-weight: 600; color: var(--text-primary); }
+
+    /* Counter stats row (idea 5) */
+    .about-freelance .freelance-stats {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid rgba(59, 130, 246, 0.06);
+        position: relative;
+        z-index: 1;
+        flex-wrap: wrap;
+    }
+    .about-freelance .freelance-stats .stat {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+    }
+    .about-freelance .freelance-stats .stat .num {
+        font-weight: 800;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        animation: countUp 0.6s ease forwards;
+    }
+    .about-freelance .freelance-stats .stat .stat-label {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        margin-left: 0.1rem;
+    }
+    .about-freelance .freelance-stats .stat i {
+        font-size: 0.8rem;
+        color: var(--accent);
+        opacity: 0.7;
+    }
+
+    /* Light theme fixes (idea 6) */
+    html.light-theme .about-freelance {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.03), rgba(139, 92, 246, 0.03));
+    }
+    html.light-theme .about-freelance .freelance-btn.fiverr {
+        background: rgba(29, 191, 115, 0.06);
+        border-color: rgba(29, 191, 115, 0.15);
+    }
+    html.light-theme .about-freelance .freelance-btn.upwork {
+        background: rgba(106, 218, 68, 0.06);
+        border-color: rgba(106, 218, 68, 0.15);
+    }
+    html.light-theme .about-freelance .freelance-btn.freelancer {
+        background: rgba(41, 178, 254, 0.06);
+        border-color: rgba(41, 178, 254, 0.15);
+    }
+    html.light-theme .about-freelance .freelance-avatar {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.05));
+        border-color: rgba(59, 130, 246, 0.1);
+    }
+
+    /* Tablet breakpoint (idea 7) */
+    @media (max-width: 768px) {
+        .about-freelance { padding: 1.2rem 1.2rem; }
+        .about-freelance .freelance-row { gap: 0.6rem; }
         .about-freelance .freelance-btn {
-            padding: 0.5rem 0.7rem; font-size: 0.72rem; gap: 0.3rem;
-            flex: 1; justify-content: center; border-radius: 10px;
+            padding: 0.55rem 1rem; font-size: 0.8rem; gap: 0.4rem;
         }
-        .about-freelance .freelance-btn i, .about-freelance .freelance-btn svg { font-size: 0.85rem; }
-        .about-freelance .freelance-header { margin-bottom: 0.8rem; }
+        .about-freelance .freelance-btn .btn-icon-box {
+            width: 26px; height: 26px; font-size: 0.85rem;
+        }
+        .about-freelance .freelance-avatar { width: 34px; height: 34px; font-size: 1.1rem; }
+        .about-freelance .freelance-stats { gap: 0.8rem; }
+    }
+    @media (max-width: 480px) {
+        .about-freelance { padding: 0.8rem; }
+        .about-freelance .freelance-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+        .about-freelance .freelance-row { gap: 0.4rem; flex-wrap: nowrap; }
+        .about-freelance .freelance-btn-wrap { flex: 1; }
+        .about-freelance .freelance-btn {
+            padding: 0.4rem 0.5rem; font-size: 0.65rem; gap: 0.2rem;
+            justify-content: center; border-radius: 10px;
+        }
+        .about-freelance .freelance-btn .btn-icon-box {
+            width: 22px; height: 22px; font-size: 0.7rem; border-radius: 6px;
+        }
+        .about-freelance .freelance-btn i, .about-freelance .freelance-btn svg { font-size: 0.7rem; }
+        .about-freelance .freelance-header { margin-bottom: 0.6rem; }
+        .about-freelance .freelance-header-left { gap: 0.4rem; }
+        .about-freelance .freelance-avatar { width: 28px; height: 28px; font-size: 0.9rem; border-radius: 8px; }
+        .about-freelance .freelance-label { font-size: 0.75rem; }
+        .about-freelance .freelance-tag { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+        .about-freelance .freelance-tag i { display: none; }
+        .about-freelance .freelance-rating { font-size: 0.5rem; }
+        .about-freelance .freelance-stats { gap: 0.5rem; }
+        .about-freelance .freelance-stats .stat { font-size: 0.6rem; }
+        .about-freelance .freelance-stats .stat .num { font-size: 0.75rem; }
     }
 
     /* ===== CONTACT FORM — GLASS CARD ===== */
@@ -2809,25 +3019,47 @@
                     @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
                         <div class="about-freelance">
                             <div class="freelance-header">
-                                <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
+                                <div class="freelance-header-left">
+                                    <div class="freelance-avatar">🚀</div>
+                                    <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
+                                </div>
                                 <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>Available for work</span>
                             </div>
                             <div class="freelance-row">
                                 @if(isset($account) && $account->fiverr)
-                                    <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1.05em;height:1.05em;vertical-align:middle"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg> Fiverr
-                                    </a>
+                                    <div class="freelance-btn-wrap">
+                                        <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
+                                            <span class="btn-icon-box">
+                                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
+                                            </span>
+                                            Fiverr
+                                        </a>
+                                        <span class="freelance-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span>4.9</span></span>
+                                    </div>
                                 @endif
                                 @if(isset($account) && $account->upwork)
-                                    <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork">
-                                        <i class="fab fa-upwork"></i> Upwork
-                                    </a>
+                                    <div class="freelance-btn-wrap">
+                                        <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork">
+                                            <span class="btn-icon-box"><i class="fab fa-upwork"></i></span>
+                                            Upwork
+                                        </a>
+                                        <span class="freelance-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span>4.8</span></span>
+                                    </div>
                                 @endif
                                 @if(isset($account) && $account->freelancer)
-                                    <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer">
-                                        <i class="fas fa-user-tie"></i> Freelancer
-                                    </a>
+                                    <div class="freelance-btn-wrap">
+                                        <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer">
+                                            <span class="btn-icon-box"><i class="fas fa-user-tie"></i></span>
+                                            Freelancer
+                                        </a>
+                                        <span class="freelance-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span>5.0</span></span>
+                                    </div>
                                 @endif
+                            </div>
+                            <div class="freelance-stats">
+                                <div class="stat"><i class="bi bi-check2-circle"></i> <span class="num" data-count="150">0</span> <span class="stat-label">Projects</span></div>
+                                <div class="stat"><i class="bi bi-people"></i> <span class="num" data-count="80">0</span> <span class="stat-label">Clients</span></div>
+                                <div class="stat"><i class="bi bi-clock-history"></i> <span class="num" data-count="6">0</span> <span class="stat-label">Years</span></div>
                             </div>
                         </div>
                     @endif

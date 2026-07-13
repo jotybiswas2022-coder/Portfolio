@@ -1,3 +1,4 @@
+make_commits.ps1
 *.log
 .DS_Store
 .env
