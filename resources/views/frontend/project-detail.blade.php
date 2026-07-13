@@ -104,7 +104,7 @@
     }
     .pd-image-wrap .img-fallback i { font-size: 5rem; opacity: 0.15; color: var(--accent); }
 
-    /* ===== HERO CONTENT ===== */
+    /* ===== Hero content ===== */
     .pd-hero-content {
         margin-bottom: 3.5rem;
         padding: 0 0.5rem;
