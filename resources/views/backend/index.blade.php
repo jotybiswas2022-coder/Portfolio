@@ -442,7 +442,7 @@
             <div class="dsb-card">
                 <div class="dsb-card-hd">
                     <span><i class="bi bi-folder2-open" style="color:#6366f1;"></i> Recent Projects</span>
-                    <a href="{{ url('/admin/projects') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
+                    <a href="{{ route('admin.projects.index') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
                         View All <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
@@ -473,7 +473,7 @@
             <div class="dsb-card">
                 <div class="dsb-card-hd">
                     <span><i class="bi bi-gear" style="color:#10b981;"></i> Recent Services</span>
-                    <a href="{{ url('/admin/services') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
+                    <a href="{{ route('admin.services.index') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
                         View All <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
@@ -503,7 +503,7 @@
             <div class="dsb-card">
                 <div class="dsb-card-hd">
                     <span><i class="bi bi-chat-dots" style="color:#ef4444;"></i> Recent Messages</span>
-                    <a href="{{ url('/admin/contact') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
+                    <a href="{{ route('admin.contact.index') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
                         View All <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
@@ -565,14 +565,14 @@
                 </div>
                 <div class="p-3 dsb-qa-wrap">
                     <div class="d-flex flex-nowrap gap-2">
-                        <a href="{{ url('/admin/projects/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#6366f1;"></i> Project</a>
-                        <a href="{{ url('/admin/services/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#10b981;"></i> Service</a>
-                        <a href="{{ url('/admin/experiences/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f59e0b;"></i> Experience</a>
-                        <a href="{{ url('/admin/skills/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#8b5cf6;"></i> Skill</a>
-                        <a href="{{ url('/admin/testimonials/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#ec4899;"></i> Testimonial</a>
-                        <a href="{{ url('/admin/case-studies/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#6366f1;"></i> Case Study</a>
-                        <a href="{{ url('/admin/faqs/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f97316;"></i> FAQ</a>
-                        <a href="{{ url('/admin/account/edit') }}" class="dsb-qa"><i class="bi bi-pencil" style="color:#0ea5e9;"></i> Account</a>
+                        <a href="{{ route('admin.projects.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#6366f1;"></i> Project</a>
+                        <a href="{{ route('admin.services.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#10b981;"></i> Service</a>
+                        <a href="{{ route('admin.experiences.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f59e0b;"></i> Experience</a>
+                        <a href="{{ route('admin.skills.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#8b5cf6;"></i> Skill</a>
+                        <a href="{{ route('admin.testimonials.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#ec4899;"></i> Testimonial</a>
+                        <a href="{{ route('admin.casestudies.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#6366f1;"></i> Case Study</a>
+                        <a href="{{ route('admin.faqs.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f97316;"></i> FAQ</a>
+                        <a href="{{ route('admin.account.edit') }}" class="dsb-qa"><i class="bi bi-pencil" style="color:#0ea5e9;"></i> Account</a>
                     </div>
                 </div>
             </div>

@@ -17,27 +17,27 @@ class Conversation extends Model
         'status',
     ];
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function admin()
+    public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
 
-    public function gig()
+    public function gig(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Gig::class);
     }
 
-    public function messages()
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class);
     }
 
-    public function lastMessage()
+    public function lastMessage(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Message::class)->latestOfMany();
     }

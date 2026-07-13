@@ -17,7 +17,7 @@
 
     <ul class="sidebar-menu" style="list-style:none; padding:0; margin:0; flex:1;">
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin') }}"
+            <a href="{{ route('admin.dashboard.index') }}"
                class="{{ request()->is('admin') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-speedometer2" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -25,7 +25,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/account') }}"
+            <a href="{{ route('admin.account.index') }}"
                class="{{ request()->is('admin/account') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-person-circle" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -33,7 +33,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/services') }}"
+            <a href="{{ route('admin.services.index') }}"
                class="{{ request()->is('admin/services*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-gear" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -41,7 +41,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/case-studies') }}"
+            <a href="{{ route('admin.casestudies.index') }}"
                class="{{ request()->is('admin/case-studies*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-journal-code" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -49,7 +49,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/experiences') }}"
+            <a href="{{ route('admin.experiences.index') }}"
                class="{{ request()->is('admin/experiences*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-briefcase" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -57,7 +57,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/skills') }}"
+            <a href="{{ route('admin.skills.index') }}"
                class="{{ request()->is('admin/skills*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-lightning-charge" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -65,7 +65,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/projects') }}"
+            <a href="{{ route('admin.projects.index') }}"
                class="{{ request()->is('admin/projects*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-folder2-open" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -73,7 +73,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/gigs') }}"
+            <a href="{{ route('admin.gigs.index') }}"
                class="{{ request()->is('admin/gigs*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-music-note-list" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -81,7 +81,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/testimonials') }}"
+            <a href="{{ route('admin.testimonials.index') }}"
                class="{{ request()->is('admin/testimonials*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-chat-quote" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -89,7 +89,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/faqs') }}"
+            <a href="{{ route('admin.faqs.index') }}"
                class="{{ request()->is('admin/faqs*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-question-circle" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -97,7 +97,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/inbox') }}"
+            <a href="{{ route('admin.inbox.index') }}"
                class="{{ request()->is('admin/inbox*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-chat-dots" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
@@ -105,7 +105,7 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ url('/admin/contact') }}"
+            <a href="{{ route('admin.contact.index') }}"
                class="{{ request()->is('admin/contact') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.8rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
                 <i class="bi bi-envelope-paper" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
