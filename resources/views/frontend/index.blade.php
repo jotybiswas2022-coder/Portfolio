@@ -999,7 +999,7 @@
     html.light-theme .casestudy-client { color: #64748b; }
 
 
-    /* ===== GLASS CARD SHINE EFFECT (all glass cards) ===== */
+    /* ===== Glass Card Shine Effect ===== */
     .project-card::after,
     .gig-card::after,
     .testimonial-card::after,
