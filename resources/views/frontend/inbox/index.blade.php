@@ -1,8 +1,8 @@
-@extends('frontend.app')
+﻿@extends('frontend.app')
 
 @section('content')
 <style>
-    /* ===== CSS VARIABLES (self-contained for dark/light theme) ===== */
+    /* ===== CSS variables ===== */
     body { font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: #0a0f1e; margin:0; padding:0; }
 
     :root {
