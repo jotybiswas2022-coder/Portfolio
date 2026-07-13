@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -44,7 +44,7 @@ class InboxController extends Controller
         ]);
 
         if (!$request->message && !$request->hasFile('image')) {
-            return back()->withErrors(['message' => 'Please enter a message or select an image.']);
+            return back()->withErrors(['message' => 'Please enter a message or select an image to send.']);
         }
 
         $data = [
