@@ -130,7 +130,7 @@
         border: 1px solid rgba(248, 113, 113, 0.12);
     }
 
-    /* ===== PACKAGE SUMMARY ===== */
+    /* ===== Package summary ===== */
     .package-summary {
         background: var(--bg-card);
         border: 1px solid var(--border-color);
