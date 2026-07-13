@@ -448,7 +448,7 @@
                 </div>
                 <div class="dsb-card-bd">
                     @forelse($recentProjects as $p)
-                        <a href="{{ route('admin.projects.edit', ' . $p->id) }}" class="dsb-item" style="--accent:#6366f1;">
+                        <a href="{{ route('admin.projects.edit', $p->id) }}" class="dsb-item" style="--accent:#6366f1;">
                             <span class="dsb-item-av" style="background:rgba(99,102,241,0.08); color:#6366f1;">
                                 <i class="bi bi-folder2"></i>
                             </span>
@@ -479,7 +479,7 @@
                 </div>
                 <div class="dsb-card-bd">
                     @forelse($recentServices as $s)
-                        <a href="{{ route('admin.services.edit', ' . $s->id) }}" class="dsb-item" style="--accent:#10b981;">
+                        <a href="{{ route('admin.services.edit', $s->id) }}" class="dsb-item" style="--accent:#10b981;">
                             <span class="dsb-item-av" style="background:rgba(16,185,129,0.08); color:#10b981;">
                                 <i class="bi bi-gear"></i>
                             </span>

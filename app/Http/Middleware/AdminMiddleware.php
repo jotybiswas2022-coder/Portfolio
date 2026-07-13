@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
-    public function handle(Request $request, Closure $next): \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse: \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+    public function handle(Request $request, Closure $next): \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
     {
 
         if (!Auth::check()) {

@@ -32,7 +32,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
 
      // Contact
     Route::prefix('/contact')->name('admin.contact.')->controller(ContactController::class)->group(function () {
-        Route::get('/', 'index')->name('admin.dashboard.index');
+        Route::get('/', 'index')->name('index');
     });
 
     // Projects

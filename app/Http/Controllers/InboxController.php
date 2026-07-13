@@ -15,7 +15,7 @@ class InboxController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(): \Illuminate\View\View: \Illuminate\View\View
+    public function index(): \Illuminate\View\View
     {
         $conversations = Conversation::where('user_id', auth()->id())
             ->with('lastMessage.sender', 'gig')
@@ -25,7 +25,7 @@ class InboxController extends Controller
         return view('frontend.inbox.index', compact('conversations'));
     }
 
-    public function show($id): \Illuminate\View\View: \Illuminate\View\View
+    public function show($id): \Illuminate\View\View
     {
         $conversation = Conversation::where('user_id', auth()->id())
             ->with('messages.sender', 'gig')
@@ -34,7 +34,7 @@ class InboxController extends Controller
         return view('frontend.inbox.show', compact('conversation'));
     }
 
-    public function sendMessage(Request $request, $id): \Illuminate\Http\RedirectResponse: \Illuminate\Http\RedirectResponse
+    public function sendMessage(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $conversation = Conversation::where('user_id', auth()->id())->findOrFail($id);
 
@@ -63,7 +63,7 @@ class InboxController extends Controller
         return back();
     }
 
-    public function orderFromGig(Request $request, $gigId, $package): \Illuminate\Http\RedirectResponse: \Illuminate\Http\RedirectResponse
+    public function orderFromGig(Request $request, $gigId, $package): \Illuminate\Http\RedirectResponse
     {
         $gig = Gig::findOrFail($gigId);
 

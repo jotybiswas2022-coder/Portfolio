@@ -17,27 +17,27 @@ class Conversation extends Model
         'status',
     ];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
 
-    public function gig(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function gig(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Gig::class);
     }
 
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany: \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class);
     }
 
-    public function lastMessage(): \Illuminate\Database\Eloquent\Relations\HasOne: \Illuminate\Database\Eloquent\Relations\HasOne
+    public function lastMessage(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Message::class)->latestOfMany();
     }

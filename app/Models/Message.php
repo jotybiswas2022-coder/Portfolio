@@ -13,12 +13,12 @@ class Message extends Model
         'image',
     ];
 
-    public function conversation(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function conversation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Conversation::class);
     }
 
-    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo: \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'sender_id');
     }

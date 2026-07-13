@@ -47,17 +47,17 @@ class User extends Authenticatable
         ];
     }
 
-    public function conversations(): \Illuminate\Database\Eloquent\Relations\HasMany: \Illuminate\Database\Eloquent\Relations\HasMany
+    public function conversations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Conversation::class, 'user_id');
     }
 
-    public function adminConversations(): \Illuminate\Database\Eloquent\Relations\HasMany: \Illuminate\Database\Eloquent\Relations\HasMany
+    public function adminConversations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Conversation::class, 'admin_id');
     }
 
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany: \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
