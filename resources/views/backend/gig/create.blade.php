@@ -42,7 +42,7 @@
                     <div class="card-body px-4 pb-4">
                         <div class="row g-3">
                             <div class="col-md-8">
-                                <label class="form-label fw-medium">Gig Title <span class="text-danger">*</span></label>
+                                <label class="form-label fw-medium">Gig title <span class="text-danger">*</span></label>
                                 <input type="text" name="title"
                                        class="form-control @error('title') is-invalid @enderror"
                                        value="{{ old('title') }}" placeholder="e.g. Web Development Package" required>
