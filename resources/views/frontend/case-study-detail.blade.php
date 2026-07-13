@@ -189,7 +189,7 @@
         border-color: rgba(99,102,241,0.15); transform: translateY(-2px);
     }
 
-    /* ===== SIDEBAR ===== */
+    /* ===== Sidebar ===== */
     .cs-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
 
     .sidebar-card {
