@@ -89,7 +89,7 @@ class InboxController extends Controller
             abort(404);
         }
 
-        $subject = 'Order: ' . $gig->title . ' - ' . $packageNames[$package];
+        $subject = 'New Order: ' . $gig->title . ' - ' . $packageNames[$package];
 
         $conversation = Conversation::create([
             'user_id'         => auth()->id(),
