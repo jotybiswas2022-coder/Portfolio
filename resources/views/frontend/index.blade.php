@@ -1802,72 +1802,111 @@
 
     /* ===== FREELANCE PROFILES - ABOUT SECTION ===== */
     .about-freelance {
-        margin-top: 1.8rem;
-        padding: 1.2rem 1.5rem;
-        background: rgba(59, 130, 246, 0.04);
-        border: 1px solid rgba(59, 130, 246, 0.1);
-        border-radius: 16px;
+        margin-top: 2rem;
+        padding: 1.5rem 1.8rem;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+        border: 1px solid rgba(59, 130, 246, 0.12);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+    .about-freelance::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #1DBF73, #6FDA44, #29B2FE);
+        opacity: 0.6;
+    }
+    .about-freelance .freelance-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.2rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
     .about-freelance .freelance-label {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
+        font-size: 0.85rem;
+        color: var(--text-primary);
         font-weight: 700;
-        margin-bottom: 1rem;
+        letter-spacing: 0.5px;
     }
     .about-freelance .freelance-label i {
         color: var(--accent);
+        background: rgba(59, 130, 246, 0.1);
+        padding: 0.4rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+    .about-freelance .freelance-tag {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        background: rgba(59, 130, 246, 0.06);
+        padding: 0.25rem 0.7rem;
+        border-radius: 20px;
+        border: 1px solid rgba(59, 130, 246, 0.08);
+        letter-spacing: 0.3px;
     }
     .about-freelance .freelance-row {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.8rem;
         flex-wrap: wrap;
     }
     .about-freelance .freelance-btn {
         display: inline-flex;
         align-items: center;
         gap: 0.6rem;
-        padding: 0.65rem 1.3rem;
-        border-radius: 12px;
-        font-size: 0.85rem;
+        padding: 0.7rem 1.4rem;
+        border-radius: 14px;
+        font-size: 0.88rem;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 1px solid transparent;
+        border: 1.5px solid transparent;
+        flex: 0 1 auto;
+        position: relative;
+    }
+    .about-freelance .freelance-btn i {
+        font-size: 1.1rem;
     }
     .about-freelance .freelance-btn.fiverr {
-        background: rgba(29, 191, 115, 0.12);
+        background: linear-gradient(135deg, rgba(29, 191, 115, 0.08), rgba(29, 191, 115, 0.03));
         color: #1DBF73;
-        border-color: rgba(29, 191, 115, 0.25);
+        border-color: rgba(29, 191, 115, 0.2);
     }
     .about-freelance .freelance-btn.fiverr:hover {
-        background: #1DBF73;
+        background: linear-gradient(135deg, #1DBF73, #17a864);
         color: #fff;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(29, 191, 115, 0.35);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(29, 191, 115, 0.35);
+        border-color: transparent;
     }
     .about-freelance .freelance-btn.upwork {
-        background: rgba(106, 218, 68, 0.12);
+        background: linear-gradient(135deg, rgba(106, 218, 68, 0.08), rgba(106, 218, 68, 0.03));
         color: #6FDA44;
-        border-color: rgba(106, 218, 68, 0.25);
+        border-color: rgba(106, 218, 68, 0.2);
     }
     .about-freelance .freelance-btn.upwork:hover {
-        background: #6FDA44;
+        background: linear-gradient(135deg, #6FDA44, #5ac43a);
         color: #fff;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(106, 218, 68, 0.35);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(106, 218, 68, 0.35);
+        border-color: transparent;
     }
     .about-freelance .freelance-btn.freelancer {
-        background: rgba(41, 178, 254, 0.12);
+        background: linear-gradient(135deg, rgba(41, 178, 254, 0.08), rgba(41, 178, 254, 0.03));
         color: #29B2FE;
-        border-color: rgba(41, 178, 254, 0.25);
+        border-color: rgba(41, 178, 254, 0.2);
     }
     .about-freelance .freelance-btn.freelancer:hover {
-        background: #29B2FE;
+        background: linear-gradient(135deg, #29B2FE, #1a9ee8);
         color: #fff;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(41, 178, 254, 0.35);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(41, 178, 254, 0.35);
+        border-color: transparent;
     }
 
     /* ===== CONTACT FORM — GLASS CARD ===== */
@@ -2759,11 +2798,14 @@
 
                     @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
                         <div class="about-freelance">
-                            <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
+                            <div class="freelance-header">
+                                <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> Hire Me On</div>
+                                <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>Available for work</span>
+                            </div>
                             <div class="freelance-row">
                                 @if(isset($account) && $account->fiverr)
                                     <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
-                                        <i class="fab fa-fiverr"></i> Fiverr
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1.05em;height:1.05em;vertical-align:middle"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg> Fiverr
                                     </a>
                                 @endif
                                 @if(isset($account) && $account->upwork)
@@ -3412,7 +3454,7 @@
                 @endif
                 @if(isset($account) && $account->fiverr)
                     <a href="{{ $account->fiverr }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Fiverr">
-                        <i class="fab fa-fiverr"></i>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1.15em;height:1.15em;vertical-align:middle"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
                     </a>
                 @endif
                 @if(isset($account) && $account->upwork)

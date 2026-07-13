@@ -166,7 +166,7 @@
                                 <label class="form-label fw-medium text-muted small mb-2"><i class="bi bi-briefcase me-1"></i> Freelance Profiles</label>
                             </div>
                             <div class="col-md-6">
-                                <label for="fiverr" class="form-label fw-medium"><i class="fab fa-fiverr me-1" style="color:#1DBF73;"></i> Fiverr</label>
+                                <label for="fiverr" class="form-label fw-medium"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em;vertical-align:middle;margin-right:0.25rem"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg> Fiverr</label>
                                 <input type="url" id="fiverr" name="fiverr" class="form-control"
                                        value="{{ $account->fiverr ?? '' }}" placeholder="https://fiverr.com/username">
                             </div>

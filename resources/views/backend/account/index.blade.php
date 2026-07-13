@@ -122,7 +122,7 @@
                         @if($account->fiverr)
                             <a href="{{ $account->fiverr }}" target="_blank"
                                class="btn btn-light border rounded-3 px-3 d-inline-flex align-items-center gap-2">
-                                <i class="fab fa-fiverr" style="color:#1DBF73;"></i> Fiverr
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em;vertical-align:middle"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg> Fiverr
                             </a>
                         @endif
                         @if($account->upwork)
