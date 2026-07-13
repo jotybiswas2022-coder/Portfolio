@@ -141,7 +141,7 @@ return [
     // Inbox
     'inbox'                 => 'Inbox',
     'no_conversations'      => 'No Conversations Yet',
-    'no_conversations_desc' => 'Order a gig to start a conversation with the admin.',
+    'no_conversations_desc' => 'Order a gig to start a conversation with an admin.',
     'browse_gigs'           => 'Browse Gigs',
     'package_details'       => 'Package Details',
     'no_messages_yet'       => 'No messages yet. Start the conversation!',
