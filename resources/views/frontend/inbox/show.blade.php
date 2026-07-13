@@ -533,7 +533,7 @@
         gap: 0.5rem;
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* ===== Responsive ===== */
     @media (max-width: 768px) {
         .chat-page { padding-top: 85px; }
         .messages-box { max-height: 420px; padding: 1.2rem; }
