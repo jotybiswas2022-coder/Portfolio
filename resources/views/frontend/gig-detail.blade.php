@@ -364,7 +364,7 @@
         }
         .pricing-card.featured:hover { transform: translateY(-6px); }
     }
-    /* ===== SUGGESTED GIGS ===== */
+    /* ===== Suggested gigs ===== */
     .suggested-section {
         margin-top: 4.5rem;
         padding-top: 1rem;
