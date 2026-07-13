@@ -2977,7 +2977,7 @@
                         <div class="about-freelance">
                             <div class="freelance-header">
                                 <div class="freelance-header-left">
-                                    <div class="freelance-avatar">🚀</div>
+                                    <div class="freelance-avatar"><i class="bi bi-hand-thumbs-up-fill"></i></div>
                                     <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> {{ __("messages.hire_me") }}</div>
                                 </div>
                                 <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>{{ __("messages.avail_for_work") }}</span>
