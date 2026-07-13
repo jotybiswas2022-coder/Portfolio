@@ -131,7 +131,7 @@
     .orbit-ring:nth-child(3) .orbit-dot { bottom: -3px; left: 50%; margin-left: -3px; }
     @keyframes orbitSpin { 100% { transform: rotate(360deg); } }
 
-    /* SVG Stripes Container */
+    /* SVG stripes container */
     .hero-stripes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0; }
     .vis-stripes-svg { position: absolute; width: 100%; height: 100%; }
     .vis-stripes-svg.diagonal { opacity: 0.3; animation: stripeDrift 8s ease-in-out infinite; }
