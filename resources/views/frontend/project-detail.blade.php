@@ -166,7 +166,7 @@
     .sidebar-card:hover::after,
     .sidebar-link:hover::after { opacity: 1; }
 
-    /* ===== DESCRIPTION BLOCK ===== */
+    /* ===== Description block ===== */
     .pd-desc-block {
         background: var(--bg-card); border: 1px solid var(--border-color);
         border-radius: 20px; padding: 2.5rem;
