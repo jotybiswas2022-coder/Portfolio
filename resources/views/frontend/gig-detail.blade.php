@@ -73,7 +73,7 @@
     }
     .back-link i, .back-link span { position: relative; z-index: 1; }
 
-    /* ===== HERO IMAGE ===== */
+    /* ===== Hero image ===== */
     .gd-image-wrap {
         width: 100%; aspect-ratio: 16 / 9;
         border-radius: 24px; overflow: hidden;
