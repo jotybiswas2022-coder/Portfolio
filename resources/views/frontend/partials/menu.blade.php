@@ -40,7 +40,7 @@
         100% { background-position: 0% 50%; }
     }
 
-    /* ===== DESKTOP NAV LINKS ===== */
+    /* ===== Desktop nav links ===== */
     .nav-links { display: flex; gap: 0.25rem; list-style: none; align-items: center; margin: 0; padding: 0; }
     .nav-links a { 
         color: #94a3b8; font-weight: 500; font-size: 0.88rem;
