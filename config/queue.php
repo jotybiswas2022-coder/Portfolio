@@ -53,10 +53,6 @@ return [
             'after_commit' => false,
         ],
 
-        'background' => [
-            'driver' => 'background',
-        ],
-
         'failover' => [
             'driver' => 'failover',
             'connections' => [
