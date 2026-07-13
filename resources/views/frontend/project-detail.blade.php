@@ -237,7 +237,7 @@
     }
     .pd-tech-item span { position: relative; z-index: 1; }
 
-    /* ===== SIDEBAR ===== */
+    /* ===== Sidebar ===== */
     .pd-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
 
     .sidebar-card {
