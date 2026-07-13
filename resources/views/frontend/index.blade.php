@@ -1076,7 +1076,7 @@
         .casestudy-body { padding: 1.25rem; }
     }
 
-    /* Timeline */
+    /* Timeline section */
     .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
     html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
     .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 1rem 0; }
