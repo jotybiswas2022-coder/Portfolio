@@ -1,4 +1,4 @@
-@extends('backend.app')
+﻿@extends('backend.app')
 
 @section('content')
 <style>
@@ -23,7 +23,7 @@
             {{-- Header --}}
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
-                    <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add New Testimonial</h4>
+                    <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add a New Testimonial</h4>
                     <p class="text-muted small mb-0">Add a new client review to your portfolio</p>
                 </div>
                 <a href="{{ route('admin.testimonials.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
