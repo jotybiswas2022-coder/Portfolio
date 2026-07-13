@@ -148,7 +148,7 @@
     .lang-btn.active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
     .lang-divider { color: #475569; font-size: 0.75rem; }
 
-    /* ===== MOBILE: DRAWER + BACKDROP ===== */
+    /* ===== Mobile drawer and backdrop ===== */
     .mobile-backdrop {
         position: fixed; top: 0; left: 0; right: 0; bottom: 0;
         background: rgba(0, 0, 0, 0.6);
