@@ -15,7 +15,7 @@ class InboxController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(): \Illuminate\View\View
+    public function index(): \Illuminate\View\View: \Illuminate\View\View
     {
         $conversations = Conversation::where('user_id', auth()->id())
             ->with('lastMessage.sender', 'gig')
