@@ -364,7 +364,7 @@
         font-size: 0.9rem;
     }
 
-    /* ===== CHAT FORM ===== */
+    /* ===== Chat form ===== */
     .chat-form {
         background: var(--bg-card);
         border: 1px solid var(--border-color);
