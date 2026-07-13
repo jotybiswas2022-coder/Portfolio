@@ -28,7 +28,7 @@ class SiteController extends Controller
         return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'skills', 'services', 'faqs', 'caseStudies', 'gigs'));
     }
 
-    public function gigDetail($id): \Illuminate\View\View{
+    public function gigDetail($id): \Illuminate\View\View {
         $gig = Gig::findOrFail($id);
         $suggestedGigs = Gig::active()->where('id', '!=', $id)->take(3)->get();
         return view('frontend.gig-detail', compact('gig', 'suggestedGigs'));
