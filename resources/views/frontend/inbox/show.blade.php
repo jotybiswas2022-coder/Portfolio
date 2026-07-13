@@ -606,7 +606,7 @@
                         <div class="msg-avatar">{{ substr($msg->sender->name, 0, 1) }}</div>
                         <div class="msg-bubble">
                             @if($msg->sender->is_admin)
-                                <span class="sender-label"><i class="bi bi-shield-check me-1"></i>Admin</span>
+                                <span class="sender-label"><i class="bi bi-shield-check me-1"></i>Support</span>
                             @endif
                             @if($msg->message)
                                 <span class="msg-text">{!! nl2br(e($msg->message)) !!}</span>
