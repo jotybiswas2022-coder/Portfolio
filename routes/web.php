@@ -29,7 +29,7 @@ Route::prefix('/inbox')->name('inbox.')->controller(InboxController::class)->mid
     Route::post('/order/{gigId}/{package}', 'orderFromGig')->name('order');
 });
 
-Route::post('/contactus', [UserController::class, 'contactus']);
+Route::post('/contactus', [UserController::class, 'contactus'])->name('contactus');
 
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('password.request');
