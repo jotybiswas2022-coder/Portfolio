@@ -204,11 +204,13 @@
         border: 1px solid rgba(59, 130, 246, 0.25);
         border-radius: 50px; font-size: 0.82rem;
         color: var(--accent-light); margin-bottom: 1.5rem;
+        opacity: 0; transform: translateY(-20px);
         animation: fadeInDown 0.8s ease forwards;
     }
     .hero h1 {
         font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900;
         line-height: 1.05; margin-bottom: 1rem;
+        opacity: 0; transform: translateY(40px);
         animation: fadeInUp 1s ease forwards;
         animation-delay: 0.2s; letter-spacing: -1.5px;
     }
@@ -228,12 +230,14 @@
     .hero p {
         font-size: 1.15rem; color: var(--text-secondary);
         max-width: 640px; margin: 0 auto 2.5rem;
+        opacity: 0; transform: translateY(40px);
         animation: fadeInUp 1s ease forwards;
         animation-delay: 0.4s; line-height: 1.8;
     }
     .hero-buttons {
         display: flex; gap: 1rem; justify-content: center;
         flex-wrap: wrap;
+        opacity: 0; transform: translateY(40px);
         animation: fadeInUp 1s ease forwards; animation-delay: 0.6s;
     }
     .btn-primary-custom {
