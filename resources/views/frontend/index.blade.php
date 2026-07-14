@@ -1944,20 +1944,22 @@
     .about-freelance .freelance-row {
         display: flex;
         gap: 0.8rem;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         position: relative;
         z-index: 1;
     }
     /* Button wrapper per platform (for rating badge) */
     .about-freelance .freelance-btn-wrap {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 0.3rem;
-        flex: 0 1 auto;
+        gap: 0.4rem;
+        flex: 1;
     }
     .about-freelance .freelance-btn {
         display: inline-flex;
+        min-width: 0;
+        white-space: nowrap;
         align-items: center;
         gap: 0.6rem;
         padding: 0.65rem 1.3rem;
@@ -1968,7 +1970,6 @@
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1.5px solid transparent;
         position: relative;
-        width: 100%;
     }
     /* Icon in colored box (idea 1) */
     .about-freelance .freelance-btn .btn-icon-box {
