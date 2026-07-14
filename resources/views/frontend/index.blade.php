@@ -2680,22 +2680,24 @@
         .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
         .hero p { font-size: 1rem; }
         .hero-badge { font-size: 0.75rem; padding: 0.3rem 1rem; }
-.hero::before { width: 400px; height: 400px; }
+        .hero::before { width: 400px; height: 400px; }
         
         .about-stats { flex-wrap: nowrap; gap: 0.75rem; }
         .stat-item .stat-icon { width: 36px; height: 36px; font-size: 0.95rem; }
         .about-image .img-wrapper { width: 180px; height: 180px; }
         .about-image .glow-ring { width: 200px; height: 200px; }
-                .about-text { flex-direction: column; gap: 1.5rem; }
+        .about-text { flex-direction: column; gap: 1.5rem; }
         .about-text h3 { font-size: 1.5rem; }
         .about-text p { font-size: 0.92rem; }
         .stat-item .number { font-size: 1.6rem; }
         .about-social-sidebar {
             flex-direction: row; flex-wrap: wrap; justify-content: center;
-            padding: 1rem; width: 100%; position: static;
+            padding: 0.75rem; width: 100%; position: static;
+            background: none; border: none; border-radius: 0;
         }
         .about-social-sidebar .social-label { writing-mode: horizontal-tb; }
         .about-social-sidebar .social-links { flex-direction: row; }
+        .about-social-sidebar .social-link { width: 40px; height: 40px; font-size: 1rem; }
         
         
 
@@ -2781,10 +2783,12 @@
         .about-text h3 { font-size: 1.3rem; }
         .about-social-sidebar {
             flex-direction: row; flex-wrap: wrap; justify-content: center;
-            padding: 0.75rem; width: 100%; position: static;
+            padding: 0.5rem; width: 100%; position: static;
+            background: none; border: none; border-radius: 0;
         }
         .about-social-sidebar .social-label { writing-mode: horizontal-tb; }
         .about-social-sidebar .social-links { flex-direction: row; }
+        .about-social-sidebar .social-link { width: 38px; height: 38px; font-size: 0.95rem; }
 
 
         .projects-grid { grid-template-columns: 1fr; gap: 1.2rem; }
