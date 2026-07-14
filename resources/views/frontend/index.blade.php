@@ -3890,6 +3890,7 @@
         var line = document.createElement('div');
         line.className = 'hline';
         line.style.top = (Math.random() * 100) + '%';
+        line.style.left = (Math.random() * 90) + '%';
         line.style.width = (Math.random() * 80 + 40) + 'px';
         line.style.animationDuration = (Math.random() * 2 + 2) + 's';
         line.style.animationDelay = (Math.random() * 4) + 's';
