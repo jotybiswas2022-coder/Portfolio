@@ -32,6 +32,7 @@ class AccountController extends Controller
             'github'  => 'nullable|url|max:500',
             'linkedin'=> 'nullable|url|max:500',
             'facebook'=> 'nullable|url|max:500',
+            'instagram'=> 'nullable|url|max:500',
             'twitter' => 'nullable|url|max:500',
             'youtube'   => 'nullable|url|max:500',
             'fiverr'    => 'nullable|url|max:500',
@@ -50,6 +51,7 @@ class AccountController extends Controller
         $account->github = $request->github;
         $account->linkedin = $request->linkedin;
         $account->facebook = $request->facebook;
+        $account->instagram = $request->instagram;
         $account->twitter = $request->twitter;
         $account->youtube = $request->youtube;
         $account->fiverr = $request->fiverr;

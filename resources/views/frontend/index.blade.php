@@ -3049,7 +3049,7 @@
                     @endif
                     </div>
 
-                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->twitter || $account->youtube))
+                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
                         <aside class="about-social-sidebar">
                             <div class="social-label">{{ __("messages.connect") }}</div>
                             <div class="social-links">
@@ -3061,6 +3061,9 @@
                                 @endif
                                 @if(isset($account) && $account->facebook)
                                     <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                @endif
+                                @if(isset($account) && $account->instagram)
+                                    <a href="{{ $account->instagram }}" target="_blank" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
                                 @endif
                                 @if(isset($account) && $account->twitter)
                                     <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -3668,7 +3671,7 @@
                         </div>
                     </div>
 
-                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->twitter || $account->youtube))
+                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
                         <div class="contact-social">
                             <div class="social-label"><i class="bi bi-share-fill me-1"></i> {{ __("messages.connect") }}</div>
                             <div class="social-row">
@@ -3680,6 +3683,9 @@
                                 @endif
                                 @if(isset($account) && $account->facebook)
                                     <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                @endif
+                                @if(isset($account) && $account->instagram)
+                                    <a href="{{ $account->instagram }}" target="_blank" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
                                 @endif
                                 @if(isset($account) && $account->twitter)
                                     <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -3836,6 +3842,11 @@
                 @if(isset($account) && $account->facebook)
                     <a href="{{ $account->facebook }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
                         <i class="bi bi-facebook"></i>
+                    </a>
+                @endif
+                @if(isset($account) && $account->instagram)
+                    <a href="{{ $account->instagram }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
                     </a>
                 @endif
                 @if(isset($account) && $account->twitter)

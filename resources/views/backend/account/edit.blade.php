@@ -150,6 +150,11 @@
                                        value="{{ $account->facebook ?? '' }}" placeholder="https://facebook.com/username">
                             </div>
                             <div class="col-md-6">
+                                <label for="instagram" class="form-label fw-medium"><i class="bi bi-instagram me-1" style="color:#E4405F;"></i> Instagram</label>
+                                <input type="url" id="instagram" name="instagram" class="form-control"
+                                       value="{{ $account->instagram ?? '' }}" placeholder="https://instagram.com/username">
+                            </div>
+                            <div class="col-md-6">
                                 <label for="twitter" class="form-label fw-medium"><i class="bi bi-twitter-x me-1"></i> Twitter / X</label>
                                 <input type="url" id="twitter" name="twitter" class="form-control"
                                        value="{{ $account->twitter ?? '' }}" placeholder="https://twitter.com/username">

@@ -15,6 +15,7 @@ class Account extends Model
         'github',
         'linkedin',
         'facebook',
+        'instagram',
         'twitter',
         'youtube',
         'fiverr',

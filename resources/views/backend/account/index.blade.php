@@ -70,7 +70,7 @@
             </div>
 
             {{-- Social Links --}}
-            @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->twitter || $account->youtube))
+            @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-header bg-white border-bottom-0 pb-0 pt-3 px-4">
                     <h6 class="fw-bold mb-0"><i class="bi bi-share me-2" style="color:#6366f1;"></i>Social Links</h6>
@@ -93,6 +93,12 @@
                             <a href="{{ $account->facebook }}" target="_blank"
                                class="btn btn-light border rounded-3 px-3 d-inline-flex align-items-center gap-2">
                                 <i class="bi bi-facebook" style="color:#1877f2;"></i> Facebook
+                            </a>
+                        @endif
+                        @if($account->instagram)
+                            <a href="{{ $account->instagram }}" target="_blank"
+                               class="btn btn-light border rounded-3 px-3 d-inline-flex align-items-center gap-2">
+                                <i class="bi bi-instagram" style="color:#E4405F;"></i> Instagram
                             </a>
                         @endif
                         @if($account->twitter)
