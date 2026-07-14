@@ -143,25 +143,19 @@
     /* Custom Cursor */
     html:not(.touch) body { cursor: none; }
     .cursor-glow {
-        width: 40px; height: 40px;
+        width: 16px; height: 16px;
         border-radius: 50%; position: fixed;
         pointer-events: none; z-index: 99999;
         transform: translate(-50%, -50%);
-        background: radial-gradient(circle at center, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.08) 40%, transparent 70%);
-        box-shadow: 0 0 30px rgba(59,130,246,0.15);
+        background: var(--accent);
+        box-shadow: 0 0 20px var(--accent), 0 0 60px rgba(59,130,246,0.3);
         will-change: transform;
-        transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+        transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
     .cursor-glow.active {
-        width: 54px; height: 54px;
-        background: radial-gradient(circle at center, rgba(59,130,246,0.4) 0%, rgba(59,130,246,0.15) 40%, transparent 70%);
-        box-shadow: 0 0 60px rgba(59,130,246,0.35);
-    }
-    html.light-theme .cursor-glow {
-        background: radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.05) 40%, transparent 70%);
-    }
-    html.light-theme .cursor-glow.active {
-        background: radial-gradient(circle at center, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.08) 40%, transparent 70%);
+        width: 24px; height: 24px;
+        background: var(--accent-light);
+        box-shadow: 0 0 30px var(--accent-light), 0 0 80px rgba(59,130,246,0.4);
     }
     @media (max-width: 968px) { .cursor-glow { display: none; } }
 
@@ -3839,21 +3833,11 @@
 (function() {
     var glow = document.getElementById('cursorGlow');
     if (!glow) return;
-    var mx = -100, my = -100;
     document.addEventListener('mousemove', function(e) {
-        mx = e.clientX; my = e.clientY;
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
     });
-    function follow() {
-        var x = parseFloat(glow.style.left) || mx;
-        var y = parseFloat(glow.style.top) || my;
-        x += (mx - x) * 0.15;
-        y += (my - y) * 0.15;
-        glow.style.left = x + 'px';
-        glow.style.top = y + 'px';
-        requestAnimationFrame(follow);
-    }
-    follow();
-    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball, .social-link').forEach(function(el) {
+    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball, .social-link, .btn-primary-custom, .btn-outline-custom, .freelance-btn').forEach(function(el) {
         el.addEventListener('mouseenter', function() { glow.classList.add('active'); });
         el.addEventListener('mouseleave', function() { glow.classList.remove('active'); });
     });
