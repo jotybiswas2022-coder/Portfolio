@@ -212,6 +212,7 @@
         background-size: 300% 300%;
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
+        white-space: nowrap;
         animation: gradientShift 4s ease infinite;
     }
     @keyframes gradientShift {
