@@ -3270,7 +3270,8 @@
     </section>
 
     <!-- Education Qualification Section -->
-    <section class="timeline-section section-padding" id="education">
+    <section class="section-padding" id="education"
+        style="background: linear-gradient(180deg, var(--bg-secondary) 0%, #080d1a 100%);">
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
@@ -3279,30 +3280,37 @@
             </div>
 
             @if($educations->isNotEmpty())
-                <div class="timeline reveal">
-                    <div class="timeline-line"></div>
-
-                    @foreach($educations as $index => $edu)
-                        <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
-                            <div class="timeline-dot">
-                                <i class="bi bi-mortarboard-fill"></i>
-                            </div>
-                            <div class="timeline-card">
-                                <div class="timeline-date">
-                                    <i class="bi bi-calendar3 me-1"></i>{{ $edu->duration }}
+                <div class="row g-4 justify-content-center reveal">
+                    @foreach($educations as $edu)
+                        <div class="col-lg-6 col-12">
+                            <div class="edu-card"
+                                style="border-radius: var(--radius-lg); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); height: 100%;">
+                                <div class="edu-bar"></div>
+                                <div class="p-4">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="edu-icon">
+                                            <i class="bi bi-mortarboard-fill"></i>
+                                        </div>
+                                        <div class="flex-grow-1" style="min-width:0;">
+                                            <span class="edu-duration">
+                                                <i class="bi bi-calendar3 me-1"></i>{{ $edu->duration }}
+                                            </span>
+                                            <h3 class="edu-degree">{{ $edu->degree_name }}</h3>
+                                            <div class="edu-meta">
+                                                <span><i class="bi bi-building me-1"></i>{{ $edu->institution }}</span>
+                                                @if($edu->board_or_university)
+                                                    <span class="edu-board"><i class="bi bi-globe me-1"></i>{{ $edu->board_or_university }}</span>
+                                                @endif
+                                            </div>
+                                            @if($edu->result)
+                                                <div class="edu-result">
+                                                    <i class="bi bi-award"></i>
+                                                    <span>{{ $edu->result }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3>{{ $edu->degree_name }}</h3>
-                                <div class="timeline-company">
-                                    <i class="bi bi-building me-1"></i>{{ $edu->institution }}
-                                    @if($edu->board_or_university)
-                                        <span class="timeline-location ms-3">
-                                            <i class="bi bi-globe me-1"></i>{{ $edu->board_or_university }}
-                                        </span>
-                                    @endif
-                                </div>
-                                @if($edu->result)
-                                    <p><i class="bi bi-award me-1"></i>{{ $edu->result }}</p>
-                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -3316,6 +3324,95 @@
             @endif
         </div>
     </section>
+
+    <style>
+    .edu-card {
+        background: rgba(255,255,255,0.04) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(99,102,241,0.15) !important;
+        position: relative;
+        overflow: hidden;
+    }
+    html.light-theme .edu-card {
+        background: rgba(255,255,255,0.7) !important;
+        border-color: rgba(99,102,241,0.2) !important;
+    }
+    .edu-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.5) 0%, rgba(59,130,246,0.15) 30%, transparent 60%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 1;
+        border-radius: inherit;
+    }
+    html.light-theme .edu-card::before {
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.1) 30%, transparent 60%);
+    }
+    .edu-card:hover::before { opacity: 1; }
+    .edu-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(99,102,241,0.4) !important;
+        box-shadow: 0 0 30px rgba(59,130,246,0.25), var(--shadow-md);
+    }
+    html.light-theme .edu-card:hover {
+        box-shadow: 0 0 30px rgba(59,130,246,0.15), var(--shadow-md);
+    }
+    .edu-bar {
+        height: 5px;
+        background: linear-gradient(90deg, #6366f1, #a78bfa, #6366f1);
+        background-size: 200% 100%;
+        animation: eduShimmer 3s ease-in-out infinite;
+    }
+    .edu-icon {
+        width: 52px; height: 52px; flex-shrink: 0;
+        background: var(--accent-gradient);
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.4rem; color: #fff;
+        box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+    }
+    .edu-duration {
+        display: inline-flex; align-items: center;
+        font-size: 0.72rem; color: var(--accent-light); font-weight: 600;
+        background: rgba(59,130,246,0.08);
+        padding: 0.2rem 0.8rem; border-radius: 20px;
+        margin-bottom: 0.3rem;
+    }
+    .edu-degree {
+        font-size: 1.1rem; font-weight: 700;
+        margin-bottom: 0.15rem; color: var(--text-primary);
+    }
+    .edu-meta {
+        font-size: 0.88rem; color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+        display: flex; flex-wrap: wrap; align-items: center;
+        gap: 0.3rem 1rem;
+    }
+    .edu-meta i { color: var(--accent-light); }
+    .edu-board { font-size: 0.82rem; color: var(--text-muted); }
+    .edu-result {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.82rem; color: #f59e0b; font-weight: 600;
+        background: rgba(245,158,11,0.1);
+        padding: 0.25rem 1rem; border-radius: 20px;
+    }
+    @keyframes eduShimmer {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    html.light-theme #education {
+        background: linear-gradient(180deg, #eef2f7 0%, #f1f5f9 100%) !important;
+    }
+    @media (max-width: 768px) {
+        .edu-degree { font-size: 0.95rem !important; }
+        .edu-icon { width: 42px !important; height: 42px !important; font-size: 1.1rem !important; }
+        .edu-card .p-4 { padding: 1rem !important; }
+    }
+    </style>
 
     <!-- Skills Section -->
     <section class="skills-section section-padding" id="skills">
@@ -4400,7 +4497,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card';
+    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
