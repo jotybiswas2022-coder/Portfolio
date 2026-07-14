@@ -125,8 +125,12 @@
         backdrop-filter: blur(12px); transition: var(--transition);
     }
     .cs-block:hover {
-        border-color: rgba(99,102,241,0.2);
-        box-shadow: 0 8px 30px rgba(99,102,241,0.06);
+        border-color: rgba(99,102,241,0.25);
+        box-shadow: 0 20px 60px rgba(99,102,241,0.08), 0 8px 20px rgba(0,0,0,0.12);
+        transform: translateY(-4px);
+    }
+    html.light-theme .cs-block:hover {
+        box-shadow: 0 20px 60px rgba(99,102,241,0.1);
     }
     .cs-block .block-header {
         display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
@@ -161,7 +165,15 @@
         background: var(--bg-card); border: 1px solid var(--border-color);
         border-radius: 20px; padding: 2rem 2.5rem;
         position: relative; overflow: hidden;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px); transition: var(--transition);
+    }
+    .cs-tech-wrap:hover {
+        border-color: rgba(99,102,241,0.25);
+        box-shadow: 0 20px 60px rgba(99,102,241,0.08), 0 8px 20px rgba(0,0,0,0.12);
+        transform: translateY(-4px);
+    }
+    html.light-theme .cs-tech-wrap:hover {
+        box-shadow: 0 20px 60px rgba(99,102,241,0.1);
     }
     .cs-tech-wrap .tech-header {
         display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
@@ -195,7 +207,15 @@
     .sidebar-card {
         background: var(--bg-card); border: 1px solid var(--border-color);
         border-radius: 20px; padding: 1.8rem; position: relative;
-        overflow: hidden; backdrop-filter: blur(12px);
+        overflow: hidden; backdrop-filter: blur(12px); transition: var(--transition);
+    }
+    .sidebar-card:hover {
+        border-color: rgba(99,102,241,0.25);
+        box-shadow: 0 20px 60px rgba(99,102,241,0.08), 0 8px 20px rgba(0,0,0,0.12);
+        transform: translateY(-4px);
+    }
+    html.light-theme .sidebar-card:hover {
+        box-shadow: 0 20px 60px rgba(99,102,241,0.1);
     }
     .sidebar-card .sc-header {
         display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem;
@@ -250,6 +270,34 @@
     .sidebar-cta .btn-cta:hover {
         transform: translateY(-3px);
         box-shadow: 0 12px 40px rgba(99,102,241,0.3);
+    }
+
+    /* ===== Glass Card Shine Effect ===== */
+    .cs-block::after,
+    .cs-tech-wrap::after,
+    .sidebar-card::after {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%),
+            rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 30%, transparent 60%);
+        pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
+        z-index: 1; border-radius: inherit;
+    }
+    .cs-block:hover::after,
+    .cs-tech-wrap:hover::after,
+    .sidebar-card:hover::after {
+        opacity: 1;
+    }
+
+    /* Gradient top border accent on hover for tech-wrap & sidebar */
+    .cs-tech-wrap::before,
+    .sidebar-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, transparent, #6366f1, #8b5cf6, transparent);
+        opacity: 0; transition: opacity 0.5s ease; z-index: 2;
+    }
+    .cs-tech-wrap:hover::before,
+    .sidebar-card:hover::before {
+        opacity: 1;
     }
 
     /* ===== Responsive ===== */
@@ -401,4 +449,29 @@
         </div>
     </div>
 </div>
+<script>
+(function() {
+    var selectors = '.cs-block, .cs-tech-wrap, .sidebar-card';
+    document.querySelectorAll(selectors).forEach(function(card) {
+        var rafId = null;
+        card.addEventListener('mousemove', function(e) {
+            if (rafId) return;
+            var self = this;
+            rafId = requestAnimationFrame(function() {
+                var rect = self.getBoundingClientRect();
+                var x = ((e.clientX - rect.left) / rect.width) * 100;
+                var y = ((e.clientY - rect.top) / rect.height) * 100;
+                self.style.setProperty('--shine-x', x + '%');
+                self.style.setProperty('--shine-y', y + '%');
+                rafId = null;
+            });
+        });
+        card.addEventListener('mouseleave', function() {
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            this.style.setProperty('--shine-x', '50%');
+            this.style.setProperty('--shine-y', '50%');
+        });
+    });
+})();
+</script>
 @endsection
