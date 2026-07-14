@@ -3042,7 +3042,6 @@
                                             </span>
                                             Fiverr
                                         </a>
-                                        <span class="freelance-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span>4.9</span></span>
                                     </div>
                                 @endif
                                 @if(isset($account) && $account->upwork)
@@ -3051,7 +3050,6 @@
                                             <span class="btn-icon-box"><i class="fab fa-upwork"></i></span>
                                             Upwork
                                         </a>
-                                        <span class="freelance-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span>4.8</span></span>
                                     </div>
                                 @endif
                                 @if(isset($account) && $account->freelancer)
@@ -3060,7 +3058,6 @@
                                             <span class="btn-icon-box"><i class="fas fa-user-tie"></i></span>
                                             Freelancer
                                         </a>
-                                        <span class="freelance-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span>5.0</span></span>
                                     </div>
                                 @endif
                             </div>
