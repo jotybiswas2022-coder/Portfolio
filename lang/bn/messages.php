@@ -161,6 +161,7 @@ return [
     // Hire Me On
     'hire_me'          => 'আমাকে নিয়োগ দিন',
     'avail_for_work'   => 'কাজের জন্য প্রস্তুত',
+    'connect'          => 'আমার সাথে সংযুক্ত হন',
 
     // Misc
     'loading'          => 'লোড হচ্ছে...',

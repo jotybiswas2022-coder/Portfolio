@@ -2973,6 +2973,29 @@
                         </div>
                     @endif
 
+                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->twitter || $account->youtube))
+                        <div class="contact-social">
+                            <div class="social-label"><i class="bi bi-share-fill me-1"></i> {{ __("messages.connect") }}</div>
+                            <div class="social-row">
+                                @if(isset($account) && $account->github)
+                                    <a href="{{ $account->github }}" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                @endif
+                                @if(isset($account) && $account->linkedin)
+                                    <a href="{{ $account->linkedin }}" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                @endif
+                                @if(isset($account) && $account->facebook)
+                                    <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                @endif
+                                @if(isset($account) && $account->twitter)
+                                    <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                @endif
+                                @if(isset($account) && $account->youtube)
+                                    <a href="{{ $account->youtube }}" target="_blank" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+
                     @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
                         <div class="about-freelance">
                             <div class="freelance-header">

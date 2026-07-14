@@ -162,6 +162,7 @@ return [
     // Hire Me On
     'hire_me'          => 'Hire Me On',
     'avail_for_work'   => 'Available for work',
+    'connect'          => 'Connect with me',
 
     // Misc
     'loading'          => 'Loading...',
