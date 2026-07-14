@@ -2062,21 +2062,39 @@
     }
     .about-freelance .freelance-rating span { font-weight: 600; color: var(--text-primary); }
 
-    /* Light theme fixes (idea 6) */
+    /* Light theme fixes */
     html.light-theme .about-freelance {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.03), rgba(139, 92, 246, 0.03));
+        background: #fff;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+    }
+    html.light-theme .about-freelance::before {
+        background: linear-gradient(90deg, #1DBF73, #6FDA44, #29B2FE, #1DBF73, #6FDA44, #29B2FE);
+        background-size: 300% 100%;
+        opacity: 0.6;
+    }
+    html.light-theme .about-freelance::after {
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
     }
     html.light-theme .about-freelance .freelance-btn.fiverr {
-        background: rgba(29, 191, 115, 0.06);
-        border-color: rgba(29, 191, 115, 0.15);
+        background: rgba(29, 191, 115, 0.08);
+        border-color: rgba(29, 191, 115, 0.25);
     }
     html.light-theme .about-freelance .freelance-btn.upwork {
-        background: rgba(106, 218, 68, 0.06);
-        border-color: rgba(106, 218, 68, 0.15);
+        background: rgba(106, 218, 68, 0.08);
+        border-color: rgba(106, 218, 68, 0.25);
     }
     html.light-theme .about-freelance .freelance-btn.freelancer {
-        background: rgba(41, 178, 254, 0.06);
-        border-color: rgba(41, 178, 254, 0.15);
+        background: rgba(41, 178, 254, 0.08);
+        border-color: rgba(41, 178, 254, 0.25);
+    }
+    html.light-theme .about-freelance .freelance-btn.fiverr:hover {
+        box-shadow: 0 0 20px rgba(29, 191, 115, 0.3), 0 8px 25px rgba(29, 191, 115, 0.2);
+    }
+    html.light-theme .about-freelance .freelance-btn.upwork:hover {
+        box-shadow: 0 0 20px rgba(106, 218, 68, 0.3), 0 8px 25px rgba(106, 218, 68, 0.2);
+    }
+    html.light-theme .about-freelance .freelance-btn.freelancer:hover {
+        box-shadow: 0 0 20px rgba(41, 178, 254, 0.3), 0 8px 25px rgba(41, 178, 254, 0.2);
     }
     html.light-theme .about-freelance .freelance-avatar {
         background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.05));
