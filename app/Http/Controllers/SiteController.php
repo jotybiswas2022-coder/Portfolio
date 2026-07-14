@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Testimonial;
 use App\Models\Experience;
 use App\Models\Skill;
+use App\Models\EducationQualification;
 use App\Models\Service;
 use App\Models\Faq;
 use App\Models\CaseStudy;
@@ -21,11 +22,12 @@ class SiteController extends Controller
         $testimonials = Testimonial::active()->get();
         $experiences = Experience::active()->get();
         $skills = Skill::active()->get();
+        $educations = EducationQualification::active()->get();
         $services = Service::active()->get();
         $faqs = Faq::active()->get();
         $caseStudies = CaseStudy::active()->get();
         $gigs = Gig::active()->get();
-        return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'skills', 'services', 'faqs', 'caseStudies', 'gigs'));
+        return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'educations', 'skills', 'services', 'faqs', 'caseStudies', 'gigs'));
     }
 
     public function gigDetail($id): \Illuminate\View\View {

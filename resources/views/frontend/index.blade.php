@@ -3269,6 +3269,54 @@
         </div>
     </section>
 
+    <!-- Education Qualification Section -->
+    <section class="timeline-section section-padding" id="education">
+        <div class="container">
+            <div class="section-title reveal">
+                <div class="line"></div>
+                <h2>{{ __('messages.education_title') }}</h2>
+                <p>{{ __('messages.education_subtitle') }}</p>
+            </div>
+
+            @if($educations->isNotEmpty())
+                <div class="timeline reveal">
+                    <div class="timeline-line"></div>
+
+                    @foreach($educations as $index => $edu)
+                        <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
+                            <div class="timeline-dot">
+                                <i class="bi bi-mortarboard-fill"></i>
+                            </div>
+                            <div class="timeline-card">
+                                <div class="timeline-date">
+                                    <i class="bi bi-calendar3 me-1"></i>{{ $edu->duration }}
+                                </div>
+                                <h3>{{ $edu->degree_name }}</h3>
+                                <div class="timeline-company">
+                                    <i class="bi bi-building me-1"></i>{{ $edu->institution }}
+                                    @if($edu->board_or_university)
+                                        <span class="timeline-location ms-3">
+                                            <i class="bi bi-globe me-1"></i>{{ $edu->board_or_university }}
+                                        </span>
+                                    @endif
+                                </div>
+                                @if($edu->result)
+                                    <p><i class="bi bi-award me-1"></i>{{ $edu->result }}</p>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state reveal">
+                    <i class="bi bi-mortarboard"></i>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_education') }}</p>
+                    <p>{{ __('messages.no_education_desc') }}</p>
+                </div>
+            @endif
+        </div>
+    </section>
+
     <!-- Skills Section -->
     <section class="skills-section section-padding" id="skills">
         <div class="container">

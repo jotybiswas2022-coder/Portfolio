@@ -44,6 +44,12 @@ return [
     'no_services'       => 'No Services Added Yet',
     'no_services_desc'  => 'Services data coming soon!',
 
+    // Education
+    'education_title'    => 'Educational Qualification',
+    'education_subtitle' => 'My academic background',
+    'no_education'       => 'No Qualifications Added Yet',
+    'no_education_desc'  => 'Educational qualification data coming soon!',
+
     // Experience
     'experience_title'    => 'Work Experience',
     'experience_subtitle' => 'My professional journey',

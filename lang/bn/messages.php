@@ -44,6 +44,12 @@ return [
     'no_services'       => 'কোনো সেবা যোগ করা হয়নি',
     'no_services_desc'  => 'সেবার তথ্য খুব শিগগির আসছে!',
 
+    // Education
+    'education_title'    => 'শিক্ষাগত যোগ্যতা',
+    'education_subtitle' => 'আমার একাডেমিক পটভূমি',
+    'no_education'       => 'কোনো যোগ্যতা যোগ করা হয়নি',
+    'no_education_desc'  => 'শিক্ষাগত যোগ্যতার তথ্য খুব শিগগির আসছে!',
+
     // Experience
     'experience_title'    => 'কর্ম অভিজ্ঞতা',
     'experience_subtitle' => 'আমার পেশাগত যাত্রা',
