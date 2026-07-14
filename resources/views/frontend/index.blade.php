@@ -349,8 +349,38 @@
         0% { transform: translate(-50%, -50%) rotate(0deg); }
         100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
+    .about-text { display: flex; gap: 2.5rem; align-items: flex-start; }
     .about-text h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
     .about-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .about-text-main { flex: 1; min-width: 0; }
+    .about-social-sidebar {
+        display: flex; flex-direction: column; align-items: center; gap: 1rem;
+        padding: 1.25rem 0.75rem; position: sticky; top: 2rem;
+        background: rgba(59, 130, 246, 0.03);
+        border: 1px solid rgba(59, 130, 246, 0.08);
+        border-radius: 18px;
+    }
+    .about-social-sidebar .social-label {
+        font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;
+        letter-spacing: 1px; font-weight: 600; writing-mode: vertical-lr;
+    }
+    .about-social-sidebar .social-links {
+        display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .about-social-sidebar .social-link {
+        width: 44px; height: 44px; border-radius: 12px;
+        background: rgba(59, 130, 246, 0.06);
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        display: inline-flex; align-items: center; justify-content: center;
+        color: var(--text-muted); font-size: 1.15rem;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .about-social-sidebar .social-link:hover {
+        background: var(--accent-gradient); border-color: transparent;
+        color: #fff; transform: translateY(-4px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
 
     /* Stats — Redesigned */
     .about-stats {
@@ -2656,9 +2686,20 @@
         .stat-item .stat-icon { width: 36px; height: 36px; font-size: 0.95rem; }
         .about-image .img-wrapper { width: 180px; height: 180px; }
         .about-image .glow-ring { width: 200px; height: 200px; }
+                .about-text { flex-direction: column; gap: 1.5rem; }
         .about-text h3 { font-size: 1.5rem; }
         .about-text p { font-size: 0.92rem; }
         .stat-item .number { font-size: 1.6rem; }
+        .about-social-sidebar {
+            flex-direction: row; flex-wrap: wrap; justify-content: center;
+            padding: 1rem; width: 100%; position: static;
+        }
+        .about-social-sidebar .social-label { writing-mode: horizontal-tb; }
+        .about-social-sidebar .social-links { flex-direction: row; }
+        
+        
+
+        
         
 
         
@@ -2738,9 +2779,14 @@
         .about-stats .stat-item .number { font-size: 1.4rem; }
         .about-stats .stat-item .label { font-size: 0.72rem; }
         .about-text h3 { font-size: 1.3rem; }
-        
+        .about-social-sidebar {
+            flex-direction: row; flex-wrap: wrap; justify-content: center;
+            padding: 0.75rem; width: 100%; position: static;
+        }
+        .about-social-sidebar .social-label { writing-mode: horizontal-tb; }
+        .about-social-sidebar .social-links { flex-direction: row; }
 
-        
+
         .projects-grid { grid-template-columns: 1fr; gap: 1.2rem; }
         .project-card .card-image { height: 160px; }
         .project-card .card-body { padding: 1.2rem; }
@@ -2931,80 +2977,58 @@
                     </div>
                 </div>
                 <div class="about-text reveal reveal-delay-2">
-                    <h3>{{ __('messages.about_heading') }}</h3>
-                    <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
-                    <p>{{ __('messages.about_desc_2') }}</p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <div class="stat-glow"></div>
-                            <div class="stat-icon"><i class="bi bi-folder2-open"></i></div>
-                            <div class="number" data-count="50">0</div>
-                            <div class="label">{{ __('messages.stat_projects') }}</div>
+                    <div class="about-text-main">
+                        <h3>{{ __('messages.about_heading') }}</h3>
+                        <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
+                        <p>{{ __('messages.about_desc_2') }}</p>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-glow"></div>
+                                <div class="stat-icon"><i class="bi bi-folder2-open"></i></div>
+                                <div class="number" data-count="50">0</div>
+                                <div class="label">{{ __('messages.stat_projects') }}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-glow"></div>
+                                <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+                                <div class="number" data-count="30">0</div>
+                                <div class="label">{{ __('messages.stat_clients') }}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-glow"></div>
+                                <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
+                                <div class="number" data-count="5">0</div>
+                                <div class="label">{{ __('messages.stat_years') }}</div>
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-glow"></div>
-                            <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
-                            <div class="number" data-count="30">0</div>
-                            <div class="label">{{ __('messages.stat_clients') }}</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-glow"></div>
-                            <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
-                            <div class="number" data-count="5">0</div>
-                            <div class="label">{{ __('messages.stat_years') }}</div>
-                        </div>
-                    </div>
 
-                    <!-- Download CV Button -->
-                    @if(isset($account) && $account->cv)
-                        <div class="btn-download-wrapper">
-                            <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
-                               download
-                               class="btn-download magnetic">
-                                <span class="download-icon"><i class="bi bi-cloud-arrow-down-fill"></i></span>
-                                <span class="btn-text">
-                                    {{ __('messages.download_cv') }}
-                                    <span class="format-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
+                        <!-- Download CV Button -->
+                        @if(isset($account) && $account->cv)
+                            <div class="btn-download-wrapper">
+                                <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
+                                   download
+                                   class="btn-download magnetic">
+                                    <span class="download-icon"><i class="bi bi-cloud-arrow-down-fill"></i></span>
+                                    <span class="btn-text">
+                                        {{ __('messages.download_cv') }}
+                                        <span class="format-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
+                                    </span>
+                                </a>
+                                <span class="download-hint">
+                                    <i class="bi bi-arrow-down-circle"></i> {{ __('messages.click_to_download') }}
                                 </span>
-                            </a>
-                            <span class="download-hint">
-                                <i class="bi bi-arrow-down-circle"></i> {{ __('messages.click_to_download') }}
-                            </span>
-                        </div>
-                    @endif
-
-                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->twitter || $account->youtube))
-                        <div class="contact-social">
-                            <div class="social-label"><i class="bi bi-share-fill me-1"></i> {{ __("messages.connect") }}</div>
-                            <div class="social-row">
-                                @if(isset($account) && $account->github)
-                                    <a href="{{ $account->github }}" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                                @endif
-                                @if(isset($account) && $account->linkedin)
-                                    <a href="{{ $account->linkedin }}" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                                @endif
-                                @if(isset($account) && $account->facebook)
-                                    <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                @endif
-                                @if(isset($account) && $account->twitter)
-                                    <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                @endif
-                                @if(isset($account) && $account->youtube)
-                                    <a href="{{ $account->youtube }}" target="_blank" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                                @endif
                             </div>
-                        </div>
-                    @endif
+                        @endif
 
-                    @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
-                        <div class="about-freelance">
-                            <div class="freelance-header">
-                                <div class="freelance-header-left">
-                                    <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> {{ __("messages.hire_me") }}</div>
+                        @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
+                            <div class="about-freelance">
+                                <div class="freelance-header">
+                                    <div class="freelance-header-left">
+                                        <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> {{ __("messages.hire_me") }}</div>
+                                    </div>
+                                    <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>{{ __("messages.avail_for_work") }}</span>
                                 </div>
-                                <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>{{ __("messages.avail_for_work") }}</span>
-                            </div>
-                            <div class="freelance-row">
+                                <div class="freelance-row">
                                 @if(isset($account) && $account->fiverr)
                                     <div class="freelance-btn-wrap">
                                         <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
@@ -3037,6 +3061,31 @@
                             </div>
                         </div>
                     @endif
+                    </div>
+
+                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->twitter || $account->youtube))
+                        <aside class="about-social-sidebar">
+                            <div class="social-label">{{ __("messages.connect") }}</div>
+                            <div class="social-links">
+                                @if(isset($account) && $account->github)
+                                    <a href="{{ $account->github }}" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                @endif
+                                @if(isset($account) && $account->linkedin)
+                                    <a href="{{ $account->linkedin }}" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                @endif
+                                @if(isset($account) && $account->facebook)
+                                    <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                @endif
+                                @if(isset($account) && $account->twitter)
+                                    <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                @endif
+                                @if(isset($account) && $account->youtube)
+                                    <a href="{{ $account->youtube }}" target="_blank" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                @endif
+                            </div>
+                        </aside>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -4360,3 +4409,4 @@
 })();
 </script>
 @endsection
+
