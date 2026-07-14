@@ -141,33 +141,28 @@
     @keyframes shimmerMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
 
     /* Custom Cursor */
-    .cursor-dot {
-        width: 8px; height: 8px;
-        background: var(--accent);
+    .cursor-glow {
+        width: 40px; height: 40px;
         border-radius: 50%; position: fixed;
         pointer-events: none; z-index: 99999;
         transform: translate(-50%, -50%);
-        will-change: transform; display: block;
+        background: radial-gradient(circle at center, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.08) 40%, transparent 70%);
+        box-shadow: 0 0 30px rgba(59,130,246,0.15);
+        will-change: transform;
+        transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
     }
-    .cursor-dot::before {
-        content: ''; position: absolute;
-        top: 50%; left: 50%;
-        width: 32px; height: 32px;
-        border: 1.5px solid rgba(59, 130, 246, 0.3);
-        border-radius: 50%;
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-        transition: all 0.25s ease;
+    .cursor-glow.active {
+        width: 56px; height: 56px;
+        background: radial-gradient(circle at center, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 40%, transparent 70%);
+        box-shadow: 0 0 50px rgba(59,130,246,0.25);
     }
-    .cursor-dot.active::before {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
+    html.light-theme .cursor-glow {
+        background: radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.05) 40%, transparent 70%);
     }
-    .cursor-dot.active {
-        width: 10px; height: 10px;
-        background: var(--accent-light);
+    html.light-theme .cursor-glow.active {
+        background: radial-gradient(circle at center, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.08) 40%, transparent 70%);
     }
-    @media (max-width: 968px) { .cursor-dot { display: none; } }
+    @media (max-width: 968px) { .cursor-glow { display: none; } }
 
     /* Hero */
     .hero {
@@ -2910,7 +2905,7 @@
     }
 </style>
     <!-- Custom Cursor -->
-    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
 
     <!-- Particles Canvas -->
     <canvas id="particles-canvas"></canvas>
@@ -3836,17 +3831,27 @@
     document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
 })();
 
-// ===== CUSTOM CURSOR =====
+// ===== CURSOR GLOW =====
 (function() {
-    var dot = document.getElementById('cursorDot');
-    if (!dot) return;
+    var glow = document.getElementById('cursorGlow');
+    if (!glow) return;
+    var mx = -100, my = -100;
     document.addEventListener('mousemove', function(e) {
-        dot.style.left = e.clientX + 'px';
-        dot.style.top = e.clientY + 'px';
+        mx = e.clientX; my = e.clientY;
     });
-    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball').forEach(function(el) {
-        el.addEventListener('mouseenter', function() { dot.classList.add('active'); });
-        el.addEventListener('mouseleave', function() { dot.classList.remove('active'); });
+    function follow() {
+        var x = parseFloat(glow.style.left) || mx;
+        var y = parseFloat(glow.style.top) || my;
+        x += (mx - x) * 0.15;
+        y += (my - y) * 0.15;
+        glow.style.left = x + 'px';
+        glow.style.top = y + 'px';
+        requestAnimationFrame(follow);
+    }
+    follow();
+    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball, .social-link').forEach(function(el) {
+        el.addEventListener('mouseenter', function() { glow.classList.add('active'); });
+        el.addEventListener('mouseleave', function() { glow.classList.remove('active'); });
     });
 })();
 
