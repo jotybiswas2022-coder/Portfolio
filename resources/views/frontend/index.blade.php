@@ -141,21 +141,30 @@
     @keyframes shimmerMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
 
     /* Custom Cursor */
-    html:not(.touch) body { cursor: none; }
     .cursor-glow {
-        width: 16px; height: 16px;
+        width: 36px; height: 36px;
         border-radius: 50%; position: fixed;
         pointer-events: none; z-index: 99999;
         transform: translate(-50%, -50%);
-        background: var(--accent);
-        box-shadow: 0 0 20px var(--accent), 0 0 60px rgba(59,130,246,0.3);
+        border: 2px solid rgba(59,130,246,0.5);
+        background: rgba(59,130,246,0.06);
+        box-shadow: 0 0 30px rgba(59,130,246,0.1), inset 0 0 20px rgba(59,130,246,0.04);
         will-change: transform;
-        transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
     .cursor-glow.active {
-        width: 24px; height: 24px;
-        background: var(--accent-light);
-        box-shadow: 0 0 30px var(--accent-light), 0 0 80px rgba(59,130,246,0.4);
+        width: 48px; height: 48px;
+        border-color: var(--accent);
+        background: rgba(59,130,246,0.1);
+        box-shadow: 0 0 40px rgba(59,130,246,0.2), inset 0 0 30px rgba(59,130,246,0.06);
+    }
+    html.light-theme .cursor-glow {
+        border-color: rgba(59,130,246,0.35);
+        background: rgba(59,130,246,0.03);
+    }
+    html.light-theme .cursor-glow.active {
+        border-color: var(--accent);
+        background: rgba(59,130,246,0.08);
     }
     @media (max-width: 968px) { .cursor-glow { display: none; } }
 
@@ -2862,7 +2871,6 @@
         .scroll-progress { height: 2px; }
         
         /* Disable some heavy animations on mobile */
-        .cursor-dot { display: none !important; }
         #particles-canvas { display: none; }
         .magnetic { transition: none !important; }
         .project-card { transform: none !important; }
@@ -3825,9 +3833,6 @@
 
     document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
 })();
-
-// ===== TOUCH DETECT =====
-(function() { if ('ontouchstart' in window || navigator.maxTouchPoints > 0) document.documentElement.classList.add('touch'); })();
 
 // ===== CURSOR GLOW =====
 (function() {
