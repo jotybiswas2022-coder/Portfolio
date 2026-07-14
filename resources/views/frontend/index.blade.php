@@ -117,7 +117,9 @@
     /* Speed Lines */
     .hero-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0; }
     .hline { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent); animation: hlineAnim 3s ease-in-out infinite; }
+    .hline.reverse { background: linear-gradient(90deg, rgba(59,130,246,0.4), transparent); animation-name: hlineAnimReverse; }
     @keyframes hlineAnim { 0% { transform: translateX(-100%); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateX(100vw); opacity: 0; } }
+    @keyframes hlineAnimReverse { 0% { transform: translateX(100vw); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
 
     /* Orbit Rings */
     .hero-orbits { position: absolute; top: 50%; left: 50%; width: 0; height: 0; pointer-events: none; z-index: 0; }
@@ -3894,6 +3896,7 @@
         line.style.width = (Math.random() * 80 + 40) + 'px';
         line.style.animationDuration = (Math.random() * 2 + 2) + 's';
         line.style.animationDelay = (Math.random() * 4) + 's';
+        if (Math.random() > 0.5) line.classList.add('reverse');
         container.appendChild(line);
     }
 })();
