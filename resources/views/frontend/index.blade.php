@@ -141,6 +141,7 @@
     @keyframes shimmerMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
 
     /* Custom Cursor */
+    html:not(.touch) body { cursor: none; }
     .cursor-glow {
         width: 40px; height: 40px;
         border-radius: 50%; position: fixed;
@@ -152,9 +153,9 @@
         transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
     }
     .cursor-glow.active {
-        width: 56px; height: 56px;
-        background: radial-gradient(circle at center, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 40%, transparent 70%);
-        box-shadow: 0 0 50px rgba(59,130,246,0.25);
+        width: 54px; height: 54px;
+        background: radial-gradient(circle at center, rgba(59,130,246,0.4) 0%, rgba(59,130,246,0.15) 40%, transparent 70%);
+        box-shadow: 0 0 60px rgba(59,130,246,0.35);
     }
     html.light-theme .cursor-glow {
         background: radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.05) 40%, transparent 70%);
@@ -3830,6 +3831,9 @@
 
     document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
 })();
+
+// ===== TOUCH DETECT =====
+(function() { if ('ontouchstart' in window || navigator.maxTouchPoints > 0) document.documentElement.classList.add('touch'); })();
 
 // ===== CURSOR GLOW =====
 (function() {
