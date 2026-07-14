@@ -124,13 +124,6 @@
     .orbit-ring:nth-child(3) .orbit-dot { bottom: -3px; left: 50%; margin-left: -3px; }
     @keyframes orbitSpin { 100% { transform: rotate(360deg); } }
 
-    /* SVG stripes container */
-    .hero-stripes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0; }
-    .vis-stripes-svg { position: absolute; width: 100%; height: 100%; }
-    .vis-stripes-svg.diagonal { opacity: 0.3; animation: stripeDrift 8s ease-in-out infinite; }
-    .vis-stripes-svg.infinity { opacity: 0.2; animation: stripeDrift 10s ease-in-out infinite reverse; }
-    @keyframes stripeDrift { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-5%); } }
-
     /* Glow disc */
     .vis-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle at center, rgba(59,130,246,0.15), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 0; animation: glowPulse 4s ease-in-out infinite; }
     @keyframes glowPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; } }
@@ -2881,12 +2874,9 @@
         .project-card:hover { transform: translateY(-4px) !important; }
         
         /* Hero decorative responsive */
-        .hero-lines { display: none; }
         .hero-orbits { display: none; }
         .float-chip { display: none; }
         .vis-glow { width: 300px; height: 300px; }
-        .vis-stripes-svg.diagonal { opacity: 0.15; }
-        .vis-stripes-svg.infinity { opacity: 0.1; }
 
         /* Extra size reductions for very small screens */
         .hero-content { max-width: 100%; }
@@ -2932,36 +2922,6 @@
 
         <!-- Glow Disc -->
         <div class="vis-glow"></div>
-
-        <!-- SVG Stripes: Diagonal -->
-        <div class="hero-stripes">
-            <svg class="vis-stripes-svg diagonal" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs>
-                    <linearGradient id="diagStripe" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stop-color="rgba(59,130,246,0)" />
-                        <stop offset="50%" stop-color="rgba(59,130,246,0.15)" />
-                        <stop offset="100%" stop-color="rgba(59,130,246,0)" />
-                    </linearGradient>
-                </defs>
-                <line x1="0" y1="20" x2="100" y2="0" stroke="url(#diagStripe)" stroke-width="2" />
-                <line x1="0" y1="40" x2="100" y2="20" stroke="url(#diagStripe)" stroke-width="1.5" />
-                <line x1="0" y1="60" x2="100" y2="40" stroke="url(#diagStripe)" stroke-width="1" />
-                <line x1="0" y1="80" x2="100" y2="60" stroke="url(#diagStripe)" stroke-width="2" />
-                <line x1="0" y1="100" x2="100" y2="80" stroke="url(#diagStripe)" stroke-width="1.5" />
-            </svg>
-            <svg class="vis-stripes-svg infinity" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs>
-                    <linearGradient id="infWave" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stop-color="rgba(139,92,246,0)" />
-                        <stop offset="50%" stop-color="rgba(139,92,246,0.2)" />
-                        <stop offset="100%" stop-color="rgba(139,92,246,0)" />
-                    </linearGradient>
-                </defs>
-                <path d="M0,50 Q25,20 50,50 T100,50" fill="none" stroke="url(#infWave)" stroke-width="1.5" />
-                <path d="M0,30 Q25,0 50,30 T100,30" fill="none" stroke="url(#infWave)" stroke-width="1" />
-                <path d="M0,70 Q25,40 50,70 T100,70" fill="none" stroke="url(#infWave)" stroke-width="1" />
-            </svg>
-        </div>
 
         <!-- Floating Chips -->
         <div class="float-chip c1"><i class="bi bi-star-fill"></i> 5+ Years Experience</div>
