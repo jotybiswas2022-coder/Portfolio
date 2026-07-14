@@ -69,9 +69,6 @@
     html.light-theme .vis-glow {
         background: radial-gradient(circle at center, rgba(59, 130, 246, 0.08), transparent 70%);
     }
-    html.light-theme .hero-lines .hline {
-        background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.25), transparent);
-    }
     html.light-theme .stat-item .number {
         filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.15));
     }
@@ -115,12 +112,6 @@
     /* ===== Hero Decorative Effects ===== */
 
     /* Speed Lines */
-    .hero-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0; }
-    .hline { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent); animation: hlineAnim 3s ease-in-out infinite; }
-    .hline.reverse { background: linear-gradient(90deg, rgba(59,130,246,0.4), transparent); animation-name: hlineAnimReverse; }
-    @keyframes hlineAnim { 0% { transform: translateX(-100%); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateX(100vw); opacity: 0; } }
-    @keyframes hlineAnimReverse { 0% { transform: translateX(100vw); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
-
     /* Orbit Rings */
     .hero-orbits { position: absolute; top: 50%; left: 50%; width: 0; height: 0; pointer-events: none; z-index: 0; }
     .orbit-ring { position: absolute; border: 1px solid rgba(59,130,246,0.15); border-radius: 50%; }
@@ -2931,9 +2922,6 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
-        <!-- Speed Lines -->
-        <div class="hero-lines" id="heroLines"></div>
-
         <!-- Orbit Rings -->
         <div class="hero-orbits">
             <div class="orbit-ring"><div class="orbit-dot"></div></div>
@@ -3881,24 +3869,6 @@
     animateParticles();
 
     document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
-})();
-
-// ===== SPEED LINES =====
-(function() {
-    var container = document.getElementById('heroLines');
-    if (!container) return;
-    var count = Math.min(12, Math.floor(window.innerWidth / 100));
-    for (var i = 0; i < count; i++) {
-        var line = document.createElement('div');
-        line.className = 'hline';
-        line.style.top = (Math.random() * 100) + '%';
-        line.style.left = (Math.random() * 90) + '%';
-        line.style.width = (Math.random() * 80 + 40) + 'px';
-        line.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        line.style.animationDelay = (Math.random() * 4) + 's';
-        if (Math.random() > 0.5) line.classList.add('reverse');
-        container.appendChild(line);
-    }
 })();
 
 // ===== CUSTOM CURSOR =====
