@@ -142,18 +142,30 @@
 
     /* Custom Cursor */
     .cursor-dot {
-        width: 12px; height: 12px;
+        width: 8px; height: 8px;
         background: var(--accent);
         border-radius: 50%; position: fixed;
         pointer-events: none; z-index: 99999;
         transform: translate(-50%, -50%);
         will-change: transform; display: block;
-        opacity: 0.9;
+    }
+    .cursor-dot::before {
+        content: ''; position: absolute;
+        top: 50%; left: 50%;
+        width: 32px; height: 32px;
+        border: 1.5px solid rgba(59, 130, 246, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+        transition: all 0.25s ease;
+    }
+    .cursor-dot.active::before {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
     }
     .cursor-dot.active {
-        width: 18px; height: 18px;
+        width: 10px; height: 10px;
         background: var(--accent-light);
-        opacity: 1;
     }
     @media (max-width: 968px) { .cursor-dot { display: none; } }
 
