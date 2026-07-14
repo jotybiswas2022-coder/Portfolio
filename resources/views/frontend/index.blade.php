@@ -2969,7 +2969,7 @@
 
         <div class="hero-content">
             <div class="hero-badge"><i class="bi bi-briefcase-fill"></i> <span class="shimmer-text">{{ __('messages.hero_badge') }}</span></div>
-            <h1>{{ __('messages.hero_greeting') }} <span class="gradient-text">{{ optional($account)->name ?? 'Portfolio' }}</span></h1>
+            <h1>{{ __('messages.hero_greeting') }}<br><span class="gradient-text">{{ optional($account)->name ?? 'Portfolio' }}</span></h1>
 <p>{{ __('messages.hero_tagline') }}</p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn-primary-custom magnetic">
