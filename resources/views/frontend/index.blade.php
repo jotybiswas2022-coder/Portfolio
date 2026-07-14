@@ -141,28 +141,37 @@
     @keyframes shimmerMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
 
     /* Custom Cursor */
+    @media (min-width: 969px) { body { cursor: none; } }
     .cursor-dot {
-        width: 8px; height: 8px; background: var(--accent);
+        width: 20px; height: 20px;
+        background: rgba(59, 130, 246, 0.12);
+        border: 2px solid var(--accent);
         border-radius: 50%; position: fixed;
         pointer-events: none; z-index: 9999;
         transform: translate(-50%, -50%);
-        transition: width 0.2s, height 0.2s, background 0.2s;
+        transition: width 0.15s, height 0.15s, background 0.15s, border-color 0.15s;
+        will-change: transform;
     }
-    .cursor-dot.active { width: 12px; height: 12px; background: var(--accent-light); }
-    .cursor-ring {
-        width: 36px; height: 36px;
-        border: 2px solid rgba(59, 130, 246, 0.35);
-        border-radius: 50%; position: fixed;
-        pointer-events: none; z-index: 9998;
+    .cursor-dot::after {
+        content: ''; position: absolute;
+        top: 50%; left: 50%;
+        width: 4px; height: 4px;
+        background: var(--accent);
+        border-radius: 50%;
         transform: translate(-50%, -50%);
-        transition: all 0.15s ease-out, width 0.3s, border-color 0.3s, background 0.3s;
     }
-    .cursor-ring.active {
-        width: 50px; height: 50px;
-        border-color: rgba(59, 130, 246, 0.7);
-        background: rgba(59, 130, 246, 0.05);
+    .cursor-dot.active {
+        width: 28px; height: 28px;
+        background: rgba(59, 130, 246, 0.2);
+        border-color: var(--accent-light);
     }
-    @media (max-width: 768px) { .cursor-dot, .cursor-ring { display: none; } }
+    html.light-theme .cursor-dot {
+        background: rgba(59, 130, 246, 0.08);
+    }
+    html.light-theme .cursor-dot.active {
+        background: rgba(59, 130, 246, 0.15);
+    }
+    @media (max-width: 968px) { .cursor-dot { display: none; } }
 
     /* Hero */
     .hero {
@@ -2867,7 +2876,7 @@
         .scroll-progress { height: 2px; }
         
         /* Disable some heavy animations on mobile */
-        .cursor-dot, .cursor-ring { display: none !important; }
+        .cursor-dot { display: none !important; }
         #particles-canvas { display: none; }
         .magnetic { transition: none !important; }
         .project-card { transform: none !important; }
@@ -2906,7 +2915,6 @@
 </style>
     <!-- Custom Cursor -->
     <div class="cursor-dot" id="cursorDot"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
 
     <!-- Particles Canvas -->
     <canvas id="particles-canvas"></canvas>
@@ -3835,17 +3843,14 @@
 // ===== CUSTOM CURSOR =====
 (function() {
     var dot = document.getElementById('cursorDot');
-    var ring = document.getElementById('cursorRing');
-    if (!dot || !ring) return;
+    if (!dot) return;
     document.addEventListener('mousemove', function(e) {
         dot.style.left = e.clientX + 'px';
         dot.style.top = e.clientY + 'px';
-        ring.style.left = e.clientX + 'px';
-        ring.style.top = e.clientY + 'px';
     });
     document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball').forEach(function(el) {
-        el.addEventListener('mouseenter', function() { ring.classList.add('active'); dot.classList.add('active'); });
-        el.addEventListener('mouseleave', function() { ring.classList.remove('active'); dot.classList.remove('active'); });
+        el.addEventListener('mouseenter', function() { dot.classList.add('active'); });
+        el.addEventListener('mouseleave', function() { dot.classList.remove('active'); });
     });
 })();
 
