@@ -2088,12 +2088,21 @@
         border-color: rgba(41, 178, 254, 0.25);
     }
     html.light-theme .about-freelance .freelance-btn.fiverr:hover {
+        background: linear-gradient(135deg, #1DBF73, #17a864);
+        border-color: transparent;
+        color: #fff;
         box-shadow: 0 0 20px rgba(29, 191, 115, 0.3), 0 8px 25px rgba(29, 191, 115, 0.2);
     }
     html.light-theme .about-freelance .freelance-btn.upwork:hover {
+        background: linear-gradient(135deg, #6FDA44, #5ac43a);
+        border-color: transparent;
+        color: #fff;
         box-shadow: 0 0 20px rgba(106, 218, 68, 0.3), 0 8px 25px rgba(106, 218, 68, 0.2);
     }
     html.light-theme .about-freelance .freelance-btn.freelancer:hover {
+        background: linear-gradient(135deg, #29B2FE, #1a9ee8);
+        border-color: transparent;
+        color: #fff;
         box-shadow: 0 0 20px rgba(41, 178, 254, 0.3), 0 8px 25px rgba(41, 178, 254, 0.2);
     }
     html.light-theme .about-freelance .freelance-avatar {
