@@ -275,6 +275,7 @@
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
         white-space: nowrap;
+        text-shadow: none;
         animation: gradientFlow 6s linear infinite;
         filter: drop-shadow(0 0 22px rgba(129, 140, 248, 0.35));
     }
