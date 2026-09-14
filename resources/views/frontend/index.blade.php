@@ -320,7 +320,7 @@
         .hero-terminal { border-radius: 14px; }
         .ht-body { min-height: 8.8rem; padding: 0.75rem 0 0.85rem; }
         .ht-line .ht-code { font-size: 0.7rem; }
-        .ht-tab { font-size: 0.66rem; max-width: 150px; }
+        .ht-tab { font-size: 0.66rem; max-width: 172px; }
         .ht-statusbar .ht-status-right { display: none; }
     }
 
@@ -3172,7 +3172,7 @@
                         <span class="tl tl-yellow"></span>
                         <span class="tl tl-green"></span>
                     </div>
-                    <div class="ht-tab"><i class="bi bi-terminal-fill"></i> portfolio &mdash; zsh</div>
+                    <div class="ht-tab"><i class="bi bi-terminal-fill"></i> bash &mdash; ~/portfolio</div>
                     <div class="ht-dots"><i class="bi bi-three-dots-vertical"></i></div>
                 </div>
                 <div class="ht-body"></div>
@@ -4256,7 +4256,7 @@
     ];
 
     /* ---------- falling code glyphs (matrix-style code rain) ---------- */
-    var GLYPHS = ['{ }','</>','=>','()','[]',';','::','$','#','let','const','fn','async','await','&&','||','===','...','?.','->','git','npm','<?php','</div>','<span>','::class']; 
+    var GLYPHS = ['{ }','</>','=>','()','[]',';','::','$','#','let','const','fn','async','await','&&','||','===','...','?.','->','git','npm','<?php','</div>','<span>','::class'];
     var N_GLYPHS = 66;
     var glyphs = [];
     function spawnGlyph(init) {
