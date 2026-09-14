@@ -134,15 +134,17 @@
     }
     @keyframes scanMove { 0% { top: -20%; } 100% { top: 115%; } }
 
-    /* Aurora color glows */
+    /* Aurora color glows (full-page coverage) */
     .hero-aurora {
-        position: absolute; top: -15%; left: -10%; right: -10%; bottom: -15%;
+        position: absolute; top: -20%; left: -10%; right: -10%; bottom: -20%;
         z-index: 0; pointer-events: none;
         background:
-            radial-gradient(38% 52% at 16% 20%, rgba(59,130,246,0.32), transparent 70%),
-            radial-gradient(44% 58% at 84% 26%, rgba(99,102,241,0.30), transparent 70%),
-            radial-gradient(52% 60% at 50% 88%, rgba(16,185,129,0.20), transparent 72%),
-            radial-gradient(36% 50% at 72% 70%, rgba(192,38,211,0.16), transparent 70%);
+            radial-gradient(38% 48% at 12% 16%, rgba(59,130,246,0.34), transparent 50%),
+            radial-gradient(40% 50% at 88% 18%, rgba(99,102,241,0.34), transparent 50%),
+            radial-gradient(48% 56% at 18% 80%, rgba(16,185,129,0.24), transparent 72%),
+            radial-gradient(50% 58% at 82% 76%, rgba(192,38,211,0.22), transparent 72%),
+            radial-gradient(44% 46% at 50% 50%, rgba(56,132,255,0.14), transparent 78%),
+            radial-gradient(30% 38% at 50% 2%, rgba(129,140,248,0.18), transparent 70%);
         animation: auroraDrift 18s ease-in-out infinite;
     }
     @keyframes auroraDrift {
@@ -151,12 +153,12 @@
         66% { transform: translate3d(2%, -2%, 0) scale(0.97); }
     }
 
-    /* Hologram code floor (3D perspective at the bottom) */
+    /* Hologram code floor (3D perspective, full-bleed) */
     #hero-floor {
-        position: absolute; left: 0; right: 0; bottom: 0;
-        height: 64%; z-index: 0; pointer-events: none;
-        -webkit-mask-image: linear-gradient(180deg, transparent, #000 46%);
-        mask-image: linear-gradient(180deg, transparent, #000 46%);
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 0; pointer-events: none;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 55%);
+        mask-image: linear-gradient(180deg, transparent 0%, #000 55%);
     }
 
     /* Floating Code Fragments */
@@ -4093,19 +4095,20 @@
         [129,140,248],[96,165,250],[52,211,153],[232,121,249],[251,191,36]
     ];
 
-    var N = 50;
+    var N = 110;
     var drops = [];
 
     function spawn(i, randomZ) {
         var col = palette[Math.floor(Math.random() * palette.length)];
         return {
             bx: Math.random(),
+            xv: (Math.random() - 0.5) * 0.0005,
             z: randomZ ? Math.random() : 0,
             spd: 0.003 + Math.random() * 0.007,
             tok: tokens[Math.floor(Math.random() * tokens.length)],
             col: col,
             accent: Math.random() > 0.88,
-            size: 5 + Math.random() * 8
+            size: 6 + Math.random() * 9
         };
     }
 
@@ -4135,15 +4138,15 @@
 
         // horizon glow
         ctx.beginPath();
-        ctx.moveTo(W * 0.1, hy);
-        ctx.lineTo(W * 0.9, hy);
-        ctx.strokeStyle = 'rgba(99,102,241,0.18)';
+        ctx.moveTo(0, hy);
+        ctx.lineTo(W, hy);
+        ctx.strokeStyle = 'rgba(99,102,241,0.16)';
         ctx.lineWidth = 1;
         ctx.stroke();
 
         // subtle perspective grid rails
-        ctx.strokeStyle = 'rgba(99,102,241,0.06)';
-        for (var gv = -7; gv <= 7; gv++) {
+        ctx.strokeStyle = 'rgba(99,102,241,0.07)';
+        for (var gv = -9; gv <= 9; gv++) {
             ctx.beginPath();
             ctx.moveTo(cx + (gv / 7) * W * 0.12, hy);
             ctx.lineTo(cx + gv * W * 0.38, H + 40);
@@ -4160,18 +4163,20 @@
         }
         ctx.globalAlpha = 1;
 
-        // code tokens on the floor
+        // code tokens racing across the whole floor (full-width)
         for (var i = 0; i < drops.length; i++) {
             var d = drops[i];
             d.z += d.spd * 0.9;
-            if (d.z > 1) { drops[i] = spawn(i, false); d = drops[i]; }
+            if (d.z > 1) { drops[i] = spawn(i, false); continue; }
+            d.bx += d.xv;
+            if (d.bx < 0.02 || d.bx > 0.98) { d.xv *= -1; d.bx = Math.max(0.02, Math.min(0.98, d.bx)); }
 
             var zz2 = d.z;
-            var sc = 0.12 + zz2 * zz2 * 1.3;
-            var sx = cx + (d.bx - 0.5) * W * 2.6 * (0.2 + zz2 * 0.8);
+            var foc = 0.22 + zz2 * 0.78;
+            var sx = cx + (d.bx - 0.5) * W * 1.9 * foc;
             var sy = hy + zz2 * zz2 * by;
-            var sz = d.size * (0.4 + zz2 * 1.1);
-            var alpha = 0.05 + zz2 * zz2 * 0.5;
+            var sz = d.size * (0.4 + zz2 * 1.15);
+            var alpha = 0.08 + zz2 * zz2 * 0.5;
             if (d.accent) alpha = Math.min(alpha * 2, 0.95);
 
             ctx.font = '600 ' + sz.toFixed(1) + 'px Consolas, monospace';
