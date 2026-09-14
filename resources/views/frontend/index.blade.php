@@ -79,6 +79,25 @@
     html.light-theme .code-fragment { color: rgba(99, 102, 241, 0.35); }
     html.light-theme .code-fragment b { color: rgba(234, 120, 70, 0.55); }
     html.light-theme .code-fragment em { color: rgba(22, 160, 90, 0.5); }
+    html.light-theme .code-window-status {
+        background: rgba(241, 245, 249, 0.8);
+        border-top-color: rgba(99, 102, 241, 0.15);
+        color: #64748b;
+    }
+    html.light-theme .code-window-body .line::before { color: rgba(148, 163, 184, 0.6); }
+    html.light-theme .code-window-body .ok { color: #16a34a; }
+    html.light-theme .tagline-caret { background: #3b82f6; }
+    html.light-theme .term-window {
+        background: rgba(255, 255, 255, 0.92);
+        border-color: rgba(52, 211, 153, 0.5);
+        box-shadow: 0 20px 40px rgba(30, 41, 59, 0.12);
+    }
+    html.light-theme .term-header { background: rgba(241, 245, 249, 0.95); }
+    html.light-theme .term-body { color: #15803d; }
+    html.light-theme .term-body .cmd { color: #334155; }
+    html.light-theme .term-body .out { color: #64748b; }
+    html.light-theme .term-body .ok { color: #16a34a; }
+    html.light-theme .term-caret { background: #16a34a; }
     html.light-theme .stat-item .number {
         filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.15));
     }
@@ -207,6 +226,83 @@
         animation: caretBlink 0.9s steps(1) infinite;
     }
     @keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+    /* Typewriter caret for the tagline */
+    .tagline-caret {
+        display: inline-block; width: 8px; height: 18px;
+        background: var(--accent); vertical-align: -3px; margin-left: 3px;
+        border-radius: 2px; animation: caretBlink 0.9s steps(1) infinite;
+    }
+
+    /* Line numbers in code window */
+    .code-window-body { counter-reset: ln; }
+    .code-window-body .line { counter-increment: ln; }
+    .code-window-body .line::before {
+        content: counter(ln);
+        display: inline-block; width: 20px;
+        color: rgba(148,163,184,0.4); font-size: 0.68rem;
+        margin-right: 12px; text-align: right; user-select: none;
+    }
+    .code-window-body .ok { color: #34d399; }
+
+    /* Code window status bar */
+    .code-window-status {
+        display: flex; align-items: center; gap: 10px;
+        padding: 6px 12px; border-top: 1px solid rgba(99,102,241,0.15);
+        background: rgba(15,23,42,0.7);
+        font-size: 0.6rem; color: rgba(148,163,184,0.75);
+        font-family: 'Consolas', 'Fira Code', monospace; letter-spacing: 0.3px;
+    }
+    .code-window-status .status-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: #34d399; box-shadow: 0 0 8px #34d399;
+    }
+    .code-window-status .status-spacer { flex: 1; }
+
+    /* Terminal window */
+    .term-window {
+        position: absolute; z-index: 1; pointer-events: none;
+        bottom: 10%; right: 7%;
+        width: min(330px, 25vw);
+        background: rgba(10,16,30,0.78);
+        border: 1px solid rgba(52,211,153,0.28);
+        border-radius: 12px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        overflow: hidden;
+        font-family: 'Consolas', 'Fira Code', 'Cascadia Code', monospace;
+        animation: windowFloat 7s ease-in-out infinite 1.2s;
+    }
+    .term-header {
+        display: flex; align-items: center; gap: 6px; padding: 8px 12px;
+        background: rgba(15,23,42,0.9);
+        border-bottom: 1px solid rgba(52,211,153,0.15);
+    }
+    .term-title {
+        margin-left: 8px; font-size: 0.66rem;
+        color: rgba(203,213,225,0.6); letter-spacing: 0.4px;
+    }
+    .term-body {
+        padding: 12px 14px 16px; font-size: 0.72rem; line-height: 1.8;
+        color: #86efac; text-align: left; min-height: 112px;
+    }
+    .term-body .l { display: block; white-space: pre; }
+    .term-body .prompt { color: #60a5fa; font-weight: 600; }
+    .term-body .cmd { color: #e2e8f0; }
+    .term-body .out { color: #94a3b8; }
+    .term-body .ok { color: #34d399; }
+    .term-caret {
+        display: inline-block; width: 6px; height: 13px;
+        background: #86efac; vertical-align: middle; margin-left: 2px;
+        animation: caretBlink 0.9s steps(1) infinite;
+    }
+
+    /* Hero matrix code rain */
+    #hero-matrix {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 0; pointer-events: none; opacity: 0.8;
+    }
 
     /* Floating Chips */
     .float-chip { position: absolute; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(15,23,42,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59,130,246,0.2); border-radius: 50px; font-size: 0.75rem; color: var(--accent-light); pointer-events: none; z-index: 1; white-space: nowrap; }
@@ -2767,6 +2863,7 @@
     /* Hide code window on smaller desktops to avoid overlap with hero text */
     @media (max-width: 1200px) {
         .code-window { display: none; }
+        .term-window { display: none; }
         .code-fragment.f2 { display: none; }
         .code-fragment.f5 { display: none; }
     }
@@ -2852,6 +2949,7 @@
         .float-chip.c2 { display: none; }
         .float-chip.c3 { display: none; }
         .code-fragment { display: none; }
+        #hero-matrix { display: none; }
         .code-grid-bg { background-size: 36px 36px; }
     }
     
@@ -3007,6 +3105,9 @@
         <!-- Code Grid Background -->
         <div class="code-grid-bg"></div>
 
+        <!-- Hero Matrix Code Rain -->
+        <canvas id="hero-matrix"></canvas>
+
         <!-- Floating Code Fragments -->
         <div class="code-fragment f1">&lt;?php</div>
         <div class="code-fragment f2">const <b>dev</b> = {</div>
@@ -3026,6 +3127,24 @@
             <div class="code-window-body">
                 <div id="codeLines"></div><span class="code-caret" id="codeCaret"></span>
             </div>
+            <div class="code-window-status">
+                <span class="status-dot"></span>
+                <span>Ln <span id="codeLn">1</span>, Col <span id="codeCol">1</span></span>
+                <span class="status-spacer"></span>
+                <span>UTF-8</span>
+                <span>PHP</span>
+            </div>
+        </div>
+
+        <!-- Terminal Window (command animation) -->
+        <div class="term-window">
+            <div class="term-header">
+                <span class="code-dot red"></span>
+                <span class="code-dot yellow"></span>
+                <span class="code-dot green"></span>
+                <span class="term-title">terminal.zsh</span>
+            </div>
+            <div class="term-body" id="termBody"></div>
         </div>
 
         <!-- Floating Chips -->
@@ -3034,9 +3153,9 @@
         <div class="float-chip c3"><i class="bi bi-cpu-fill"></i> PHP &middot; Laravel &middot; MySQL</div>
 
         <div class="hero-content">
-            <div class="hero-badge"><i class="bi bi-briefcase-fill"></i> <span class="shimmer-text">{{ __('messages.hero_badge') }}</span></div>
+            <div class="hero-badge"><i class="bi bi-code-slash"></i> <span class="shimmer-text">{{ __('messages.hero_badge') }}</span></div>
             <h1>{{ __('messages.hero_greeting') }}<br><span class="gradient-text">{{ optional($account)->name ?? 'Portfolio' }}</span></h1>
-<p>{{ __('messages.hero_tagline') }}</p>
+            <p id="heroTagline"><span id="taglineSpill" style="display:none;">{{ __('messages.hero_tagline') }}</span><span id="taglineText"></span><span class="tagline-caret" id="taglineCaret"></span></p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn-primary-custom magnetic">
                     <i class="bi bi-rocket-fill"></i> {{ __('messages.see_my_work') }}
@@ -4111,6 +4230,8 @@
 (function() {
     var linesWrap = document.getElementById('codeLines');
     var caret = document.getElementById('codeCaret');
+    var lnEl = document.getElementById('codeLn');
+    var colEl = document.getElementById('codeCol');
     if (!linesWrap || !caret) return;
 
     var lines = [
@@ -4122,55 +4243,224 @@
         [['  motto', 'fn'], [': ', ''], ['"write clean, ship fast"', 'str'], [',', '']],
         [['  status', 'fn'], [': ', ''], ['"open to work"', 'str'], [',', '']],
         [['};', '']],
-        [['export ', 'kw'], ['default', 'kw'], [' developer;', '']]
+        [['export ', 'kw'], ['default', 'kw'], [' developer;', '']],
+        [['// build passed', 'ok']]
     ];
 
-    var lineIndex = 0, segIndex = 0, charIndex = 0;
+    var lineIndex = 0, segIndex = 0, charIndex = 0, lineCol = 0;
+
+    function setCursor(lineNum, col) {
+        if (lnEl) lnEl.textContent = lineNum;
+        if (colEl) colEl.textContent = col;
+    }
+
+    function caretLine() {
+        var lineEl = linesWrap.querySelectorAll('.line')[lineIndex];
+        if (!lineEl) {
+            linesWrap.appendChild(caret);
+            lineEl = document.createElement('span');
+            lineEl.className = 'line';
+            linesWrap.insertBefore(lineEl, caret);
+            lineEl.appendChild(caret);
+            setCursor(lineIndex + 1, 1);
+        }
+        return lineEl;
+    }
 
     function tick() {
         if (lineIndex >= lines.length) {
-            setTimeout(resetTyping, 4500);
+            setTimeout(resetTyping, 5000);
             return;
         }
         var lineDef = lines[lineIndex];
-        var lineEl = linesWrap.querySelectorAll('.line')[lineIndex];
-        if (!lineEl) {
-            lineEl = document.createElement('span');
-            lineEl.className = 'line';
-            linesWrap.appendChild(lineEl);
-        }
+        var lineEl = caretLine();
         var seg = lineDef[segIndex];
         if (charIndex >= seg[0].length) {
+            lineCol += seg[0].length;
             segIndex++;
             charIndex = 0;
+            setCursor(lineIndex + 1, lineCol + 1);
             if (segIndex >= lineDef.length) {
                 lineIndex++;
                 segIndex = 0;
-                caret.style.display = 'inline-block';
+                lineCol = 0;
                 setTimeout(tick, 380);
                 return;
             }
             setTimeout(tick, 50);
             return;
         }
-        var spanEl = lineEl.querySelectorAll('span')[segIndex];
+        var spanEl = lineEl.querySelectorAll('.line-tok')[segIndex];
         if (!spanEl) {
             spanEl = document.createElement('span');
-            if (seg[1]) spanEl.className = seg[1];
-            lineEl.appendChild(spanEl);
+            spanEl.className = 'line-tok' + (seg[1] ? ' ' + seg[1] : '');
+            lineEl.insertBefore(spanEl, caret);
         }
         spanEl.textContent += seg[0][charIndex];
         charIndex++;
+        setCursor(lineIndex + 1, lineCol + charIndex + 1);
         setTimeout(tick, 16 + Math.random() * 24);
     }
 
     function resetTyping() {
         linesWrap.innerHTML = '';
-        lineIndex = 0; segIndex = 0; charIndex = 0;
+        linesWrap.appendChild(caret);
+        lineIndex = 0; segIndex = 0; charIndex = 0; lineCol = 0;
+        setCursor(1, 1);
         setTimeout(tick, 1000);
     }
 
     setTimeout(tick, 900);
+})();
+
+// ===== HERO MATRIX CODE RAIN =====
+(function() {
+    var canvas = document.getElementById('hero-matrix');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var fontSize = 14;
+    var glyphs = '01{}[]();<>/\\|=+*$#@&%?!<>/PHPJSphpx0a1b2c3d4e5f6';
+    var cols = 0, drops = [];
+
+    function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        cols = Math.floor(canvas.width / (fontSize * 1.2));
+        if (cols < 1) cols = 1;
+        drops = [];
+        for (var i = 0; i < cols; i++) drops[i] = Math.random() * -canvas.height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+        if (canvas.offsetWidth === 0) { requestAnimationFrame(draw); return; }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = 'bold ' + fontSize + 'px Consolas, monospace';
+        for (var i = 0; i < cols; i++) {
+            var g = glyphs[Math.floor(Math.random() * glyphs.length)];
+            var x = i * fontSize * 1.2;
+            var y = drops[i];
+            ctx.fillStyle = 'rgba(99, 102, 241, ' + (0.12 + Math.random() * 0.18) + ')';
+            ctx.fillText(g, x, y);
+            if (y > canvas.height && Math.random() > 0.985) drops[i] = Math.random() * -60;
+            drops[i] += 0.55;
+        }
+        requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+})();
+
+// ===== HERO TAGLINE TYPEWRITER =====
+(function() {
+    var spill = document.getElementById('taglineSpill');
+    var display = document.getElementById('taglineText');
+    var caret = document.getElementById('taglineCaret');
+    if (!spill || !display || !caret) return;
+    var text = spill.textContent.replace(/\s+/g, ' ').trim();
+    spill.parentNode.removeChild(spill);
+    var pos = 0;
+
+    function tick() {
+        if (pos < text.length) {
+            display.textContent = text.slice(0, ++pos);
+            setTimeout(tick, 28 + Math.random() * 45);
+        } else {
+            caret.style.display = 'inline-block';
+        }
+    }
+    setTimeout(tick, 1700);
+})();
+
+// ===== TERMINAL WINDOW COMMANDS =====
+(function() {
+    var body = document.getElementById('termBody');
+    if (!body) return;
+
+    var script = [
+        { cmd: 'whoami', out: 'joty  |  full-stack developer' },
+        { cmd: 'uptime', out: '5+ years on duty, still shipping' },
+        { cmd: 'npm run passion', out: 'clean \u00B7 scalable \u00B7 fast', ok: true },
+        { cmd: 'git log --oneline', out: '103+ commits and counting' }
+    ];
+
+    var caret = document.createElement('span');
+    caret.className = 'term-caret';
+    body.appendChild(caret);
+
+    var idx = 0, charIdx = 0;
+
+    function cmdLine() {
+        var ln = body.querySelectorAll('.l')[idx * 2];
+        if (!ln) {
+            body.appendChild(caret);
+            ln = document.createElement('span');
+            ln.className = 'l';
+            body.insertBefore(ln, caret);
+        }
+        return ln;
+    }
+
+    function startCmd() {
+        var ln = cmdLine();
+        ln.innerHTML = '';
+        var prompt = document.createElement('span');
+        prompt.className = 'prompt';
+        prompt.textContent = '\u276F ';
+        ln.appendChild(prompt);
+        ln.appendChild(caret);
+        charIdx = 0;
+        tickCmd();
+    }
+
+    function tickCmd() {
+        var def = script[idx];
+        var ln = cmdLine();
+        var typed = ln.querySelector('.cmd');
+        if (!typed) {
+            typed = document.createElement('span');
+            typed.className = 'cmd';
+            ln.insertBefore(typed, caret);
+        }
+        if (charIdx < def.cmd.length) {
+            typed.textContent = def.cmd.slice(0, ++charIdx);
+            setTimeout(tickCmd, 22 + Math.random() * 30);
+            return;
+        }
+        setTimeout(showOut, 350);
+    }
+
+    function showOut() {
+        var def = script[idx];
+        body.appendChild(caret);
+        var ln = document.createElement('span');
+        ln.className = 'l';
+        var out = document.createElement('span');
+        out.className = def.ok ? 'ok' : 'out';
+        out.textContent = def.out;
+        ln.appendChild(out);
+        body.appendChild(ln);
+        body.appendChild(caret);
+        setTimeout(next, 650);
+    }
+
+    function next() {
+        idx++;
+        if (idx >= script.length) {
+            setTimeout(reset, 4200);
+            return;
+        }
+        startCmd();
+    }
+
+    function reset() {
+        body.innerHTML = '';
+        body.appendChild(caret);
+        idx = 0; charIdx = 0;
+        setTimeout(startCmd, 900);
+    }
+
+    setTimeout(startCmd, 1200);
 })();
 
 // ===== MOBILE MENU =====
