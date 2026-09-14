@@ -204,6 +204,8 @@
     .float-chip.c1 { top: 14%; left: 4%; animation: floatChip 5s ease-in-out infinite; }
     .float-chip.c2 { display: none; }
     .float-chip.c3 { top: 42%; left: 5%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
+    .float-chip.c4 { top: 22%; right: 4%; animation: floatChip 5.5s ease-in-out infinite 1s; }
+    .float-chip.c5 { top: 60%; right: 4%; animation: floatChip 4.8s ease-in-out infinite 1.5s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
     /* Shimmer Text */
@@ -2849,6 +2851,8 @@
         .float-chip.c1 { top: 10%; right: 3%; }
         .float-chip.c2 { display: none; }
         .float-chip.c3 { display: none; }
+        .float-chip.c4 { display: none; }
+        .float-chip.c5 { display: none; }
         .code-fragment { display: none; }
         .hero-aurora { opacity: 0.4; }
         #hero-canvas { opacity: 0.45; }
@@ -3028,6 +3032,8 @@
         <div class="float-chip c1"><i class="bi bi-code-slash"></i> Clean &amp; Scalable Code</div>
         <div class="float-chip c2"><i class="bi bi-git"></i> git commit -m "keep shipping"</div>
         <div class="float-chip c3"><i class="bi bi-cpu-fill"></i> PHP &middot; Laravel &middot; MySQL</div>
+        <div class="float-chip c4"><i class="bi bi-lightning-fill"></i> REST API &middot; Optimization</div>
+        <div class="float-chip c5"><i class="bi bi-shield-lock-fill"></i> Secure &amp; Scalable Apps</div>
 
         <div class="hero-content">
             <div class="hero-badge"><i class="bi bi-code-slash"></i> <span class="shimmer-text">{{ __('messages.hero_badge') }}</span></div>
