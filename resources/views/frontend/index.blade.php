@@ -269,8 +269,8 @@
     }
     .hero h1 .gradient-text {
         background: linear-gradient(120deg,
-            #60a5fa, #818cf8, #c084fc, #f472b6,
-            #fbbf24, #34d399, #22d3ee, #60a5fa);
+            #93c5fd, #a5f3fc, #c4b5fd, #e9d5ff,
+            #a7f3d0, #bfdbfe, #93c5fd);
         background-size: 400% 400%;
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
