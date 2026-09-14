@@ -66,12 +66,7 @@
     html.light-theme .code-fragment { color: rgba(99, 102, 241, 0.35); }
     html.light-theme .code-fragment b { color: rgba(234, 120, 70, 0.55); }
     html.light-theme .code-fragment em { color: rgba(22, 160, 90, 0.5); }
-    html.light-theme .cube-face {
-        background: rgba(255, 255, 255, 0.72);
-        border-color: rgba(99, 102, 241, 0.45);
-        color: #4f46e5;
-        text-shadow: 0 0 14px rgba(99, 102, 241, 0.45);
-    }
+    html.light-theme #hero-codeworld { opacity: 0.55; }
     html.light-theme .hero-scan {
         background: linear-gradient(180deg, transparent, rgba(30,41,59,0.05) 35%, rgba(30,41,59,0.12) 50%, rgba(30,41,59,0.05) 65%, transparent);
     }
@@ -138,60 +133,10 @@
     }
     @keyframes scanMove { 0% { top: -20%; } 100% { top: 115%; } }
 
-    /* Orbiting code particles canvas */
-    #hero-orbits {
+    /* Code world canvas (3D rotating code sphere) */
+    #hero-codeworld {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         z-index: 0; pointer-events: none;
-    }
-
-    /* 3D Code Cube (centerpiece) */
-    .hero-cube {
-        --cube: 190px;
-        position: absolute; z-index: 0; pointer-events: none;
-        top: 50%; left: 50%;
-        perspective: 1000px;
-    }
-    .cube {
-        position: absolute; top: calc(var(--cube) / -2); left: calc(var(--cube) / -2);
-        width: var(--cube); height: var(--cube);
-        transform-style: preserve-3d;
-        animation: cubeSpin 16s linear infinite;
-    }
-    .cube-face {
-        position: absolute; width: var(--cube); height: var(--cube);
-        display: flex; align-items: center; justify-content: center;
-        border: 1.5px solid rgba(99,102,241,0.5);
-        background: rgba(10,16,30,0.5);
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
-        border-radius: 16px;
-        font-family: 'Consolas', 'Fira Code', 'Cascadia Code', monospace;
-        font-size: 1.5rem; font-weight: 800; letter-spacing: 1px;
-        color: rgba(147,197,253,0.9);
-        text-shadow: 0 0 16px rgba(99,102,241,0.8);
-        box-shadow: inset 0 0 40px rgba(99,102,241,0.12);
-    }
-    .cube-face.f1 { transform: rotateY(0deg) translateZ(calc(var(--cube) / 2)); }
-    .cube-face.f2 { transform: rotateY(90deg) translateZ(calc(var(--cube) / 2)); }
-    .cube-face.f3 { transform: rotateY(180deg) translateZ(calc(var(--cube) / 2)); }
-    .cube-face.f4 { transform: rotateY(270deg) translateZ(calc(var(--cube) / 2)); }
-    .cube-face.f5 { transform: rotateX(90deg) translateZ(calc(var(--cube) / 2)); }
-    .cube-face.f6 { transform: rotateX(270deg) translateZ(calc(var(--cube) / 2)); }
-    @keyframes cubeSpin {
-        0% { transform: rotateX(-16deg) rotateY(0deg); }
-        100% { transform: rotateX(-16deg) rotateY(360deg); }
-    }
-    .cube-glow {
-        position: absolute; top: 0; left: 0;
-        width: 560px; height: 560px;
-        margin: -280px 0 0 -280px;
-        background: radial-gradient(circle, rgba(99,102,241,0.18), transparent 68%);
-        border-radius: 50%;
-        animation: cubeGlowPulse 5s ease-in-out infinite;
-    }
-    @keyframes cubeGlowPulse {
-        0%, 100% { opacity: 0.45; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.15); }
     }
 
     /* Floating Code Fragments */
@@ -2773,11 +2718,10 @@
 
     /* ===== COMPREHENSIVE RESPONSIVE ===== */
     
-    /* Keep the cube but shrink it on smaller desktops */
+    /* Keep the decoration but reduce clutter on smaller desktops */
     @media (max-width: 1200px) {
         .code-fragment.f2 { display: none; }
         .code-fragment.f5 { display: none; }
-        .hero-cube { --cube: 150px; }
     }
     
     /* Tablet (max 968px) */
@@ -2788,9 +2732,8 @@
         .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
-        #hero-orbits { display: none; }
+        #hero-codeworld { opacity: 0.55; }
         .hero-scan { display: none; }
-        .hero-cube { --cube: 120px; opacity: 0.85; }
     }
     
     /* Mobile Large (max 768px) */
@@ -2859,12 +2802,12 @@
         .empty-state { padding: 3rem 1.2rem; }
         .empty-state i { font-size: 2.2rem; }
         
-        /* Tablet hero decorative */
+/* Tablet hero decorative */
         .float-chip.c1 { top: 10%; right: 3%; }
-.float-chip.c2 { bottom: 26%; right: 5%; animation: floatChip 6s ease-in-out infinite 1s; }
+        .float-chip.c2 { display: none; }
         .float-chip.c3 { display: none; }
         .code-fragment { display: none; }
-        .hero-cube { display: none; }
+        #hero-codeworld { display: none; }
         .hero-scan { display: none; }
         .code-grid-bg { background-size: 36px 36px; }
     }
@@ -3023,21 +2966,8 @@
         <!-- Scan Beam Sweep -->
         <div class="hero-scan"></div>
 
-        <!-- Orbiting Code Particles -->
-        <canvas id="hero-orbits"></canvas>
-
-        <!-- 3D Code Cube -->
-        <div class="hero-cube">
-            <div class="cube-glow"></div>
-            <div class="cube">
-                <div class="cube-face f1">&lt;/&gt;</div>
-                <div class="cube-face f2">{ }</div>
-                <div class="cube-face f3">=&gt;</div>
-                <div class="cube-face f4">php</div>
-                <div class="cube-face f5">const</div>
-                <div class="cube-face f6">( )</div>
-            </div>
-        </div>
+        <!-- Code Universe (3D rotating code sphere) -->
+        <canvas id="hero-codeworld"></canvas>
 
         <!-- Floating Code Fragments -->
         <div class="code-fragment f1">&lt;?php</div>
@@ -4126,39 +4056,54 @@
     });
 })();
 
-// ===== HERO ORBIT CODE PARTICLES =====
+// ===== HERO CODE WORLD (3D CODE SPHERE) =====
 (function() {
-    var canvas = document.getElementById('hero-orbits');
+    var canvas = document.getElementById('hero-codeworld');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
 
-    var W = 0, H = 0, CX = 0, CY = 0, t = 0, dpr = 1;
-    var symbols = ['{', '}', '(', ')', '<', '>', ';', '=', '$', ':', '=>', '.', '_', '//', 'php', 'js', 'laravel', '&&'];
+    var W = 0, H = 0, CX = 0, CY = 0, dpr = 1, t = 0;
+    var yaw = 0, pitch = 0, targetYaw = 0, targetPitch = 0;
 
-    var rings = [
-        { r: 0.20, n: 16, speed: 0.00055, size: 12 },
-        { r: 0.30, n: 22, speed: -0.00040, size: 14 },
-        { r: 0.41, n: 30, speed: 0.00032, size: 10 }
+    var tokens = ['</>', '{ }', '=>', 'php', 'laravel', 'js', 'const', 'let', 'fn', 'return', 'if', 'async', 'await', '(', ')', '==', '===', '&&', ':', ';', '$', '#', 'git', 'npm', 'composer', 'mysql', 'blade', 'vue', 'api', 'sql', '[]', 'use', 'new', 'class', 'echo', 'route', 'model', 'view', 'db'];
+    var palette = [
+        [129, 140, 248],
+        [96, 165, 250],
+        [45, 212, 191],
+        [251, 191, 36],
+        [232, 121, 249]
     ];
-    var particles = [];
+
+    var N = 110;
+    var points = [];
+    var pairs = [];
 
     function build() {
-        particles = [];
-        var base = Math.min(W, H);
-        rings.forEach(function(ring, ri) {
-            for (var i = 0; i < ring.n; i++) {
-                particles.push({
-                    ring: ri,
-                    radius: base * ring.r * (0.92 + Math.random() * 0.16),
-                    phi: (i / ring.n) * Math.PI * 2 + Math.random() * 0.6,
-                    speed: ring.speed * (0.8 + Math.random() * 0.5),
-                    sym: symbols[(ri * 7 + i) % symbols.length],
-                    size: ring.size,
-                    o: 0.22 + Math.random() * 0.33,
-                    hue: Math.random() > 0.5 ? 0 : 1
-                });
+        points = [];
+        var golden = Math.PI * (3 - Math.sqrt(5));
+        for (var i = 0; i < N; i++) {
+            var yv = 1 - (i / (N - 1)) * 2;
+            var rad = Math.sqrt(1 - yv * yv);
+            var th = golden * i;
+            var col = palette[i % palette.length];
+            points.push({
+                nx: Math.cos(th) * rad,
+                ny: yv,
+                nz: Math.sin(th) * rad,
+                sym: tokens[(i * 7) % tokens.length],
+                size: 10 + Math.random() * 7,
+                hue: 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ','
+            });
+        }
+        pairs = [];
+        for (var a = 0; a < N; a++) {
+            for (var b = a + 1; b < N; b++) {
+                var dx = points[a].nx - points[b].nx;
+                var dy = points[a].ny - points[b].ny;
+                var dz = points[a].nz - points[b].nz;
+                if (dx * dx + dy * dy + dz * dz < 0.28) pairs.push([a, b]);
             }
-        });
+        }
     }
 
     function resize() {
@@ -4171,39 +4116,74 @@
     resize();
     window.addEventListener('resize', resize);
 
+    var mp = { x: 0, y: 0 };
+    document.addEventListener('mousemove', function(e) {
+        mp.x = (e.clientX / window.innerWidth) - 0.5;
+        mp.y = (e.clientY / window.innerHeight) - 0.5;
+    });
+
     function draw() {
         if (!W || document.hidden) { requestAnimationFrame(draw); return; }
         t++;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, W, H);
 
-        rings.forEach(function(ring) {
+        var R = Math.min(W, H) * 0.36;
+        var persp = Math.max(W, H) * 1.4 + 300;
+
+        targetYaw = mp.x * 0.6;
+        targetPitch = mp.y * 0.4;
+        yaw += (targetYaw - yaw) * 0.03;
+        pitch += (targetPitch - pitch) * 0.03;
+
+        var ang = t * 0.0055;
+        var cy = Math.cos(ang + yaw), sy = Math.sin(ang + yaw);
+        var cp = Math.cos(-0.28 + pitch), sp = Math.sin(-0.28 + pitch);
+
+        var proj = [];
+        for (var i = 0; i < points.length; i++) {
+            var p = points[i];
+            var x1 = p.nx * cy + p.nz * sy;
+            var z1 = -p.nx * sy + p.nz * cy;
+            var y1 = p.ny;
+            var y2 = y1 * cp - z1 * sp;
+            var z2 = y1 * sp + z1 * cp;
+            var s = persp / (persp + z2 * R);
+            proj.push({ x: CX + x1 * R * s, y: CY + y2 * R * s, z: z2, s: s, p: p });
+        }
+
+        for (var k = 0; k < pairs.length; k++) {
+            var pa = proj[pairs[k][0]], pb = proj[pairs[k][1]];
+            var dz = (pa.z + pb.z) / 2;
+            var alpha = 0.04 + (dz + 1) * 0.16;
             ctx.beginPath();
-            ctx.setLineDash([2, 8]);
-            ctx.arc(CX, CY, Math.min(W, H) * ring.r, 0, Math.PI * 2);
-            ctx.strokeStyle = 'rgba(99,102,241,0.12)';
-            ctx.lineWidth = 1;
+            ctx.moveTo(pa.x, pa.y);
+            ctx.lineTo(pb.x, pb.y);
+            ctx.strokeStyle = 'rgba(120,140,255,' + alpha.toFixed(3) + ')';
+            ctx.lineWidth = 0.6;
             ctx.stroke();
-            ctx.setLineDash([]);
-        });
+        }
 
-        for (var i = 0; i < particles.length; i++) {
-            var p = particles[i];
-            var ang = p.phi + t * p.speed;
-            var wob = Math.sin(t * 0.02 + p.phi * 3) * p.size * 0.4;
-            var x = CX + Math.cos(ang) * p.radius;
-            var y = CY + Math.sin(ang) * p.radius + wob;
-            var near = Math.abs(Math.sin(ang));
+        proj.sort(function(a, b) { return a.z - b.z; });
 
-            ctx.font = 'bold ' + p.size + 'px Consolas, monospace';
+        var g = ctx.createRadialGradient(CX, CY, 0, CX, CY, R * 1.5);
+        g.addColorStop(0, 'rgba(99,102,241,0.20)');
+        g.addColorStop(1, 'rgba(99,102,241,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+
+        for (var j = 0; j < proj.length; j++) {
+            var pj = proj[j];
+            var d2 = (pj.z + 1) / 2;
+            var alpha2 = 0.18 + d2 * 0.6;
+            var size = pj.p.size * (0.4 + d2 * 0.8);
+            ctx.font = 'bold ' + size.toFixed(1) + 'px Consolas, monospace';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = 'rgba(99,102,241,0.7)';
-            ctx.fillStyle = p.hue === 0
-                ? 'rgba(120,140,255,' + (p.o * (0.3 + near * 0.6)) + ')'
-                : 'rgba(245,158,184,' + (p.o * (0.3 + near * 0.6)) + ')';
-            ctx.fillText(p.sym, x, y);
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = 'rgba(99,102,241,0.8)';
+            ctx.fillStyle = pj.p.hue + alpha2.toFixed(3) + ')';
+            ctx.fillText(pj.p.sym, pj.x, pj.y);
         }
         ctx.shadowBlur = 0;
 
