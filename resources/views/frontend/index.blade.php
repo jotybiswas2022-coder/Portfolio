@@ -3025,7 +3025,7 @@
         <div class="code-fragment f6">// keep shipping</div>
 
         <!-- Floating Chips -->
-        <div class="float-chip c1"><i class="bi bi-code-slash"></i> &lt;/&gt; Clean &amp; Scalable Code</div>
+        <div class="float-chip c1"><i class="bi bi-code-slash"></i> Clean &amp; Scalable Code</div>
         <div class="float-chip c2"><i class="bi bi-git"></i> git commit -m "keep shipping"</div>
         <div class="float-chip c3"><i class="bi bi-cpu-fill"></i> PHP &middot; Laravel &middot; MySQL</div>
 
