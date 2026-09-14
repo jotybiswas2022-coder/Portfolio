@@ -86,7 +86,15 @@
     }
     html.light-theme .code-window-body .line::before { color: rgba(148, 163, 184, 0.6); }
     html.light-theme .code-window-body .ok { color: #16a34a; }
-    html.light-theme .tagline-caret { background: #3b82f6; }
+    html.light-theme .cube-face {
+        background: rgba(255, 255, 255, 0.72);
+        border-color: rgba(99, 102, 241, 0.45);
+        color: #4f46e5;
+        text-shadow: 0 0 14px rgba(99, 102, 241, 0.45);
+    }
+    html.light-theme .hero-scan {
+        background: linear-gradient(180deg, transparent, rgba(30,41,59,0.05) 35%, rgba(30,41,59,0.12) 50%, rgba(30,41,59,0.05) 65%, transparent);
+    }
     html.light-theme .term-window {
         background: rgba(255, 255, 255, 0.92);
         border-color: rgba(52, 211, 153, 0.5);
@@ -152,6 +160,71 @@
         mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
     }
 
+    /* Scan beam sweep */
+    .hero-scan {
+        position: absolute; left: 0; right: 0; top: -20%;
+        height: 130px; z-index: 0; pointer-events: none;
+        background: linear-gradient(180deg, transparent, rgba(59,130,246,0.05) 35%, rgba(59,130,246,0.16) 50%, rgba(59,130,246,0.05) 65%, transparent);
+        animation: scanMove 7s linear infinite;
+    }
+    @keyframes scanMove { 0% { top: -20%; } 100% { top: 115%; } }
+
+    /* Orbiting code particles canvas */
+    #hero-orbits {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 0; pointer-events: none;
+    }
+
+    /* 3D Code Cube (centerpiece) */
+    .hero-cube {
+        --cube: 190px;
+        position: absolute; z-index: 0; pointer-events: none;
+        top: 50%; left: 50%;
+        perspective: 1000px;
+    }
+    .cube {
+        position: absolute; top: calc(var(--cube) / -2); left: calc(var(--cube) / -2);
+        width: var(--cube); height: var(--cube);
+        transform-style: preserve-3d;
+        animation: cubeSpin 16s linear infinite;
+    }
+    .cube-face {
+        position: absolute; width: var(--cube); height: var(--cube);
+        display: flex; align-items: center; justify-content: center;
+        border: 1.5px solid rgba(99,102,241,0.5);
+        background: rgba(10,16,30,0.5);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        border-radius: 16px;
+        font-family: 'Consolas', 'Fira Code', 'Cascadia Code', monospace;
+        font-size: 1.5rem; font-weight: 800; letter-spacing: 1px;
+        color: rgba(147,197,253,0.9);
+        text-shadow: 0 0 16px rgba(99,102,241,0.8);
+        box-shadow: inset 0 0 40px rgba(99,102,241,0.12);
+    }
+    .cube-face.f1 { transform: rotateY(0deg) translateZ(calc(var(--cube) / 2)); }
+    .cube-face.f2 { transform: rotateY(90deg) translateZ(calc(var(--cube) / 2)); }
+    .cube-face.f3 { transform: rotateY(180deg) translateZ(calc(var(--cube) / 2)); }
+    .cube-face.f4 { transform: rotateY(270deg) translateZ(calc(var(--cube) / 2)); }
+    .cube-face.f5 { transform: rotateX(90deg) translateZ(calc(var(--cube) / 2)); }
+    .cube-face.f6 { transform: rotateX(270deg) translateZ(calc(var(--cube) / 2)); }
+    @keyframes cubeSpin {
+        0% { transform: rotateX(-16deg) rotateY(0deg); }
+        100% { transform: rotateX(-16deg) rotateY(360deg); }
+    }
+    .cube-glow {
+        position: absolute; top: 0; left: 0;
+        width: 560px; height: 560px;
+        margin: -280px 0 0 -280px;
+        background: radial-gradient(circle, rgba(99,102,241,0.18), transparent 68%);
+        border-radius: 50%;
+        animation: cubeGlowPulse 5s ease-in-out infinite;
+    }
+    @keyframes cubeGlowPulse {
+        0%, 100% { opacity: 0.45; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.15); }
+    }
+
     /* Floating Code Fragments */
     .code-fragment {
         position: absolute; z-index: 0; pointer-events: none;
@@ -175,15 +248,15 @@
         92%, 100% { opacity: 0; transform: translateY(-14px); }
     }
 
-    /* Code Editor Window */
+    /* Code Editor Window (right side, static) */
     .code-window {
         position: absolute; z-index: 1; pointer-events: none;
-        top: 15%; right: -20px;
-        width: min(340px, 26vw);
-        background: rgba(10,16,30,0.72);
+        top: 18%; right: 1.5%;
+        width: min(300px, 21vw);
+        background: rgba(10,16,30,0.74);
         border: 1px solid rgba(99,102,241,0.35);
         border-radius: 14px;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(99,102,241,0.08);
+        box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(99,102,241,0.08), 0 0 44px rgba(99,102,241,0.12);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         overflow: hidden;
@@ -227,13 +300,6 @@
     }
     @keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
-    /* Typewriter caret for the tagline */
-    .tagline-caret {
-        display: inline-block; width: 8px; height: 18px;
-        background: var(--accent); vertical-align: -3px; margin-left: 3px;
-        border-radius: 2px; animation: caretBlink 0.9s steps(1) infinite;
-    }
-
     /* Line numbers in code window */
     .code-window-body { counter-reset: ln; }
     .code-window-body .line { counter-increment: ln; }
@@ -259,15 +325,15 @@
     }
     .code-window-status .status-spacer { flex: 1; }
 
-    /* Terminal window */
+    /* Terminal window (right side, static) */
     .term-window {
         position: absolute; z-index: 1; pointer-events: none;
-        bottom: 10%; right: 7%;
-        width: min(330px, 25vw);
+        bottom: 10%; right: 3%;
+        width: min(280px, 19vw);
         background: rgba(10,16,30,0.78);
         border: 1px solid rgba(52,211,153,0.28);
         border-radius: 12px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 34px rgba(52,211,153,0.10);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         overflow: hidden;
@@ -298,18 +364,12 @@
         animation: caretBlink 0.9s steps(1) infinite;
     }
 
-    /* Hero matrix code rain */
-    #hero-matrix {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        z-index: 0; pointer-events: none; opacity: 0.8;
-    }
-
     /* Floating Chips */
     .float-chip { position: absolute; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(15,23,42,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59,130,246,0.2); border-radius: 50px; font-size: 0.75rem; color: var(--accent-light); pointer-events: none; z-index: 1; white-space: nowrap; }
     .float-chip i { font-size: 0.8rem; }
-    .float-chip.c1 { top: 15%; right: 5%; animation: floatChip 5s ease-in-out infinite; }
-    .float-chip.c2 { bottom: 25%; left: 3%; animation: floatChip 6s ease-in-out infinite 1s; }
-    .float-chip.c3 { top: 40%; left: 8%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
+    .float-chip.c1 { top: 14%; left: 4%; animation: floatChip 5s ease-in-out infinite; }
+    .float-chip.c2 { display: none; }
+    .float-chip.c3 { top: 42%; left: 5%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
     /* Shimmer Text */
@@ -2860,12 +2920,14 @@
 
     /* ===== COMPREHENSIVE RESPONSIVE ===== */
     
-    /* Hide code window on smaller desktops to avoid overlap with hero text */
+    /* Hide cards on smaller desktops to avoid overlap with hero text; keep the cube */
     @media (max-width: 1200px) {
         .code-window { display: none; }
         .term-window { display: none; }
         .code-fragment.f2 { display: none; }
         .code-fragment.f5 { display: none; }
+        .hero-cube { --cube: 150px; }
+        .float-chip.c2 { display: inline-flex; top: 14%; right: 4%; }
     }
     
     /* Tablet (max 968px) */
@@ -2876,6 +2938,9 @@
         .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
+        #hero-orbits { display: none; }
+        .hero-scan { display: none; }
+        .hero-cube { --cube: 120px; opacity: 0.85; }
     }
     
     /* Mobile Large (max 768px) */
@@ -2949,7 +3014,8 @@
         .float-chip.c2 { display: none; }
         .float-chip.c3 { display: none; }
         .code-fragment { display: none; }
-        #hero-matrix { display: none; }
+        .hero-cube { display: none; }
+        .hero-scan { display: none; }
         .code-grid-bg { background-size: 36px 36px; }
     }
     
@@ -3105,8 +3171,24 @@
         <!-- Code Grid Background -->
         <div class="code-grid-bg"></div>
 
-        <!-- Hero Matrix Code Rain -->
-        <canvas id="hero-matrix"></canvas>
+        <!-- Scan Beam Sweep -->
+        <div class="hero-scan"></div>
+
+        <!-- Orbiting Code Particles -->
+        <canvas id="hero-orbits"></canvas>
+
+        <!-- 3D Code Cube -->
+        <div class="hero-cube">
+            <div class="cube-glow"></div>
+            <div class="cube">
+                <div class="cube-face f1">&lt;/&gt;</div>
+                <div class="cube-face f2">{ }</div>
+                <div class="cube-face f3">=&gt;</div>
+                <div class="cube-face f4">php</div>
+                <div class="cube-face f5">const</div>
+                <div class="cube-face f6">( )</div>
+            </div>
+        </div>
 
         <!-- Floating Code Fragments -->
         <div class="code-fragment f1">&lt;?php</div>
@@ -3116,7 +3198,7 @@
         <div class="code-fragment f5">return <em>true</em>;</div>
         <div class="code-fragment f6">// keep shipping</div>
 
-        <!-- Code Editor Window (typing animation) -->
+        <!-- Code Editor Card (static, right side) -->
         <div class="code-window">
             <div class="code-window-header">
                 <span class="code-dot red"></span>
@@ -3125,18 +3207,24 @@
                 <span class="code-window-title">developer.js</span>
             </div>
             <div class="code-window-body">
-                <div id="codeLines"></div><span class="code-caret" id="codeCaret"></span>
+                <span class="line"><span class="cmt">// profile</span></span>
+                <span class="line"><span class="kw">const</span> <span class="fn">dev</span> = {</span>
+                <span class="line"><span class="fn">name</span>: <span class="str">"Joty Biswas"</span>,</span>
+                <span class="line"><span class="fn">role</span>: <span class="str">"Full-Stack Dev"</span>,</span>
+                <span class="line"><span class="fn">stack</span>: [<span class="str">"PHP"</span>, <span class="str">"JS"</span>],</span>
+                <span class="line"><span class="fn">hireable</span>: <span class="kw">true</span>,</span>
+                <span class="line">};</span>
+                <span class="line"><span class="kw">export</span> <span class="kw">default</span> <span class="fn">dev</span>;<span class="code-caret"></span></span>
             </div>
             <div class="code-window-status">
                 <span class="status-dot"></span>
-                <span>Ln <span id="codeLn">1</span>, Col <span id="codeCol">1</span></span>
+                <span>Ready</span>
                 <span class="status-spacer"></span>
-                <span>UTF-8</span>
-                <span>PHP</span>
+                <span>Ln 8, Col 20</span>
             </div>
         </div>
 
-        <!-- Terminal Window (command animation) -->
+        <!-- Terminal Card (static, right side) -->
         <div class="term-window">
             <div class="term-header">
                 <span class="code-dot red"></span>
@@ -3144,7 +3232,14 @@
                 <span class="code-dot green"></span>
                 <span class="term-title">terminal.zsh</span>
             </div>
-            <div class="term-body" id="termBody"></div>
+            <div class="term-body">
+                <span class="l"><span class="prompt">❯ </span><span class="cmd">whoami</span></span>
+                <span class="l"><span class="out">joty.biswas &middot; full-stack developer</span></span>
+                <span class="l"><span class="prompt">❯ </span><span class="cmd">git push origin main</span></span>
+                <span class="l"><span class="ok">✓ deployed in 2.4s</span></span>
+                <span class="l"><span class="prompt">❯ </span><span class="cmd">npm run build</span></span>
+                <span class="l"><span class="out">done &middot; all targets passed</span><span class="term-caret"></span></span>
+            </div>
         </div>
 
         <!-- Floating Chips -->
@@ -3155,7 +3250,7 @@
         <div class="hero-content">
             <div class="hero-badge"><i class="bi bi-code-slash"></i> <span class="shimmer-text">{{ __('messages.hero_badge') }}</span></div>
             <h1>{{ __('messages.hero_greeting') }}<br><span class="gradient-text">{{ optional($account)->name ?? 'Portfolio' }}</span></h1>
-            <p id="heroTagline"><span id="taglineSpill" style="display:none;">{{ __('messages.hero_tagline') }}</span><span id="taglineText"></span><span class="tagline-caret" id="taglineCaret"></span></p>
+            <p>{{ __('messages.hero_tagline') }}</p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn-primary-custom magnetic">
                     <i class="bi bi-rocket-fill"></i> {{ __('messages.see_my_work') }}
@@ -4226,241 +4321,90 @@
     });
 })();
 
-// ===== HERO CODE TYPING =====
+// ===== HERO ORBIT CODE PARTICLES =====
 (function() {
-    var linesWrap = document.getElementById('codeLines');
-    var caret = document.getElementById('codeCaret');
-    var lnEl = document.getElementById('codeLn');
-    var colEl = document.getElementById('codeCol');
-    if (!linesWrap || !caret) return;
-
-    var lines = [
-        [['// hello, world!', 'cmt']],
-        [['const ', 'kw'], ['developer', 'fn'], [' = {', '']],
-        [['  name', 'fn'], [': ', ''], ['"Joty Biswas"', 'str'], [',', '']],
-        [['  role', 'fn'], [': ', ''], ['"Full-Stack Developer"', 'str'], [',', '']],
-        [['  stack', 'fn'], [': [', ''], ['"PHP"', 'str'], [', ', ''], ['"Laravel"', 'str'], [', ', ''], ['"MySQL"', 'str'], [']', '']],
-        [['  motto', 'fn'], [': ', ''], ['"write clean, ship fast"', 'str'], [',', '']],
-        [['  status', 'fn'], [': ', ''], ['"open to work"', 'str'], [',', '']],
-        [['};', '']],
-        [['export ', 'kw'], ['default', 'kw'], [' developer;', '']],
-        [['// build passed', 'ok']]
-    ];
-
-    var lineIndex = 0, segIndex = 0, charIndex = 0, lineCol = 0;
-
-    function setCursor(lineNum, col) {
-        if (lnEl) lnEl.textContent = lineNum;
-        if (colEl) colEl.textContent = col;
-    }
-
-    function caretLine() {
-        var lineEl = linesWrap.querySelectorAll('.line')[lineIndex];
-        if (!lineEl) {
-            linesWrap.appendChild(caret);
-            lineEl = document.createElement('span');
-            lineEl.className = 'line';
-            linesWrap.insertBefore(lineEl, caret);
-            lineEl.appendChild(caret);
-            setCursor(lineIndex + 1, 1);
-        }
-        return lineEl;
-    }
-
-    function tick() {
-        if (lineIndex >= lines.length) {
-            setTimeout(resetTyping, 5000);
-            return;
-        }
-        var lineDef = lines[lineIndex];
-        var lineEl = caretLine();
-        var seg = lineDef[segIndex];
-        if (charIndex >= seg[0].length) {
-            lineCol += seg[0].length;
-            segIndex++;
-            charIndex = 0;
-            setCursor(lineIndex + 1, lineCol + 1);
-            if (segIndex >= lineDef.length) {
-                lineIndex++;
-                segIndex = 0;
-                lineCol = 0;
-                setTimeout(tick, 380);
-                return;
-            }
-            setTimeout(tick, 50);
-            return;
-        }
-        var spanEl = lineEl.querySelectorAll('.line-tok')[segIndex];
-        if (!spanEl) {
-            spanEl = document.createElement('span');
-            spanEl.className = 'line-tok' + (seg[1] ? ' ' + seg[1] : '');
-            lineEl.insertBefore(spanEl, caret);
-        }
-        spanEl.textContent += seg[0][charIndex];
-        charIndex++;
-        setCursor(lineIndex + 1, lineCol + charIndex + 1);
-        setTimeout(tick, 16 + Math.random() * 24);
-    }
-
-    function resetTyping() {
-        linesWrap.innerHTML = '';
-        linesWrap.appendChild(caret);
-        lineIndex = 0; segIndex = 0; charIndex = 0; lineCol = 0;
-        setCursor(1, 1);
-        setTimeout(tick, 1000);
-    }
-
-    setTimeout(tick, 900);
-})();
-
-// ===== HERO MATRIX CODE RAIN =====
-(function() {
-    var canvas = document.getElementById('hero-matrix');
+    var canvas = document.getElementById('hero-orbits');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
-    var fontSize = 14;
-    var glyphs = '01{}[]();<>/\\|=+*$#@&%?!<>/PHPJSphpx0a1b2c3d4e5f6';
-    var cols = 0, drops = [];
+
+    var W = 0, H = 0, CX = 0, CY = 0, t = 0, dpr = 1;
+    var symbols = ['{', '}', '(', ')', '<', '>', ';', '=', '$', ':', '=>', '.', '_', '//', 'php', 'js', 'laravel', '&&'];
+
+    var rings = [
+        { r: 0.20, n: 16, speed: 0.00055, size: 12 },
+        { r: 0.30, n: 22, speed: -0.00040, size: 14 },
+        { r: 0.41, n: 30, speed: 0.00032, size: 10 }
+    ];
+    var particles = [];
+
+    function build() {
+        particles = [];
+        var base = Math.min(W, H);
+        rings.forEach(function(ring, ri) {
+            for (var i = 0; i < ring.n; i++) {
+                particles.push({
+                    ring: ri,
+                    radius: base * ring.r * (0.92 + Math.random() * 0.16),
+                    phi: (i / ring.n) * Math.PI * 2 + Math.random() * 0.6,
+                    speed: ring.speed * (0.8 + Math.random() * 0.5),
+                    sym: symbols[(ri * 7 + i) % symbols.length],
+                    size: ring.size,
+                    o: 0.22 + Math.random() * 0.33,
+                    hue: Math.random() > 0.5 ? 0 : 1
+                });
+            }
+        });
+    }
 
     function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        cols = Math.floor(canvas.width / (fontSize * 1.2));
-        if (cols < 1) cols = 1;
-        drops = [];
-        for (var i = 0; i < cols; i++) drops[i] = Math.random() * -canvas.height;
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        W = canvas.offsetWidth; H = canvas.offsetHeight;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        CX = W / 2; CY = H / 2;
+        build();
     }
     resize();
     window.addEventListener('resize', resize);
 
     function draw() {
-        if (canvas.offsetWidth === 0) { requestAnimationFrame(draw); return; }
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = 'bold ' + fontSize + 'px Consolas, monospace';
-        for (var i = 0; i < cols; i++) {
-            var g = glyphs[Math.floor(Math.random() * glyphs.length)];
-            var x = i * fontSize * 1.2;
-            var y = drops[i];
-            ctx.fillStyle = 'rgba(99, 102, 241, ' + (0.12 + Math.random() * 0.18) + ')';
-            ctx.fillText(g, x, y);
-            if (y > canvas.height && Math.random() > 0.985) drops[i] = Math.random() * -60;
-            drops[i] += 0.55;
+        if (!W || document.hidden) { requestAnimationFrame(draw); return; }
+        t++;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, W, H);
+
+        rings.forEach(function(ring) {
+            ctx.beginPath();
+            ctx.setLineDash([2, 8]);
+            ctx.arc(CX, CY, Math.min(W, H) * ring.r, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(99,102,241,0.12)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.setLineDash([]);
+        });
+
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            var ang = p.phi + t * p.speed;
+            var wob = Math.sin(t * 0.02 + p.phi * 3) * p.size * 0.4;
+            var x = CX + Math.cos(ang) * p.radius;
+            var y = CY + Math.sin(ang) * p.radius + wob;
+            var near = Math.abs(Math.sin(ang));
+
+            ctx.font = 'bold ' + p.size + 'px Consolas, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = 'rgba(99,102,241,0.7)';
+            ctx.fillStyle = p.hue === 0
+                ? 'rgba(120,140,255,' + (p.o * (0.3 + near * 0.6)) + ')'
+                : 'rgba(245,158,184,' + (p.o * (0.3 + near * 0.6)) + ')';
+            ctx.fillText(p.sym, x, y);
         }
+        ctx.shadowBlur = 0;
+
         requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
-})();
-
-// ===== HERO TAGLINE TYPEWRITER =====
-(function() {
-    var spill = document.getElementById('taglineSpill');
-    var display = document.getElementById('taglineText');
-    var caret = document.getElementById('taglineCaret');
-    if (!spill || !display || !caret) return;
-    var text = spill.textContent.replace(/\s+/g, ' ').trim();
-    spill.parentNode.removeChild(spill);
-    var pos = 0;
-
-    function tick() {
-        if (pos < text.length) {
-            display.textContent = text.slice(0, ++pos);
-            setTimeout(tick, 28 + Math.random() * 45);
-        } else {
-            caret.style.display = 'inline-block';
-        }
-    }
-    setTimeout(tick, 1700);
-})();
-
-// ===== TERMINAL WINDOW COMMANDS =====
-(function() {
-    var body = document.getElementById('termBody');
-    if (!body) return;
-
-    var script = [
-        { cmd: 'whoami', out: 'joty  |  full-stack developer' },
-        { cmd: 'uptime', out: '5+ years on duty, still shipping' },
-        { cmd: 'npm run passion', out: 'clean \u00B7 scalable \u00B7 fast', ok: true },
-        { cmd: 'git log --oneline', out: '103+ commits and counting' }
-    ];
-
-    var caret = document.createElement('span');
-    caret.className = 'term-caret';
-    body.appendChild(caret);
-
-    var idx = 0, charIdx = 0;
-
-    function cmdLine() {
-        var ln = body.querySelectorAll('.l')[idx * 2];
-        if (!ln) {
-            body.appendChild(caret);
-            ln = document.createElement('span');
-            ln.className = 'l';
-            body.insertBefore(ln, caret);
-        }
-        return ln;
-    }
-
-    function startCmd() {
-        var ln = cmdLine();
-        ln.innerHTML = '';
-        var prompt = document.createElement('span');
-        prompt.className = 'prompt';
-        prompt.textContent = '\u276F ';
-        ln.appendChild(prompt);
-        ln.appendChild(caret);
-        charIdx = 0;
-        tickCmd();
-    }
-
-    function tickCmd() {
-        var def = script[idx];
-        var ln = cmdLine();
-        var typed = ln.querySelector('.cmd');
-        if (!typed) {
-            typed = document.createElement('span');
-            typed.className = 'cmd';
-            ln.insertBefore(typed, caret);
-        }
-        if (charIdx < def.cmd.length) {
-            typed.textContent = def.cmd.slice(0, ++charIdx);
-            setTimeout(tickCmd, 22 + Math.random() * 30);
-            return;
-        }
-        setTimeout(showOut, 350);
-    }
-
-    function showOut() {
-        var def = script[idx];
-        body.appendChild(caret);
-        var ln = document.createElement('span');
-        ln.className = 'l';
-        var out = document.createElement('span');
-        out.className = def.ok ? 'ok' : 'out';
-        out.textContent = def.out;
-        ln.appendChild(out);
-        body.appendChild(ln);
-        body.appendChild(caret);
-        setTimeout(next, 650);
-    }
-
-    function next() {
-        idx++;
-        if (idx >= script.length) {
-            setTimeout(reset, 4200);
-            return;
-        }
-        startCmd();
-    }
-
-    function reset() {
-        body.innerHTML = '';
-        body.appendChild(caret);
-        idx = 0; charIdx = 0;
-        setTimeout(startCmd, 900);
-    }
-
-    setTimeout(startCmd, 1200);
 })();
 
 // ===== MOBILE MENU =====
