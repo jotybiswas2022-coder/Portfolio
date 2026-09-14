@@ -71,13 +71,6 @@
     html.light-theme .hero-scan {
         background: linear-gradient(180deg, transparent, rgba(30,41,59,0.05) 35%, rgba(30,41,59,0.12) 50%, rgba(30,41,59,0.05) 65%, transparent);
     }
-    html.light-theme .stat-item .number {
-        filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.15));
-    }
-    html.light-theme .stat-item:hover .number {
-        filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
-    }
-
     html.light-theme .project-card {
         background: linear-gradient(145deg, #ffffff, #f8fafc) !important;
     }
@@ -393,87 +386,319 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
-    /* About */
-    .about-section { background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .about-image { position: relative; display: flex; justify-content: center; align-items: center; }
-    .about-name-highlight { color: var(--accent-light); font-weight: 700; }
-    .about-image .img-wrapper {
-        width: 320px; height: 320px; border-radius: 32px; overflow: hidden;
-        border: 3px solid rgba(59, 130, 246, 0.25); position: relative;
-        background: linear-gradient(135deg, #1e293b, #0f172a);
-        display: flex; align-items: center; justify-content: center;
-        animation: float 6s ease-in-out infinite;
-        box-shadow: 0 20px 60px rgba(59, 130, 246, 0.1);
+    /* ===== ABOUT — LIVE TERMINAL + PROFILE CARD ===== */
+    .about-section {
+        background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        position: relative;
+        overflow: hidden;
     }
-    html.light-theme .about-image .img-wrapper { background: linear-gradient(135deg, #e2e8f0, #f1f5f9) !important; }
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        33% { transform: translateY(-10px); }
-        66% { transform: translateY(5px); }
+    .about-section::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(59, 130, 246, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.045) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse at 40% 45%, #000 0%, transparent 70%);
+        mask-image: radial-gradient(ellipse at 40% 45%, #000 0%, transparent 70%);
+        pointer-events: none;
     }
-    .about-image .glow-ring {
-        position: absolute; width: 340px; height: 340px;
-        top: 50%; left: 50%; transform: translate(-50%, -50%);
-        border-radius: 32px; border: 2px solid rgba(59, 130, 246, 0.15);
-        animation: rotateRing 8s linear infinite;
+    .about-section .section-title { position: relative; z-index: 1; }
+
+    .about-kicker {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.78rem; color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.18);
+        padding: 0.35rem 0.9rem; border-radius: 8px;
+        margin-bottom: 1.1rem;
+        box-shadow: 0 0 24px rgba(59, 130, 246, 0.1);
     }
-    @keyframes rotateRing {
-        0% { transform: translate(-50%, -50%) rotate(0deg); }
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
+    .about-kicker .ak-prompt { color: #34d399; font-weight: 700; }
+    .about-kicker .ak-caret {
+        display: inline-block; width: 8px; height: 14px;
+        background: var(--accent-light); margin-left: 2px; border-radius: 1px;
+        animation: akCaret 1s step-end infinite;
     }
-    .about-text { display: flex; gap: 2.5rem; align-items: flex-start; }
-    .about-text h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
-    .about-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
-    .about-text-main { flex: 1; min-width: 0; }
-    .about-social-sidebar {
-        display: flex; flex-direction: column; align-items: center; gap: 1rem;
-        padding: 1.25rem 0.75rem; position: sticky; top: 2rem;
-        background: rgba(59, 130, 246, 0.03);
-        border: 1px solid rgba(59, 130, 246, 0.08);
-        border-radius: 18px;
-    }
-    .about-social-sidebar .social-label {
-        font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;
-        letter-spacing: 1px; font-weight: 600; writing-mode: vertical-lr;
-    }
-    .about-social-sidebar .social-links {
-        display: flex; flex-direction: column; gap: 0.6rem;
-    }
-    .about-social-sidebar .social-link {
-        width: 44px; height: 44px; border-radius: 12px;
-        background: rgba(59, 130, 246, 0.06);
-        border: 1px solid rgba(59, 130, 246, 0.1);
-        display: inline-flex; align-items: center; justify-content: center;
-        color: var(--text-muted); font-size: 1.15rem;
-        text-decoration: none;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .about-social-sidebar .social-link:hover {
-        background: var(--accent-gradient); border-color: transparent;
-        color: #fff; transform: translateY(-4px) scale(1.1);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    @keyframes akCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .about-shell {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 2rem;
+        align-items: stretch;
+        position: relative;
     }
 
-    /* Stats — Redesigned */
-    .about-stats {
-        display: flex;
-        gap: 1.25rem;
-        margin-top: 2rem;
+    /* ---------- LIVE TERMINAL ---------- */
+    .about-term { position: relative; display: flex; }
+    .about-term::before {
+        content: '';
+        position: absolute; inset: -5% -4%;
+        z-index: 0; pointer-events: none;
+        background:
+            radial-gradient(50% 50% at 20% 20%, rgba(59, 130, 246, 0.18), transparent 70%),
+            radial-gradient(45% 45% at 85% 85%, rgba(139, 92, 246, 0.14), transparent 70%);
+        filter: blur(16px);
     }
-    .stat-item {
-        flex: 1;
+    .at-window {
+        position: relative; z-index: 1;
+        display: flex; flex-direction: column;
+        width: 100%;
+        background: linear-gradient(180deg, #0b1424, #0e1b33);
+        border: 1px solid rgba(59, 130, 246, 0.22);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(2, 8, 23, 0.65), 0 0 0 1px rgba(255,255,255,0.02) inset, 0 0 60px rgba(59,130,246,0.08);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+    }
+    html.light-theme .at-window {
+        background: linear-gradient(180deg, #f8fafc, #e7edf5);
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 30px 70px rgba(59, 130, 246, 0.2);
+    }
+    .at-window::before {
+        content: '';
+        position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
+        background-size: 200% 100%;
+        animation: atSweep 6s linear infinite;
+        z-index: 2;
+    }
+    .at-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.65rem 0.95rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .at-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .at-dot.red { background: #ff5f57; }
+    .at-dot.yellow { background: #febc2e; }
+    .at-dot.green { background: #28c840; }
+    .at-file {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        margin-left: 0.35rem;
+        font-size: 0.76rem; color: #cbd5e1;
+        background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 7px; padding: 0.28rem 0.75rem;
+        white-space: nowrap;
+    }
+    .at-file i { color: #eab308; }
+    .at-min {
+        margin-left: auto;
+        font-size: 0.66rem; color: #64748b;
+        letter-spacing: 0.3px; white-space: nowrap;
+    }
+    .at-user {
+        display: flex; flex-direction: column; align-items: center;
+        gap: 0.65rem;
+        padding: 0.4rem 0 1.1rem;
+    }
+    .at-avatar-lg {
+        width: 120px; height: 120px;
+        border-radius: 50%; padding: 3px;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #22d3ee);
+        background-size: 200% 200%;
+        animation: atGrad 6s ease infinite;
+        box-shadow: 0 0 26px rgba(59, 130, 246, 0.4);
         position: relative;
-        padding: 1.6rem 1rem;
-        background: var(--bg-card);
+    }
+    .at-avatar-lg::after {
+        content: '';
+        position: absolute; inset: -9px; border-radius: 50%;
+        border: 1px dashed rgba(59, 130, 246, 0.4);
+        animation: avatarSpin 16s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes avatarSpin { 100% { transform: rotate(360deg); } }
+    .at-avatar-lg img {
+        width: 100%; height: 100%;
+        border-radius: 50%; object-fit: cover; display: block;
+        background: #0b1424;
+    }
+    .at-avatar-lg-init {
+        width: 100%; height: 100%;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        background: #0b1424;
+        color: #60a5fa;
+        font-size: 3rem; font-weight: 800;
+    }
+    html.light-theme .at-avatar-lg-init { background: #eef2f7; color: #2563eb; }
+
+    .at-screen {
+        position: relative;
+        padding: 1.1rem 1.1rem 1.2rem;
+        flex: 1;
+        overflow: hidden;
+    }
+    .at-screen::before {
+        content: '';
+        position: absolute; left: 0; right: 0; top: -45%;
+        height: 30%;
+        background: linear-gradient(180deg, transparent, rgba(52, 211, 153, 0.07), transparent);
+        animation: atScan 8s linear infinite;
+        pointer-events: none;
+        opacity: 0.6;
+    }
+    .at-block { position: relative; margin-bottom: 0.9rem; }
+    .at-block:last-child { margin-bottom: 0; }
+    .at-line {
+        display: flex; align-items: center; gap: 0.5rem;
+        font-size: 0.88rem; color: #e2e8f0;
+        position: relative;
+    }
+    .at-cmd { color: #e2e8f0; white-space: pre-wrap; word-break: break-word; }
+    .at-cmd::after {
+        content: '';
+        display: inline-block; width: 8px; height: 1em;
+        background: #34d399; margin-left: 3px;
+        vertical-align: text-bottom;
+        animation: akCaret 1s step-end infinite;
+    }
+    .at-cmd.typed::after { background: #94a3b8; animation: none; }
+    .at-cmd:empty::after { opacity: 0; animation: none; }
+    .at-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .at-out {
+        margin-top: 0.35rem;
+        display: flex; flex-direction: column; gap: 0.14rem;
+        font-size: 0.8rem; color: #94a3b8;
+    }
+    .at-out p {
+        margin: 0;
+        opacity: 0; transform: translateY(6px);
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .at-out p.show { opacity: 1; transform: translateY(0); }
+    .at-out p b { color: #4ade80; font-weight: 700; }
+    .at-out p .o-key { color: #fbbf24; }
+    .at-out p .o-dim { color: #5b6b84; font-style: italic; }
+    .at-hash { color: #f472b6; }
+    html.light-theme .at-cmd { color: #1e293b; }
+    html.light-theme .at-out { color: #475569; }
+    html.light-theme .at-out p .o-dim { color: #94a3b8; }
+    html.light-theme .at-file { color: #334155; }
+
+    .at-status {
+        display: flex; align-items: center; gap: 1rem;
+        padding: 0.55rem 0.95rem;
+        font-size: 0.64rem; color: #64748b;
+        background: rgba(255, 255, 255, 0.02);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        white-space: nowrap;
+    }
+    .at-status .at-os { color: #34d399; }
+    html.light-theme .at-status { color: #94a3b8; }
+
+    /* ---------- PROFILE CARD ---------- */
+    .about-card {
+        position: relative; z-index: 1;
+        display: flex; flex-direction: column;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(59, 130, 246, 0.16);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 30px 70px rgba(2, 8, 23, 0.55);
+    }
+    html.light-theme .about-card {
+        background: rgba(255, 255, 255, 0.78);
+        border-color: rgba(59, 130, 246, 0.2);
+    }
+    .ac-head {
+        display: flex; align-items: center; gap: 0.6rem;
+        padding: 0.65rem 0.95rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.02);
+    }
+    .ac-tab {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.76rem; color: #cbd5e1;
+        background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 7px; padding: 0.28rem 0.75rem;
+        white-space: nowrap;
+    }
+    .ac-tab i { color: #eab308; }
+    .ac-status {
+        margin-left: auto;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.7rem; color: #34d399;
+    }
+    .ac-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #34d399;
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+        animation: akCaret 1.4s step-end infinite;
+    }
+    .ac-body { padding: 1.4rem 1.4rem 1.5rem; flex: 1; }
+
+    .ac-user { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.2rem; }
+    .ac-avatar {
+        width: 82px; height: 82px; flex-shrink: 0;
+        border-radius: 20px; padding: 3px;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #22d3ee);
+        background-size: 200% 200%;
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.28);
+        animation: atGrad 6s ease infinite;
+    }
+    .ac-avatar img {
+        width: 100%; height: 100%;
+        border-radius: 17px; object-fit: cover; display: block;
+        background: #0b1424;
+    }
+    .ac-initial {
+        width: 100%; height: 100%;
+        border-radius: 17px;
+        display: flex; align-items: center; justify-content: center;
+        background: #0b1424;
+        color: #60a5fa;
+        font-size: 2rem; font-weight: 800;
+    }
+    html.light-theme .ac-initial { background: #eef2f7; color: #2563eb; }
+    @keyframes atGrad {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .ac-id { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+    .ac-comment {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.74rem; color: #5b6b84; font-style: italic;
+    }
+    html.light-theme .ac-comment { color: #64748b; }
+    .ac-id h3 {
+        font-size: 1.7rem; font-weight: 800; line-height: 1.2; margin: 0;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .ac-role { font-size: 0.85rem; color: var(--text-secondary); }
+
+    .ac-desc { color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; margin: 0 0 0.7rem; }
+    .ac-desc:last-child { margin-bottom: 0; }
+
+    /* Stats — code metrics */
+    .ac-stats {
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem; margin-top: 1.3rem;
+    }
+    .ac-stats .stat-item {
+        flex: 1;
+        padding: 1rem 0.9rem 0.85rem;
+        background: rgba(59, 130, 246, 0.05);
         border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        text-align: center;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 14px;
+        text-align: left;
+        position: relative;
         overflow: hidden;
         cursor: default;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .stat-item::before {
+    .ac-stats .stat-item::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
@@ -483,86 +708,195 @@
         transform-origin: center;
         transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .stat-item:hover::before {
-        transform: scaleX(1);
+    .ac-stats .stat-item:hover::before { transform: scaleX(1); }
+    .ac-stats .stat-item:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-hover);
+        box-shadow: var(--shadow-sm);
     }
-    .stat-item:hover {
-        transform: translateY(-8px) scale(1.03);
-        border-color: var(--accent);
-        box-shadow: 0 16px 50px rgba(59, 130, 246, 0.12);
+    .ac-stat-head {
+        display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem;
+        margin-bottom: 0.5rem;
     }
-    .stat-item .stat-icon {
-        width: 44px;
-        height: 44px;
-        margin: 0 auto 0.8rem;
-        background: rgba(59, 130, 246, 0.08);
-        border: 1px solid rgba(59, 130, 246, 0.15);
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.15rem;
-        color: var(--accent-light);
-        transition: all 0.4s ease;
+    .ac-stat-key {
+        font-size: 0.6rem; color: var(--text-muted);
+        font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
     }
-    .stat-item:hover .stat-icon {
-        background: var(--accent-gradient);
-        border-color: transparent;
-        color: #fff;
-        transform: scale(1.1) rotate(-5deg);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
-    }
-    .stat-item .number {
-        font-size: 2.2rem;
-        font-weight: 900;
+    .ac-stats .stat-item .number {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 1.4rem; font-weight: 800; line-height: 1;
         background: linear-gradient(135deg, var(--accent-light), #a78bfa);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        line-height: 1;
-        margin-bottom: 0.25rem;
-        letter-spacing: -1px;
-        transition: all 0.3s ease;
-        filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.25));
     }
-    .stat-item:hover .number {
-        background: linear-gradient(135deg, #60a5fa, #c084fc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.45));
+    .ac-stats .stat-item .label { display: none; }
+    .ac-meters {
+        height: 5px; border-radius: 6px;
+        background: rgba(59, 130, 246, 0.12);
+        overflow: hidden;
+        position: relative;
     }
-    .stat-item .label {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        transition: color 0.3s ease;
+    .ac-meter {
+        display: block; height: 100%; width: 0;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6, #22d3ee);
+        background-size: 200% 100%;
+        animation: atGrad 3s ease infinite;
+        border-radius: 6px;
+        transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .stat-item:hover .label {
-        color: var(--text-secondary);
+    .about-card.ak-anim .ac-meter { width: var(--w); }
+
+    /* CV = terminal command */
+    .ac-cv { margin-top: 1.4rem; }
+    .ac-cv-btn {
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.88rem; font-weight: 700; color: #d1fae5;
+        background: linear-gradient(135deg, #065f46, #047857, #059669);
+        border: 1px solid rgba(52, 211, 153, 0.4);
+        border-radius: 12px; padding: 0.85rem 1.15rem;
+        text-decoration: none !important;
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.25);
+        position: relative; overflow: hidden;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
     }
-    .stat-item .stat-glow {
-        position: absolute;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.06), transparent 70%);
-        top: -40px;
-        right: -40px;
-        pointer-events: none;
-        transition: all 0.5s ease;
+    .ac-cv-btn::before {
+        content: '';
+        position: absolute; top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+        transition: left 0.6s ease;
     }
-    .stat-item:hover .stat-glow {
-        transform: scale(2);
-        opacity: 0.5;
+    .ac-cv-btn:hover::before { left: 100%; }
+    .ac-cv-btn:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
+        color: #fff;
     }
-    html.light-theme .stat-item {
-        background: rgba(255, 255, 255, 0.85) !important;
+    .ac-cv-prompt { color: #6ee7b7; }
+    .ac-cv-badge {
+        margin-left: auto;
+        font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 6px; padding: 0.2rem 0.55rem;
     }
-    html.light-theme .stat-item:hover {
-        box-shadow: 0 16px 50px rgba(59, 130, 246, 0.15) !important;
+    .ac-cv-hint {
+        display: flex; align-items: center; gap: 0.4rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.76rem; color: var(--text-muted); font-style: italic;
+        margin-top: 0.6rem;
+    }
+
+    /* Socials */
+    .ac-socials { margin-top: 1.3rem; }
+    .ac-socials-comment {
+        display: block; margin-bottom: 0.6rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.74rem; color: #5b6b84; font-style: italic;
+    }
+    html.light-theme .ac-socials-comment { color: #64748b; }
+    .ac-socials-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .ac-socials-row .social-link {
+        width: 42px; height: 42px; border-radius: 12px;
+        background: rgba(59, 130, 246, 0.06);
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        display: inline-flex; align-items: center; justify-content: center;
+        color: var(--text-muted); font-size: 1.05rem;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .ac-socials-row .social-link:hover {
+        background: var(--accent-gradient); border-color: transparent;
+        color: #fff; transform: translateY(-4px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Freelance */
+    .ac-hire { margin-top: 1.3rem; }
+    .ac-hire-head {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem;
+    }
+    .ac-hire-label {
+        font-size: 0.85rem; color: var(--text-primary); font-weight: 700;
+        display: inline-flex; align-items: center; gap: 0.45rem;
+    }
+    .ac-hire-label i { color: var(--accent); }
+    .ac-hire-tag {
+        font-size: 0.66rem; color: #1DBF73;
+        background: rgba(29, 191, 115, 0.1);
+        padding: 0.25rem 0.7rem; border-radius: 20px;
+        border: 1px solid rgba(29, 191, 115, 0.22);
+        letter-spacing: 0.3px; font-weight: 600;
+        animation: akPulse 2s ease-in-out infinite;
+    }
+    @keyframes akPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.97); } }
+    .ac-hire-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.6rem; }
+    .ac-hire-row .freelance-btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+        padding: 0.6rem 0.7rem; border-radius: 12px;
+        font-size: 0.8rem; font-weight: 600; color: var(--text-primary);
+        background: rgba(59, 130, 246, 0.05);
+        border: 1.5px solid var(--border-color);
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .ac-hire-row .freelance-btn:hover {
+        transform: translateY(-3px);
+        border-color: transparent;
+        box-shadow: var(--shadow-sm);
+    }
+    .ac-hire-row .freelance-btn.fiverr { color: #1DBF73; border-color: rgba(29, 191, 115, 0.25); }
+    .ac-hire-row .freelance-btn.fiverr:hover { background: linear-gradient(135deg, #1DBF73, #17a864); color: #fff; }
+    .ac-hire-row .freelance-btn.upwork { color: #6FDA44; border-color: rgba(106, 218, 68, 0.25); }
+    .ac-hire-row .freelance-btn.upwork:hover { background: linear-gradient(135deg, #6FDA44, #5ac43a); color: #fff; }
+    .ac-hire-row .freelance-btn.freelancer { color: #29B2FE; border-color: rgba(41, 178, 254, 0.25); }
+    .ac-hire-row .freelance-btn.freelancer:hover { background: linear-gradient(135deg, #29B2FE, #1a9ee8); color: #fff; }
+
+    /* ---------- About responsive ---------- */
+    @keyframes atSweep {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+    @keyframes atScan {
+        0% { top: -45%; }
+        100% { top: 120%; }
+    }
+    @media (max-width: 968px) {
+        .about-shell { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    @media (max-width: 768px) {
+        .at-line { font-size: 0.82rem; }
+        .at-out { font-size: 0.76rem; }
+        .at-avatar-lg { width: 96px; height: 96px; }
+        .at-avatar-lg::after { inset: -7px; }
+        .at-avatar-lg-init { font-size: 2.2rem; }
+        .ac-id h3 { font-size: 1.45rem; }
+        .ac-stats { gap: 0.6rem; }
+        .ac-stats .stat-item { padding: 0.9rem 0.7rem; }
+        .ac-stats .stat-item .number { font-size: 1.2rem; }
+    }
+    @media (max-width: 480px) {
+        .at-min { display: none; }
+        .at-screen { padding: 0.9rem 0.8rem; }
+        .at-line { font-size: 0.76rem; }
+        .at-out { font-size: 0.7rem; }
+        .at-avatar-lg { width: 78px; height: 78px; }
+        .at-avatar-lg-init { font-size: 1.8rem; }
+        .ac-body { padding: 1.1rem 1rem; }
+        .ac-id h3 { font-size: 1.25rem; }
+        .ac-stats { gap: 0.5rem; }
+        .ac-stats .stat-item { padding: 0.75rem 0.5rem; }
+        .ac-stat-key { font-size: 0.52rem; }
+        .ac-cv-btn { font-size: 0.8rem; padding: 0.75rem 0.9rem; }
+        .ac-hire-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 360px) {
+        .at-status { display: none; }
+        .about-kicker { font-size: 0.68rem; }
+        .ac-role { font-size: 0.78rem; }
     }
 
     /* ===== SERVICES — PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
@@ -1903,320 +2237,6 @@
         box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
 
-    /* ===== FREELANCE PROFILES - ABOUT SECTION ===== */
-    /* ===== KEYFRAME ANIMATIONS ===== */
-    @keyframes borderRotate {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    @keyframes pulseTag {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.7; transform: scale(0.97); }
-    }
-    @keyframes glowPulse {
-        0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.2); }
-        50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
-    }
-
-    /* ===== FREELANCE PROFILES - ABOUT SECTION ===== */
-    .about-freelance {
-        margin-top: 2rem;
-        padding: 1.5rem 1.8rem;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
-        border-radius: 20px;
-        position: relative;
-        overflow: hidden;
-        isolation: isolate;
-    }
-    /* Animated gradient border (idea 8) */
-    .about-freelance::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        padding: 1.5px;
-        background: linear-gradient(90deg, #1DBF73, #6FDA44, #29B2FE, #1DBF73, #6FDA44, #29B2FE);
-        background-size: 300% 100%;
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        animation: borderRotate 4s ease-in-out infinite;
-        pointer-events: none;
-        z-index: 0;
-    }
-    .about-freelance::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
-        pointer-events: none;
-        z-index: 0;
-    }
-    .about-freelance .freelance-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        position: relative;
-        z-index: 1;
-    }
-    .about-freelance .freelance-header-left {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-    /* Avatar/illustration (idea 4) */
-    .about-freelance .freelance-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.08));
-        border: 1px solid rgba(59, 130, 246, 0.15);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.3rem;
-        flex-shrink: 0;
-    }
-    .about-freelance .freelance-label {
-        font-size: 0.85rem;
-        color: var(--text-primary);
-        font-weight: 700;
-        letter-spacing: 0.3px;
-    }
-    .about-freelance .freelance-label i {
-        color: var(--accent);
-        background: rgba(59, 130, 246, 0.1);
-        padding: 0.4rem;
-        border-radius: 8px;
-        font-size: 0.9rem;
-    }
-    /* Pulse animation tag (idea 10) */
-    .about-freelance .freelance-tag {
-        font-size: 0.7rem;
-        color: #1DBF73;
-        background: rgba(29, 191, 115, 0.1);
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        border: 1px solid rgba(29, 191, 115, 0.2);
-        letter-spacing: 0.3px;
-        font-weight: 600;
-        animation: pulseTag 2s ease-in-out infinite;
-        position: relative;
-        z-index: 1;
-    }
-    .about-freelance .freelance-tag i {
-        font-size: 0.65rem;
-    }
-    .about-freelance .freelance-row {
-        display: flex;
-        gap: 0.8rem;
-        flex-wrap: nowrap;
-        position: relative;
-        z-index: 1;
-    }
-    /* Button wrapper per platform (for rating badge) */
-    .about-freelance .freelance-btn-wrap {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.4rem;
-        flex: 1;
-    }
-    .about-freelance .freelance-btn {
-        display: inline-flex;
-        min-width: 0;
-        white-space: nowrap;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.65rem 1.3rem;
-        border-radius: 14px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 1.5px solid transparent;
-        position: relative;
-    }
-    /* Icon in colored box (idea 1) */
-    .about-freelance .freelance-btn .btn-icon-box {
-        width: 30px;
-        height: 30px;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        flex-shrink: 0;
-        transition: all 0.4s ease;
-    }
-    .about-freelance .freelance-btn.fiverr .btn-icon-box {
-        background: rgba(29, 191, 115, 0.15);
-        color: #1DBF73;
-    }
-    .about-freelance .freelance-btn.upwork .btn-icon-box {
-        background: rgba(106, 218, 68, 0.15);
-        color: #6FDA44;
-    }
-    .about-freelance .freelance-btn.freelancer .btn-icon-box {
-        background: rgba(41, 178, 254, 0.15);
-        color: #29B2FE;
-    }
-    .about-freelance .freelance-btn.fiverr {
-        background: linear-gradient(135deg, rgba(29, 191, 115, 0.06), rgba(29, 191, 115, 0.02));
-        color: #1DBF73;
-        border-color: rgba(29, 191, 115, 0.2);
-    }
-    /* Neon glow hover (idea 2) */
-    .about-freelance .freelance-btn.fiverr:hover {
-        background: linear-gradient(135deg, #1DBF73, #17a864);
-        color: #fff;
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 0 25px rgba(29, 191, 115, 0.4), 0 8px 30px rgba(29, 191, 115, 0.25);
-        border-color: transparent;
-    }
-    .about-freelance .freelance-btn.fiverr:hover .btn-icon-box {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-    }
-    /* Icon color shift: hover e brand color -> white (idea 9) */
-    .about-freelance .freelance-btn.fiverr:hover .btn-icon-box svg rect { fill: rgba(255,255,255,0.3); }
-    .about-freelance .freelance-btn.fiverr:hover .btn-icon-box svg text { fill: #fff; }
-    .about-freelance .freelance-btn.upwork {
-        background: linear-gradient(135deg, rgba(106, 218, 68, 0.06), rgba(106, 218, 68, 0.02));
-        color: #6FDA44;
-        border-color: rgba(106, 218, 68, 0.2);
-    }
-    .about-freelance .freelance-btn.upwork:hover {
-        background: linear-gradient(135deg, #6FDA44, #5ac43a);
-        color: #fff;
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 0 25px rgba(106, 218, 68, 0.4), 0 8px 30px rgba(106, 218, 68, 0.25);
-        border-color: transparent;
-    }
-    .about-freelance .freelance-btn.upwork:hover .btn-icon-box {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-    }
-    .about-freelance .freelance-btn.freelancer {
-        background: linear-gradient(135deg, rgba(41, 178, 254, 0.06), rgba(41, 178, 254, 0.02));
-        color: #29B2FE;
-        border-color: rgba(41, 178, 254, 0.2);
-    }
-    .about-freelance .freelance-btn.freelancer:hover {
-        background: linear-gradient(135deg, #29B2FE, #1a9ee8);
-        color: #fff;
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 0 25px rgba(41, 178, 254, 0.4), 0 8px 30px rgba(41, 178, 254, 0.25);
-        border-color: transparent;
-    }
-    .about-freelance .freelance-btn.freelancer:hover .btn-icon-box {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-    }
-    /* Rating badge (idea 3) */
-    .about-freelance .freelance-rating {
-        font-size: 0.62rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 0.2rem;
-        white-space: nowrap;
-    }
-    .about-freelance .freelance-rating i {
-        color: #f59e0b;
-        font-size: 0.55rem;
-    }
-    .about-freelance .freelance-rating span { font-weight: 600; color: var(--text-primary); }
-
-    /* Light theme fixes */
-    html.light-theme .about-freelance {
-        background: #fff;
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
-    }
-    html.light-theme .about-freelance::before {
-        background: linear-gradient(90deg, #1DBF73, #6FDA44, #29B2FE, #1DBF73, #6FDA44, #29B2FE);
-        background-size: 300% 100%;
-        opacity: 0.6;
-    }
-    html.light-theme .about-freelance::after {
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
-    }
-    html.light-theme .about-freelance .freelance-btn.fiverr {
-        background: rgba(29, 191, 115, 0.08);
-        border-color: rgba(29, 191, 115, 0.25);
-    }
-    html.light-theme .about-freelance .freelance-btn.upwork {
-        background: rgba(106, 218, 68, 0.08);
-        border-color: rgba(106, 218, 68, 0.25);
-    }
-    html.light-theme .about-freelance .freelance-btn.freelancer {
-        background: rgba(41, 178, 254, 0.08);
-        border-color: rgba(41, 178, 254, 0.25);
-    }
-    html.light-theme .about-freelance .freelance-btn.fiverr:hover {
-        background: linear-gradient(135deg, #1DBF73, #17a864);
-        border-color: transparent;
-        color: #fff;
-        box-shadow: 0 0 20px rgba(29, 191, 115, 0.3), 0 8px 25px rgba(29, 191, 115, 0.2);
-    }
-    html.light-theme .about-freelance .freelance-btn.upwork:hover {
-        background: linear-gradient(135deg, #6FDA44, #5ac43a);
-        border-color: transparent;
-        color: #fff;
-        box-shadow: 0 0 20px rgba(106, 218, 68, 0.3), 0 8px 25px rgba(106, 218, 68, 0.2);
-    }
-    html.light-theme .about-freelance .freelance-btn.freelancer:hover {
-        background: linear-gradient(135deg, #29B2FE, #1a9ee8);
-        border-color: transparent;
-        color: #fff;
-        box-shadow: 0 0 20px rgba(41, 178, 254, 0.3), 0 8px 25px rgba(41, 178, 254, 0.2);
-    }
-    html.light-theme .about-freelance .freelance-avatar {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.05));
-        border-color: rgba(59, 130, 246, 0.1);
-    }
-
-    /* Tablet breakpoint (idea 7) */
-    @media (max-width: 768px) {
-        .about-freelance { padding: 1.2rem 1.2rem; }
-        .about-freelance .freelance-row { gap: 0.6rem; }
-        .about-freelance .freelance-btn {
-            padding: 0.55rem 1rem; font-size: 0.8rem; gap: 0.4rem;
-        }
-        .about-freelance .freelance-btn .btn-icon-box {
-            width: 26px; height: 26px; font-size: 0.85rem;
-        }
-        .about-freelance .freelance-avatar { width: 34px; height: 34px; font-size: 1.1rem; }
-    }
-    @media (max-width: 480px) {
-        .about-freelance { padding: 0.8rem; }
-        .about-freelance .freelance-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
-        .about-freelance .freelance-row { gap: 0.4rem; flex-wrap: nowrap; }
-        .about-freelance .freelance-btn-wrap { flex: 1; }
-        .about-freelance .freelance-btn {
-            padding: 0.4rem 0.5rem; font-size: 0.65rem; gap: 0.2rem;
-            justify-content: center; border-radius: 10px;
-        }
-        .about-freelance .freelance-btn .btn-icon-box {
-            width: 22px; height: 22px; font-size: 0.7rem; border-radius: 6px;
-        }
-        .about-freelance .freelance-btn i, .about-freelance .freelance-btn svg { font-size: 0.7rem; }
-        .about-freelance .freelance-header { margin-bottom: 0.6rem; }
-        .about-freelance .freelance-header-left { gap: 0.4rem; }
-        .about-freelance .freelance-avatar { width: 28px; height: 28px; font-size: 0.9rem; border-radius: 8px; }
-        .about-freelance .freelance-label { font-size: 0.75rem; }
-        .about-freelance .freelance-tag { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
-        .about-freelance .freelance-tag i { display: none; }
-        .about-freelance .freelance-rating { font-size: 0.5rem; }
-    }
-
     /* ===== CONTACT FORM — GLASS CARD ===== */
     .contact-form {
         background: rgba(17, 28, 46, 0.6);
@@ -2656,104 +2676,6 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* Download CV Button */
-    .btn-download {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.95rem 2.5rem;
-        background: linear-gradient(135deg, #059669, #10b981, #34d399);
-        color: #fff;
-        border: none;
-        border-radius: var(--radius-md);
-        font-size: 0.95rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
-        text-decoration: none !important;
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.25);
-        letter-spacing: 0.3px;
-    }
-    .btn-download::before {
-        content: '';
-        position: absolute;
-        top: 0; left: -100%;
-        width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-        transition: left 0.6s ease;
-    }
-    .btn-download:hover::before { left: 100%; }
-    .btn-download:hover {
-        transform: translateY(-4px) scale(1.03);
-        box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
-        color: #fff;
-    }
-    .btn-download:active {
-        transform: translateY(-1px) scale(0.98);
-    }
-    .btn-download .download-icon {
-        font-size: 1.2rem;
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .btn-download:hover .download-icon {
-        transform: translateY(3px) scale(1.15);
-        animation: downloadBounce 1s ease infinite;
-    }
-    @keyframes downloadBounce {
-        0%, 100% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(4px) scale(1.1); }
-    }
-    .btn-download .format-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-        padding: 0.2rem 0.6rem;
-        background: rgba(255,255,255,0.18);
-        border-radius: 6px;
-        font-size: 0.65rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        transition: background 0.3s ease;
-    }
-    .btn-download:hover .format-badge {
-        background: rgba(255,255,255,0.25);
-    }
-    .btn-download .btn-text {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .btn-download-wrapper {
-        margin-top: 2rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-    .btn-download-wrapper .download-hint {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 0.35rem;
-        opacity: 0;
-        transform: translateX(-10px);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .btn-download-wrapper:hover .download-hint {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    html.light-theme .btn-download {
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
-    }
-    html.light-theme .btn-download:hover {
-        box-shadow: 0 12px 40px rgba(16, 185, 129, 0.45);
-    }
-
     /* Shared Utilities */
     .empty-state { text-align: center; padding: 4rem 2rem; }
     .empty-state i { font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; display: block; }
@@ -2770,8 +2692,7 @@
     
     /* Tablet (max 968px) */
     @media (max-width: 968px) {
-        .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-        .about-image { order: -1; }
+        .about-shell, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
@@ -2792,22 +2713,7 @@
         .hero-badge { font-size: 0.75rem; padding: 0.3rem 1rem; }
         .hero::before { width: 400px; height: 400px; }
         
-        .about-stats { flex-wrap: nowrap; gap: 0.75rem; }
-        .stat-item .stat-icon { width: 36px; height: 36px; font-size: 0.95rem; }
-        .about-image .img-wrapper { width: 180px; height: 180px; }
-        .about-image .glow-ring { width: 200px; height: 200px; }
-        .about-text { flex-direction: column; gap: 1.5rem; }
-        .about-text h3 { font-size: 1.5rem; }
-        .about-text p { font-size: 0.92rem; }
-        .stat-item .number { font-size: 1.6rem; }
-        .about-social-sidebar {
-            flex-direction: row; flex-wrap: wrap; justify-content: center;
-            padding: 0.75rem; width: 100%; position: static;
-            background: none; border: none; border-radius: 0;
-        }
-        .about-social-sidebar .social-label { writing-mode: horizontal-tb; }
-        .about-social-sidebar .social-links { flex-direction: row; }
-        .about-social-sidebar .social-link { width: 40px; height: 40px; font-size: 1rem; }
+        
         
         
 
@@ -2888,24 +2794,6 @@
         .skill-card .skill-name { font-size: 0.8rem; }
         .skill-card .skill-percent { font-size: 0.65rem; }
         .skills-grid { animation-duration: 20s; }
-        
-        .about-grid { gap: 2rem; }
-        .about-image .img-wrapper { width: 150px; height: 150px; border-radius: 24px; }
-        .about-image .glow-ring { width: 170px; height: 170px; border-radius: 24px; }
-        .about-stats .stat-item { padding: 0.8rem 0.6rem; }
-        .stat-item .stat-icon { width: 32px; height: 32px; font-size: 0.85rem; margin-bottom: 0.5rem; }
-        .about-stats .stat-item .number { font-size: 1.4rem; }
-        .about-stats .stat-item .label { font-size: 0.72rem; }
-        .about-text h3 { font-size: 1.3rem; }
-        .about-social-sidebar {
-            flex-direction: row; flex-wrap: wrap; justify-content: center;
-            padding: 0.5rem; width: 100%; position: static;
-            background: none; border: none; border-radius: 0;
-        }
-        .about-social-sidebar .social-label { writing-mode: horizontal-tb; }
-        .about-social-sidebar .social-links { flex-direction: row; }
-        .about-social-sidebar .social-link { width: 38px; height: 38px; font-size: 0.95rem; }
-
 
         .projects-grid { grid-template-columns: 1fr; gap: 1.2rem; }
         .project-card .card-image { height: 160px; }
@@ -2984,22 +2872,19 @@
     @media (max-width: 360px) {
         html { font-size: 13px; }
         .hero h1 { font-size: 1.5rem; }
-        .about-image .img-wrapper { width: 130px; height: 130px; }
-        .about-image .glow-ring { width: 150px; height: 150px; }
         .skills-grid { gap: 1rem; animation-duration: 15s; }
         .skill-card .skill-circle { width: 90px; height: 90px; }
         .skill-card .skill-icon { font-size: 1.3rem; }
         .skill-card .skill-name { font-size: 0.72rem; }
         .skill-card .skill-percent { font-size: 0.6rem; }
-        .about-stats { flex-direction: row; flex-wrap: nowrap; gap: 0.5rem; }
-        .stat-item { min-width: 0; flex: 1; padding: 0.6rem 0.3rem; }
         .section-title h2 { font-size: 1.4rem; }
         .hero { padding: 3.5rem 0.75rem 1rem; }
         .hero p { font-size: 0.82rem; }
         .hero-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
         .btn-primary-custom, .btn-outline-custom { font-size: 0.78rem; padding: 0.55rem 1.2rem; }
     }
-</style>
+
+    </style>
     <!-- Custom Cursor -->
     <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -3061,124 +2946,188 @@
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
+                <div class="about-kicker"><span class="ak-prompt">$</span> About me <span class="ak-caret"></span></div>
                 <h2>{{ __('messages.about_title') }}</h2>
                 <p>{{ __('messages.about_subtitle') }}</p>
             </div>
-            <div class="about-grid">
-                <div class="about-image reveal reveal-delay-1">
-                    <div class="glow-ring"></div>
-                    <div class="img-wrapper">
-                        <img src="{{ config('app.storage_url') }}{{ optional($account)->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 32px;">
+
+            <div class="about-shell">
+                <!-- Live Terminal -->
+                <div class="about-term reveal reveal-delay-1">
+                    <div class="at-window">
+                        <div class="at-bar">
+                            <span class="at-dot red"></span>
+                            <span class="at-dot yellow"></span>
+                            <span class="at-dot green"></span>
+                            <span class="at-file"><i class="bi bi-terminal-fill"></i> dev@portfolio: ~/about</span>
+                            <span class="at-min">UTF-8 &middot; bash</span>
+                        </div>
+                        <div class="at-screen">
+                            <div class="at-user">
+                                <span class="at-avatar-lg">
+                                    @if(optional($account)->image)
+                                        <img src="{{ config('app.storage_url') }}{{ $account->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}">
+                                    @else
+                                        <span class="at-avatar-lg-init">{{ mb_strtoupper(mb_substr(optional($account)->name ?? 'Portfolio', 0, 1)) }}</span>
+                                    @endif
+                                </span>
+                            </div>
+                            <div class="at-block">
+                                <div class="at-line">
+                                    <span class="at-prompt">➜</span>
+                                    <span class="at-cmd"></span>
+                                </div>
+                                <div class="at-out">
+                                    <p>Welcome to my portfolio — nice to meet you!</p>
+                                </div>
+                            </div>
+                            <div class="at-block">
+                                <div class="at-line">
+                                    <span class="at-prompt">➜</span>
+                                    <span class="at-cmd"></span>
+                                </div>
+                                <div class="at-out">
+                                    <p>I build <b>responsive websites &amp; web apps</b> with clean, scalable code.</p>
+                                </div>
+                            </div>
+                            <div class="at-block">
+                                <div class="at-line">
+                                    <span class="at-prompt">➜</span>
+                                    <span class="at-cmd"></span>
+                                </div>
+                                <div class="at-out">
+                                    <p><span class="o-key">[</span> Laravel <span class="o-key">]</span> <span class="o-key">[</span> PHP <span class="o-key">]</span> <span class="o-key">[</span> MySQL <span class="o-key">]</span> <span class="o-key">[</span> JavaScript <span class="o-key">]</span> <span class="o-key">[</span> Git <span class="o-key">]</span></p>
+                                </div>
+                            </div>
+                            <div class="at-block">
+                                <div class="at-line">
+                                    <span class="at-prompt">➜</span>
+                                    <span class="at-cmd"></span>
+                                </div>
+                                <div class="at-out">
+                                    <p><b>✔</b> {{ __('messages.avail_for_work') }}</p>
+                                </div>
+                            </div>
+                            <div class="at-block">
+                                <div class="at-line">
+                                    <span class="at-prompt">➜</span>
+                                    <span class="at-cmd"></span>
+                                </div>
+                                <div class="at-out">
+                                    <p><b>✔</b> Ready to work on your project</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="at-status">
+                            <span class="at-os">● bash</span>
+                            <span>git:main</span>
+                            <span>LN 1, COL 0</span>
+                            <span class="at-min">512 ms</span>
+                        </div>
                     </div>
                 </div>
-                <div class="about-text reveal reveal-delay-2">
-                    <div class="about-text-main">
-                        <h3>{{ __('messages.about_heading') }}</h3>
-                        <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
-                        <p>{{ __('messages.about_desc_2') }}</p>
-                        <div class="about-stats">
+
+                <!-- Profile Card -->
+                <div class="about-card reveal reveal-delay-2" id="aboutCard">
+                    <div class="ac-head">
+                        <span class="ac-tab"><i class="bi bi-filetype-json"></i> profile.json</span>
+                        <span class="ac-status"><span class="ac-dot"></span> {{ __('messages.avail_for_work') }}</span>
+                    </div>
+                    <div class="ac-body">
+                        <div class="ac-user">
+                            <div class="ac-id">
+                                <span class="ac-comment">// {{ __('messages.about') }}</span>
+                                <h3>{{ optional($account)->name ?? 'Portfolio' }}</h3>
+                                <span class="ac-role">{{ __('messages.about_heading') }}</span>
+                            </div>
+                        </div>
+                        <p class="ac-desc">{{ __('messages.about_desc_1') }}</p>
+                        <p class="ac-desc">{{ __('messages.about_desc_2') }}</p>
+
+                        <div class="ac-stats">
                             <div class="stat-item">
-                                <div class="stat-glow"></div>
-                                <div class="stat-icon"><i class="bi bi-folder2-open"></i></div>
-                                <div class="number" data-count="50">0</div>
-                                <div class="label">{{ __('messages.stat_projects') }}</div>
+                                <div class="ac-stat-head">
+                                    <span class="ac-stat-key">{{ __('messages.stat_projects') }}</span>
+                                    <span class="number" data-count="50">0</span>
+                                </div>
+                                <div class="ac-meters"><span class="ac-meter" style="--w: 92%"></span></div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-glow"></div>
-                                <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
-                                <div class="number" data-count="30">0</div>
-                                <div class="label">{{ __('messages.stat_clients') }}</div>
+                                <div class="ac-stat-head">
+                                    <span class="ac-stat-key">{{ __('messages.stat_clients') }}</span>
+                                    <span class="number" data-count="30">0</span>
+                                </div>
+                                <div class="ac-meters"><span class="ac-meter" style="--w: 85%"></span></div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-glow"></div>
-                                <div class="stat-icon"><i class="bi bi-trophy-fill"></i></div>
-                                <div class="number" data-count="5">0</div>
-                                <div class="label">{{ __('messages.stat_years') }}</div>
+                                <div class="ac-stat-head">
+                                    <span class="ac-stat-key">{{ __('messages.stat_years') }}</span>
+                                    <span class="number" data-count="5">0</span>
+                                </div>
+                                <div class="ac-meters"><span class="ac-meter" style="--w: 80%"></span></div>
                             </div>
                         </div>
 
-                        <!-- Download CV Button -->
                         @if(isset($account) && $account->cv)
-                            <div class="btn-download-wrapper">
-                                <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
+                            <div class="ac-cv">
+                                <a href="{{ config('app.storage_url') }}{{ $account->cv }}"
                                    download
-                                   class="btn-download magnetic">
-                                    <span class="download-icon"><i class="bi bi-cloud-arrow-down-fill"></i></span>
-                                    <span class="btn-text">
-                                        {{ __('messages.download_cv') }}
-                                        <span class="format-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
-                                    </span>
+                                   class="ac-cv-btn magnetic">
+                                    <span class="ac-cv-prompt">$</span>
+                                    <span>{{ __('messages.download_cv') }}</span>
+                                    <span class="ac-cv-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
                                 </a>
-                                <span class="download-hint">
-                                    <i class="bi bi-arrow-down-circle"></i> {{ __('messages.click_to_download') }}
-                                </span>
+                                <span class="ac-cv-hint"><i class="bi bi-arrow-down-circle"></i> {{ __('messages.click_to_download') }}</span>
+                            </div>
+                        @endif
+
+                        @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
+                            <div class="ac-socials">
+                                <span class="ac-socials-comment">// {{ __('messages.connect') }}</span>
+                                <div class="ac-socials-row">
+                                    @if(isset($account) && $account->github)
+                                        <a href="{{ $account->github }}" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->linkedin)
+                                        <a href="{{ $account->linkedin }}" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->facebook)
+                                        <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->instagram)
+                                        <a href="{{ $account->instagram }}" target="_blank" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->twitter)
+                                        <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->youtube)
+                                        <a href="{{ $account->youtube }}" target="_blank" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                    @endif
+                                </div>
                             </div>
                         @endif
 
                         @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
-                            <div class="about-freelance">
-                                <div class="freelance-header">
-                                    <div class="freelance-header-left">
-                                        <div class="freelance-label"><i class="bi bi-briefcase-fill me-1"></i> {{ __("messages.hire_me") }}</div>
-                                    </div>
-                                    <span class="freelance-tag"><i class="bi bi-lightning-fill me-1"></i>{{ __("messages.avail_for_work") }}</span>
+                            <div class="ac-hire">
+                                <div class="ac-hire-head">
+                                    <span class="ac-hire-label"><i class="bi bi-briefcase-fill me-1"></i> {{ __('messages.hire_me') }}</span>
+                                    <span class="ac-hire-tag"><i class="bi bi-lightning-fill me-1"></i> {{ __('messages.avail_for_work') }}</span>
                                 </div>
-                                <div class="freelance-row">
-                                @if(isset($account) && $account->fiverr)
-                                    <div class="freelance-btn-wrap">
+                                <div class="ac-hire-row">
+                                    @if(isset($account) && $account->fiverr)
                                         <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
-                                            <span class="btn-icon-box">
-                                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
-                                            </span>
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
                                             Fiverr
                                         </a>
-                                    </div>
-                                @endif
-                                @if(isset($account) && $account->upwork)
-                                    <div class="freelance-btn-wrap">
-                                        <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork">
-                                            <span class="btn-icon-box"><i class="fab fa-upwork"></i></span>
-                                            Upwork
-                                        </a>
-                                    </div>
-                                @endif
-                                @if(isset($account) && $account->freelancer)
-                                    <div class="freelance-btn-wrap">
-                                        <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer">
-                                            <span class="btn-icon-box"><i class="fas fa-user-tie"></i></span>
-                                            Freelancer
-                                        </a>
-                                    </div>
-                                @endif
+                                    @endif
+                                    @if(isset($account) && $account->upwork)
+                                        <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork"><i class="fab fa-upwork"></i> Upwork</a>
+                                    @endif
+                                    @if(isset($account) && $account->freelancer)
+                                        <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer"><i class="fas fa-user-tie"></i> Freelancer</a>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    @endif
-                    </div>
-
-                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
-                        <aside class="about-social-sidebar">
-                            <div class="social-label">{{ __("messages.connect") }}</div>
-                            <div class="social-links">
-                                @if(isset($account) && $account->github)
-                                    <a href="{{ $account->github }}" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                                @endif
-                                @if(isset($account) && $account->linkedin)
-                                    <a href="{{ $account->linkedin }}" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                                @endif
-                                @if(isset($account) && $account->facebook)
-                                    <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                @endif
-                                @if(isset($account) && $account->instagram)
-                                    <a href="{{ $account->instagram }}" target="_blank" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                                @endif
-                                @if(isset($account) && $account->twitter)
-                                    <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                @endif
-                                @if(isset($account) && $account->youtube)
-                                    <a href="{{ $account->youtube }}" target="_blank" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                                @endif
-                            </div>
-                        </aside>
                         @endif
                     </div>
                 </div>
@@ -4789,6 +4738,65 @@
             this.style.setProperty('--shine-y', '50%');
         });
     });
+})();
+
+// ===== ABOUT — LIVE TERMINAL (command typing + output reveal) =====
+(function() {
+    var screen = document.querySelector('.at-window .at-screen');
+    var aboutCard = document.getElementById('aboutCard');
+    if (!screen) return;
+
+    var blocks = screen.querySelectorAll('.at-block');
+    var COMMANDS = ['Hi there!', 'What I build', 'My tech stack', 'My status', "Let's talk"];
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var started = false;
+
+    function typeInto(cmdEl, text, done) {
+        var i = 0;
+        var t = setInterval(function() {
+            cmdEl.textContent = text.slice(0, ++i);
+            if (i >= text.length) { clearInterval(t); cmdEl.classList.add('typed'); if (done) done(); }
+        }, 45);
+    }
+
+    function revealOut(block, done) {
+        var ps = block.querySelectorAll('.at-out p');
+        [].forEach.call(ps, function(p, idx) {
+            p.style.transitionDelay = (idx * 0.35) + 's';
+            setTimeout(function() { p.classList.add('show'); }, 20);
+        });
+        setTimeout(done, 60 + ps.length * 350);
+    }
+
+    function showEverything() {
+        [].forEach.call(blocks, function(block, idx) {
+            var cmdEl = block.querySelector('.at-cmd');
+            if (cmdEl) { cmdEl.textContent = COMMANDS[idx] || ''; cmdEl.classList.add('typed'); }
+            [].forEach.call(block.querySelectorAll('.at-out p'), function(p) { p.classList.add('show'); });
+        });
+    }
+
+    function start() {
+        if (started) return;
+        started = true;
+        if (aboutCard) aboutCard.classList.add('ak-anim');
+        if (reduce) { showEverything(); return; }
+        [].forEach.call(blocks, function(block, idx) {
+            var cmdEl = block.querySelector('.at-cmd');
+            if (!cmdEl) return;
+            setTimeout(function() {
+                typeInto(cmdEl, COMMANDS[idx] || '', function() { revealOut(block, function() {}); });
+            }, idx * 900);
+        });
+    }
+
+    var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) { start(); io.disconnect(); }
+        });
+    }, { threshold: 0.25 });
+    io.observe(screen);
+    setTimeout(start, 3500);
 })();
 </script>
 @endsection
