@@ -66,7 +66,7 @@
     html.light-theme .code-fragment { color: rgba(99, 102, 241, 0.35); }
     html.light-theme .code-fragment b { color: rgba(234, 120, 70, 0.55); }
     html.light-theme .code-fragment em { color: rgba(22, 160, 90, 0.5); }
-    html.light-theme #hero-codeworld { opacity: 0.55; }
+    html.light-theme #hero-streams { opacity: 0.45; }
     html.light-theme .hero-scan {
         background: linear-gradient(180deg, transparent, rgba(30,41,59,0.05) 35%, rgba(30,41,59,0.12) 50%, rgba(30,41,59,0.05) 65%, transparent);
     }
@@ -133,10 +133,12 @@
     }
     @keyframes scanMove { 0% { top: -20%; } 100% { top: 115%; } }
 
-    /* Code world canvas (3D rotating code sphere) */
-    #hero-codeworld {
+    /* Ambient code streams — side columns only, center stays clear for hero text */
+    #hero-streams {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         z-index: 0; pointer-events: none;
+        -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.92) 24%, transparent 38%, transparent 62%, rgba(0,0,0,0.92) 76%, #000 100%);
+        mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.92) 24%, transparent 38%, transparent 62%, rgba(0,0,0,0.92) 76%, #000 100%);
     }
 
     /* Floating Code Fragments */
@@ -2732,7 +2734,7 @@
         .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
-        #hero-codeworld { opacity: 0.55; }
+        #hero-streams { opacity: 0.5; }
         .hero-scan { display: none; }
     }
     
@@ -2807,7 +2809,7 @@
         .float-chip.c2 { display: none; }
         .float-chip.c3 { display: none; }
         .code-fragment { display: none; }
-        #hero-codeworld { display: none; }
+        #hero-streams { display: none; }
         .hero-scan { display: none; }
         .code-grid-bg { background-size: 36px 36px; }
     }
@@ -2967,7 +2969,7 @@
         <div class="hero-scan"></div>
 
         <!-- Code Universe (3D rotating code sphere) -->
-        <canvas id="hero-codeworld"></canvas>
+        <canvas id="hero-streams"></canvas>
 
         <!-- Floating Code Fragments -->
         <div class="code-fragment f1">&lt;?php</div>
@@ -4056,137 +4058,87 @@
     });
 })();
 
-// ===== HERO CODE WORLD (3D CODE SPHERE) =====
+// ===== HERO CODE STREAMS (ambient side columns) =====
 (function() {
-    var canvas = document.getElementById('hero-codeworld');
+    var canvas = document.getElementById('hero-streams');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
 
-    var W = 0, H = 0, CX = 0, CY = 0, dpr = 1, t = 0;
-    var yaw = 0, pitch = 0, targetYaw = 0, targetPitch = 0;
-
-    var tokens = ['</>', '{ }', '=>', 'php', 'laravel', 'js', 'const', 'let', 'fn', 'return', 'if', 'async', 'await', '(', ')', '==', '===', '&&', ':', ';', '$', '#', 'git', 'npm', 'composer', 'mysql', 'blade', 'vue', 'api', 'sql', '[]', 'use', 'new', 'class', 'echo', 'route', 'model', 'view', 'db'];
+    var W = 0, H = 0, dpr = 1;
+    var tokens = ['php', 'laravel', 'js', 'vue', 'blade', 'mysql', 'const', 'function', 'return', 'async', 'await', 'import', 'export', 'git', 'npm', 'composer', 'api', 'sql', 'route', 'model', 'use', 'new', 'echo', 'try', 'catch', '=>', '->', '::', '(', ')', '{ }', '[]', '<>', ';', ',', '$', '#', '&', '==', '&&'];
     var palette = [
-        [129, 140, 248],
-        [96, 165, 250],
-        [45, 212, 191],
-        [251, 191, 36],
-        [232, 121, 249]
+        { c: 'rgba(129,140,248,', g: 'rgba(99,102,241,0.6)' },
+        { c: 'rgba(96,165,250,', g: 'rgba(59,130,246,0.6)' },
+        { c: 'rgba(52,211,153,', g: 'rgba(16,185,129,0.5)' },
+        { c: 'rgba(232,121,249,', g: 'rgba(192,38,211,0.5)' }
     ];
 
-    var N = 110;
-    var points = [];
-    var pairs = [];
+    var drops = [];
 
     function build() {
-        points = [];
-        var golden = Math.PI * (3 - Math.sqrt(5));
-        for (var i = 0; i < N; i++) {
-            var yv = 1 - (i / (N - 1)) * 2;
-            var rad = Math.sqrt(1 - yv * yv);
-            var th = golden * i;
-            var col = palette[i % palette.length];
-            points.push({
-                nx: Math.cos(th) * rad,
-                ny: yv,
-                nz: Math.sin(th) * rad,
-                sym: tokens[(i * 7) % tokens.length],
-                size: 10 + Math.random() * 7,
-                hue: 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ','
-            });
+        drops = [];
+        var band = Math.max(W * 0.22, 250);
+        var count = Math.min(70, Math.floor(H / 14));
+        for (var i = 0; i < count; i++) {
+            var accent = Math.random() > 0.82;
+            var col = palette[Math.floor(Math.random() * palette.length)];
+            drops.push(makeDrop(i % 2 === 0 ? 0 : 1, band, accent, col));
         }
-        pairs = [];
-        for (var a = 0; a < N; a++) {
-            for (var b = a + 1; b < N; b++) {
-                var dx = points[a].nx - points[b].nx;
-                var dy = points[a].ny - points[b].ny;
-                var dz = points[a].nz - points[b].nz;
-                if (dx * dx + dy * dy + dz * dz < 0.28) pairs.push([a, b]);
-            }
-        }
+    }
+
+    function makeDrop(side, band, accent, col) {
+        var isLeft = side === 0;
+        return {
+            x: isLeft ? Math.random() * band : W - 10 - Math.random() * band,
+            y: Math.random() * H * -1.4,
+            speed: 16 + Math.random() * 34,
+            tok: tokens[Math.floor(Math.random() * tokens.length)],
+            size: (accent ? 15 : 12) + Math.random() * 3,
+            alpha: accent ? 0.42 + Math.random() * 0.28 : 0.11 + Math.random() * 0.16,
+            hue: col.c,
+            glow: accent ? col.g : null,
+            side: side
+        };
     }
 
     function resize() {
         dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         W = canvas.offsetWidth; H = canvas.offsetHeight;
         canvas.width = W * dpr; canvas.height = H * dpr;
-        CX = W / 2; CY = H / 2;
         build();
     }
     resize();
     window.addEventListener('resize', resize);
 
-    var mp = { x: 0, y: 0 };
-    document.addEventListener('mousemove', function(e) {
-        mp.x = (e.clientX / window.innerWidth) - 0.5;
-        mp.y = (e.clientY / window.innerHeight) - 0.5;
-    });
-
     function draw() {
         if (!W || document.hidden) { requestAnimationFrame(draw); return; }
-        t++;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, W, H);
+        var band = Math.max(W * 0.22, 250);
 
-        var R = Math.min(W, H) * 0.36;
-        var persp = Math.max(W, H) * 1.4 + 300;
-
-        targetYaw = mp.x * 0.6;
-        targetPitch = mp.y * 0.4;
-        yaw += (targetYaw - yaw) * 0.03;
-        pitch += (targetPitch - pitch) * 0.03;
-
-        var ang = t * 0.0055;
-        var cy = Math.cos(ang + yaw), sy = Math.sin(ang + yaw);
-        var cp = Math.cos(-0.28 + pitch), sp = Math.sin(-0.28 + pitch);
-
-        var proj = [];
-        for (var i = 0; i < points.length; i++) {
-            var p = points[i];
-            var x1 = p.nx * cy + p.nz * sy;
-            var z1 = -p.nx * sy + p.nz * cy;
-            var y1 = p.ny;
-            var y2 = y1 * cp - z1 * sp;
-            var z2 = y1 * sp + z1 * cp;
-            var s = persp / (persp + z2 * R);
-            proj.push({ x: CX + x1 * R * s, y: CY + y2 * R * s, z: z2, s: s, p: p });
-        }
-
-        for (var k = 0; k < pairs.length; k++) {
-            var pa = proj[pairs[k][0]], pb = proj[pairs[k][1]];
-            var dz = (pa.z + pb.z) / 2;
-            var alpha = 0.04 + (dz + 1) * 0.16;
-            ctx.beginPath();
-            ctx.moveTo(pa.x, pa.y);
-            ctx.lineTo(pb.x, pb.y);
-            ctx.strokeStyle = 'rgba(120,140,255,' + alpha.toFixed(3) + ')';
-            ctx.lineWidth = 0.6;
-            ctx.stroke();
-        }
-
-        proj.sort(function(a, b) { return a.z - b.z; });
-
-        var g = ctx.createRadialGradient(CX, CY, 0, CX, CY, R * 1.5);
-        g.addColorStop(0, 'rgba(99,102,241,0.20)');
-        g.addColorStop(1, 'rgba(99,102,241,0)');
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, W, H);
-
-        for (var j = 0; j < proj.length; j++) {
-            var pj = proj[j];
-            var d2 = (pj.z + 1) / 2;
-            var alpha2 = 0.18 + d2 * 0.6;
-            var size = pj.p.size * (0.4 + d2 * 0.8);
-            ctx.font = 'bold ' + size.toFixed(1) + 'px Consolas, monospace';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = 'rgba(99,102,241,0.8)';
-            ctx.fillStyle = pj.p.hue + alpha2.toFixed(3) + ')';
-            ctx.fillText(pj.p.sym, pj.x, pj.y);
+        for (var i = 0; i < drops.length; i++) {
+            var d = drops[i];
+            d.y += d.speed * 0.016;
+            if (d.y > H + 40) {
+                var accent = Math.random() > 0.84;
+                var col = palette[Math.floor(Math.random() * palette.length)];
+                d.x = d.side === 0 ? Math.random() * band : W - 10 - Math.random() * band;
+                d.y = -30 - Math.random() * 140;
+                d.tok = tokens[Math.floor(Math.random() * tokens.length)];
+                d.size = (accent ? 15 : 12) + Math.random() * 3;
+                d.alpha = accent ? 0.42 + Math.random() * 0.28 : 0.11 + Math.random() * 0.16;
+                d.glow = accent ? col.g : null;
+                d.hue = col.c;
+            }
+            ctx.shadowBlur = d.glow ? 12 : 0;
+            ctx.shadowColor = d.glow || '';
+            ctx.font = '600 ' + d.size.toFixed(1) + 'px Consolas, monospace';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillStyle = d.hue + d.alpha + ')';
+            ctx.fillText(d.tok, d.x, d.y);
         }
         ctx.shadowBlur = 0;
-
         requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
