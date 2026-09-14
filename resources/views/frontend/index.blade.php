@@ -66,7 +66,8 @@
     html.light-theme .code-fragment { color: rgba(99, 102, 241, 0.35); }
     html.light-theme .code-fragment b { color: rgba(234, 120, 70, 0.55); }
     html.light-theme .code-fragment em { color: rgba(22, 160, 90, 0.5); }
-    html.light-theme #hero-streams { opacity: 0.45; }
+    html.light-theme .hero-aurora { opacity: 0.5; }
+    html.light-theme #hero-floor { opacity: 0.6; }
     html.light-theme .hero-scan {
         background: linear-gradient(180deg, transparent, rgba(30,41,59,0.05) 35%, rgba(30,41,59,0.12) 50%, rgba(30,41,59,0.05) 65%, transparent);
     }
@@ -133,12 +134,29 @@
     }
     @keyframes scanMove { 0% { top: -20%; } 100% { top: 115%; } }
 
-    /* Ambient code streams — side columns only, center stays clear for hero text */
-    #hero-streams {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    /* Aurora color glows */
+    .hero-aurora {
+        position: absolute; top: -15%; left: -10%; right: -10%; bottom: -15%;
         z-index: 0; pointer-events: none;
-        -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.92) 24%, transparent 38%, transparent 62%, rgba(0,0,0,0.92) 76%, #000 100%);
-        mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.92) 24%, transparent 38%, transparent 62%, rgba(0,0,0,0.92) 76%, #000 100%);
+        background:
+            radial-gradient(38% 52% at 16% 20%, rgba(59,130,246,0.32), transparent 70%),
+            radial-gradient(44% 58% at 84% 26%, rgba(99,102,241,0.30), transparent 70%),
+            radial-gradient(52% 60% at 50% 88%, rgba(16,185,129,0.20), transparent 72%),
+            radial-gradient(36% 50% at 72% 70%, rgba(192,38,211,0.16), transparent 70%);
+        animation: auroraDrift 18s ease-in-out infinite;
+    }
+    @keyframes auroraDrift {
+        0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+        33% { transform: translate3d(-2.5%, 2.5%, 0) scale(1.06); }
+        66% { transform: translate3d(2%, -2%, 0) scale(0.97); }
+    }
+
+    /* Hologram code floor (3D perspective at the bottom) */
+    #hero-floor {
+        position: absolute; left: 0; right: 0; bottom: 0;
+        height: 64%; z-index: 0; pointer-events: none;
+        -webkit-mask-image: linear-gradient(180deg, transparent, #000 46%);
+        mask-image: linear-gradient(180deg, transparent, #000 46%);
     }
 
     /* Floating Code Fragments */
@@ -2734,7 +2752,8 @@
         .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
-        #hero-streams { opacity: 0.5; }
+        .hero-aurora { opacity: 0.7; }
+        #hero-floor { opacity: 0.55; }
         .hero-scan { display: none; }
     }
     
@@ -2809,7 +2828,8 @@
         .float-chip.c2 { display: none; }
         .float-chip.c3 { display: none; }
         .code-fragment { display: none; }
-        #hero-streams { display: none; }
+        .hero-aurora { opacity: 0.4; }
+        #hero-floor { display: none; }
         .hero-scan { display: none; }
         .code-grid-bg { background-size: 36px 36px; }
     }
@@ -2962,14 +2982,17 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
+        <!-- Aurora Color Glows -->
+        <div class="hero-aurora"></div>
+
         <!-- Code Grid Background -->
         <div class="code-grid-bg"></div>
 
         <!-- Scan Beam Sweep -->
         <div class="hero-scan"></div>
 
-        <!-- Code Universe (3D rotating code sphere) -->
-        <canvas id="hero-streams"></canvas>
+        <!-- Hologram Code Floor (3D perspective) -->
+        <canvas id="hero-floor"></canvas>
 
         <!-- Floating Code Fragments -->
         <div class="code-fragment f1">&lt;?php</div>
@@ -4058,47 +4081,37 @@
     });
 })();
 
-// ===== HERO CODE STREAMS (ambient side columns) =====
+// ===== HERO HOLO CODE FLOOR (3D perspective) =====
 (function() {
-    var canvas = document.getElementById('hero-streams');
+    var canvas = document.getElementById('hero-floor');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
 
-    var W = 0, H = 0, dpr = 1;
-    var tokens = ['php', 'laravel', 'js', 'vue', 'blade', 'mysql', 'const', 'function', 'return', 'async', 'await', 'import', 'export', 'git', 'npm', 'composer', 'api', 'sql', 'route', 'model', 'use', 'new', 'echo', 'try', 'catch', '=>', '->', '::', '(', ')', '{ }', '[]', '<>', ';', ',', '$', '#', '&', '==', '&&'];
+    var W = 0, H = 0, dpr = 1, t = 0;
+    var tokens = ['php', 'laravel', 'js', 'vue', 'mysql', 'blade', 'const', '=>', '->', '||', '&&', '{}', '()', '[]', '::', 'import', 'return', 'async', 'git', 'npm', 'sql', 'use', 'echo', '<>', ';', '$', '#', '?', 'fn', 'new', 'try', 'catch', '1', '0'];
     var palette = [
-        { c: 'rgba(129,140,248,', g: 'rgba(99,102,241,0.6)' },
-        { c: 'rgba(96,165,250,', g: 'rgba(59,130,246,0.6)' },
-        { c: 'rgba(52,211,153,', g: 'rgba(16,185,129,0.5)' },
-        { c: 'rgba(232,121,249,', g: 'rgba(192,38,211,0.5)' }
+        [129,140,248],[96,165,250],[52,211,153],[232,121,249],[251,191,36]
     ];
 
+    var N = 50;
     var drops = [];
+
+    function spawn(i, randomZ) {
+        var col = palette[Math.floor(Math.random() * palette.length)];
+        return {
+            bx: Math.random(),
+            z: randomZ ? Math.random() : 0,
+            spd: 0.003 + Math.random() * 0.007,
+            tok: tokens[Math.floor(Math.random() * tokens.length)],
+            col: col,
+            accent: Math.random() > 0.88,
+            size: 5 + Math.random() * 8
+        };
+    }
 
     function build() {
         drops = [];
-        var band = Math.max(W * 0.22, 250);
-        var count = Math.min(70, Math.floor(H / 14));
-        for (var i = 0; i < count; i++) {
-            var accent = Math.random() > 0.82;
-            var col = palette[Math.floor(Math.random() * palette.length)];
-            drops.push(makeDrop(i % 2 === 0 ? 0 : 1, band, accent, col));
-        }
-    }
-
-    function makeDrop(side, band, accent, col) {
-        var isLeft = side === 0;
-        return {
-            x: isLeft ? Math.random() * band : W - 10 - Math.random() * band,
-            y: Math.random() * H * -1.4,
-            speed: 16 + Math.random() * 34,
-            tok: tokens[Math.floor(Math.random() * tokens.length)],
-            size: (accent ? 15 : 12) + Math.random() * 3,
-            alpha: accent ? 0.42 + Math.random() * 0.28 : 0.11 + Math.random() * 0.16,
-            hue: col.c,
-            glow: accent ? col.g : null,
-            side: side
-        };
+        for (var i = 0; i < N; i++) drops.push(spawn(i, true));
     }
 
     function resize() {
@@ -4112,33 +4125,69 @@
 
     function draw() {
         if (!W || document.hidden) { requestAnimationFrame(draw); return; }
+        t++;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, W, H);
-        var band = Math.max(W * 0.22, 250);
 
+        var hy = H * 0.30;
+        var by = H - hy;
+        var cx = W * 0.5;
+
+        // horizon glow
+        ctx.beginPath();
+        ctx.moveTo(W * 0.1, hy);
+        ctx.lineTo(W * 0.9, hy);
+        ctx.strokeStyle = 'rgba(99,102,241,0.18)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // subtle perspective grid rails
+        ctx.strokeStyle = 'rgba(99,102,241,0.06)';
+        for (var gv = -7; gv <= 7; gv++) {
+            ctx.beginPath();
+            ctx.moveTo(cx + (gv / 7) * W * 0.12, hy);
+            ctx.lineTo(cx + gv * W * 0.38, H + 40);
+            ctx.stroke();
+        }
+        for (var gh = 0; gh < 8; gh++) {
+            var zz = gh / 8;
+            var yy = hy + zz * zz * by;
+            ctx.globalAlpha = 0.4 + zz * 0.6;
+            ctx.beginPath();
+            ctx.moveTo(W * 0.02, yy);
+            ctx.lineTo(W * 0.98, yy);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+
+        // code tokens on the floor
         for (var i = 0; i < drops.length; i++) {
             var d = drops[i];
-            d.y += d.speed * 0.016;
-            if (d.y > H + 40) {
-                var accent = Math.random() > 0.84;
-                var col = palette[Math.floor(Math.random() * palette.length)];
-                d.x = d.side === 0 ? Math.random() * band : W - 10 - Math.random() * band;
-                d.y = -30 - Math.random() * 140;
-                d.tok = tokens[Math.floor(Math.random() * tokens.length)];
-                d.size = (accent ? 15 : 12) + Math.random() * 3;
-                d.alpha = accent ? 0.42 + Math.random() * 0.28 : 0.11 + Math.random() * 0.16;
-                d.glow = accent ? col.g : null;
-                d.hue = col.c;
+            d.z += d.spd * 0.9;
+            if (d.z > 1) { drops[i] = spawn(i, false); d = drops[i]; }
+
+            var zz2 = d.z;
+            var sc = 0.12 + zz2 * zz2 * 1.3;
+            var sx = cx + (d.bx - 0.5) * W * 2.6 * (0.2 + zz2 * 0.8);
+            var sy = hy + zz2 * zz2 * by;
+            var sz = d.size * (0.4 + zz2 * 1.1);
+            var alpha = 0.05 + zz2 * zz2 * 0.5;
+            if (d.accent) alpha = Math.min(alpha * 2, 0.95);
+
+            ctx.font = '600 ' + sz.toFixed(1) + 'px Consolas, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            if (d.accent) {
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = 'rgba(' + d.col[0] + ',' + d.col[1] + ',' + d.col[2] + ',0.7)';
+            } else {
+                ctx.shadowBlur = 0;
             }
-            ctx.shadowBlur = d.glow ? 12 : 0;
-            ctx.shadowColor = d.glow || '';
-            ctx.font = '600 ' + d.size.toFixed(1) + 'px Consolas, monospace';
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'alphabetic';
-            ctx.fillStyle = d.hue + d.alpha + ')';
-            ctx.fillText(d.tok, d.x, d.y);
+            ctx.fillStyle = 'rgba(' + d.col[0] + ',' + d.col[1] + ',' + d.col[2] + ',' + alpha.toFixed(3) + ')';
+            ctx.fillText(d.tok, sx, sy);
         }
         ctx.shadowBlur = 0;
+
         requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
