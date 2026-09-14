@@ -63,12 +63,22 @@
     html.light-theme .float-chip i {
         color: #3b82f6;
     }
-    html.light-theme .orbit-ring {
-        border-color: rgba(59, 130, 246, 0.25);
+    html.light-theme .code-window {
+        background: rgba(255, 255, 255, 0.92);
+        border-color: rgba(99, 102, 241, 0.35);
+        box-shadow: 0 24px 50px rgba(30, 41, 59, 0.14), 0 0 0 1px rgba(99, 102, 241, 0.08);
     }
-    html.light-theme .vis-glow {
-        background: radial-gradient(circle at center, rgba(59, 130, 246, 0.08), transparent 70%);
-    }
+    html.light-theme .code-window-header { background: rgba(241, 245, 249, 0.95); }
+    html.light-theme .code-window-body { color: #475569; }
+    html.light-theme .code-window-body .kw { color: #7c3aed; }
+    html.light-theme .code-window-body .fn { color: #2563eb; }
+    html.light-theme .code-window-body .str { color: #16a34a; }
+    html.light-theme .code-window-body .cmt { color: #94a3b8; }
+    html.light-theme .code-window-body .num { color: #d97706; }
+    html.light-theme .code-caret { background: #3b82f6; }
+    html.light-theme .code-fragment { color: rgba(99, 102, 241, 0.35); }
+    html.light-theme .code-fragment b { color: rgba(234, 120, 70, 0.55); }
+    html.light-theme .code-fragment em { color: rgba(22, 160, 90, 0.5); }
     html.light-theme .stat-item .number {
         filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.15));
     }
@@ -111,22 +121,92 @@
 
     /* ===== Hero Decorative Effects ===== */
 
-    /* Speed Lines */
-    /* Orbit Rings */
-    .hero-orbits { position: absolute; top: 50%; left: 50%; width: 0; height: 0; pointer-events: none; z-index: 0; }
-    .orbit-ring { position: absolute; border: 1px solid rgba(59,130,246,0.15); border-radius: 50%; }
-    .orbit-ring:nth-child(1) { width: 300px; height: 300px; margin: -150px 0 0 -150px; animation: orbitSpin 12s linear infinite; }
-    .orbit-ring:nth-child(2) { width: 500px; height: 500px; margin: -250px 0 0 -250px; animation: orbitSpin 18s linear infinite reverse; }
-    .orbit-ring:nth-child(3) { width: 700px; height: 700px; margin: -350px 0 0 -350px; animation: orbitSpin 24s linear infinite; }
-    .orbit-dot { position: absolute; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
-    .orbit-ring:nth-child(1) .orbit-dot { top: -3px; left: 50%; margin-left: -3px; }
-    .orbit-ring:nth-child(2) .orbit-dot { top: 50%; right: -3px; margin-top: -3px; }
-    .orbit-ring:nth-child(3) .orbit-dot { bottom: -3px; left: 50%; margin-left: -3px; }
-    @keyframes orbitSpin { 100% { transform: rotate(360deg); } }
+    /* Code Grid Background */
+    .code-grid-bg {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        pointer-events: none; z-index: 0; overflow: hidden;
+        background-image:
+            linear-gradient(rgba(59,130,246,0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59,130,246,0.07) 1px, transparent 1px);
+        background-size: 48px 48px;
+        -webkit-mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+        mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+    }
 
-    /* Glow disc */
-    .vis-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle at center, rgba(59,130,246,0.15), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 0; animation: glowPulse 4s ease-in-out infinite; }
-    @keyframes glowPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; } }
+    /* Floating Code Fragments */
+    .code-fragment {
+        position: absolute; z-index: 0; pointer-events: none;
+        font-family: 'Consolas', 'Fira Code', 'Cascadia Code', monospace;
+        font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;
+        color: rgba(99,102,241,0.4);
+        white-space: nowrap; opacity: 0;
+        animation: fragmentFade 14s ease-in-out infinite;
+    }
+    .code-fragment b { color: rgba(255,170,90,0.5); font-weight: 700; }
+    .code-fragment em { color: rgba(52,211,153,0.45); font-style: normal; }
+    .code-fragment.f1 { top: 16%; left: 7%; animation-delay: 0s; }
+    .code-fragment.f2 { top: 28%; right: 14%; animation-delay: 1.6s; }
+    .code-fragment.f3 { top: 56%; left: 4%; animation-delay: 3.2s; }
+    .code-fragment.f4 { bottom: 20%; right: 6%; animation-delay: 4.8s; }
+    .code-fragment.f5 { top: 10%; right: 30%; animation-delay: 6.4s; }
+    .code-fragment.f6 { bottom: 10%; left: 16%; animation-delay: 8s; }
+    @keyframes fragmentFade {
+        0%, 6% { opacity: 0; transform: translateY(14px); }
+        12%, 78% { opacity: 1; transform: translateY(0); }
+        92%, 100% { opacity: 0; transform: translateY(-14px); }
+    }
+
+    /* Code Editor Window */
+    .code-window {
+        position: absolute; z-index: 1; pointer-events: none;
+        top: 15%; right: -20px;
+        width: min(340px, 26vw);
+        background: rgba(10,16,30,0.72);
+        border: 1px solid rgba(99,102,241,0.35);
+        border-radius: 14px;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(99,102,241,0.08);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        overflow: hidden;
+        animation: windowFloat 7s ease-in-out infinite;
+    }
+    @keyframes windowFloat {
+        0%, 100% { transform: translateY(-6px); }
+        50% { transform: translateY(8px); }
+    }
+    .code-window-header {
+        display: flex; align-items: center; gap: 6px;
+        padding: 10px 12px;
+        background: rgba(15,23,42,0.9);
+        border-bottom: 1px solid rgba(99,102,241,0.18);
+    }
+    .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .code-dot.red { background: #f87171; }
+    .code-dot.yellow { background: #fbbf24; }
+    .code-dot.green { background: #34d399; }
+    .code-window-title {
+        margin-left: 8px; font-size: 0.68rem;
+        color: rgba(203,213,225,0.7);
+        font-family: 'Consolas', 'Fira Code', monospace; letter-spacing: 0.4px;
+    }
+    .code-window-body {
+        padding: 16px 14px 18px; min-height: 150px;
+        font-family: 'Consolas', 'Fira Code', 'Cascadia Code', monospace;
+        font-size: 0.75rem; line-height: 1.7; color: #c7d2fe;
+        text-align: left;
+    }
+    .code-window-body .line { display: block; white-space: pre; }
+    .code-window-body .kw { color: #a78bfa; }
+    .code-window-body .fn { color: #93c5fd; }
+    .code-window-body .str { color: #86efac; }
+    .code-window-body .cmt { color: #64748b; font-style: italic; }
+    .code-window-body .num { color: #fbbf24; }
+    .code-caret {
+        display: inline-block; width: 7px; height: 14px; vertical-align: middle;
+        background: #60a5fa; margin-left: 2px; border-radius: 1px;
+        animation: caretBlink 0.9s steps(1) infinite;
+    }
+    @keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
     /* Floating Chips */
     .float-chip { position: absolute; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(15,23,42,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59,130,246,0.2); border-radius: 50px; font-size: 0.75rem; color: var(--accent-light); pointer-events: none; z-index: 1; white-space: nowrap; }
@@ -2684,6 +2764,13 @@
 
     /* ===== COMPREHENSIVE RESPONSIVE ===== */
     
+    /* Hide code window on smaller desktops to avoid overlap with hero text */
+    @media (max-width: 1200px) {
+        .code-window { display: none; }
+        .code-fragment.f2 { display: none; }
+        .code-fragment.f5 { display: none; }
+    }
+    
     /* Tablet (max 968px) */
     @media (max-width: 968px) {
         .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -2764,7 +2851,8 @@
         .float-chip.c1 { top: 10%; right: 3%; }
         .float-chip.c2 { display: none; }
         .float-chip.c3 { display: none; }
-        .hero-orbits .orbit-ring:nth-child(3) { display: none; }
+        .code-fragment { display: none; }
+        .code-grid-bg { background-size: 36px 36px; }
     }
     
     /* Mobile Small (max 480px) */
@@ -2877,9 +2965,10 @@
         .project-card:hover { transform: translateY(-4px) !important; }
         
         /* Hero decorative responsive */
-        .hero-orbits { display: none; }
+        .code-grid-bg { display: none; }
+        .code-fragment { display: none; }
+        .code-window { display: none; }
         .float-chip { display: none; }
-        .vis-glow { width: 300px; height: 300px; }
 
         /* Extra size reductions for very small screens */
         .hero-content { max-width: 100%; }
@@ -2915,20 +3004,34 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
-        <!-- Orbit Rings -->
-        <div class="hero-orbits">
-            <div class="orbit-ring"><div class="orbit-dot"></div></div>
-            <div class="orbit-ring"><div class="orbit-dot"></div></div>
-            <div class="orbit-ring"><div class="orbit-dot"></div></div>
+        <!-- Code Grid Background -->
+        <div class="code-grid-bg"></div>
+
+        <!-- Floating Code Fragments -->
+        <div class="code-fragment f1">&lt;?php</div>
+        <div class="code-fragment f2">const <b>dev</b> = {</div>
+        <div class="code-fragment f3">function() =&gt; {</div>
+        <div class="code-fragment f4">}</div>
+        <div class="code-fragment f5">return <em>true</em>;</div>
+        <div class="code-fragment f6">// keep shipping</div>
+
+        <!-- Code Editor Window (typing animation) -->
+        <div class="code-window">
+            <div class="code-window-header">
+                <span class="code-dot red"></span>
+                <span class="code-dot yellow"></span>
+                <span class="code-dot green"></span>
+                <span class="code-window-title">developer.js</span>
+            </div>
+            <div class="code-window-body">
+                <div id="codeLines"></div><span class="code-caret" id="codeCaret"></span>
+            </div>
         </div>
 
-        <!-- Glow Disc -->
-        <div class="vis-glow"></div>
-
         <!-- Floating Chips -->
-        <div class="float-chip c1"><i class="bi bi-star-fill"></i> 5+ Years Experience</div>
-        <div class="float-chip c2"><i class="bi bi-cup-hot-fill"></i> 99% Client Satisfaction</div>
-        <div class="float-chip c3"><i class="bi bi-rocket-takeoff-fill"></i> 50+ Projects Done</div>
+        <div class="float-chip c1"><i class="bi bi-code-slash"></i> &lt;/&gt; Clean &amp; Scalable Code</div>
+        <div class="float-chip c2"><i class="bi bi-git"></i> git commit -m "keep shipping"</div>
+        <div class="float-chip c3"><i class="bi bi-cpu-fill"></i> PHP &middot; Laravel &middot; MySQL</div>
 
         <div class="hero-content">
             <div class="hero-badge"><i class="bi bi-briefcase-fill"></i> <span class="shimmer-text">{{ __('messages.hero_badge') }}</span></div>
@@ -4002,6 +4105,72 @@
         el.addEventListener('mouseenter', function() { glow.classList.add('active'); });
         el.addEventListener('mouseleave', function() { glow.classList.remove('active'); });
     });
+})();
+
+// ===== HERO CODE TYPING =====
+(function() {
+    var linesWrap = document.getElementById('codeLines');
+    var caret = document.getElementById('codeCaret');
+    if (!linesWrap || !caret) return;
+
+    var lines = [
+        [['// hello, world!', 'cmt']],
+        [['const ', 'kw'], ['developer', 'fn'], [' = {', '']],
+        [['  name', 'fn'], [': ', ''], ['"Joty Biswas"', 'str'], [',', '']],
+        [['  role', 'fn'], [': ', ''], ['"Full-Stack Developer"', 'str'], [',', '']],
+        [['  stack', 'fn'], [': [', ''], ['"PHP"', 'str'], [', ', ''], ['"Laravel"', 'str'], [', ', ''], ['"MySQL"', 'str'], [']', '']],
+        [['  motto', 'fn'], [': ', ''], ['"write clean, ship fast"', 'str'], [',', '']],
+        [['  status', 'fn'], [': ', ''], ['"open to work"', 'str'], [',', '']],
+        [['};', '']],
+        [['export ', 'kw'], ['default', 'kw'], [' developer;', '']]
+    ];
+
+    var lineIndex = 0, segIndex = 0, charIndex = 0;
+
+    function tick() {
+        if (lineIndex >= lines.length) {
+            setTimeout(resetTyping, 4500);
+            return;
+        }
+        var lineDef = lines[lineIndex];
+        var lineEl = linesWrap.querySelectorAll('.line')[lineIndex];
+        if (!lineEl) {
+            lineEl = document.createElement('span');
+            lineEl.className = 'line';
+            linesWrap.appendChild(lineEl);
+        }
+        var seg = lineDef[segIndex];
+        if (charIndex >= seg[0].length) {
+            segIndex++;
+            charIndex = 0;
+            if (segIndex >= lineDef.length) {
+                lineIndex++;
+                segIndex = 0;
+                caret.style.display = 'inline-block';
+                setTimeout(tick, 380);
+                return;
+            }
+            setTimeout(tick, 50);
+            return;
+        }
+        var spanEl = lineEl.querySelectorAll('span')[segIndex];
+        if (!spanEl) {
+            spanEl = document.createElement('span');
+            if (seg[1]) spanEl.className = seg[1];
+            lineEl.appendChild(spanEl);
+        }
+        spanEl.textContent += seg[0][charIndex];
+        charIndex++;
+        setTimeout(tick, 16 + Math.random() * 24);
+    }
+
+    function resetTyping() {
+        linesWrap.innerHTML = '';
+        lineIndex = 0; segIndex = 0; charIndex = 0;
+        setTimeout(tick, 1000);
+    }
+
+    setTimeout(tick, 900);
 })();
 
 // ===== MOBILE MENU =====
