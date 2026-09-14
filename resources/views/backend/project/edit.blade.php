@@ -31,6 +31,13 @@
                 </a>
             </div>
 
+            {{-- Delete Image Form (outside the main form to avoid nested form issue) --}}
+            @if($project->image)
+                <form action="{{ route('admin.projects.deleteImage', $project->id) }}" method="POST" id="deleteImageForm" style="display:none;">
+                    @csrf
+                </form>
+            @endif
+
             <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -137,12 +144,9 @@
                                      alt="{{ $project->title }}"
                                      class="rounded shadow-sm"
                                      style="max-width:300px; max-height:180px; object-fit:cover;">
-                                <form action="{{ route('admin.projects.deleteImage', $project->id) }}" method="POST" class="mt-2" onsubmit="return confirm('Delete this image?')">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-3">
-                                        <i class="bi bi-trash3 me-1"></i> Delete Image
-                                    </button>
-                                </form>
+                                <button type="button" onclick="confirmDeleteImage()" class="btn btn-sm btn-outline-danger rounded-3 mt-2">
+                                    <i class="bi bi-trash3 me-1"></i> Delete Image
+                                </button>
                             </div>
                         @endif
                         <input type="file" accept="image/*" id="image" name="image"
@@ -179,6 +183,29 @@ function previewImage(event) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'inline-block';
     }
+}
+function confirmDeleteImage() {
+    Swal.fire({
+        title: 'Delete Project Image?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-trash3 me-1"></i> Yes, delete it!',
+        cancelButtonText: '<i class="bi bi-x-lg me-1"></i> Cancel',
+        reverseButtons: true,
+        customClass: {
+            popup: 'rounded-4',
+            confirmButton: 'btn btn-danger rounded-3 px-4 py-2',
+            cancelButton: 'btn btn-light border rounded-3 px-4 py-2',
+        },
+        buttonsStyling: false
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            document.getElementById('deleteImageForm').submit();
+        }
+    });
 }
 </script>
 @endsection
