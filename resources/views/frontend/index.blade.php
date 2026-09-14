@@ -134,28 +134,29 @@
     }
     @keyframes scanMove { 0% { top: -20%; } 100% { top: 115%; } }
 
-    /* Dark softly-glowing shield behind hero text (keeps it readable) */
+    /* Very soft dark pool behind hero text (no glass box, just contrast) */
     .hero-text-dim {
-        position: absolute; top: 10%; left: 50%;
-        width: min(860px, 96%); height: 80%;
+        position: absolute; top: 6%; left: 50%;
+        width: min(960px, 100%); height: 88%;
         transform: translateX(-50%);
         z-index: 1; pointer-events: none;
-        border-radius: 50%;
-        backdrop-filter: blur(26px) saturate(120%);
-        -webkit-backdrop-filter: blur(26px) saturate(120%);
-        background: radial-gradient(ellipse 68% 72% at 50% 44%,
-            rgba(3, 6, 18, 0.78) 0%,
-            rgba(3, 6, 18, 0.5) 62%,
-            transparent 85%);
-        box-shadow: inset 0 0 140px rgba(3, 6, 18, 0.55);
+        background: radial-gradient(ellipse 62% 58% at 50% 46%,
+            rgba(2, 6, 18, 0.5) 0%,
+            rgba(2, 6, 18, 0.24) 48%,
+            transparent 78%);
     }
     html.light-theme .hero-text-dim {
-        background: radial-gradient(ellipse 68% 72% at 50% 44%,
-            rgba(241, 245, 249, 0.72) 0%,
-            rgba(241, 245, 249, 0.42) 62%,
-            transparent 85%);
-        box-shadow: inset 0 0 140px rgba(226, 232, 240, 0.55);
+        background: radial-gradient(ellipse 62% 58% at 50% 46%,
+            rgba(241, 245, 249, 0.55) 0%,
+            rgba(241, 245, 249, 0.2) 48%,
+            transparent 78%);
     }
+
+    /* Text glow for readability over the animated background */
+    .hero h1 { text-shadow: 0 2px 26px rgba(2, 6, 18, 0.85), 0 0 3px rgba(2, 6, 18, 0.6); }
+    .hero p { text-shadow: 0 2px 18px rgba(2, 6, 18, 0.9), 0 0 2px rgba(2, 6, 18, 0.7); }
+    html.light-theme .hero h1 { text-shadow: 0 2px 22px rgba(255, 255, 255, 0.8); }
+    html.light-theme .hero p { text-shadow: 0 2px 16px rgba(255, 255, 255, 0.8); }
     @media (max-width: 768px) {
         .hero-text-dim { top: 6%; height: 88%; }
     }
