@@ -208,6 +208,122 @@
     .float-chip.c5 { top: 60%; right: 4%; animation: floatChip 4.8s ease-in-out infinite 1.5s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
+    /* ===== Hero Live Coding Terminal ===== */
+    .hero-terminal {
+        position: relative;
+        margin: 2.6rem auto 0;
+        max-width: 620px;
+        text-align: left;
+        background: linear-gradient(180deg, #0b1424, #0e1b33);
+        border: 1px solid rgba(59, 130, 246, 0.22);
+        border-radius: 16px;
+        overflow: hidden;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        box-shadow:
+            0 24px 60px rgba(2, 8, 23, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+            0 0 50px rgba(59, 130, 246, 0.1);
+        opacity: 0;
+        transform: translateY(40px);
+        animation: fadeInUp 1s ease forwards;
+        animation-delay: 0.8s;
+    }
+    html.light-theme .hero-terminal {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow:
+            0 24px 55px rgba(59, 130, 246, 0.18),
+            0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    }
+    .hero-terminal::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(115deg, transparent 36%, rgba(96, 165, 250, 0.07) 48%, transparent 62%);
+        transform: translateX(-130%);
+        animation: htSheen 7s ease-in-out infinite 1.6s;
+        pointer-events: none;
+    }
+    @keyframes htSheen {
+        0% { transform: translateX(-130%); }
+        45%, 100% { transform: translateX(130%); }
+    }
+    .ht-titlebar {
+        display: flex; align-items: center;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .ht-tab {
+        margin-left: 0.9rem; flex: 1;
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        font-size: 0.74rem; color: #cbd5e1;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.16);
+        border-radius: 7px 7px 0 0;
+        padding: 0.32rem 0.85rem;
+        max-width: 200px;
+        white-space: nowrap; overflow: hidden;
+    }
+    .ht-tab i { color: #eab308; }
+    .ht-dots { color: #475569; font-size: 0.85rem; }
+    .ht-body { padding: 0.95rem 0 1rem; min-height: 10.4rem; }
+    .ht-line { display: flex; padding-right: 1rem; }
+    .ht-line .ht-ln {
+        width: 2.7rem; flex: 0 0 2.7rem;
+        text-align: right; padding-right: 0.8rem;
+        color: #334155; font-size: 0.7rem;
+        line-height: 1.9; user-select: none;
+    }
+    .ht-line .ht-code {
+        font-size: 0.82rem; color: #94a3b8;
+        line-height: 1.9;
+        white-space: pre-wrap; word-break: break-word;
+    }
+    .ht-code .pr  { color: #34d399; font-weight: 700; }
+    .ht-code .kw  { color: #c084fc; font-weight: 600; }
+    .ht-code .key { color: #60a5fa; }
+    .ht-code .st  { color: #34d399; }
+    .ht-code .fn  { color: #fbbf24; }
+    .ht-code .pc  { color: #94a3b8; }
+    .ht-code .cm  { color: #5b6b84; font-style: italic; }
+    .ht-code .ok  { color: #4ade80; }
+    .ht-code .dim { color: #64748b; }
+    .ht-line.active .ht-code::after {
+        content: '';
+        display: inline-block;
+        width: 8px; height: 0.95em;
+        margin-left: 3px;
+        vertical-align: -0.13em;
+        background: #34d399;
+        border-radius: 1px;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.65);
+        animation: caretBlink 0.9s step-end infinite;
+    }
+    .ht-statusbar {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0.34rem 0.9rem;
+        font-size: 0.66rem; color: #64748b;
+        background: rgba(2, 8, 23, 0.5);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        letter-spacing: 0.3px;
+    }
+    .ht-statusbar i { color: #3b82f6; }
+    @media (max-width: 968px) {
+        .hero-terminal { max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+        .hero-terminal { margin-top: 2rem; }
+        .ht-body { min-height: 9.6rem; }
+        .ht-line .ht-code { font-size: 0.76rem; }
+        .ht-line .ht-ln { width: 2.2rem; flex-basis: 2.2rem; padding-right: 0.6rem; font-size: 0.64rem; }
+    }
+    @media (max-width: 480px) {
+        .hero-terminal { border-radius: 14px; }
+        .ht-body { min-height: 8.8rem; padding: 0.75rem 0 0.85rem; }
+        .ht-line .ht-code { font-size: 0.7rem; }
+        .ht-tab { font-size: 0.66rem; max-width: 150px; }
+        .ht-statusbar .ht-status-right { display: none; }
+    }
+
     /* Shimmer Text */
     .shimmer-text { background: linear-gradient(90deg, var(--accent-light) 0%, #60a5fa 25%, #a78bfa 50%, #60a5fa 75%, var(--accent-light) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmerMove 3s linear infinite; display: inline; }
     @keyframes shimmerMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
@@ -244,7 +360,7 @@
     .hero {
         min-height: 100vh; display: flex; align-items: center;
         justify-content: center; text-align: center;
-        position: relative; z-index: 1; padding: 6rem 2rem 2rem;
+        position: relative; z-index: 1; padding: 6rem 2rem 5.5rem;
     }
     .hero-content { max-width: 850px; position: relative; z-index: 2; }
     .hero::before {
@@ -2773,7 +2889,7 @@
         .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-image { order: -1; }
         .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .hero { padding: 5rem 1.5rem 2rem; }
+        .hero { padding: 5rem 1.5rem 4.5rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
         .hero-aurora { opacity: 0.7; }
@@ -2866,7 +2982,7 @@
         .section-title { padding: 0 0.5rem; margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .section-title .line { width: 45px; height: 3px; }
-        .hero { padding: 4rem 1rem 1.5rem; min-height: 90vh; }
+        .hero { padding: 4rem 1rem 2.5rem; min-height: 90vh; }
         .hero h1 { font-size: 1.8rem; letter-spacing: -0.5px; }
         .hero p { font-size: 0.9rem; }
         .hero-buttons { flex-direction: column; align-items: center; }
@@ -3017,7 +3133,7 @@
         <!-- Scan Beam Sweep -->
         <div class="hero-scan"></div>
 
-        <!-- Holographic Field (starfield + orbit ring + horizon grid) -->
+        <!-- Holographic Field (falling code glyphs + orbit ring + horizon grid) -->
         <canvas id="hero-canvas"></canvas>
 
         <!-- Floating Code Fragments -->
@@ -3046,6 +3162,24 @@
                 <a href="#contact" class="btn-outline-custom magnetic">
                     <i class="bi bi-chat-dots-fill"></i> {{ __('messages.contact_me') }}
                 </a>
+            </div>
+
+            <!-- Live Coding Terminal -->
+            <div class="hero-terminal" id="heroTerminal" aria-hidden="true">
+                <div class="ht-titlebar">
+                    <div class="traffic-lights">
+                        <span class="tl tl-red"></span>
+                        <span class="tl tl-yellow"></span>
+                        <span class="tl tl-green"></span>
+                    </div>
+                    <div class="ht-tab"><i class="bi bi-terminal-fill"></i> portfolio &mdash; zsh</div>
+                    <div class="ht-dots"><i class="bi bi-three-dots-vertical"></i></div>
+                </div>
+                <div class="ht-body"></div>
+                <div class="ht-statusbar">
+                    <span><i class="bi bi-git-branch"></i> main &nbsp; <i class="bi bi-check-circle-fill"></i> build passing</span>
+                    <span class="ht-status-right">PHP 8.3 &middot; Laravel &middot; UTF-8</span>
+                </div>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -4109,7 +4243,7 @@
     });
 })();
 
-// ===== HERO HOLO FIELD (starfield + orbit ring + horizon grid) =====
+// ===== HERO HOLO FIELD (falling code glyphs + orbit ring + horizon grid) =====
 (function() {
     var canvas = document.getElementById('hero-canvas');
     if (!canvas) return;
@@ -4121,23 +4255,26 @@
         [129,140,248],[96,165,250],[52,211,153],[232,121,249],[251,191,36]
     ];
 
-    /* ---------- starfield ---------- */
-    var N_STARS = 90;
-    var stars = [];
-    function spawnStar(init) {
+    /* ---------- falling code glyphs (matrix-style code rain) ---------- */
+    var GLYPHS = ['{ }','</>','=>','()','[]',';','::','$','#','let','const','fn','async','await','&&','||','===','...','?.','->','git','npm','<?php','</div>','<span>','::class']; 
+    var N_GLYPHS = 66;
+    var glyphs = [];
+    function spawnGlyph(init) {
         return {
             x: Math.random() * W,
-            y: init ? Math.random() * H : -4,
-            speed: 0.08 + Math.random() * 0.22,
-            size: 0.6 + Math.random() * 1.8,
-            baseAlpha: 0.06 + Math.random() * 0.18,
+            y: init ? Math.random() * H : -8,
+            speed: 0.12 + Math.random() * 0.3,
+            size: 8 + Math.random() * 5,
+            baseAlpha: 0.08 + Math.random() * 0.22,
             phase: Math.random() * Math.PI * 2,
-            drift: (Math.random() - 0.5) * 0.12
+            drift: (Math.random() - 0.5) * 0.14,
+            ch: GLYPHS[(Math.random() * GLYPHS.length) | 0],
+            color: palette[(Math.random() * palette.length) | 0]
         };
     }
-    function buildStars() {
-        stars = [];
-        for (var i = 0; i < N_STARS; i++) stars.push(spawnStar(true));
+    function buildGlyphs() {
+        glyphs = [];
+        for (var i = 0; i < N_GLYPHS; i++) glyphs.push(spawnGlyph(true));
     }
 
     /* ---------- horizon grid (bottom 30%) ---------- */
@@ -4222,7 +4359,7 @@
         dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         W = canvas.offsetWidth; H = canvas.offsetHeight;
         canvas.width = W * dpr; canvas.height = H * dpr;
-        buildStars();
+        buildGlyphs();
     }
     resize();
     window.addEventListener('resize', resize);
@@ -4234,20 +4371,22 @@
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, W, H);
 
-        /* stars */
-        for (var i = 0; i < stars.length; i++) {
-            var s = stars[i];
+        /* falling code glyphs */
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        for (var i = 0; i < glyphs.length; i++) {
+            var s = glyphs[i];
             s.y += s.speed;
             s.x += s.drift + Math.sin(s.phase + t * 0.004) * 0.06;
-            if (s.y > H + 6 || s.x < -10 || s.x > W + 10) {
-                stars[i] = spawnStar(false);
+            if (s.y > H + 14 || s.x < -70 || s.x > W + 70) {
+                glyphs[i] = spawnGlyph(false);
                 continue;
             }
-            var twinkle = s.baseAlpha + Math.sin(s.phase + t * 0.025) * s.baseAlpha * 0.4;
-            ctx.fillStyle = 'rgba(170,190,255,' + twinkle.toFixed(3) + ')';
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-            ctx.fill();
+            var twinkle = s.baseAlpha + Math.sin(s.phase + t * 0.025) * s.baseAlpha * 0.45;
+            if (twinkle < 0.03) twinkle = 0.03;
+            ctx.font = '600 ' + s.size.toFixed(1) + 'px "Cascadia Code", ui-monospace, Consolas, monospace';
+            ctx.fillStyle = 'rgba(' + s.color[0] + ',' + s.color[1] + ',' + s.color[2] + ',' + twinkle.toFixed(3) + ')';
+            ctx.fillText(s.ch, s.x, s.y);
         }
 
         drawHorizon();
@@ -4256,6 +4395,137 @@
         requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
+})();
+
+// ===== HERO LIVE CODING TERMINAL (typing animation) =====
+(function() {
+    var root = document.getElementById('heroTerminal');
+    if (!root) return;
+    var body = root.querySelector('.ht-body');
+    if (!body) return;
+
+    var LINES = 5;
+    var SPEED = 24;
+    var LINE_PAUSE = 320;
+    var SCENE_PAUSE = 2300;
+
+    var SCENES = [
+        [
+            [ { t: '$ ', c: 'pr' }, { t: 'php artisan serve', c: 'pc' } ],
+            [ { t: '   INFO  Server running on ', c: 'dim' }, { t: 'http://127.0.0.1:8000', c: 'key' } ],
+            [ { t: '$ ', c: 'pr' }, { t: 'npm run dev', c: 'pc' } ],
+            [ { t: '   VITE v7 ready in ', c: 'dim' }, { t: '312 ms', c: 'ok' } ],
+            [ { t: '   \u2192  Local:  ', c: 'dim' }, { t: 'http://localhost:5173/', c: 'key' } ]
+        ],
+        [
+            [ { t: '// routes/web.php', c: 'cm' } ],
+            [ { t: 'Route', c: 'fn' }, { t: '::', c: 'pc' }, { t: 'get', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'/'", c: 'st' }, { t: ', ', c: 'pc' }, { t: 'HomeController', c: 'key' }, { t: '::class', c: 'kw' }, { t: ');', c: 'pc' } ],
+            [ { t: 'return ', c: 'kw' }, { t: 'view', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'welcome'", c: 'st' }, { t: ', ', c: 'pc' }, { t: 'compact', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'projects'", c: 'st' }, { t: '));', c: 'pc' } ],
+            [ { t: 'Cache', c: 'key' }, { t: '::', c: 'pc' }, { t: 'remember', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'projects'", c: 'st' }, { t: ', ', c: 'pc' }, { t: '3600', c: 'ok' }, { t: ', ', c: 'pc' }, { t: '$loader', c: 'key' }, { t: ');', c: 'pc' } ],
+            [ { t: '// => ready to ship', c: 'cm' } ]
+        ],
+        [
+            [ { t: '$ ', c: 'pr' }, { t: 'git add . && git commit -m ', c: 'pc' }, { t: '"ship it"', c: 'st' } ],
+            [ { t: '   [main ', c: 'dim' }, { t: '4f2a91c', c: 'fn' }, { t: '] ', c: 'dim' }, { t: 'ship it', c: 'ok' } ],
+            [ { t: '   3 files changed, ', c: 'dim' }, { t: '128 insertions(+)', c: 'ok' } ],
+            [ { t: '$ ', c: 'pr' }, { t: 'git push origin main', c: 'pc' } ],
+            [ { t: '   \u2192  ', c: 'dim' }, { t: 'Everything up-to-date', c: 'ok' } ]
+        ]
+    ];
+
+    function makeLine(i) {
+        var el = document.createElement('div');
+        el.className = 'ht-line';
+        var ln = document.createElement('span');
+        ln.className = 'ht-ln';
+        ln.textContent = i + 1;
+        var code = document.createElement('span');
+        code.className = 'ht-code';
+        el.appendChild(ln);
+        el.appendChild(code);
+        return el;
+    }
+
+    function paintStatic(scene) {
+        body.innerHTML = '';
+        for (var i = 0; i < LINES; i++) {
+            var line = makeLine(i);
+            var code = line.querySelector('.ht-code');
+            var tokens = scene[i] || [];
+            for (var j = 0; j < tokens.length; j++) {
+                var s = document.createElement('span');
+                if (tokens[j].c) s.className = tokens[j].c;
+                s.textContent = tokens[j].t;
+                code.appendChild(s);
+            }
+            body.appendChild(line);
+        }
+    }
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        paintStatic(SCENES[1]);
+        return;
+    }
+
+    var sceneIndex = 0;
+    var lineIndex = 0;
+    var tokenIndex = 0;
+    var charIndex = 0;
+    var codeEl = null;
+    var spanEl = null;
+
+    function startScene() {
+        body.innerHTML = '';
+        for (var i = 0; i < LINES; i++) body.appendChild(makeLine(i));
+        lineIndex = 0; tokenIndex = 0; charIndex = 0;
+        codeEl = null; spanEl = null;
+        typeStep();
+    }
+
+    function finishScene() {
+        sceneIndex = (sceneIndex + 1) % SCENES.length;
+        setTimeout(startScene, SCENE_PAUSE);
+    }
+
+    function nextLine() {
+        lineIndex++;
+        tokenIndex = 0;
+        charIndex = 0;
+        setTimeout(typeStep, LINE_PAUSE);
+    }
+
+    function typeStep() {
+        var lineEl = body.children[lineIndex];
+        if (!lineEl) { setTimeout(finishScene, SCENE_PAUSE); return; }
+
+        var tokens = SCENES[sceneIndex][lineIndex] || [];
+
+        if (tokenIndex === 0 && charIndex === 0) {
+            /* trailing blank line = scene finished, keep last caret in place */
+            if (!tokens.length) { setTimeout(finishScene, SCENE_PAUSE); return; }
+            var prev = body.querySelector('.ht-line.active');
+            if (prev) prev.classList.remove('active');
+            lineEl.classList.add('active');
+            codeEl = lineEl.querySelector('.ht-code');
+            spanEl = null;
+        }
+
+        var tok = tokens[tokenIndex];
+        if (charIndex === 0) {
+            spanEl = document.createElement('span');
+            if (tok.c) spanEl.className = tok.c;
+            codeEl.appendChild(spanEl);
+        }
+
+        charIndex++;
+        spanEl.textContent = tok.t.slice(0, charIndex);
+
+        if (charIndex >= tok.t.length) { tokenIndex++; charIndex = 0; }
+        if (tokenIndex >= tokens.length) { nextLine(); return; }
+        setTimeout(typeStep, SPEED);
+    }
+
+    startScene();
 })();
 
 // ===== MOBILE MENU =====
