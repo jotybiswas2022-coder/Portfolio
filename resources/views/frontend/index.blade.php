@@ -208,90 +208,6 @@
     .float-chip.c5 { top: 60%; right: 4%; animation: floatChip 4.8s ease-in-out infinite 1.5s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-    /* ===== Hero Live Typed Code (borderless) ===== */
-    .hero-code {
-        position: relative;
-        margin: 2.4rem auto 0;
-        max-width: 620px;
-        text-align: left;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        opacity: 0;
-        transform: translateY(40px);
-        animation: fadeInUp 1s ease forwards;
-        animation-delay: 0.8s;
-    }
-    /* Soft radial vignette — keeps the code readable over the animated backdrop
-       without drawing a hard-edged box around it. */
-    .hero-code::before {
-        content: '';
-        position: absolute; inset: -2.2rem -3.5rem;
-        z-index: -1; pointer-events: none;
-        background: radial-gradient(58% 68% at 50% 50%, rgba(2, 6, 18, 0.52), transparent 74%);
-    }
-    html.light-theme .hero-code::before {
-        background: radial-gradient(58% 68% at 50% 50%, rgba(248, 250, 252, 0.75), transparent 74%);
-    }
-    .hc-line { display: flex; }
-    .hc-line .hc-ln {
-        width: 2.4rem; flex: 0 0 2.4rem;
-        text-align: right; padding-right: 0.9rem;
-        font-size: 0.7rem; line-height: 1.9;
-        color: rgba(148, 163, 184, 0.5);
-        user-select: none;
-    }
-    .hc-line .hc-code {
-        font-size: 0.88rem; line-height: 1.9;
-        color: #cbd5e1;
-        white-space: pre-wrap; word-break: break-word;
-        text-shadow: 0 2px 14px rgba(2, 6, 18, 0.85), 0 0 3px rgba(2, 6, 18, 0.6);
-    }
-    .hc-code .pr  { color: #34d399; font-weight: 700; }
-    .hc-code .kw  { color: #c084fc; font-weight: 600; }
-    .hc-code .key { color: #7dd3fc; }
-    .hc-code .st  { color: #4ade80; }
-    .hc-code .fn  { color: #fbbf24; }
-    .hc-code .pc  { color: #cbd5e1; }
-    .hc-code .cm  { color: #7b8ba4; font-style: italic; }
-    .hc-code .ok  { color: #4ade80; }
-    .hc-code .dim { color: #94a3b8; }
-    html.light-theme .hc-line .hc-code { text-shadow: 0 1px 12px rgba(255, 255, 255, 0.9); }
-    html.light-theme .hc-code .pr  { color: #047857; }
-    html.light-theme .hc-code .kw  { color: #7c3aed; }
-    html.light-theme .hc-code .key { color: #1d4ed8; }
-    html.light-theme .hc-code .st  { color: #047857; }
-    html.light-theme .hc-code .fn  { color: #b45309; }
-    html.light-theme .hc-code .pc  { color: #475569; }
-    html.light-theme .hc-code .cm  { color: #64748b; }
-    html.light-theme .hc-code .ok  { color: #15803d; }
-    html.light-theme .hc-code .dim { color: #64748b; }
-    .hc-line.active .hc-code::after {
-        content: '';
-        display: inline-block;
-        width: 8px; height: 0.95em;
-        margin-left: 3px;
-        vertical-align: -0.13em;
-        background: #34d399;
-        border-radius: 1px;
-        box-shadow: 0 0 10px rgba(52, 211, 153, 0.65);
-        animation: caretBlink 0.9s step-end infinite;
-    }
-    html.light-theme .hc-line.active .hc-code::after {
-        background: #059669;
-        box-shadow: 0 0 10px rgba(5, 150, 105, 0.5);
-    }
-    @media (max-width: 968px) {
-        .hero-code { max-width: 100%; }
-    }
-    @media (max-width: 768px) {
-        .hero-code { margin-top: 2rem; }
-        .hc-line .hc-code { font-size: 0.8rem; }
-        .hc-line .hc-ln { width: 1.9rem; flex-basis: 1.9rem; padding-right: 0.6rem; font-size: 0.64rem; }
-    }
-    @media (max-width: 480px) {
-        .hero-code::before { inset: -1.4rem -0.9rem; }
-        .hc-line .hc-code { font-size: 0.72rem; }
-    }
-
     /* Shimmer Text */
     .shimmer-text { background: linear-gradient(90deg, var(--accent-light) 0%, #60a5fa 25%, #a78bfa 50%, #60a5fa 75%, var(--accent-light) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmerMove 3s linear infinite; display: inline; }
     @keyframes shimmerMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
@@ -328,7 +244,7 @@
     .hero {
         min-height: 100vh; display: flex; align-items: center;
         justify-content: center; text-align: center;
-        position: relative; z-index: 1; padding: 6rem 2rem 5.5rem;
+        position: relative; z-index: 1; padding: 6rem 2rem 2rem;
     }
     .hero-content { max-width: 850px; position: relative; z-index: 2; }
     .hero::before {
@@ -2857,7 +2773,7 @@
         .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-image { order: -1; }
         .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .hero { padding: 5rem 1.5rem 4.5rem; }
+        .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
         .hero-aurora { opacity: 0.7; }
@@ -2950,7 +2866,7 @@
         .section-title { padding: 0 0.5rem; margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .section-title .line { width: 45px; height: 3px; }
-        .hero { padding: 4rem 1rem 2.5rem; min-height: 90vh; }
+        .hero { padding: 4rem 1rem 1.5rem; min-height: 90vh; }
         .hero h1 { font-size: 1.8rem; letter-spacing: -0.5px; }
         .hero p { font-size: 0.9rem; }
         .hero-buttons { flex-direction: column; align-items: center; }
@@ -3132,8 +3048,6 @@
                 </a>
             </div>
 
-            <!-- Live typed code — no window chrome, just the lines typing themselves -->
-            <div class="hero-code" id="heroCode" aria-hidden="true"></div>
         </div>
         <div class="scroll-indicator">
             <div class="mouse">
@@ -4209,7 +4123,7 @@
     ];
 
     /* ---------- falling code glyphs (matrix-style code rain) ---------- */
-    var GLYPHS = ['{ }','</>','=>','()','[]',';','::','$','#','let','const','fn','async','await','&&','||','===','...','?.','->','git','npm','<?php','</div>','<span>','::class'];
+    var GLYPHS = ['{ }','</>','=>','()','[]',';','::','$','#','let','const','fn','async','await','&&','||','===','...','?.','->','git','npm','\x3C?php','\x3C/div>','\x3Cspan>','::class'];
     var N_GLYPHS = 66;
     var glyphs = [];
     function spawnGlyph(init) {
@@ -4348,137 +4262,6 @@
         requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
-})();
-
-// ===== HERO LIVE TYPED CODE (typing animation) =====
-(function() {
-    var root = document.getElementById('heroCode');
-    if (!root) return;
-    /* lines render straight into the block — no window frame around them */
-    var body = root;
-
-    var LINES = 5;
-    var SPEED = 24;
-    var LINE_PAUSE = 320;
-    var SCENE_PAUSE = 2300;
-
-    var SCENES = [
-        [
-            [ { t: '$ ', c: 'pr' }, { t: 'php artisan serve', c: 'pc' } ],
-            [ { t: '   INFO  Server running on ', c: 'dim' }, { t: 'http://127.0.0.1:8000', c: 'key' } ],
-            [ { t: '$ ', c: 'pr' }, { t: 'npm run dev', c: 'pc' } ],
-            [ { t: '   VITE v7 ready in ', c: 'dim' }, { t: '312 ms', c: 'ok' } ],
-            [ { t: '   \u2192  Local:  ', c: 'dim' }, { t: 'http://localhost:5173/', c: 'key' } ]
-        ],
-        [
-            [ { t: '// routes/web.php', c: 'cm' } ],
-            [ { t: 'Route', c: 'fn' }, { t: '::', c: 'pc' }, { t: 'get', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'/'", c: 'st' }, { t: ', ', c: 'pc' }, { t: 'HomeController', c: 'key' }, { t: '::class', c: 'kw' }, { t: ');', c: 'pc' } ],
-            [ { t: 'return ', c: 'kw' }, { t: 'view', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'welcome'", c: 'st' }, { t: ', ', c: 'pc' }, { t: 'compact', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'projects'", c: 'st' }, { t: '));', c: 'pc' } ],
-            [ { t: 'Cache', c: 'key' }, { t: '::', c: 'pc' }, { t: 'remember', c: 'fn' }, { t: '(', c: 'pc' }, { t: "'projects'", c: 'st' }, { t: ', ', c: 'pc' }, { t: '3600', c: 'ok' }, { t: ', ', c: 'pc' }, { t: '$loader', c: 'key' }, { t: ');', c: 'pc' } ],
-            [ { t: '// => ready to ship', c: 'cm' } ]
-        ],
-        [
-            [ { t: '$ ', c: 'pr' }, { t: 'git add . && git commit -m ', c: 'pc' }, { t: '"ship it"', c: 'st' } ],
-            [ { t: '   [main ', c: 'dim' }, { t: '4f2a91c', c: 'fn' }, { t: '] ', c: 'dim' }, { t: 'ship it', c: 'ok' } ],
-            [ { t: '   3 files changed, ', c: 'dim' }, { t: '128 insertions(+)', c: 'ok' } ],
-            [ { t: '$ ', c: 'pr' }, { t: 'git push origin main', c: 'pc' } ],
-            [ { t: '   \u2192  ', c: 'dim' }, { t: 'Everything up-to-date', c: 'ok' } ]
-        ]
-    ];
-
-    function makeLine(i) {
-        var el = document.createElement('div');
-        el.className = 'hc-line';
-        var ln = document.createElement('span');
-        ln.className = 'hc-ln';
-        ln.textContent = i + 1;
-        var code = document.createElement('span');
-        code.className = 'hc-code';
-        el.appendChild(ln);
-        el.appendChild(code);
-        return el;
-    }
-
-    function paintStatic(scene) {
-        body.innerHTML = '';
-        for (var i = 0; i < LINES; i++) {
-            var line = makeLine(i);
-            var code = line.querySelector('.hc-code');
-            var tokens = scene[i] || [];
-            for (var j = 0; j < tokens.length; j++) {
-                var s = document.createElement('span');
-                if (tokens[j].c) s.className = tokens[j].c;
-                s.textContent = tokens[j].t;
-                code.appendChild(s);
-            }
-            body.appendChild(line);
-        }
-    }
-
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        paintStatic(SCENES[1]);
-        return;
-    }
-
-    var sceneIndex = 0;
-    var lineIndex = 0;
-    var tokenIndex = 0;
-    var charIndex = 0;
-    var codeEl = null;
-    var spanEl = null;
-
-    function startScene() {
-        body.innerHTML = '';
-        for (var i = 0; i < LINES; i++) body.appendChild(makeLine(i));
-        lineIndex = 0; tokenIndex = 0; charIndex = 0;
-        codeEl = null; spanEl = null;
-        typeStep();
-    }
-
-    function finishScene() {
-        sceneIndex = (sceneIndex + 1) % SCENES.length;
-        setTimeout(startScene, SCENE_PAUSE);
-    }
-
-    function nextLine() {
-        lineIndex++;
-        tokenIndex = 0;
-        charIndex = 0;
-        setTimeout(typeStep, LINE_PAUSE);
-    }
-
-    function typeStep() {
-        var lineEl = body.children[lineIndex];
-        if (!lineEl) { setTimeout(finishScene, SCENE_PAUSE); return; }
-
-        var tokens = SCENES[sceneIndex][lineIndex] || [];
-
-        if (tokenIndex === 0 && charIndex === 0) {
-            /* trailing blank line = scene finished, keep last caret in place */
-            if (!tokens.length) { setTimeout(finishScene, SCENE_PAUSE); return; }
-            var prev = body.querySelector('.hc-line.active');
-            if (prev) prev.classList.remove('active');
-            lineEl.classList.add('active');
-            codeEl = lineEl.querySelector('.hc-code');
-            spanEl = null;
-        }
-
-        var tok = tokens[tokenIndex];
-        if (charIndex === 0) {
-            spanEl = document.createElement('span');
-            if (tok.c) spanEl.className = tok.c;
-            codeEl.appendChild(spanEl);
-        }
-
-        charIndex++;
-        spanEl.textContent = tok.t.slice(0, charIndex);
-
-        if (charIndex >= tok.t.length) { tokenIndex++; charIndex = 0; }
-        if (tokenIndex >= tokens.length) { nextLine(); return; }
-        setTimeout(typeStep, SPEED);
-    }
-
-    startScene();
 })();
 
 // ===== MOBILE MENU =====
