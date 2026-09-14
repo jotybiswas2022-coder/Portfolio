@@ -208,86 +208,63 @@
     .float-chip.c5 { top: 60%; right: 4%; animation: floatChip 4.8s ease-in-out infinite 1.5s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-    /* ===== Hero Live Coding Terminal ===== */
-    .hero-terminal {
+    /* ===== Hero Live Typed Code (borderless) ===== */
+    .hero-code {
         position: relative;
-        margin: 2.6rem auto 0;
+        margin: 2.4rem auto 0;
         max-width: 620px;
         text-align: left;
-        background: linear-gradient(180deg, #0b1424, #0e1b33);
-        border: 1px solid rgba(59, 130, 246, 0.22);
-        border-radius: 16px;
-        overflow: hidden;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        box-shadow:
-            0 24px 60px rgba(2, 8, 23, 0.6),
-            0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-            0 0 50px rgba(59, 130, 246, 0.1);
         opacity: 0;
         transform: translateY(40px);
         animation: fadeInUp 1s ease forwards;
         animation-delay: 0.8s;
     }
-    html.light-theme .hero-terminal {
-        border-color: rgba(59, 130, 246, 0.3);
-        box-shadow:
-            0 24px 55px rgba(59, 130, 246, 0.18),
-            0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-    }
-    .hero-terminal::after {
+    /* Soft radial vignette — keeps the code readable over the animated backdrop
+       without drawing a hard-edged box around it. */
+    .hero-code::before {
         content: '';
-        position: absolute; inset: 0;
-        background: linear-gradient(115deg, transparent 36%, rgba(96, 165, 250, 0.07) 48%, transparent 62%);
-        transform: translateX(-130%);
-        animation: htSheen 7s ease-in-out infinite 1.6s;
-        pointer-events: none;
+        position: absolute; inset: -2.2rem -3.5rem;
+        z-index: -1; pointer-events: none;
+        background: radial-gradient(58% 68% at 50% 50%, rgba(2, 6, 18, 0.52), transparent 74%);
     }
-    @keyframes htSheen {
-        0% { transform: translateX(-130%); }
-        45%, 100% { transform: translateX(130%); }
+    html.light-theme .hero-code::before {
+        background: radial-gradient(58% 68% at 50% 50%, rgba(248, 250, 252, 0.75), transparent 74%);
     }
-    .ht-titlebar {
-        display: flex; align-items: center;
-        padding: 0.6rem 0.9rem;
-        background: rgba(255, 255, 255, 0.03);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    .hc-line { display: flex; }
+    .hc-line .hc-ln {
+        width: 2.4rem; flex: 0 0 2.4rem;
+        text-align: right; padding-right: 0.9rem;
+        font-size: 0.7rem; line-height: 1.9;
+        color: rgba(148, 163, 184, 0.5);
+        user-select: none;
     }
-    .ht-tab {
-        margin-left: 0.9rem; flex: 1;
-        display: inline-flex; align-items: center; gap: 0.45rem;
-        font-size: 0.74rem; color: #cbd5e1;
-        background: rgba(59, 130, 246, 0.1);
-        border: 1px solid rgba(59, 130, 246, 0.16);
-        border-radius: 7px 7px 0 0;
-        padding: 0.32rem 0.85rem;
-        max-width: 200px;
-        white-space: nowrap; overflow: hidden;
-    }
-    .ht-tab i { color: #eab308; }
-    .ht-dots { color: #475569; font-size: 0.85rem; }
-    .ht-body { padding: 0.95rem 0 1rem; min-height: 10.4rem; }
-    .ht-line { display: flex; padding-right: 1rem; }
-    .ht-line .ht-ln {
-        width: 2.7rem; flex: 0 0 2.7rem;
-        text-align: right; padding-right: 0.8rem;
-        color: #334155; font-size: 0.7rem;
-        line-height: 1.9; user-select: none;
-    }
-    .ht-line .ht-code {
-        font-size: 0.82rem; color: #94a3b8;
-        line-height: 1.9;
+    .hc-line .hc-code {
+        font-size: 0.88rem; line-height: 1.9;
+        color: #cbd5e1;
         white-space: pre-wrap; word-break: break-word;
+        text-shadow: 0 2px 14px rgba(2, 6, 18, 0.85), 0 0 3px rgba(2, 6, 18, 0.6);
     }
-    .ht-code .pr  { color: #34d399; font-weight: 700; }
-    .ht-code .kw  { color: #c084fc; font-weight: 600; }
-    .ht-code .key { color: #60a5fa; }
-    .ht-code .st  { color: #34d399; }
-    .ht-code .fn  { color: #fbbf24; }
-    .ht-code .pc  { color: #94a3b8; }
-    .ht-code .cm  { color: #5b6b84; font-style: italic; }
-    .ht-code .ok  { color: #4ade80; }
-    .ht-code .dim { color: #64748b; }
-    .ht-line.active .ht-code::after {
+    .hc-code .pr  { color: #34d399; font-weight: 700; }
+    .hc-code .kw  { color: #c084fc; font-weight: 600; }
+    .hc-code .key { color: #7dd3fc; }
+    .hc-code .st  { color: #4ade80; }
+    .hc-code .fn  { color: #fbbf24; }
+    .hc-code .pc  { color: #cbd5e1; }
+    .hc-code .cm  { color: #7b8ba4; font-style: italic; }
+    .hc-code .ok  { color: #4ade80; }
+    .hc-code .dim { color: #94a3b8; }
+    html.light-theme .hc-line .hc-code { text-shadow: 0 1px 12px rgba(255, 255, 255, 0.9); }
+    html.light-theme .hc-code .pr  { color: #047857; }
+    html.light-theme .hc-code .kw  { color: #7c3aed; }
+    html.light-theme .hc-code .key { color: #1d4ed8; }
+    html.light-theme .hc-code .st  { color: #047857; }
+    html.light-theme .hc-code .fn  { color: #b45309; }
+    html.light-theme .hc-code .pc  { color: #475569; }
+    html.light-theme .hc-code .cm  { color: #64748b; }
+    html.light-theme .hc-code .ok  { color: #15803d; }
+    html.light-theme .hc-code .dim { color: #64748b; }
+    .hc-line.active .hc-code::after {
         content: '';
         display: inline-block;
         width: 8px; height: 0.95em;
@@ -298,30 +275,21 @@
         box-shadow: 0 0 10px rgba(52, 211, 153, 0.65);
         animation: caretBlink 0.9s step-end infinite;
     }
-    .ht-statusbar {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 0.34rem 0.9rem;
-        font-size: 0.66rem; color: #64748b;
-        background: rgba(2, 8, 23, 0.5);
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        letter-spacing: 0.3px;
+    html.light-theme .hc-line.active .hc-code::after {
+        background: #059669;
+        box-shadow: 0 0 10px rgba(5, 150, 105, 0.5);
     }
-    .ht-statusbar i { color: #3b82f6; }
     @media (max-width: 968px) {
-        .hero-terminal { max-width: 100%; }
+        .hero-code { max-width: 100%; }
     }
     @media (max-width: 768px) {
-        .hero-terminal { margin-top: 2rem; }
-        .ht-body { min-height: 9.6rem; }
-        .ht-line .ht-code { font-size: 0.76rem; }
-        .ht-line .ht-ln { width: 2.2rem; flex-basis: 2.2rem; padding-right: 0.6rem; font-size: 0.64rem; }
+        .hero-code { margin-top: 2rem; }
+        .hc-line .hc-code { font-size: 0.8rem; }
+        .hc-line .hc-ln { width: 1.9rem; flex-basis: 1.9rem; padding-right: 0.6rem; font-size: 0.64rem; }
     }
     @media (max-width: 480px) {
-        .hero-terminal { border-radius: 14px; }
-        .ht-body { min-height: 8.8rem; padding: 0.75rem 0 0.85rem; }
-        .ht-line .ht-code { font-size: 0.7rem; }
-        .ht-tab { font-size: 0.66rem; max-width: 172px; }
-        .ht-statusbar .ht-status-right { display: none; }
+        .hero-code::before { inset: -1.4rem -0.9rem; }
+        .hc-line .hc-code { font-size: 0.72rem; }
     }
 
     /* Shimmer Text */
@@ -3164,23 +3132,8 @@
                 </a>
             </div>
 
-            <!-- Live Coding Terminal -->
-            <div class="hero-terminal" id="heroTerminal" aria-hidden="true">
-                <div class="ht-titlebar">
-                    <div class="traffic-lights">
-                        <span class="tl tl-red"></span>
-                        <span class="tl tl-yellow"></span>
-                        <span class="tl tl-green"></span>
-                    </div>
-                    <div class="ht-tab"><i class="bi bi-terminal-fill"></i> bash &mdash; ~/portfolio</div>
-                    <div class="ht-dots"><i class="bi bi-three-dots-vertical"></i></div>
-                </div>
-                <div class="ht-body"></div>
-                <div class="ht-statusbar">
-                    <span><i class="bi bi-git-branch"></i> main &nbsp; <i class="bi bi-check-circle-fill"></i> build passing</span>
-                    <span class="ht-status-right">PHP 8.3 &middot; Laravel &middot; UTF-8</span>
-                </div>
-            </div>
+            <!-- Live typed code — no window chrome, just the lines typing themselves -->
+            <div class="hero-code" id="heroCode" aria-hidden="true"></div>
         </div>
         <div class="scroll-indicator">
             <div class="mouse">
@@ -4397,12 +4350,12 @@
     requestAnimationFrame(draw);
 })();
 
-// ===== HERO LIVE CODING TERMINAL (typing animation) =====
+// ===== HERO LIVE TYPED CODE (typing animation) =====
 (function() {
-    var root = document.getElementById('heroTerminal');
+    var root = document.getElementById('heroCode');
     if (!root) return;
-    var body = root.querySelector('.ht-body');
-    if (!body) return;
+    /* lines render straight into the block — no window frame around them */
+    var body = root;
 
     var LINES = 5;
     var SPEED = 24;
@@ -4435,12 +4388,12 @@
 
     function makeLine(i) {
         var el = document.createElement('div');
-        el.className = 'ht-line';
+        el.className = 'hc-line';
         var ln = document.createElement('span');
-        ln.className = 'ht-ln';
+        ln.className = 'hc-ln';
         ln.textContent = i + 1;
         var code = document.createElement('span');
-        code.className = 'ht-code';
+        code.className = 'hc-code';
         el.appendChild(ln);
         el.appendChild(code);
         return el;
@@ -4450,7 +4403,7 @@
         body.innerHTML = '';
         for (var i = 0; i < LINES; i++) {
             var line = makeLine(i);
-            var code = line.querySelector('.ht-code');
+            var code = line.querySelector('.hc-code');
             var tokens = scene[i] || [];
             for (var j = 0; j < tokens.length; j++) {
                 var s = document.createElement('span');
@@ -4503,10 +4456,10 @@
         if (tokenIndex === 0 && charIndex === 0) {
             /* trailing blank line = scene finished, keep last caret in place */
             if (!tokens.length) { setTimeout(finishScene, SCENE_PAUSE); return; }
-            var prev = body.querySelector('.ht-line.active');
+            var prev = body.querySelector('.hc-line.active');
             if (prev) prev.classList.remove('active');
             lineEl.classList.add('active');
-            codeEl = lineEl.querySelector('.ht-code');
+            codeEl = lineEl.querySelector('.hc-code');
             spanEl = null;
         }
 
