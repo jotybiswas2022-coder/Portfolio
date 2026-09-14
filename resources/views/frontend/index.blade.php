@@ -63,29 +63,9 @@
     html.light-theme .float-chip i {
         color: #3b82f6;
     }
-    html.light-theme .code-window {
-        background: rgba(255, 255, 255, 0.92);
-        border-color: rgba(99, 102, 241, 0.35);
-        box-shadow: 0 24px 50px rgba(30, 41, 59, 0.14), 0 0 0 1px rgba(99, 102, 241, 0.08);
-    }
-    html.light-theme .code-window-header { background: rgba(241, 245, 249, 0.95); }
-    html.light-theme .code-window-body { color: #475569; }
-    html.light-theme .code-window-body .kw { color: #7c3aed; }
-    html.light-theme .code-window-body .fn { color: #2563eb; }
-    html.light-theme .code-window-body .str { color: #16a34a; }
-    html.light-theme .code-window-body .cmt { color: #94a3b8; }
-    html.light-theme .code-window-body .num { color: #d97706; }
-    html.light-theme .code-caret { background: #3b82f6; }
     html.light-theme .code-fragment { color: rgba(99, 102, 241, 0.35); }
     html.light-theme .code-fragment b { color: rgba(234, 120, 70, 0.55); }
     html.light-theme .code-fragment em { color: rgba(22, 160, 90, 0.5); }
-    html.light-theme .code-window-status {
-        background: rgba(241, 245, 249, 0.8);
-        border-top-color: rgba(99, 102, 241, 0.15);
-        color: #64748b;
-    }
-    html.light-theme .code-window-body .line::before { color: rgba(148, 163, 184, 0.6); }
-    html.light-theme .code-window-body .ok { color: #16a34a; }
     html.light-theme .cube-face {
         background: rgba(255, 255, 255, 0.72);
         border-color: rgba(99, 102, 241, 0.45);
@@ -95,17 +75,6 @@
     html.light-theme .hero-scan {
         background: linear-gradient(180deg, transparent, rgba(30,41,59,0.05) 35%, rgba(30,41,59,0.12) 50%, rgba(30,41,59,0.05) 65%, transparent);
     }
-    html.light-theme .term-window {
-        background: rgba(255, 255, 255, 0.92);
-        border-color: rgba(52, 211, 153, 0.5);
-        box-shadow: 0 20px 40px rgba(30, 41, 59, 0.12);
-    }
-    html.light-theme .term-header { background: rgba(241, 245, 249, 0.95); }
-    html.light-theme .term-body { color: #15803d; }
-    html.light-theme .term-body .cmd { color: #334155; }
-    html.light-theme .term-body .out { color: #64748b; }
-    html.light-theme .term-body .ok { color: #16a34a; }
-    html.light-theme .term-caret { background: #16a34a; }
     html.light-theme .stat-item .number {
         filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.15));
     }
@@ -246,122 +215,6 @@
         0%, 6% { opacity: 0; transform: translateY(14px); }
         12%, 78% { opacity: 1; transform: translateY(0); }
         92%, 100% { opacity: 0; transform: translateY(-14px); }
-    }
-
-    /* Code Editor Window (right side, static) */
-    .code-window {
-        position: absolute; z-index: 1; pointer-events: none;
-        top: 18%; right: 1.5%;
-        width: min(300px, 21vw);
-        background: rgba(10,16,30,0.74);
-        border: 1px solid rgba(99,102,241,0.35);
-        border-radius: 14px;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(99,102,241,0.08), 0 0 44px rgba(99,102,241,0.12);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        overflow: hidden;
-        animation: windowFloat 7s ease-in-out infinite;
-    }
-    @keyframes windowFloat {
-        0%, 100% { transform: translateY(-6px); }
-        50% { transform: translateY(8px); }
-    }
-    .code-window-header {
-        display: flex; align-items: center; gap: 6px;
-        padding: 10px 12px;
-        background: rgba(15,23,42,0.9);
-        border-bottom: 1px solid rgba(99,102,241,0.18);
-    }
-    .code-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .code-dot.red { background: #f87171; }
-    .code-dot.yellow { background: #fbbf24; }
-    .code-dot.green { background: #34d399; }
-    .code-window-title {
-        margin-left: 8px; font-size: 0.68rem;
-        color: rgba(203,213,225,0.7);
-        font-family: 'Consolas', 'Fira Code', monospace; letter-spacing: 0.4px;
-    }
-    .code-window-body {
-        padding: 16px 14px 18px; min-height: 150px;
-        font-family: 'Consolas', 'Fira Code', 'Cascadia Code', monospace;
-        font-size: 0.75rem; line-height: 1.7; color: #c7d2fe;
-        text-align: left;
-    }
-    .code-window-body .line { display: block; white-space: pre; }
-    .code-window-body .kw { color: #a78bfa; }
-    .code-window-body .fn { color: #93c5fd; }
-    .code-window-body .str { color: #86efac; }
-    .code-window-body .cmt { color: #64748b; font-style: italic; }
-    .code-window-body .num { color: #fbbf24; }
-    .code-caret {
-        display: inline-block; width: 7px; height: 14px; vertical-align: middle;
-        background: #60a5fa; margin-left: 2px; border-radius: 1px;
-        animation: caretBlink 0.9s steps(1) infinite;
-    }
-    @keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
-
-    /* Line numbers in code window */
-    .code-window-body { counter-reset: ln; }
-    .code-window-body .line { counter-increment: ln; }
-    .code-window-body .line::before {
-        content: counter(ln);
-        display: inline-block; width: 20px;
-        color: rgba(148,163,184,0.4); font-size: 0.68rem;
-        margin-right: 12px; text-align: right; user-select: none;
-    }
-    .code-window-body .ok { color: #34d399; }
-
-    /* Code window status bar */
-    .code-window-status {
-        display: flex; align-items: center; gap: 10px;
-        padding: 6px 12px; border-top: 1px solid rgba(99,102,241,0.15);
-        background: rgba(15,23,42,0.7);
-        font-size: 0.6rem; color: rgba(148,163,184,0.75);
-        font-family: 'Consolas', 'Fira Code', monospace; letter-spacing: 0.3px;
-    }
-    .code-window-status .status-dot {
-        width: 6px; height: 6px; border-radius: 50%;
-        background: #34d399; box-shadow: 0 0 8px #34d399;
-    }
-    .code-window-status .status-spacer { flex: 1; }
-
-    /* Terminal window (right side, static) */
-    .term-window {
-        position: absolute; z-index: 1; pointer-events: none;
-        bottom: 10%; right: 3%;
-        width: min(280px, 19vw);
-        background: rgba(10,16,30,0.78);
-        border: 1px solid rgba(52,211,153,0.28);
-        border-radius: 12px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 34px rgba(52,211,153,0.10);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        overflow: hidden;
-        font-family: 'Consolas', 'Fira Code', 'Cascadia Code', monospace;
-        animation: windowFloat 7s ease-in-out infinite 1.2s;
-    }
-    .term-header {
-        display: flex; align-items: center; gap: 6px; padding: 8px 12px;
-        background: rgba(15,23,42,0.9);
-        border-bottom: 1px solid rgba(52,211,153,0.15);
-    }
-    .term-title {
-        margin-left: 8px; font-size: 0.66rem;
-        color: rgba(203,213,225,0.6); letter-spacing: 0.4px;
-    }
-    .term-body {
-        padding: 12px 14px 16px; font-size: 0.72rem; line-height: 1.8;
-        color: #86efac; text-align: left; min-height: 112px;
-    }
-    .term-body .l { display: block; white-space: pre; }
-    .term-body .prompt { color: #60a5fa; font-weight: 600; }
-    .term-body .cmd { color: #e2e8f0; }
-    .term-body .out { color: #94a3b8; }
-    .term-body .ok { color: #34d399; }
-    .term-caret {
-        display: inline-block; width: 6px; height: 13px;
-        background: #86efac; vertical-align: middle; margin-left: 2px;
-        animation: caretBlink 0.9s steps(1) infinite;
     }
 
     /* Floating Chips */
@@ -2920,14 +2773,11 @@
 
     /* ===== COMPREHENSIVE RESPONSIVE ===== */
     
-    /* Hide cards on smaller desktops to avoid overlap with hero text; keep the cube */
+    /* Keep the cube but shrink it on smaller desktops */
     @media (max-width: 1200px) {
-        .code-window { display: none; }
-        .term-window { display: none; }
         .code-fragment.f2 { display: none; }
         .code-fragment.f5 { display: none; }
         .hero-cube { --cube: 150px; }
-        .float-chip.c2 { display: inline-flex; top: 14%; right: 4%; }
     }
     
     /* Tablet (max 968px) */
@@ -3011,7 +2861,7 @@
         
         /* Tablet hero decorative */
         .float-chip.c1 { top: 10%; right: 3%; }
-        .float-chip.c2 { display: none; }
+.float-chip.c2 { bottom: 26%; right: 5%; animation: floatChip 6s ease-in-out infinite 1s; }
         .float-chip.c3 { display: none; }
         .code-fragment { display: none; }
         .hero-cube { display: none; }
@@ -3131,7 +2981,6 @@
         /* Hero decorative responsive */
         .code-grid-bg { display: none; }
         .code-fragment { display: none; }
-        .code-window { display: none; }
         .float-chip { display: none; }
 
         /* Extra size reductions for very small screens */
@@ -3197,50 +3046,6 @@
         <div class="code-fragment f4">}</div>
         <div class="code-fragment f5">return <em>true</em>;</div>
         <div class="code-fragment f6">// keep shipping</div>
-
-        <!-- Code Editor Card (static, right side) -->
-        <div class="code-window">
-            <div class="code-window-header">
-                <span class="code-dot red"></span>
-                <span class="code-dot yellow"></span>
-                <span class="code-dot green"></span>
-                <span class="code-window-title">developer.js</span>
-            </div>
-            <div class="code-window-body">
-                <span class="line"><span class="cmt">// profile</span></span>
-                <span class="line"><span class="kw">const</span> <span class="fn">dev</span> = {</span>
-                <span class="line"><span class="fn">name</span>: <span class="str">"Joty Biswas"</span>,</span>
-                <span class="line"><span class="fn">role</span>: <span class="str">"Full-Stack Dev"</span>,</span>
-                <span class="line"><span class="fn">stack</span>: [<span class="str">"PHP"</span>, <span class="str">"JS"</span>],</span>
-                <span class="line"><span class="fn">hireable</span>: <span class="kw">true</span>,</span>
-                <span class="line">};</span>
-                <span class="line"><span class="kw">export</span> <span class="kw">default</span> <span class="fn">dev</span>;<span class="code-caret"></span></span>
-            </div>
-            <div class="code-window-status">
-                <span class="status-dot"></span>
-                <span>Ready</span>
-                <span class="status-spacer"></span>
-                <span>Ln 8, Col 20</span>
-            </div>
-        </div>
-
-        <!-- Terminal Card (static, right side) -->
-        <div class="term-window">
-            <div class="term-header">
-                <span class="code-dot red"></span>
-                <span class="code-dot yellow"></span>
-                <span class="code-dot green"></span>
-                <span class="term-title">terminal.zsh</span>
-            </div>
-            <div class="term-body">
-                <span class="l"><span class="prompt">❯ </span><span class="cmd">whoami</span></span>
-                <span class="l"><span class="out">joty.biswas &middot; full-stack developer</span></span>
-                <span class="l"><span class="prompt">❯ </span><span class="cmd">git push origin main</span></span>
-                <span class="l"><span class="ok">✓ deployed in 2.4s</span></span>
-                <span class="l"><span class="prompt">❯ </span><span class="cmd">npm run build</span></span>
-                <span class="l"><span class="out">done &middot; all targets passed</span><span class="term-caret"></span></span>
-            </div>
-        </div>
 
         <!-- Floating Chips -->
         <div class="float-chip c1"><i class="bi bi-code-slash"></i> &lt;/&gt; Clean &amp; Scalable Code</div>
