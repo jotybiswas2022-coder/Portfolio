@@ -141,6 +141,13 @@
     html.light-theme .hero h1 { text-shadow: 0 2px 22px rgba(255, 255, 255, 0.8); }
     html.light-theme .hero p  { text-shadow: 0 2px 16px rgba(255, 255, 255, 0.8); }
     html.light-theme .hero-badge { text-shadow: 0 1px 10px rgba(255, 255, 255, 0.7); }
+    html.light-theme .hero h1 .gradient-text {
+        background: linear-gradient(120deg,
+            #2563eb, #7c3aed, #db2777, #fb923c,
+            #0891b2, #4f46e5, #2563eb);
+        background-size: 400% 400%;
+        filter: drop-shadow(0 0 14px rgba(37, 99, 235, 0.18));
+    }
 
     /* Aurora color glows (full-page coverage) */
     .hero-aurora {
