@@ -134,6 +134,28 @@
     }
     @keyframes scanMove { 0% { top: -20%; } 100% { top: 115%; } }
 
+    /* Dark softly-glowing shield behind hero text (keeps it readable) */
+    .hero-text-dim {
+        position: absolute; top: 8%; left: 50%;
+        width: min(880px, 96%); height: 84%;
+        transform: translateX(-50%);
+        z-index: 1; pointer-events: none;
+        background: radial-gradient(ellipse 62% 56% at 50% 48%,
+            rgba(3, 7, 19, 0.82) 0%,
+            rgba(3, 7, 19, 0.55) 46%,
+            transparent 72%);
+        border-radius: 50%;
+    }
+    html.light-theme .hero-text-dim {
+        background: radial-gradient(ellipse 62% 56% at 50% 48%,
+            rgba(241, 245, 249, 0.7) 0%,
+            rgba(241, 245, 249, 0.4) 46%,
+            transparent 72%);
+    }
+    @media (max-width: 768px) {
+        .hero-text-dim { top: 4%; height: 92%; }
+    }
+
     /* Aurora color glows (full-page coverage) */
     .hero-aurora {
         position: absolute; top: -20%; left: -10%; right: -10%; bottom: -20%;
@@ -145,7 +167,7 @@
             radial-gradient(50% 58% at 82% 76%, rgba(192,38,211,0.22), transparent 72%),
             radial-gradient(44% 46% at 50% 50%, rgba(56,132,255,0.14), transparent 78%),
             radial-gradient(30% 38% at 50% 2%, rgba(129,140,248,0.18), transparent 70%);
-        animation: auroraDrift 18s ease-in-out infinite;
+        animation: auroraDrift 26s ease-in-out infinite;
     }
     @keyframes auroraDrift {
         0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
@@ -2988,6 +3010,9 @@
         <!-- Aurora Color Glows -->
         <div class="hero-aurora"></div>
 
+        <!-- Subtle dark shield behind the hero text -->
+        <div class="hero-text-dim"></div>
+
         <!-- Code Grid Background -->
         <div class="code-grid-bg"></div>
 
@@ -4105,7 +4130,7 @@
             bx: Math.random(),
             xv: (Math.random() - 0.5) * 0.0005,
             z: randomZ ? Math.random() : 0,
-            spd: 0.003 + Math.random() * 0.007,
+            spd: 0.0016 + Math.random() * 0.0042,
             tok: tokens[Math.floor(Math.random() * tokens.length)],
             col: col,
             accent: Math.random() > 0.88,
@@ -4167,7 +4192,7 @@
         // code tokens racing across the whole floor (full-width)
         for (var i = 0; i < drops.length; i++) {
             var d = drops[i];
-            d.z += d.spd * 0.9;
+            d.z += d.spd * 0.6;
             if (d.z > 1) { drops[i] = spawn(i, false); continue; }
             d.bx += d.xv;
             if (d.bx < 0.02 || d.bx > 0.98) { d.xv *= -1; d.bx = Math.max(0.02, Math.min(0.98, d.bx)); }
