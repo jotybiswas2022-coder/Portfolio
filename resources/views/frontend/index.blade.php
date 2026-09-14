@@ -156,9 +156,10 @@
     /* Hologram code floor (3D perspective, full-bleed) */
     #hero-floor {
         position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        width: 100%; height: 100%;
         z-index: 0; pointer-events: none;
-        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 55%);
-        mask-image: linear-gradient(180deg, transparent 0%, #000 55%);
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 2%, #000 36%);
+        mask-image: linear-gradient(180deg, transparent 0%, transparent 2%, #000 36%);
     }
 
     /* Floating Code Fragments */
@@ -2755,7 +2756,7 @@
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
         .hero-aurora { opacity: 0.7; }
-        #hero-floor { opacity: 0.55; }
+        #hero-floor { opacity: 0.7; }
         .hero-scan { display: none; }
     }
     
@@ -2831,7 +2832,7 @@
         .float-chip.c3 { display: none; }
         .code-fragment { display: none; }
         .hero-aurora { opacity: 0.4; }
-        #hero-floor { display: none; }
+        #hero-floor { opacity: 0.3; }
         .hero-scan { display: none; }
         .code-grid-bg { background-size: 36px 36px; }
     }
@@ -4095,7 +4096,7 @@
         [129,140,248],[96,165,250],[52,211,153],[232,121,249],[251,191,36]
     ];
 
-    var N = 110;
+    var N = 200;
     var drops = [];
 
     function spawn(i, randomZ) {
@@ -4108,7 +4109,7 @@
             tok: tokens[Math.floor(Math.random() * tokens.length)],
             col: col,
             accent: Math.random() > 0.88,
-            size: 6 + Math.random() * 9
+            size: 6 + Math.random() * 10
         };
     }
 
@@ -4132,7 +4133,7 @@
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, W, H);
 
-        var hy = H * 0.30;
+        var hy = H * 0.28;
         var by = H - hy;
         var cx = W * 0.5;
 
@@ -4173,10 +4174,10 @@
 
             var zz2 = d.z;
             var foc = 0.22 + zz2 * 0.78;
-            var sx = cx + (d.bx - 0.5) * W * 1.9 * foc;
+            var sx = cx + (d.bx - 0.5) * W * 1.5 * foc;
             var sy = hy + zz2 * zz2 * by;
             var sz = d.size * (0.4 + zz2 * 1.15);
-            var alpha = 0.08 + zz2 * zz2 * 0.5;
+            var alpha = 0.12 + zz2 * zz2 * 0.5;
             if (d.accent) alpha = Math.min(alpha * 2, 0.95);
 
             ctx.font = '600 ' + sz.toFixed(1) + 'px Consolas, monospace';
