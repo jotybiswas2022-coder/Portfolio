@@ -136,24 +136,28 @@
 
     /* Dark softly-glowing shield behind hero text (keeps it readable) */
     .hero-text-dim {
-        position: absolute; top: 8%; left: 50%;
-        width: min(880px, 96%); height: 84%;
+        position: absolute; top: 10%; left: 50%;
+        width: min(860px, 96%); height: 80%;
         transform: translateX(-50%);
         z-index: 1; pointer-events: none;
-        background: radial-gradient(ellipse 62% 56% at 50% 48%,
-            rgba(3, 7, 19, 0.82) 0%,
-            rgba(3, 7, 19, 0.55) 46%,
-            transparent 72%);
         border-radius: 50%;
+        backdrop-filter: blur(26px) saturate(120%);
+        -webkit-backdrop-filter: blur(26px) saturate(120%);
+        background: radial-gradient(ellipse 68% 72% at 50% 44%,
+            rgba(3, 6, 18, 0.78) 0%,
+            rgba(3, 6, 18, 0.5) 62%,
+            transparent 85%);
+        box-shadow: inset 0 0 140px rgba(3, 6, 18, 0.55);
     }
     html.light-theme .hero-text-dim {
-        background: radial-gradient(ellipse 62% 56% at 50% 48%,
-            rgba(241, 245, 249, 0.7) 0%,
-            rgba(241, 245, 249, 0.4) 46%,
-            transparent 72%);
+        background: radial-gradient(ellipse 68% 72% at 50% 44%,
+            rgba(241, 245, 249, 0.72) 0%,
+            rgba(241, 245, 249, 0.42) 62%,
+            transparent 85%);
+        box-shadow: inset 0 0 140px rgba(226, 232, 240, 0.55);
     }
     @media (max-width: 768px) {
-        .hero-text-dim { top: 4%; height: 92%; }
+        .hero-text-dim { top: 6%; height: 88%; }
     }
 
     /* Aurora color glows (full-page coverage) */
