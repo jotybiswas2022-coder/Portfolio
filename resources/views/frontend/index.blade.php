@@ -268,17 +268,22 @@
         animation-delay: 0.2s; letter-spacing: -1.5px;
     }
     .hero h1 .gradient-text {
-        background: var(--accent-gradient-2);
-        background-size: 300% 300%;
+        background: linear-gradient(120deg,
+            #60a5fa, #818cf8, #c084fc, #f472b6,
+            #fbbf24, #34d399, #22d3ee, #60a5fa);
+        background-size: 400% 400%;
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
         white-space: nowrap;
-        animation: gradientShift 4s ease infinite;
+        animation: gradientFlow 6s linear infinite;
+        filter: drop-shadow(0 0 22px rgba(129, 140, 248, 0.35));
     }
-    @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    @keyframes gradientFlow {
+        0%   { background-position: 0% 30%; }
+        25%  { background-position: 40% 70%; }
+        50%  { background-position: 100% 50%; }
+        75%  { background-position: 60% 10%; }
+        100% { background-position: 0% 30%; }
     }
 
     .hero p {
