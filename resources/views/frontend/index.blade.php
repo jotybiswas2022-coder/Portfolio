@@ -1206,7 +1206,7 @@
 
     @media (max-width: 860px) {
         .svc-grid { max-width: 560px; }
-        .svc-card { flex: 0 0 100% !important; max-width: 100% !important; min-width: 0; }
+        .svc-card { flex: 0 0 calc((100% - 1rem) / 2); max-width: calc((100% - 1rem) / 2); min-width: 0; }
     }
     @media (max-width: 480px) {
         .svc-card-body { padding: 0.9rem 0.85rem 0.95rem; gap: 0.7rem; }
