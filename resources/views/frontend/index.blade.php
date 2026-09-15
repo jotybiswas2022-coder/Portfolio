@@ -417,6 +417,19 @@
         box-shadow: 0 0 24px rgba(59, 130, 246, 0.12);
     }
     .ab-kbracket { color: #fbbf24; font-weight: 800; }
+    .ab-shine {
+        position: absolute; inset: 0;
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.5) 0%, rgba(59, 130, 246, 0.18) 30%, transparent 62%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 0;
+        border-radius: 20px;
+    }
+    html.light-theme .ab-shine {
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.12) 30%, transparent 62%);
+    }
+    .about-shell:hover .ab-shine { opacity: 1; }
     .about-kicker-caret {
         display: inline-block; width: 8px; height: 14px;
         background: var(--accent-light); margin-left: 2px; border-radius: 1px;
@@ -3103,6 +3116,7 @@
             </div>
 
             <div class="about-shell reveal reveal-delay-1" id="aboutWorkbench">
+                <div class="ab-shine" aria-hidden="true"></div>
                 <span class="ab-chip c1"><i class="bi bi-code-slash"></i> Laravel</span>
                 <span class="ab-chip c2"><i class="fa-brands fa-php"></i> PHP</span>
                 <span class="ab-chip c3"><i class="bi bi-braces"></i> React</span>
@@ -4907,7 +4921,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card';
+    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .about-shell';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
