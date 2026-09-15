@@ -4000,35 +4000,6 @@
                     <p>{{ __('messages.no_casestudy_desc') }}</p>
                 </div>
             @endif
-            <div class="csh csh-cta reveal" data-csh>
-                <div class="csh-bar">
-                    <span class="ab-dot red"></span>
-                    <span class="ab-dot yellow"></span>
-                    <span class="ab-dot green"></span>
-                    <span class="csh-file"><i class="bi bi-terminal"></i> ~/portfolio</span>
-                    <span class="csh-tag">sh</span>
-                    <span class="csh-right"><span class="ab-dot2"></span> {{ __('messages.avail_for_work') }}</span>
-                </div>
-
-                <div class="csh-cmd">
-                    <span class="csh-prompt">&#10095;</span>
-                    <span class="csh-cmd-text" data-cmd="./next --start-project"></span><span class="csh-caret"></span>
-                </div>
-
-                <div class="csh-body">
-                    <p class="csh-cta-text csh-anim" style="--d: 0">{{ __('messages.casestudy_cta') }}</p>
-
-                    <div class="csh-actions csh-anim" style="--d: 1">
-                        <a href="#contact" class="btn-primary-custom"><i class="bi bi-rocket-takeoff"></i> {{ __('messages.start_project') }}</a>
-                        <a href="#projects" class="btn-outline-custom"><i class="bi bi-code-slash"></i> {{ __('messages.projects_title') }}</a>
-                    </div>
-
-                    <div class="csh-summary csh-anim" style="--d: 2">
-                        <span><i class="bi bi-check2-circle"></i> exit code 0</span>
-                        <span class="csh-sum-right">{{ __('messages.hire_me') }} &middot; awaiting your input</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
