@@ -386,7 +386,6 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
-    /* ===== ABOUT � IDE WORKBENCH (coding design) ===== */
     /* ===== ABOUT - GIT LOG PROFILE (coding design) ===== */
     .about-section {
         background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
