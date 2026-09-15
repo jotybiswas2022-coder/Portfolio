@@ -1740,187 +1740,207 @@
     }
 
 
-    /* ===== EXPERIENCE - CHANGELOG (coding design) ===== */
-    .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
-    html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
-
-    .rel-log { position: relative; max-width: 880px; margin: 0 auto; }
-
-    /* release rail */
-    .rel-log::before {
-        content: '';
-        position: absolute; left: 1rem; top: 1rem; bottom: 1.4rem; width: 2px;
-        background: linear-gradient(180deg, #3b82f6, #8b5cf6 55%, #22d3ee);
-        border-radius: 2px;
-        transform: scaleY(1); transform-origin: top;
-        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        /* ===== EXPERIENCE — DEBUG PROFILER DESIGN ===== */
+    .timeline-section {
+        background: linear-gradient(180deg, var(--bg-primary) 0%, #0a1628 50%, var(--bg-primary) 100%);
+        position: relative; overflow: hidden;
     }
-    .rel-log.rel-armed::before { transform: scaleY(0); }
+    html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #eef3fb 50%, #f8fafc 100%); }
+    .timeline-section::before {
+        content: ""; position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
+        mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
+        pointer-events: none; z-index: 0;
+    }
+    .timeline-section .container { position: relative; z-index: 1; }
 
-    .rel-head {
+    /* Profiler container */
+    .profiler { max-width: 900px; margin: 0 auto; }
+    .profiler-header {
         display: flex; align-items: center; gap: 0.6rem;
-        margin: 0 0 1.4rem 2.4rem;
+        padding: 0.65rem 1rem; margin-bottom: 0;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(148,163,184,0.12);
+        border-radius: 12px 12px 0 0; border-bottom: none;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.72rem; color: var(--text-muted);
+        font-size: 0.68rem; color: #64748b;
     }
-    .rel-head i { color: var(--accent-light); }
-    .rel-count {
-        margin-left: auto;
-        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
-        color: #34d399; background: rgba(52, 211, 153, 0.08);
-        border: 1px solid rgba(52, 211, 153, 0.26);
-        padding: 0.2rem 0.6rem; border-radius: 50px;
+    .profiler-header i { color: #818cf8; }
+    .profiler-header .prof-title { color: #93c5fd; font-weight: 600; margin-left: 0.3rem; }
+    .profiler-header .prof-count {
+        margin-left: auto; color: #34d399;
+        background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.28);
+        padding: 0.15rem 0.5rem; border-radius: 50px; white-space: nowrap;
     }
+    html.light-theme .profiler-header { background: rgba(15,23,42,0.03); border-color: rgba(15,23,42,0.08); }
 
-    .rel-entry {
-        position: relative;
-        padding: 0 0 1.4rem 2.4rem;
-        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        transition-delay: calc(var(--i, 0) * 130ms + 120ms);
-    }
-    .rel-entry:last-of-type { padding-bottom: 0; }
-    .rel-log.rel-armed .rel-entry { opacity: 0; transform: translateX(-18px); }
-    .rel-log.rel-ready .rel-entry { opacity: 1; transform: translateX(0); }
-
-    .rel-node {
-        position: absolute; left: 0.63rem; top: 1.15rem;
-        width: 0.86rem; height: 0.86rem; border-radius: 50%;
-        background: #0b1424; border: 2px solid #3b82f6;
-        transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.5);
-        transition-delay: calc(var(--i, 0) * 130ms + 200ms);
-    }
-    html.light-theme .rel-node { background: #fff; }
-    .rel-node::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: #60a5fa; }
-    .rel-node::before {
-        content: ''; position: absolute; inset: -6px; border-radius: 50%;
-        border: 1px solid rgba(96, 165, 250, 0.45); opacity: 0;
-    }
-    .rel-log.rel-armed .rel-node { opacity: 0; transform: scale(0.3); }
-    .rel-log.rel-ready .rel-node { opacity: 1; transform: scale(1); }
-    .rel-log.rel-ready .rel-node::before { animation: glRing 2.8s ease-out infinite; animation-delay: calc(var(--i, 0) * 0.35s); }
-
-    /* release card (keeps the shared shine + magnetic hover) */
-    .timeline-card {
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg); padding: 1.15rem 1.35rem 1.3rem;
-        transition: var(--transition); position: relative; overflow: hidden;
-    }
-    .timeline-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.5) 0%, rgba(59,130,246,0.2) 30%, transparent 60%);
-        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
-    }
-    .timeline-card:hover::before { opacity: 1; }
-    html.light-theme .timeline-card::before {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.4) 0%, rgba(59,130,246,0.15) 30%, transparent 60%);
-    }
-    .timeline-card:hover {
-        border-color: var(--border-hover); transform: translateY(-5px);
-        box-shadow: var(--shadow-md);
-    }
-    .timeline-card > * { position: relative; z-index: 2; }
-
-    /* release bar */
-    .rel-bar {
-        display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
-        padding-bottom: 0.7rem; margin-bottom: 0.8rem;
-        border-bottom: 1px dashed rgba(148, 163, 184, 0.22);
-    }
-    .rel-ver {
+    /* Column headers */
+    .prof-col-head {
+        display: grid; grid-template-columns: 2.2rem 1fr auto;
+        gap: 0.5rem; align-items: center;
+        padding: 0.45rem 0.85rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.7rem; font-weight: 700;
-        color: #fbbf24; background: rgba(251, 191, 36, 0.1);
-        border: 1px solid rgba(251, 191, 36, 0.28);
-        padding: 0.16rem 0.5rem; border-radius: 5px;
-        white-space: nowrap;
+        font-size: 0.6rem; font-weight: 700; color: var(--text-muted);
+        text-transform: uppercase; letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(148,163,184,0.12);
     }
-    .rel-sha {
+    .prof-col-head span:nth-child(2) { padding-left: 0.3rem; }
+
+    /* Experience row */
+    .prof-row {
+        display: grid; grid-template-columns: 2.2rem 1fr auto;
+        gap: 0.5rem; align-items: start;
+        padding: 0; border-bottom: 1px solid rgba(148,163,184,0.06);
+        transition: background 0.3s ease;
+        position: relative; overflow: hidden;
+    }
+    .prof-row:last-child { border-bottom: none; }
+    .prof-row:hover { background: rgba(59,130,246,0.03); }
+    html.light-theme .prof-row:hover { background: rgba(59,130,246,0.04); }
+
+    /* Line number */
+    .prof-ln {
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.66rem; color: var(--text-muted); letter-spacing: 0.4px;
+        font-size: 0.62rem; color: #475569; text-align: right; padding-top: 1rem;
+        user-select: none; padding-right: 0.2rem;
     }
-    .timeline-date {
-        margin-left: auto;
-        display: inline-flex; align-items: center; gap: 0.35rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.68rem; font-weight: 600; color: var(--accent-light);
-        white-space: nowrap;
+    html.light-theme .prof-ln { color: #94a3b8; }
+
+    /* Card content */
+    .prof-card {
+        padding: 0.95rem 1rem; margin: 0.35rem 0;
+        background: linear-gradient(180deg, rgba(15,25,45,0.78) 0%, rgba(10,18,35,0.6) 100%);
+        border: 1px solid rgba(129,140,248,0.18); border-radius: 12px;
+        position: relative; overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
     }
-    .current-badge {
+    .prof-card::before {
+        content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+        background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+        opacity: 0.5; transition: opacity 0.3s ease;
+    }
+    .prof-row:hover .prof-card {
+        border-color: rgba(129,140,248,0.4);
+        box-shadow: 0 8px 30px rgba(2,8,23,0.5), 0 0 40px rgba(59,130,246,0.06);
+        transform: translateX(4px);
+    }
+    .prof-row:hover .prof-card::before { opacity: 1; }
+    html.light-theme .prof-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(238,242,255,0.72) 100%);
+        border-color: rgba(99,102,241,0.2);
+    }
+    html.light-theme .prof-row:hover .prof-card { box-shadow: 0 8px 30px rgba(59,130,246,0.1); }
+
+    /* Card header row */
+    .prof-card-head {
+        display: flex; align-items: center; flex-wrap: wrap; gap: 0.45rem;
+        margin-bottom: 0.5rem;
+    }
+    .prof-role {
+        font-family: var(--font); font-size: 1rem; font-weight: 700;
+        color: var(--text-primary); line-height: 1.3;
+    }
+    .prof-status {
         display: inline-flex; align-items: center; gap: 0.3rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.58rem; font-weight: 800; letter-spacing: 0.6px;
+        font-size: 0.55rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
+        padding: 0.15rem 0.5rem; border-radius: 50px;
+    }
+    .prof-status.running {
         color: #052e16; background: linear-gradient(135deg, #4ade80, #22c55e);
-        padding: 0.18rem 0.55rem; border-radius: 5px;
-        box-shadow: 0 0 16px rgba(34, 197, 94, 0.35);
-        white-space: nowrap;
+        box-shadow: 0 0 16px rgba(34,197,94,0.35);
         animation: abPulse 2.4s ease-in-out infinite;
     }
-
-    .timeline-card h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text-primary); }
-    .timeline-company {
+    .prof-status.done {
+        color: #93c5fd; background: rgba(59,130,246,0.12);
+        border: 1px solid rgba(59,130,246,0.28);
+    }
+    .prof-company-row {
+        display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.74rem; color: var(--text-secondary);
-        display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
-        margin-bottom: 0.7rem;
+        font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 0.6rem;
     }
-    .timeline-company i { color: var(--accent-light); }
-    .timeline-location { color: var(--text-muted); }
-    .timeline-card p { color: var(--text-secondary); font-size: 0.87rem; line-height: 1.75; margin-bottom: 0; }
+    .prof-company-row i { color: var(--accent-light); font-size: 0.78rem; }
+    .prof-sep { color: #475569; }
+    .prof-location { color: var(--text-muted); }
 
-    /* changelog bullets */
-    .rel-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
-    .rel-list li {
-        position: relative; padding-left: 1.1rem;
-        font-size: 0.86rem; line-height: 1.7; color: var(--text-secondary);
-    }
-    .rel-list li::before {
-        content: '+';
-        position: absolute; left: 0; top: 0;
+    /* Timing bar */
+    .prof-timing {
+        display: flex; align-items: center; gap: 0.6rem;
+        margin-bottom: 0.6rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.85rem; font-weight: 700; color: #4ade80;
+        font-size: 0.62rem;
     }
+    .prof-timing-label { color: #64748b; }
+    .prof-timing-bar {
+        flex: 1; height: 4px; border-radius: 50px;
+        background: rgba(59,130,246,0.1); overflow: hidden;
+    }
+    .prof-timing-fill {
+        height: 100%; border-radius: 50px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6, #22d3ee);
+        background-size: 200% 100%;
+        width: 0; transition: width 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s;
+    }
+    .prof-row.visible .prof-timing-fill { width: var(--bar-w, 100%); }
+    .prof-timing-val { color: #818cf8; font-weight: 700; white-space: nowrap; }
 
-    /* log footer */
-    .rel-foot {
+    /* Description */
+    .prof-desc {
+        padding: 0.7rem 0.85rem; margin-top: 0.15rem;
+        background: rgba(2,8,23,0.3); border-left: 2px solid rgba(59,130,246,0.35);
+        border-radius: 0 8px 8px 0;
+        font-size: 0.78rem; line-height: 1.75; color: var(--text-secondary);
+    }
+    html.light-theme .prof-desc { background: rgba(15,23,42,0.04); }
+    .prof-desc-gutter { color: #6366f1; font-weight: 700; margin-right: 0.4rem; }
+
+    /* Duration badge on the right */
+    .prof-duration {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.62rem; color: var(--accent-light);
+        display: flex; align-items: center; gap: 0.3rem;
+        white-space: nowrap; padding-top: 1rem;
+    }
+    .prof-duration i { font-size: 0.7rem; }
+
+    /* Profiler footer */
+    .prof-footer {
         display: flex; align-items: center; gap: 0.5rem;
-        margin: 1.25rem 0 0 2.4rem;
+        padding: 0.55rem 0.85rem; margin-top: 0;
+        background: rgba(255,255,255,0.02); border: 1px solid rgba(148,163,184,0.1);
+        border-radius: 0 0 12px 12px; border-top: none;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.66rem; color: var(--text-muted);
+        font-size: 0.62rem; color: #64748b;
     }
-    .rel-foot i { color: var(--accent-light); }
-    .rel-foot-right { margin-left: auto; }
+    .prof-footer i { color: #34d399; }
+    .prof-footer-right { margin-left: auto; color: #818cf8; }
+    html.light-theme .prof-footer { background: rgba(15,23,42,0.02); border-color: rgba(15,23,42,0.08); }
 
-    /* The header/footer of the log fade with the releases */
-    .rel-head, .rel-foot { transition: opacity 0.5s ease, transform 0.5s ease; }
-    .rel-log.rel-armed .rel-head { opacity: 0; transform: translateY(-8px); }
-    .rel-log.rel-ready .rel-head { opacity: 1; transform: translateY(0); }
-    .rel-foot { transition-delay: 520ms; }
-    .rel-log.rel-armed .rel-foot { opacity: 0; }
-    .rel-log.rel-ready .rel-foot { opacity: 1; }
-
+    /* Responsive */
     @media (max-width: 768px) {
-        .rel-log::before { left: 0.7rem; }
-        .rel-node { left: 0.3rem; top: 1.05rem; width: 0.78rem; height: 0.78rem; }
-        .rel-entry { padding: 0 0 1.15rem 1.9rem; }
-        .rel-head, .rel-foot { margin-left: 1.9rem; }
-        .rel-sha { display: none; }
-        .timeline-card { padding: 1rem; }
-        .timeline-card h3 { font-size: 0.98rem; }
-        .timeline-company { font-size: 0.7rem; margin-bottom: 0.55rem; }
-        .timeline-card p { font-size: 0.8rem; }
-        .rel-list li { font-size: 0.79rem; }
-        .timeline-date { font-size: 0.64rem; }
-        .current-badge { font-size: 0.54rem; }
+        .prof-col-head { display: none; }
+        .prof-row { grid-template-columns: 1.6rem 1fr; }
+        .prof-duration { display: none; }
+        .prof-card { padding: 0.8rem; }
+        .prof-role { font-size: 0.92rem; }
+        .prof-card-head { gap: 0.35rem; }
+        .prof-timing { font-size: 0.58rem; }
+        .prof-desc { font-size: 0.74rem; padding: 0.6rem 0.75rem; }
+    }
+    @media (max-width: 480px) {
+        .prof-row { grid-template-columns: 1fr; }
+        .prof-ln { display: none; }
+        .prof-card { padding: 0.7rem; }
+        .prof-role { font-size: 0.85rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-        .rel-log.rel-armed .rel-entry,
-        .rel-log.rel-armed .rel-node { opacity: 1; transform: none; }
-        .rel-log.rel-armed::before { transform: scaleY(1); }
-        .rel-log.rel-ready .rel-node::before,
-        .current-badge { animation: none; }
+        .prof-timing-fill { transition: none; }
+        .prof-row.visible .prof-timing-fill { width: var(--bar-w, 100%); }
     }
 
-    /* ===== SKILLS - LIVE PROCESS MONITOR (coding design) ===== */
+/* ===== SKILLS - LIVE PROCESS MONITOR (coding design) ===== */
     .skills-section { background: linear-gradient(180deg, #080d1a 0%, var(--bg-secondary) 100%); }
     html.light-theme .skills-section { background: linear-gradient(180deg, #f1f5f9 0%, #eef2f7 100%); }
 
@@ -4025,14 +4045,7 @@
 
                     <div class="csh-summary csh-anim" style="--d: 2">
                         <span><i class="bi bi-check2-circle"></i> exit code 0</span>
-                        <span class="csh-sum-right">{{ __('messages.hire_me') }} &middot; awaiting your input</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Timeline Section -->
+                        <!-- Experience Section — DEBUG PROFILER DESIGN -->
     <section class="timeline-section section-padding" id="experience">
         <div class="container">
             <div class="code-divider reveal" aria-hidden="true">
@@ -4052,10 +4065,17 @@
             ])
 
             @if($experiences->isNotEmpty())
-                <div class="rel-log reveal" id="experienceLog">
-                    <div class="rel-head">
-                        <i class="bi bi-markdown"></i> CHANGELOG.md
-                        <span class="rel-count">{{ $experiences->count() }} releases</span>
+                <div class="profiler reveal">
+                    <div class="profiler-header">
+                        <i class="bi bi-activity"></i>
+                        <span class="prof-title">Performance Profiler</span>
+                        <span>{{ $experiences->count() }} tasks traced</span>
+                        <span class="prof-count"><i class="bi bi-circle-fill" style="font-size:0.35rem; vertical-align:middle"></i> profiling</span>
+                    </div>
+                    <div class="prof-col-head">
+                        <span>#</span>
+                        <span>task</span>
+                        <span>duration</span>
                     </div>
 
                     @foreach($experiences as $index => $exp)
@@ -4064,49 +4084,66 @@
                                 return $line !== '';
                             }));
                             $expBullets = array_slice($expBullets, 0, 4);
+                            $barWidth = max(30, 100 - ($index * 18));
                         @endphp
-                        <div class="rel-entry" style="--i: {{ $index }}">
-                            <span class="rel-node" aria-hidden="true"></span>
-                            <div class="timeline-card">
-                                <div class="rel-bar">
-                                    <span class="rel-ver">v{{ $experiences->count() - $index }}.0.0</span>
-                                    <span class="rel-sha">#{{ substr(md5((string) $exp->position . (string) $exp->company), 0, 7) }}</span>
-                                    <span class="timeline-date"><i class="bi bi-calendar3"></i> {{ $exp->duration }}</span>
+                        <div class="prof-row" style="--bar-w: {{ $barWidth }}%">
+                            <span class="prof-ln">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                            <div class="prof-card">
+                                <div class="prof-card-head">
+                                    <span class="prof-role">{{ $exp->position }}</span>
                                     @if($exp->is_current)
-                                        <span class="current-badge">HEAD &middot; {{ __('messages.current') }}</span>
+                                        <span class="prof-status running"><i class="bi bi-circle-fill" style="font-size:0.4rem"></i> active</span>
+                                    @else
+                                        <span class="prof-status done">completed</span>
                                     @endif
                                 </div>
-                                <h3>{{ $exp->position }}</h3>
-                                <div class="timeline-company">
-                                    <i class="bi bi-building"></i> {{ $exp->company }}
+                                <div class="prof-company-row">
+                                    <i class="bi bi-building"></i>
+                                    <span>{{ $exp->company }}</span>
                                     @if($exp->location)
-                                        <span class="timeline-location"><i class="bi bi-geo-alt"></i> {{ $exp->location }}</span>
+                                        <span class="prof-sep">/</span>
+                                        <span class="prof-location"><i class="bi bi-geo-alt"></i> {{ $exp->location }}</span>
                                     @endif
+                                </div>
+                                <div class="prof-timing">
+                                    <span class="prof-timing-label">elapsed</span>
+                                    <div class="prof-timing-bar"><div class="prof-timing-fill"></div></div>
+                                    <span class="prof-timing-val">{{ $exp->duration }}</span>
                                 </div>
                                 @if($exp->description)
-                                    @if(count($expBullets) > 1)
-                                        <ul class="rel-list">
+                                    <div class="prof-desc">
+                                        @if(count($expBullets) > 1)
                                             @foreach($expBullets as $expBullet)
-                                                <li>{{ $expBullet }}</li>
+                                                <span class="prof-desc-gutter">+</span>{{ $expBullet }}<br>
                                             @endforeach
-                                        </ul>
-                                    @else
-                                        <p>{{ $exp->description }}</p>
-                                    @endif
+                                        @else
+                                            <span class="prof-desc-gutter">//</span>{{ $exp->description }}
+                                        @endif
+                                    </div>
                                 @endif
+                            </div>
+                            <div class="prof-duration">
+                                <i class="bi bi-clock"></i> {{ $exp->duration }}
                             </div>
                         </div>
                     @endforeach
 
-                    <div class="rel-foot">
-                        <span><i class="bi bi-git"></i> git log --oneline</span>
-                        <span class="rel-foot-right">HEAD &rarr; main</span>
+                    <div class="prof-footer">
+                        <span><i class="bi bi-check2-all"></i> all tasks completed</span>
+                        <span class="prof-footer-right">total: {{ $experiences->count() }} entries</span>
                     </div>
                 </div>
             @else
                 <div class="empty-state reveal">
                     <i class="bi bi-briefcase"></i>
                     <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_experience') }}</p>
+                    <p>{{ __('messages.no_experience_desc') }}</p>
+                </div>
+            @endif
+        </div>
+    </section>
+
+    --text-primary);">{{ __('messages.no_experience') }}</p>
                     <p>{{ __('messages.no_experience_desc') }}</p>
                 </div>
             @endif
