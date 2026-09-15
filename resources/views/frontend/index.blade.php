@@ -1248,10 +1248,13 @@
     .pkg-card .pkg-action,
     .pkg-card .pkg-foot,
     .project-card .card-body,
-    .testimonial-card .quote-icon,
     .testimonial-card .testimonial-stars,
     .testimonial-card .testimonial-text,
     .testimonial-card .testimonial-author,
+    .testimonial-card .tst-bar,
+    .testimonial-card .tst-head,
+    .testimonial-card .tst-review,
+    .testimonial-card .tst-foot,
     .faq-item button,
     .faq-item .faq-answer,
     .contact-info-card h3,
@@ -2558,26 +2561,98 @@
     /* Testimonials */
     .testimonials-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
     html.light-theme .testimonials-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
-    .testimonial-carousel { max-width: 750px; margin: 0 auto; position: relative; overflow: hidden; }
+    /* ===== TESTIMONIALS - PULL-REQUEST REVIEW CARDS (coding design) ===== */
+    .testimonial-carousel { max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; }
     .testimonial-track { display: flex; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
     .testimonial-card {
-        min-width: 100%; padding: 2.5rem 2rem;
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: var(--radius-xl); text-align: center;
-        position: relative; transition: var(--transition);
-        margin: 0 0.25rem;
+        flex: 0 0 100%; width: 100%; padding: 0; box-sizing: border-box;
+        display: flex; flex-direction: column; text-align: left;
+        background: linear-gradient(180deg, rgba(15, 25, 45, 0.78) 0%, rgba(10, 18, 35, 0.6) 100%);
+        border: 1px solid rgba(129, 140, 248, 0.24); border-radius: 16px;
+        overflow: hidden; position: relative;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        box-shadow: 0 22px 55px rgba(2, 8, 23, 0.45);
+        transition: var(--transition);
     }
-    .testimonial-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); }
-    .quote-icon { font-size: 3rem; color: rgba(59, 130, 246, 0.15); margin-bottom: 0.5rem; }
-    .testimonial-stars { color: #f59e0b; margin-bottom: 1.2rem; font-size: 1.05rem; display: flex; justify-content: center; gap: 3px; }
-    .testimonial-stars .bi-star { opacity: 0.3; }
-    .testimonial-text { color: #cbd5e1; font-size: 1.02rem; line-height: 1.8; margin-bottom: 1.8rem; font-style: italic; }
+    html.light-theme .testimonial-card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(238, 242, 255, 0.72) 100%);
+        border-color: rgba(99, 102, 241, 0.26);
+        box-shadow: 0 22px 55px rgba(99, 102, 241, 0.16);
+    }
+    .testimonial-card:hover { border-color: rgba(129, 140, 248, 0.5); box-shadow: 0 30px 75px rgba(99, 102, 241, 0.26); }
+
+    .tst-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255, 255, 255, 0.035);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    }
+    html.light-theme .tst-bar { background: rgba(15, 23, 42, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .tst-file { display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.3rem; font-size: 0.72rem; color: #cbd5e1; }
+    .tst-file i { color: #818cf8; }
+    html.light-theme .tst-file { color: #334155; }
+    .tst-hash { font-size: 0.66rem; color: #64748b; }
+    .tst-badge {
+        margin-left: auto; white-space: nowrap;
+        font-size: 0.56rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+        color: #34d399; background: rgba(52, 211, 153, 0.12);
+        border: 1px solid rgba(52, 211, 153, 0.32);
+        padding: 0.16rem 0.5rem; border-radius: 50px;
+    }
+    html.light-theme .tst-badge { color: #047857; }
+
+    .tst-head { display: flex; align-items: center; gap: 0.7rem; padding: 0.95rem 0.95rem 0.45rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
+    .author-avatar img, .avatar-fallback {
+        width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
+        border: 2px solid rgba(99, 102, 241, 0.35); display: block;
+    }
+    .avatar-fallback {
+        display: flex; align-items: center; justify-content: center;
+        background: var(--accent-gradient); font-family: var(--font);
+        font-weight: 700; font-size: 1.05rem; color: #fff;
+    }
+    .author-name { font-family: var(--font); font-weight: 700; color: var(--text-primary); font-size: 0.95rem; line-height: 1.25; }
+    .author-designation { font-family: var(--font); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .testimonial-stars { margin-left: auto; display: flex; gap: 2px; font-size: 0.82rem; color: #f59e0b; flex-shrink: 0; }
+    .testimonial-stars .bi-star { opacity: 0.25; }
+
+    .tst-review {
+        display: flex; gap: 0.75rem;
+        margin: 0.4rem 0.95rem 0.95rem;
+        padding: 0.85rem 1rem 0.85rem 0.9rem;
+        background: rgba(2, 8, 23, 0.4);
+        border-left: 2px solid rgba(99, 102, 241, 0.55);
+        border-radius: 0 10px 10px 0;
+    }
+    html.light-theme .tst-review { background: rgba(15, 23, 42, 0.045); }
+    .tst-gutter { flex-shrink: 0; padding-top: 0.14rem; color: #6366f1; font-size: 0.78rem; font-weight: 700; }
+    .testimonial-text { margin: 0; color: #cbd5e1; font-size: 0.92rem; line-height: 1.75; }
     html.light-theme .testimonial-text { color: #334155 !important; }
-    .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 1rem; }
-    .author-avatar img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(59, 130, 246, 0.25); }
-    .avatar-fallback { width: 55px; height: 55px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.3rem; color: #fff; border: 2px solid rgba(59, 130, 246, 0.25); }
-    .author-name { font-weight: 700; color: var(--text-primary); font-size: 1rem; }
-    .author-designation { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+    .tst-foot {
+        display: flex; align-items: center; gap: 0.75rem;
+        padding: 0.5rem 0.95rem;
+        border-top: 1px solid rgba(148, 163, 184, 0.14);
+        font-size: 0.64rem; color: #64748b;
+    }
+    html.light-theme .tst-foot { border-top-color: rgba(15, 23, 42, 0.08); }
+    .tst-ok { display: inline-flex; align-items: center; gap: 0.32rem; color: #34d399; }
+    .tst-merge { margin-left: auto; }
+
+    /* review lines write in whenever a slide becomes active (JS adds .tst-in) */
+    .testimonial-card.tst-in > * { animation: tstIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .testimonial-card.tst-in > *:nth-child(2) { animation-delay: 80ms; }
+    .testimonial-card.tst-in > *:nth-child(3) { animation-delay: 160ms; }
+    .testimonial-card.tst-in > *:nth-child(4) { animation-delay: 240ms; }
+    @keyframes tstIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .testimonial-card.tst-in > * { animation: none; }
+    }
     .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
     .carousel-btn {
         width: 44px; height: 44px; border-radius: 50%;
@@ -3338,8 +3413,9 @@
         .filter-tabs { gap: 0.4rem; }
         .filter-btn { font-size: 0.75rem; padding: 0.4rem 1rem; }
         
-        .testimonial-card { padding: 2rem 1.5rem; }
-        .testimonial-text { font-size: 0.95rem; }
+        .testimonial-text { font-size: 0.9rem; }
+        .tst-head { flex-wrap: wrap; }
+        .testimonial-stars { margin-left: 0; }
         .contact-info h3 { font-size: 1.4rem; }
         .contact-form { padding: 1.8rem; }
         
@@ -3408,9 +3484,9 @@
         .filter-tabs::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
         .filter-btn { flex-shrink: 0; }
         
-        .testimonial-card { padding: 1.5rem 1.2rem; }
-        .testimonial-text { font-size: 0.88rem; }
-        .quote-icon { font-size: 2rem; }
+        .testimonial-text { font-size: 0.84rem; }
+        .tst-hash { display: none; }
+        .tst-review { padding: 0.7rem 0.8rem; }
         .carousel-btn { width: 38px; height: 38px; font-size: 0.9rem; }
         .carousel-dots .dot { width: 8px; height: 8px; }
         .carousel-dots .dot.active { width: 22px; }
@@ -4657,29 +4733,50 @@
                 <div class="testimonial-carousel reveal">
                     <div class="testimonial-track" id="testimonialTrack">
                         @foreach($testimonials as $testimonial)
-                            <div class="testimonial-card">
-                                <div class="quote-icon"><i class="bi bi-quote"></i></div>
-                                <div class="testimonial-stars">
-                                    @foreach($testimonial->stars as $filled)
-                                        <i class="bi {{ $filled ? 'bi-star-fill' : 'bi-star' }}"></i>
-                                    @endforeach
+                            @php
+                                $rating = count(array_filter((array) $testimonial->stars));
+                                $reviewId = substr(md5($testimonial->name . $testimonial->message), 0, 7);
+                            @endphp
+                            <div class="testimonial-card{{ $loop->first ? ' tst-in' : '' }}" data-tst>
+                                <div class="tst-bar">
+                                    <span class="edu-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                                    <span class="tst-file"><i class="bi bi-git-pull-request"></i> review #{{ $reviewId }}</span>
+                                    <span class="tst-hash">{{ $loop->iteration }}/{{ $testimonials->count() }}</span>
+                                    <span class="tst-badge">approved</span>
                                 </div>
-                                <p class="testimonial-text">"{{ $testimonial->message }}"</p>
-                                <div class="testimonial-author">
-                                    <div class="author-avatar">
-                                        @if($testimonial->avatar)
-                                            <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
-                                                 alt="{{ $testimonial->name }}">
-                                        @else
-                                            <div class="avatar-fallback">
-                                                {{ strtoupper(substr($testimonial->name, 0, 1)) }}
-                                            </div>
-                                        @endif
+
+                                <div class="tst-head">
+                                    <div class="testimonial-author">
+                                        <div class="author-avatar">
+                                            @if($testimonial->avatar)
+                                                <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
+                                                     alt="{{ $testimonial->name }}">
+                                            @else
+                                                <div class="avatar-fallback">
+                                                    {{ strtoupper(substr($testimonial->name, 0, 1)) }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="author-info">
+                                            <div class="author-name">{{ $testimonial->name }}</div>
+                                            <div class="author-designation">{{ $testimonial->designation_display }}</div>
+                                        </div>
                                     </div>
-                                    <div class="author-info">
-                                        <div class="author-name">{{ $testimonial->name }}</div>
-                                        <div class="author-designation">{{ $testimonial->designation_display }}</div>
+                                    <div class="testimonial-stars" aria-label="{{ $rating }}/5">
+                                        @foreach($testimonial->stars as $filled)
+                                            <i class="bi {{ $filled ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                        @endforeach
                                     </div>
+                                </div>
+
+                                <div class="tst-review">
+                                    <span class="tst-gutter" aria-hidden="true">//</span>
+                                    <p class="testimonial-text">{{ $testimonial->message }}</p>
+                                </div>
+
+                                <div class="tst-foot">
+                                    <span class="tst-ok"><i class="bi bi-patch-check-fill"></i> verified review</span>
+                                    <span class="tst-merge"><i class="bi bi-check2"></i> merged to main</span>
                                 </div>
                             </div>
                         @endforeach
@@ -5460,6 +5557,13 @@
         currentIndex = index;
         track.style.transform = 'translateX(-' + (index * 100) + '%)';
         dotsContainer.querySelectorAll('.dot').forEach(function(d, i) { d.classList.toggle('active', i === index); });
+        // replay the review's line-by-line entrance on the incoming slide
+        cards.forEach(function(c, i) {
+            c.classList.remove('tst-in');
+            if (i !== index) return;
+            void c.offsetWidth;
+            c.classList.add('tst-in');
+        });
     }
     function startAutoPlay() { autoInterval = setInterval(function() { goToSlide(currentIndex === total - 1 ? 0 : currentIndex + 1); }, 5000); }
     function stopAutoPlay() { clearInterval(autoInterval); }
