@@ -2954,7 +2954,100 @@
     }
     .ct-push-btn:hover .ct-push-shimmer { left: 100%; }
 
-    /* Map */
+    
+    /* ===== FAQ — CODING COLLAPSIBLE BLOCKS ===== */
+    .faq-section {
+        background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%);
+    }
+    html.light-theme .faq-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
+    .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item {
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.6) 0%, rgba(8, 15, 32, 0.45) 100%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(147, 197, 253, 0.18); border-radius: 14px;
+        overflow: hidden; position: relative;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item::before {
+        content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+        background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+        opacity: 0.4; transition: opacity 0.4s ease;
+    }
+    .faq-item:hover {
+        border-color: rgba(147, 197, 253, 0.35);
+        box-shadow: 0 8px 30px rgba(2, 8, 23, 0.5), 0 0 40px rgba(59, 130, 246, 0.06);
+        transform: translateX(4px);
+    }
+    .faq-item:hover::before { opacity: 1; }
+    .faq-item.faq-open {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 12px 40px rgba(2, 8, 23, 0.6), 0 0 60px rgba(59, 130, 246, 0.08);
+    }
+    .faq-item.faq-open::before { opacity: 1; }
+    html.light-theme .faq-item {
+        background: linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(230,240,252,0.6) 100%);
+        border-color: rgba(59,130,246,0.22);
+    }
+    html.light-theme .faq-item:hover { box-shadow: 0 8px 30px rgba(59,130,246,0.12); }
+    html.light-theme .faq-item.faq-open { border-color: rgba(59,130,246,0.35); box-shadow: 0 12px 40px rgba(59,130,246,0.15); }
+
+    /* Question row */
+    .faq-q-row {
+        display: flex; align-items: center; gap: 0.65rem;
+        width: 100%; padding: 1rem 1.2rem; background: none; border: none;
+        color: var(--text-primary); font-family: inherit; font-size: 0.88rem;
+        font-weight: 600; text-align: left; cursor: pointer;
+        transition: all 0.3s ease; position: relative;
+    }
+    .faq-q-row:hover { background: rgba(59, 130, 246, 0.04); }
+    .faq-q-icon {
+        width: 28px; height: 28px; min-width: 28px; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.75rem; color: #818cf8;
+        background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.18);
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item.faq-open .faq-q-icon {
+        background: var(--accent-gradient); color: #fff; border-color: transparent;
+        transform: rotate(-5deg) scale(1.1);
+    }
+    .faq-q-text { flex: 1; color: var(--text-primary); line-height: 1.4; }
+    .faq-q-chevron {
+        font-size: 0.7rem; color: var(--accent-light); flex-shrink: 0;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item.faq-open .faq-q-chevron { transform: rotate(180deg); }
+
+    /* Answer block */
+    .faq-a-block {
+        max-height: 0; overflow: hidden;
+        transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
+        padding: 0 1.2rem;
+    }
+    .faq-item.faq-open .faq-a-block {
+        max-height: 500px; padding: 0 1.2rem 1.1rem;
+    }
+    .faq-a-inner {
+        padding: 0.85rem 1rem;
+        background: rgba(2, 8, 23, 0.35); border-left: 2px solid rgba(59, 130, 246, 0.4);
+        border-radius: 0 10px 10px 0;
+        font-size: 0.82rem; line-height: 1.8; color: var(--text-secondary);
+    }
+    html.light-theme .faq-a-inner { background: rgba(15, 23, 42, 0.04); }
+    .faq-a-gutter { color: #6366f1; font-weight: 700; margin-right: 0.5rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .faq-q-row { padding: 0.85rem 1rem; font-size: 0.82rem; gap: 0.5rem; }
+        .faq-q-icon { width: 24px; height: 24px; min-width: 24px; font-size: 0.65rem; }
+        .faq-a-inner { padding: 0.7rem 0.85rem; font-size: 0.78rem; }
+    }
+    @media (max-width: 480px) {
+        .faq-q-row { padding: 0.75rem 0.85rem; font-size: 0.78rem; }
+    }
+
+/* Map */
     .map-wrapper { margin-top: 3rem; }
     .map-container {
         max-width: 900px; margin: 0 auto; border-radius: 16px;
@@ -4748,6 +4841,7 @@
     </section>
 
     </section><!-- FAQ Section -->
+        <!-- FAQ Section — CODING COLLAPSIBLE BLOCKS -->
     <section class="faq-section section-padding" id="faq">
         <div class="container">
             <div class="code-divider reveal" aria-hidden="true">
@@ -4767,41 +4861,35 @@
             ])
 
             @if($faqs->isNotEmpty())
-                <div class="faq-list reveal" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-list reveal">
                     @foreach($faqs as $index => $faq)
-                        <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1rem; overflow: hidden; transition: var(--transition); filter: drop-shadow(0 4px 30px rgba(59, 130, 246, 0.15));">
-                            <button class="faq-question" 
-                                    onclick="toggleFaq(this)"
-                                    style="width: 100%; padding: 1.2rem 1.5rem; background: none; border: none; color: var(--text-primary); font-size: 0.98rem; font-weight: 600; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--font); transition: var(--transition);">
-                                <span>{{ $faq->question }}</span>
-                                <i class="bi bi-chevron-down" style="font-size: 0.8rem; color: var(--accent); transition: transform 0.3s ease; flex-shrink: 0;"></i>
+                        <div class="faq-item" data-faq>
+                            <button class="faq-q-row" onclick="toggleFaq(this)">
+                                <span class="faq-q-icon"><i class="bi bi-question-lg"></i></span>
+                                <span class="faq-q-text">{{ $faq->question }}</span>
+                                <i class="bi bi-chevron-down faq-q-chevron"></i>
                             </button>
-                            <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease; padding: 0 1.5rem;">
-                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-bottom: 1.2rem; margin: 0;">{{ $faq->answer }}</p>
+                            <div class="faq-a-block">
+                                <div class="faq-a-inner">
+                                    <span class="faq-a-gutter">//</span>{{ $faq->answer }}
+                                </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
                 <script>
                 function toggleFaq(btn) {
-                    var item = btn.parentElement;
-                    var answer = item.querySelector('.faq-answer');
-                    var icon = btn.querySelector('i');
-                    var isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
-                    
+                    var item = btn.closest('.faq-item');
+                    var wasOpen = item.classList.contains('faq-open');
+
                     // Close all
                     document.querySelectorAll('.faq-item').forEach(function(el) {
-                        el.querySelector('.faq-answer').style.maxHeight = '0';
-                        el.querySelector('.faq-answer').style.padding = '0 1.5rem';
-                        el.querySelector('i').style.transform = 'rotate(0deg)';
-                        el.querySelector('.faq-question').style.color = 'var(--text-primary)';
+                        el.classList.remove('faq-open');
                     });
-                    
-                    if (!isOpen) {
-                        answer.style.maxHeight = answer.scrollHeight + 'px';
-                        answer.style.padding = '0 1.5rem 0';
-                        icon.style.transform = 'rotate(180deg)';
-                        btn.style.color = 'var(--accent)';
+
+                    // Toggle clicked
+                    if (!wasOpen) {
+                        item.classList.add('faq-open');
                     }
                 }
                 </script>
@@ -4814,6 +4902,8 @@
             @endif
         </div>
     </section>
+
+    
 
     <!-- Footer -->
     <footer class="footer">
