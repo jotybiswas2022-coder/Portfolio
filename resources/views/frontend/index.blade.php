@@ -1188,21 +1188,23 @@
         line-height: 1.65; margin: 0;
     }
     html.light-theme .svc-card-desc { color: #475569; }
-    .svc-card-term {
-        padding: 0.5rem 0.85rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    .svc-card-foot {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 0.55rem 0.85rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         font-size: 0.72rem; color: var(--text-muted);
-        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         position: relative; z-index: 2;
     }
-    html.light-theme .svc-card-term { border-bottom-color: rgba(15, 23, 42, 0.08); }
+    html.light-theme .svc-card-foot { border-top-color: rgba(15, 23, 42, 0.08); }
+    .svc-foot-term { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
+    .svc-foot-status { white-space: nowrap; flex-shrink: 0; margin-left: 0.75rem; }
     .sv-term-prompt { color: #34d399; font-weight: 700; }
-    .svc-card-title, .svc-card-desc, .svc-card-term { opacity: 0; }
+    .svc-card-title, .svc-card-desc, .svc-card-foot { opacity: 0; }
     .svc-card.visible .svc-card-icon { animation: svcIn 0.45s ease forwards; }
     .svc-card.visible .svc-card-title { animation: svcIn 0.45s ease forwards; animation-delay: 0.08s; }
     .svc-card.visible .svc-card-desc { animation: svcIn 0.45s ease forwards; animation-delay: 0.16s; }
-    .svc-card.visible .svc-card-term { animation: svcIn 0.45s ease forwards; animation-delay: 0.24s; }
+    .svc-card.visible .svc-card-foot { animation: svcIn 0.45s ease forwards; animation-delay: 0.24s; }
     @media (prefers-reduced-motion: reduce) {
         .svc-card-title, .svc-card-desc, .svc-card-term { opacity: 1; animation: none; }
     }
@@ -1224,15 +1226,6 @@
     html.light-theme .sv-str     { color: #059669; }
     html.light-theme .sv-key     { color: #d97706; }
     html.light-theme .sv-op      { color: #94a3b8; }
-    .svc-card-status {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 0.45rem 0.85rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.7rem; color: var(--text-muted);
-        position: relative; z-index: 2;
-    }
-    html.light-theme .svc-card-status { border-top-color: rgba(15, 23, 42, 0.08); }
     .sv-status-ok { display: inline-flex; align-items: center; gap: 0.4rem; color: #34d399; }
     .sv-dot {
         width: 6px; height: 6px; border-radius: 50%;
@@ -1248,7 +1241,7 @@
     @media (max-width: 768px) {
         .svc-grid { grid-template-columns: 1fr; gap: 1.25rem; }
         .svc-card-body { padding: 1.4rem 1.1rem 1.1rem; }
-        .svc-card-title, .svc-card-desc, .svc-card-term { opacity: 1; transform: none; animation: none !important; }
+        .svc-card-title, .svc-card-desc, .svc-card-foot { opacity: 1; transform: none; animation: none !important; }
     }
     @media (max-width: 480px) {
         .svc-card-icon { width: 56px; height: 56px; font-size: 1.6rem; }
@@ -3115,10 +3108,9 @@
                                     <p class="svc-card-desc">{{ $service->short_description }}</p>
                                 @endif
                             </div>
-                            <div class="svc-card-term"><span class="sv-term-prompt">&gt;</span> <span class="sv-key">name</span>: <span class="sv-str">"{{ $service->title }}"</span><span class="svc-cursor"></span></div>
-                            <div class="svc-card-status">
-                                <span class="sv-status-ok"><span class="sv-dot"></span> ready to help</span>
-                                <span class="sv-time">service #{{ $index + 1 }}</span>
+                            <div class="svc-card-foot">
+                                <span class="svc-foot-term"><span class="sv-term-prompt">&gt;</span> <span class="sv-key">name</span>: <span class="sv-str">"{{ $service->title }}"</span><span class="svc-cursor"></span></span>
+                                <span class="svc-foot-status"><span class="sv-status-ok"><span class="sv-dot"></span> ready to help</span></span>
                             </div>
                         </div>
                     @endforeach
