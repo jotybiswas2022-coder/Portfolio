@@ -1250,7 +1250,7 @@
         .svc-card-body { padding: 1rem 0.6rem 0.8rem; }
         .svc-card-icon { width: 44px; height: 44px; font-size: 1.2rem; border-radius: 12px; margin-bottom: 0.6rem; }
         .svc-card-title { font-size: 0.78rem; margin-bottom: 0.3rem; }
-        .svc-card-desc { font-size: 0.68rem; line-height: 1.45; padding: 0 0.2rem; }
+        .svc-card-desc { display: none; }
         .svc-card-foot { padding: 0.4rem 0.5rem; font-size: 0.6rem; }
         .svc-card-bar { padding: 0.35rem 0.5rem; }
         .svc-card-bar .ab-dot { width: 8px; height: 8px; }
@@ -1262,7 +1262,6 @@
         .svc-card-body { padding: 0.8rem 0.4rem 0.6rem; }
         .svc-card-icon { width: 36px; height: 36px; font-size: 1rem; border-radius: 10px; }
         .svc-card-title { font-size: 0.68rem; }
-        .svc-card-desc { font-size: 0.6rem; line-height: 1.4; }
         .svc-card-foot { font-size: 0.55rem; padding: 0.35rem 0.4rem; justify-content: center; }
         .svc-foot-term { display: none; }
         .svc-foot-status { margin-left: 0; }
