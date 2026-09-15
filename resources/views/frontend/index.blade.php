@@ -1740,7 +1740,7 @@
     }
 
 
-        /* ===== EXPERIENCE - CHANGELOG (coding design) ===== */
+    /* ===== EXPERIENCE - CHANGELOG (coding design) ===== */
     .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
     html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
 
@@ -4025,7 +4025,14 @@
 
                     <div class="csh-summary csh-anim" style="--d: 2">
                         <span><i class="bi bi-check2-circle"></i> exit code 0</span>
-                        <!-- Experience Timeline Section -->
+                        <span class="csh-sum-right">{{ __('messages.hire_me') }} &middot; awaiting your input</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline Section -->
     <section class="timeline-section section-padding" id="experience">
         <div class="container">
             <div class="code-divider reveal" aria-hidden="true">
