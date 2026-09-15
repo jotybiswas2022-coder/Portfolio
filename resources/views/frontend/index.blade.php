@@ -1737,31 +1737,69 @@
     }
 
 
-    /* Timeline section */
+    /* ===== EXPERIENCE - CHANGELOG (coding design) ===== */
     .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
     html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
-    .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 1rem 0; }
-    .timeline-line {
-        position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
-        background: linear-gradient(180deg, transparent, rgba(59,130,246,0.3), rgba(59,130,246,0.5), rgba(59,130,246,0.3), transparent);
-        transform: translateX(-50%);
+
+    .rel-log { position: relative; max-width: 880px; margin: 0 auto; }
+
+    /* release rail */
+    .rel-log::before {
+        content: '';
+        position: absolute; left: 1rem; top: 1rem; bottom: 1.4rem; width: 2px;
+        background: linear-gradient(180deg, #3b82f6, #8b5cf6 55%, #22d3ee);
+        border-radius: 2px;
+        transform: scaleY(1); transform-origin: top;
+        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
     }
-    .timeline-item { position: relative; width: 50%; padding: 1.5rem 2.5rem; }
-    .timeline-item.left { left: 0; text-align: right; padding-right: 3rem; }
-    .timeline-item.right { left: 50%; text-align: left; padding-left: 3rem; }
-    .timeline-dot {
-        position: absolute; width: 46px; height: 46px;
-        background: var(--accent-gradient); border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 1.1rem; z-index: 2;
-        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-        border: 3px solid var(--bg-primary);
+    .rel-log.rel-armed::before { transform: scaleY(0); }
+
+    .rel-head {
+        display: flex; align-items: center; gap: 0.6rem;
+        margin: 0 0 1.4rem 2.4rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.72rem; color: var(--text-muted);
     }
-    .timeline-item.left .timeline-dot { right: -23px; top: 1.8rem; }
-    .timeline-item.right .timeline-dot { left: -23px; top: 1.8rem; }
+    .rel-head i { color: var(--accent-light); }
+    .rel-count {
+        margin-left: auto;
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+        color: #34d399; background: rgba(52, 211, 153, 0.08);
+        border: 1px solid rgba(52, 211, 153, 0.26);
+        padding: 0.2rem 0.6rem; border-radius: 50px;
+    }
+
+    .rel-entry {
+        position: relative;
+        padding: 0 0 1.4rem 2.4rem;
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        transition-delay: calc(var(--i, 0) * 130ms + 120ms);
+    }
+    .rel-entry:last-of-type { padding-bottom: 0; }
+    .rel-log.rel-armed .rel-entry { opacity: 0; transform: translateX(-18px); }
+    .rel-log.rel-ready .rel-entry { opacity: 1; transform: translateX(0); }
+
+    .rel-node {
+        position: absolute; left: 0.63rem; top: 1.15rem;
+        width: 0.86rem; height: 0.86rem; border-radius: 50%;
+        background: #0b1424; border: 2px solid #3b82f6;
+        transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+        transition-delay: calc(var(--i, 0) * 130ms + 200ms);
+    }
+    html.light-theme .rel-node { background: #fff; }
+    .rel-node::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: #60a5fa; }
+    .rel-node::before {
+        content: ''; position: absolute; inset: -6px; border-radius: 50%;
+        border: 1px solid rgba(96, 165, 250, 0.45); opacity: 0;
+    }
+    .rel-log.rel-armed .rel-node { opacity: 0; transform: scale(0.3); }
+    .rel-log.rel-ready .rel-node { opacity: 1; transform: scale(1); }
+    .rel-log.rel-ready .rel-node::before { animation: glRing 2.8s ease-out infinite; animation-delay: calc(var(--i, 0) * 0.35s); }
+
+    /* release card (keeps the shared shine + magnetic hover) */
     .timeline-card {
         background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg); padding: 1.5rem;
+        border-radius: var(--radius-lg); padding: 1.15rem 1.35rem 1.3rem;
         transition: var(--transition); position: relative; overflow: hidden;
     }
     .timeline-card::before {
@@ -1777,39 +1815,106 @@
         border-color: var(--border-hover); transform: translateY(-5px);
         box-shadow: var(--shadow-md);
     }
+    .timeline-card > * { position: relative; z-index: 2; }
+
+    /* release bar */
+    .rel-bar {
+        display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+        padding-bottom: 0.7rem; margin-bottom: 0.8rem;
+        border-bottom: 1px dashed rgba(148, 163, 184, 0.22);
+    }
+    .rel-ver {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.7rem; font-weight: 700;
+        color: #fbbf24; background: rgba(251, 191, 36, 0.1);
+        border: 1px solid rgba(251, 191, 36, 0.28);
+        padding: 0.16rem 0.5rem; border-radius: 5px;
+        white-space: nowrap;
+    }
+    .rel-sha {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; color: var(--text-muted); letter-spacing: 0.4px;
+    }
     .timeline-date {
-        display: inline-flex; align-items: center; gap: 0.3rem;
-        font-size: 0.78rem; color: var(--accent-light); font-weight: 600;
-        background: rgba(59, 130, 246, 0.08);
-        padding: 0.25rem 0.9rem; border-radius: 20px; margin-bottom: 0.6rem;
+        margin-left: auto;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.68rem; font-weight: 600; color: var(--accent-light);
+        white-space: nowrap;
     }
     .current-badge {
-        display: inline-block; font-size: 0.6rem; font-weight: 700;
-        background: #10b981; color: #fff;
-        padding: 0.2rem 0.6rem; border-radius: 20px;
-        margin-left: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.58rem; font-weight: 800; letter-spacing: 0.6px;
+        color: #052e16; background: linear-gradient(135deg, #4ade80, #22c55e);
+        padding: 0.18rem 0.55rem; border-radius: 5px;
+        box-shadow: 0 0 16px rgba(34, 197, 94, 0.35);
+        white-space: nowrap;
+        animation: abPulse 2.4s ease-in-out infinite;
     }
-    .timeline-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .timeline-company { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.8rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
-    .timeline-item.left .timeline-company { justify-content: flex-end; }
-    .timeline-location { font-size: 0.82rem; color: var(--text-muted); }
-    .timeline-card p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; margin-bottom: 0; }
-    .timeline-item.left .timeline-card p { text-align: right; }
+
+    .timeline-card h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text-primary); }
+    .timeline-company {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.74rem; color: var(--text-secondary);
+        display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+        margin-bottom: 0.7rem;
+    }
+    .timeline-company i { color: var(--accent-light); }
+    .timeline-location { color: var(--text-muted); }
+    .timeline-card p { color: var(--text-secondary); font-size: 0.87rem; line-height: 1.75; margin-bottom: 0; }
+
+    /* changelog bullets */
+    .rel-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+    .rel-list li {
+        position: relative; padding-left: 1.1rem;
+        font-size: 0.86rem; line-height: 1.7; color: var(--text-secondary);
+    }
+    .rel-list li::before {
+        content: '+';
+        position: absolute; left: 0; top: 0;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.85rem; font-weight: 700; color: #4ade80;
+    }
+
+    /* log footer */
+    .rel-foot {
+        display: flex; align-items: center; gap: 0.5rem;
+        margin: 1.25rem 0 0 2.4rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; color: var(--text-muted);
+    }
+    .rel-foot i { color: var(--accent-light); }
+    .rel-foot-right { margin-left: auto; }
+
+    /* The header/footer of the log fade with the releases */
+    .rel-head, .rel-foot { transition: opacity 0.5s ease, transform 0.5s ease; }
+    .rel-log.rel-armed .rel-head { opacity: 0; transform: translateY(-8px); }
+    .rel-log.rel-ready .rel-head { opacity: 1; transform: translateY(0); }
+    .rel-foot { transition-delay: 520ms; }
+    .rel-log.rel-armed .rel-foot { opacity: 0; }
+    .rel-log.rel-ready .rel-foot { opacity: 1; }
+
     @media (max-width: 768px) {
-        .timeline-line { left: 28px; }
-        .timeline-item { width: 100%; padding: 1rem 0 1rem 4rem !important; text-align: left !important; }
-        .timeline-item.left { left: 0; padding-right: 0; }
-        .timeline-item.right { left: 0; }
-        .timeline-item .timeline-dot { left: 6px !important; right: auto !important; width: 38px; height: 38px; font-size: 0.9rem; top: 1.5rem; }
-        .timeline-item.left .timeline-company { justify-content: flex-start; }
-        .timeline-item.left .timeline-card p { text-align: left; }
+        .rel-log::before { left: 0.7rem; }
+        .rel-node { left: 0.3rem; top: 1.05rem; width: 0.78rem; height: 0.78rem; }
+        .rel-entry { padding: 0 0 1.15rem 1.9rem; }
+        .rel-head, .rel-foot { margin-left: 1.9rem; }
+        .rel-sha { display: none; }
         .timeline-card { padding: 1rem; }
-        .timeline-card h3 { font-size: 0.95rem; }
-        .timeline-company { font-size: 0.78rem; margin-bottom: 0.5rem; }
-        .timeline-card p { font-size: 0.78rem; line-height: 1.6; }
-        .timeline-date { font-size: 0.68rem; padding: 0.2rem 0.7rem; }
-        .current-badge { font-size: 0.55rem; }
-        .timeline-location { font-size: 0.72rem; }
+        .timeline-card h3 { font-size: 0.98rem; }
+        .timeline-company { font-size: 0.7rem; margin-bottom: 0.55rem; }
+        .timeline-card p { font-size: 0.8rem; }
+        .rel-list li { font-size: 0.79rem; }
+        .timeline-date { font-size: 0.64rem; }
+        .current-badge { font-size: 0.54rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .rel-log.rel-armed .rel-entry,
+        .rel-log.rel-armed .rel-node { opacity: 1; transform: none; }
+        .rel-log.rel-armed::before { transform: scaleY(1); }
+        .rel-log.rel-ready .rel-node::before,
+        .current-badge { animation: none; }
     }
 
     /* Skills section */
@@ -3926,36 +4031,56 @@
             ])
 
             @if($experiences->isNotEmpty())
-                <div class="timeline reveal">
-                    <div class="timeline-line"></div>
+                <div class="rel-log reveal" id="experienceLog">
+                    <div class="rel-head">
+                        <i class="bi bi-markdown"></i> CHANGELOG.md
+                        <span class="rel-count">{{ $experiences->count() }} releases</span>
+                    </div>
 
                     @foreach($experiences as $index => $exp)
-                        <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
-                            <div class="timeline-dot">
-                                <i class="bi bi-briefcase-fill"></i>
-                            </div>
+                        @php
+                            $expBullets = array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n|;/', (string) $exp->description)), function ($line) {
+                                return $line !== '';
+                            }));
+                            $expBullets = array_slice($expBullets, 0, 4);
+                        @endphp
+                        <div class="rel-entry" style="--i: {{ $index }}">
+                            <span class="rel-node" aria-hidden="true"></span>
                             <div class="timeline-card">
-                                <div class="timeline-date">
-                                    <i class="bi bi-calendar3 me-1"></i>{{ $exp->duration }}
+                                <div class="rel-bar">
+                                    <span class="rel-ver">v{{ $experiences->count() - $index }}.0.0</span>
+                                    <span class="rel-sha">#{{ substr(md5((string) $exp->position . (string) $exp->company), 0, 7) }}</span>
+                                    <span class="timeline-date"><i class="bi bi-calendar3"></i> {{ $exp->duration }}</span>
+                                    @if($exp->is_current)
+                                        <span class="current-badge">HEAD &middot; {{ __('messages.current') }}</span>
+                                    @endif
                                 </div>
-                                @if($exp->is_current)
-                                    <span class="current-badge">{{ __('messages.current') }}</span>
-                                @endif
                                 <h3>{{ $exp->position }}</h3>
                                 <div class="timeline-company">
-                                    <i class="bi bi-building me-1"></i>{{ $exp->company }}
+                                    <i class="bi bi-building"></i> {{ $exp->company }}
                                     @if($exp->location)
-                                        <span class="timeline-location ms-3">
-                                            <i class="bi bi-geo-alt me-1"></i>{{ $exp->location }}
-                                        </span>
+                                        <span class="timeline-location"><i class="bi bi-geo-alt"></i> {{ $exp->location }}</span>
                                     @endif
                                 </div>
                                 @if($exp->description)
-                                    <p>{{ $exp->description }}</p>
+                                    @if(count($expBullets) > 1)
+                                        <ul class="rel-list">
+                                            @foreach($expBullets as $expBullet)
+                                                <li>{{ $expBullet }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        <p>{{ $exp->description }}</p>
+                                    @endif
                                 @endif
                             </div>
                         </div>
                     @endforeach
+
+                    <div class="rel-foot">
+                        <span><i class="bi bi-git"></i> git log --oneline</span>
+                        <span class="rel-foot-right">HEAD &rarr; main</span>
+                    </div>
                 </div>
             @else
                 <div class="empty-state reveal">
@@ -5697,6 +5822,40 @@
                 fillCmd(p);
             }
         });
+    }, 4000);
+})();
+
+// ===== EXPERIENCE - CHANGELOG (rail draw + staggered release reveal) =====
+(function() {
+    var log = document.getElementById('experienceLog');
+    if (!log) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function reveal() { log.classList.add('rel-ready'); }
+
+    if (reduce) { reveal(); return; }
+
+    log.classList.add('rel-armed');
+
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                reveal();
+                io.disconnect();
+            });
+        }, { threshold: 0.1 });
+        io.observe(log);
+    } else {
+        reveal();
+    }
+
+    // Safety net: only un-hide when the log is actually on screen
+    setTimeout(function() {
+        if (log.classList.contains('rel-ready')) return;
+        var r = log.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) reveal();
     }, 4000);
 })();
 
