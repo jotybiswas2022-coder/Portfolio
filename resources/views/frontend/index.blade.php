@@ -419,7 +419,7 @@
     .ab-kbracket { color: #fbbf24; font-weight: 800; }
     .ab-shine {
         position: absolute; inset: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(125, 211, 252, 0.9) 0%, rgba(96, 165, 250, 0.5) 25%, transparent 52%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(96, 165, 250, 0.85) 0%, rgba(59, 130, 246, 0.45) 25%, transparent 52%);
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.5s ease;
@@ -427,7 +427,7 @@
         border-radius: 20px;
     }
     html.light-theme .ab-shine {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(125, 211, 252, 0.7) 0%, rgba(96, 165, 250, 0.35) 25%, transparent 52%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.55) 0%, rgba(59, 130, 246, 0.28) 25%, transparent 52%);
     }
     .about-shell:hover .ab-shine { opacity: 1; }
     .about-kicker-caret {
@@ -508,7 +508,7 @@
         position: absolute;
         top: -120%; left: -60%;
         width: 55%; height: 340%;
-        background: linear-gradient(100deg, transparent 0%, rgba(147, 197, 253, 0.16) 35%, rgba(147, 197, 253, 0.32) 50%, rgba(147, 197, 253, 0.16) 65%, transparent 100%);
+        background: linear-gradient(100deg, transparent 0%, rgba(96, 165, 250, 0.16) 35%, rgba(96, 165, 250, 0.3) 50%, rgba(96, 165, 250, 0.16) 65%, transparent 100%);
         transform: rotate(22deg) translateX(-140%);
         pointer-events: none;
         z-index: 2;
@@ -531,7 +531,7 @@
         box-shadow: 0 40px 90px rgba(59, 130, 246, 0.28);
     }
     html.light-theme .ab-wb::after {
-        background: linear-gradient(100deg, transparent 0%, rgba(59, 130, 246, 0.22) 35%, rgba(59, 130, 246, 0.45) 50%, rgba(59, 130, 246, 0.22) 65%, transparent 100%);
+        background: linear-gradient(100deg, transparent 0%, rgba(59, 130, 246, 0.18) 35%, rgba(59, 130, 246, 0.4) 50%, rgba(59, 130, 246, 0.18) 65%, transparent 100%);
     }
 
     /* Title bar */
