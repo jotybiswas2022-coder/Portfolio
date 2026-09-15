@@ -1907,13 +1907,7 @@
     html.light-theme .pkg-preview { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); }
     .pkg-preview img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
     .pkg-card:hover .pkg-preview img { transform: scale(1.08); }
-    .pkg-preview::after {
-        content: '';
-        position: absolute; inset: 0;
-        background: linear-gradient(180deg, transparent 55%, rgba(13, 23, 43, 0.85));
-        pointer-events: none;
-    }
-    html.light-theme .pkg-preview::after { background: linear-gradient(180deg, transparent 55%, rgba(248, 250, 252, 0.9)); }
+    .pkg-preview { border-bottom: 1px solid rgba(139, 92, 246, 0.16); }
     .pkg-icon-big { font-size: 3rem; color: rgba(59, 130, 246, 0.55); }
     .pkg-zoom {
         position: absolute; top: 0.55rem; right: 0.55rem;
