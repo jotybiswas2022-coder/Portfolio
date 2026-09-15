@@ -2178,13 +2178,20 @@
     .term-price {
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         font-size: 1.6rem; font-weight: 800; letter-spacing: -0.6px;
-        background: linear-gradient(135deg, #fbbf24, #f97316);
-        -webkit-background-clip: text; background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #fbbf24;
     }
-    html.light-theme .term-price {
-        background: linear-gradient(135deg, #d97706, #ea580c);
-        -webkit-background-clip: text; background-clip: text;
+    html.light-theme .term-price { color: #b45309; }
+    /* Gradient text is an enhancement only - the solid colour above is the fallback */
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+        .term-price {
+            background: linear-gradient(135deg, #fbbf24, #f97316);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        html.light-theme .term-price {
+            background: linear-gradient(135deg, #d97706, #ea580c);
+            -webkit-background-clip: text; background-clip: text;
+        }
     }
     .term-price em {
         font-style: normal; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.5px;
@@ -5293,13 +5300,14 @@
         if (reduce || !window.requestAnimationFrame) { el.textContent = '$' + target; return; }
         var start = null;
         var dur = 900;
-        (function tick(ts) {
+        function tick(ts) {
             if (start === null) start = ts;
             var p = Math.min((ts - start) / dur, 1);
             var eased = 1 - Math.pow(1 - p, 3);
             el.textContent = '$' + Math.round(target * eased);
             if (p < 1) requestAnimationFrame(tick);
-        })();
+        }
+        requestAnimationFrame(tick);
     }
 
     function run(card) {
