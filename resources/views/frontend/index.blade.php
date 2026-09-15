@@ -1,4 +1,4 @@
-﻿@extends('frontend.app')
+@extends('frontend.app')
 
 @section('content')
 <style>
@@ -30,7 +30,7 @@
         --font: 'Poppins', 'Hind Siliguri', sans-serif;
     }
 
-    /* Light Theme — full override with higher specificity than :root */
+    /* Light Theme � full override with higher specificity than :root */
     html.light-theme {
         --bg-primary: #f8fafc;
         --bg-secondary: #f1f5f9;
@@ -386,7 +386,7 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
-    /* ===== ABOUT — IDE WORKBENCH (coding design) ===== */
+    /* ===== ABOUT � IDE WORKBENCH (coding design) ===== */
     .about-section {
         background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
         position: relative;
@@ -472,7 +472,7 @@
     }
     @keyframes atSweep { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-    /* Shine follows cursor — same as project/gig cards */
+    /* Shine follows cursor � same as project/gig cards */
     .ab-wb::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.15) 28%, transparent 55%);
@@ -1023,7 +1023,7 @@
         .ab-stat .stat-bar { height: 3px; }
     }
 
-    /* ===== SERVICES — PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
+    /* ===== SERVICES � PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
     .services-section {
         background: linear-gradient(180deg, var(--bg-primary) 0%, #0a1628 50%, var(--bg-primary) 100%);
         position: relative;
@@ -1269,98 +1269,13 @@
         .svc-foot-term { display: none; }
         .svc-foot-status { margin-left: 0; }
     }
-/* ── Case Studies ── */
-    .casestudy-section {
-        background: linear-gradient(180deg, #080d1a 0%, var(--bg-primary) 100%);
-        position: relative; overflow: hidden;
-    }
-    html.light-theme .casestudy-section {
-        background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
-    }
-    .casestudy-section::before {
-        content: ''; position: absolute;
-        top: -20%; right: -10%; width: 500px; height: 500px;
-        background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%);
-        pointer-events: none;
-    }
-    html.light-theme .casestudy-section::before {
-        background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%);
-    }
-    .casestudy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
-    .casestudy-card {
-        position: relative;
-        background: rgba(255,255,255,0.03);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(99,102,241,0.1);
-        border-radius: 20px; overflow: hidden;
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        text-decoration: none; display: block; cursor: pointer;
-    }
-    html.light-theme .casestudy-card {
-        background: rgba(255,255,255,0.7);
-        border-color: rgba(99,102,241,0.12);
-    }
-    .casestudy-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, transparent, #6366f1, #8b5cf6, transparent);
-        opacity: 0; transition: opacity 0.5s ease;
-    }
-    .casestudy-card:hover::before { opacity: 1; }
-    .casestudy-card:hover {
-        border-color: rgba(99,102,241,0.25);
-        box-shadow: 0 20px 60px rgba(99,102,241,0.08), 0 8px 20px rgba(0,0,0,0.12);
-        transform: translateY(-6px);
-    }
-    html.light-theme .casestudy-card:hover {
-        box-shadow: 0 20px 60px rgba(99,102,241,0.1);
-    }
-    .casestudy-view-link { margin-top: 1rem; }
-    .view-details-btn {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none;
-        padding: 0.4rem 1rem; border-radius: 10px;
-        background: rgba(59,130,246,0.06); transition: all 0.3s ease;
-    }
-    .casestudy-card:hover .view-details-btn {
-        background: rgba(59,130,246,0.12);
-        gap: 0.7rem;
-    }
-    .view-details-btn i { font-size: 0.8rem; transition: transform 0.3s ease; }
-    .casestudy-card:hover .view-details-btn i { transform: translateX(3px); }
-    .casestudy-image { position: relative; width: 100%; height: 180px; overflow: hidden; }
-    .casestudy-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-    .casestudy-card:hover .casestudy-image img { transform: scale(1.06); }
-    .casestudy-image::after {
-        content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-        height: 60%; background: linear-gradient(0deg, rgba(8,13,26,0.8) 0%, transparent 100%);
-        pointer-events: none;
-    }
-    html.light-theme .casestudy-image::after {
-        background: linear-gradient(0deg, rgba(248,250,252,0.8) 0%, transparent 100%);
-    }
-    .casestudy-category {
-        position: absolute; top: 1rem; left: 1rem; z-index: 2;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
-        color: #fff; padding: 0.35rem 1.1rem;
-        border-radius: 20px; font-size: 0.72rem; font-weight: 700;
-        letter-spacing: 0.3px; box-shadow: 0 4px 15px rgba(99,102,241,0.3);
-    }
-    .casestudy-body { padding: 1.75rem 1.75rem 1.5rem; position: relative; z-index: 1; }
-    .casestudy-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.2rem; letter-spacing: -0.3px; color: #fff; }
-    html.light-theme .casestudy-body h3 { color: #0f172a; }
-    .casestudy-client { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.4rem; }
-    html.light-theme .casestudy-client { color: #64748b; }
-
-
-    /* ===== Glass Card Shine Effect ===== */
+/* ===== Glass Card Shine Effect ===== */
     .project-card::after,
     .pkg-card::after,
     .testimonial-card::after,
     .faq-item::after,
     .contact-info-card::after,
-    .contact-item::after,
-    .casestudy-card::after {
+    .contact-item::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.18) 30%, transparent 60%);
         pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
@@ -1370,8 +1285,7 @@
     html.light-theme .testimonial-card::after,
     html.light-theme .faq-item::after,
     html.light-theme .contact-info-card::after,
-    html.light-theme .contact-item::after,
-    html.light-theme .casestudy-card::after {
+    html.light-theme .contact-item::after {
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 30%, transparent 60%);
     }
     .project-card:hover::after,
@@ -1379,8 +1293,7 @@
     .testimonial-card:hover::after,
     .faq-item:hover::after,
     .contact-info-card:hover::after,
-    .contact-item:hover::after,
-    .casestudy-card:hover::after { opacity: 1; }
+    .contact-item:hover::after { opacity: 1; }
     /* Ensure content stays above shine */
     .project-card .card-image,
     .pkg-card .pkg-card-bar,
@@ -1400,33 +1313,262 @@
     .contact-info-card p,
     .contact-info-card .contact-item,
     .contact-item .icon-box,
-    .contact-item .info,
-    .casestudy-card .casestudy-image,
-    .casestudy-card .casestudy-body { position: relative; z-index: 2; }
+    .contact-item .info { position: relative; z-index: 2; }
 
 
-    .casestudy-cta {
+/* ===== CODING SHOWCASE SECTION ===== */
+    .coding-showcase-section {
+        background: linear-gradient(180deg, var(--bg-primary) 0%, #0a1628 50%, var(--bg-primary) 100%);
+        position: relative; overflow: hidden;
+    }
+    html.light-theme .coding-showcase-section {
+        background: linear-gradient(180deg, #f1f5f9 0%, #eef3fb 50%, #f8fafc 100%);
+    }
+    .coding-showcase-section::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
+        mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
+        pointer-events: none; z-index: 0;
+    }
+
+    .coding-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.75rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative; z-index: 1;
+    }
+
+    .coding-card {
+        position: relative;
+        background: rgba(13, 23, 43, 0.58);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: var(--transition);
+        display: flex; flex-direction: column;
+    }
+    html.light-theme .coding-card {
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(59, 130, 246, 0.18);
+    }
+    .coding-card::after {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.15) 28%, transparent 55%);
+        pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
+        z-index: 1; border-radius: inherit;
+    }
+    .coding-card:hover::after { opacity: 1; }
+    .coding-card::before {
+        content: ''; position: absolute;
+        top: 0; left: 0; width: 3px; height: 0;
+        background: var(--accent-gradient);
+        border-radius: 0 0 3px 0;
+        transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 2;
+    }
+    .coding-card:hover::before { height: 100%; }
+    .coding-card:hover {
+        border-color: var(--border-hover);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
+    }
+    .coding-card > * { position: relative; z-index: 2; }
+
+    .coding-header {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.85rem;
+        background: rgba(255, 255, 255, 0.035);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+    }
+    html.light-theme .coding-header {
+        background: rgba(15, 23, 42, 0.035);
+        border-bottom-color: rgba(15, 23, 42, 0.08);
+    }
+    .coding-dots { display: flex; gap: 0.35rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #febc2e; }
+    .dot.green { background: #28c840; }
+    .coding-title {
+        font-size: 0.72rem; color: var(--text-muted);
+        margin-left: 0.3rem;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .coding-tabs { display: flex; gap: 0.2rem; margin-left: auto; }
+    .tab {
+        font-size: 0.65rem; color: #64748b;
+        padding: 0.2rem 0.55rem; border-radius: 6px;
+        background: transparent; border: 1px solid transparent;
+        cursor: default; white-space: nowrap;
+        transition: all 0.3s ease;
+    }
+    .tab.active {
+        color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.12);
+        border-color: rgba(59, 130, 246, 0.25);
+    }
+    .coding-actions { display: flex; gap: 0.3rem; margin-left: auto; }
+    .coding-btn {
+        width: 28px; height: 28px; border-radius: 8px;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        color: var(--accent-light); cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.75rem; transition: all 0.3s ease;
+    }
+    .coding-btn:hover {
+        background: var(--accent-gradient); border-color: transparent; color: #fff;
+    }
+    .branch-badge {
+        font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+        background: var(--accent-gradient); color: #fff;
+        padding: 0.15rem 0.5rem; border-radius: 4px;
+        margin-left: auto;
+    }
+
+    /* Terminal Card */
+    .terminal-body {
+        padding: 1rem; font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.78rem; line-height: 1.8; min-height: 280px;
+        background: rgba(2, 6, 18, 0.4);
+        overflow-y: auto;
+    }
+    html.light-theme .terminal-body { background: rgba(15, 23, 42, 0.04); }
+    .terminal-line { display: flex; gap: 0.5rem; margin-bottom: 0.2rem; }
+    .prompt { color: #34d399; font-weight: 600; white-space: nowrap; }
+    .command { color: #e2e8f0; white-space: pre-wrap; }
+    .command.cursor-blink::after {
+        content: '_'; display: inline-block; margin-left: 2px;
+        animation: caretBlink 1s step-end infinite;
+    }
+    @keyframes caretBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+    .terminal-output { margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .output-line { color: #94a3b8; font-size: 0.74rem; }
+    .output-line.success { color: #34d399; }
+    .output-line.error { color: #f87171; }
+
+    /* Editor Card */
+    .editor-body { display: flex; min-height: 280px; }
+    .editor-gutter {
+        width: 46px; flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.018);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 0.9rem 0; text-align: right;
+    }
+    .editor-gutter span {
+        display: block; height: calc(0.86rem * 1.8); line-height: calc(0.86rem * 1.8);
+        padding-right: 0.65rem; font-size: 0.76rem; color: #334155; user-select: none;
+    }
+    html.light-theme .editor-gutter span { color: #cbd5e1; }
+    .editor-code { flex: 1; padding: 0.9rem 1rem; position: relative; min-width: 0; overflow: auto; }
+    .editor-code .line { display: block; font-size: 0.86rem; line-height: 1.8; }
+    .editor-code .kw { color: #60a5fa; }
+    .editor-code .fn { color: #7dd3fc; }
+    .editor-code .attr { color: #93c5fd; }
+    .editor-code .str { color: #86efac; }
+    .editor-code .tag { color: #f472b6; }
+    .editor-code .op { color: #fbbf24; }
+    .editor-code .cm { color: #5b6b84; font-style: italic; }
+    html.light-theme .editor-code .kw { color: #1d4ed8; }
+    html.light-theme .editor-code .fn { color: #0891b2; }
+    html.light-theme .editor-code .attr { color: #2563eb; }
+    html.light-theme .editor-code .str { color: #047857; }
+    html.light-theme .editor-code .tag { color: #db2777; }
+    html.light-theme .editor-code .op { color: #c2410c; }
+    html.light-theme .editor-code .cm { color: #94a3b8; }
+    .editor-minimap {
+        width: 52px; flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.012);
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 0.9rem 0.7rem;
+        display: flex; flex-direction: column; gap: 7px;
+    }
+    html.light-theme .editor-minimap { background: rgba(15, 23, 42, 0.02); border-left-color: rgba(15, 23, 42, 0.08); }
+    .editor-minimap i {
+        display: block; height: 4px; border-radius: 4px; flex-shrink: 0;
+        background: rgba(148, 163, 184, 0.25);
+    }
+    .editor-minimap i:nth-child(odd) { width: 68%; }
+    .editor-minimap i:nth-child(3n) { width: 88%; background: rgba(96, 165, 250, 0.4); }
+    .editor-minimap i:nth-child(5n) { width: 52%; }
+    .editor-minimap i:nth-child(7n) { background: rgba(52, 211, 153, 0.35); }
+    @media (max-width: 520px) { .editor-minimap { display: none; } }
+
+    /* Git Card */
+    .git-body { padding: 0.5rem 0.85rem 0.85rem; min-height: 280px; }
+    .git-commit { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; position: relative; }
+    .git-commit:not(:last-child)::before {
+        content: ''; position: absolute; left: 5px; top: 28px; bottom: -18px;
+        width: 2px; background: rgba(59, 130, 246, 0.25);
+    }
+    .commit-dot {
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--accent-gradient); flex-shrink: 0; margin-top: 2px;
+        box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+        border: 2px solid var(--bg-primary);
+    }
+    .git-commit.merge .merge-dot {
+        background: linear-gradient(135deg, #22d3ee, #a78bfa);
+        box-shadow: 0 0 12px rgba(34, 211, 238, 0.5);
+    }
+    .commit-line { width: 2px; background: rgba(59, 130, 246, 0.3); margin-top: 14px; flex-shrink: 0; }
+    .commit-info { flex: 1; min-width: 0; }
+    .commit-hash {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.7rem; color: var(--accent-light); font-weight: 700;
+    }
+    .commit-msg { display: block; font-size: 0.82rem; color: var(--text-primary); margin: 0.15rem 0; font-weight: 500; }
+    .commit-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; color: var(--text-muted); }
+    .commit-meta i { color: var(--accent-light); }
+    .commit-time { margin-left: 0.5rem; }
+
+    .coding-cta {
         text-align: center; margin-top: 3.5rem; padding: 2.5rem 2rem;
-        background: linear-gradient(135deg, rgba(99,102,241,0.04), rgba(139,92,246,0.04));
-        border: 1px solid rgba(99,102,241,0.1);
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(139, 92, 246, 0.06));
+        border: 1px solid rgba(59, 130, 246, 0.12);
         border-radius: 20px; position: relative; overflow: hidden;
     }
-    html.light-theme .casestudy-cta {
-        background: linear-gradient(135deg, rgba(99,102,241,0.04), rgba(139,92,246,0.04));
+    html.light-theme .coding-cta {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
     }
-    .casestudy-cta::before {
+    .coding-cta::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, transparent, #6366f1, #8b5cf6, transparent);
+        background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
     }
-    .casestudy-cta p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.25rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-    @media (max-width: 968px) {
-        .casestudy-grid { grid-template-columns: repeat(2, 1fr); }
+    .coding-cta p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .coding-cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 1024px) {
+        .coding-grid { grid-template-columns: 1fr; max-width: 500px; }
     }
     @media (max-width: 768px) {
-        .casestudy-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-        .casestudy-image { height: 200px; }
-        .casestudy-body { padding: 1.25rem; }
+        .coding-grid { gap: 1.25rem; }
+        .terminal-body, .editor-body, .git-body { min-height: 220px; }
+        .editor-gutter { width: 40px; }
+        .editor-gutter span { height: calc(0.8rem * 1.8); line-height: calc(0.8rem * 1.8); font-size: 0.72rem; }
+        .editor-code .line { font-size: 0.8rem; }
     }
+    @media (max-width: 480px) {
+        .coding-title { display: none; }
+        .coding-tabs { display: none; }
+        .editor-minimap { display: none; }
+        .coding-header { padding: 0.45rem 0.7rem; }
+        .terminal-body { font-size: 0.72rem; padding: 0.8rem; }
+        .git-body { padding: 0.4rem 0.7rem 0.7rem; }
+        .commit-msg { font-size: 0.76rem; }
+        .commit-meta { font-size: 0.6rem; }
+    }
+
 
     /* Timeline section */
     .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
@@ -1807,7 +1949,7 @@
     .project-card:hover .view-details-btn { background: rgba(59,130,246,0.12); gap: 0.7rem; }
     .project-card:hover .view-details-btn i { transform: translateX(3px); }
 
-/* ===== GIGS — PACKAGE TERMINAL CARDS ===== */
+/* ===== GIGS � PACKAGE TERMINAL CARDS ===== */
     .gigs-section {
         background: linear-gradient(180deg, #080d1a 0%, #0a1628 50%, #080d1a 100%);
         position: relative;
@@ -2032,7 +2174,7 @@
     .carousel-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(59, 130, 246, 0.2); cursor: pointer; transition: var(--transition); }
     .carousel-dots .dot.active { background: var(--accent); width: 28px; border-radius: 5px; }
 
-    /* ===== CONTACT — REDESIGNED MODERN ===== */
+    /* ===== CONTACT � REDESIGNED MODERN ===== */
     .contact-section {
         background: linear-gradient(180deg, #060b18 0%, #0a1628 40%, #0d1f36 70%, #080d1a 100%);
         position: relative;
@@ -2159,7 +2301,7 @@
         font-size: 0.92rem;
     }
 
-    /* ===== CONTACT ITEMS — MODERN GLASS ===== */
+    /* ===== CONTACT ITEMS � MODERN GLASS ===== */
     .contact-item {
         display: flex;
         align-items: center;
@@ -2281,7 +2423,7 @@
         box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
 
-    /* ===== CONTACT FORM — GLASS CARD ===== */
+    /* ===== CONTACT FORM � GLASS CARD ===== */
     .contact-form {
         background: rgba(17, 28, 46, 0.6);
         backdrop-filter: blur(20px);
@@ -3342,47 +3484,172 @@
     </section>
     @endif
 
-    <!-- Case Studies Section -->
-    @if($caseStudies->isNotEmpty())
-    <section class="casestudy-section section-padding" id="case-studies">
+    <!-- Coding Showcase Section -->
+    <section class="coding-showcase-section section-padding" id="coding-showcase">
         <div class="container">
             <div class="code-divider reveal" aria-hidden="true">
                 <span class="cd-line"></span>
-                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> casestudy.jsx</span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> coding-showcase.jsx</span>
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
             <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>{{ __('messages.casestudy_title') }}</h2>
-                <p>{{ __('messages.casestudy_subtitle') }}</p>
+                <h2>Code & Craft</h2>
+                <p>Real-time coding animations, live terminals, and interactive developer tools showcase</p>
             </div>
-            <div class="casestudy-grid">
-                @foreach($caseStudies as $cs)
-                    <a href="{{ route('case-study.detail', $cs->id) }}" class="casestudy-card reveal">
-                        @if($cs->image)
-                            <div class="casestudy-image">
-                                <img src="{{ config('app.storage_url') }}{{ $cs->image }}" alt="{{ $cs->title }}">
-                                @if($cs->category)<span class="casestudy-category">{{ $cs->category }}</span>@endif
-                            </div>
-                        @endif
-                        <div class="casestudy-body">
-                            <h3>{{ $cs->title }}</h3>
-                            @if($cs->client)<div class="casestudy-client"><i class="bi bi-building me-1"></i>{{ $cs->client }}</div>@endif
-                            <div class="casestudy-view-link">
-                                <span class="view-details-btn">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
+            <div class="coding-grid">
+                <!-- Live Terminal -->
+                <div class="coding-card terminal-card reveal">
+                    <div class="coding-header">
+                        <div class="coding-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="coding-title">~/terminal</div>
+                        <div class="coding-actions">
+                            <button class="coding-btn" data-action="clear"><i class="bi bi-trash"></i></button>
+                            <button class="coding-btn" data-action="run"><i class="bi bi-play-fill"></i></button>
+                        </div>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">joty@portfolio:~$</span>
+                            <span class="command" data-cmd="npm run dev">npm run dev</span>
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">> VITE v5.4.0  ready in 347 ms</span>
+                            <span class="output-line success">✓ Local:   http://localhost:5173/</span>
+                            <span class="output-line success">✓ Network: http://192.168.1.42:5173/</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">joty@portfolio:~$</span>
+                            <span class="command" data-cmd="git push origin main">git push origin main</span>
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">Enumerating objects: 23, done.</span>
+                            <span class="output-line">Counting objects: 100% (23/23), done.</span>
+                            <span class="output-line success">Δ 12 files changed, 1,847 insertions(+), 234 deletions(-)</span>
+                            <span class="output-line success">To github.com:joty/core.git</span>
+                            <span class="output-line success">   a1b2c3d..e4f5g6h  main -> main</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">joty@portfolio:~$</span>
+                            <span class="command cursor-blink" data-cmd="">_</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Code Editor -->
+                <div class="coding-card editor-card reveal">
+                    <div class="coding-header">
+                        <div class="coding-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="coding-title">portfolio.tsx</div>
+                        <div class="coding-tabs">
+                            <span class="tab active">index.blade.php</span>
+                            <span class="tab">components.tsx</span>
+                            <span class="tab">styles.css</span>
+                        </div>
+                    </div>
+                    <div class="editor-body" id="editor-body">
+                        <div class="editor-gutter">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+                        </div>
+                        <div class="editor-code" id="editor-code">
+                            <span class="line"><span class="kw">const</span> <span class="fn">Portfolio</span> = <span class="op">()</span> => {</span>
+                            <span class="line"><span class="cm">  // Hero with particle animation</span></span>
+                            <span class="line">  <span class="kw">return</span> (</span>
+                            <span class="line">    <span class="tag"><div</span> <span class="attr">className</span>=<span class="str">"hero"</span><span class="tag">></span></span>
+                            <span class="line">      <span class="tag"><Canvas</span> <span class="attr">particles</span>={150} <span class="attr">color</span>=<span class="str">"#3b82f6"</span> <span class="tag">/></span></span>
+                            <span class="line">      <span class="tag"><CodeRain</span> <span class="attr">speed</span>={2} <span class="attr">chars</span>=<span class="str">"JS TS PHP"</span> <span class="tag">/></span></span>
+                            <span class="line">      <span class="tag"><Terminal</span> <span class="attr">autoType</span> <span class="attr">commands</span>=<span class="str">{cmds}</span> <span class="tag">/></span></span>
+                            <span class="line">    <span class="tag"></div></span></span>
+                            <span class="line">  );</span>
+                            <span class="line">};</span>
+                            <span class="line"></span>
+                            <span class="line"><span class="kw">export</span> <span class="kw">default</span> Portfolio;</span>
+                        </div>
+                        <div class="editor-minimap"></div>
+                    </div>
+                </div>
+
+                <!-- Git Graph -->
+                <div class="coding-card git-card reveal">
+                    <div class="coding-header">
+                        <div class="coding-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="coding-title">git graph --oneline</div>
+                        <div class="coding-actions">
+                            <span class="branch-badge">main</span>
+                        </div>
+                    </div>
+                    <div class="git-body" id="git-body">
+                        <div class="git-commit">
+                            <div class="commit-dot"></div>
+                            <div class="commit-line"></div>
+                            <div class="commit-info">
+                                <span class="commit-hash">e4f5g6h</span>
+                                <span class="commit-msg">feat: add coding showcase section</span>
+                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">2h ago</span></span>
                             </div>
                         </div>
-                    </a>
-                @endforeach
+                        <div class="git-commit">
+                            <div class="commit-dot"></div>
+                            <div class="commit-line"></div>
+                            <div class="commit-info">
+                                <span class="commit-hash">a1b2c3d</span>
+                                <span class="commit-msg">refactor: redesign about section as IDE</span>
+                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">1d ago</span></span>
+                            </div>
+                        </div>
+                        <div class="git-commit merge">
+                            <div class="commit-dot merge-dot"></div>
+                            <div class="commit-line merge-line"></div>
+                            <div class="commit-info">
+                                <span class="commit-hash">f8e7d6c</span>
+                                <span class="commit-msg">Merge branch 'feature/services-wave'</span>
+                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">3d ago</span></span>
+                            </div>
+                        </div>
+                        <div class="git-commit">
+                            <div class="commit-dot"></div>
+                            <div class="commit-line"></div>
+                            <div class="commit-info">
+                                <span class="commit-hash">b4c5d6e</span>
+                                <span class="commit-msg">feat: water wave services animation</span>
+                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">5d ago</span></span>
+                            </div>
+                        </div>
+                        <div class="git-commit">
+                            <div class="commit-dot"></div>
+                            <div class="commit-line"></div>
+                            <div class="commit-info">
+                                <span class="commit-hash">c9d8e7f</span>
+                                <span class="commit-msg">chore: setup vite + tailwind config</span>
+                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">1w ago</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="casestudy-cta reveal">
-                <p>{{ __('messages.casestudy_cta') }}</p>
-                <a href="#contact" class="btn-primary-custom">{{ __('messages.start_project') }} <i class="bi bi-arrow-right ms-1"></i></a>
+            <div class="coding-cta reveal">
+                <p>Want to see more? Check out the live repositories and deployments</p>
+                <div class="coding-cta-buttons">
+                    <a href="#projects" class="btn-primary-custom"><i class="bi bi-code-slash"></i> View Projects</a>
+                    <a href="#contact" class="btn-outline-custom"><i class="bi bi-github"></i> GitHub Profile</a>
+                </div>
             </div>
         </div>
     </section>
-    @endif
 
     <!-- Experience Timeline Section -->
     <section class="timeline-section section-padding" id="experience">
@@ -3826,7 +4093,7 @@
         </div>
     </section>
 
-        <!-- Contact Section — REDESIGNED MODERN -->
+        <!-- Contact Section � REDESIGNED MODERN -->
     <section class="contact-section section-padding" id="contact">
         <div class="contact-bg-grid"></div>
         <div class="container">
@@ -4083,7 +4350,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>© {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}. {{ __('messages.copyright') }}</p>
+                <p>� {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}. {{ __('messages.copyright') }}</p>
                 <span style="color: #475569; font-size: 0.82rem;">{{ __('messages.made_with') }} <span class="heart">&hearts;</span></span>
                 <a href="#" class="back-top"><i class="bi bi-arrow-up"></i> {{ __('messages.back_to_top') }}</a>
             </div>
@@ -4873,7 +5140,7 @@
     });
 })();
 
-// ===== SERVICES + PRICING — CODE TERMINAL CARDS (staggered body reveal) =====
+// ===== SERVICES + PRICING � CODE TERMINAL CARDS (staggered body reveal) =====
 (function() {
     var cards = document.querySelectorAll('.svc-card, .pkg-card');
     if (!cards.length || !('IntersectionObserver' in window)) {
@@ -4891,7 +5158,7 @@
     [].forEach.call(cards, function(card) { obs.observe(card); });
 })();
 
-// ===== ABOUT — IDE WORKBENCH (code line reveal animation) =====
+// ===== ABOUT � IDE WORKBENCH (code line reveal animation) =====
 (function() {
     var wb = document.getElementById('aboutWorkbench');
     var aboutCard = document.getElementById('aboutCard');
@@ -4947,4 +5214,5 @@
 })();
 </script>
 @endsection
+
 
