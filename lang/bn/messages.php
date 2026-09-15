@@ -22,7 +22,7 @@ return [
     // Hero
     'hero_badge'     => 'ফ্রিল্যান্সিং এর জন্য উন্মুক্ত',
     'hero_greeting'  => 'হ্যালো, আমি',
-    'hero_tagline'   => 'Laravel, PHP, JavaScript আর আধুনিক ওয়েব টেকনোলজি নিয়ে বানাই রেস্পন্সিভ, ডায়নামিক ওয়েব অ্যাপ। কোডিং আর সুন্দর ডিজাইন—এই দুইয়ে আমার দুর্বলতা।',
+    'hero_tagline'   => 'Laravel, PHP, JavaScript এবং আধুনিক ওয়েব প্রযুক্তি ব্যবহার করে আমি responsive ও dynamic web application তৈরি করি। Coding-এর পাশাপাশি user-friendly ও আকর্ষণীয় interface design করতেও আমি আগ্রহী।',
     'see_my_work'    => 'আমার কাজ দেখুন',
     'contact_me'     => 'যোগাযোগ করুন',
 
@@ -30,8 +30,8 @@ return [
     'about_title'    => 'আমার সম্পর্কে',
     'about_subtitle' => 'আমাকে আরেকটু চেনেন',
     'about_heading'  => 'ফুল স্ট্যাক ওয়েব ডেভেলপার ও ডিজাইনার',
-    'about_desc_1'   => 'Laravel, PHP, JavaScript এবং আধুনিক ওয়েব প্রযুক্তি ব্যবহার করে আমি responsive ও dynamic web application তৈরি করি।',
-    'about_desc_2'   => 'Coding-এর পাশাপাশি user-friendly ও আকর্ষণীয় interface design করতেও আমি আগ্রহী।',
+    'about_desc_1'   => 'আধুনিক টেকনোলজি দিয়ে রেস্পন্সিভ আর ডায়নামিক ওয়েব অ্যাপ বানানোই আমার কাজ। ডিজাইন নিয়ে আমার একটু বেশি খুঁতখুঁতে স্বভাব—আর ক্লিন কোড আমার প্রিয়। ইউজারদের জন্য সেরা অভিজ্ঞতা তৈরি করাই আমার লক্ষ্য।',
+    'about_desc_2'   => 'আমার হাতিয়ার: Laravel, PHP, JavaScript, React আর আধুনিক CSS ফ্রেমওয়ার্ক। আমি কোড লিখি টেকসই করে, আর ইউজার ইন্টারফেস বানাই সহজবোধ্য—যাতে সেটা আসলেই কাজে দেয়।',
     'stat_projects'  => 'প্রকল্প',
     'stat_clients'   => 'ক্লায়েন্ট',
     'stat_years'     => 'বছরের অভিজ্ঞতা',
