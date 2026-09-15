@@ -110,6 +110,8 @@ return [
     // Case Studies
     'casestudy_title'    => 'কেস স্টাডিজ',
     'casestudy_subtitle' => 'বাস্তব আইটি প্রকল্প। বাস্তব চ্যালেঞ্জ। বাস্তব ফলাফল।',
+    'no_casestudy'       => 'কোনো কেস স্টাডি যোগ করা হয়নি',
+    'no_casestudy_desc'  => 'কেস স্টাডির তথ্য খুব শিগগির আসছে!',
     'problem'            => 'সমস্যা',
     'solution'           => 'সমাধান',
     'result'             => 'ফলাফল',

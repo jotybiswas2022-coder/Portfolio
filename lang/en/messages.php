@@ -111,6 +111,8 @@ return [
     // Case Studies
     'casestudy_title'    => 'Case Studies',
     'casestudy_subtitle' => 'Real IT projects. Real challenges. Real outcomes.',
+    'no_casestudy'       => 'No Case Studies Added Yet',
+    'no_casestudy_desc'  => 'Case study data coming soon!',
     'problem'            => 'Problem',
     'solution'           => 'Solution',
     'result'             => 'Result',

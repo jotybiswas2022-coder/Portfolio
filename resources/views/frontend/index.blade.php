@@ -1436,101 +1436,166 @@
         margin-left: auto;
     }
 
-    /* Terminal Card */
-    .terminal-body {
-        padding: 1rem; font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.78rem; line-height: 1.8; min-height: 280px;
-        background: rgba(2, 6, 18, 0.4);
-        overflow-y: auto;
-    }
-    html.light-theme .terminal-body { background: rgba(15, 23, 42, 0.04); }
-    .terminal-line { display: flex; gap: 0.5rem; margin-bottom: 0.2rem; }
-    .prompt { color: #34d399; font-weight: 600; white-space: nowrap; }
-    .command { color: #e2e8f0; white-space: pre-wrap; }
-    .command.cursor-blink::after {
-        content: '_'; display: inline-block; margin-left: 2px;
-        animation: caretBlink 1s step-end infinite;
-    }
-    @keyframes caretBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-    .terminal-output { margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.1rem; }
-    .output-line { color: #94a3b8; font-size: 0.74rem; }
-    .output-line.success { color: #34d399; }
-    .output-line.error { color: #f87171; }
+    /* ===== CASE STUDY CARDS (coding-styled) ===== */
+    .cs-grid { align-items: stretch; }
 
-    /* Editor Card */
-    .editor-body { display: flex; min-height: 280px; }
-    .editor-gutter {
-        width: 46px; flex-shrink: 0;
-        background: rgba(255, 255, 255, 0.018);
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 0.9rem 0; text-align: right;
-    }
-    .editor-gutter span {
-        display: block; height: calc(0.86rem * 1.8); line-height: calc(0.86rem * 1.8);
-        padding-right: 0.65rem; font-size: 0.76rem; color: #334155; user-select: none;
-    }
-    html.light-theme .editor-gutter span { color: #cbd5e1; }
-    .editor-code { flex: 1; padding: 0.9rem 1rem; position: relative; min-width: 0; overflow: auto; }
-    .editor-code .line { display: block; font-size: 0.86rem; line-height: 1.8; }
-    .editor-code .kw { color: #60a5fa; }
-    .editor-code .fn { color: #7dd3fc; }
-    .editor-code .attr { color: #93c5fd; }
-    .editor-code .str { color: #86efac; }
-    .editor-code .tag { color: #f472b6; }
-    .editor-code .op { color: #fbbf24; }
-    .editor-code .cm { color: #5b6b84; font-style: italic; }
-    html.light-theme .editor-code .kw { color: #1d4ed8; }
-    html.light-theme .editor-code .fn { color: #0891b2; }
-    html.light-theme .editor-code .attr { color: #2563eb; }
-    html.light-theme .editor-code .str { color: #047857; }
-    html.light-theme .editor-code .tag { color: #db2777; }
-    html.light-theme .editor-code .op { color: #c2410c; }
-    html.light-theme .editor-code .cm { color: #94a3b8; }
-    .editor-minimap {
-        width: 52px; flex-shrink: 0;
-        background: rgba(255, 255, 255, 0.012);
-        border-left: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 0.9rem 0.7rem;
-        display: flex; flex-direction: column; gap: 7px;
-    }
-    html.light-theme .editor-minimap { background: rgba(15, 23, 42, 0.02); border-left-color: rgba(15, 23, 42, 0.08); }
-    .editor-minimap i {
-        display: block; height: 4px; border-radius: 4px; flex-shrink: 0;
-        background: rgba(148, 163, 184, 0.25);
-    }
-    .editor-minimap i:nth-child(odd) { width: 68%; }
-    .editor-minimap i:nth-child(3n) { width: 88%; background: rgba(96, 165, 250, 0.4); }
-    .editor-minimap i:nth-child(5n) { width: 52%; }
-    .editor-minimap i:nth-child(7n) { background: rgba(52, 211, 153, 0.35); }
-    @media (max-width: 520px) { .editor-minimap { display: none; } }
-
-    /* Git Card */
-    .git-body { padding: 0.5rem 0.85rem 0.85rem; min-height: 280px; }
-    .git-commit { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; position: relative; }
-    .git-commit:not(:last-child)::before {
-        content: ''; position: absolute; left: 5px; top: 28px; bottom: -18px;
-        width: 2px; background: rgba(59, 130, 246, 0.25);
-    }
-    .commit-dot {
-        width: 12px; height: 12px; border-radius: 50%;
-        background: var(--accent-gradient); flex-shrink: 0; margin-top: 2px;
-        box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
-        border: 2px solid var(--bg-primary);
-    }
-    .git-commit.merge .merge-dot {
-        background: linear-gradient(135deg, #22d3ee, #a78bfa);
-        box-shadow: 0 0 12px rgba(34, 211, 238, 0.5);
-    }
-    .commit-line { width: 2px; background: rgba(59, 130, 246, 0.3); margin-top: 14px; flex-shrink: 0; }
-    .commit-info { flex: 1; min-width: 0; }
-    .commit-hash {
+    .casestudy-card {
+        text-decoration: none;
+        color: inherit;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.7rem; color: var(--accent-light); font-weight: 700;
+        background: rgba(13, 23, 43, 0.62);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
     }
-    .commit-msg { display: block; font-size: 0.82rem; color: var(--text-primary); margin: 0.15rem 0; font-weight: 500; }
-    .commit-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; color: var(--text-muted); }
-    .commit-meta i { color: var(--accent-light); }
-    .commit-time { margin-left: 0.5rem; }
+    html.light-theme .casestudy-card { background: rgba(255, 255, 255, 0.88); }
+
+    .cs-body {
+        position: relative; flex: 1;
+        display: flex; flex-direction: column; gap: 0.7rem;
+        padding: 1.1rem 1.15rem 1.25rem;
+        overflow: hidden;
+    }
+
+    /* Compile scan beam sweeping each card body */
+    .cs-scan {
+        position: absolute; left: 0; right: 0; top: -45%;
+        height: 45%; pointer-events: none; z-index: 1;
+        background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.12) 45%, rgba(96, 165, 250, 0.2) 50%, rgba(59, 130, 246, 0.12) 55%, transparent);
+        animation: csScan 4.5s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+    }
+    html.light-theme .cs-scan {
+        background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.08) 45%, rgba(59, 130, 246, 0.14) 50%, rgba(59, 130, 246, 0.08) 55%, transparent);
+    }
+    @keyframes csScan {
+        0%   { top: -45%; opacity: 0; }
+        15%  { opacity: 1; }
+        70%  { top: 105%; opacity: 1; }
+        100% { top: 105%; opacity: 0; }
+    }
+
+    .cs-cmd-line {
+        position: relative; z-index: 2;
+        display: flex; align-items: center; gap: 0.45rem;
+        font-size: 0.72rem; color: #94a3b8; min-height: 1.1rem;
+    }
+    html.light-theme .cs-cmd-line { color: #64748b; }
+    .cs-prompt { color: #34d399; font-weight: 700; }
+    .cs-cmd { color: #7dd3fc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    html.light-theme .cs-cmd { color: #0369a1; }
+    .cs-caret {
+        display: inline-block; width: 7px; height: 0.95em; margin-left: 1px;
+        background: #34d399; vertical-align: text-bottom; border-radius: 1px;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+        animation: csCaret 1s step-end infinite;
+    }
+    @keyframes csCaret { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    .cs-thumb {
+        position: relative; z-index: 2;
+        border-radius: 10px; overflow: hidden;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        aspect-ratio: 16 / 9; background: rgba(2, 6, 18, 0.4);
+    }
+    .cs-thumb img {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .casestudy-card:hover .cs-thumb img { transform: scale(1.06); }
+
+    .cs-title {
+        position: relative; z-index: 2; margin: 0;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 1.05rem; font-weight: 700; line-height: 1.35;
+        color: var(--text-primary);
+    }
+    .cs-client {
+        position: relative; z-index: 2;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.72rem; color: var(--accent-light);
+    }
+    .cs-client i { color: var(--accent); }
+
+    .cs-lines { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 0.5rem; }
+    .cs-line { border-left: 2px solid rgba(59, 130, 246, 0.3); padding-left: 0.7rem; }
+    .cs-line-ok { border-left-color: rgba(52, 211, 153, 0.55); }
+    .cs-line p {
+        margin: 0;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 0.78rem; line-height: 1.6; color: var(--text-secondary);
+    }
+    .cs-key {
+        display: block; margin-bottom: 0.1rem;
+        font-size: 0.64rem; font-weight: 700; letter-spacing: 0.3px;
+        color: #5b6b84;
+    }
+    html.light-theme .cs-key { color: #94a3b8; }
+    .cs-line-ok .cs-key { color: #10b981; }
+
+    .cs-tech {
+        position: relative; z-index: 2;
+        display: flex; flex-wrap: wrap; gap: 0.35rem;
+        margin-top: auto; padding-top: 0.2rem;
+    }
+    .cs-tag {
+        font-size: 0.62rem; font-weight: 600; color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 0.2rem 0.55rem; border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    .casestudy-card:hover .cs-tag { background: var(--accent-gradient); color: #fff; border-color: transparent; }
+
+    .cs-foot {
+        display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+        padding: 0.6rem 1.15rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(2, 6, 18, 0.28);
+        font-size: 0.68rem; color: var(--text-muted);
+    }
+    html.light-theme .cs-foot { background: rgba(15, 23, 42, 0.03); border-top-color: rgba(15, 23, 42, 0.08); }
+    .cs-status { display: inline-flex; align-items: center; gap: 0.4rem; color: #34d399; }
+    .cs-open {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        color: var(--accent-light); font-weight: 600;
+    }
+    .cs-open i { transition: transform 0.3s ease; }
+    .casestudy-card:hover .cs-open { color: #fff; }
+    .casestudy-card:hover .cs-open i { transform: translateX(4px); }
+
+    /* Compile-in reveal of card content (JS adds .cs-compiled) */
+    .cs-body .cs-cmd-line,
+    .cs-body .cs-thumb,
+    .cs-body .cs-title,
+    .cs-body .cs-client,
+    .cs-body .cs-line,
+    .cs-body .cs-tech {
+        opacity: 0; transform: translateY(10px);
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .casestudy-card.cs-compiled .cs-body .cs-cmd-line,
+    .casestudy-card.cs-compiled .cs-body .cs-thumb,
+    .casestudy-card.cs-compiled .cs-body .cs-title,
+    .casestudy-card.cs-compiled .cs-body .cs-client,
+    .casestudy-card.cs-compiled .cs-body .cs-line,
+    .casestudy-card.cs-compiled .cs-body .cs-tech {
+        opacity: 1; transform: translateY(0);
+    }
+    .casestudy-card.cs-compiled .cs-body .cs-cmd-line { transition-delay: 0.05s; }
+    .casestudy-card.cs-compiled .cs-body .cs-thumb { transition-delay: 0.15s; }
+    .casestudy-card.cs-compiled .cs-body .cs-title { transition-delay: 0.25s; }
+    .casestudy-card.cs-compiled .cs-body .cs-client { transition-delay: 0.33s; }
+    .casestudy-card.cs-compiled .cs-body .cs-lines .cs-line:nth-child(1) { transition-delay: 0.41s; }
+    .casestudy-card.cs-compiled .cs-body .cs-lines .cs-line:nth-child(2) { transition-delay: 0.49s; }
+    .casestudy-card.cs-compiled .cs-body .cs-lines .cs-line:nth-child(3) { transition-delay: 0.57s; }
+    .casestudy-card.cs-compiled .cs-body .cs-tech { transition-delay: 0.65s; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cs-scan, .cs-caret { animation: none; }
+        .cs-body .cs-cmd-line, .cs-body .cs-thumb, .cs-body .cs-title,
+        .cs-body .cs-client, .cs-body .cs-line, .cs-body .cs-tech {
+            opacity: 1 !important; transform: none !important;
+        }
+    }
 
     .coding-cta {
         text-align: center; margin-top: 3.5rem; padding: 2.5rem 2rem;
@@ -1553,20 +1618,13 @@
     }
     @media (max-width: 768px) {
         .coding-grid { gap: 1.25rem; }
-        .terminal-body, .editor-body, .git-body { min-height: 220px; }
-        .editor-gutter { width: 40px; }
-        .editor-gutter span { height: calc(0.8rem * 1.8); line-height: calc(0.8rem * 1.8); font-size: 0.72rem; }
-        .editor-code .line { font-size: 0.8rem; }
+        .cs-body { padding: 1rem 0.95rem 1.1rem; }
+        .cs-title { font-size: 0.98rem; }
     }
     @media (max-width: 480px) {
         .coding-title { display: none; }
-        .coding-tabs { display: none; }
-        .editor-minimap { display: none; }
         .coding-header { padding: 0.45rem 0.7rem; }
-        .terminal-body { font-size: 0.72rem; padding: 0.8rem; }
-        .git-body { padding: 0.4rem 0.7rem 0.7rem; }
-        .commit-msg { font-size: 0.76rem; }
-        .commit-meta { font-size: 0.6rem; }
+        .cs-foot { padding: 0.55rem 0.95rem; font-size: 0.62rem; }
     }
 
 
@@ -3485,167 +3543,107 @@
     @endif
 
     <!-- Coding Showcase Section -->
-    <section class="coding-showcase-section section-padding" id="coding-showcase">
+    <section class="coding-showcase-section section-padding" id="case-studies">
         <div class="container">
             <div class="code-divider reveal" aria-hidden="true">
                 <span class="cd-line"></span>
-                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> coding-showcase.jsx</span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> case-studies.ts</span>
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
             <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>Code & Craft</h2>
-                <p>Real-time coding animations, live terminals, and interactive developer tools showcase</p>
+                <h2>{{ __('messages.casestudy_title') }}</h2>
+                <p>{{ __('messages.casestudy_subtitle') }}</p>
             </div>
-            <div class="coding-grid">
-                <!-- Live Terminal -->
-                <div class="coding-card terminal-card reveal">
-                    <div class="coding-header">
-                        <div class="coding-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <div class="coding-title">~/terminal</div>
-                        <div class="coding-actions">
-                            <button class="coding-btn" data-action="clear"><i class="bi bi-trash"></i></button>
-                            <button class="coding-btn" data-action="run"><i class="bi bi-play-fill"></i></button>
-                        </div>
-                    </div>
-                    <div class="terminal-body" id="terminal-body">
-                        <div class="terminal-line">
-                            <span class="prompt">joty@portfolio:~$</span>
-                            <span class="command" data-cmd="npm run dev">npm run dev</span>
-                        </div>
-                        <div class="terminal-output">
-                            <span class="output-line">> VITE v5.4.0  ready in 347 ms</span>
-                            <span class="output-line success">✓ Local:   http://localhost:5173/</span>
-                            <span class="output-line success">✓ Network: http://192.168.1.42:5173/</span>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="prompt">joty@portfolio:~$</span>
-                            <span class="command" data-cmd="git push origin main">git push origin main</span>
-                        </div>
-                        <div class="terminal-output">
-                            <span class="output-line">Enumerating objects: 23, done.</span>
-                            <span class="output-line">Counting objects: 100% (23/23), done.</span>
-                            <span class="output-line success">Δ 12 files changed, 1,847 insertions(+), 234 deletions(-)</span>
-                            <span class="output-line success">To github.com:joty/core.git</span>
-                            <span class="output-line success">   a1b2c3d..e4f5g6h  main -> main</span>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="prompt">joty@portfolio:~$</span>
-                            <span class="command cursor-blink" data-cmd="">_</span>
-                        </div>
-                    </div>
-                </div>
+            @if($caseStudies->isNotEmpty())
+                <div class="coding-grid cs-grid">
+                    @foreach($caseStudies as $index => $case)
+                        @php
+                            $fileSlug = \Illuminate\Support\Str::slug($case->title ?: 'case-study');
+                            $fileSlug = $fileSlug !== '' ? $fileSlug : 'case-study';
+                            $delay = ($index % 3) + 1;
+                        @endphp
+                        <a href="{{ route('case-study.detail', $case->id) }}"
+                           class="coding-card casestudy-card reveal reveal-delay-{{ $delay }}">
+                            <div class="coding-header">
+                                <div class="coding-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <div class="coding-title">{{ $fileSlug }}.md</div>
+                                <div class="coding-actions">
+                                    <span class="branch-badge">{{ $case->category ?: 'main' }}</span>
+                                </div>
+                            </div>
+                            <div class="cs-body">
+                                <span class="cs-scan" aria-hidden="true"></span>
+                                <div class="cs-cmd-line">
+                                    <span class="cs-prompt">&#10095;</span>
+                                    <span class="cs-cmd" data-cmd="cat {{ $fileSlug }}.md"></span><span class="cs-caret"></span>
+                                </div>
 
-                <!-- Live Code Editor -->
-                <div class="coding-card editor-card reveal">
-                    <div class="coding-header">
-                        <div class="coding-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <div class="coding-title">portfolio.tsx</div>
-                        <div class="coding-tabs">
-                            <span class="tab active">index.blade.php</span>
-                            <span class="tab">components.tsx</span>
-                            <span class="tab">styles.css</span>
-                        </div>
-                    </div>
-                    <div class="editor-body" id="editor-body">
-                        <div class="editor-gutter">
-                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-                            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
-                        </div>
-                        <div class="editor-code" id="editor-code">
-                            <span class="line"><span class="kw">const</span> <span class="fn">Portfolio</span> = <span class="op">()</span> => {</span>
-                            <span class="line"><span class="cm">  // Hero with particle animation</span></span>
-                            <span class="line">  <span class="kw">return</span> (</span>
-                            <span class="line">    <span class="tag"><div</span> <span class="attr">className</span>=<span class="str">"hero"</span><span class="tag">></span></span>
-                            <span class="line">      <span class="tag"><Canvas</span> <span class="attr">particles</span>={150} <span class="attr">color</span>=<span class="str">"#3b82f6"</span> <span class="tag">/></span></span>
-                            <span class="line">      <span class="tag"><CodeRain</span> <span class="attr">speed</span>={2} <span class="attr">chars</span>=<span class="str">"JS TS PHP"</span> <span class="tag">/></span></span>
-                            <span class="line">      <span class="tag"><Terminal</span> <span class="attr">autoType</span> <span class="attr">commands</span>=<span class="str">{cmds}</span> <span class="tag">/></span></span>
-                            <span class="line">    <span class="tag"></div></span></span>
-                            <span class="line">  );</span>
-                            <span class="line">};</span>
-                            <span class="line"></span>
-                            <span class="line"><span class="kw">export</span> <span class="kw">default</span> Portfolio;</span>
-                        </div>
-                        <div class="editor-minimap"></div>
-                    </div>
-                </div>
+                                @if($case->image)
+                                    <div class="cs-thumb">
+                                        <img src="{{ config('app.storage_url') }}{{ $case->image }}" alt="{{ $case->title }}" loading="lazy">
+                                    </div>
+                                @endif
 
-                <!-- Git Graph -->
-                <div class="coding-card git-card reveal">
-                    <div class="coding-header">
-                        <div class="coding-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <div class="coding-title">git graph --oneline</div>
-                        <div class="coding-actions">
-                            <span class="branch-badge">main</span>
-                        </div>
-                    </div>
-                    <div class="git-body" id="git-body">
-                        <div class="git-commit">
-                            <div class="commit-dot"></div>
-                            <div class="commit-line"></div>
-                            <div class="commit-info">
-                                <span class="commit-hash">e4f5g6h</span>
-                                <span class="commit-msg">feat: add coding showcase section</span>
-                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">2h ago</span></span>
+                                <h3 class="cs-title">{{ $case->title }}</h3>
+
+                                @if($case->client)
+                                    <div class="cs-client"><i class="bi bi-building"></i> {{ $case->client }}</div>
+                                @endif
+
+                                <div class="cs-lines">
+                                    @if($case->problem)
+                                        <div class="cs-line">
+                                            <span class="cs-key">// {{ __('messages.problem') }}</span>
+                                            <p>{{ \Illuminate\Support\Str::limit($case->problem, 120) }}</p>
+                                        </div>
+                                    @endif
+                                    @if($case->solution)
+                                        <div class="cs-line">
+                                            <span class="cs-key">// {{ __('messages.solution') }}</span>
+                                            <p>{{ \Illuminate\Support\Str::limit($case->solution, 120) }}</p>
+                                        </div>
+                                    @endif
+                                    @if($case->result)
+                                        <div class="cs-line cs-line-ok">
+                                            <span class="cs-key">// {{ __('messages.result') }}</span>
+                                            <p>{{ \Illuminate\Support\Str::limit($case->result, 120) }}</p>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                @if(!empty($case->tech_list))
+                                    <div class="cs-tech">
+                                        @foreach($case->tech_list as $tech)
+                                            <span class="cs-tag">{{ $tech }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
-                        </div>
-                        <div class="git-commit">
-                            <div class="commit-dot"></div>
-                            <div class="commit-line"></div>
-                            <div class="commit-info">
-                                <span class="commit-hash">a1b2c3d</span>
-                                <span class="commit-msg">refactor: redesign about section as IDE</span>
-                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">1d ago</span></span>
+                            <div class="cs-foot">
+                                <span class="cs-status"><span class="sv-dot"></span> build passing</span>
+                                <span class="cs-open">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
                             </div>
-                        </div>
-                        <div class="git-commit merge">
-                            <div class="commit-dot merge-dot"></div>
-                            <div class="commit-line merge-line"></div>
-                            <div class="commit-info">
-                                <span class="commit-hash">f8e7d6c</span>
-                                <span class="commit-msg">Merge branch 'feature/services-wave'</span>
-                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">3d ago</span></span>
-                            </div>
-                        </div>
-                        <div class="git-commit">
-                            <div class="commit-dot"></div>
-                            <div class="commit-line"></div>
-                            <div class="commit-info">
-                                <span class="commit-hash">b4c5d6e</span>
-                                <span class="commit-msg">feat: water wave services animation</span>
-                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">5d ago</span></span>
-                            </div>
-                        </div>
-                        <div class="git-commit">
-                            <div class="commit-dot"></div>
-                            <div class="commit-line"></div>
-                            <div class="commit-info">
-                                <span class="commit-hash">c9d8e7f</span>
-                                <span class="commit-msg">chore: setup vite + tailwind config</span>
-                                <span class="commit-meta"><i class="bi bi-person"></i> Joty <span class="commit-time">1w ago</span></span>
-                            </div>
-                        </div>
-                    </div>
+                        </a>
+                    @endforeach
                 </div>
-            </div>
+            @else
+                <div class="empty-state reveal">
+                    <i class="bi bi-journal-code"></i>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_casestudy') }}</p>
+                    <p>{{ __('messages.no_casestudy_desc') }}</p>
+                </div>
+            @endif
             <div class="coding-cta reveal">
-                <p>Want to see more? Check out the live repositories and deployments</p>
+                <p>{{ __('messages.casestudy_cta') }}</p>
                 <div class="coding-cta-buttons">
-                    <a href="#projects" class="btn-primary-custom"><i class="bi bi-code-slash"></i> View Projects</a>
-                    <a href="#contact" class="btn-outline-custom"><i class="bi bi-github"></i> GitHub Profile</a>
+                    <a href="#contact" class="btn-primary-custom"><i class="bi bi-rocket-takeoff"></i> {{ __('messages.start_project') }}</a>
+                    <a href="#projects" class="btn-outline-custom"><i class="bi bi-code-slash"></i> {{ __('messages.projects_title') }}</a>
                 </div>
             </div>
         </div>
@@ -5117,7 +5115,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .pkg-card, .testimonial-card, .faq-item, .svc-card, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .about-shell';
+    var selectors = '.cs-step, .timeline-card, .project-card, .pkg-card, .testimonial-card, .faq-item, .svc-card, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .about-shell, .coding-card';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
@@ -5212,6 +5210,53 @@
     io.observe(codeEl || wb);
     setTimeout(start, 3200);
 })();
+
+// ===== CASE STUDY CARDS (terminal typewriter + compile-in reveal) =====
+(function() {
+    var cards = document.querySelectorAll('.casestudy-card');
+    if (!cards.length) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function typeCommand(card) {
+        var el = card.querySelector('.cs-cmd');
+        if (!el) return;
+        var full = el.getAttribute('data-cmd') || '';
+        if (reduce) { el.textContent = full; return; }
+        var i = 0;
+        (function step() {
+            el.textContent = full.substring(0, i + 1);
+            i++;
+            if (i <= full.length) setTimeout(step, 45);
+        })();
+    }
+
+    function compile(card) {
+        if (card.classList.contains('cs-compiled')) return;
+        card.classList.add('cs-compiled');
+        typeCommand(card);
+    }
+
+    if ('IntersectionObserver' in window && !reduce) {
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                var card = entry.target;
+                setTimeout(function() { compile(card); }, 120);
+                obs.unobserve(card);
+            });
+        }, { threshold: 0.25 });
+        [].forEach.call(cards, function(c) { obs.observe(c); });
+    } else {
+        [].forEach.call(cards, function(c) { compile(c); });
+    }
+
+    // Safety net: never leave card content hidden
+    setTimeout(function() {
+        [].forEach.call(cards, function(c) { c.classList.add('cs-compiled'); });
+    }, 4000);
+})();
+
 </script>
 @endsection
 
