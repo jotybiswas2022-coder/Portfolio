@@ -433,7 +433,7 @@
 
     /* Floating tech chips */
     .ab-chip {
-        position: absolute; z-index: 0; pointer-events: none;
+        position: absolute; z-index: 2; pointer-events: none;
         display: inline-flex; align-items: center; gap: 0.5rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         font-size: 0.74rem; font-weight: 700;
@@ -453,10 +453,10 @@
         color: #3b82f6;
         box-shadow: 0 8px 24px rgba(59, 130, 246, 0.16);
     }
-    .ab-chip.c1 { top: -4%; left: -3.5%; }
-    .ab-chip.c2 { bottom: 18%; left: -4.5%; animation-delay: 1s; }
-    .ab-chip.c3 { bottom: -5%; right: -3%; animation-delay: 2s; }
-    .ab-chip.c4 { top: 12%; right: -4%; animation-delay: 3s; }
+    .ab-chip.c1 { top: -1.1rem; left: -1.6rem; }
+    .ab-chip.c2 { top: 7rem; left: -1.4rem; animation-delay: 1s; }
+    .ab-chip.c3 { top: -1.1rem; right: -1.6rem; animation-delay: 2s; }
+    .ab-chip.c4 { top: 6rem; right: -1.4rem; animation-delay: 3s; }
     @keyframes abFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
     /* ==== WORKBENCH WINDOW ==== */
@@ -632,6 +632,41 @@
         box-shadow: 0 0 12px rgba(52, 211, 153, 0.65);
         animation: akCaret 0.9s step-end infinite;
     }
+
+    /* ==== OUTPUT DOCK ==== */
+    .ab-dock {
+        border-top: 1px solid rgba(148, 163, 184, 0.12);
+        background: rgba(2, 8, 23, 0.35);
+        font-size: 0.72rem;
+        flex-shrink: 0;
+    }
+    html.light-theme .ab-dock { background: rgba(15, 23, 42, 0.04); }
+    .ab-dock-head {
+        display: flex; align-items: center; gap: 0.4rem;
+        padding: 0.42rem 0.8rem;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    .ab-dock-tab {
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.7px;
+        color: #64748b; padding: 0.22rem 0.5rem; border-radius: 6px;
+        cursor: default;
+    }
+    .ab-dock-tab.active {
+        color: #93c5fd; background: rgba(59, 130, 246, 0.14);
+    }
+    html.light-theme .ab-dock-tab.active { color: #3b82f6; }
+    .ab-dock-close { margin-left: auto; color: #475569; font-size: 0.78rem; }
+    .ab-dock-body {
+        padding: 0.55rem 0.85rem 0.7rem;
+        display: flex; flex-direction: column; gap: 0.28rem;
+    }
+    .ab-dock-body p {
+        margin: 0; color: #94a3b8; font-size: 0.72rem; line-height: 1.55;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    html.light-theme .ab-dock-body p { color: #475569; }
+    .ab-dock-body .ab-dock-ok { color: #34d399; font-weight: 700; }
+    .ab-dock-body .ab-dock-dim { color: #64748b; }
 
     /* ==== PROFILE PANE ==== */
     .ab-profile {
@@ -3034,17 +3069,38 @@
                                 <div class="ab-gutter">
                                     <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
                                     <span>6</span><span>7</span><span>8</span><span>9</span>
+                                    <span>10</span><span>11</span><span>12</span><span>13</span>
+                                    <span>14</span><span>15</span><span>16</span><span>17</span>
                                 </div>
                                 <div class="ab-code" id="abCode">
                                     <div class="ab-line ab-comment">// {{ __('messages.about') }} &mdash; get to know me better</div>
                                     <div class="ab-line"><span class="ab-key">const</span> <span class="ab-name">developer</span> <span class="ab-punc">=</span> <span class="ab-punc">{</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">name</span><span class="ab-punc">:</span> <span class="ab-str">"{{ optional($account)->name ?? 'Portfolio' }}"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">role</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.about_heading') }}"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">stack</span><span class="ab-punc">:</span> <span class="ab-punc">[</span><span class="ab-str">"Laravel"</span><span class="ab-punc">,</span> <span class="ab-str">"PHP"</span><span class="ab-punc">,</span> <span class="ab-str">"MySQL"</span><span class="ab-punc">,</span> <span class="ab-str">"JavaScript"</span><span class="ab-punc">,</span> <span class="ab-str">"Git"</span><span class="ab-punc">]</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">stack</span><span class="ab-punc">:</span> <span class="ab-punc">[</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"Laravel"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"PHP"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"MySQL"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"JavaScript"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"Git"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-punc">]</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">focus</span><span class="ab-punc">:</span> <span class="ab-str">"responsive web apps that users love"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">status</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.avail_for_work') }}"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-punc">};</span></div>
-                                    <div class="ab-line ab-comment">// compiled successfully &middot; lint: clean &middot; ship it &mdash; 100ms</div>
+                                    <div class="ab-line"></div>
+                                    <div class="ab-line"><span class="ab-prop">module</span><span class="ab-punc">.</span><span class="ab-prop">exports</span> <span class="ab-punc">=</span> <span class="ab-name">developer</span><span class="ab-punc">;</span></div>
+                                </div>
+                            </div>
+                            <div class="ab-dock">
+                                <div class="ab-dock-head">
+                                    <span class="ab-dock-tab active">OUTPUT</span>
+                                    <span class="ab-dock-tab">PROBLEMS</span>
+                                    <span class="ab-dock-close"><i class="bi bi-chevron-bar-down"></i></span>
+                                </div>
+                                <div class="ab-dock-body">
+                                    <p><span class="ab-dock-ok">&check;</span> Compiled successfully &middot; lint: clean &middot; 0 warnings</p>
+                                    <p><span class="ab-dock-dim">$</span> <span>ready to ship &mdash; 100ms</span></p>
                                 </div>
                             </div>
                         </div>
