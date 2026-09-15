@@ -128,6 +128,7 @@ return [
     // Gigs
     'gigs_title'       => 'Pricing Plans',
     'gigs_subtitle'    => 'Choose the perfect package for your project',
+    'pkg_choose'       => 'Choose Plan',
     'no_gigs'          => 'No Gigs Added Yet',
     'no_gigs_desc'     => 'Gig data coming soon!',
     'back_to_gigs'       => 'Back to Gigs',

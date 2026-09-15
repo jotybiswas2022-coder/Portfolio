@@ -1355,7 +1355,7 @@
 
     /* ===== Glass Card Shine Effect ===== */
     .project-card::after,
-    .gig-card::after,
+    .pkg-card::after,
     .testimonial-card::after,
     .faq-item::after,
     .contact-info-card::after,
@@ -1366,7 +1366,7 @@
         pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
     }
     html.light-theme .project-card::after,
-    html.light-theme .gig-card::after,
+    html.light-theme .pkg-card::after,
     html.light-theme .testimonial-card::after,
     html.light-theme .faq-item::after,
     html.light-theme .contact-info-card::after,
@@ -1375,7 +1375,7 @@
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.12) 30%, transparent 60%);
     }
     .project-card:hover::after,
-    .gig-card:hover::after,
+    .pkg-card:hover::after,
     .testimonial-card:hover::after,
     .faq-item:hover::after,
     .contact-info-card:hover::after,
@@ -1383,8 +1383,11 @@
     .casestudy-card:hover::after { opacity: 1; }
     /* Ensure content stays above shine */
     .project-card .card-image,
-    .gig-card .gig-image,
-    .gig-card .gig-body,
+    .pkg-card .pkg-card-bar,
+    .pkg-card .pkg-body,
+    .pkg-card .pkg-install,
+    .pkg-card .pkg-action,
+    .pkg-card .pkg-foot,
     .project-card .card-body,
     .testimonial-card .quote-icon,
     .testimonial-card .testimonial-stars,
@@ -1803,63 +1806,186 @@
     .project-card:hover .view-details-btn { background: rgba(59,130,246,0.12); gap: 0.7rem; }
     .project-card:hover .view-details-btn i { transform: translateX(3px); }
 
-/* ===== GIGS — FLEX GRID (3+2 centered, matches casestudy width) ===== */
-    .gigs-grid {
+/* ===== GIGS — PACKAGE TERMINAL CARDS ===== */
+    .gigs-section {
+        background: linear-gradient(180deg, #080d1a 0%, #0a1628 50%, #080d1a 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    html.light-theme .gigs-section {
+        background: linear-gradient(180deg, #f8fafc 0%, #eef3fb 50%, #f8fafc 100%);
+    }
+    .gigs-section::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-image:
+            linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
+        mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+    .pkg-grid {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 1.5rem;
+        gap: 1.75rem;
+        position: relative;
+        z-index: 1;
     }
-    .gig-card {
-        width: calc(33.333% - 1rem);
-        min-width: 280px;
-        flex-shrink: 0;
-        display: block;
+    .pkg-card {
+        position: relative;
+        flex: 0 0 calc((100% - 3.5rem) / 3);
+        max-width: calc((100% - 3.5rem) / 3);
+        min-width: 240px;
+        display: flex;
+        flex-direction: column;
         text-decoration: none;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
+        background: rgba(13, 23, 43, 0.58);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 16px;
         overflow: hidden;
         transition: var(--transition);
     }
-    html.light-theme .gig-card { background: rgba(255, 255, 255, 0.85); }
-    .gig-card:hover {
-        border-color: var(--border-hover);
+    html.light-theme .pkg-card { background: rgba(255, 255, 255, 0.85); border-color: rgba(139, 92, 246, 0.18); }
+    .pkg-card:hover {
+        border-color: rgba(139, 92, 246, 0.5);
         box-shadow: var(--shadow-md);
         transform: translateY(-6px);
     }
-    .gig-image {
-        height: 220px;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .gig-image .gig-icon { font-size: 4rem; opacity: 0.5; transition: var(--transition); }
-    .gig-card:hover .gig-image .gig-icon { transform: scale(1.3); opacity: 1; }
-    .gig-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-    .gig-card:hover .gig-image img { transform: scale(1.08); }
-    .gig-image::after {
+    .pkg-card::before {
         content: '';
         position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 70px;
-        background: linear-gradient(transparent, rgba(30, 41, 59, 0.95));
+        top: 0; left: 0;
+        width: 3px; height: 40%;
+        background: linear-gradient(180deg, #8b5cf6, #3b82f6);
+        border-radius: 0 3px 3px 0;
+        transition: height 0.5s ease;
+        z-index: 3;
     }
-    html.light-theme .gig-image::after { background: linear-gradient(transparent, rgba(248, 250, 252, 0.9)) !important; }
-    .gig-body { padding: 1.5rem 1.5rem 1.8rem; position: relative; z-index: 2; }
-    .gig-body h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); }
-    .gig-body p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
-    .gig-price-badge {
-        display: inline-block;
-        padding: 0.3rem 1rem;
-        background: rgba(59, 130, 246, 0.12);
-        color: var(--accent-light);
-        border: 1px solid rgba(59, 130, 246, 0.25);
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
+    .pkg-card:hover::before { height: 100%; }
+    .pkg-ribbon {
+        position: absolute;
+        top: 42px; right: -34px;
+        transform: rotate(45deg);
+        background: linear-gradient(135deg, #10b981, #06b6d4);
+        color: #fff;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.58rem; font-weight: 600;
+        letter-spacing: 0.4px;
+        padding: 0.28rem 2.4rem;
+        z-index: 3;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        pointer-events: none;
+    }
+    .pkg-card-bar {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.9rem;
+        background: rgba(139, 92, 246, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.72rem; color: var(--text-muted);
+        position: relative; z-index: 2;
+    }
+    html.light-theme .pkg-card-bar { background: rgba(139, 92, 246, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .pkg-card-bar .ab-dot { width: 10px; height: 10px; }
+    .pkg-filename { margin-left: auto; }
+    .pkg-body {
+        padding: 1.5rem 1.5rem 1rem;
+        text-align: center;
+        font-family: var(--font);
+        position: relative; z-index: 2;
+    }
+    .pkg-price {
+        font-size: 2.3rem; font-weight: 800;
+        letter-spacing: -0.5px; line-height: 1.1;
+        background: linear-gradient(135deg, var(--accent-light), #8b5cf6);
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent;
+        margin-bottom: 0.8rem;
+    }
+    .pkg-cur { font-size: 1.3rem; font-weight: 700; vertical-align: super; }
+    .pkg-curr-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-left: 0.35rem; letter-spacing: 0.8px; }
+    .pkg-icon {
+        width: 58px; height: 58px;
+        margin: 0 auto 1rem;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.7rem; color: var(--accent-light);
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.16);
+        border-radius: 16px;
+        transition: all 0.4s ease;
+    }
+    .pkg-card:hover .pkg-icon {
+        background: var(--accent-gradient);
+        color: #fff; border-color: transparent;
+        transform: scale(1.08) rotate(-4deg);
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
+    }
+    html.light-theme .pkg-icon { background: rgba(255, 255, 255, 0.85); border-color: rgba(139, 92, 246, 0.2); }
+    html.light-theme .pkg-card:hover .pkg-icon { background: var(--accent-gradient); color: #fff; border-color: transparent; }
+    .pkg-title { font-size: 1.18rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+    html.light-theme .pkg-title { color: #0f172a; }
+    .pkg-desc { font-size: 0.86rem; line-height: 1.65; color: var(--text-secondary); margin: 0; }
+    html.light-theme .pkg-desc { color: #475569; }
+    .pkg-install {
+        display: flex; align-items: center; gap: 0.5rem;
+        margin: 1rem 1.5rem 0;
+        padding: 0.5rem 0.8rem;
+        background: rgba(139, 92, 246, 0.06);
+        border: 1px solid rgba(139, 92, 246, 0.14);
+        border-radius: 10px;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.74rem; color: var(--text-muted);
+        white-space: nowrap; overflow: hidden;
+        position: relative; z-index: 2;
+    }
+    .pkg-prompt { color: #34d399; font-weight: 700; }
+    .pkg-cmd { overflow: hidden; text-overflow: ellipsis; }
+    .pkg-cursormini {
+        width: 7px; height: 0.95em;
+        background: var(--accent-light);
+        animation: svcBlink 1s step-end infinite;
+        flex-shrink: 0;
+    }
+    .pkg-action {
+        display: flex; align-items: center; justify-content: space-between;
+        margin: auto 1.5rem 1.1rem;
+        padding: 0.75rem 1rem;
+        background: var(--accent-gradient);
+        border-radius: 12px;
+        font-family: var(--font); font-weight: 600; font-size: 0.9rem;
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+        position: relative; z-index: 2;
+    }
+    .pkg-card:hover .pkg-action { box-shadow: 0 12px 32px rgba(59, 130, 246, 0.45); }
+    .pkg-arrow { transition: transform 0.3s ease; }
+    .pkg-card:hover .pkg-arrow { transform: translateX(4px); }
+    .pkg-foot {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-top: 0.6rem;
+        padding: 0.5rem 0.9rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.68rem; color: var(--text-muted);
+        position: relative; z-index: 2;
+    }
+    html.light-theme .pkg-foot { border-top-color: rgba(15, 23, 42, 0.08); }
+    .pkg-status { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .pkg-id { opacity: 0.5; }
+    .pkg-body, .pkg-install, .pkg-action { opacity: 0; }
+    .pkg-card.visible .pkg-body { animation: pkgIn 0.45s ease forwards; }
+    .pkg-card.visible .pkg-install { animation: pkgIn 0.45s ease forwards; animation-delay: 0.12s; }
+    .pkg-card.visible .pkg-action { animation: pkgIn 0.45s ease forwards; animation-delay: 0.24s; }
+    @keyframes pkgIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) {
+        .pkg-body, .pkg-install, .pkg-action { opacity: 1; animation: none; }
     }
 
     /* Testimonials */
@@ -2640,11 +2766,11 @@
         .project-card .card-body h3 { font-size: 1.1rem; }
         .project-card .card-image { height: 180px; }
         .project-card .card-body .view-details-btn { font-size: 0.8rem; }
-        .gigs-grid { gap: 1.5rem; }
-        .gig-card { width: calc(50% - 0.75rem); min-width: 240px; }
-        .gig-image { height: 180px; }
-        .gig-body { padding: 1.3rem; }
-        .gig-body h3 { font-size: 1.1rem; }
+        .pkg-grid { gap: 1.5rem; }
+        .pkg-card { flex-basis: calc((100% - 1.5rem) / 2); max-width: calc((100% - 1.5rem) / 2); min-width: 240px; }
+        .pkg-body { padding: 1.3rem 1.2rem 0.9rem; }
+        .pkg-price { font-size: 2rem; }
+        .pkg-title { font-size: 1.1rem; }
         .filter-tabs { gap: 0.4rem; }
         .filter-btn { font-size: 0.75rem; padding: 0.4rem 1rem; }
         
@@ -2715,14 +2841,13 @@
         .project-card .card-image { height: 160px; }
         .project-card .card-body { padding: 1.2rem; }
         .project-card .card-body h3 { font-size: 1rem; }
-        .gigs-grid { display: block !important; gap: unset; width: 100% !important; }
-        .gig-card { width: 100% !important; min-width: 0 !important; display: block; max-width: none !important; }
-        .gig-card + .gig-card { margin-top: 1rem; }
-        .gig-image { height: 140px; }
-        .gig-body { padding: 1rem; }
-        .gig-body h3 { font-size: 0.9rem; margin-bottom: 0.3rem; }
-        .gig-body p { font-size: 0.8rem; margin-bottom: 0.5rem; line-height: 1.4; }
-        .gig-price-badge { font-size: 0.72rem; padding: 0.2rem 0.7rem; }
+        .pkg-grid { display: block !important; gap: unset; width: 100% !important; }
+        .pkg-card { width: 100% !important; min-width: 0 !important; display: flex; max-width: none !important; }
+        .pkg-card + .pkg-card { margin-top: 1rem; }
+        .pkg-body { padding: 1.2rem 1.1rem 0.9rem; }
+        .pkg-body h3 { margin-bottom: 0.3rem; }
+        .pkg-desc { font-size: 0.82rem; line-height: 1.5; }
+        .pkg-ribbon { display: none; }
         .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
         .filter-tabs::-webkit-scrollbar { height: 2px; }
         .filter-tabs::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
@@ -3163,34 +3288,41 @@
                 <h2>{{ __('messages.gigs_title') }}</h2>
                 <p>{{ __('messages.gigs_subtitle') }}</p>
             </div>
-            <div class="gigs-grid">
+            <div class="pkg-grid">
                 @foreach($gigs as $index => $gig)
                     @php
                         $delay = ($index % 4) + 1;
-                        $gradients = [
-                            'linear-gradient(135deg, #1e3a5f, #1a1a3e)',
-                            'linear-gradient(135deg, #1e4040, #1a2e3e)',
-                            'linear-gradient(135deg, #2e1e5f, #1a1a3e)',
-                            'linear-gradient(135deg, #3a1e3e, #1a1a3e)',
-                        ];
                         $icons = ['bi bi-star-fill', 'bi bi-rocket-takeoff-fill', 'bi bi-lightning-fill', 'bi bi-diamond-fill'];
+                        $pkgName = \Illuminate\Support\Str::slug($gig->title ?: 'package', '_');
                     @endphp
-                    <a href="{{ route('gig.detail', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}">
-                        <div class="gig-image" style="background: {{ $gradients[$index % count($gradients)] }};">
-                            @if($gig->image)
-                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
-                            @else
-                                <span class="gig-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
+                    <a href="{{ route('gig.detail', $gig->id) }}" class="pkg-card reveal reveal-delay-{{ $delay }}">
+                        <div class="pkg-card-bar">
+                            <span class="ab-dot red"></span>
+                            <span class="ab-dot yellow"></span>
+                            <span class="ab-dot green"></span>
+                            <span class="pkg-filename">pricing-{{ $index + 1 }}.js</span>
+                        </div>
+                        <span class="pkg-ribbon">npm</span>
+                        <div class="pkg-body">
+                            <div class="pkg-price"><span class="pkg-cur">$</span>{{ $gig->basic_price }}<span class="pkg-curr-label">USD</span></div>
+                            <div class="pkg-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></div>
+                            <h3 class="pkg-title">{{ $gig->title }}</h3>
+                            @if($gig->short_description)
+                                <p class="pkg-desc">{{ $gig->short_description }}</p>
                             @endif
                         </div>
-                        <div class="gig-body">
-                            <h3>{{ $gig->title }}</h3>
-                            @if($gig->short_description)
-                                <p>{{ $gig->short_description }}</p>
-                            @endif
-                            <span class="gig-price-badge">
-                                {{ $gig->basic_price }} USD
-                            </span>
+                        <div class="pkg-install">
+                            <span class="pkg-prompt">$</span>
+                            <span class="pkg-cmd">npm i {{ $pkgName }}</span>
+                            <span class="pkg-cursormini"></span>
+                        </div>
+                        <div class="pkg-action">
+                            <span>{{ __('messages.pkg_choose') }}</span>
+                            <span class="pkg-arrow"><i class="bi bi-arrow-up-right"></i></span>
+                        </div>
+                        <div class="pkg-foot">
+                            <span class="pkg-status"><span class="sv-dot"></span> available</span>
+                            <span class="pkg-id">package #{{ $index + 1 }}</span>
                         </div>
                     </a>
                 @endforeach
@@ -4061,7 +4193,7 @@
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball, .social-link, .btn-primary-custom, .btn-outline-custom, .freelance-btn').forEach(function(el) {
+    document.querySelectorAll('a, button, .magnetic, .project-card, .pkg-card, .skill-ball, .social-link, .btn-primary-custom, .btn-outline-custom, .freelance-btn').forEach(function(el) {
         el.addEventListener('mouseenter', function() { glow.classList.add('active'); });
         el.addEventListener('mouseleave', function() { glow.classList.remove('active'); });
     });
@@ -4707,7 +4839,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .svc-card, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .about-shell';
+    var selectors = '.cs-step, .timeline-card, .project-card, .pkg-card, .testimonial-card, .faq-item, .svc-card, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .about-shell';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
@@ -4730,9 +4862,9 @@
     });
 })();
 
-// ===== SERVICES — CODE TERMINAL CARDS (staggered body reveal) =====
+// ===== SERVICES + PRICING — CODE TERMINAL CARDS (staggered body reveal) =====
 (function() {
-    var cards = document.querySelectorAll('.svc-card');
+    var cards = document.querySelectorAll('.svc-card, .pkg-card');
     if (!cards.length || !('IntersectionObserver' in window)) {
         [].forEach.call(cards, function(c) { c.classList.add('visible'); });
         return;
