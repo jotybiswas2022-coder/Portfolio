@@ -2802,6 +2802,8 @@
         .hero-aurora { opacity: 0.7; }
         #hero-canvas { opacity: 0.7; }
         .hero-scan { display: none; }
+        .float-chip { display: none; }
+        .code-fragment { display: none; }
     }
     
     /* Mobile Large (max 768px) */
@@ -2810,10 +2812,12 @@
         .section-title { margin-bottom: 3rem; }
         .section-title h2 { font-size: 2rem; }
         .section-title p { font-size: 0.95rem; }
-        .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
-        .hero p { font-size: 1rem; }
-        .hero-badge { font-size: 0.75rem; padding: 0.3rem 1rem; }
+        .hero h1 { font-size: clamp(1.9rem, 7.5vw, 3.2rem); }
+        .hero p { font-size: 1rem; line-height: 1.75; max-width: 100%; }
+        .hero-badge { font-size: 0.72rem; padding: 0.3rem 1rem; margin-bottom: 1.1rem; }
         .hero::before { width: 400px; height: 400px; }
+        .hero-aurora { display: none; }
+        #hero-canvas { opacity: 0.35; }
         
         
         
@@ -2874,13 +2878,14 @@
         .section-title { padding: 0 0.5rem; margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .section-title .line { width: 45px; height: 3px; }
-        .hero { padding: 4rem 1rem 1.5rem; min-height: 90vh; }
-        .hero h1 { font-size: 1.8rem; letter-spacing: -0.5px; }
-        .hero p { font-size: 0.9rem; }
-        .hero-buttons { flex-direction: column; align-items: center; }
+        .hero { padding: 4.5rem 1rem 2.5rem; min-height: 88vh; }
+        .hero h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
+        .hero h1 .gradient-text { white-space: normal; }
+        .hero p { font-size: 0.92rem; }
+        .hero-buttons { flex-direction: column; align-items: center; width: 100%; max-width: 340px; margin: 0 auto; }
         .hero-buttons .btn-primary-custom,
         .hero-buttons .btn-outline-custom { width: 100%; justify-content: center; padding: 0.75rem 1.5rem; font-size: 0.88rem; }
-        .hero::before { width: 300px; height: 300px; }
+        .hero::before { width: 280px; height: 280px; }
         
         .timeline-card { padding: 0.85rem; }
         .timeline-card h3 { font-size: 0.88rem; }
