@@ -417,19 +417,6 @@
         box-shadow: 0 0 24px rgba(59, 130, 246, 0.12);
     }
     .ab-kbracket { color: #fbbf24; font-weight: 800; }
-    .ab-shine {
-        position: absolute; inset: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(96, 165, 250, 0.85) 0%, rgba(59, 130, 246, 0.45) 25%, transparent 52%);
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        z-index: 0;
-        border-radius: 20px;
-    }
-    html.light-theme .ab-shine {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.55) 0%, rgba(59, 130, 246, 0.28) 25%, transparent 52%);
-    }
-    .about-shell:hover .ab-shine { opacity: 1; }
     .about-kicker-caret {
         display: inline-block; width: 8px; height: 14px;
         background: var(--accent-light); margin-left: 2px; border-radius: 1px;
@@ -482,6 +469,7 @@
         border: 1px solid rgba(147, 197, 253, 0.22);
         border-radius: 20px;
         overflow: hidden;
+        transition: var(--transition);
         box-shadow:
             0 40px 110px rgba(2, 8, 23, 0.7),
             0 0 0 1px rgba(255, 255, 255, 0.06) inset,
@@ -502,37 +490,29 @@
     }
     @keyframes atSweep { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-    /* Light reflect / glare sweep on hover */
+    /* Shine follows cursor — same as project/gig cards */
     .ab-wb::after {
-        content: '';
-        position: absolute;
-        top: -120%; left: -60%;
-        width: 55%; height: 340%;
-        background: linear-gradient(100deg, transparent 0%, rgba(96, 165, 250, 0.16) 35%, rgba(96, 165, 250, 0.3) 50%, rgba(96, 165, 250, 0.16) 65%, transparent 100%);
-        transform: rotate(22deg) translateX(-140%);
-        pointer-events: none;
-        z-index: 2;
-        opacity: 0;
-    }
-    .ab-wb:hover {
-        border-color: rgba(59, 130, 246, 0.55);
-        box-shadow:
-            0 40px 110px rgba(2, 8, 23, 0.7),
-            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-            0 0 90px rgba(59, 130, 246, 0.22);
-    }
-    .ab-wb:hover::after {
-        opacity: 1;
-        transform: rotate(22deg) translateX(340%);
-        transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
-    }
-    html.light-theme .ab-wb:hover {
-        border-color: rgba(59, 130, 246, 0.6);
-        box-shadow: 0 40px 90px rgba(59, 130, 246, 0.28);
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.45) 0%, rgba(59, 130, 246, 0.18) 30%, transparent 60%);
+        pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
+        z-index: 1; border-radius: inherit;
     }
     html.light-theme .ab-wb::after {
-        background: linear-gradient(100deg, transparent 0%, rgba(59, 130, 246, 0.18) 35%, rgba(59, 130, 246, 0.4) 50%, rgba(59, 130, 246, 0.18) 65%, transparent 100%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.35) 0%, rgba(59, 130, 246, 0.12) 30%, transparent 60%);
     }
+    .ab-wb:hover::after { opacity: 1; }
+    .ab-wb:hover {
+        border-color: var(--border-hover);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-6px);
+    }
+    .ab-wb .ab-titlebar,
+    .ab-wb .ab-activity,
+    .ab-wb .ab-editor,
+    .ab-wb .ab-profile,
+    .ab-wb .ab-minimap,
+    .ab-wb .ab-dock,
+    .ab-wb .ab-statusbar { position: relative; z-index: 2; }
 
     /* Title bar */
     .ab-titlebar {
@@ -3116,7 +3096,6 @@
             </div>
 
             <div class="about-shell reveal reveal-delay-1" id="aboutWorkbench">
-                <div class="ab-shine" aria-hidden="true"></div>
                 <span class="ab-chip c1"><i class="bi bi-code-slash"></i> Laravel</span>
                 <span class="ab-chip c2"><i class="fa-brands fa-php"></i> PHP</span>
                 <span class="ab-chip c3"><i class="bi bi-braces"></i> React</span>
