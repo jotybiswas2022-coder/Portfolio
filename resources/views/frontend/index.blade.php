@@ -4143,13 +4143,6 @@
         </div>
     </section>
 
-    --text-primary);">{{ __('messages.no_experience') }}</p>
-                    <p>{{ __('messages.no_experience_desc') }}</p>
-                </div>
-            @endif
-        </div>
-    </section>
-
     <!-- Education Qualification Section -->
     <section class="section-padding" id="education"
         style="background: linear-gradient(180deg, var(--bg-secondary) 0%, #080d1a 100%);">
