@@ -419,7 +419,7 @@
     .ab-kbracket { color: #fbbf24; font-weight: 800; }
     .ab-shine {
         position: absolute; inset: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.5) 0%, rgba(59, 130, 246, 0.18) 30%, transparent 62%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(125, 211, 252, 0.9) 0%, rgba(96, 165, 250, 0.5) 25%, transparent 52%);
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.5s ease;
@@ -427,7 +427,7 @@
         border-radius: 20px;
     }
     html.light-theme .ab-shine {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.12) 30%, transparent 62%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(125, 211, 252, 0.7) 0%, rgba(96, 165, 250, 0.35) 25%, transparent 52%);
     }
     .about-shell:hover .ab-shine { opacity: 1; }
     .about-kicker-caret {
