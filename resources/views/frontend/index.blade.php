@@ -1556,21 +1556,185 @@
         }
     }
 
-    .coding-cta {
-        text-align: center; margin-top: 3.5rem; padding: 2.5rem 2rem;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(139, 92, 246, 0.06));
-        border: 1px solid rgba(59, 130, 246, 0.12);
-        border-radius: 20px; position: relative; overflow: hidden;
+    /* ==== CASE STUDIES HEADER + CTA (test-suite terminal) ==== */
+    .csh {
+        position: relative;
+        max-width: 880px;
+        margin: 0 auto 2.75rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.6) 0%, rgba(8, 15, 32, 0.45) 100%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(147, 197, 253, 0.22);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow:
+            0 30px 90px rgba(2, 8, 23, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 60px rgba(59, 130, 246, 0.08);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
     }
-    html.light-theme .coding-cta {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+    html.light-theme .csh {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(232, 240, 252, 0.62) 100%);
+        border-color: rgba(59, 130, 246, 0.26);
+        box-shadow: 0 30px 70px rgba(59, 130, 246, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
     }
-    .coding-cta::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
+    .csh:hover {
+        border-color: var(--border-hover);
+        transform: translateY(-4px);
     }
-    .coding-cta p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-    .coding-cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .csh::before {
+        content: '';
+        position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, #22d3ee, transparent);
+        background-size: 200% 100%;
+        animation: atSweep 6s linear infinite;
+    }
+    .csh-cta { margin: 3.25rem auto 0; }
+
+    .csh-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255, 255, 255, 0.035);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    html.light-theme .csh-bar { background: rgba(15, 23, 42, 0.035); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .csh-file {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        margin-left: 0.35rem; font-size: 0.73rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .csh-file i { color: #38bdf8; }
+    html.light-theme .csh-file { color: #334155; }
+    .csh-tag {
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+        color: #c4b5fd; background: rgba(139, 92, 246, 0.14);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        padding: 0.18rem 0.5rem; border-radius: 50px;
+        white-space: nowrap;
+    }
+    .csh-right {
+        margin-left: auto; flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.64rem; color: #34d399;
+        background: rgba(52, 211, 153, 0.08);
+        border: 1px solid rgba(52, 211, 153, 0.26);
+        padding: 0.22rem 0.65rem; border-radius: 50px;
+        white-space: nowrap;
+    }
+
+    .csh-cmd {
+        display: flex; align-items: center; gap: 0.5rem;
+        min-height: 2.4rem;
+        padding: 0.5rem 0.95rem;
+        font-size: 0.78rem;
+        background: rgba(2, 8, 23, 0.45);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        overflow: hidden;
+    }
+    html.light-theme .csh-cmd { background: rgba(15, 23, 42, 0.05); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .csh-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .csh-cmd-text {
+        color: #e2e8f0;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    html.light-theme .csh-cmd-text { color: #1e293b; }
+    .csh-caret {
+        display: inline-block; width: 8px; height: 1em; flex-shrink: 0;
+        background: #34d399; border-radius: 1px;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+        animation: glBlink 1s step-end infinite;
+    }
+
+    .csh-body { padding: 1.5rem 1.5rem 1.6rem; }
+
+    .csh-suite { display: flex; align-items: center; flex-wrap: wrap; gap: 0.7rem; }
+    .csh-pass {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.64rem; font-weight: 800; letter-spacing: 0.8px;
+        color: #052e16;
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        padding: 0.24rem 0.6rem; border-radius: 6px;
+        box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+    }
+    .csh-title {
+        margin: 0;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 2rem; font-weight: 800; line-height: 1.2;
+        color: var(--text-primary);
+    }
+    .csh-time { margin-left: auto; font-size: 0.66rem; color: #64748b; flex-shrink: 0; }
+
+    .csh-tests { list-style: none; margin: 0.9rem 0 0; padding: 0; }
+    .csh-test {
+        display: flex; align-items: flex-start; gap: 0.6rem;
+        font-size: 0.86rem; line-height: 1.7; color: var(--text-secondary);
+    }
+    .csh-check {
+        flex-shrink: 0; margin-top: 0.22rem;
+        width: 18px; height: 18px; border-radius: 5px;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 0.6rem; color: #052e16;
+        background: rgba(74, 222, 128, 0.92);
+        box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.4), 0 0 14px rgba(74, 222, 128, 0.3);
+    }
+    .csh-check i { line-height: 1; }
+
+    .csh-summary {
+        display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap;
+        font-size: 0.66rem; color: #64748b;
+        margin-top: 1.2rem; padding-top: 1rem;
+        border-top: 1px dashed rgba(148, 163, 184, 0.2);
+    }
+    .csh-summary b { color: #4ade80; }
+    .csh-summary i { color: var(--accent-light); }
+    .csh-sum-right { margin-left: auto; }
+
+    .csh-cta-text {
+        margin: 0 0 1.35rem;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 1.02rem; line-height: 1.75; color: var(--text-secondary);
+        max-width: 640px;
+    }
+    .csh-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+    /* Staggered reveal (armed by JS, so content is never hidden without it) */
+    .csh-anim { transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--d, 0) * 90ms); }
+    .csh-armed .csh-anim { opacity: 0; transform: translateY(12px); }
+    .csh-ready .csh-anim { opacity: 1; transform: translateY(0); }
+    .csh-pass { transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.4); transition-delay: 120ms; }
+    .csh-armed .csh-pass { opacity: 0; transform: scale(0.7); }
+    .csh-ready .csh-pass { opacity: 1; transform: scale(1); }
+    .csh-check { transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.5); transition-delay: calc(var(--d, 0) * 90ms + 60ms); }
+    .csh-armed .csh-check { opacity: 0; transform: scale(0.3); }
+    .csh-ready .csh-check { opacity: 1; transform: scale(1); }
+    .csh-ready .csh-pass { animation: cshGlow 3s ease-in-out 1.2s infinite; }
+    @keyframes cshGlow {
+        0%, 100% { box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35); }
+        50% { box-shadow: 0 6px 32px rgba(34, 197, 94, 0.65); }
+    }
+
+    @media (max-width: 768px) {
+        .csh { margin-bottom: 2.25rem; }
+        .csh-cta { margin-top: 2.5rem; }
+        .csh-body { padding: 1.25rem 1.15rem 1.35rem; }
+        .csh-title { font-size: 1.55rem; }
+        .csh-cmd { font-size: 0.72rem; }
+    }
+    @media (max-width: 480px) {
+        .csh-tag, .csh-time { display: none; }
+        .csh-title { font-size: 1.35rem; }
+        .csh-actions .btn-primary-custom,
+        .csh-actions .btn-outline-custom { flex: 1 1 100%; justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .csh-armed .csh-anim,
+        .csh-armed .csh-check,
+        .csh-armed .csh-pass { opacity: 1; transform: none; }
+        .csh::before,
+        .csh-caret,
+        .csh-ready .csh-pass { animation: none; }
+    }
 
     @media (max-width: 1024px) {
         .coding-grid { grid-template-columns: 1fr; max-width: 500px; }
@@ -3625,11 +3789,42 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.casestudy_title') }}</h2>
-                <p>{{ __('messages.casestudy_subtitle') }}</p>
+            <div class="csh reveal" id="caseStudiesHead">
+                <div class="csh-bar">
+                    <span class="ab-dot red"></span>
+                    <span class="ab-dot yellow"></span>
+                    <span class="ab-dot green"></span>
+                    <span class="csh-file"><i class="bi bi-filetype-tsx"></i> case-studies.spec.ts</span>
+                    <span class="csh-tag">suite</span>
+                    <span class="csh-right"><span class="ab-dot2"></span> {{ $caseStudies->count() }} {{ __('messages.casestudy_title') }}</span>
+                </div>
+
+                <div class="csh-cmd">
+                    <span class="csh-prompt">&#10095;</span>
+                    <span class="csh-cmd-text" data-cmd="npm test -- case-studies.spec.ts"></span><span class="csh-caret"></span>
+                </div>
+
+                <div class="csh-body">
+                    <div class="csh-suite csh-anim" style="--d: 0">
+                        <span class="csh-pass"><i class="bi bi-check2"></i> PASS</span>
+                        <h2 class="csh-title">{{ __('messages.casestudy_title') }}</h2>
+                        <span class="csh-time">0.42s</span>
+                    </div>
+
+                    <ul class="csh-tests">
+                        <li class="csh-test csh-anim" style="--d: 2">
+                            <span class="csh-check"><i class="bi bi-check-lg"></i></span>
+                            <span>{{ __('messages.casestudy_subtitle') }}</span>
+                        </li>
+                    </ul>
+
+                    <div class="csh-summary csh-anim" style="--d: 3">
+                        <span>Tests: <b>1 passed</b>, 1 total</span>
+                        <span class="csh-sum-right">snapshots: 0 failed</span>
+                    </div>
+                </div>
             </div>
+
             @if($caseStudies->isNotEmpty())
                 <div class="coding-grid cs-grid">
                     @foreach($caseStudies as $index => $case)
@@ -3713,11 +3908,33 @@
                     <p>{{ __('messages.no_casestudy_desc') }}</p>
                 </div>
             @endif
-            <div class="coding-cta reveal">
-                <p>{{ __('messages.casestudy_cta') }}</p>
-                <div class="coding-cta-buttons">
-                    <a href="#contact" class="btn-primary-custom"><i class="bi bi-rocket-takeoff"></i> {{ __('messages.start_project') }}</a>
-                    <a href="#projects" class="btn-outline-custom"><i class="bi bi-code-slash"></i> {{ __('messages.projects_title') }}</a>
+            <div class="csh csh-cta reveal" id="caseStudiesCta">
+                <div class="csh-bar">
+                    <span class="ab-dot red"></span>
+                    <span class="ab-dot yellow"></span>
+                    <span class="ab-dot green"></span>
+                    <span class="csh-file"><i class="bi bi-terminal"></i> ~/portfolio</span>
+                    <span class="csh-tag">sh</span>
+                    <span class="csh-right"><span class="ab-dot2"></span> {{ __('messages.avail_for_work') }}</span>
+                </div>
+
+                <div class="csh-cmd">
+                    <span class="csh-prompt">&#10095;</span>
+                    <span class="csh-cmd-text" data-cmd="./next --start-project"></span><span class="csh-caret"></span>
+                </div>
+
+                <div class="csh-body">
+                    <p class="csh-cta-text csh-anim" style="--d: 0">{{ __('messages.casestudy_cta') }}</p>
+
+                    <div class="csh-actions csh-anim" style="--d: 1">
+                        <a href="#contact" class="btn-primary-custom"><i class="bi bi-rocket-takeoff"></i> {{ __('messages.start_project') }}</a>
+                        <a href="#projects" class="btn-outline-custom"><i class="bi bi-code-slash"></i> {{ __('messages.projects_title') }}</a>
+                    </div>
+
+                    <div class="csh-summary csh-anim" style="--d: 2">
+                        <span><i class="bi bi-check2-circle"></i> exit code 0</span>
+                        <span class="csh-sum-right">{{ __('messages.hire_me') }} &middot; awaiting your input</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5423,6 +5640,73 @@
 
     // Safety net: never leave the log hidden or half-typed
     setTimeout(function() { start(); fillAll(); }, 3500);
+})();
+
+// ===== CASE STUDIES HEADER + CTA (suite reveal + typed command) =====
+(function() {
+    var panels = [
+        document.getElementById('caseStudiesHead'),
+        document.getElementById('caseStudiesCta')
+    ].filter(Boolean);
+    if (!panels.length) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function type(el, text, speed, done) {
+        if (!el || !text) { if (done) done(); return; }
+        var i = 0;
+        (function step() {
+            el.textContent = text.substring(0, i + 1);
+            i++;
+            if (i < text.length) setTimeout(step, speed);
+            else if (done) done();
+        })();
+    }
+
+    function fillCmd(panel) {
+        var el = panel.querySelector('.csh-cmd-text');
+        if (el && !el.textContent) el.textContent = el.getAttribute('data-cmd') || '';
+    }
+
+    function reveal(panel) {
+        if (panel.classList.contains('csh-ready')) return;
+        panel.classList.add('csh-ready');
+
+        var el = panel.querySelector('.csh-cmd-text');
+        if (reduce || !el || el.dataset.typed) return;
+        el.dataset.typed = '1';
+        el.textContent = '';
+        type(el, el.getAttribute('data-cmd') || '', 30);
+    }
+
+    if (reduce) {
+        panels.forEach(fillCmd);
+        panels.forEach(function(p) { p.classList.add('csh-ready'); });
+    } else if ('IntersectionObserver' in window) {
+        panels.forEach(function(p) { p.classList.add('csh-armed'); });
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                reveal(entry.target);
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.15 });
+        panels.forEach(function(p) { io.observe(p); });
+    } else {
+        panels.forEach(function(p) { reveal(p); });
+    }
+
+    // Safety net: only un-hide a panel that is actually on screen and still armed
+    setTimeout(function() {
+        panels.forEach(function(p) {
+            if (p.classList.contains('csh-ready')) return;
+            var r = p.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0) {
+                p.classList.add('csh-ready');
+                fillCmd(p);
+            }
+        });
+    }, 4000);
 })();
 
 // ===== CASE STUDY CARDS (terminal typewriter + compile-in reveal) =====
