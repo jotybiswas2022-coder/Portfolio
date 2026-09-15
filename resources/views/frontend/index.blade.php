@@ -463,19 +463,21 @@
     .ab-wb {
         position: relative; z-index: 1;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        background: linear-gradient(180deg, #0b1424 0%, #0e1a30 100%);
-        border: 1px solid rgba(59, 130, 246, 0.28);
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.58) 0%, rgba(8, 15, 32, 0.42) 100%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(147, 197, 253, 0.22);
         border-radius: 20px;
         overflow: hidden;
         box-shadow:
             0 40px 110px rgba(2, 8, 23, 0.7),
-            0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+            0 0 0 1px rgba(255, 255, 255, 0.06) inset,
             0 0 70px rgba(59, 130, 246, 0.09);
     }
     html.light-theme .ab-wb {
-        background: linear-gradient(180deg, #f8fafc 0%, #e7edf7 100%);
-        border-color: rgba(59, 130, 246, 0.35);
-        box-shadow: 0 40px 90px rgba(59, 130, 246, 0.22);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.52) 0%, rgba(230, 240, 252, 0.4) 100%);
+        border-color: rgba(59, 130, 246, 0.28);
+        box-shadow: 0 40px 90px rgba(59, 130, 246, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
     }
     .ab-wb::before {
         content: '';
@@ -493,7 +495,7 @@
         position: absolute;
         top: -120%; left: -60%;
         width: 55%; height: 340%;
-        background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.07) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(255, 255, 255, 0.07) 65%, transparent 100%);
+        background: linear-gradient(100deg, transparent 0%, rgba(147, 197, 253, 0.16) 35%, rgba(147, 197, 253, 0.32) 50%, rgba(147, 197, 253, 0.16) 65%, transparent 100%);
         transform: rotate(22deg) translateX(-140%);
         pointer-events: none;
         z-index: 2;
@@ -516,7 +518,7 @@
         box-shadow: 0 40px 90px rgba(59, 130, 246, 0.28);
     }
     html.light-theme .ab-wb::after {
-        background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0.4) 65%, transparent 100%);
+        background: linear-gradient(100deg, transparent 0%, rgba(59, 130, 246, 0.22) 35%, rgba(59, 130, 246, 0.45) 50%, rgba(59, 130, 246, 0.22) 65%, transparent 100%);
     }
 
     /* Title bar */
