@@ -4174,15 +4174,19 @@
         background: linear-gradient(180deg, #eef2f7 0%, #f1f5f9 100%) !important;
     }
 
+    /* Flex + centred so a lone card (or a last odd one) sits in the middle */
     .edu-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1.35rem;
         max-width: 1000px;
         margin: 0 auto;
     }
 
     .edu-card {
+        flex: 1 1 400px;
+        max-width: 470px;
         background: rgba(255,255,255,0.04) !important;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -4354,7 +4358,7 @@
     .edu-grid.edu-ready .edu-card:hover { transition-delay: 0s; }
 
     @media (max-width: 860px) {
-        .edu-grid { grid-template-columns: 1fr; max-width: 560px; }
+        .edu-grid { max-width: 560px; }
     }
     @media (max-width: 480px) {
         .edu-line { font-size: 0.72rem; }
