@@ -386,7 +386,7 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
-    /* ===== ABOUT — LIVE TERMINAL + PROFILE CARD ===== */
+    /* ===== ABOUT — IDE WORKBENCH (coding design) ===== */
     .about-section {
         background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
         position: relative;
@@ -396,13 +396,14 @@
         content: '';
         position: absolute; inset: 0;
         background-image:
-            linear-gradient(rgba(59, 130, 246, 0.045) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.045) 1px, transparent 1px);
+            linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
         background-size: 44px 44px;
         -webkit-mask-image: radial-gradient(ellipse at 40% 45%, #000 0%, transparent 70%);
         mask-image: radial-gradient(ellipse at 40% 45%, #000 0%, transparent 70%);
         pointer-events: none;
     }
+    html.light-theme .about-section { background: linear-gradient(180deg, #eef3fb 0%, #f8fafc 100%); }
     .about-section .section-title { position: relative; z-index: 1; }
 
     .about-kicker {
@@ -410,13 +411,13 @@
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         font-size: 0.78rem; color: var(--accent-light);
         background: rgba(59, 130, 246, 0.08);
-        border: 1px solid rgba(59, 130, 246, 0.18);
+        border: 1px solid rgba(59, 130, 246, 0.2);
         padding: 0.35rem 0.9rem; border-radius: 8px;
         margin-bottom: 1.1rem;
-        box-shadow: 0 0 24px rgba(59, 130, 246, 0.1);
+        box-shadow: 0 0 24px rgba(59, 130, 246, 0.12);
     }
-    .about-kicker .ak-prompt { color: #34d399; font-weight: 700; }
-    .about-kicker .ak-caret {
+    .ab-kbracket { color: #fbbf24; font-weight: 800; }
+    .about-kicker-caret {
         display: inline-block; width: 8px; height: 14px;
         background: var(--accent-light); margin-left: 2px; border-radius: 1px;
         animation: akCaret 1s step-end infinite;
@@ -424,479 +425,517 @@
     @keyframes akCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
     .about-shell {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 2rem;
-        align-items: stretch;
         position: relative;
+        max-width: 1220px;
+        width: 100%;
+        margin: 0 auto;
     }
 
-    /* ---------- LIVE TERMINAL ---------- */
-    .about-term { position: relative; display: flex; }
-    .about-term::before {
-        content: '';
-        position: absolute; inset: -5% -4%;
-        z-index: 0; pointer-events: none;
-        background:
-            radial-gradient(50% 50% at 20% 20%, rgba(59, 130, 246, 0.18), transparent 70%),
-            radial-gradient(45% 45% at 85% 85%, rgba(139, 92, 246, 0.14), transparent 70%);
-        filter: blur(16px);
-    }
-    .at-window {
-        position: relative; z-index: 1;
-        display: flex; flex-direction: column;
-        width: 100%;
-        background: linear-gradient(180deg, #0b1424, #0e1b33);
-        border: 1px solid rgba(59, 130, 246, 0.22);
-        border-radius: 18px;
-        overflow: hidden;
-        box-shadow: 0 30px 80px rgba(2, 8, 23, 0.65), 0 0 0 1px rgba(255,255,255,0.02) inset, 0 0 60px rgba(59,130,246,0.08);
+    /* Floating tech chips */
+    .ab-chip {
+        position: absolute; z-index: 0; pointer-events: none;
+        display: inline-flex; align-items: center; gap: 0.5rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.74rem; font-weight: 700;
+        color: rgba(147, 197, 253, 0.85);
+        background: rgba(15, 23, 42, 0.55);
+        border: 1px solid rgba(59, 130, 246, 0.28);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 0.5rem 0.95rem; border-radius: 50px;
+        box-shadow: 0 8px 30px rgba(2, 8, 23, 0.35);
+        white-space: nowrap;
+        animation: abFloat 6s ease-in-out infinite;
     }
-    html.light-theme .at-window {
-        background: linear-gradient(180deg, #f8fafc, #e7edf5);
-        border-color: rgba(59, 130, 246, 0.3);
-        box-shadow: 0 30px 70px rgba(59, 130, 246, 0.2);
+    .ab-chip i { color: var(--accent-light); }
+    html.light-theme .ab-chip {
+        background: rgba(255, 255, 255, 0.82);
+        color: #3b82f6;
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.16);
     }
-    .at-window::before {
+    .ab-chip.c1 { top: -4%; left: -3.5%; }
+    .ab-chip.c2 { bottom: 18%; left: -4.5%; animation-delay: 1s; }
+    .ab-chip.c3 { bottom: -5%; right: -3%; animation-delay: 2s; }
+    .ab-chip.c4 { top: 12%; right: -4%; animation-delay: 3s; }
+    @keyframes abFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+    /* ==== WORKBENCH WINDOW ==== */
+    .ab-wb {
+        position: relative; z-index: 1;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, #0b1424 0%, #0e1a30 100%);
+        border: 1px solid rgba(59, 130, 246, 0.28);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow:
+            0 40px 110px rgba(2, 8, 23, 0.7),
+            0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+            0 0 70px rgba(59, 130, 246, 0.09);
+    }
+    html.light-theme .ab-wb {
+        background: linear-gradient(180deg, #f8fafc 0%, #e7edf7 100%);
+        border-color: rgba(59, 130, 246, 0.35);
+        box-shadow: 0 40px 90px rgba(59, 130, 246, 0.22);
+    }
+    .ab-wb::before {
         content: '';
         position: absolute; top: 0; left: 0; right: 0; height: 2px;
         background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
         background-size: 200% 100%;
         animation: atSweep 6s linear infinite;
-        z-index: 2;
+        z-index: 3;
     }
-    .at-bar {
-        display: flex; align-items: center; gap: 0.55rem;
-        padding: 0.65rem 0.95rem;
-        background: rgba(255, 255, 255, 0.03);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .at-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-    .at-dot.red { background: #ff5f57; }
-    .at-dot.yellow { background: #febc2e; }
-    .at-dot.green { background: #28c840; }
-    .at-file {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        margin-left: 0.35rem;
-        font-size: 0.76rem; color: #cbd5e1;
-        background: rgba(59, 130, 246, 0.12);
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        border-radius: 7px; padding: 0.28rem 0.75rem;
-        white-space: nowrap;
-    }
-    .at-file i { color: #eab308; }
-    .at-min {
-        margin-left: auto;
-        font-size: 0.66rem; color: #64748b;
-        letter-spacing: 0.3px; white-space: nowrap;
-    }
-    .at-user {
-        display: flex; flex-direction: column; align-items: center;
-        gap: 0.65rem;
-        padding: 0.4rem 0 1.1rem;
-    }
-    .at-avatar-lg {
-        width: 120px; height: 120px;
-        border-radius: 50%; padding: 3px;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #22d3ee);
-        background-size: 200% 200%;
-        animation: atGrad 6s ease infinite;
-        box-shadow: 0 0 26px rgba(59, 130, 246, 0.4);
-        position: relative;
-    }
-    .at-avatar-lg::after {
-        content: '';
-        position: absolute; inset: -9px; border-radius: 50%;
-        border: 1px dashed rgba(59, 130, 246, 0.4);
-        animation: avatarSpin 16s linear infinite;
-        pointer-events: none;
-    }
-    @keyframes avatarSpin { 100% { transform: rotate(360deg); } }
-    .at-avatar-lg img {
-        width: 100%; height: 100%;
-        border-radius: 50%; object-fit: cover; display: block;
-        background: #0b1424;
-    }
-    .at-avatar-lg-init {
-        width: 100%; height: 100%;
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        background: #0b1424;
-        color: #60a5fa;
-        font-size: 3rem; font-weight: 800;
-    }
-    html.light-theme .at-avatar-lg-init { background: #eef2f7; color: #2563eb; }
+    @keyframes atSweep { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-    .at-screen {
-        position: relative;
-        padding: 1.1rem 1.1rem 1.2rem;
-        flex: 1;
-        overflow: hidden;
+    /* Title bar */
+    .ab-titlebar {
+        display: flex; align-items: center; gap: 0.6rem;
+        padding: 0.65rem 0.95rem;
+        background: rgba(255, 255, 255, 0.035);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
-    .at-screen::before {
-        content: '';
-        position: absolute; left: 0; right: 0; top: -45%;
-        height: 30%;
-        background: linear-gradient(180deg, transparent, rgba(52, 211, 153, 0.07), transparent);
-        animation: atScan 8s linear infinite;
-        pointer-events: none;
-        opacity: 0.6;
+    html.light-theme .ab-titlebar {
+        background: rgba(15, 23, 42, 0.035);
+        border-bottom-color: rgba(15, 23, 42, 0.08);
     }
-    .at-block { position: relative; margin-bottom: 0.9rem; }
-    .at-block:last-child { margin-bottom: 0; }
-    .at-line {
+    .ab-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .ab-dot.red { background: #ff5f57; }
+    .ab-dot.yellow { background: #febc2e; }
+    .ab-dot.green { background: #28c840; }
+    .ab-tabs {
+        display: flex; align-items: center; gap: 0.3rem;
+        margin-left: 0.5rem; overflow-x: auto;
+        scrollbar-width: none;
+    }
+    .ab-tabs::-webkit-scrollbar { display: none; }
+    .ab-tab {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.74rem; color: #64748b;
+        padding: 0.34rem 0.8rem; border-radius: 9px;
+        border: 1px solid transparent;
+        white-space: nowrap; cursor: default;
+        transition: all 0.3s ease;
+    }
+    .ab-tab i { font-size: 0.82rem; }
+    .ab-tab.active {
+        color: #e2e8f0;
+        background: rgba(59, 130, 246, 0.12);
+        border-color: rgba(59, 130, 246, 0.25);
+    }
+    html.light-theme .ab-tab.active { color: #1e293b; background: rgba(59, 130, 246, 0.1); }
+    .ab-avail {
+        margin-left: auto;
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        font-size: 0.72rem; color: #34d399;
+        background: rgba(52, 211, 153, 0.08);
+        border: 1px solid rgba(52, 211, 153, 0.28);
+        padding: 0.3rem 0.75rem; border-radius: 50px;
+        white-space: nowrap; flex-shrink: 0;
+    }
+    .ab-dot2 {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #34d399;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.9);
+        animation: abPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes abPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+    /* Body */
+    .ab-body { display: grid; grid-template-columns: 52px minmax(0, 1.2fr) minmax(0, 0.9fr); align-items: stretch; }
+
+    /* Activity bar */
+    .ab-activity {
+        display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
+        padding: 0.9rem 0.35rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    html.light-theme .ab-activity {
+        background: rgba(15, 23, 42, 0.02);
+        border-right-color: rgba(15, 23, 42, 0.08);
+    }
+    .ab-activity i {
+        font-size: 1.1rem; color: #475569;
+        padding: 0.5rem; border-radius: 10px;
+        transition: all 0.3s ease; cursor: default;
+    }
+    .ab-activity i:hover, .ab-activity i.on { color: var(--accent-light); background: rgba(59, 130, 246, 0.12); }
+    html.light-theme .ab-activity i { color: #94a3b8; }
+
+    /* Editor */
+    .ab-editor { min-width: 0; display: flex; flex-direction: column; border-right: 1px solid rgba(255, 255, 255, 0.06); }
+    html.light-theme .ab-editor { border-right-color: rgba(15, 23, 42, 0.08); }
+    .ab-editor-head {
         display: flex; align-items: center; gap: 0.5rem;
-        font-size: 0.88rem; color: #e2e8f0;
-        position: relative;
+        padding: 0.5rem 0.85rem;
+        font-size: 0.7rem; color: #64748b;
+        background: rgba(255, 255, 255, 0.015);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    .at-cmd { color: #e2e8f0; white-space: pre-wrap; word-break: break-word; }
-    .at-cmd::after {
-        content: '';
-        display: inline-block; width: 8px; height: 1em;
-        background: #34d399; margin-left: 3px;
-        vertical-align: text-bottom;
-        animation: akCaret 1s step-end infinite;
+    .ab-editor-head label { margin: 0; display: inline-flex; align-items: center; gap: 0.35rem; color: #64748b; font-size: inherit; }
+    .ab-editor-head label i { color: var(--accent-light); }
+    .ab-editor-actions { margin-left: auto; display: inline-flex; gap: 0.5rem; color: #475569; }
+    .ab-editor-actions i { font-size: 0.85rem; cursor: pointer; }
+    .ab-editor-actions i:hover { color: var(--accent-light); }
+
+    .ab-code-wrap { display: flex; flex: 1; overflow: hidden; position: relative; }
+    .ab-gutter {
+        width: 46px; flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.018);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 0.9rem 0;
+        text-align: right;
     }
-    .at-cmd.typed::after { background: #94a3b8; animation: none; }
-    .at-cmd:empty::after { opacity: 0; animation: none; }
-    .at-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
-    .at-out {
-        margin-top: 0.35rem;
-        display: flex; flex-direction: column; gap: 0.14rem;
-        font-size: 0.8rem; color: #94a3b8;
+    .ab-gutter span {
+        display: block;
+        height: calc(0.86rem * 1.9); line-height: calc(0.86rem * 1.9);
+        padding-right: 0.65rem;
+        font-size: 0.76rem; color: #334155;
+        user-select: none;
     }
-    .at-out p {
-        margin: 0;
+    html.light-theme .ab-gutter span { color: #cbd5e1; }
+    .ab-code { flex: 1; padding: 0.9rem 1rem 1rem; position: relative; min-width: 0; }
+
+    .ab-line {
+        display: block;
+        font-size: 0.86rem; line-height: 1.9;
+        white-space: pre-wrap;
+        color: #e2e8f0;
         opacity: 0; transform: translateY(6px);
         transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .at-out p.show { opacity: 1; transform: translateY(0); }
-    .at-out p b { color: #4ade80; font-weight: 700; }
-    .at-out p .o-key { color: #fbbf24; }
-    .at-out p .o-dim { color: #5b6b84; font-style: italic; }
-    .at-hash { color: #f472b6; }
-    html.light-theme .at-cmd { color: #1e293b; }
-    html.light-theme .at-out { color: #475569; }
-    html.light-theme .at-out p .o-dim { color: #94a3b8; }
-    html.light-theme .at-file { color: #334155; }
+    .ab-line.commit { opacity: 1; transform: translateY(0); }
+    .ab-indent { display: inline-block; width: 2ch; }
+    .ab-comment { color: #5b6b84; font-style: italic; }
+    html.light-theme .ab-comment { color: #94a3b8; }
 
-    .at-status {
-        display: flex; align-items: center; gap: 1rem;
-        padding: 0.55rem 0.95rem;
-        font-size: 0.64rem; color: #64748b;
-        background: rgba(255, 255, 255, 0.02);
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
-        white-space: nowrap;
+    .ab-key { color: #60a5fa; }
+    .ab-name { color: #7dd3fc; }
+    .ab-prop { color: #93c5fd; }
+    .ab-str { color: #86efac; }
+    .ab-num { color: #fbbf24; }
+    .ab-bool { color: #c4b5fd; }
+    .ab-punc { color: #94a3b8; }
+    html.light-theme .ab-line { color: #1e293b; }
+    html.light-theme .ab-key { color: #1d4ed8; }
+    html.light-theme .ab-name { color: #0891b2; }
+    html.light-theme .ab-prop { color: #2563eb; }
+    html.light-theme .ab-str { color: #047857; }
+    html.light-theme .ab-num { color: #c2410c; }
+    html.light-theme .ab-bool { color: #7c3aed; }
+    html.light-theme .ab-punc { color: #475569; }
+
+    .ab-cursor {
+        display: inline-block; width: 9px; height: 1.02em;
+        background: #34d399; vertical-align: text-bottom;
+        border-radius: 1px; margin-left: 2px;
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.65);
+        animation: akCaret 0.9s step-end infinite;
     }
-    .at-status .at-os { color: #34d399; }
-    html.light-theme .at-status { color: #94a3b8; }
 
-    /* ---------- PROFILE CARD ---------- */
-    .about-card {
-        position: relative; z-index: 1;
-        display: flex; flex-direction: column;
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(59, 130, 246, 0.16);
-        border-radius: 18px;
+    /* ==== PROFILE PANE ==== */
+    .ab-profile {
+        position: relative; display: flex; flex-direction: column;
         overflow: hidden;
-        box-shadow: 0 30px 70px rgba(2, 8, 23, 0.55);
+        background: rgba(255, 255, 255, 0.015);
     }
-    html.light-theme .about-card {
-        background: rgba(255, 255, 255, 0.78);
-        border-color: rgba(59, 130, 246, 0.2);
+    html.light-theme .ab-profile { background: rgba(15, 23, 42, 0.015); }
+    .ab-profile::before {
+        content: '';
+        position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+        opacity: 0.4;
     }
-    .ac-head {
-        display: flex; align-items: center; gap: 0.6rem;
-        padding: 0.65rem 0.95rem;
+    .ab-p-head {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.62rem 0.95rem;
+        background: rgba(255, 255, 255, 0.015);
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        background: rgba(255, 255, 255, 0.02);
     }
-    .ac-tab {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.76rem; color: #cbd5e1;
-        background: rgba(59, 130, 246, 0.12);
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        border-radius: 7px; padding: 0.28rem 0.75rem;
-        white-space: nowrap;
-    }
-    .ac-tab i { color: #eab308; }
-    .ac-status {
+    html.light-theme .ab-p-head { border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .ab-p-file { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.74rem; color: #cbd5e1; white-space: nowrap; }
+    .ab-p-file i { color: #eab308; }
+    html.light-theme .ab-p-file { color: #334155; }
+    .ab-p-saved {
         margin-left: auto;
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.7rem; color: #34d399;
+        font-size: 0.62rem; color: #34d399;
+        display: inline-flex; align-items: center; gap: 0.3rem;
     }
-    .ac-dot {
-        width: 7px; height: 7px; border-radius: 50%;
-        background: #34d399;
-        box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
-        animation: akCaret 1.4s step-end infinite;
+    .ab-p-body {
+        padding: 1.4rem 1.45rem 1.6rem;
+        flex: 1;
+        display: flex; flex-direction: column; gap: 1rem;
     }
-    .ac-body { padding: 1.4rem 1.4rem 1.5rem; flex: 1; }
 
-    .ac-user { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.2rem; }
-    .ac-avatar {
-        width: 82px; height: 82px; flex-shrink: 0;
-        border-radius: 20px; padding: 3px;
+    .ab-user { display: flex; align-items: center; gap: 1rem; }
+    .ab-avatar {
+        width: 86px; height: 86px; flex-shrink: 0;
+        border-radius: 22px; padding: 3px;
         background: linear-gradient(135deg, #3b82f6, #8b5cf6, #22d3ee);
         background-size: 200% 200%;
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.28);
-        animation: atGrad 6s ease infinite;
+        animation: abGrad 6s ease infinite;
+        box-shadow: 0 12px 32px rgba(59, 130, 246, 0.32);
+        position: relative;
     }
-    .ac-avatar img {
+    .ab-avatar::after {
+        content: '';
+        position: absolute; inset: -9px; border-radius: 26px;
+        border: 1px dashed rgba(59, 130, 246, 0.4);
+        animation: abSpin 18s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes abSpin { 100% { transform: rotate(360deg); } }
+    .ab-avatar img {
         width: 100%; height: 100%;
-        border-radius: 17px; object-fit: cover; display: block;
+        border-radius: 19px; object-fit: cover; display: block;
         background: #0b1424;
     }
-    .ac-initial {
-        width: 100%; height: 100%;
-        border-radius: 17px;
+    .ab-initial {
+        width: 100%; height: 100%; border-radius: 19px;
         display: flex; align-items: center; justify-content: center;
-        background: #0b1424;
-        color: #60a5fa;
-        font-size: 2rem; font-weight: 800;
+        background: #0b1424; color: #60a5fa;
+        font-size: 2.2rem; font-weight: 800;
     }
-    html.light-theme .ac-initial { background: #eef2f7; color: #2563eb; }
-    @keyframes atGrad {
+    html.light-theme .ab-initial { background: #eef2f7; color: #2563eb; }
+    @keyframes abGrad {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
-    .ac-id { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-    .ac-comment {
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.74rem; color: #5b6b84; font-style: italic;
-    }
-    html.light-theme .ac-comment { color: #64748b; }
-    .ac-id h3 {
-        font-size: 1.7rem; font-weight: 800; line-height: 1.2; margin: 0;
+
+    .ab-u-txt { min-width: 0; }
+    .ab-name-line { display: flex; align-items: center; gap: 0.45rem; }
+    .ab-u-name {
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 1.55rem; font-weight: 800; line-height: 1.2; margin: 0;
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .ac-role { font-size: 0.85rem; color: var(--text-secondary); }
-
-    .ac-desc { color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; margin: 0 0 0.7rem; }
-    .ac-desc:last-child { margin-bottom: 0; }
-
-    /* Stats — code metrics */
-    .ac-stats {
-        display: grid; grid-template-columns: repeat(3, 1fr);
-        gap: 0.8rem; margin-top: 1.3rem;
+    .ab-verified { color: #3b82f6; font-size: 1.05rem; flex-shrink: 0; }
+    .ab-u-role {
+        display: block;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 0.82rem; color: var(--text-secondary);
+        margin: 0.15rem 0 0.4rem;
     }
-    .ac-stats .stat-item {
-        flex: 1;
-        padding: 1rem 0.9rem 0.85rem;
-        background: rgba(59, 130, 246, 0.05);
-        border: 1px solid var(--border-color);
-        border-radius: 14px;
-        text-align: left;
+    .ab-u-at {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.7rem; color: #34d399;
+    }
+
+    .ab-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .ab-tag {
+        display: inline-flex; align-items: center;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; font-weight: 600;
+        color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 0.28rem 0.65rem; border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    .ab-tag:hover {
+        background: var(--accent-gradient); color: #fff; border-color: transparent;
+        transform: translateY(-2px);
+    }
+
+    .ab-bio {
         position: relative;
-        overflow: hidden;
-        cursor: default;
+        padding-left: 1rem;
+        border-left: 2px solid rgba(59, 130, 246, 0.35);
+    }
+    .ab-bio p {
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        color: var(--text-secondary);
+        font-size: 0.92rem; line-height: 1.85; margin: 0 0 0.55rem;
+    }
+    .ab-bio p:last-child { margin-bottom: 0; }
+
+    /* Stats */
+    .ab-stats { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ab-stat {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        align-items: center; column-gap: 0.7rem; row-gap: 0.45rem;
+        padding: 0.6rem 0.8rem;
+        background: rgba(59, 130, 246, 0.045);
+        border: 1px solid var(--border-color);
+        border-radius: 13px;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .ac-stats .stat-item::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        transform: scaleX(0);
-        transform-origin: center;
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    .ab-stat:hover { transform: translateY(-3px); border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
+    .ab-stat .stat-ico {
+        width: 32px; height: 32px; border-radius: 10px;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 0.9rem; color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.1);
     }
-    .ac-stats .stat-item:hover::before { transform: scaleX(1); }
-    .ac-stats .stat-item:hover {
-        transform: translateY(-4px);
-        border-color: var(--border-hover);
-        box-shadow: var(--shadow-sm);
-    }
-    .ac-stat-head {
-        display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem;
-        margin-bottom: 0.5rem;
-    }
-    .ac-stat-key {
-        font-size: 0.6rem; color: var(--text-muted);
+    .ab-stat .stat-text { display: flex; flex-direction: column; line-height: 1.25; }
+    .ab-stat .stat-key {
+        font-size: 0.66rem; color: var(--text-muted);
         font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
     }
-    .ac-stats .stat-item .number {
+    .ab-stat .number {
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 1.4rem; font-weight: 800; line-height: 1;
+        font-size: 1.05rem; font-weight: 800; line-height: 1;
         background: linear-gradient(135deg, var(--accent-light), #a78bfa);
-        -webkit-background-clip: text;
+        -webkit-background-clip: text; background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
     }
-    .ac-stats .stat-item .label { display: none; }
-    .ac-meters {
-        height: 5px; border-radius: 6px;
-        background: rgba(59, 130, 246, 0.12);
-        overflow: hidden;
-        position: relative;
-    }
-    .ac-meter {
+    .ab-stat .stat-bar { grid-column: 2 / -1; height: 4px; border-radius: 50px; background: rgba(59, 130, 246, 0.12); overflow: hidden; }
+    .ab-stat .stat-fill {
         display: block; height: 100%; width: 0;
         background: linear-gradient(90deg, #3b82f6, #8b5cf6, #22d3ee);
         background-size: 200% 100%;
-        animation: atGrad 3s ease infinite;
-        border-radius: 6px;
+        animation: abGrad 3s ease infinite;
+        border-radius: 50px;
         transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .about-card.ak-anim .ac-meter { width: var(--w); }
+    #aboutCard.ak-anim .stat-fill { width: var(--w); }
 
-    /* CV = terminal command */
-    .ac-cv { margin-top: 1.4rem; }
-    .ac-cv-btn {
+    /* CV */
+    .ab-cv-btn {
         display: inline-flex; align-items: center; gap: 0.6rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.88rem; font-weight: 700; color: #d1fae5;
+        font-size: 0.86rem; font-weight: 700; color: #d1fae5;
         background: linear-gradient(135deg, #065f46, #047857, #059669);
         border: 1px solid rgba(52, 211, 153, 0.4);
-        border-radius: 12px; padding: 0.85rem 1.15rem;
+        border-radius: 13px; padding: 0.85rem 1.1rem;
         text-decoration: none !important;
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.25);
+        box-shadow: 0 10px 32px rgba(16, 185, 129, 0.25);
         position: relative; overflow: hidden;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
     }
-    .ac-cv-btn::before {
+    .ab-cv-btn::before {
         content: '';
         position: absolute; top: 0; left: -100%;
         width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
         transition: left 0.6s ease;
     }
-    .ac-cv-btn:hover::before { left: 100%; }
-    .ac-cv-btn:hover {
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
-        color: #fff;
-    }
-    .ac-cv-prompt { color: #6ee7b7; }
-    .ac-cv-badge {
+    .ab-cv-btn:hover::before { left: 100%; }
+    .ab-cv-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 40px rgba(16, 185, 129, 0.4); color: #fff; }
+    .ab-cv-prompt { color: #6ee7b7; }
+    .ab-cv-badge {
         margin-left: auto;
-        font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+        font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
         background: rgba(255, 255, 255, 0.18);
-        border-radius: 6px; padding: 0.2rem 0.55rem;
-    }
-    .ac-cv-hint {
-        display: flex; align-items: center; gap: 0.4rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.76rem; color: var(--text-muted); font-style: italic;
-        margin-top: 0.6rem;
+        border-radius: 6px; padding: 0.22rem 0.55rem;
     }
 
     /* Socials */
-    .ac-socials { margin-top: 1.3rem; }
-    .ac-socials-comment {
-        display: block; margin-bottom: 0.6rem;
+    .ab-socials { display: flex; flex-direction: column; gap: 0.5rem; }
+    .ab-socials-label {
+        display: flex; align-items: center; gap: 0.4rem;
+        font-size: 0.66rem; color: var(--text-muted);
+        font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.74rem; color: #5b6b84; font-style: italic;
     }
-    html.light-theme .ac-socials-comment { color: #64748b; }
-    .ac-socials-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .ac-socials-row .social-link {
-        width: 42px; height: 42px; border-radius: 12px;
+    .ab-socials-label i { color: var(--accent-light); }
+    .ab-socials-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .ab-social-link {
+        width: 40px; height: 40px; border-radius: 12px;
         background: rgba(59, 130, 246, 0.06);
-        border: 1px solid rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.12);
         display: inline-flex; align-items: center; justify-content: center;
-        color: var(--text-muted); font-size: 1.05rem;
+        color: var(--text-muted); font-size: 1rem;
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .ac-socials-row .social-link:hover {
+    .ab-social-link:hover {
         background: var(--accent-gradient); border-color: transparent;
-        color: #fff; transform: translateY(-4px) scale(1.1);
+        color: #fff; transform: translateY(-4px) scale(1.08);
         box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
 
-    /* Freelance */
-    .ac-hire { margin-top: 1.3rem; }
-    .ac-hire-head {
-        display: flex; align-items: center; justify-content: space-between;
-        gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem;
-    }
-    .ac-hire-label {
-        font-size: 0.85rem; color: var(--text-primary); font-weight: 700;
+    /* Hire */
+    .ab-hire { display: flex; flex-direction: column; gap: 0.55rem; }
+    .ab-hire-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .ab-hire-label {
         display: inline-flex; align-items: center; gap: 0.45rem;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 0.84rem; color: var(--text-primary); font-weight: 700;
     }
-    .ac-hire-label i { color: var(--accent); }
-    .ac-hire-tag {
-        font-size: 0.66rem; color: #1DBF73;
+    .ab-hire-label i { color: var(--accent); }
+    .ab-hire-tag {
+        font-size: 0.64rem; color: #1DBF73;
         background: rgba(29, 191, 115, 0.1);
-        padding: 0.25rem 0.7rem; border-radius: 20px;
+        padding: 0.26rem 0.7rem; border-radius: 20px;
         border: 1px solid rgba(29, 191, 115, 0.22);
         letter-spacing: 0.3px; font-weight: 600;
-        animation: akPulse 2s ease-in-out infinite;
+        animation: abPulse 2s ease-in-out infinite;
+        white-space: nowrap;
     }
-    @keyframes akPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.97); } }
-    .ac-hire-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.6rem; }
-    .ac-hire-row .freelance-btn {
-        display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-        padding: 0.6rem 0.7rem; border-radius: 12px;
-        font-size: 0.8rem; font-weight: 600; color: var(--text-primary);
+    .ab-hire-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .ab-freelance {
+        flex: 1 1 130px;
+        display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+        padding: 0.58rem 0.6rem; border-radius: 12px;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.76rem; font-weight: 600; color: var(--text-primary);
         background: rgba(59, 130, 246, 0.05);
         border: 1.5px solid var(--border-color);
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .ac-hire-row .freelance-btn:hover {
-        transform: translateY(-3px);
-        border-color: transparent;
-        box-shadow: var(--shadow-sm);
-    }
-    .ac-hire-row .freelance-btn.fiverr { color: #1DBF73; border-color: rgba(29, 191, 115, 0.25); }
-    .ac-hire-row .freelance-btn.fiverr:hover { background: linear-gradient(135deg, #1DBF73, #17a864); color: #fff; }
-    .ac-hire-row .freelance-btn.upwork { color: #6FDA44; border-color: rgba(106, 218, 68, 0.25); }
-    .ac-hire-row .freelance-btn.upwork:hover { background: linear-gradient(135deg, #6FDA44, #5ac43a); color: #fff; }
-    .ac-hire-row .freelance-btn.freelancer { color: #29B2FE; border-color: rgba(41, 178, 254, 0.25); }
-    .ac-hire-row .freelance-btn.freelancer:hover { background: linear-gradient(135deg, #29B2FE, #1a9ee8); color: #fff; }
+    .ab-freelance:hover { transform: translateY(-3px); border-color: transparent; box-shadow: var(--shadow-sm); color: #fff; }
+    .ab-freelance.fiverr { color: #1DBF73; border-color: rgba(29, 191, 115, 0.25); }
+    .ab-freelance.fiverr:hover { background: linear-gradient(135deg, #1DBF73, #17a864); color: #fff; }
+    .ab-freelance.upwork { color: #6FDA44; border-color: rgba(106, 218, 68, 0.25); }
+    .ab-freelance.upwork:hover { background: linear-gradient(135deg, #6FDA44, #5ac43a); color: #fff; }
+    .ab-freelance.freelancer { color: #29B2FE; border-color: rgba(41, 178, 254, 0.25); }
+    .ab-freelance.freelancer:hover { background: linear-gradient(135deg, #29B2FE, #1a9ee8); color: #fff; }
 
-    /* ---------- About responsive ---------- */
-    @keyframes atSweep {
-        0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
+    /* Status bar */
+    .ab-statusbar {
+        display: flex; align-items: center; gap: 1.1rem;
+        padding: 0.5rem 0.95rem;
+        font-size: 0.63rem; color: #64748b;
+        background: rgba(2, 6, 18, 0.42);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        white-space: nowrap; overflow-x: auto;
+        scrollbar-width: none;
     }
-    @keyframes atScan {
-        0% { top: -45%; }
-        100% { top: 120%; }
+    .ab-statusbar::-webkit-scrollbar { display: none; }
+    html.light-theme .ab-statusbar { background: rgba(15, 23, 42, 0.05); color: #94a3b8; }
+    .ab-statusbar span { display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
+    .ab-statusbar .sb-right { margin-left: auto; }
+    .ab-statusbar .sb-green { color: #34d399; }
+
+    /* ===== About responsive ===== */
+    @media (max-width: 1024px) {
+        .ab-body { grid-template-columns: 1fr; }
+        .ab-activity { display: none; }
+        .ab-editor { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+        html.light-theme .ab-editor { border-bottom-color: rgba(15, 23, 42, 0.08); }
     }
-    @media (max-width: 968px) {
-        .about-shell { grid-template-columns: 1fr; gap: 1.5rem; }
+    @media (max-width: 900px) {
+        .ab-chip { display: none; }
     }
     @media (max-width: 768px) {
-        .at-line { font-size: 0.82rem; }
-        .at-out { font-size: 0.76rem; }
-        .at-avatar-lg { width: 96px; height: 96px; }
-        .at-avatar-lg::after { inset: -7px; }
-        .at-avatar-lg-init { font-size: 2.2rem; }
-        .ac-id h3 { font-size: 1.45rem; }
-        .ac-stats { gap: 0.6rem; }
-        .ac-stats .stat-item { padding: 0.9rem 0.7rem; }
-        .ac-stats .stat-item .number { font-size: 1.2rem; }
+        .ab-tab:not(.active) { display: none; }
+        .ab-avail { font-size: 0.66rem; }
+        .ab-u-name { font-size: 1.35rem; }
+        .ab-avatar { width: 76px; height: 76px; }
+        .ab-avatar::after { inset: -7px; }
+        .ab-initial { font-size: 1.9rem; }
+        .ab-p-body { padding: 1.15rem 1.1rem 1.3rem; }
+        .ab-code { padding: 0.8rem 0.85rem; }
+        .ab-gutter { width: 40px; }
+        .ab-gutter span { height: calc(0.8rem * 1.9); line-height: calc(0.8rem * 1.9); font-size: 0.72rem; }
+        .ab-line { font-size: 0.8rem; }
+        .ab-statusbar { gap: 0.7rem; }
+        .ab-statusbar .sb-hide { display: none; }
     }
     @media (max-width: 480px) {
-        .at-min { display: none; }
-        .at-screen { padding: 0.9rem 0.8rem; }
-        .at-line { font-size: 0.76rem; }
-        .at-out { font-size: 0.7rem; }
-        .at-avatar-lg { width: 78px; height: 78px; }
-        .at-avatar-lg-init { font-size: 1.8rem; }
-        .ac-body { padding: 1.1rem 1rem; }
-        .ac-id h3 { font-size: 1.25rem; }
-        .ac-stats { gap: 0.5rem; }
-        .ac-stats .stat-item { padding: 0.75rem 0.5rem; }
-        .ac-stat-key { font-size: 0.52rem; }
-        .ac-cv-btn { font-size: 0.8rem; padding: 0.75rem 0.9rem; }
-        .ac-hire-row { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 360px) {
-        .at-status { display: none; }
-        .about-kicker { font-size: 0.68rem; }
-        .ac-role { font-size: 0.78rem; }
+        .ab-line { font-size: 0.74rem; }
+        .ab-gutter { width: 34px; }
+        .ab-gutter span { padding-right: 0.45rem; }
+        .ab-u-name { font-size: 1.2rem; }
+        .ab-user { gap: 0.8rem; }
+        .ab-freelance { flex: 1 1 100%; }
     }
 
     /* ===== SERVICES — PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
@@ -2941,201 +2980,208 @@
         </div>
     </section>
 
-    <!-- About Section -->
+<!-- About Section -->
     <section class="about-section section-padding" id="about">
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
-                <div class="about-kicker"><span class="ak-prompt">$</span> About me <span class="ak-caret"></span></div>
+                <div class="about-kicker"><span class="ab-kbracket">&lt;</span> {{ __('messages.about') }} <span class="ab-kbracket">/&gt;</span> <span class="about-kicker-caret"></span></div>
                 <h2>{{ __('messages.about_title') }}</h2>
                 <p>{{ __('messages.about_subtitle') }}</p>
             </div>
 
-            <div class="about-shell">
-                <!-- Live Terminal -->
-                <div class="about-term reveal reveal-delay-1">
-                    <div class="at-window">
-                        <div class="at-bar">
-                            <span class="at-dot red"></span>
-                            <span class="at-dot yellow"></span>
-                            <span class="at-dot green"></span>
-                            <span class="at-file"><i class="bi bi-terminal-fill"></i> dev@portfolio: ~/about</span>
-                            <span class="at-min">UTF-8 &middot; bash</span>
+            <div class="about-shell reveal reveal-delay-1" id="aboutWorkbench">
+                <span class="ab-chip c1"><i class="bi bi-code-slash"></i> Laravel</span>
+                <span class="ab-chip c2"><i class="fa-brands fa-php"></i> PHP</span>
+                <span class="ab-chip c3"><i class="bi bi-braces"></i> React</span>
+                <span class="ab-chip c4"><i class="bi bi-database"></i> MySQL</span>
+
+                <div class="ab-wb">
+                    <!-- Title bar -->
+                    <div class="ab-titlebar">
+                        <span class="ab-dot red"></span>
+                        <span class="ab-dot yellow"></span>
+                        <span class="ab-dot green"></span>
+                        <div class="ab-tabs">
+                            <span class="ab-tab"><i class="bi bi-file-earmark-code"></i> readme.md</span>
+                            <span class="ab-tab active"><i class="bi bi-filetype-js"></i> about.js</span>
+                            <span class="ab-tab"><i class="bi bi-filetype-json"></i> skills.json</span>
                         </div>
-                        <div class="at-screen">
-                            <div class="at-user">
-                                <span class="at-avatar-lg">
-                                    @if(optional($account)->image)
-                                        <img src="{{ config('app.storage_url') }}{{ $account->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}">
-                                    @else
-                                        <span class="at-avatar-lg-init">{{ mb_strtoupper(mb_substr(optional($account)->name ?? 'Portfolio', 0, 1)) }}</span>
-                                    @endif
+                        <span class="ab-avail"><span class="ab-dot2"></span> {{ __('messages.avail_for_work') }}</span>
+                    </div>
+
+                    <div class="ab-body">
+                        <!-- Activity bar -->
+                        <div class="ab-activity" aria-hidden="true">
+                            <i class="bi bi-files on"></i>
+                            <i class="bi bi-search"></i>
+                            <i class="bi bi-git"></i>
+                            <i class="bi bi-bug"></i>
+                            <i class="bi bi-puzzle"></i>
+                        </div>
+
+                        <!-- Editor -->
+                        <div class="ab-editor">
+                            <div class="ab-editor-head">
+                                <label><i class="fa-solid fa-angle-right"></i>&nbsp; ~/developer/about.js</label>
+                                <span class="ab-editor-actions">
+                                    <i class="bi bi-arrow-repeat" title="Run build"></i>
+                                    <i class="bi bi-braces" title="Format"></i>
+                                    <i class="bi bi-dots-vertical"></i>
                                 </span>
                             </div>
-                            <div class="at-block">
-                                <div class="at-line">
-                                    <span class="at-prompt">➜</span>
-                                    <span class="at-cmd"></span>
+                            <div class="ab-code-wrap">
+                                <div class="ab-gutter">
+                                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                                    <span>6</span><span>7</span><span>8</span><span>9</span>
                                 </div>
-                                <div class="at-out">
-                                    <p>Welcome to my portfolio — nice to meet you!</p>
-                                </div>
-                            </div>
-                            <div class="at-block">
-                                <div class="at-line">
-                                    <span class="at-prompt">➜</span>
-                                    <span class="at-cmd"></span>
-                                </div>
-                                <div class="at-out">
-                                    <p>I build <b>responsive websites &amp; web apps</b> with clean, scalable code.</p>
-                                </div>
-                            </div>
-                            <div class="at-block">
-                                <div class="at-line">
-                                    <span class="at-prompt">➜</span>
-                                    <span class="at-cmd"></span>
-                                </div>
-                                <div class="at-out">
-                                    <p><span class="o-key">[</span> Laravel <span class="o-key">]</span> <span class="o-key">[</span> PHP <span class="o-key">]</span> <span class="o-key">[</span> MySQL <span class="o-key">]</span> <span class="o-key">[</span> JavaScript <span class="o-key">]</span> <span class="o-key">[</span> Git <span class="o-key">]</span></p>
-                                </div>
-                            </div>
-                            <div class="at-block">
-                                <div class="at-line">
-                                    <span class="at-prompt">➜</span>
-                                    <span class="at-cmd"></span>
-                                </div>
-                                <div class="at-out">
-                                    <p><b>✔</b> {{ __('messages.avail_for_work') }}</p>
-                                </div>
-                            </div>
-                            <div class="at-block">
-                                <div class="at-line">
-                                    <span class="at-prompt">➜</span>
-                                    <span class="at-cmd"></span>
-                                </div>
-                                <div class="at-out">
-                                    <p><b>✔</b> Ready to work on your project</p>
+                                <div class="ab-code" id="abCode">
+                                    <div class="ab-line ab-comment">// {{ __('messages.about') }} &mdash; get to know me better</div>
+                                    <div class="ab-line"><span class="ab-key">const</span> <span class="ab-name">developer</span> <span class="ab-punc">=</span> <span class="ab-punc">{</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">name</span><span class="ab-punc">:</span> <span class="ab-str">"{{ optional($account)->name ?? 'Portfolio' }}"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">role</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.about_heading') }}"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">stack</span><span class="ab-punc">:</span> <span class="ab-punc">[</span><span class="ab-str">"Laravel"</span><span class="ab-punc">,</span> <span class="ab-str">"PHP"</span><span class="ab-punc">,</span> <span class="ab-str">"MySQL"</span><span class="ab-punc">,</span> <span class="ab-str">"JavaScript"</span><span class="ab-punc">,</span> <span class="ab-str">"Git"</span><span class="ab-punc">]</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">focus</span><span class="ab-punc">:</span> <span class="ab-str">"responsive web apps that users love"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">status</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.avail_for_work') }}"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-punc">};</span></div>
+                                    <div class="ab-line ab-comment">// compiled successfully &middot; lint: clean &middot; ship it &mdash; 100ms</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="at-status">
-                            <span class="at-os">● bash</span>
-                            <span>git:main</span>
-                            <span>LN 1, COL 0</span>
-                            <span class="at-min">512 ms</span>
+
+                        <!-- Profile pane -->
+                        <div class="ab-profile" id="aboutCard">
+                            <div class="ab-p-head">
+                                <span class="ab-p-file"><i class="bi bi-filetype-json"></i> developer.json</span>
+                                <span class="ab-p-saved"><i class="bi bi-check2"></i> saved</span>
+                            </div>
+                            <div class="ab-p-body">
+                                <div class="ab-user">
+                                    <span class="ab-avatar">
+                                        @if(optional($account)->image)
+                                            <img src="{{ config('app.storage_url') }}{{ $account->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}">
+                                        @else
+                                            <span class="ab-initial">{{ mb_strtoupper(mb_substr(optional($account)->name ?? 'Portfolio', 0, 1)) }}</span>
+                                        @endif
+                                    </span>
+                                    <div class="ab-u-txt">
+                                        <div class="ab-name-line">
+                                            <h3 class="ab-u-name">{{ optional($account)->name ?? 'Portfolio' }}</h3>
+                                            <i class="bi bi-patch-check-fill ab-verified"></i>
+                                        </div>
+                                        <span class="ab-u-role">{{ __('messages.about_heading') }}</span>
+                                        <span class="ab-u-at"><i class="bi bi-at"></i>{{ '@' . mb_strtolower(str_replace(' ', '', optional($account)->name ?? 'developer')) }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="ab-tags">
+                                    <span class="ab-tag">Laravel</span>
+                                    <span class="ab-tag">PHP</span>
+                                    <span class="ab-tag">MySQL</span>
+                                    <span class="ab-tag">JavaScript</span>
+                                    <span class="ab-tag">Git</span>
+                                </div>
+
+                                <div class="ab-bio">
+                                    <p>{{ __('messages.about_desc_1') }}</p>
+                                    <p>{{ __('messages.about_desc_2') }}</p>
+                                </div>
+
+                                <div class="ab-stats">
+                                    <div class="ab-stat">
+                                        <span class="stat-ico"><i class="bi bi-folder2-open"></i></span>
+                                        <span class="stat-text"><span class="stat-key">{{ __('messages.stat_projects') }}</span></span>
+                                        <span class="number" data-count="50">0</span>
+                                        <span class="stat-bar"><span class="stat-fill" style="--w: 92%"></span></span>
+                                    </div>
+                                    <div class="ab-stat">
+                                        <span class="stat-ico"><i class="bi bi-people"></i></span>
+                                        <span class="stat-text"><span class="stat-key">{{ __('messages.stat_clients') }}</span></span>
+                                        <span class="number" data-count="30">0</span>
+                                        <span class="stat-bar"><span class="stat-fill" style="--w: 85%"></span></span>
+                                    </div>
+                                    <div class="ab-stat">
+                                        <span class="stat-ico"><i class="bi bi-award"></i></span>
+                                        <span class="stat-text"><span class="stat-key">{{ __('messages.stat_years') }}</span></span>
+                                        <span class="number" data-count="5">0</span>
+                                        <span class="stat-bar"><span class="stat-fill" style="--w: 80%"></span></span>
+                                    </div>
+                                </div>
+
+                                @if(isset($account) && $account->cv)
+                                    <a href="{{ config('app.storage_url') }}{{ $account->cv }}" download class="ab-cv-btn magnetic">
+                                        <span class="ab-cv-prompt">$</span>
+                                        <span>{{ __('messages.download_cv') }}</span>
+                                        <span class="ab-cv-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
+                                    </a>
+                                @endif
+
+                                @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
+                                    <div class="ab-socials">
+                                        <span class="ab-socials-label"><i class="bi bi-link-45deg"></i> // {{ __('messages.connect') }}</span>
+                                        <div class="ab-socials-row">
+                                            @if(isset($account) && $account->github)
+                                                <a href="{{ $account->github }}" target="_blank" class="ab-social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                            @endif
+                                            @if(isset($account) && $account->linkedin)
+                                                <a href="{{ $account->linkedin }}" target="_blank" class="ab-social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                            @endif
+                                            @if(isset($account) && $account->facebook)
+                                                <a href="{{ $account->facebook }}" target="_blank" class="ab-social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                            @endif
+                                            @if(isset($account) && $account->instagram)
+                                                <a href="{{ $account->instagram }}" target="_blank" class="ab-social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                            @endif
+                                            @if(isset($account) && $account->twitter)
+                                                <a href="{{ $account->twitter }}" target="_blank" class="ab-social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                            @endif
+                                            @if(isset($account) && $account->youtube)
+                                                <a href="{{ $account->youtube }}" target="_blank" class="ab-social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
+                                    <div class="ab-hire">
+                                        <div class="ab-hire-head">
+                                            <span class="ab-hire-label"><i class="bi bi-briefcase-fill"></i> {{ __('messages.hire_me') }}</span>
+                                            <span class="ab-hire-tag"><i class="bi bi-lightning-fill"></i> {{ __('messages.avail_for_work') }}</span>
+                                        </div>
+                                        <div class="ab-hire-row">
+                                            @if(isset($account) && $account->fiverr)
+                                                <a href="{{ $account->fiverr }}" target="_blank" class="ab-freelance fiverr" aria-label="Fiverr">
+                                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
+                                                    Fiverr
+                                                </a>
+                                            @endif
+                                            @if(isset($account) && $account->upwork)
+                                                <a href="{{ $account->upwork }}" target="_blank" class="ab-freelance upwork" aria-label="Upwork"><i class="fab fa-upwork"></i> Upwork</a>
+                                            @endif
+                                            @if(isset($account) && $account->freelancer)
+                                                <a href="{{ $account->freelancer }}" target="_blank" class="ab-freelance freelancer" aria-label="Freelancer"><i class="fas fa-user-tie"></i> Freelancer</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Profile Card -->
-                <div class="about-card reveal reveal-delay-2" id="aboutCard">
-                    <div class="ac-head">
-                        <span class="ac-tab"><i class="bi bi-filetype-json"></i> profile.json</span>
-                        <span class="ac-status"><span class="ac-dot"></span> {{ __('messages.avail_for_work') }}</span>
-                    </div>
-                    <div class="ac-body">
-                        <div class="ac-user">
-                            <div class="ac-id">
-                                <span class="ac-comment">// {{ __('messages.about') }}</span>
-                                <h3>{{ optional($account)->name ?? 'Portfolio' }}</h3>
-                                <span class="ac-role">{{ __('messages.about_heading') }}</span>
-                            </div>
-                        </div>
-                        <p class="ac-desc">{{ __('messages.about_desc_1') }}</p>
-                        <p class="ac-desc">{{ __('messages.about_desc_2') }}</p>
-
-                        <div class="ac-stats">
-                            <div class="stat-item">
-                                <div class="ac-stat-head">
-                                    <span class="ac-stat-key">{{ __('messages.stat_projects') }}</span>
-                                    <span class="number" data-count="50">0</span>
-                                </div>
-                                <div class="ac-meters"><span class="ac-meter" style="--w: 92%"></span></div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="ac-stat-head">
-                                    <span class="ac-stat-key">{{ __('messages.stat_clients') }}</span>
-                                    <span class="number" data-count="30">0</span>
-                                </div>
-                                <div class="ac-meters"><span class="ac-meter" style="--w: 85%"></span></div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="ac-stat-head">
-                                    <span class="ac-stat-key">{{ __('messages.stat_years') }}</span>
-                                    <span class="number" data-count="5">0</span>
-                                </div>
-                                <div class="ac-meters"><span class="ac-meter" style="--w: 80%"></span></div>
-                            </div>
-                        </div>
-
-                        @if(isset($account) && $account->cv)
-                            <div class="ac-cv">
-                                <a href="{{ config('app.storage_url') }}{{ $account->cv }}"
-                                   download
-                                   class="ac-cv-btn magnetic">
-                                    <span class="ac-cv-prompt">$</span>
-                                    <span>{{ __('messages.download_cv') }}</span>
-                                    <span class="ac-cv-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
-                                </a>
-                                <span class="ac-cv-hint"><i class="bi bi-arrow-down-circle"></i> {{ __('messages.click_to_download') }}</span>
-                            </div>
-                        @endif
-
-                        @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
-                            <div class="ac-socials">
-                                <span class="ac-socials-comment">// {{ __('messages.connect') }}</span>
-                                <div class="ac-socials-row">
-                                    @if(isset($account) && $account->github)
-                                        <a href="{{ $account->github }}" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                                    @endif
-                                    @if(isset($account) && $account->linkedin)
-                                        <a href="{{ $account->linkedin }}" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                                    @endif
-                                    @if(isset($account) && $account->facebook)
-                                        <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                    @endif
-                                    @if(isset($account) && $account->instagram)
-                                        <a href="{{ $account->instagram }}" target="_blank" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                                    @endif
-                                    @if(isset($account) && $account->twitter)
-                                        <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    @endif
-                                    @if(isset($account) && $account->youtube)
-                                        <a href="{{ $account->youtube }}" target="_blank" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
-
-                        @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
-                            <div class="ac-hire">
-                                <div class="ac-hire-head">
-                                    <span class="ac-hire-label"><i class="bi bi-briefcase-fill me-1"></i> {{ __('messages.hire_me') }}</span>
-                                    <span class="ac-hire-tag"><i class="bi bi-lightning-fill me-1"></i> {{ __('messages.avail_for_work') }}</span>
-                                </div>
-                                <div class="ac-hire-row">
-                                    @if(isset($account) && $account->fiverr)
-                                        <a href="{{ $account->fiverr }}" target="_blank" class="freelance-btn fiverr" aria-label="Fiverr">
-                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
-                                            Fiverr
-                                        </a>
-                                    @endif
-                                    @if(isset($account) && $account->upwork)
-                                        <a href="{{ $account->upwork }}" target="_blank" class="freelance-btn upwork" aria-label="Upwork"><i class="fab fa-upwork"></i> Upwork</a>
-                                    @endif
-                                    @if(isset($account) && $account->freelancer)
-                                        <a href="{{ $account->freelancer }}" target="_blank" class="freelance-btn freelancer" aria-label="Freelancer"><i class="fas fa-user-tie"></i> Freelancer</a>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
+                    <!-- Status bar -->
+                    <div class="ab-statusbar">
+                        <span><i class="bi bi-git"></i> git:main</span>
+                        <span><span class="sb-green">&bull;</span> ready</span>
+                        <span class="sb-hide"><i class="bi bi-cpu"></i> PHP 8.2 &middot; Laravel</span>
+                        <span class="sb-hide sb-right">Ln 1, Col 1</span>
+                        <span class="sb-hide">UTF-8</span>
+                        <span class="sb-hide">Spaces: 2</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Services Section -->
+        <!-- Services Section -->
     <section class="services-section section-padding" id="services">
         <div class="container">
             <div class="section-title reveal">
@@ -4255,7 +4301,7 @@
     var adminFloat = document.querySelector('.admin-float-btn');
     var progressBar = document.getElementById('scrollProgress');
     var revealElements = document.querySelectorAll('.reveal');
-    var statNumbers = document.querySelectorAll('.stat-item .number');
+    var statNumbers = document.querySelectorAll('.number[data-count]');
     var ticking = false;
 
     function onScroll() {
@@ -4740,63 +4786,59 @@
     });
 })();
 
-// ===== ABOUT — LIVE TERMINAL (command typing + output reveal) =====
+// ===== ABOUT — IDE WORKBENCH (code line reveal animation) =====
 (function() {
-    var screen = document.querySelector('.at-window .at-screen');
+    var wb = document.getElementById('aboutWorkbench');
     var aboutCard = document.getElementById('aboutCard');
-    if (!screen) return;
-
-    var blocks = screen.querySelectorAll('.at-block');
-    var COMMANDS = ['Hi there!', 'What I build', 'My tech stack', 'My status', "Let's talk"];
+    var codeEl = document.getElementById('abCode');
+    var lines = codeEl ? codeEl.querySelectorAll('.ab-line') : [];
+    if (!lines.length) return;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var started = false;
 
-    function typeInto(cmdEl, text, done) {
-        var i = 0;
-        var t = setInterval(function() {
-            cmdEl.textContent = text.slice(0, ++i);
-            if (i >= text.length) { clearInterval(t); cmdEl.classList.add('typed'); if (done) done(); }
-        }, 45);
-    }
-
-    function revealOut(block, done) {
-        var ps = block.querySelectorAll('.at-out p');
-        [].forEach.call(ps, function(p, idx) {
-            p.style.transitionDelay = (idx * 0.35) + 's';
-            setTimeout(function() { p.classList.add('show'); }, 20);
-        });
-        setTimeout(done, 60 + ps.length * 350);
+    function makeCursor() {
+        var c = document.createElement('span');
+        c.className = 'ab-cursor';
+        return c;
     }
 
     function showEverything() {
-        [].forEach.call(blocks, function(block, idx) {
-            var cmdEl = block.querySelector('.at-cmd');
-            if (cmdEl) { cmdEl.textContent = COMMANDS[idx] || ''; cmdEl.classList.add('typed'); }
-            [].forEach.call(block.querySelectorAll('.at-out p'), function(p) { p.classList.add('show'); });
-        });
+        [].forEach.call(lines, function(l) { l.classList.add('commit'); });
+        if (wb) wb.classList.add('ak-anim');
+        if (aboutCard) aboutCard.classList.add('ak-anim');
     }
 
     function start() {
         if (started) return;
         started = true;
-        if (aboutCard) aboutCard.classList.add('ak-anim');
         if (reduce) { showEverything(); return; }
-        [].forEach.call(blocks, function(block, idx) {
-            var cmdEl = block.querySelector('.at-cmd');
-            if (!cmdEl) return;
-            setTimeout(function() {
-                typeInto(cmdEl, COMMANDS[idx] || '', function() { revealOut(block, function() {}); });
-            }, idx * 900);
-        });
+        if (aboutCard) aboutCard.classList.add('ak-anim');
+        var idx = 0;
+        var cursor = null;
+
+        function step() {
+            if (idx >= lines.length) {
+                if (cursor && cursor.parentNode) cursor.parentNode.removeChild(cursor);
+                return;
+            }
+            var line = lines[idx];
+            if (cursor && cursor.parentNode) cursor.parentNode.removeChild(cursor);
+            line.classList.add('commit');
+            cursor = makeCursor();
+            line.appendChild(cursor);
+            idx++;
+            setTimeout(step, 320);
+        }
+        setTimeout(step, 300);
     }
 
     var io = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) { start(); io.disconnect(); }
         });
-    }, { threshold: 0.25 });
-    io.observe(screen);
-    setTimeout(start, 3500);
+    }, { threshold: 0.3 });
+    io.observe(codeEl || wb);
+    setTimeout(start, 3200);
 })();
 </script>
 @endsection
