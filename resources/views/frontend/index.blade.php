@@ -668,6 +668,25 @@
     .ab-dock-body .ab-dock-ok { color: #34d399; font-weight: 700; }
     .ab-dock-body .ab-dock-dim { color: #64748b; }
 
+    /* ==== EDITOR MINIMAP ==== */
+    .ab-minimap {
+        width: 52px; flex-shrink: 0; align-self: stretch;
+        background: rgba(255, 255, 255, 0.012);
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 0.9rem 0.7rem;
+        display: flex; flex-direction: column; gap: 7px;
+    }
+    html.light-theme .ab-minimap { background: rgba(15, 23, 42, 0.02); border-left-color: rgba(15, 23, 42, 0.08); }
+    .ab-minimap i {
+        display: block; height: 4px; border-radius: 4px; flex-shrink: 0;
+        background: rgba(148, 163, 184, 0.25);
+    }
+    .ab-minimap i:nth-child(odd) { width: 68%; }
+    .ab-minimap i:nth-child(3n) { width: 88%; background: rgba(96, 165, 250, 0.4); }
+    .ab-minimap i:nth-child(5n) { width: 52%; }
+    .ab-minimap i:nth-child(7n) { background: rgba(52, 211, 153, 0.35); }
+    @media (max-width: 520px) { .ab-minimap { display: none; } }
+
     /* ==== PROFILE PANE ==== */
     .ab-profile {
         position: relative; display: flex; flex-direction: column;
@@ -756,7 +775,11 @@
         display: inline-flex; align-items: center; gap: 0.4rem;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         font-size: 0.7rem; color: #34d399;
+        min-width: 0; white-space: nowrap; overflow: hidden;
     }
+    .ab-mail { color: inherit; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ab-mail:hover { color: var(--accent-light); }
+    .ab-u-at i { flex-shrink: 0; }
 
     .ab-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .ab-tag {
@@ -3067,10 +3090,10 @@
                             </div>
                             <div class="ab-code-wrap">
                                 <div class="ab-gutter">
-                                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-                                    <span>6</span><span>7</span><span>8</span><span>9</span>
-                                    <span>10</span><span>11</span><span>12</span><span>13</span>
-                                    <span>14</span><span>15</span><span>16</span><span>17</span>
+                                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+                                    <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+                                    <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+                                    <span>19</span><span>20</span><span>21</span><span>22</span>
                                 </div>
                                 <div class="ab-code" id="abCode">
                                     <div class="ab-line ab-comment">// {{ __('messages.about') }} &mdash; get to know me better</div>
@@ -3085,11 +3108,22 @@
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"JavaScript"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"Git"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-punc">]</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">email</span><span class="ab-punc">:</span> <span class="ab-str">"{{ optional($account)->email ?? 'mail@example.com' }}"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">location</span><span class="ab-punc">:</span> <span class="ab-str">"Dhaka, Bangladesh"</span><span class="ab-punc">,</span></div>
+                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">hireable</span><span class="ab-punc">:</span> <span class="ab-bool">true</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">focus</span><span class="ab-punc">:</span> <span class="ab-str">"responsive web apps that users love"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">status</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.avail_for_work') }}"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-punc">};</span></div>
                                     <div class="ab-line"></div>
                                     <div class="ab-line"><span class="ab-prop">module</span><span class="ab-punc">.</span><span class="ab-prop">exports</span> <span class="ab-punc">=</span> <span class="ab-name">developer</span><span class="ab-punc">;</span></div>
+                                    <div class="ab-line"></div>
+                                    <div class="ab-line ab-comment">// compiled successfully &middot; lint: clean &middot; ready to ship &mdash; 100ms</div>
+                                </div>
+                                <div class="ab-minimap" aria-hidden="true">
+                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
                                 </div>
                             </div>
                             <div class="ab-dock">
@@ -3126,7 +3160,7 @@
                                             <i class="bi bi-patch-check-fill ab-verified"></i>
                                         </div>
                                         <span class="ab-u-role">{{ __('messages.about_heading') }}</span>
-                                        <span class="ab-u-at"><i class="bi bi-at"></i>{{ '@' . mb_strtolower(str_replace(' ', '', optional($account)->name ?? 'developer')) }}</span>
+                                        <span class="ab-u-at"><i class="bi bi-envelope-fill"></i>@if(optional($account)->email)<a href="mailto:{{ $account->email }}" class="ab-mail">{{ $account->email }}</a>@else{{ '@' . mb_strtolower(str_replace(' ', '', optional($account)->name ?? 'developer')) }}@endif</span>
                                     </div>
                                 </div>
 
