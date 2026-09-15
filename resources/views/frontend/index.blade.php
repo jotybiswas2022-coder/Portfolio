@@ -387,6 +387,7 @@
     .reveal-delay-4 { transition-delay: 0.4s; }
 
     /* ===== ABOUT � IDE WORKBENCH (coding design) ===== */
+    /* ===== ABOUT - GIT LOG PROFILE (coding design) ===== */
     .about-section {
         background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
         position: relative;
@@ -406,141 +407,13 @@
     html.light-theme .about-section { background: linear-gradient(180deg, #eef3fb 0%, #f8fafc 100%); }
     .about-section .section-title { position: relative; z-index: 1; }
 
-    .about-shell {
-        position: relative;
-        max-width: 1220px;
-        width: 100%;
-        margin: 0 auto;
-    }
+    .about-shell { position: relative; max-width: 1040px; width: 100%; margin: 0 auto; }
 
-    /* Floating tech chips */
-    .ab-chip {
-        position: absolute; z-index: 2; pointer-events: none;
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.74rem; font-weight: 700;
-        color: rgba(147, 197, 253, 0.85);
-        background: rgba(15, 23, 42, 0.55);
-        border: 1px solid rgba(59, 130, 246, 0.28);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        padding: 0.5rem 0.95rem; border-radius: 50px;
-        box-shadow: 0 8px 30px rgba(2, 8, 23, 0.35);
-        white-space: nowrap;
-        animation: abFloat 6s ease-in-out infinite;
-    }
-    .ab-chip i { color: var(--accent-light); }
-    html.light-theme .ab-chip {
-        background: rgba(255, 255, 255, 0.82);
-        color: #3b82f6;
-        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.16);
-    }
-    .ab-chip.c1 { top: -1.1rem; left: -1.6rem; }
-    .ab-chip.c2 { top: 7rem; left: -1.4rem; animation-delay: 1s; }
-    .ab-chip.c3 { top: -1.1rem; right: -1.6rem; animation-delay: 2s; }
-    .ab-chip.c4 { top: 6rem; right: -1.4rem; animation-delay: 3s; }
-    @keyframes abFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-
-    /* ==== WORKBENCH WINDOW ==== */
-    .ab-wb {
-        position: relative; z-index: 1;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        background: linear-gradient(180deg, rgba(13, 23, 43, 0.58) 0%, rgba(8, 15, 32, 0.42) 100%);
-        -webkit-backdrop-filter: blur(18px) saturate(160%);
-        backdrop-filter: blur(18px) saturate(160%);
-        border: 1px solid rgba(147, 197, 253, 0.22);
-        border-radius: 20px;
-        overflow: hidden;
-        transition: var(--transition);
-        box-shadow:
-            0 40px 110px rgba(2, 8, 23, 0.7),
-            0 0 0 1px rgba(255, 255, 255, 0.06) inset,
-            0 0 70px rgba(59, 130, 246, 0.09);
-    }
-    html.light-theme .ab-wb {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.52) 0%, rgba(230, 240, 252, 0.4) 100%);
-        border-color: rgba(59, 130, 246, 0.28);
-        box-shadow: 0 40px 90px rgba(59, 130, 246, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
-    }
-    .ab-wb::before {
-        content: '';
-        position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
-        background-size: 200% 100%;
-        animation: atSweep 6s linear infinite;
-        z-index: 3;
-    }
-    @keyframes atSweep { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-    /* Shine follows cursor � same as project/gig cards */
-    .ab-wb::after {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.15) 28%, transparent 55%);
-        pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
-        z-index: 1; border-radius: inherit;
-    }
-    html.light-theme .ab-wb::after {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.1) 28%, transparent 55%);
-    }
-    .ab-wb:hover::after { opacity: 1; }
-    .ab-wb:hover {
-        border-color: var(--border-hover);
-        box-shadow: var(--shadow-md);
-        transform: translateY(-6px);
-    }
-    .ab-wb .ab-titlebar,
-    .ab-wb .ab-activity,
-    .ab-wb .ab-editor,
-    .ab-wb .ab-profile,
-    .ab-wb .ab-minimap,
-    .ab-wb .ab-dock,
-    .ab-wb .ab-statusbar { position: relative; z-index: 2; }
-
-    /* Title bar */
-    .ab-titlebar {
-        display: flex; align-items: center; gap: 0.6rem;
-        padding: 0.65rem 0.95rem;
-        background: rgba(255, 255, 255, 0.035);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    }
-    html.light-theme .ab-titlebar {
-        background: rgba(15, 23, 42, 0.035);
-        border-bottom-color: rgba(15, 23, 42, 0.08);
-    }
+    /* Traffic-light dots (shared with the services + pricing cards) */
     .ab-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
     .ab-dot.red { background: #ff5f57; }
     .ab-dot.yellow { background: #febc2e; }
     .ab-dot.green { background: #28c840; }
-    .ab-tabs {
-        display: flex; align-items: center; gap: 0.3rem;
-        margin-left: 0.5rem; overflow-x: auto;
-        scrollbar-width: none;
-    }
-    .ab-tabs::-webkit-scrollbar { display: none; }
-    .ab-tab {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.74rem; color: #64748b;
-        padding: 0.34rem 0.8rem; border-radius: 9px;
-        border: 1px solid transparent;
-        white-space: nowrap; cursor: default;
-        transition: all 0.3s ease;
-    }
-    .ab-tab i { font-size: 0.82rem; }
-    .ab-tab.active {
-        color: #e2e8f0;
-        background: rgba(59, 130, 246, 0.12);
-        border-color: rgba(59, 130, 246, 0.25);
-    }
-    html.light-theme .ab-tab.active { color: #1e293b; background: rgba(59, 130, 246, 0.1); }
-    .ab-avail {
-        margin-left: auto;
-        display: inline-flex; align-items: center; gap: 0.45rem;
-        font-size: 0.72rem; color: #34d399;
-        background: rgba(52, 211, 153, 0.08);
-        border: 1px solid rgba(52, 211, 153, 0.28);
-        padding: 0.3rem 0.75rem; border-radius: 50px;
-        white-space: nowrap; flex-shrink: 0;
-    }
     .ab-dot2 {
         width: 7px; height: 7px; border-radius: 50%;
         background: #34d399;
@@ -549,478 +422,509 @@
     }
     @keyframes abPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 
-    /* Body */
-    .ab-body { display: grid; grid-template-columns: 52px minmax(0, 1.2fr) minmax(0, 0.9fr); align-items: stretch; }
+    /* Floating tech chips */
+    .ab-chip {
+        position: absolute; z-index: 4; pointer-events: none;
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.72rem; font-weight: 700;
+        color: rgba(147, 197, 253, 0.85);
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(59, 130, 246, 0.28);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 0.45rem 0.85rem; border-radius: 50px;
+        box-shadow: 0 8px 30px rgba(2, 8, 23, 0.35);
+        white-space: nowrap;
+        animation: abFloat 6s ease-in-out infinite;
+    }
+    .ab-chip i { color: var(--accent-light); }
+    html.light-theme .ab-chip {
+        background: rgba(255, 255, 255, 0.85);
+        color: #3b82f6;
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.16);
+    }
+    .ab-chip.c1 { top: -1.1rem; left: -1.3rem; }
+    .ab-chip.c2 { top: 10rem; left: -1.1rem; animation-delay: 1s; }
+    .ab-chip.c3 { top: -1.1rem; right: -1.3rem; animation-delay: 2s; }
+    .ab-chip.c4 { top: 9rem; right: -1.1rem; animation-delay: 3s; }
+    @keyframes abFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-    /* Activity bar */
-    .ab-activity {
-        display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
-        padding: 0.9rem 0.35rem;
-        background: rgba(255, 255, 255, 0.02);
-        border-right: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    html.light-theme .ab-activity {
-        background: rgba(15, 23, 42, 0.02);
-        border-right-color: rgba(15, 23, 42, 0.08);
-    }
-    .ab-activity i {
-        font-size: 1.1rem; color: #475569;
-        padding: 0.5rem; border-radius: 10px;
-        transition: all 0.3s ease; cursor: default;
-    }
-    .ab-activity i:hover, .ab-activity i.on { color: var(--accent-light); background: rgba(59, 130, 246, 0.12); }
-    html.light-theme .ab-activity i { color: #94a3b8; }
-
-    /* Editor */
-    .ab-editor { min-width: 0; display: flex; flex-direction: column; border-right: 1px solid rgba(255, 255, 255, 0.06); }
-    html.light-theme .ab-editor { border-right-color: rgba(15, 23, 42, 0.08); }
-    .ab-editor-head {
-        display: flex; align-items: center; gap: 0.5rem;
-        padding: 0.5rem 0.85rem;
-        font-size: 0.7rem; color: #64748b;
-        background: rgba(255, 255, 255, 0.015);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .ab-editor-head label { margin: 0; display: inline-flex; align-items: center; gap: 0.35rem; color: #64748b; font-size: inherit; }
-    .ab-editor-head label i { color: var(--accent-light); }
-    .ab-editor-actions { margin-left: auto; display: inline-flex; gap: 0.5rem; color: #475569; }
-    .ab-editor-actions i { font-size: 0.85rem; cursor: pointer; }
-    .ab-editor-actions i:hover { color: var(--accent-light); }
-
-    .ab-code-wrap { display: flex; flex: 1; overflow: hidden; position: relative; }
-    .ab-gutter {
-        width: 46px; flex-shrink: 0;
-        background: rgba(255, 255, 255, 0.018);
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 0.9rem 0;
-        text-align: right;
-    }
-    .ab-gutter span {
-        display: block;
-        height: calc(0.86rem * 1.9); line-height: calc(0.86rem * 1.9);
-        padding-right: 0.65rem;
-        font-size: 0.76rem; color: #334155;
-        user-select: none;
-    }
-    html.light-theme .ab-gutter span { color: #cbd5e1; }
-    .ab-code { flex: 1; padding: 0.9rem 1rem 1rem; position: relative; min-width: 0; }
-
-    .ab-line {
-        display: block;
-        font-size: 0.86rem; line-height: 1.9;
-        white-space: pre-wrap;
-        color: #e2e8f0;
-        opacity: 0; transform: translateY(6px);
-        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .ab-line.commit { opacity: 1; transform: translateY(0); }
-    .ab-indent { display: inline-block; width: 2ch; }
-    .ab-comment { color: #5b6b84; font-style: italic; }
-    html.light-theme .ab-comment { color: #94a3b8; }
-
-    .ab-key { color: #60a5fa; }
-    .ab-name { color: #7dd3fc; }
-    .ab-prop { color: #93c5fd; }
-    .ab-str { color: #86efac; }
-    .ab-num { color: #fbbf24; }
-    .ab-bool { color: #c4b5fd; }
-    .ab-punc { color: #94a3b8; }
-    html.light-theme .ab-line { color: #1e293b; }
-    html.light-theme .ab-key { color: #1d4ed8; }
-    html.light-theme .ab-name { color: #0891b2; }
-    html.light-theme .ab-prop { color: #2563eb; }
-    html.light-theme .ab-str { color: #047857; }
-    html.light-theme .ab-num { color: #c2410c; }
-    html.light-theme .ab-bool { color: #7c3aed; }
-    html.light-theme .ab-punc { color: #475569; }
-
-    .ab-cursor {
-        display: inline-block; width: 9px; height: 1.02em;
-        background: #34d399; vertical-align: text-bottom;
-        border-radius: 1px; margin-left: 2px;
-        box-shadow: 0 0 12px rgba(52, 211, 153, 0.65);
-        animation: akCaret 0.9s step-end infinite;
-    }
-
-    /* ==== OUTPUT DOCK ==== */
-    .ab-dock {
-        border-top: 1px solid rgba(148, 163, 184, 0.12);
-        background: rgba(2, 8, 23, 0.35);
-        font-size: 0.72rem;
-        flex-shrink: 0;
-    }
-    html.light-theme .ab-dock { background: rgba(15, 23, 42, 0.04); }
-    .ab-dock-head {
-        display: flex; align-items: center; gap: 0.4rem;
-        padding: 0.42rem 0.8rem;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-    }
-    .ab-dock-tab {
-        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.7px;
-        color: #64748b; padding: 0.22rem 0.5rem; border-radius: 6px;
-        cursor: default;
-    }
-    .ab-dock-tab.active {
-        color: #93c5fd; background: rgba(59, 130, 246, 0.14);
-    }
-    html.light-theme .ab-dock-tab.active { color: #3b82f6; }
-    .ab-dock-close { margin-left: auto; color: #475569; font-size: 0.78rem; }
-    .ab-dock-body {
-        padding: 0.55rem 0.85rem 0.7rem;
-        display: flex; flex-direction: column; gap: 0.28rem;
-    }
-    .ab-dock-body p {
-        margin: 0; color: #94a3b8; font-size: 0.72rem; line-height: 1.55;
-        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    html.light-theme .ab-dock-body p { color: #475569; }
-    .ab-dock-body .ab-dock-ok { color: #34d399; font-weight: 700; }
-    .ab-dock-body .ab-dock-dim { color: #64748b; }
-
-    /* ==== EDITOR MINIMAP ==== */
-    .ab-minimap {
-        width: 52px; flex-shrink: 0; align-self: stretch;
-        background: rgba(255, 255, 255, 0.012);
-        border-left: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 0.9rem 0.7rem;
-        display: flex; flex-direction: column; gap: 7px;
-    }
-    html.light-theme .ab-minimap { background: rgba(15, 23, 42, 0.02); border-left-color: rgba(15, 23, 42, 0.08); }
-    .ab-minimap i {
-        display: block; height: 4px; border-radius: 4px; flex-shrink: 0;
-        background: rgba(148, 163, 184, 0.25);
-    }
-    .ab-minimap i:nth-child(odd) { width: 68%; }
-    .ab-minimap i:nth-child(3n) { width: 88%; background: rgba(96, 165, 250, 0.4); }
-    .ab-minimap i:nth-child(5n) { width: 52%; }
-    .ab-minimap i:nth-child(7n) { background: rgba(52, 211, 153, 0.35); }
-    @media (max-width: 520px) { .ab-minimap { display: none; } }
-
-    /* ==== PROFILE PANE ==== */
-    .ab-profile {
-        position: relative; display: flex; flex-direction: column;
+    /* ==== GIT WINDOW ==== */
+    .gl-wb {
+        position: relative; z-index: 1;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.6) 0%, rgba(8, 15, 32, 0.45) 100%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(147, 197, 253, 0.22);
+        border-radius: 20px;
         overflow: hidden;
-        background: rgba(255, 255, 255, 0.015);
+        box-shadow:
+            0 40px 110px rgba(2, 8, 23, 0.7),
+            0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+            0 0 70px rgba(59, 130, 246, 0.09);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease;
     }
-    html.light-theme .ab-profile { background: rgba(15, 23, 42, 0.015); }
-    .ab-profile::before {
+    html.light-theme .gl-wb {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.74) 0%, rgba(230, 240, 252, 0.6) 100%);
+        border-color: rgba(59, 130, 246, 0.28);
+        box-shadow: 0 40px 90px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+    }
+    .gl-wb::before {
         content: '';
         position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
-        opacity: 0.4;
+        background: linear-gradient(90deg, transparent, #3b82f6, #22d3ee, #8b5cf6, transparent);
+        background-size: 200% 100%;
+        animation: atSweep 6s linear infinite;
+        z-index: 3;
     }
-    .ab-p-head {
-        display: flex; align-items: center; gap: 0.5rem;
+    @keyframes atSweep { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* Title bar */
+    .gl-bar {
+        display: flex; align-items: center; gap: 0.55rem;
         padding: 0.62rem 0.95rem;
-        background: rgba(255, 255, 255, 0.015);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.035);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
-    html.light-theme .ab-p-head { border-bottom-color: rgba(15, 23, 42, 0.08); }
-    .ab-p-file { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.74rem; color: #cbd5e1; white-space: nowrap; }
-    .ab-p-file i { color: #eab308; }
-    html.light-theme .ab-p-file { color: #334155; }
-    .ab-p-saved {
-        margin-left: auto;
-        font-size: 0.62rem; color: #34d399;
-        display: inline-flex; align-items: center; gap: 0.3rem;
+    html.light-theme .gl-bar {
+        background: rgba(15, 23, 42, 0.035);
+        border-bottom-color: rgba(15, 23, 42, 0.08);
     }
-    .ab-p-body {
-        padding: 1.4rem 1.45rem 1.6rem;
-        flex: 1;
-        display: flex; flex-direction: column; gap: 1rem;
-    }
-
-    .ab-user { display: flex; align-items: center; gap: 1rem; }
-    .ab-avatar {
-        width: 86px; height: 86px; flex-shrink: 0;
-        border-radius: 22px; padding: 3px;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #22d3ee);
-        background-size: 200% 200%;
-        animation: abGrad 6s ease infinite;
-        box-shadow: 0 12px 32px rgba(59, 130, 246, 0.32);
-        position: relative;
-    }
-    .ab-avatar::after {
-        content: '';
-        position: absolute; inset: -9px; border-radius: 26px;
-        border: 1px dashed rgba(59, 130, 246, 0.4);
-        animation: abSpin 18s linear infinite;
-        pointer-events: none;
-    }
-    @keyframes abSpin { 100% { transform: rotate(360deg); } }
-    .ab-avatar img {
-        width: 100%; height: 100%;
-        border-radius: 19px; object-fit: cover; display: block;
-        background: #0b1424;
-    }
-    .ab-initial {
-        width: 100%; height: 100%; border-radius: 19px;
-        display: flex; align-items: center; justify-content: center;
-        background: #0b1424; color: #60a5fa;
-        font-size: 2.2rem; font-weight: 800;
-    }
-    html.light-theme .ab-initial { background: #eef2f7; color: #2563eb; }
-    @keyframes abGrad {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    .ab-u-txt { min-width: 0; }
-    .ab-name-line { display: flex; align-items: center; gap: 0.45rem; }
-    .ab-u-name {
-        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
-        font-size: 1.55rem; font-weight: 800; line-height: 1.2; margin: 0;
+    .gl-repo {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        margin-left: 0.35rem; font-size: 0.74rem; color: #cbd5e1;
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .ab-verified { color: #3b82f6; font-size: 1.05rem; flex-shrink: 0; }
-    .ab-u-role {
-        display: block;
-        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
-        font-size: 0.82rem; color: var(--text-secondary);
-        margin: 0.15rem 0 0.4rem;
+    .gl-repo i { color: #f97316; }
+    html.light-theme .gl-repo { color: #334155; }
+    .gl-branch {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.64rem; font-weight: 700; color: #93c5fd;
+        background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.25);
+        padding: 0.2rem 0.6rem; border-radius: 50px;
+        white-space: nowrap;
     }
-    .ab-u-at {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.7rem; color: #34d399;
-        min-width: 0; white-space: nowrap; overflow: hidden;
+    html.light-theme .gl-branch { color: #2563eb; background: rgba(59, 130, 246, 0.1); }
+    .gl-avail {
+        margin-left: auto; flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        font-size: 0.68rem; color: #34d399;
+        background: rgba(52, 211, 153, 0.08);
+        border: 1px solid rgba(52, 211, 153, 0.28);
+        padding: 0.26rem 0.7rem; border-radius: 50px;
+        white-space: nowrap;
     }
-    .ab-mail { color: inherit; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .ab-mail:hover { color: var(--accent-light); }
-    .ab-u-at i { flex-shrink: 0; }
 
-    .ab-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .ab-tag {
+    /* Command line */
+    .gl-cmd {
+        display: flex; align-items: center; gap: 0.5rem;
+        min-height: 2.5rem;
+        padding: 0.55rem 0.95rem;
+        font-size: 0.78rem;
+        background: rgba(2, 8, 23, 0.45);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        overflow: hidden;
+    }
+    html.light-theme .gl-cmd {
+        background: rgba(15, 23, 42, 0.05);
+        border-bottom-color: rgba(15, 23, 42, 0.08);
+    }
+    .gl-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .gl-cmd-text {
+        color: #e2e8f0;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    html.light-theme .gl-cmd-text { color: #1e293b; }
+    .gl-caret {
+        display: inline-block; width: 8px; height: 1em; flex-shrink: 0;
+        background: #34d399; border-radius: 1px;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+        animation: glBlink 1s step-end infinite;
+    }
+    @keyframes glBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    /* Commit log */
+    .gl-body { padding: 1.35rem 1.4rem 1.5rem; }
+    .gl-commits { position: relative; display: flex; flex-direction: column; gap: 1.15rem; }
+    .gl-commits::before {
+        content: '';
+        position: absolute; left: 0.72rem; top: 1.1rem; bottom: 0.5rem; width: 2px;
+        background: linear-gradient(180deg, #3b82f6, #8b5cf6 55%, #22d3ee);
+        border-radius: 2px;
+        transform: scaleY(1); transform-origin: top;
+        transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+    }
+    .gl-wb.gl-armed .gl-commits::before { transform: scaleY(0); }
+
+    .gl-commit {
+        position: relative;
+        padding-left: 2.5rem;
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        transition-delay: calc(var(--i, 0) * 140ms + 120ms);
+    }
+    .gl-wb.gl-armed .gl-commit { opacity: 0; transform: translateX(-16px); }
+    .gl-wb.gl-ready .gl-commit { opacity: 1; transform: translateX(0); }
+
+    .gl-node {
+        position: absolute; left: 0.3rem; top: 1.05rem;
+        width: 0.86rem; height: 0.86rem; border-radius: 50%;
+        background: #0b1424; border: 2px solid #3b82f6;
+        transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+        transition-delay: calc(var(--i, 0) * 140ms + 200ms);
+    }
+    html.light-theme .gl-node { background: #fff; }
+    .gl-node::after {
+        content: ''; position: absolute; inset: 2px; border-radius: 50%;
+        background: #60a5fa;
+    }
+    .gl-node::before {
+        content: ''; position: absolute; inset: -6px; border-radius: 50%;
+        border: 1px solid rgba(96, 165, 250, 0.45);
+        opacity: 0;
+    }
+    .gl-wb.gl-armed .gl-node { opacity: 0; transform: scale(0.3); }
+    .gl-wb.gl-ready .gl-node { opacity: 1; transform: scale(1); }
+    .gl-wb.gl-ready .gl-node::before { animation: glRing 2.8s ease-out infinite; animation-delay: calc(var(--i, 0) * 0.4s); }
+    @keyframes glRing {
+        0% { opacity: 0.7; transform: scale(0.6); }
+        70%, 100% { opacity: 0; transform: scale(1.6); }
+    }
+
+    .gl-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.028);
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    html.light-theme .gl-card { background: rgba(255, 255, 255, 0.62); border-color: rgba(15, 23, 42, 0.08); }
+    .gl-commit:hover .gl-card {
+        border-color: var(--border-hover);
+        transform: translateX(4px);
+        box-shadow: var(--shadow-sm);
+    }
+    .gl-card::before {
+        content: '';
+        position: absolute; top: 0; bottom: 0; left: 0; width: 2px;
+        background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+        opacity: 0; transition: opacity 0.35s ease;
+    }
+    .gl-commit:hover .gl-card::before { opacity: 1; }
+
+    .gl-head {
+        display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+        padding: 0.55rem 0.85rem;
+        font-size: 0.71rem;
+        background: rgba(2, 8, 23, 0.28);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+    html.light-theme .gl-head { background: rgba(15, 23, 42, 0.035); border-bottom-color: rgba(15, 23, 42, 0.07); }
+    .gl-hash { min-width: 7ch; color: #fbbf24; letter-spacing: 0.4px; }
+    .gl-ref {
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.3px;
+        color: #93c5fd; background: rgba(59, 130, 246, 0.14);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        padding: 0.14rem 0.45rem; border-radius: 5px;
+        white-space: nowrap;
+    }
+    .gl-msg { color: #cbd5e1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    html.light-theme .gl-msg { color: #334155; }
+    .gl-ty { font-weight: 700; }
+    .gl-ty.feat { color: #4ade80; }
+    .gl-ty.docs { color: #60a5fa; }
+    .gl-ty.chore { color: #c084fc; }
+    .gl-ty.build { color: #fbbf24; }
+    .gl-stat { margin-left: auto; display: inline-flex; gap: 0.35rem; font-size: 0.67rem; font-weight: 700; flex-shrink: 0; }
+    .gl-stat b { color: #34d399; }
+    .gl-stat i { color: #f87171; font-style: normal; }
+
+    .gl-diff { padding: 0.85rem 0.95rem 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .gl-diff > * {
+        transition: opacity 0.55s ease, transform 0.55s ease;
+        transition-delay: calc(var(--i, 0) * 140ms + 320ms);
+    }
+    .gl-wb.gl-armed .gl-diff > * { opacity: 0; transform: translateY(8px); }
+    .gl-wb.gl-ready .gl-diff > * { opacity: 1; transform: translateY(0); }
+    .gl-hunk {
+        font-size: 0.67rem; color: #7c8aa5;
+        background: rgba(59, 130, 246, 0.07);
+        border-left: 2px solid rgba(59, 130, 246, 0.45);
+        border-radius: 0 6px 6px 0;
+        padding: 0.3rem 0.6rem;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    html.light-theme .gl-hunk { color: #64748b; background: rgba(59, 130, 246, 0.06); }
+
+    /* identity block */
+    .gl-user { display: flex; align-items: center; gap: 1rem; min-width: 0; }
+    .gl-avatar {
+        position: relative; flex-shrink: 0;
+        width: 74px; height: 74px; border-radius: 20px; padding: 2px;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #22d3ee);
+        background-size: 200% 200%;
+        animation: glGrad 6s ease infinite;
+        box-shadow: 0 10px 28px rgba(59, 130, 246, 0.3);
+    }
+    @keyframes glGrad { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    .gl-avatar img {
+        width: 100%; height: 100%;
+        border-radius: 18px; object-fit: cover; display: block;
+        background: #0b1424;
+    }
+    .gl-initial {
+        width: 100%; height: 100%; border-radius: 18px;
+        display: flex; align-items: center; justify-content: center;
+        background: #0b1424; color: #60a5fa;
+        font-size: 1.85rem; font-weight: 800;
+    }
+    html.light-theme .gl-initial { background: #eef2f7; color: #2563eb; }
+    .gl-id { min-width: 0; }
+    .gl-name-line { display: flex; align-items: center; gap: 0.4rem; }
+    .gl-name {
+        margin: 0;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 1.32rem; font-weight: 800; line-height: 1.2;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .gl-verify { color: #3b82f6; font-size: 0.95rem; flex-shrink: 0; }
+    .gl-role {
+        display: block; margin: 0.15rem 0 0.35rem;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 0.8rem; color: var(--text-secondary);
+    }
+    .gl-at {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.7rem; color: #34d399;
+        min-width: 0; max-width: 100%;
+    }
+    .gl-at i { flex-shrink: 0; }
+    .gl-mail { color: inherit; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .gl-mail:hover { color: var(--accent-light); }
+
+    /* tags */
+    .gl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .gl-tag {
         display: inline-flex; align-items: center;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         font-size: 0.66rem; font-weight: 600;
         color: var(--accent-light);
         background: rgba(59, 130, 246, 0.08);
         border: 1px solid rgba(59, 130, 246, 0.2);
-        padding: 0.28rem 0.65rem; border-radius: 50px;
+        padding: 0.26rem 0.62rem; border-radius: 50px;
         transition: all 0.3s ease;
     }
-    .ab-tag:hover {
+    .gl-tag:hover {
         background: var(--accent-gradient); color: #fff; border-color: transparent;
         transform: translateY(-2px);
     }
 
-    .ab-bio {
-        position: relative;
-        padding-left: 1rem;
-        border-left: 2px solid rgba(59, 130, 246, 0.35);
-    }
-    .ab-bio p {
+    /* bio */
+    .gl-bio { padding-left: 0.9rem; border-left: 2px solid rgba(59, 130, 246, 0.35); }
+    .gl-bio p {
         font-family: 'Poppins', 'Hind Siliguri', sans-serif;
-        color: var(--text-secondary);
-        font-size: 0.92rem; line-height: 1.85; margin: 0 0 0.55rem;
+        font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary);
+        margin: 0 0 0.5rem;
     }
-    .ab-bio p:last-child { margin-bottom: 0; }
-    .ab-bio .ab-desc-short { display: none; }
+    .gl-bio p:last-child { margin-bottom: 0; }
+    .gl-bio .gl-desc-short { display: none; }
 
-    /* Stats */
-    .ab-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
-    .ab-stat {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        justify-items: center; row-gap: 0.45rem;
-        padding: 0.85rem 0.6rem 0.75rem;
+    /* metrics */
+    .gl-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    .gl-metric {
+        display: grid; justify-items: center; row-gap: 0.4rem;
+        padding: 0.8rem 0.5rem 0.7rem;
         text-align: center;
-        background: rgba(59, 130, 246, 0.045);
+        background: rgba(59, 130, 246, 0.05);
         border: 1px solid var(--border-color);
-        border-radius: 13px;
+        border-radius: 12px;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .ab-stat:hover { transform: translateY(-3px); border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
-    .ab-stat .stat-ico {
-        grid-row: 1;
-        width: 32px; height: 32px; border-radius: 10px;
+    .gl-metric:hover { transform: translateY(-3px); border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
+    .gl-metric .metric-ico {
+        width: 30px; height: 30px; border-radius: 9px;
         display: inline-flex; align-items: center; justify-content: center;
-        font-size: 0.9rem; color: var(--accent-light);
+        font-size: 0.85rem; color: var(--accent-light);
         background: rgba(59, 130, 246, 0.1);
     }
-    .ab-stat .stat-text { grid-row: 3; display: flex; flex-direction: column; line-height: 1.3; }
-    .ab-stat .stat-key {
-        font-size: 0.6rem; color: var(--text-muted);
-        font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+    .gl-metric .number {
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 1.28rem; font-weight: 800; line-height: 1;
+        color: #60a5fa;
     }
-    .ab-stat .number {
-        grid-row: 2;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 1.4rem; font-weight: 800; line-height: 1;
-        background: linear-gradient(135deg, var(--accent-light), #a78bfa);
-        -webkit-background-clip: text; background-clip: text;
-        -webkit-text-fill-color: transparent;
+    .gl-metric .metric-key {
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+        color: var(--text-muted);
     }
-    .ab-stat .stat-bar { grid-row: 4; grid-column: 1; width: 100%; height: 4px; border-radius: 50px; background: rgba(59, 130, 246, 0.12); overflow: hidden; }
-    .ab-stat .stat-fill {
+    .gl-metric .metric-bar {
+        width: 100%; height: 4px; border-radius: 50px;
+        background: rgba(59, 130, 246, 0.12); overflow: hidden;
+    }
+    .gl-metric .metric-fill {
         display: block; height: 100%; width: 0;
         background: linear-gradient(90deg, #3b82f6, #8b5cf6, #22d3ee);
         background-size: 200% 100%;
-        animation: abGrad 3s ease infinite;
+        animation: glGrad 3s ease infinite;
         border-radius: 50px;
-        transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
     }
-    #aboutCard.ak-anim .stat-fill { width: var(--w); }
+    .gl-wb.gl-ready .metric-fill { width: var(--w); }
 
-    /* CV */
-    .ab-cv-btn {
-        display: inline-flex; align-items: center; gap: 0.6rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.86rem; font-weight: 700; color: #d1fae5;
+    /* resume button */
+    .gl-cv {
+        position: relative; overflow: hidden;
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        align-self: flex-start;
+        font-size: 0.8rem; font-weight: 700; color: #d1fae5;
         background: linear-gradient(135deg, #065f46, #047857, #059669);
         border: 1px solid rgba(52, 211, 153, 0.4);
-        border-radius: 13px; padding: 0.85rem 1.1rem;
+        border-radius: 12px; padding: 0.72rem 1rem;
         text-decoration: none !important;
-        box-shadow: 0 10px 32px rgba(16, 185, 129, 0.25);
-        position: relative; overflow: hidden;
+        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.24);
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
     }
-    .ab-cv-btn::before {
+    .gl-cv::before {
         content: '';
         position: absolute; top: 0; left: -100%;
         width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
         transition: left 0.6s ease;
     }
-    .ab-cv-btn:hover::before { left: 100%; }
-    .ab-cv-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 40px rgba(16, 185, 129, 0.4); color: #fff; }
-    .ab-cv-prompt { color: #6ee7b7; }
-    .ab-cv-badge {
+    .gl-cv:hover::before { left: 100%; }
+    .gl-cv:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 38px rgba(16, 185, 129, 0.38); color: #fff; }
+    .gl-cv-prompt { color: #6ee7b7; }
+    .gl-cv-badge {
         margin-left: auto;
-        font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+        font-size: 0.58rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
         background: rgba(255, 255, 255, 0.18);
-        border-radius: 6px; padding: 0.22rem 0.55rem;
+        border-radius: 6px; padding: 0.2rem 0.5rem;
     }
 
-    /* Socials */
-    .ab-socials { display: flex; flex-direction: column; gap: 0.5rem; }
-    .ab-socials-label {
+    /* socials */
+    .gl-socials { display: flex; flex-direction: column; gap: 0.45rem; }
+    .gl-socials-label {
         display: flex; align-items: center; gap: 0.4rem;
-        font-size: 0.66rem; color: var(--text-muted);
-        font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.64rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+        color: var(--text-muted);
     }
-    .ab-socials-label i { color: var(--accent-light); }
-    .ab-socials-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-    .ab-social-link {
-        width: 40px; height: 40px; border-radius: 12px;
+    .gl-socials-label i { color: var(--accent-light); }
+    .gl-socials-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .gl-social-link {
+        width: 38px; height: 38px; border-radius: 11px;
         background: rgba(59, 130, 246, 0.06);
-        border: 1px solid rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.14);
         display: inline-flex; align-items: center; justify-content: center;
         color: var(--text-muted); font-size: 1rem;
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .ab-social-link:hover {
+    .gl-social-link:hover {
         background: var(--accent-gradient); border-color: transparent;
         color: #fff; transform: translateY(-4px) scale(1.08);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
     }
 
-    /* Hire */
-    .ab-hire { display: flex; flex-direction: column; gap: 0.55rem; }
-    .ab-hire-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-    .ab-hire-label {
-        display: inline-flex; align-items: center; gap: 0.45rem;
+    /* hire */
+    .gl-hire { display: flex; flex-direction: column; gap: 0.5rem; }
+    .gl-hire-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+    .gl-hire-label {
+        display: inline-flex; align-items: center; gap: 0.4rem;
         font-family: 'Poppins', 'Hind Siliguri', sans-serif;
-        font-size: 0.84rem; color: var(--text-primary); font-weight: 700;
+        font-size: 0.82rem; font-weight: 700; color: var(--text-primary);
     }
-    .ab-hire-label i { color: var(--accent); }
-    .ab-hire-tag {
-        font-size: 0.64rem; color: #1DBF73;
+    .gl-hire-label i { color: var(--accent); }
+    .gl-hire-tag {
+        font-size: 0.62rem; color: #1DBF73; font-weight: 600; letter-spacing: 0.3px;
         background: rgba(29, 191, 115, 0.1);
-        padding: 0.26rem 0.7rem; border-radius: 20px;
         border: 1px solid rgba(29, 191, 115, 0.22);
-        letter-spacing: 0.3px; font-weight: 600;
-        animation: abPulse 2s ease-in-out infinite;
+        padding: 0.24rem 0.65rem; border-radius: 20px;
         white-space: nowrap;
+        animation: abPulse 2s ease-in-out infinite;
     }
-    .ab-hire-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .ab-freelance {
-        flex: 1 1 130px;
-        display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
-        padding: 0.58rem 0.6rem; border-radius: 12px;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.76rem; font-weight: 600; color: var(--text-primary);
+    .gl-hire-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .gl-freelance {
+        flex: 1 1 120px;
+        display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+        padding: 0.55rem 0.6rem; border-radius: 11px;
+        font-size: 0.74rem; font-weight: 600; color: var(--text-primary);
         background: rgba(59, 130, 246, 0.05);
         border: 1.5px solid var(--border-color);
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .ab-freelance:hover { transform: translateY(-3px); border-color: transparent; box-shadow: var(--shadow-sm); color: #fff; }
-    .ab-freelance.fiverr { color: #1DBF73; border-color: rgba(29, 191, 115, 0.25); }
-    .ab-freelance.fiverr:hover { background: linear-gradient(135deg, #1DBF73, #17a864); color: #fff; }
-    .ab-freelance.upwork { color: #6FDA44; border-color: rgba(106, 218, 68, 0.25); }
-    .ab-freelance.upwork:hover { background: linear-gradient(135deg, #6FDA44, #5ac43a); color: #fff; }
-    .ab-freelance.freelancer { color: #29B2FE; border-color: rgba(41, 178, 254, 0.25); }
-    .ab-freelance.freelancer:hover { background: linear-gradient(135deg, #29B2FE, #1a9ee8); color: #fff; }
+    .gl-freelance:hover { transform: translateY(-3px); border-color: transparent; box-shadow: var(--shadow-sm); color: #fff; }
+    .gl-freelance.fiverr { color: #1DBF73; border-color: rgba(29, 191, 115, 0.25); }
+    .gl-freelance.fiverr:hover { background: linear-gradient(135deg, #1DBF73, #17a864); color: #fff; }
+    .gl-freelance.upwork { color: #6FDA44; border-color: rgba(106, 218, 68, 0.25); }
+    .gl-freelance.upwork:hover { background: linear-gradient(135deg, #6FDA44, #5ac43a); color: #fff; }
+    .gl-freelance.freelancer { color: #29B2FE; border-color: rgba(41, 178, 254, 0.25); }
+    .gl-freelance.freelancer:hover { background: linear-gradient(135deg, #29B2FE, #1a9ee8); color: #fff; }
 
-    /* Status bar */
-    .ab-statusbar {
-        display: flex; align-items: center; gap: 1.1rem;
+    /* footer bar */
+    .gl-foot {
+        display: flex; align-items: center; gap: 1rem;
         padding: 0.5rem 0.95rem;
         font-size: 0.63rem; color: #64748b;
-        background: rgba(2, 6, 18, 0.42);
+        background: rgba(2, 8, 23, 0.42);
         border-top: 1px solid rgba(255, 255, 255, 0.06);
         white-space: nowrap; overflow-x: auto;
         scrollbar-width: none;
     }
-    .ab-statusbar::-webkit-scrollbar { display: none; }
-    html.light-theme .ab-statusbar { background: rgba(15, 23, 42, 0.05); color: #94a3b8; }
-    .ab-statusbar span { display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
-    .ab-statusbar .sb-right { margin-left: auto; }
-    .ab-statusbar .sb-green { color: #34d399; }
+    .gl-foot::-webkit-scrollbar { display: none; }
+    html.light-theme .gl-foot { background: rgba(15, 23, 42, 0.05); color: #94a3b8; }
+    .gl-foot span { display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
+    .gl-foot-ok { color: #34d399; }
+    .gl-foot-right { margin-left: auto; }
 
     /* ===== About responsive ===== */
-    @media (max-width: 1024px) {
-        .ab-body { grid-template-columns: 1fr; }
-        .ab-activity { display: none; }
-        .ab-editor { order: 2; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
-        .ab-profile { order: 1; }
-        html.light-theme .ab-editor { border-bottom-color: rgba(15, 23, 42, 0.08); }
-    }
     @media (max-width: 900px) {
         .ab-chip { display: none; }
     }
     @media (max-width: 768px) {
-        .ab-tabs { display: none; }
-        .ab-editor { display: none; }
-        .ab-statusbar { display: none; }
-        .ab-avail { font-size: 0.66rem; }
-        .ab-minimap { display: none; }
-        .ab-dock { display: none; }
-        .ab-hide-sm { display: none; }
-        .ab-bio .ab-desc { display: none; }
-        .ab-bio .ab-desc-short { display: block; }
-        .ab-p-body { padding: 1.15rem 1.1rem 1.3rem; gap: 0.85rem; }
-        .ab-u-name { font-size: 1.35rem; }
-        .ab-avatar { width: 76px; height: 76px; }
-        .ab-avatar::after { inset: -7px; }
-        .ab-initial { font-size: 1.9rem; }
-        .ab-code { padding: 0.8rem 0.85rem; }
-        .ab-gutter { width: 40px; }
-        .ab-gutter span { height: calc(0.8rem * 1.9); line-height: calc(0.8rem * 1.9); font-size: 0.72rem; }
-        .ab-line { font-size: 0.8rem; }
+        .gl-bar { gap: 0.45rem; }
+        .gl-repo { max-width: 11ch; }
+        .gl-cmd { font-size: 0.72rem; }
+        .gl-body { padding: 1.1rem 1rem 1.25rem; }
+        .gl-commits { gap: 1rem; }
+        .gl-commit { padding-left: 1.85rem; }
+        .gl-commits::before { left: 0.5rem; }
+        .gl-node { left: 0.1rem; top: 0.95rem; width: 0.78rem; height: 0.78rem; }
+        .gl-diff { padding: 0.75rem 0.8rem 0.85rem; gap: 0.65rem; }
+        .gl-role { font-size: 0.76rem; }
+        .gl-bio .gl-desc { display: none; }
+        .gl-bio .gl-desc-short { display: block; }
     }
     @media (max-width: 480px) {
-        .ab-line { font-size: 0.74rem; }
-        .ab-gutter { width: 34px; }
-        .ab-gutter span { padding-right: 0.45rem; }
-        .ab-u-name { font-size: 1.2rem; }
-        .ab-user { gap: 0.8rem; }
-        .ab-avatar { width: 66px; height: 66px; }
-        .ab-hire-row { flex-wrap: nowrap; }
-        .ab-freelance { flex: 1 1 0; font-size: 0.62rem; padding: 0.5rem 0.2rem; gap: 0.3rem; border-radius: 10px; }
-        .ab-stats { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-        .ab-stat { padding: 0.6rem 0.3rem 0.55rem; }
-        .ab-stat .number { font-size: 1.1rem; }
-        .ab-stat .stat-key { font-size: 0.5rem; letter-spacing: 0.2px; }
-        .ab-stat .stat-ico { width: 24px; height: 24px; font-size: 0.7rem; }
-        .ab-stat .stat-bar { height: 3px; }
+        .gl-avail { display: none; }
+        .gl-name { font-size: 1.1rem; }
+        .gl-user { gap: 0.8rem; }
+        .gl-avatar { width: 62px; height: 62px; }
+        .gl-initial { font-size: 1.55rem; }
+        .gl-metrics { gap: 0.45rem; }
+        .gl-metric { padding: 0.6rem 0.3rem 0.55rem; }
+        .gl-metric .number { font-size: 1.05rem; }
+        .gl-metric .metric-key { font-size: 0.5rem; letter-spacing: 0.2px; }
+        .gl-metric .metric-ico { width: 24px; height: 24px; font-size: 0.72rem; }
+        .gl-msg { flex-basis: 100%; }
+        .gl-stat { margin-left: 0; }
+        .gl-hire-row { flex-wrap: nowrap; }
+        .gl-freelance { flex: 1 1 0; font-size: 0.6rem; padding: 0.5rem 0.2rem; gap: 0.25rem; }
+    }
+
+    /* ===== Reduced motion - never hide the git log ===== */
+    @media (prefers-reduced-motion: reduce) {
+        .gl-wb.gl-armed .gl-commit,
+        .gl-wb.gl-armed .gl-diff > *,
+        .gl-wb.gl-armed .gl-node { opacity: 1; transform: none; }
+        .gl-wb.gl-armed .gl-commits::before { transform: scaleY(1); }
+        .gl-wb::before,
+        .ab-chip,
+        .gl-avatar,
+        .gl-node::before,
+        .gl-hire-tag { animation: none; }
+        .gl-metric .metric-fill { width: var(--w); }
     }
 
     /* ===== SERVICES � PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
@@ -3322,7 +3226,7 @@
         <div class="container">
             <div class="code-divider reveal" aria-hidden="true">
                 <span class="cd-line"></span>
-                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> about.js</span>
+                <span class="cd-tag"><i class="bi bi-git"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> about.git</span>
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
@@ -3338,219 +3242,202 @@
                 <span class="ab-chip c3"><i class="bi bi-braces"></i> React</span>
                 <span class="ab-chip c4"><i class="bi bi-database"></i> MySQL</span>
 
-                <div class="ab-wb">
+                <div class="gl-wb">
                     <!-- Title bar -->
-                    <div class="ab-titlebar">
+                    <div class="gl-bar">
                         <span class="ab-dot red"></span>
                         <span class="ab-dot yellow"></span>
                         <span class="ab-dot green"></span>
-                        <div class="ab-tabs">
-                            <span class="ab-tab"><i class="bi bi-file-earmark-code"></i> readme.md</span>
-                            <span class="ab-tab active"><i class="bi bi-filetype-js"></i> about.js</span>
-                            <span class="ab-tab"><i class="bi bi-filetype-json"></i> skills.json</span>
-                        </div>
-                        <span class="ab-avail"><span class="ab-dot2"></span> {{ __('messages.avail_for_work') }}</span>
+                        <span class="gl-repo"><i class="bi bi-git"></i> ~/developer.git</span>
+                        <span class="gl-branch"><i class="bi bi-diagram-3"></i> main</span>
+                        <span class="gl-avail"><span class="ab-dot2"></span> {{ __('messages.avail_for_work') }}</span>
                     </div>
 
-                    <div class="ab-body">
-                        <!-- Activity bar -->
-                        <div class="ab-activity" aria-hidden="true">
-                            <i class="bi bi-files on"></i>
-                            <i class="bi bi-search"></i>
-                            <i class="bi bi-git"></i>
-                            <i class="bi bi-bug"></i>
-                            <i class="bi bi-puzzle"></i>
-                        </div>
+                    <!-- Command (typed by JS) -->
+                    <div class="gl-cmd">
+                        <span class="gl-prompt">&#10095;</span>
+                        <span class="gl-cmd-text" data-cmd="git log --graph --decorate --stat"></span><span class="gl-caret"></span>
+                    </div>
 
-                        <!-- Editor -->
-                        <div class="ab-editor">
-                            <div class="ab-editor-head">
-                                <label><i class="fa-solid fa-angle-right"></i>&nbsp; ~/developer/about.js</label>
-                                <span class="ab-editor-actions">
-                                    <i class="bi bi-arrow-repeat" title="Run build"></i>
-                                    <i class="bi bi-braces" title="Format"></i>
-                                    <i class="bi bi-dots-vertical"></i>
-                                </span>
-                            </div>
-                            <div class="ab-code-wrap">
-                                <div class="ab-gutter">
-                                    <span class="ab-hide-sm">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
-                                    <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
-                                    <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
-                                    <span class="ab-hide-sm">19</span><span class="ab-hide-sm">20</span><span class="ab-hide-sm">21</span><span class="ab-hide-sm">22</span>
-                                </div>
-                                <div class="ab-code" id="abCode">
-                                    <div class="ab-line ab-comment ab-hide-sm">// {{ __('messages.about') }} &mdash; get to know me better</div>
-                                    <div class="ab-line"><span class="ab-key">const</span> <span class="ab-name">developer</span> <span class="ab-punc">=</span> <span class="ab-punc">{</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">name</span><span class="ab-punc">:</span> <span class="ab-str">"{{ optional($account)->name ?? 'Portfolio' }}"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">role</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.about_heading') }}"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">stack</span><span class="ab-punc">:</span> <span class="ab-punc">[</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"Laravel"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"PHP"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"MySQL"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"JavaScript"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-indent"></span><span class="ab-str">"Git"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-punc">]</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">email</span><span class="ab-punc">:</span> <span class="ab-str">"{{ optional($account)->email ?? 'mail@example.com' }}"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">location</span><span class="ab-punc">:</span> <span class="ab-str">"Khulna, Bangladesh"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">hireable</span><span class="ab-punc">:</span> <span class="ab-bool">true</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">focus</span><span class="ab-punc">:</span> <span class="ab-str">"responsive web apps that users love"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">status</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.avail_for_work') }}"</span><span class="ab-punc">,</span></div>
-                                    <div class="ab-line"><span class="ab-punc">};</span></div>
-                                    <div class="ab-line ab-hide-sm"></div>
-                                    <div class="ab-line ab-hide-sm"><span class="ab-prop">module</span><span class="ab-punc">.</span><span class="ab-prop">exports</span> <span class="ab-punc">=</span> <span class="ab-name">developer</span><span class="ab-punc">;</span></div>
-                                    <div class="ab-line ab-hide-sm"></div>
-                                    <div class="ab-line ab-comment ab-hide-sm">// compiled successfully &middot; lint: clean &middot; ready to ship &mdash; 100ms</div>
-                                </div>
-                                <div class="ab-minimap" aria-hidden="true">
-                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                                </div>
-                            </div>
-                            <div class="ab-dock">
-                                <div class="ab-dock-head">
-                                    <span class="ab-dock-tab active">OUTPUT</span>
-                                    <span class="ab-dock-tab">PROBLEMS</span>
-                                    <span class="ab-dock-close"><i class="bi bi-chevron-bar-down"></i></span>
-                                </div>
-                                <div class="ab-dock-body">
-                                    <p><span class="ab-dock-ok">&check;</span> Compiled successfully &middot; lint: clean &middot; 0 warnings</p>
-                                    <p><span class="ab-dock-dim">$</span> <span>ready to ship &mdash; 100ms</span></p>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Commit log -->
+                    <div class="gl-body">
+                        <div class="gl-commits">
 
-                        <!-- Profile pane -->
-                        <div class="ab-profile" id="aboutCard">
-                            <div class="ab-p-head">
-                                <span class="ab-p-file"><i class="bi bi-filetype-json"></i> developer.json</span>
-                                <span class="ab-p-saved"><i class="bi bi-check2"></i> saved</span>
-                            </div>
-                            <div class="ab-p-body">
-                                <div class="ab-user">
-                                    <span class="ab-avatar">
-                                        @if(optional($account)->image)
-                                            <img src="{{ config('app.storage_url') }}{{ $account->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}">
-                                        @else
-                                            <span class="ab-initial">{{ mb_strtoupper(mb_substr(optional($account)->name ?? 'Portfolio', 0, 1)) }}</span>
+                            <!-- commit 1 : identity -->
+                            <article class="gl-commit" style="--i: 0">
+                                <span class="gl-node" aria-hidden="true"></span>
+                                <div class="gl-card">
+                                    <div class="gl-head">
+                                        <span class="gl-hash" data-hash="a1b2c3d">a1b2c3d</span>
+                                        <span class="gl-ref">HEAD &rarr; main</span>
+                                        <span class="gl-msg"><span class="gl-ty feat">feat</span>(profile): introduce {{ optional($account)->name ?? 'developer' }}</span>
+                                        <span class="gl-stat"><b>+18</b><i>-2</i></span>
+                                    </div>
+                                    <div class="gl-diff">
+                                        <div class="gl-hunk">@@ -1,6 +1,8 @@ developer.json</div>
+                                        <div class="gl-user">
+                                            <span class="gl-avatar">
+                                                @if(optional($account)->image)
+                                                    <img src="{{ config('app.storage_url') }}{{ $account->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}">
+                                                @else
+                                                    <span class="gl-initial">{{ mb_strtoupper(mb_substr(optional($account)->name ?? 'Portfolio', 0, 1)) }}</span>
+                                                @endif
+                                            </span>
+                                            <div class="gl-id">
+                                                <div class="gl-name-line">
+                                                    <h3 class="gl-name">{{ optional($account)->name ?? 'Portfolio' }}</h3>
+                                                    <i class="bi bi-patch-check-fill gl-verify"></i>
+                                                </div>
+                                                <span class="gl-role">{{ __('messages.about_heading') }}</span>
+                                                <span class="gl-at"><i class="bi bi-envelope-fill"></i>@if(optional($account)->email)<a href="mailto:{{ $account->email }}" class="gl-mail">{{ $account->email }}</a>@else{{ '@' . mb_strtolower(str_replace(' ', '', optional($account)->name ?? 'developer')) }}@endif</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- commit 2 : about + stack -->
+                            <article class="gl-commit" style="--i: 1">
+                                <span class="gl-node" aria-hidden="true"></span>
+                                <div class="gl-card">
+                                    <div class="gl-head">
+                                        <span class="gl-hash" data-hash="7f4e91a">7f4e91a</span>
+                                        <span class="gl-msg"><span class="gl-ty docs">docs</span>(about): describe what I build</span>
+                                        <span class="gl-stat"><b>+12</b><i>-0</i></span>
+                                    </div>
+                                    <div class="gl-diff">
+                                        <div class="gl-hunk">@@ -8,4 +8,9 @@ about.md</div>
+                                        <div class="gl-tags">
+                                            <span class="gl-tag">Laravel</span>
+                                            <span class="gl-tag">PHP</span>
+                                            <span class="gl-tag">MySQL</span>
+                                            <span class="gl-tag">JavaScript</span>
+                                            <span class="gl-tag">Git</span>
+                                        </div>
+                                        <div class="gl-bio">
+                                            <p class="gl-desc">{{ __('messages.about_desc_1') }}</p>
+                                            <p class="gl-desc">{{ __('messages.about_desc_2') }}</p>
+                                            <p class="gl-desc-short">{{ __('messages.about_desc_short') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- commit 3 : impact metrics -->
+                            <article class="gl-commit" style="--i: 2">
+                                <span class="gl-node" aria-hidden="true"></span>
+                                <div class="gl-card">
+                                    <div class="gl-head">
+                                        <span class="gl-hash" data-hash="3c9d0b5">3c9d0b5</span>
+                                        <span class="gl-msg"><span class="gl-ty chore">chore</span>(metrics): update impact numbers</span>
+                                        <span class="gl-stat"><b>+6</b><i>-6</i></span>
+                                    </div>
+                                    <div class="gl-diff">
+                                        <div class="gl-hunk">@@ -20,3 +20,6 @@ stats.json</div>
+                                        <div class="gl-metrics">
+                                            <div class="gl-metric">
+                                                <span class="metric-ico"><i class="bi bi-folder2-open"></i></span>
+                                                <span class="number" data-count="50">0</span>
+                                                <span class="metric-key">{{ __('messages.stat_projects') }}</span>
+                                                <span class="metric-bar"><span class="metric-fill" style="--w: 92%"></span></span>
+                                            </div>
+                                            <div class="gl-metric">
+                                                <span class="metric-ico"><i class="bi bi-people"></i></span>
+                                                <span class="number" data-count="30">0</span>
+                                                <span class="metric-key">{{ __('messages.stat_clients') }}</span>
+                                                <span class="metric-bar"><span class="metric-fill" style="--w: 85%"></span></span>
+                                            </div>
+                                            <div class="gl-metric">
+                                                <span class="metric-ico"><i class="bi bi-award"></i></span>
+                                                <span class="number" data-count="5">0</span>
+                                                <span class="metric-key">{{ __('messages.stat_years') }}</span>
+                                                <span class="metric-bar"><span class="metric-fill" style="--w: 80%"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- commit 4 : resume, socials & availability -->
+                            <article class="gl-commit" style="--i: 3">
+                                <span class="gl-node" aria-hidden="true"></span>
+                                <div class="gl-card">
+                                    <div class="gl-head">
+                                        <span class="gl-hash" data-hash="e5a0721">e5a0721</span>
+                                        <span class="gl-msg"><span class="gl-ty build">build</span>(contact): ship resume &amp; channels</span>
+                                        <span class="gl-stat"><b>+9</b><i>-1</i></span>
+                                    </div>
+                                    <div class="gl-diff">
+                                        <div class="gl-hunk">@@ -30,3 +30,9 @@ contact.yml</div>
+
+                                        @if(isset($account) && $account->cv)
+                                            <a href="{{ config('app.storage_url') }}{{ $account->cv }}" download class="gl-cv magnetic">
+                                                <span class="gl-cv-prompt">$</span>
+                                                <span>{{ __('messages.download_cv') }}</span>
+                                                <span class="gl-cv-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
+                                            </a>
                                         @endif
-                                    </span>
-                                    <div class="ab-u-txt">
-                                        <div class="ab-name-line">
-                                            <h3 class="ab-u-name">{{ optional($account)->name ?? 'Portfolio' }}</h3>
-                                            <i class="bi bi-patch-check-fill ab-verified"></i>
-                                        </div>
-                                        <span class="ab-u-role">{{ __('messages.about_heading') }}</span>
-                                        <span class="ab-u-at"><i class="bi bi-envelope-fill"></i>@if(optional($account)->email)<a href="mailto:{{ $account->email }}" class="ab-mail">{{ $account->email }}</a>@else{{ '@' . mb_strtolower(str_replace(' ', '', optional($account)->name ?? 'developer')) }}@endif</span>
+
+                                        @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
+                                            <div class="gl-socials">
+                                                <span class="gl-socials-label"><i class="bi bi-link-45deg"></i> // {{ __('messages.connect') }}</span>
+                                                <div class="gl-socials-row">
+                                                    @if(isset($account) && $account->github)
+                                                        <a href="{{ $account->github }}" target="_blank" class="gl-social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                                    @endif
+                                                    @if(isset($account) && $account->linkedin)
+                                                        <a href="{{ $account->linkedin }}" target="_blank" class="gl-social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                                    @endif
+                                                    @if(isset($account) && $account->facebook)
+                                                        <a href="{{ $account->facebook }}" target="_blank" class="gl-social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                                    @endif
+                                                    @if(isset($account) && $account->instagram)
+                                                        <a href="{{ $account->instagram }}" target="_blank" class="gl-social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                                    @endif
+                                                    @if(isset($account) && $account->twitter)
+                                                        <a href="{{ $account->twitter }}" target="_blank" class="gl-social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                                    @endif
+                                                    @if(isset($account) && $account->youtube)
+                                                        <a href="{{ $account->youtube }}" target="_blank" class="gl-social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
+                                            <div class="gl-hire">
+                                                <div class="gl-hire-head">
+                                                    <span class="gl-hire-label"><i class="bi bi-briefcase-fill"></i> {{ __('messages.hire_me') }}</span>
+                                                    <span class="gl-hire-tag"><i class="bi bi-lightning-fill"></i> {{ __('messages.avail_for_work') }}</span>
+                                                </div>
+                                                <div class="gl-hire-row">
+                                                    @if(isset($account) && $account->fiverr)
+                                                        <a href="{{ $account->fiverr }}" target="_blank" class="gl-freelance fiverr" aria-label="Fiverr">
+                                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
+                                                            Fiverr
+                                                        </a>
+                                                    @endif
+                                                    @if(isset($account) && $account->upwork)
+                                                        <a href="{{ $account->upwork }}" target="_blank" class="gl-freelance upwork" aria-label="Upwork"><i class="fab fa-upwork"></i> Upwork</a>
+                                                    @endif
+                                                    @if(isset($account) && $account->freelancer)
+                                                        <a href="{{ $account->freelancer }}" target="_blank" class="gl-freelance freelancer" aria-label="Freelancer"><i class="fas fa-user-tie"></i> Freelancer</a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
+                            </article>
 
-                                <div class="ab-tags">
-                                    <span class="ab-tag">Laravel</span>
-                                    <span class="ab-tag">PHP</span>
-                                    <span class="ab-tag">MySQL</span>
-                                    <span class="ab-tag">JavaScript</span>
-                                    <span class="ab-tag">Git</span>
-                                </div>
-
-                                <div class="ab-bio">
-                                    <p class="ab-desc">{{ __('messages.about_desc_1') }}</p>
-                                    <p class="ab-desc">{{ __('messages.about_desc_2') }}</p>
-                                    <p class="ab-desc-short">{{ __('messages.about_desc_short') }}</p>
-                                </div>
-
-                                <div class="ab-stats">
-                                    <div class="ab-stat">
-                                        <span class="stat-ico"><i class="bi bi-folder2-open"></i></span>
-                                        <span class="stat-text"><span class="stat-key">{{ __('messages.stat_projects') }}</span></span>
-                                        <span class="number" data-count="50">0</span>
-                                        <span class="stat-bar"><span class="stat-fill" style="--w: 92%"></span></span>
-                                    </div>
-                                    <div class="ab-stat">
-                                        <span class="stat-ico"><i class="bi bi-people"></i></span>
-                                        <span class="stat-text"><span class="stat-key">{{ __('messages.stat_clients') }}</span></span>
-                                        <span class="number" data-count="30">0</span>
-                                        <span class="stat-bar"><span class="stat-fill" style="--w: 85%"></span></span>
-                                    </div>
-                                    <div class="ab-stat">
-                                        <span class="stat-ico"><i class="bi bi-award"></i></span>
-                                        <span class="stat-text"><span class="stat-key">{{ __('messages.stat_years') }}</span></span>
-                                        <span class="number" data-count="5">0</span>
-                                        <span class="stat-bar"><span class="stat-fill" style="--w: 80%"></span></span>
-                                    </div>
-                                </div>
-
-                                @if(isset($account) && $account->cv)
-                                    <a href="{{ config('app.storage_url') }}{{ $account->cv }}" download class="ab-cv-btn magnetic">
-                                        <span class="ab-cv-prompt">$</span>
-                                        <span>{{ __('messages.download_cv') }}</span>
-                                        <span class="ab-cv-badge"><i class="bi bi-filetype-pdf"></i> PDF</span>
-                                    </a>
-                                @endif
-
-                                @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
-                                    <div class="ab-socials">
-                                        <span class="ab-socials-label"><i class="bi bi-link-45deg"></i> // {{ __('messages.connect') }}</span>
-                                        <div class="ab-socials-row">
-                                            @if(isset($account) && $account->github)
-                                                <a href="{{ $account->github }}" target="_blank" class="ab-social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                                            @endif
-                                            @if(isset($account) && $account->linkedin)
-                                                <a href="{{ $account->linkedin }}" target="_blank" class="ab-social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                                            @endif
-                                            @if(isset($account) && $account->facebook)
-                                                <a href="{{ $account->facebook }}" target="_blank" class="ab-social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                            @endif
-                                            @if(isset($account) && $account->instagram)
-                                                <a href="{{ $account->instagram }}" target="_blank" class="ab-social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                                            @endif
-                                            @if(isset($account) && $account->twitter)
-                                                <a href="{{ $account->twitter }}" target="_blank" class="ab-social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                            @endif
-                                            @if(isset($account) && $account->youtube)
-                                                <a href="{{ $account->youtube }}" target="_blank" class="ab-social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if(isset($account) && ($account->fiverr || $account->upwork || $account->freelancer))
-                                    <div class="ab-hire">
-                                        <div class="ab-hire-head">
-                                            <span class="ab-hire-label"><i class="bi bi-briefcase-fill"></i> {{ __('messages.hire_me') }}</span>
-                                            <span class="ab-hire-tag"><i class="bi bi-lightning-fill"></i> {{ __('messages.avail_for_work') }}</span>
-                                        </div>
-                                        <div class="ab-hire-row">
-                                            @if(isset($account) && $account->fiverr)
-                                                <a href="{{ $account->fiverr }}" target="_blank" class="ab-freelance fiverr" aria-label="Fiverr">
-                                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
-                                                    Fiverr
-                                                </a>
-                                            @endif
-                                            @if(isset($account) && $account->upwork)
-                                                <a href="{{ $account->upwork }}" target="_blank" class="ab-freelance upwork" aria-label="Upwork"><i class="fab fa-upwork"></i> Upwork</a>
-                                            @endif
-                                            @if(isset($account) && $account->freelancer)
-                                                <a href="{{ $account->freelancer }}" target="_blank" class="ab-freelance freelancer" aria-label="Freelancer"><i class="fas fa-user-tie"></i> Freelancer</a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
                         </div>
                     </div>
 
                     <!-- Status bar -->
-                    <div class="ab-statusbar">
-                        <span><i class="bi bi-git"></i> git:main</span>
-                        <span><span class="sb-green">&bull;</span> ready</span>
-                        <span class="sb-hide"><i class="bi bi-cpu"></i> PHP 8.2 &middot; Laravel</span>
-                        <span class="sb-hide sb-right">Ln 1, Col 1</span>
-                        <span class="sb-hide">UTF-8</span>
-                        <span class="sb-hide">Spaces: 2</span>
+                    <div class="gl-foot">
+                        <span><i class="bi bi-git"></i> git status -sb</span>
+                        <span class="gl-foot-ok"><i class="bi bi-check2-circle"></i> working tree clean</span>
+                        <span class="gl-foot-right">4 commits &middot; 1 branch &middot; main</span>
                     </div>
                 </div>
             </div>
@@ -5467,59 +5354,76 @@
     }, 4000);
 })();
 
-// ===== ABOUT � IDE WORKBENCH (code line reveal animation) =====
+// ===== ABOUT � GIT LOG PROFILE (graph reveal + typed command) =====
 (function() {
     var wb = document.getElementById('aboutWorkbench');
-    var aboutCard = document.getElementById('aboutCard');
-    var codeEl = document.getElementById('abCode');
-    var lines = codeEl ? codeEl.querySelectorAll('.ab-line') : [];
-    if (!lines.length) return;
+    if (!wb) return;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cmdEl = wb.querySelector('.gl-cmd-text');
+    var hashes = wb.querySelectorAll('.gl-hash');
+    // The reveal classes live on the git window itself, not on the shell
+    var panel = wb.querySelector('.gl-wb') || wb;
     var started = false;
 
-    function makeCursor() {
-        var c = document.createElement('span');
-        c.className = 'ab-cursor';
-        return c;
+    function fullCmd() { return cmdEl ? (cmdEl.getAttribute('data-cmd') || '') : ''; }
+
+    function fillAll() {
+        if (cmdEl) cmdEl.textContent = fullCmd();
+        [].forEach.call(hashes, function(h) {
+            if (!h.textContent) h.textContent = h.getAttribute('data-hash') || '';
+        });
     }
 
-    function showEverything() {
-        [].forEach.call(lines, function(l) { l.classList.add('commit'); });
-        if (wb) wb.classList.add('ak-anim');
-        if (aboutCard) aboutCard.classList.add('ak-anim');
+    function type(el, text, speed, done) {
+        if (!el || !text) { if (done) done(); return; }
+        var i = 0;
+        (function step() {
+            el.textContent = text.substring(0, i + 1);
+            i++;
+            if (i < text.length) setTimeout(step, speed);
+            else if (done) done();
+        })();
     }
 
     function start() {
         if (started) return;
         started = true;
-        if (reduce) { showEverything(); return; }
-        if (aboutCard) aboutCard.classList.add('ak-anim');
-        var idx = 0;
-        var cursor = null;
+        panel.classList.add('gl-ready');
 
-        function step() {
-            if (idx >= lines.length) {
-                if (cursor && cursor.parentNode) cursor.parentNode.removeChild(cursor);
-                return;
-            }
-            var line = lines[idx];
-            if (cursor && cursor.parentNode) cursor.parentNode.removeChild(cursor);
-            line.classList.add('commit');
-            cursor = makeCursor();
-            line.appendChild(cursor);
-            idx++;
-            setTimeout(step, 320);
-        }
-        setTimeout(step, 300);
+        if (reduce) { fillAll(); return; }
+
+        // Blank the command + hashes so they can be typed like a real session
+        if (cmdEl) cmdEl.textContent = '';
+        [].forEach.call(hashes, function(h) { h.textContent = ''; });
+
+        type(cmdEl, fullCmd(), 28, function() {
+            var idx = 0;
+            (function nextHash() {
+                if (idx >= hashes.length) return;
+                var h = hashes[idx++];
+                type(h, h.getAttribute('data-hash') || '', 45, function() {
+                    setTimeout(nextHash, 130);
+                });
+            })();
+        });
     }
 
-    var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) { start(); io.disconnect(); }
-        });
-    }, { threshold: 0.3 });
-    io.observe(codeEl || wb);
-    setTimeout(start, 3200);
+    // Arm the reveal (only when JS is there to reveal it again)
+    if (!reduce) panel.classList.add('gl-armed');
+
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { start(); io.disconnect(); }
+            });
+        }, { threshold: 0.15 });
+        io.observe(wb);
+    } else {
+        start();
+    }
+
+    // Safety net: never leave the log hidden or half-typed
+    setTimeout(function() { start(); fillAll(); }, 3500);
 })();
 
 // ===== CASE STUDY CARDS (terminal typewriter + compile-in reveal) =====
