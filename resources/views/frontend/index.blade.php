@@ -1143,24 +1143,70 @@
         margin-left: 0.3rem;
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .svc-card-code {
-        padding: 1.1rem 1.2rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.82rem;
-        line-height: 1.75;
-        min-height: 150px;
+    .svc-card-body {
+        padding: 1.75rem 1.5rem 1.25rem;
+        text-align: center;
         position: relative;
         z-index: 2;
+        font-family: var(--font);
     }
-    .svc-line { opacity: 0; transform: translateY(6px); }
-    .svc-card.visible .svc-line { animation: svcLineIn 0.4s ease forwards; }
-    .svc-card.visible .svc-line:nth-child(1) { animation-delay: 0.1s; }
-    .svc-card.visible .svc-line:nth-child(2) { animation-delay: 0.18s; }
-    .svc-card.visible .svc-line:nth-child(3) { animation-delay: 0.26s; }
-    .svc-card.visible .svc-line:nth-child(4) { animation-delay: 0.34s; }
-    .svc-card.visible .svc-line:nth-child(5) { animation-delay: 0.42s; }
-    .svc-card.visible .svc-line:nth-child(6) { animation-delay: 0.5s; }
-    @keyframes svcLineIn { to { opacity: 1; transform: translateY(0); } }
+    .svc-card-icon {
+        width: 64px; height: 64px;
+        margin: 0 auto 1rem;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.9rem;
+        color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.14);
+        border-radius: 18px;
+        transition: all 0.4s ease;
+    }
+    .svc-card:hover .svc-card-icon {
+        background: var(--accent-gradient);
+        border-color: transparent;
+        color: #fff;
+        transform: scale(1.08) rotate(-4deg);
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
+    }
+    html.light-theme .svc-card-icon {
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(59, 130, 246, 0.2);
+    }
+    html.light-theme .svc-card:hover .svc-card-icon {
+        background: var(--accent-gradient);
+        border-color: transparent;
+        color: #fff;
+    }
+    .svc-card-title {
+        font-size: 1.18rem; font-weight: 700;
+        color: var(--text-primary);
+        margin: 0 0 0.5rem; line-height: 1.4;
+    }
+    html.light-theme .svc-card-title { color: #0f172a; }
+    .svc-card-desc {
+        font-size: 0.88rem; color: var(--text-secondary);
+        line-height: 1.65; margin: 0;
+    }
+    html.light-theme .svc-card-desc { color: #475569; }
+    .svc-card-term {
+        padding: 0.5rem 0.85rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.72rem; color: var(--text-muted);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        position: relative; z-index: 2;
+    }
+    html.light-theme .svc-card-term { border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .sv-term-prompt { color: #34d399; font-weight: 700; }
+    .svc-card-title, .svc-card-desc, .svc-card-term { opacity: 0; }
+    .svc-card.visible .svc-card-icon { animation: svcIn 0.45s ease forwards; }
+    .svc-card.visible .svc-card-title { animation: svcIn 0.45s ease forwards; animation-delay: 0.08s; }
+    .svc-card.visible .svc-card-desc { animation: svcIn 0.45s ease forwards; animation-delay: 0.16s; }
+    .svc-card.visible .svc-card-term { animation: svcIn 0.45s ease forwards; animation-delay: 0.24s; }
+    @media (prefers-reduced-motion: reduce) {
+        .svc-card-title, .svc-card-desc, .svc-card-term { opacity: 1; animation: none; }
+    }
+    @keyframes svcIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .svc-cursor {
         display: inline-block; width: 7px; height: 0.95em;
         background: var(--accent-light); margin-left: 2px;
@@ -1201,11 +1247,12 @@
     .sv-time { opacity: 0.5; }
     @media (max-width: 768px) {
         .svc-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-        .svc-card-code { min-height: auto; font-size: 0.78rem; padding: 0.9rem 1rem; }
-        .svc-line { opacity: 1; transform: none; animation: none !important; }
+        .svc-card-body { padding: 1.4rem 1.1rem 1.1rem; }
+        .svc-card-title, .svc-card-desc, .svc-card-term { opacity: 1; transform: none; animation: none !important; }
     }
     @media (max-width: 480px) {
-        .svc-card-code { font-size: 0.72rem; }
+        .svc-card-icon { width: 56px; height: 56px; font-size: 1.6rem; }
+        .svc-card-desc { font-size: 0.82rem; }
     }
 /* ── Case Studies ── */
     .casestudy-section {
@@ -3059,16 +3106,19 @@
                                 <span class="ab-dot green"></span>
                                 <span class="svc-filename">service-{{ $index + 1 }}.js</span>
                             </div>
-                            <div class="svc-card-code">
-                                <div class="svc-line"><span class="sv-keyword">export const</span> <span class="sv-var">service{{ $index + 1 }}</span> <span class="sv-op">=</span> <span class="sv-op">{</span></div>
-                                <div class="svc-line">&nbsp;&nbsp;<span class="sv-key">icon</span>: <span class="sv-str">"{{ $service->icon ?: 'bi-star' }}"</span><span class="sv-op">,</span></div>
-                                <div class="svc-line">&nbsp;&nbsp;<span class="sv-key">name</span>: <span class="sv-str">"{{ $service->title }}"</span><span class="sv-op">,</span></div>
-                                <div class="svc-line">&nbsp;&nbsp;<span class="sv-key">handle</span>: <span class="sv-str">"{{ $service->short_description ?: 'no description' }}"</span></div>
-                                <div class="svc-line"><span class="sv-op">};</span><span class="svc-cursor"></span></div>
+                            <div class="svc-card-body">
+                                <div class="svc-card-icon">
+                                    <i class="bi {{ $service->icon ?: 'bi-star' }}"></i>
+                                </div>
+                                <h3 class="svc-card-title">{{ $service->title }}</h3>
+                                @if($service->short_description)
+                                    <p class="svc-card-desc">{{ $service->short_description }}</p>
+                                @endif
                             </div>
+                            <div class="svc-card-term"><span class="sv-term-prompt">&gt;</span> <span class="sv-key">name</span>: <span class="sv-str">"{{ $service->title }}"</span><span class="svc-cursor"></span></div>
                             <div class="svc-card-status">
-                                <span class="sv-status-ok"><span class="sv-dot"></span> compiled successfully</span>
-                                <span class="sv-time">{{ $compileMs }}ms</span>
+                                <span class="sv-status-ok"><span class="sv-dot"></span> ready to help</span>
+                                <span class="sv-time">service #{{ $index + 1 }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -4665,7 +4715,7 @@
     });
 })();
 
-// ===== SERVICES — CODE TERMINAL CARDS (staggered line reveal) =====
+// ===== SERVICES — CODE TERMINAL CARDS (staggered body reveal) =====
 (function() {
     var cards = document.querySelectorAll('.svc-card');
     if (!cards.length || !('IntersectionObserver' in window)) {
