@@ -1086,63 +1086,72 @@
         .code-divider .cd-cursor { width: 6px; height: 12px; }
     }
 
-        /* ===== SERVICES - CODE TERMINAL GRID ===== */
+        /* ===== SERVICES - API ENDPOINT CARDS ===== */
     .svc-grid {
         display: flex;
         flex-wrap: wrap;
+        align-items: stretch;
         justify-content: center;
-        gap: 1.75rem;
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
         position: relative;
         z-index: 1;
     }
     .svc-card {
         position: relative;
-        flex: 0 0 calc((100% - 3.5rem) / 3);
-        max-width: calc((100% - 3.5rem) / 3);
+        flex: 0 0 calc((100% - 1.5rem) / 2);
+        max-width: calc((100% - 1.5rem) / 2);
+        min-width: 300px;
         display: flex;
         flex-direction: column;
-        background: rgba(13, 23, 43, 0.58);
+        background: rgba(13, 23, 43, 0.6);
         -webkit-backdrop-filter: blur(18px) saturate(160%);
         backdrop-filter: blur(18px) saturate(160%);
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        border-radius: 16px;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 14px;
         overflow: hidden;
         transition: var(--transition);
     }
     html.light-theme .svc-card {
-        background: rgba(255, 255, 255, 0.85);
-        border-color: rgba(59, 130, 246, 0.18);
+        background: rgba(255, 255, 255, 0.88);
+        border-color: rgba(139, 92, 246, 0.22);
     }
+    /* cursor-follow shine */
     .svc-card::after {
         content: ''; position: absolute; inset: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.15) 28%, transparent 55%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(139, 92, 246, 0.4) 0%, rgba(139, 92, 246, 0.15) 28%, transparent 55%);
         pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
         z-index: 1; border-radius: inherit;
     }
     .svc-card:hover::after { opacity: 1; }
+    /* accent rail that fills on hover */
     .svc-card::before {
         content: ''; position: absolute;
         top: 0; left: 0; width: 3px; height: 0;
-        background: var(--accent-gradient);
+        background: linear-gradient(180deg, #a78bfa, #22d3ee);
         border-radius: 0 0 3px 0;
         transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        z-index: 2;
+        z-index: 3;
     }
     .svc-card:hover::before { height: 100%; }
     .svc-card:hover {
-        border-color: var(--border-hover);
+        border-color: rgba(139, 92, 246, 0.5);
         box-shadow: var(--shadow-md);
         transform: translateY(-4px);
     }
+
+    /* ---- request title bar ---- */
     .svc-card-bar {
         display: flex; align-items: center; gap: 0.5rem;
         padding: 0.55rem 0.85rem;
-        background: rgba(255, 255, 255, 0.035);
+        background: rgba(139, 92, 246, 0.06);
         border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        position: relative; z-index: 2;
     }
     html.light-theme .svc-card-bar {
-        background: rgba(15, 23, 42, 0.035);
+        background: rgba(139, 92, 246, 0.045);
         border-bottom-color: rgba(15, 23, 42, 0.08);
     }
     .svc-card-bar .ab-dot { width: 10px; height: 10px; }
@@ -1151,90 +1160,135 @@
         margin-left: 0.3rem;
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
+    .svc-method {
+        margin-left: auto; flex-shrink: 0;
+        font-size: 0.58rem; font-weight: 800; letter-spacing: 0.8px;
+        color: #c4b5fd;
+        background: rgba(139, 92, 246, 0.14);
+        border: 1px solid rgba(139, 92, 246, 0.35);
+        padding: 0.14rem 0.5rem; border-radius: 5px;
+        transition: var(--transition);
+    }
+    html.light-theme .svc-method { color: #6d28d9; background: rgba(139, 92, 246, 0.1); }
+    .svc-card:hover .svc-method {
+        color: #fff;
+        background: linear-gradient(135deg, #8b5cf6, #6366f1);
+        border-color: transparent;
+        box-shadow: 0 0 18px rgba(139, 92, 246, 0.45);
+    }
+
+    /* ---- body ---- */
     .svc-card-body {
-        padding: 1.75rem 1.5rem 1.25rem;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-        font-family: var(--font);
-    }
-    .svc-card-icon {
-        width: 64px; height: 64px;
-        margin: 0 auto 1rem;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.9rem;
-        color: var(--accent-light);
-        background: rgba(59, 130, 246, 0.08);
-        border: 1px solid rgba(59, 130, 246, 0.14);
-        border-radius: 18px;
-        transition: all 0.4s ease;
-    }
-    .svc-card:hover .svc-card-icon {
-        background: var(--accent-gradient);
-        border-color: transparent;
-        color: #fff;
-        transform: scale(1.08) rotate(-4deg);
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
-    }
-    html.light-theme .svc-card-icon {
-        background: rgba(255, 255, 255, 0.85);
-        border-color: rgba(59, 130, 246, 0.2);
-    }
-    html.light-theme .svc-card:hover .svc-card-icon {
-        background: var(--accent-gradient);
-        border-color: transparent;
-        color: #fff;
-    }
-    .svc-card-title {
-        font-size: 1.18rem; font-weight: 700;
-        color: var(--text-primary);
-        margin: 0 0 0.5rem; line-height: 1.4;
-    }
-    html.light-theme .svc-card-title { color: #0f172a; }
-    .svc-card-desc {
-        font-size: 0.88rem; color: var(--text-secondary);
-        line-height: 1.65; margin: 0;
-    }
-    html.light-theme .svc-card-desc { color: #475569; }
-    .svc-card-foot {
-        display: flex; justify-content: space-between; align-items: center;
-        margin-top: auto;
-        padding: 0.55rem 0.85rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.72rem; color: var(--text-muted);
         position: relative; z-index: 2;
+        flex: 1 1 auto;
+        display: flex; flex-direction: column; gap: 0.9rem;
+        padding: 1.05rem 1.15rem 1.1rem;
+        overflow: hidden;
     }
-    html.light-theme .svc-card-foot { border-top-color: rgba(15, 23, 42, 0.08); }
-    .svc-foot-term { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
-    .svc-foot-status { white-space: nowrap; flex-shrink: 0; margin-left: 0.75rem; }
-    .sv-term-prompt { color: #34d399; font-weight: 700; }
-    .svc-card-title, .svc-card-desc, .svc-card-foot { opacity: 0; }
-    .svc-card.visible .svc-card-icon { animation: svcIn 0.45s ease forwards; }
-    .svc-card.visible .svc-card-title { animation: svcIn 0.45s ease forwards; animation-delay: 0.08s; }
-    .svc-card.visible .svc-card-desc { animation: svcIn 0.45s ease forwards; animation-delay: 0.16s; }
-    .svc-card.visible .svc-card-foot { animation: svcIn 0.45s ease forwards; animation-delay: 0.24s; }
-    @media (prefers-reduced-motion: reduce) {
-        .svc-card-title, .svc-card-desc, .svc-card-term { opacity: 1; animation: none; }
+    /* request sweep travelling across the card */
+    .svc-sweep {
+        position: absolute; top: 0; bottom: 0; left: -30%;
+        width: 30%; pointer-events: none; z-index: 1;
+        background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.14), transparent);
+        animation: svcSweep 6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     }
-    @keyframes svcIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    html.light-theme .svc-sweep {
+        background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    }
+    @keyframes svcSweep {
+        0%   { left: -30%; opacity: 0; }
+        12%  { opacity: 1; }
+        60%  { left: 100%; opacity: 1; }
+        100% { left: 100%; opacity: 0; }
+    }
+
+    /* route line */
+    .svc-route {
+        position: relative; z-index: 2;
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.5rem 0.7rem;
+        background: rgba(2, 6, 18, 0.4);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 9px;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.72rem;
+        white-space: nowrap; overflow: hidden;
+    }
+    html.light-theme .svc-route { background: rgba(15, 23, 42, 0.04); }
+    .svc-method-chip {
+        flex-shrink: 0;
+        font-size: 0.58rem; font-weight: 800; letter-spacing: 0.8px;
+        color: #0b1220;
+        background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+        padding: 0.12rem 0.42rem; border-radius: 4px;
+    }
+    .svc-path { flex: 0 1 auto; min-width: 0; color: #c4b5fd; overflow: hidden; text-overflow: ellipsis; }
+    html.light-theme .svc-path { color: #6d28d9; }
     .svc-cursor {
-        display: inline-block; width: 7px; height: 0.95em;
-        background: var(--accent-light); margin-left: 2px;
-        vertical-align: text-bottom;
+        display: inline-block; flex-shrink: 0;
+        width: 7px; height: 0.95em;
+        background: #a78bfa; border-radius: 1px;
+        box-shadow: 0 0 10px rgba(167, 139, 250, 0.7);
         animation: svcBlink 1s step-end infinite;
     }
     @keyframes svcBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    .sv-keyword { color: #c084fc; }
-    .sv-var     { color: #e2e8f0; }
-    .sv-str     { color: #34d399; }
-    .sv-key     { color: #fbbf24; }
-    .sv-op      { color: #64748b; }
-    html.light-theme .sv-keyword { color: #7c3aed; }
-    html.light-theme .sv-var     { color: #0f172a; }
-    html.light-theme .sv-str     { color: #059669; }
-    html.light-theme .sv-key     { color: #d97706; }
-    html.light-theme .sv-op      { color: #94a3b8; }
+
+    /* icon + copy */
+    .svc-main {
+        position: relative; z-index: 2;
+        display: flex; align-items: flex-start; gap: 0.9rem;
+    }
+    .svc-card-icon {
+        flex-shrink: 0;
+        width: 52px; height: 52px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem;
+        color: var(--accent-light);
+        background: rgba(139, 92, 246, 0.09);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 14px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    html.light-theme .svc-card-icon {
+        background: rgba(139, 92, 246, 0.07);
+        color: #6d28d9;
+    }
+    .svc-card:hover .svc-card-icon {
+        background: linear-gradient(135deg, #8b5cf6, #6366f1);
+        border-color: transparent;
+        color: #fff;
+        transform: translateY(-3px) rotate(-5deg) scale(1.06);
+        box-shadow: 0 10px 26px rgba(139, 92, 246, 0.38);
+    }
+    .svc-copy { min-width: 0; }
+    .svc-card-title {
+        font-size: 1.05rem; font-weight: 700;
+        color: var(--text-primary);
+        margin: 0 0 0.3rem; line-height: 1.4;
+    }
+    html.light-theme .svc-card-title { color: #0f172a; }
+    .svc-card-desc {
+        font-size: 0.86rem; color: var(--text-secondary);
+        line-height: 1.6; margin: 0;
+    }
+    html.light-theme .svc-card-desc { color: #475569; }
+
+    /* ---- response status bar ---- */
+    .svc-card-foot {
+        display: flex; justify-content: space-between; align-items: center; gap: 0.6rem;
+        margin-top: auto;
+        padding: 0.55rem 0.9rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(255, 255, 255, 0.02);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; color: var(--text-muted);
+        position: relative; z-index: 2;
+    }
+    html.light-theme .svc-card-foot { background: rgba(15, 23, 42, 0.03); border-top-color: rgba(15, 23, 42, 0.08); }
+    .svc-resp { display: inline-flex; align-items: center; gap: 0.45rem; min-width: 0; overflow: hidden; }
+    .svc-resp-code { flex-shrink: 0; font-weight: 800; letter-spacing: 0.3px; color: #34d399; }
+    .svc-resp-meta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0.75; }
+    .svc-foot-status { flex-shrink: 0; }
     .sv-status-ok { display: inline-flex; align-items: center; gap: 0.4rem; color: #34d399; }
     .sv-dot {
         width: 6px; height: 6px; border-radius: 50%;
@@ -1246,28 +1300,32 @@
         0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.6); }
         50% { box-shadow: 0 0 16px rgba(52, 211, 153, 1); }
     }
-    .sv-time { opacity: 0.5; }
-    @media (max-width: 768px) {
-        .svc-grid { gap: 0.8rem; }
-        .svc-card { flex-basis: calc((100% - 1.6rem) / 3); max-width: calc((100% - 1.6rem) / 3); }
-        .svc-card-body { padding: 1rem 0.6rem 0.8rem; }
-        .svc-card-icon { width: 44px; height: 44px; font-size: 1.2rem; border-radius: 12px; margin-bottom: 0.6rem; }
-        .svc-card-title { font-size: 0.78rem; margin-bottom: 0.3rem; }
-        .svc-card-desc { display: none; }
-        .svc-card-foot { padding: 0.4rem 0.5rem; font-size: 0.6rem; }
-        .svc-card-bar { padding: 0.35rem 0.5rem; }
-        .svc-card-bar .ab-dot { width: 8px; height: 8px; }
-        .svc-card-title, .svc-card-desc, .svc-card-foot { opacity: 1; transform: none; animation: none !important; }
+
+    /* ---- sequenced reveal ---- */
+    .svc-route, .svc-main, .svc-card-foot { opacity: 0; }
+    .svc-card.visible .svc-route { animation: svcIn 0.45s ease forwards; }
+    .svc-card.visible .svc-main { animation: svcIn 0.45s ease forwards; animation-delay: 0.12s; }
+    .svc-card.visible .svc-card-foot { animation: svcIn 0.45s ease forwards; animation-delay: 0.24s; }
+    .svc-card.visible .svc-resp-code { animation: svcPop 0.35s 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards; }
+    @keyframes svcIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes svcPop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+
+    @media (prefers-reduced-motion: reduce) {
+        .svc-sweep, .svc-cursor, .sv-dot { animation: none; }
+        .svc-route, .svc-main, .svc-card-foot { opacity: 1; transform: none; animation: none; }
+    }
+
+    @media (max-width: 860px) {
+        .svc-grid { max-width: 560px; }
+        .svc-card { flex: 0 0 100%; max-width: 100%; min-width: 0; }
     }
     @media (max-width: 480px) {
-        .svc-grid { gap: 0.5rem; }
-        .svc-card { flex-basis: calc((100% - 1rem) / 3); max-width: calc((100% - 1rem) / 3); }
-        .svc-card-body { padding: 0.8rem 0.4rem 0.6rem; }
-        .svc-card-icon { width: 36px; height: 36px; font-size: 1rem; border-radius: 10px; }
-        .svc-card-title { font-size: 0.68rem; }
-        .svc-card-foot { font-size: 0.55rem; padding: 0.35rem 0.4rem; justify-content: center; }
-        .svc-foot-term { display: none; }
-        .svc-foot-status { margin-left: 0; }
+        .svc-card-body { padding: 0.9rem 0.85rem 0.95rem; gap: 0.7rem; }
+        .svc-card-icon { width: 44px; height: 44px; font-size: 1.25rem; border-radius: 12px; }
+        .svc-card-title { font-size: 0.95rem; }
+        .svc-card-desc { font-size: 0.8rem; }
+        .svc-route { font-size: 0.66rem; }
+        .svc-card-foot { padding: 0.5rem 0.7rem; }
     }
 /* ===== Glass Card Shine Effect ===== */
     .project-card::after,
@@ -3516,25 +3574,48 @@
             @if($services->isNotEmpty())
                 <div class="svc-grid">
                     @foreach($services as $index => $service)
-                        @php $delay = ($index % 4) + 1; $compileMs = rand(8, 25); @endphp
+                        @php
+                            $delay = ($index % 2) + 1;
+                            $routeSlug = \Illuminate\Support\Str::slug($service->title ?: 'service');
+                            $routeSlug = $routeSlug !== '' ? $routeSlug : 'service';
+                            $routePath = '/api/services/' . $routeSlug;
+                            $compileMs = rand(8, 25);
+                        @endphp
                         <div class="svc-card reveal reveal-delay-{{ $delay }}">
                             <div class="svc-card-bar">
                                 <span class="ab-dot red"></span>
                                 <span class="ab-dot yellow"></span>
                                 <span class="ab-dot green"></span>
-                                <span class="svc-filename">service-{{ $index + 1 }}.js</span>
+                                <span class="svc-filename">service-{{ $index + 1 }}.http</span>
+                                <span class="svc-method">POST</span>
                             </div>
+
                             <div class="svc-card-body">
-                                <div class="svc-card-icon">
-                                    <i class="bi {{ $service->icon ?: 'bi-star' }}"></i>
+                                <span class="svc-sweep" aria-hidden="true"></span>
+
+                                <div class="svc-route">
+                                    <span class="svc-method-chip">POST</span>
+                                    <span class="svc-path" data-path="{{ $routePath }}">{{ $routePath }}</span><span class="svc-cursor"></span>
                                 </div>
-                                <h3 class="svc-card-title">{{ $service->title }}</h3>
-                                @if($service->short_description)
-                                    <p class="svc-card-desc">{{ $service->short_description }}</p>
-                                @endif
+
+                                <div class="svc-main">
+                                    <div class="svc-card-icon">
+                                        <i class="bi {{ $service->icon ?: 'bi-star' }}"></i>
+                                    </div>
+                                    <div class="svc-copy">
+                                        <h3 class="svc-card-title">{{ $service->title }}</h3>
+                                        @if($service->short_description)
+                                            <p class="svc-card-desc">{{ $service->short_description }}</p>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="svc-card-foot">
-                                <span class="svc-foot-term"><span class="sv-term-prompt">&gt;</span> <span class="sv-key">name</span>: <span class="sv-str">"{{ $service->title }}"</span><span class="svc-cursor"></span></span>
+                                <span class="svc-resp">
+                                    <span class="svc-resp-code">200 OK</span>
+                                    <span class="svc-resp-meta">application/json &middot; {{ $compileMs }}ms</span>
+                                </span>
                                 <span class="svc-foot-status"><span class="sv-status-ok"><span class="sv-dot"></span> ready to help</span></span>
                             </div>
                         </div>
@@ -5245,22 +5326,62 @@
     });
 })();
 
-// ===== SERVICES + PRICING � CODE TERMINAL CARDS (staggered body reveal) =====
+// ===== SERVICES � API ENDPOINT CARDS (staggered reveal + typed route) =====
 (function() {
     var cards = document.querySelectorAll('.svc-card');
-    if (!cards.length || !('IntersectionObserver' in window)) {
-        [].forEach.call(cards, function(c) { c.classList.add('visible'); });
-        return;
+    if (!cards.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function fullPath(card) {
+        var el = card.querySelector('.svc-path');
+        if (!el) return '';
+        return el.getAttribute('data-path') || el.textContent || '';
     }
-    var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                obs.unobserve(e.target);
-            }
+
+    function typePath(card) {
+        var el = card.querySelector('.svc-path');
+        var full = fullPath(card);
+        if (!el || !full) return;
+        el.setAttribute('data-path', full);
+        if (reduce) { el.textContent = full; return; }
+        el.textContent = '';
+        var i = 0;
+        (function step() {
+            el.textContent = full.substring(0, i + 1);
+            i++;
+            if (i <= full.length) setTimeout(step, 28);
+        })();
+    }
+
+    function run(card) {
+        if (card.dataset.svcRan) return;
+        card.dataset.svcRan = '1';
+        card.classList.add('visible');
+        setTimeout(function() { typePath(card); }, reduce ? 0 : 200);
+    }
+
+    if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                run(entry.target);
+                obs.unobserve(entry.target);
+            });
+        }, { threshold: 0.3 });
+        [].forEach.call(cards, function(c) { obs.observe(c); });
+    } else {
+        [].forEach.call(cards, function(c) { run(c); });
+    }
+
+    // Safety net: reveal every card and never leave a route half-typed
+    setTimeout(function() {
+        [].forEach.call(cards, function(c) {
+            run(c);
+            var el = c.querySelector('.svc-path');
+            var full = fullPath(c);
+            if (el && full) el.textContent = full;
         });
-    }, { threshold: 0.3 });
-    [].forEach.call(cards, function(card) { obs.observe(card); });
+    }, 4000);
 })();
 
 // ===== PRICING - TERMINAL INSTALL CARDS (typing, progress, price count-up) ====
