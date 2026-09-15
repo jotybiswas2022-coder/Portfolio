@@ -817,6 +817,7 @@
         font-size: 0.92rem; line-height: 1.85; margin: 0 0 0.55rem;
     }
     .ab-bio p:last-child { margin-bottom: 0; }
+    .ab-bio .ab-desc-short { display: none; }
 
     /* Stats */
     .ab-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
@@ -993,6 +994,8 @@
         .ab-minimap { display: none; }
         .ab-dock { display: none; }
         .ab-hide-sm { display: none; }
+        .ab-bio .ab-desc { display: none; }
+        .ab-bio .ab-desc-short { display: block; }
         .ab-p-body { padding: 1.15rem 1.1rem 1.3rem; gap: 0.85rem; }
         .ab-u-name { font-size: 1.35rem; }
         .ab-avatar { width: 76px; height: 76px; }
@@ -2994,8 +2997,9 @@
                                 </div>
 
                                 <div class="ab-bio">
-                                    <p>{{ __('messages.about_desc_1') }}</p>
-                                    <p>{{ __('messages.about_desc_2') }}</p>
+                                    <p class="ab-desc">{{ __('messages.about_desc_1') }}</p>
+                                    <p class="ab-desc">{{ __('messages.about_desc_2') }}</p>
+                                    <p class="ab-desc-short">{{ __('messages.about_desc_short') }}</p>
                                 </div>
 
                                 <div class="ab-stats">

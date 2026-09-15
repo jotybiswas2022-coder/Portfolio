@@ -32,6 +32,7 @@ return [
     'about_heading'  => 'Full Stack Web Developer & Designer',
     'about_desc_1'   => 'I specialize in building responsive and dynamic web applications using cutting-edge technologies. With a keen eye for design and a passion for clean code, I create digital experiences that users love.',
     'about_desc_2'   => 'My toolkit includes Laravel, PHP, JavaScript, React, and modern CSS frameworks. I believe in writing maintainable code and creating intuitive user interfaces that drive results.',
+    'about_desc_short' => 'I build responsive web apps with Laravel, PHP, JavaScript & React — clean code, thoughtful design, real results.',
     'stat_projects'  => 'Projects',
     'stat_clients'   => 'Clients',
     'stat_years'     => 'Years of Experience',
