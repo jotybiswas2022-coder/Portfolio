@@ -2667,517 +2667,306 @@
     .carousel-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(59, 130, 246, 0.2); cursor: pointer; transition: var(--transition); }
     .carousel-dots .dot.active { background: var(--accent); width: 28px; border-radius: 5px; }
 
-    /* ===== CONTACT � REDESIGNED MODERN ===== */
+        /* ===== CONTACT — CODING TERMINAL DESIGN ===== */
     .contact-section {
         background: linear-gradient(180deg, #060b18 0%, #0a1628 40%, #0d1f36 70%, #080d1a 100%);
-        position: relative;
-        overflow: hidden;
+        position: relative; overflow: hidden;
     }
-    html.light-theme .contact-section {
-        background: linear-gradient(180deg, #e8f0fe 0%, #dce8f8 40%, #d0e0f5 70%, #eef2f7 100%);
-    }
-
-    /* ===== DECORATIVE BACKGROUND ELEMENTS ===== */
+    html.light-theme .contact-section { background: linear-gradient(180deg, #e8f0fe 0%, #dce8f8 40%, #d0e0f5 70%, #eef2f7 100%); }
     .contact-section::before {
-        content: '';
-        position: absolute;
-        top: -20%; left: -10%;
+        content: ""; position: absolute; top: -20%; left: -10%;
         width: 500px; height: 500px;
         background: radial-gradient(circle, rgba(59, 130, 246, 0.08), transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        animation: contactOrbFloat 8s ease-in-out infinite;
-        z-index: 0;
+        border-radius: 50%; pointer-events: none; animation: contactOrbFloat 8s ease-in-out infinite; z-index: 0;
     }
     .contact-section::after {
-        content: '';
-        position: absolute;
-        bottom: -10%; right: -5%;
+        content: ""; position: absolute; bottom: -10%; right: -5%;
         width: 400px; height: 400px;
         background: radial-gradient(circle, rgba(139, 92, 246, 0.06), transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        animation: contactOrbFloat2 10s ease-in-out infinite;
-        z-index: 0;
+        border-radius: 50%; pointer-events: none; animation: contactOrbFloat2 10s ease-in-out infinite; z-index: 0;
     }
-    @keyframes contactOrbFloat {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        33% { transform: translate(30px, -30px) scale(1.1); }
-        66% { transform: translate(-20px, 20px) scale(0.95); }
-    }
-    @keyframes contactOrbFloat2 {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        33% { transform: translate(-30px, 20px) scale(1.05); }
-        66% { transform: translate(20px, -30px) scale(0.9); }
-    }
-
-    /* Grid pattern overlay */
+    @keyframes contactOrbFloat { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -30px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.95); } }
+    @keyframes contactOrbFloat2 { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(-30px, 20px) scale(1.05); } 66% { transform: translate(20px, -30px) scale(0.9); } }
     .contact-section .contact-bg-grid {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-image:
-            linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-        background-size: 60px 60px;
-        pointer-events: none;
-        z-index: 0;
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background-image: linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+        background-size: 60px 60px; pointer-events: none; z-index: 0;
     }
     html.light-theme .contact-section .contact-bg-grid {
-        background-image:
-            linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+        background-image: linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px);
     }
-
-    /* ===== MAIN CONTENT ===== */
     .contact-section .container { position: relative; z-index: 1; }
     .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.3fr;
-        gap: 3rem;
-        align-items: start;
+        display: grid; grid-template-columns: 1fr 1.3fr;
+        gap: 3rem; align-items: start;
     }
 
-    /* ===== CONTACT INFO CARD ===== */
-    .contact-info-card {
-        background: rgba(17, 28, 46, 0.6);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(59, 130, 246, 0.12);
-        border-radius: 24px;
-        padding: 2.5rem;
-        position: relative;
+    /* ===== TERMINAL WINDOW — CONTACT INFO ===== */
+    .ct-terminal {
+        position: relative; font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.6) 0%, rgba(8, 15, 32, 0.45) 100%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(147, 197, 253, 0.22); border-radius: 16px;
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 40px 110px rgba(2, 8, 23, 0.7), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 70px rgba(59, 130, 246, 0.09);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
     }
-    .contact-info-card:hover {
-        border-color: rgba(59, 130, 246, 0.25);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(59, 130, 246, 0.05);
-        transform: translateY(-4px);
+    .ct-terminal:hover { border-color: rgba(147, 197, 253, 0.4); box-shadow: 0 40px 110px rgba(2,8,23,0.7), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 90px rgba(59,130,246,0.15); transform: translateY(-4px); }
+    .ct-terminal::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #3b82f6, #22d3ee, #8b5cf6, transparent);
+        background-size: 200% 100%; animation: atSweep 6s linear infinite; z-index: 3;
     }
-    html.light-theme .contact-info-card {
-        background: rgba(255, 255, 255, 0.7);
-        border-color: rgba(59, 130, 246, 0.15);
+    html.light-theme .ct-terminal {
+        background: linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(230,240,252,0.6) 100%);
+        border-color: rgba(59,130,246,0.28);
+        box-shadow: 0 40px 90px rgba(59,130,246,0.2), 0 0 0 1px rgba(255,255,255,0.7) inset;
     }
-    html.light-theme .contact-info-card:hover {
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 40px rgba(59, 130, 246, 0.1);
+    .ct-term-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255,255,255,0.035);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
     }
+    html.light-theme .ct-term-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
+    .ct-term-dots { display: flex; gap: 6px; }
+    .ct-term-dots i { width: 11px; height: 11px; border-radius: 50%; }
+    .ct-term-dots i:nth-child(1) { background: #ff5f57; }
+    .ct-term-dots i:nth-child(2) { background: #febc2e; }
+    .ct-term-dots i:nth-child(3) { background: #28c840; }
+    .ct-term-title { margin-left: 0.3rem; font-size: 0.7rem; color: #94a3b8; white-space: nowrap; }
+    html.light-theme .ct-term-title { color: #64748b; }
+    .ct-term-status {
+        margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.62rem; color: #34d399;
+        background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.28);
+        padding: 0.2rem 0.6rem; border-radius: 50px; white-space: nowrap;
+    }
+    .ct-term-cmd {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.9rem; font-size: 0.75rem;
+        background: rgba(2,8,23,0.45); border-bottom: 1px solid rgba(148,163,184,0.12);
+    }
+    html.light-theme .ct-term-cmd { background: rgba(15,23,42,0.05); border-bottom-color: rgba(15,23,42,0.08); }
+    .ct-term-prompt { color: #34d399; font-weight: 700; }
+    .ct-term-cmd-text { color: #e2e8f0; }
+    html.light-theme .ct-term-cmd-text { color: #1e293b; }
+    .ct-term-caret {
+        display: inline-block; width: 7px; height: 1em; background: #34d399;
+        border-radius: 1px; box-shadow: 0 0 10px rgba(52,211,153,0.7);
+        animation: glBlink 1s step-end infinite;
+    }
+    .ct-term-body { padding: 1.2rem 1rem 1.3rem; }
+    .ct-term-heading {
+        font-family: var(--font); font-size: 1.2rem; font-weight: 800;
+        margin-bottom: 0.5rem; color: var(--text-primary);
+    }
+    .ct-term-desc { font-family: var(--font); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
 
-    /* Decorative gradient line on top of info card */
-    .contact-info-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, #3b82f6, transparent);
-        background-size: 200% 100%;
-        animation: contactLineSweep 3s linear infinite;
+    /* Contact items as config lines */
+    .ct-config-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ct-config-line {
+        display: flex; align-items: center; gap: 0.6rem;
+        padding: 0.7rem 0.85rem; border-radius: 10px;
+        background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.08);
+        transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+        position: relative; overflow: hidden;
     }
-    @keyframes contactLineSweep {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-    }
-
-    .contact-info-card h3 {
-        font-size: 1.5rem;
-        font-weight: 800;
-        margin-bottom: 0.75rem;
-        letter-spacing: -0.5px;
-        background: linear-gradient(135deg, var(--accent-light), #a78bfa);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    .contact-info-card > p {
-        color: var(--text-secondary);
-        line-height: 1.7;
-        margin-bottom: 2rem;
-        font-size: 0.92rem;
-    }
-
-    /* ===== CONTACT ITEMS � MODERN GLASS ===== */
-    .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-        padding: 1.1rem 1.2rem;
-        background: rgba(59, 130, 246, 0.04);
-        border: 1px solid rgba(59, 130, 246, 0.08);
-        border-radius: 16px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: default;
-        position: relative;
-        overflow: hidden;
-    }
-    .contact-item::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; bottom: 0;
-        width: 3px;
+    .ct-config-line::before {
+        content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
         background: linear-gradient(180deg, #3b82f6, #8b5cf6);
         border-radius: 0 3px 3px 0;
-        transform: scaleY(0);
-        transform-origin: top;
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: scaleY(0); transform-origin: top;
+        transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
-    .contact-item:hover::before { transform: scaleY(1); }
-    .contact-item:hover {
-        border-color: rgba(59, 130, 246, 0.25);
-        transform: translateX(8px) scale(1.02);
-        background: rgba(59, 130, 246, 0.07);
-        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.08);
+    .ct-config-line:hover::before { transform: scaleY(1); }
+    .ct-config-line:hover {
+        border-color: rgba(59,130,246,0.25); transform: translateX(6px);
+        background: rgba(59,130,246,0.07);
+        box-shadow: 0 6px 24px rgba(59,130,246,0.08);
     }
-    html.light-theme .contact-item {
-        background: rgba(255, 255, 255, 0.5);
-        border-color: rgba(59, 130, 246, 0.12);
-    }
-    html.light-theme .contact-item:hover {
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.12);
-    }
-    .contact-item .icon-box {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.08));
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-        color: var(--accent-light);
+    html.light-theme .ct-config-line { background: rgba(255,255,255,0.5); border-color: rgba(59,130,246,0.12); }
+    html.light-theme .ct-config-line:hover { background: rgba(255,255,255,0.8); box-shadow: 0 6px 24px rgba(59,130,246,0.12); }
+    .ct-config-icon {
+        width: 36px; height: 36px; min-width: 36px; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.95rem; color: var(--accent-light);
+        background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
         transition: all 0.4s ease;
-        position: relative;
     }
-    .contact-item:hover .icon-box {
-        background: var(--accent-gradient);
-        color: #fff;
-        transform: scale(1.1) rotate(-5deg);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    .ct-config-line:hover .ct-config-icon {
+        background: var(--accent-gradient); color: #fff;
+        transform: scale(1.1) rotate(-5deg); box-shadow: 0 6px 20px rgba(59,130,246,0.3);
     }
-    .contact-item .text .label {
-        font-size: 0.72rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        font-weight: 600;
-        margin-bottom: 2px;
+    .ct-config-key {
+        font-size: 0.62rem; color: #818cf8; text-transform: uppercase;
+        letter-spacing: 0.5px; font-weight: 700; margin-bottom: 1px;
     }
-    .contact-item .text .value {
-        font-weight: 700;
-        font-size: 0.95rem;
-        color: var(--text-primary);
-        letter-spacing: 0.2px;
-        transition: color 0.3s ease;
+    .ct-config-val { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); transition: color 0.3s; }
+    .ct-config-line:hover .ct-config-val { color: var(--accent-light); }
+    html.light-theme .ct-config-key { color: #6366f1; }
+
+    /* Social row */
+    .ct-socials { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(59,130,246,0.08); }
+    .ct-socials-label {
+        font-size: 0.64rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+        color: var(--text-muted); margin-bottom: 0.6rem;
+        display: flex; align-items: center; gap: 0.4rem;
     }
-    .contact-item:hover .text .value {
-        color: var(--accent-light);
+    .ct-socials-label i { color: var(--accent-light); }
+    .ct-socials-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .ct-social-link {
+        width: 38px; height: 38px; border-radius: 10px;
+        background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.14);
+        display: inline-flex; align-items: center; justify-content: center;
+        color: var(--text-muted); font-size: 1rem; text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    .ct-social-link:hover {
+        background: var(--accent-gradient); border-color: transparent;
+        color: #fff; transform: translateY(-4px) scale(1.08);
+        box-shadow: 0 8px 24px rgba(59,130,246,0.3);
     }
 
-    /* ===== SOCIAL LINKS ===== */
-    .contact-social {
-        margin-top: 1.5rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid rgba(59, 130, 246, 0.08);
-    }
-    .contact-social .social-label {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 600;
-        margin-bottom: 0.8rem;
-    }
-    .contact-social .social-row {
-        display: flex;
-        gap: 0.6rem;
-        flex-wrap: wrap;
-    }
-    .contact-social .social-link {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        background: rgba(59, 130, 246, 0.06);
-        border: 1px solid rgba(59, 130, 246, 0.1);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-muted);
-        font-size: 1.1rem;
-        text-decoration: none;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-    }
-    .contact-social .social-link:hover {
-        background: var(--accent-gradient);
-        border-color: transparent;
-        color: #fff;
-        transform: translateY(-4px) scale(1.1);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-    }
-
-    /* ===== CONTACT FORM � GLASS CARD ===== */
-    .contact-form {
-        background: rgba(17, 28, 46, 0.6);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(59, 130, 246, 0.12);
-        border-radius: 24px;
-        padding: 2.8rem;
-        transition: all 0.4s ease;
-        position: relative;
+    /* ===== CODE EDITOR — CONTACT FORM ===== */
+    .ct-editor {
+        position: relative; font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, rgba(13,23,43,0.6) 0%, rgba(8,15,32,0.45) 100%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(147,197,253,0.22); border-radius: 16px;
         overflow: hidden;
+        box-shadow: 0 40px 110px rgba(2,8,23,0.7), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 70px rgba(59,130,246,0.09);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
     }
-    .contact-form:hover {
-        border-color: rgba(59, 130, 246, 0.2);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    .ct-editor:hover { border-color: rgba(147,197,253,0.4); box-shadow: 0 40px 110px rgba(2,8,23,0.7), 0 0 90px rgba(59,130,246,0.15); transform: translateY(-4px); }
+    .ct-editor::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #8b5cf6, transparent);
+        background-size: 200% 100%; animation: atSweep 6s linear infinite; z-index: 3;
     }
-    html.light-theme .contact-form {
-        background: rgba(255, 255, 255, 0.7);
-        border-color: rgba(59, 130, 246, 0.15);
+    html.light-theme .ct-editor {
+        background: linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(230,240,252,0.6) 100%);
+        border-color: rgba(59,130,246,0.28);
+        box-shadow: 0 40px 90px rgba(59,130,246,0.2), 0 0 0 1px rgba(255,255,255,0.7) inset;
     }
-    html.light-theme .contact-form:hover {
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    .ct-editor-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255,255,255,0.035);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
     }
+    html.light-theme .ct-editor-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
+    .ct-editor-tab {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.7rem; color: #93c5fd;
+        background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25);
+        padding: 0.22rem 0.65rem; border-radius: 6px 6px 0 0; white-space: nowrap;
+        border-bottom: none; position: relative; top: 1px;
+    }
+    .ct-editor-tab i { font-size: 0.8rem; color: #fbbf24; }
+    html.light-theme .ct-editor-tab { color: #2563eb; background: rgba(59,130,246,0.1); }
+    .ct-editor-lang {
+        margin-left: auto; font-size: 0.6rem; color: #64748b; font-weight: 600;
+        letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    .ct-editor-body { padding: 1.2rem 1rem 1.3rem; }
+    .ct-editor-heading {
+        font-family: var(--font); font-size: 1.1rem; font-weight: 700;
+        color: var(--text-primary); margin-bottom: 0.3rem;
+    }
+    .ct-editor-desc { font-family: var(--font); font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 1.2rem; }
 
-    /* Form header */
-    .contact-form .form-header {
-        margin-bottom: 2rem;
+    /* Form fields as code lines */
+    .ct-code-group { margin-bottom: 1.2rem; position: relative; }
+    .ct-code-label {
+        display: flex; align-items: center; gap: 0.4rem;
+        font-size: 0.66rem; font-weight: 700; margin-bottom: 0.35rem;
+        color: #818cf8; letter-spacing: 0.3px;
     }
-    .contact-form .form-header h4 {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 0.3rem;
-        color: var(--text-primary);
+    html.light-theme .ct-code-label { color: #6366f1; }
+    .ct-code-label i { font-size: 0.75rem; color: #fbbf24; }
+    .ct-code-input-wrap { position: relative; }
+    .ct-code-line {
+        display: flex; align-items: center; gap: 0.5rem;
+        background: rgba(2,8,23,0.4); border: 1px solid rgba(148,163,184,0.12);
+        border-radius: 10px; padding: 0 0.85rem;
+        transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
     }
-    .contact-form .form-header p {
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        margin: 0;
+    html.light-theme .ct-code-line { background: rgba(15,23,42,0.05); border-color: rgba(15,23,42,0.08); }
+    .ct-code-line:focus-within {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59,130,246,0.08), 0 4px 20px rgba(59,130,246,0.05);
+        background: rgba(2,8,23,0.6);
     }
-
-    /* ===== MODERN FORM FIELDS ===== */
-    .form-group {
-        margin-bottom: 1.5rem;
-        position: relative;
+    html.light-theme .ct-code-line:focus-within { background: #fff; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+    .ct-code-ln {
+        font-size: 0.6rem; color: #475569; min-width: 1.5rem;
+        text-align: right; user-select: none; padding-right: 0.3rem;
     }
-    .form-group .field-wrapper {
-        position: relative;
-    }
-    .form-group label {
-        display: block;
-        font-size: 0.78rem;
-        font-weight: 600;
-        margin-bottom: 0.4rem;
-        color: var(--text-secondary);
-        letter-spacing: 0.3px;
-        transition: color 0.3s ease;
-    }
-    .form-group:focus-within label {
-        color: var(--accent-light);
-    }
-    .form-group input, .form-group textarea {
-        width: 100%;
-        padding: 0.85rem 1.2rem;
-        background: rgba(10, 15, 30, 0.5);
-        border: 1.5px solid rgba(59, 130, 246, 0.1);
-        border-radius: 14px;
-        color: var(--text-primary) !important;
-        font-family: var(--font);
-        font-size: 0.92rem;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    .ct-code-input {
+        flex: 1; padding: 0.7rem 0; background: transparent; border: none;
+        color: var(--text-primary) !important; font-family: inherit; font-size: 0.85rem;
         outline: none;
     }
-    html.light-theme .form-group input,
-    html.light-theme .form-group textarea {
-        background: rgba(255, 255, 255, 0.6) !important;
-        color: #0f172a !important;
-        border-color: rgba(59, 130, 246, 0.15) !important;
+    html.light-theme .ct-code-input { color: #0f172a !important; }
+    .ct-code-input::placeholder { color: rgba(148,163,184,0.35); }
+    html.light-theme .ct-code-input::placeholder { color: rgba(100,116,139,0.4); }
+    .ct-code-textarea {
+        flex: 1; padding: 0.7rem 0; background: transparent; border: none;
+        color: var(--text-primary) !important; font-family: inherit; font-size: 0.85rem;
+        outline: none; resize: vertical; min-height: 100px; line-height: 1.6;
     }
-    .form-group input:focus, .form-group textarea:focus {
-        border-color: #3b82f6;
-        box-shadow:
-            0 0 0 3px rgba(59, 130, 246, 0.08),
-            0 4px 20px rgba(59, 130, 246, 0.05);
-        background: rgba(10, 15, 30, 0.7);
-        color: var(--text-primary) !important;
-    }
-    html.light-theme .form-group input:focus,
-    html.light-theme .form-group textarea:focus {
-        background: #ffffff !important;
-        border-color: #3b82f6 !important;
-        box-shadow:
-            0 0 0 3px rgba(59, 130, 246, 0.12),
-            0 4px 20px rgba(59, 130, 246, 0.1) !important;
-    }
-    .form-group input::placeholder, .form-group textarea::placeholder {
-        color: rgba(148, 163, 184, 0.4);
-    }
-    html.light-theme .form-group input::placeholder,
-    html.light-theme .form-group textarea::placeholder {
-        color: rgba(100, 116, 139, 0.4);
-    }
-    .form-group textarea {
-        resize: vertical;
-        min-height: 120px;
-        line-height: 1.6;
-    }
+    html.light-theme .ct-code-textarea { color: #0f172a !important; }
+    .ct-code-textarea::placeholder { color: rgba(148,163,184,0.35); }
+    html.light-theme .ct-code-textarea::placeholder { color: rgba(100,116,139,0.4); }
+    .ct-code-end { font-size: 0.7rem; color: #64748b; user-select: none; }
 
-    /* Input focus glow effect */
-    .form-group .field-glow {
-        position: absolute;
-        top: -2px; left: -2px; right: -2px; bottom: -2px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #3b82f6);
-        background-size: 200% 200%;
-        opacity: 0;
-        z-index: -1;
-        transition: opacity 0.4s ease;
-        animation: fieldGlowRotate 2s linear infinite;
-        pointer-events: none;
+    /* Submit as git push button */
+    .ct-push-btn {
+        width: 100%; padding: 0.85rem 1.2rem; margin-top: 0.5rem;
+        background: linear-gradient(135deg, #065f46, #047857, #059669);
+        color: #d1fae5; border: 1px solid rgba(52,211,153,0.4); border-radius: 12px;
+        font-family: inherit; font-size: 0.82rem; font-weight: 700;
+        cursor: pointer; position: relative; overflow: hidden;
+        display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+        box-shadow: 0 10px 30px rgba(16,185,129,0.24);
+        transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
     }
-    @keyframes fieldGlowRotate {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    .form-group:focus-within .field-glow {
-        opacity: 1;
-    }
-
-    /* Input icons */
-    .form-group .field-icon {
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: rgba(148, 163, 184, 0.3);
-        font-size: 1rem;
-        pointer-events: none;
-        transition: all 0.3s ease;
-    }
-    .form-group:focus-within .field-icon {
-        color: var(--accent);
-        opacity: 0.6;
-    }
-    .form-group textarea ~ .field-icon {
-        top: 1.2rem;
-        transform: none;
-    }
-
-    /* ===== MODERN SUBMIT BUTTON ===== */
-    .btn-submit {
-        width: 100%;
-        padding: 1rem 1.5rem;
-        background: linear-gradient(135deg, #3b82f6, #6366f1, #8b5cf6);
-        background-size: 200% 200%;
-        color: #fff;
-        border: none;
-        border-radius: 14px;
-        font-size: 0.95rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
-        font-family: var(--font);
-        letter-spacing: 0.3px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.6rem;
-        animation: btnGradShift 3s ease infinite;
-    }
-    @keyframes btnGradShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    .btn-submit:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow:
-            0 12px 40px rgba(59, 130, 246, 0.35),
-            0 0 60px rgba(59, 130, 246, 0.1);
-    }
-    .btn-submit:active {
-        transform: translateY(-1px) scale(0.98);
-    }
-    .btn-submit .btn-shimmer {
-        position: absolute;
-        top: 0; left: -100%;
+    .ct-push-btn::before {
+        content: ""; position: absolute; top: 0; left: -100%;
         width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+        transition: left 0.6s ease;
+    }
+    .ct-push-btn:hover::before { left: 100%; }
+    .ct-push-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 38px rgba(16,185,129,0.38); color: #fff; }
+    .ct-push-btn .push-icon { transition: transform 0.4s ease; }
+    .ct-push-btn:hover .push-icon { transform: translateX(4px); }
+    .ct-push-prompt { color: #6ee7b7; }
+    .ct-push-badge {
+        margin-left: auto; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
+        background: rgba(255,255,255,0.18); border-radius: 6px; padding: 0.15rem 0.45rem;
+    }
+    .ct-push-shimmer {
+        position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
         transition: left 0.6s ease;
     }
-    .btn-submit:hover .btn-shimmer { left: 100%; }
-    .btn-submit .btn-icon {
-        font-size: 1.1rem;
-        transition: transform 0.4s ease;
-    }
-    .btn-submit:hover .btn-icon {
-        transform: translateX(3px) rotate(-10deg);
-    }
-
-    /* ===== MODERN MAP SECTION ===== */
-    .map-wrapper {
-        margin-top: 3rem;
-        position: relative;
-    }
-    .map-container {
-        max-width: 900px;
-        margin: 0 auto;
-        border-radius: 24px;
-        overflow: hidden;
-        border: 1px solid rgba(59, 130, 246, 0.12);
-        box-shadow:
-            0 10px 40px rgba(0, 0, 0, 0.3),
-            0 0 60px rgba(59, 130, 246, 0.03);
-        transition: all 0.4s ease;
-        position: relative;
-    }
-    .map-container::before {
-        content: '';
-        position: absolute;
-        top: -1px; left: -1px; right: -1px; bottom: -1px;
-        border-radius: 25px;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), transparent, rgba(139, 92, 246, 0.1));
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-    .map-container:hover {
-        border-color: rgba(59, 130, 246, 0.25);
-        box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.4),
-            0 0 80px rgba(59, 130, 246, 0.06);
-        transform: translateY(-3px);
-    }
-    .map-container:hover::before { opacity: 1; }
-    .map-container iframe {
-        display: block;
-        filter: invert(0.9) hue-rotate(180deg) saturate(0.5);
-        transition: filter 0.5s ease;
-    }
-    .map-container:hover iframe { filter: invert(0.85) hue-rotate(180deg) saturate(0.6); }
-    html.light-theme .map-container iframe { filter: none !important; }
-    html.light-theme .map-container {
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    }
-    html.light-theme .map-container:hover {
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-    }
+    .ct-push-btn:hover .ct-push-shimmer { left: 100%; }
 
     /* Map */
     .map-wrapper { margin-top: 3rem; }
     .map-container {
-        max-width: 900px; margin: 0 auto; border-radius: var(--radius-lg);
-        overflow: hidden; border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm); transition: var(--transition);
+        max-width: 900px; margin: 0 auto; border-radius: 16px;
+        overflow: hidden; border: 1px solid rgba(59,130,246,0.12);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: all 0.4s ease; position: relative;
     }
-    .map-container:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); }
-    .map-container iframe { display: block; filter: invert(0.9) hue-rotate(180deg) saturate(0.5); }
+    .map-container:hover { border-color: rgba(59,130,246,0.25); box-shadow: 0 20px 60px rgba(0,0,0,0.4); transform: translateY(-3px); }
+    .map-container iframe { display: block; filter: invert(0.9) hue-rotate(180deg) saturate(0.5); transition: filter 0.5s; }
+    .map-container:hover iframe { filter: invert(0.85) hue-rotate(180deg) saturate(0.6); }
     html.light-theme .map-container iframe { filter: none !important; }
-
+    html.light-theme .map-container { box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+    html.light-theme .map-container:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
     /* Footer */
     .footer {
         background: #080b14; position: relative; z-index: 1;
@@ -4802,7 +4591,7 @@
         </div>
     </section>
 
-        <!-- Contact Section � REDESIGNED MODERN -->
+            <!-- Contact Section — CODING TERMINAL DESIGN -->
     <section class="contact-section section-padding" id="contact">
         <div class="contact-bg-grid"></div>
         <div class="container">
@@ -4823,99 +4612,124 @@
             ])
 
             <div class="contact-grid">
-                <div class="contact-info-card reveal reveal-delay-1">
-                    <h3><i class="bi bi-chat-dots-fill me-2"></i>{{ __("messages.contact_heading") }}</h3>
-                    <p>{{ __("messages.contact_desc") }}</p>
-
-                    <div class="contact-item">
-                        <div class="icon-box"><i class="bi bi-envelope-fill"></i></div>
-                        <div class="text">
-                            <div class="label">{{ __("messages.email_label") }}</div>
-                            <div class="value">{{ $account->email ?? "joty@example.com" }}</div>
-                        </div>
+                <!-- Left: Terminal Info Card -->
+                <div class="ct-terminal reveal reveal-delay-1">
+                    <div class="ct-term-bar">
+                        <span class="ct-term-dots"><i></i><i></i><i></i></span>
+                        <span class="ct-term-title"><i class="bi bi-folder2-open" style="color:#818cf8"></i> contact-config.env</span>
+                        <span class="ct-term-status"><i class="bi bi-circle-fill" style="font-size:0.4rem"></i> online</span>
                     </div>
-
-                    <div class="contact-item">
-                        <div class="icon-box"><i class="bi bi-phone-fill"></i></div>
-                        <div class="text">
-                            <div class="label">{{ __("messages.phone_label") }}</div>
-                            <div class="value">{{ $account->phone ?? "+880 1XXX-XXXXXX" }}</div>
-                        </div>
+                    <div class="ct-term-cmd">
+                        <span class="ct-term-prompt">$</span>
+                        <span class="ct-term-cmd-text">cat .env.local</span>
+                        <span class="ct-term-caret"></span>
                     </div>
+                    <div class="ct-term-body">
+                        <div class="ct-term-heading">{{ __("messages.contact_heading") }}</div>
+                        <div class="ct-term-desc">{{ __("messages.contact_desc") }}</div>
 
-                    <div class="contact-item">
-                        <div class="icon-box"><i class="bi bi-geo-alt-fill"></i></div>
-                        <div class="text">
-                            <div class="label">{{ __("messages.location_label") }}</div>
-                            <div class="value">Bangladesh</div>
-                        </div>
-                    </div>
-
-                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
-                        <div class="contact-social">
-                            <div class="social-label"><i class="bi bi-share-fill me-1"></i> {{ __("messages.connect") }}</div>
-                            <div class="social-row">
-                                @if(isset($account) && $account->github)
-                                    <a href="{{ $account->github }}" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                                @endif
-                                @if(isset($account) && $account->linkedin)
-                                    <a href="{{ $account->linkedin }}" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                                @endif
-                                @if(isset($account) && $account->facebook)
-                                    <a href="{{ $account->facebook }}" target="_blank" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                @endif
-                                @if(isset($account) && $account->instagram)
-                                    <a href="{{ $account->instagram }}" target="_blank" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                                @endif
-                                @if(isset($account) && $account->twitter)
-                                    <a href="{{ $account->twitter }}" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                @endif
-                                @if(isset($account) && $account->youtube)
-                                    <a href="{{ $account->youtube }}" target="_blank" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                                @endif
+                        <div class="ct-config-list">
+                            <div class="ct-config-line">
+                                <div class="ct-config-icon"><i class="bi bi-envelope-fill"></i></div>
+                                <div>
+                                    <div class="ct-config-key">MAIL_TO</div>
+                                    <div class="ct-config-val">{{ $account->email ?? "joty@example.com" }}</div>
+                                </div>
+                            </div>
+                            <div class="ct-config-line">
+                                <div class="ct-config-icon"><i class="bi bi-phone-fill"></i></div>
+                                <div>
+                                    <div class="ct-config-key">PHONE</div>
+                                    <div class="ct-config-val">{{ $account->phone ?? "+880 1XXX-XXXXXX" }}</div>
+                                </div>
+                            </div>
+                            <div class="ct-config-line">
+                                <div class="ct-config-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                                <div>
+                                    <div class="ct-config-key">LOCATION</div>
+                                    <div class="ct-config-val">Bangladesh</div>
+                                </div>
                             </div>
                         </div>
-                    @endif
 
+                        @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
+                            <div class="ct-socials">
+                                <div class="ct-socials-label"><i class="bi bi-share-fill"></i> {{ __("messages.connect") }}</div>
+                                <div class="ct-socials-row">
+                                    @if(isset($account) && $account->github)
+                                        <a href="{{ $account->github }}" target="_blank" class="ct-social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->linkedin)
+                                        <a href="{{ $account->linkedin }}" target="_blank" class="ct-social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->facebook)
+                                        <a href="{{ $account->facebook }}" target="_blank" class="ct-social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->instagram)
+                                        <a href="{{ $account->instagram }}" target="_blank" class="ct-social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->twitter)
+                                        <a href="{{ $account->twitter }}" target="_blank" class="ct-social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                    @endif
+                                    @if(isset($account) && $account->youtube)
+                                        <a href="{{ $account->youtube }}" target="_blank" class="ct-social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
-                <div class="contact-form reveal reveal-delay-2">
-                    <div class="form-header">
-                        <h4><i class="bi bi-pencil-square me-2"></i>{{ __("messages.send_message") }}</h4>
-                        <p>{{ __("messages.contact_desc") }}</p>
+                <!-- Right: Code Editor Form -->
+                <div class="ct-editor reveal reveal-delay-2">
+                    <div class="ct-editor-bar">
+                        <span class="ct-editor-tab"><i class="bi bi-filetype-php"></i> send_message.php</span>
+                        <span class="ct-editor-lang">PHP</span>
                     </div>
-                    <form action="{{ url("/contactus") }}" method="POST" id="contactForm">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name"><i class="bi bi-person-fill me-1"></i> {{ __("messages.your_name") }}</label>
-                            <div class="field-wrapper">
-                                <input type="text" id="name" name="name" class="form-control" placeholder="{{ __("messages.name_placeholder") }}" required>
-                                <span class="field-glow"></span>
-                                <i class="bi bi-person field-icon"></i>
+                    <div class="ct-editor-body">
+                        <div class="ct-editor-heading"><i class="bi bi-pencil-square me-1" style="color:#818cf8"></i> {{ __("messages.send_message") }}</div>
+                        <div class="ct-editor-desc">{{ __("messages.contact_desc") }}</div>
+                        <form action="{{ url("/contactus") }}" method="POST" id="contactForm">
+                            @csrf
+                            <div class="ct-code-group">
+                                <div class="ct-code-label"><i class="bi bi-tag-fill"></i> const name =</div>
+                                <div class="ct-code-input-wrap">
+                                    <div class="ct-code-line">
+                                        <span class="ct-code-ln">1</span>
+                                        <input type="text" id="name" name="name" class="ct-code-input" placeholder="{{ __("messages.name_placeholder") }}" required>
+                                        <span class="ct-code-end">;</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="bi bi-envelope-fill me-1"></i> {{ __("messages.your_email") }}</label>
-                            <div class="field-wrapper">
-                                <input type="email" id="email" name="email" class="form-control" placeholder="{{ __("messages.email_placeholder") }}" required>
-                                <span class="field-glow"></span>
-                                <i class="bi bi-envelope field-icon"></i>
+                            <div class="ct-code-group">
+                                <div class="ct-code-label"><i class="bi bi-tag-fill"></i> const email =</div>
+                                <div class="ct-code-input-wrap">
+                                    <div class="ct-code-line">
+                                        <span class="ct-code-ln">2</span>
+                                        <input type="email" id="email" name="email" class="ct-code-input" placeholder="{{ __("messages.email_placeholder") }}" required>
+                                        <span class="ct-code-end">;</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="message"><i class="bi bi-chat-text-fill me-1"></i> {{ __("messages.your_message") }}</label>
-                            <div class="field-wrapper">
-                                <textarea id="message" name="message" class="form-control" placeholder="{{ __("messages.message_placeholder") }}" rows="4" required></textarea>
-                                <span class="field-glow"></span>
-                                <i class="bi bi-chat-text field-icon"></i>
+                            <div class="ct-code-group">
+                                <div class="ct-code-label"><i class="bi bi-tag-fill"></i> const message =</div>
+                                <div class="ct-code-input-wrap">
+                                    <div class="ct-code-line" style="align-items: flex-start;">
+                                        <span class="ct-code-ln">3</span>
+                                        <textarea id="message" name="message" class="ct-code-textarea" placeholder="{{ __("messages.message_placeholder") }}" rows="4" required></textarea>
+                                        <span class="ct-code-end" style="padding-top:0.7rem">;</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <button type="submit" class="btn-submit">
-                            <span class="btn-shimmer"></span>
-                            <i class="bi bi-send-fill btn-icon"></i>
-                            <span>{{ __("messages.send_message") }}</span>
-                        </button>
-                    </form>
+                            <button type="submit" class="ct-push-btn">
+                                <span class="ct-push-shimmer"></span>
+                                <span class="ct-push-prompt">$</span>
+                                <i class="bi bi-send-fill push-icon"></i>
+                                <span>git push origin main</span>
+                                <span class="ct-push-badge">deploy</span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -4931,6 +4745,8 @@
                 </div>
             </div>
         </div>
+    </section>
+
     </section><!-- FAQ Section -->
     <section class="faq-section section-padding" id="faq">
         <div class="container">
