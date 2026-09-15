@@ -4113,39 +4113,49 @@
             ])
 
             @if($educations->isNotEmpty())
-                <div class="row g-4 justify-content-center reveal">
-                    @foreach($educations as $edu)
-                        <div class="col-lg-6 col-12">
-                            <div class="edu-card"
-                                style="border-radius: var(--radius-lg); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); height: 100%;">
-                                <div class="edu-bar"></div>
-                                <div class="p-4">
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div class="edu-icon">
-                                            <i class="bi bi-mortarboard-fill"></i>
-                                        </div>
-                                        <div class="flex-grow-1" style="min-width:0;">
-                                            <span class="edu-duration">
-                                                <i class="bi bi-calendar3 me-1"></i>{{ $edu->duration }}
-                                            </span>
-                                            <h3 class="edu-degree">{{ $edu->degree_name }}</h3>
-                                            <div class="edu-meta">
-                                                <span><i class="bi bi-building me-1"></i>{{ $edu->institution }}</span>
-                                                @if($edu->board_or_university)
-                                                    <span class="edu-board"><i class="bi bi-globe me-1"></i>{{ $edu->board_or_university }}</span>
-                                                @endif
-                                            </div>
-                                            @if($edu->result)
-                                                <div class="edu-result">
-                                                    <i class="bi bi-award"></i>
-                                                    <span>{{ $edu->result }}</span>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
+                <div class="edu-grid" id="educationGrid">
+                    @foreach($educations as $index => $edu)
+                        @php
+                            $eduPercent = null;
+                            if (preg_match('/(\d+(?:\.\d+)?)\s*(?:\/|out of)\s*(\d+(?:\.\d+)?)/i', (string) $edu->result, $eduMatch) && (float) $eduMatch[2] > 0) {
+                                $eduPercent = (int) max(0, min(100, round(((float) $eduMatch[1] / (float) $eduMatch[2]) * 100)));
+                            }
+                        @endphp
+                        <article class="edu-card" style="--i: {{ $index }}">
+                            <div class="edu-bar" aria-hidden="true"></div>
+
+                            <div class="edu-head">
+                                <span class="edu-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                                <span class="edu-file"><i class="bi bi-filetype-tsx"></i> education-{{ $index + 1 }}.ts</span>
+                                <span class="edu-status"><i class="bi bi-check2"></i> published</span>
+                            </div>
+
+                            <div class="edu-code">
+                                <div class="edu-lines">
+                                    <div class="edu-line"><span class="edu-key">degree</span><span class="edu-punc">:</span> <span class="edu-str">"{{ $edu->degree_name }}"</span><span class="edu-punc">,</span></div>
+                                    <div class="edu-line"><span class="edu-key">institution</span><span class="edu-punc">:</span> <span class="edu-str">"{{ $edu->institution }}"</span><span class="edu-punc">,</span></div>
+                                    @if($edu->board_or_university)
+                                        <div class="edu-line"><span class="edu-key">board</span><span class="edu-punc">:</span> <span class="edu-str">"{{ $edu->board_or_university }}"</span><span class="edu-punc">,</span></div>
+                                    @endif
+                                    <div class="edu-line"><span class="edu-key">duration</span><span class="edu-punc">:</span> <span class="edu-str">"{{ $edu->duration }}"</span><span class="edu-punc">,</span></div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="edu-foot">
+                                @if($edu->result)
+                                    <span class="edu-result"><i class="bi bi-award"></i> {{ $edu->result }}</span>
+                                @else
+                                    <span class="edu-done"><i class="bi bi-check2-circle"></i> completed</span>
+                                @endif
+
+                                @if($eduPercent !== null)
+                                    <span class="edu-gauge">
+                                        <span class="edu-gauge-bar"><span class="edu-gauge-fill" style="--w: {{ $eduPercent }}%"></span></span>
+                                        <span class="edu-gauge-num">{{ $eduPercent }}%</span>
+                                    </span>
+                                @endif
+                            </div>
+                        </article>
                     @endforeach
                 </div>
             @else
@@ -4159,13 +4169,29 @@
     </section>
 
     <style>
+    /* ===== EDUCATION - COMPILED MODULES (coding design) ===== */
+    html.light-theme #education {
+        background: linear-gradient(180deg, #eef2f7 0%, #f1f5f9 100%) !important;
+    }
+
+    .edu-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.35rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
     .edu-card {
         background: rgba(255,255,255,0.04) !important;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(99,102,241,0.15) !important;
+        border-radius: var(--radius-lg);
         position: relative;
         overflow: hidden;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
     }
     html.light-theme .edu-card {
         background: rgba(255,255,255,0.7) !important;
@@ -4194,56 +4220,156 @@
     html.light-theme .edu-card:hover {
         box-shadow: 0 0 30px rgba(59,130,246,0.15), var(--shadow-md);
     }
+    .edu-card > * { position: relative; z-index: 2; }
+
     .edu-bar {
-        height: 5px;
+        height: 3px;
         background: linear-gradient(90deg, #6366f1, #a78bfa, #6366f1);
         background-size: 200% 100%;
         animation: eduShimmer 3s ease-in-out infinite;
-    }
-    .edu-icon {
-        width: 52px; height: 52px; flex-shrink: 0;
-        background: var(--accent-gradient);
-        border-radius: 14px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.4rem; color: #fff;
-        box-shadow: 0 4px 15px rgba(59,130,246,0.3);
-    }
-    .edu-duration {
-        display: inline-flex; align-items: center;
-        font-size: 0.72rem; color: var(--accent-light); font-weight: 600;
-        background: rgba(59,130,246,0.08);
-        padding: 0.2rem 0.8rem; border-radius: 20px;
-        margin-bottom: 0.3rem;
-    }
-    .edu-degree {
-        font-size: 1.1rem; font-weight: 700;
-        margin-bottom: 0.15rem; color: var(--text-primary);
-    }
-    .edu-meta {
-        font-size: 0.88rem; color: var(--text-secondary);
-        margin-bottom: 0.5rem;
-        display: flex; flex-wrap: wrap; align-items: center;
-        gap: 0.3rem 1rem;
-    }
-    .edu-meta i { color: var(--accent-light); }
-    .edu-board { font-size: 0.82rem; color: var(--text-muted); }
-    .edu-result {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.82rem; color: #f59e0b; font-weight: 600;
-        background: rgba(245,158,11,0.1);
-        padding: 0.25rem 1rem; border-radius: 20px;
     }
     @keyframes eduShimmer {
         0%, 100% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
     }
-    html.light-theme #education {
-        background: linear-gradient(180deg, #eef2f7 0%, #f1f5f9 100%) !important;
+
+    /* title bar */
+    .edu-head {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.9rem;
+        background: rgba(2, 8, 23, 0.28);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.14);
     }
-    @media (max-width: 768px) {
-        .edu-degree { font-size: 0.95rem !important; }
-        .edu-icon { width: 42px !important; height: 42px !important; font-size: 1.1rem !important; }
-        .edu-card .p-4 { padding: 1rem !important; }
+    html.light-theme .edu-head { background: rgba(15, 23, 42, 0.04); border-bottom-color: rgba(15, 23, 42, 0.07); }
+    .edu-dots { display: inline-flex; gap: 5px; flex-shrink: 0; }
+    .edu-dots i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+    .edu-dots i:nth-child(1) { background: #ff5f57; }
+    .edu-dots i:nth-child(2) { background: #febc2e; }
+    .edu-dots i:nth-child(3) { background: #28c840; }
+    .edu-file {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.7rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .edu-file i { color: #38bdf8; }
+    html.light-theme .edu-file { color: #334155; }
+    .edu-status {
+        margin-left: auto; flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-size: 0.6rem; font-weight: 700; letter-spacing: 0.3px;
+        color: #34d399;
+        transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+    }
+
+    /* code pane */
+    .edu-code { padding: 0.85rem 0.95rem 0.9rem; background: rgba(2, 8, 23, 0.2); }
+    html.light-theme .edu-code { background: rgba(15, 23, 42, 0.02); }
+    .edu-lines { counter-reset: edu-line; position: relative; }
+    .edu-line {
+        position: relative;
+        padding-left: 2.4rem;
+        font-size: 0.78rem; line-height: 1.95;
+        color: #e2e8f0;
+        white-space: pre-wrap; word-break: break-word;
+        transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    html.light-theme .edu-line { color: #1e293b; }
+    .edu-line::before {
+        counter-increment: edu-line;
+        content: counter(edu-line);
+        position: absolute; left: 0; top: 0; bottom: 0;
+        width: 1.7rem;
+        padding-right: 0.45rem;
+        text-align: right;
+        font-size: 0.7rem; color: #334155;
+        border-right: 1px solid rgba(148, 163, 184, 0.16);
+        user-select: none;
+    }
+    html.light-theme .edu-line::before { color: #cbd5e1; }
+    .edu-key { color: #93c5fd; }
+    html.light-theme .edu-key { color: #2563eb; }
+    .edu-str { color: #86efac; }
+    html.light-theme .edu-str { color: #047857; }
+    .edu-punc { color: #94a3b8; }
+    html.light-theme .edu-punc { color: #475569; }
+    .edu-lines::after {
+        content: '';
+        display: block;
+        width: 8px; height: 1em;
+        margin: 0.25rem 0 0.1rem 2.4rem;
+        background: #34d399; border-radius: 1px;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+        animation: glBlink 1s step-end infinite;
+    }
+
+    /* status bar */
+    .edu-foot {
+        display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+        padding: 0.6rem 0.95rem;
+        background: rgba(2, 8, 23, 0.28);
+        border-top: 1px solid rgba(148, 163, 184, 0.14);
+        font-size: 0.68rem;
+    }
+    html.light-theme .edu-foot { background: rgba(15, 23, 42, 0.04); border-top-color: rgba(15, 23, 42, 0.07); }
+    .edu-result {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.72rem; color: #f59e0b; font-weight: 700;
+        background: rgba(245,158,11,0.1);
+        border: 1px solid rgba(245,158,11,0.2);
+        padding: 0.2rem 0.7rem; border-radius: 20px;
+    }
+    .edu-done { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-muted); }
+    .edu-done i { color: #34d399; }
+    .edu-gauge { margin-left: auto; display: inline-flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+    .edu-gauge-bar {
+        width: 90px; height: 5px; border-radius: 50px;
+        background: rgba(99, 102, 241, 0.16);
+        overflow: hidden;
+    }
+    .edu-gauge-fill {
+        display: block; height: 100%; width: 0;
+        background: linear-gradient(90deg, #6366f1, #a78bfa, #22d3ee);
+        background-size: 200% 100%;
+        animation: eduShimmer 3s ease-in-out infinite;
+        border-radius: 50px;
+        transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+    }
+    .edu-gauge-num { color: #a5b4fc; font-weight: 700; }
+    html.light-theme .edu-gauge-num { color: #4f46e5; }
+    html.light-theme .edu-status { color: #059669; }
+
+    /* reveal (armed by JS so nothing hides without it) */
+    .edu-grid.edu-armed .edu-card { opacity: 0; transform: translateY(22px); }
+    .edu-grid.edu-armed .edu-line { opacity: 0; transform: translateY(6px); }
+    .edu-grid.edu-armed .edu-status { opacity: 0; transform: scale(0.85); }
+    .edu-grid.edu-ready .edu-card { opacity: 1; transform: translateY(0); transition-delay: calc(var(--i, 0) * 120ms); }
+    .edu-grid.edu-ready .edu-line { opacity: 1; transform: translateY(0); }
+    .edu-grid.edu-ready .edu-status { opacity: 1; transform: scale(1); transition-delay: 0.5s; }
+    .edu-grid.edu-ready .edu-line:nth-child(1) { transition-delay: calc(var(--i, 0) * 120ms + 0.2s); }
+    .edu-grid.edu-ready .edu-line:nth-child(2) { transition-delay: calc(var(--i, 0) * 120ms + 0.28s); }
+    .edu-grid.edu-ready .edu-line:nth-child(3) { transition-delay: calc(var(--i, 0) * 120ms + 0.36s); }
+    .edu-grid.edu-ready .edu-line:nth-child(4) { transition-delay: calc(var(--i, 0) * 120ms + 0.44s); }
+    .edu-grid.edu-ready .edu-gauge-fill { width: var(--w, 0%); }
+    /* keep the hover lift instant even during the staggered reveal */
+    .edu-grid.edu-ready .edu-card:hover { transition-delay: 0s; }
+
+    @media (max-width: 860px) {
+        .edu-grid { grid-template-columns: 1fr; max-width: 560px; }
+    }
+    @media (max-width: 480px) {
+        .edu-line { font-size: 0.72rem; }
+        .edu-line::before { width: 1.5rem; }
+        .edu-line { padding-left: 2.1rem; }
+        .edu-lines::after { margin-left: 2.1rem; }
+        .edu-gauge-bar { width: 64px; }
+        .edu-file { max-width: 12ch; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .edu-grid.edu-armed .edu-card,
+        .edu-grid.edu-armed .edu-line,
+        .edu-grid.edu-armed .edu-status { opacity: 1; transform: none; }
+        .edu-bar, .edu-lines::after, .edu-gauge-fill { animation: none; }
+        .edu-gauge-fill { width: var(--w, 0%); }
     }
     </style>
 
@@ -5855,6 +5981,40 @@
     setTimeout(function() {
         if (log.classList.contains('rel-ready')) return;
         var r = log.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) reveal();
+    }, 4000);
+})();
+
+// ===== EDUCATION - COMPILED MODULES (staggered code reveal) =====
+(function() {
+    var grid = document.getElementById('educationGrid');
+    if (!grid) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function reveal() { grid.classList.add('edu-ready'); }
+
+    if (reduce) { reveal(); return; }
+
+    grid.classList.add('edu-armed');
+
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                reveal();
+                io.disconnect();
+            });
+        }, { threshold: 0.1 });
+        io.observe(grid);
+    } else {
+        reveal();
+    }
+
+    // Safety net: only un-hide when the grid is actually on screen
+    setTimeout(function() {
+        if (grid.classList.contains('edu-ready')) return;
+        var r = grid.getBoundingClientRect();
         if (r.top < window.innerHeight && r.bottom > 0) reveal();
     }, 4000);
 })();
