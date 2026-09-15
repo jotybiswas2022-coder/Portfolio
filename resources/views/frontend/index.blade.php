@@ -981,11 +981,13 @@
         .ab-avail { font-size: 0.66rem; }
         .ab-minimap { display: none; }
         .ab-dock { display: none; }
+        .ab-hide-sm { display: none; }
+        .ab-hire { display: none; }
+        .ab-p-body { padding: 1.15rem 1.1rem 1.3rem; gap: 0.85rem; }
         .ab-u-name { font-size: 1.35rem; }
         .ab-avatar { width: 76px; height: 76px; }
         .ab-avatar::after { inset: -7px; }
         .ab-initial { font-size: 1.9rem; }
-        .ab-p-body { padding: 1.15rem 1.1rem 1.3rem; }
         .ab-code { padding: 0.8rem 0.85rem; }
         .ab-gutter { width: 40px; }
         .ab-gutter span { height: calc(0.8rem * 1.9); line-height: calc(0.8rem * 1.9); font-size: 0.72rem; }
@@ -999,9 +1001,13 @@
         .ab-gutter span { padding-right: 0.45rem; }
         .ab-u-name { font-size: 1.2rem; }
         .ab-user { gap: 0.8rem; }
-        .ab-freelance { flex: 1 1 100%; }
-        .ab-stats { grid-template-columns: 1fr; }
-        .ab-stat { padding: 0.7rem 0.9rem; }
+        .ab-avatar { width: 66px; height: 66px; }
+        .ab-stats { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .ab-stat { padding: 0.6rem 0.3rem 0.55rem; }
+        .ab-stat .number { font-size: 1.1rem; }
+        .ab-stat .stat-key { font-size: 0.5rem; letter-spacing: 0.2px; }
+        .ab-stat .stat-ico { width: 24px; height: 24px; font-size: 0.7rem; }
+        .ab-stat .stat-bar { height: 3px; }
     }
 
     /* ===== SERVICES — PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
@@ -3106,7 +3112,7 @@
                                     <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
                                     <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
                                     <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
-                                    <span>19</span><span>20</span><span>21</span><span>22</span>
+                                    <span class="ab-hide-sm">19</span><span class="ab-hide-sm">20</span><span class="ab-hide-sm">21</span><span class="ab-hide-sm">22</span>
                                 </div>
                                 <div class="ab-code" id="abCode">
                                     <div class="ab-line ab-comment">// {{ __('messages.about') }} &mdash; get to know me better</div>
@@ -3127,10 +3133,10 @@
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">focus</span><span class="ab-punc">:</span> <span class="ab-str">"responsive web apps that users love"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-indent"></span><span class="ab-prop">status</span><span class="ab-punc">:</span> <span class="ab-str">"{{ __('messages.avail_for_work') }}"</span><span class="ab-punc">,</span></div>
                                     <div class="ab-line"><span class="ab-punc">};</span></div>
-                                    <div class="ab-line"></div>
-                                    <div class="ab-line"><span class="ab-prop">module</span><span class="ab-punc">.</span><span class="ab-prop">exports</span> <span class="ab-punc">=</span> <span class="ab-name">developer</span><span class="ab-punc">;</span></div>
-                                    <div class="ab-line"></div>
-                                    <div class="ab-line ab-comment">// compiled successfully &middot; lint: clean &middot; ready to ship &mdash; 100ms</div>
+                                    <div class="ab-line ab-hide-sm"></div>
+                                    <div class="ab-line ab-hide-sm"><span class="ab-prop">module</span><span class="ab-punc">.</span><span class="ab-prop">exports</span> <span class="ab-punc">=</span> <span class="ab-name">developer</span><span class="ab-punc">;</span></div>
+                                    <div class="ab-line ab-hide-sm"></div>
+                                    <div class="ab-line ab-comment ab-hide-sm">// compiled successfully &middot; lint: clean &middot; ready to ship &mdash; 100ms</div>
                                 </div>
                                 <div class="ab-minimap" aria-hidden="true">
                                     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
