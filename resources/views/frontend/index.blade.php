@@ -1022,23 +1022,25 @@
 
     /* ===== SERVICES — PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
     .services-section {
-        background: linear-gradient(180deg, #060b18 0%, #0a1628 40%, #0d1f36 70%, #0f2740 100%);
+        background: linear-gradient(180deg, var(--bg-primary) 0%, #0a1628 50%, var(--bg-primary) 100%);
         position: relative;
         overflow: hidden;
     }
     html.light-theme .services-section {
-        background: linear-gradient(180deg, #e8f0fe 0%, #dce8f8 40%, #d0e0f5 70%, #c8daf2 100%);
+        background: linear-gradient(180deg, #f1f5f9 0%, #eef3fb 50%, #f8fafc 100%);
     }
 
-    /* Deep water caustics overlay */
+    /* Subtle code-grid overlay */
     .services-section::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background:
-            radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.03), transparent 50%),
-            radial-gradient(ellipse at 80% 30%, rgba(56, 189, 248, 0.025), transparent 50%),
-            radial-gradient(ellipse at 50% 80%, rgba(99, 102, 241, 0.02), transparent 50%);
+        background-image:
+            linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
+        mask-image: radial-gradient(ellipse at 50% 45%, #000 0%, transparent 70%);
         pointer-events: none;
         z-index: 0;
     }
@@ -1081,347 +1083,131 @@
         .code-divider .cd-cursor { width: 6px; height: 12px; }
     }
 
-    /* ===== WAVE SCENE — continuous full-width water body ===== */
-    .wave-scene {
+        /* ===== SERVICES - CODE TERMINAL GRID ===== */
+    .svc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.75rem;
         position: relative;
-        z-index: 2;
-        min-height: 500px;
-        padding: 2rem 0;
-        overflow: hidden;
-    }
-
-    /* ---- Full-width flowing wave layers ---- */
-    /* Wave Layer 1 — deepest, slowest, darkest */
-    .wave-scene::before {
-        content: '';
-        position: absolute;
-        top: 15%;
-        left: -50%;
-        width: 200%;
-        height: 70%;
-        background: linear-gradient(90deg,
-            transparent 0%, 
-            rgba(30, 58, 95, 0.20) 20%,
-            rgba(20, 50, 80, 0.30) 40%,
-            rgba(30, 58, 95, 0.20) 60%,
-            transparent 100%
-        );
-        border-radius: 40%;
-        pointer-events: none;
-        z-index: 0;
-        animation: waveDeep 6s linear infinite alternate;
-        will-change: transform;
-    }
-    /* Wave Layer 2 — mid, medium speed */
-    .wave-scene::after {
-        content: '';
-        position: absolute;
-        top: 25%;
-        left: -50%;
-        width: 200%;
-        height: 60%;
-        background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(59, 130, 246, 0.03) 15%,
-            rgba(59, 130, 246, 0.08) 35%,
-            rgba(99, 102, 241, 0.05) 55%,
-            rgba(56, 189, 248, 0.03) 75%,
-            transparent 100%
-        );
-        border-radius: 36%;
-        pointer-events: none;
         z-index: 1;
-        animation: waveMid 5s linear infinite alternate;
-        will-change: transform;
     }
-
-    /* Wave Layer 3 — foreground, faster */
-    .wave-scene .wave-layer {
-        position: absolute;
-        top: 35%;
-        left: -50%;
-        width: 200%;
-        height: 65%;
-        background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(6, 182, 212, 0.02) 10%,
-            rgba(59, 130, 246, 0.06) 30%,
-            rgba(99, 102, 241, 0.04) 50%,
-            rgba(59, 130, 246, 0.06) 70%,
-            transparent 100%
-        );
-        border-radius: 44%;
-        pointer-events: none;
-        z-index: 2;
-        animation: waveFront 4s linear infinite alternate;
-        will-change: transform;
-    }
-
-    /* Wave Layer 4 — very foreground, opposite direction */
-    .wave-scene .wave-layer-2 {
-        position: absolute;
-        top: 45%;
-        left: -50%;
-        width: 200%;
-        height: 75%;
-        background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(139, 92, 246, 0.015) 20%,
-            rgba(59, 130, 246, 0.04) 40%,
-            rgba(56, 189, 248, 0.03) 60%,
-            rgba(59, 130, 246, 0.04) 80%,
-            transparent 100%
-        );
-        border-radius: 38%;
-        pointer-events: none;
-        z-index: 3;
-        animation: waveFront2 7s linear infinite alternate;
-        will-change: transform;
-    }
-
-    /* Wave flow keyframes — pure linear translation, no scale, for smooth flowing water */
-    @keyframes waveDeep {
-        0%   { transform: translateX(0); opacity: 0.4; }
-        100% { transform: translateX(-25%); opacity: 0.6; }
-    }
-    @keyframes waveMid {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(-25%); }
-    }
-    @keyframes waveFront {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(25%); }
-    }
-    @keyframes waveFront2 {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(-30%); }
-    }
-
-    /* Water surface shimmer — sweeps across the full scene */
-    .wave-scene .wave-shimmer {
-        position: absolute;
-        top: 0; left: -100%; right: 0; bottom: 0;
-        width: 300%;
-        background: linear-gradient(90deg,
-            transparent 0%,
-            transparent 30%,
-            rgba(255, 255, 255, 0.015) 45%,
-            rgba(255, 255, 255, 0.03) 50%,
-            rgba(255, 255, 255, 0.015) 55%,
-            transparent 70%,
-            transparent 100%
-        );
-        pointer-events: none;
-        z-index: 4;
-        animation: shimmerSweep 4s linear infinite;
-        opacity: 0.5;
-    }
-    @keyframes shimmerSweep {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(33.33%); }
-    }
-
-    /* Mouse-responsive water ripple */
-    .wave-scene .wave-ripple {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.04), transparent 60%);
-        pointer-events: none;
-        z-index: 5;
-        opacity: 0;
-        transition: opacity 0.6s ease;
-    }
-    .wave-scene:hover .wave-ripple {
-        opacity: 1;
-    }
-
-    /* Floating bubbles rising through the water */
-    .wave-scene .wave-bubbles {
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 100%;
-        pointer-events: none;
-        z-index: 2;
+    .svc-card {
+        position: relative;
+        background: rgba(13, 23, 43, 0.58);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 16px;
         overflow: hidden;
+        transition: var(--transition);
     }
-    .wave-scene .wave-bubbles .bub {
-        position: absolute;
-        bottom: -8px;
-        width: 4px; height: 4px;
-        border-radius: 50%;
-        background: rgba(59, 130, 246, 0.12);
-        opacity: 0;
+    html.light-theme .svc-card {
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(59, 130, 246, 0.18);
     }
-    .wave-scene .wave-bubbles .bub:nth-child(1)  { left: 5%;  width: 3px;  height: 3px;  animation: bubRise 5s ease-out infinite; animation-delay: 0s; }
-    .wave-scene .wave-bubbles .bub:nth-child(2)  { left: 12%; width: 5px;  height: 5px;  animation: bubRise 6s ease-out infinite; animation-delay: 0.8s; }
-    .wave-scene .wave-bubbles .bub:nth-child(3)  { left: 22%; width: 2px;  height: 2px;  animation: bubRise 4s ease-out infinite; animation-delay: 0.4s; }
-    .wave-scene .wave-bubbles .bub:nth-child(4)  { left: 30%; width: 4px;  height: 4px;  animation: bubRise 5.5s ease-out infinite; animation-delay: 1.6s; }
-    .wave-scene .wave-bubbles .bub:nth-child(5)  { left: 40%; width: 3px;  height: 3px;  animation: bubRise 4.5s ease-out infinite; animation-delay: 0.2s; }
-    .wave-scene .wave-bubbles .bub:nth-child(6)  { left: 48%; width: 6px;  height: 6px;  animation: bubRise 7s ease-out infinite; animation-delay: 2s; }
-    .wave-scene .wave-bubbles .bub:nth-child(7)  { left: 55%; width: 3px;  height: 3px;  animation: bubRise 5s ease-out infinite; animation-delay: 1s; }
-    .wave-scene .wave-bubbles .bub:nth-child(8)  { left: 65%; width: 4px;  height: 4px;  animation: bubRise 6.5s ease-out infinite; animation-delay: 0.6s; }
-    .wave-scene .wave-bubbles .bub:nth-child(9)  { left: 75%; width: 2px;  height: 2px;  animation: bubRise 3.8s ease-out infinite; animation-delay: 1.4s; }
-    .wave-scene .wave-bubbles .bub:nth-child(10) { left: 85%; width: 5px;  height: 5px;  animation: bubRise 5.5s ease-out infinite; animation-delay: 0.3s; }
-    .wave-scene .wave-bubbles .bub:nth-child(11) { left: 93%; width: 3px;  height: 3px;  animation: bubRise 4.2s ease-out infinite; animation-delay: 1.8s; }
-    .wave-scene .wave-bubbles .bub:nth-child(12) { left: 98%; width: 4px;  height: 4px;  animation: bubRise 6s ease-out infinite; animation-delay: 0.9s; }
-    @keyframes bubRise {
-        0%   { transform: translateY(0) scale(0); opacity: 0; }
-        15%  { opacity: 0.4; }
-        60%  { opacity: 0.2; transform: translateY(calc(-100% - 400px)) scale(1); }
-        100% { transform: translateY(calc(-100% - 400px)) scale(0); opacity: 0; }
+    .svc-card::after {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.15) 28%, transparent 55%);
+        pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
+        z-index: 1; border-radius: inherit;
     }
-
-    /* ---- Service content floating within the waves (no boxes!) ---- */
-    .wave-services {
-        position: relative;
-        z-index: 6;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2.5rem 3rem;
-        padding: 3rem 0;
-    }
-
-    .wave-service {
-        flex: 0 1 280px;
-        text-align: center;
-        padding: 0;
-        position: relative;
-        cursor: default;
-    }
-    .wave-service .ws-icon {
-        width: 56px;
-        height: 56px;
-        margin: 0 auto 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
-        color: var(--accent-light);
-        background: rgba(59, 130, 246, 0.08);
-        border: 1px solid rgba(59, 130, 246, 0.10);
-        border-radius: 18px;
-        transition: all 0.4s ease;
-    }
-    .wave-service:hover .ws-icon {
+    .svc-card:hover::after { opacity: 1; }
+    .svc-card::before {
+        content: ''; position: absolute;
+        top: 0; left: 0; width: 3px; height: 0;
         background: var(--accent-gradient);
-        border-color: transparent;
-        color: #fff;
-        transform: scale(1.1) rotate(-4deg);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+        border-radius: 0 0 3px 0;
+        transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 2;
     }
-    .wave-service h3 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-        line-height: 1.3;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    .svc-card:hover::before { height: 100%; }
+    .svc-card:hover {
+        border-color: var(--border-hover);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
     }
-    .wave-service p {
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        line-height: 1.6;
-        margin: 0;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    .svc-card-bar {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.85rem;
+        background: rgba(255, 255, 255, 0.035);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
     }
-
-    /* ---- Light theme ---- */
-    html.light-theme .services-section::before {
-        background:
-            radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.04), transparent 50%),
-            radial-gradient(ellipse at 80% 30%, rgba(56, 189, 248, 0.03), transparent 50%);
+    html.light-theme .svc-card-bar {
+        background: rgba(15, 23, 42, 0.035);
+        border-bottom-color: rgba(15, 23, 42, 0.08);
     }
-    html.light-theme .wave-scene::before {
-        background: linear-gradient(90deg,
-            transparent 0%, 
-            rgba(30, 58, 95, 0.10) 20%,
-            rgba(20, 50, 80, 0.15) 40%,
-            rgba(30, 58, 95, 0.10) 60%,
-            transparent 100%
-        );
+    .svc-card-bar .ab-dot { width: 10px; height: 10px; }
+    .svc-filename {
+        font-size: 0.72rem; color: var(--text-muted);
+        margin-left: 0.3rem;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    html.light-theme .wave-scene::after {
-        background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(59, 130, 246, 0.04) 15%,
-            rgba(59, 130, 246, 0.10) 35%,
-            rgba(99, 102, 241, 0.07) 55%,
-            rgba(56, 189, 248, 0.04) 75%,
-            transparent 100%
-        );
+    .svc-card-code {
+        padding: 1.1rem 1.2rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.82rem;
+        line-height: 1.75;
+        min-height: 150px;
+        position: relative;
+        z-index: 2;
     }
-    html.light-theme .wave-scene .wave-layer {
-        background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(6, 182, 212, 0.03) 10%,
-            rgba(59, 130, 246, 0.08) 30%,
-            rgba(99, 102, 241, 0.06) 50%,
-            rgba(59, 130, 246, 0.08) 70%,
-            transparent 100%
-        );
+    .svc-line { opacity: 0; transform: translateY(6px); }
+    .svc-card.visible .svc-line { animation: svcLineIn 0.4s ease forwards; }
+    .svc-card.visible .svc-line:nth-child(1) { animation-delay: 0.1s; }
+    .svc-card.visible .svc-line:nth-child(2) { animation-delay: 0.18s; }
+    .svc-card.visible .svc-line:nth-child(3) { animation-delay: 0.26s; }
+    .svc-card.visible .svc-line:nth-child(4) { animation-delay: 0.34s; }
+    .svc-card.visible .svc-line:nth-child(5) { animation-delay: 0.42s; }
+    .svc-card.visible .svc-line:nth-child(6) { animation-delay: 0.5s; }
+    @keyframes svcLineIn { to { opacity: 1; transform: translateY(0); } }
+    .svc-cursor {
+        display: inline-block; width: 7px; height: 0.95em;
+        background: var(--accent-light); margin-left: 2px;
+        vertical-align: text-bottom;
+        animation: svcBlink 1s step-end infinite;
     }
-    html.light-theme .wave-scene .wave-layer-2 {
-        background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(139, 92, 246, 0.02) 20%,
-            rgba(59, 130, 246, 0.05) 40%,
-            rgba(56, 189, 248, 0.04) 60%,
-            rgba(59, 130, 246, 0.05) 80%,
-            transparent 100%
-        );
+    @keyframes svcBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .sv-keyword { color: #c084fc; }
+    .sv-var     { color: #e2e8f0; }
+    .sv-str     { color: #34d399; }
+    .sv-key     { color: #fbbf24; }
+    .sv-op      { color: #64748b; }
+    html.light-theme .sv-keyword { color: #7c3aed; }
+    html.light-theme .sv-var     { color: #0f172a; }
+    html.light-theme .sv-str     { color: #059669; }
+    html.light-theme .sv-key     { color: #d97706; }
+    html.light-theme .sv-op      { color: #94a3b8; }
+    .svc-card-status {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 0.45rem 0.85rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.7rem; color: var(--text-muted);
+        position: relative; z-index: 2;
     }
-    html.light-theme .wave-scene .wave-ripple {
-        background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.04), transparent 60%);
+    html.light-theme .svc-card-status { border-top-color: rgba(15, 23, 42, 0.08); }
+    .sv-status-ok { display: inline-flex; align-items: center; gap: 0.4rem; color: #34d399; }
+    .sv-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: #34d399;
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
     }
-    html.light-theme .wave-scene .wave-bubbles .bub {
-        background: rgba(59, 130, 246, 0.10);
+    .svc-card:hover .sv-dot { animation: svcPulse 1.2s ease infinite; }
+    @keyframes svcPulse {
+        0%, 100% { box-shadow: 0 0 8px rgba(52, 211, 153, 0.6); }
+        50% { box-shadow: 0 0 16px rgba(52, 211, 153, 1); }
     }
-    html.light-theme .wave-service h3 {
-        color: #0f172a;
-        text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
-    }
-    html.light-theme .wave-service p {
-        color: #475569;
-        text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
-    }
-    html.light-theme .wave-service .ws-icon {
-        background: rgba(255, 255, 255, 0.7);
-        border-color: rgba(59, 130, 246, 0.15);
-    }
-    html.light-theme .wave-service:hover .ws-icon {
-        background: var(--accent-gradient);
-        border-color: transparent;
-    }
-
-    /* ---- Mobile: grid cards ---- */
+    .sv-time { opacity: 0.5; }
     @media (max-width: 768px) {
-        .wave-scene { min-height: auto; padding: 1rem 0; }
-        .wave-scene .wave-bubbles .bub { display: none; }
-        .wave-scene .wave-shimmer { opacity: 0.3; }
-        .wave-scene .wave-layer-2 { display: none; }
-        .wave-services {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem; padding: 2rem 0;
-        }
-        .wave-service { flex: none; text-align: center; padding: 0; background: none; border: none; border-radius: 0; }
-        .wave-service:hover .ws-icon { background: var(--accent-gradient); border-color: transparent; color: #fff; transform: scale(1.1) rotate(-4deg); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25); }
-        .wave-service .ws-icon { width: 44px; height: 44px; font-size: 1.2rem; margin-bottom: 0.75rem; }
-        .wave-service h3 { font-size: 0.95rem; margin-bottom: 0.4rem; }
-        .wave-service p { font-size: 0.8rem; line-height: 1.5; }
+        .svc-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+        .svc-card-code { min-height: auto; font-size: 0.78rem; padding: 0.9rem 1rem; }
+        .svc-line { opacity: 1; transform: none; animation: none !important; }
     }
     @media (max-width: 480px) {
-        .wave-services { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 0.5rem; }
-        .wave-service { padding: 0; background: none; border: none; }
-        .wave-service .ws-icon { width: 44px; height: 44px; font-size: 1.1rem; margin-bottom: 0.6rem; }
-        .wave-service h3 { font-size: 0.95rem; margin-bottom: 0.4rem; }
-        .wave-service p { font-size: 0.82rem; line-height: 1.5; }
+        .svc-card-code { font-size: 0.72rem; }
     }
-    @media (max-width: 360px) {
-        .wave-services { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.5rem 0.25rem; }
-    }
-
-    /* ── Case Studies ── */
+/* ── Case Studies ── */
     .casestudy-section {
         background: linear-gradient(180deg, #080d1a 0%, var(--bg-primary) 100%);
         position: relative; overflow: hidden;
@@ -1510,7 +1296,6 @@
     .gig-card::after,
     .testimonial-card::after,
     .faq-item::after,
-    .wave-service::after,
     .contact-info-card::after,
     .contact-item::after,
     .casestudy-card::after {
@@ -1522,7 +1307,6 @@
     html.light-theme .gig-card::after,
     html.light-theme .testimonial-card::after,
     html.light-theme .faq-item::after,
-    html.light-theme .wave-service::after,
     html.light-theme .contact-info-card::after,
     html.light-theme .contact-item::after,
     html.light-theme .casestudy-card::after {
@@ -1532,7 +1316,6 @@
     .gig-card:hover::after,
     .testimonial-card:hover::after,
     .faq-item:hover::after,
-    .wave-service:hover::after,
     .contact-info-card:hover::after,
     .contact-item:hover::after,
     .casestudy-card:hover::after { opacity: 1; }
@@ -1547,9 +1330,6 @@
     .testimonial-card .testimonial-author,
     .faq-item button,
     .faq-item .faq-answer,
-    .wave-service .ws-icon,
-    .wave-service h3,
-    .wave-service p,
     .contact-info-card h3,
     .contact-info-card p,
     .contact-info-card .contact-item,
@@ -3269,36 +3049,29 @@
             </div>
 
             @if($services->isNotEmpty())
-                <div class="wave-scene">
-                    <!-- Flowing wave layers (4 layers) -->
-                    <div class="wave-layer"></div>
-                    <div class="wave-layer-2"></div>
-                    <!-- Surface shimmer -->
-                    <div class="wave-shimmer"></div>
-                    <!-- Mouse ripple -->
-                    <div class="wave-ripple"></div>
-                    <!-- Floating bubbles -->
-                    <div class="wave-bubbles">
-                        <div class="bub"></div><div class="bub"></div><div class="bub"></div>
-                        <div class="bub"></div><div class="bub"></div><div class="bub"></div>
-                        <div class="bub"></div><div class="bub"></div><div class="bub"></div>
-                        <div class="bub"></div><div class="bub"></div><div class="bub"></div>
-                    </div>
-                    <!-- Services floating within the waves (no boxes!) -->
-                    <div class="wave-services">
-                        @foreach($services as $index => $service)
-                            @php $delay = ($index % 4) + 1; @endphp
-                            <div class="wave-service reveal reveal-delay-{{ $delay }}">
-                                <div class="ws-icon">
-                                    <i class="bi {{ $service->icon ?: 'bi-star' }}"></i>
-                                </div>
-                                <h3>{{ $service->title }}</h3>
-                                @if($service->short_description)
-                                    <p>{{ $service->short_description }}</p>
-                                @endif
+                <div class="svc-grid">
+                    @foreach($services as $index => $service)
+                        @php $delay = ($index % 4) + 1; $compileMs = rand(8, 25); @endphp
+                        <div class="svc-card reveal reveal-delay-{{ $delay }}">
+                            <div class="svc-card-bar">
+                                <span class="ab-dot red"></span>
+                                <span class="ab-dot yellow"></span>
+                                <span class="ab-dot green"></span>
+                                <span class="svc-filename">service-{{ $index + 1 }}.js</span>
                             </div>
-                        @endforeach
-                    </div>
+                            <div class="svc-card-code">
+                                <div class="svc-line"><span class="sv-keyword">export const</span> <span class="sv-var">service{{ $index + 1 }}</span> <span class="sv-op">=</span> <span class="sv-op">{</span></div>
+                                <div class="svc-line">&nbsp;&nbsp;<span class="sv-key">icon</span>: <span class="sv-str">"{{ $service->icon ?: 'bi-star' }}"</span><span class="sv-op">,</span></div>
+                                <div class="svc-line">&nbsp;&nbsp;<span class="sv-key">name</span>: <span class="sv-str">"{{ $service->title }}"</span><span class="sv-op">,</span></div>
+                                <div class="svc-line">&nbsp;&nbsp;<span class="sv-key">handle</span>: <span class="sv-str">"{{ $service->short_description ?: 'no description' }}"</span></div>
+                                <div class="svc-line"><span class="sv-op">};</span><span class="svc-cursor"></span></div>
+                            </div>
+                            <div class="svc-card-status">
+                                <span class="sv-status-ok"><span class="sv-dot"></span> compiled successfully</span>
+                                <span class="sv-time">{{ $compileMs }}ms</span>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             @else
                 <div class="empty-state reveal">
@@ -4401,24 +4174,6 @@
 })();
 
 
-// ===== SERVICE WAVE WATER RIPPLE (mouse-responsive) =====
-(function() {
-    var scenes = document.querySelectorAll('.wave-scene');
-    if (!scenes.length) return;
-    [].forEach.call(scenes, function(scene) {
-        var ripple = scene.querySelector('.wave-ripple');
-        if (!ripple) return;
-        scene.addEventListener('mousemove', function(e) {
-            var rect = scene.getBoundingClientRect();
-            var x = ((e.clientX - rect.left) / rect.width) * 100;
-            var y = ((e.clientY - rect.top) / rect.height) * 100;
-            ripple.style.background = 'radial-gradient(circle at ' + x + '% ' + y + '%, rgba(59, 130, 246, 0.15), transparent 60%)';
-        });
-        scene.addEventListener('mouseleave', function() {
-            ripple.style.background = 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.08), transparent 60%)';
-        });
-    });
-})();
 // ===== COALESCED SCROLL HANDLER (passive + rAF throttled) =====
 (function() {
     var navbar = document.getElementById('navbar');
@@ -4887,7 +4642,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .about-shell';
+    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .svc-card, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .about-shell';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
@@ -4908,6 +4663,24 @@
             this.style.setProperty('--shine-y', '50%');
         });
     });
+})();
+
+// ===== SERVICES — CODE TERMINAL CARDS (staggered line reveal) =====
+(function() {
+    var cards = document.querySelectorAll('.svc-card');
+    if (!cards.length || !('IntersectionObserver' in window)) {
+        [].forEach.call(cards, function(c) { c.classList.add('visible'); });
+        return;
+    }
+    var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    [].forEach.call(cards, function(card) { obs.observe(card); });
 })();
 
 // ===== ABOUT — IDE WORKBENCH (code line reveal animation) =====
