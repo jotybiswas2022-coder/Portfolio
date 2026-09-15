@@ -1384,6 +1384,7 @@
     /* Ensure content stays above shine */
     .project-card .card-image,
     .pkg-card .pkg-card-bar,
+    .pkg-card .pkg-preview,
     .pkg-card .pkg-body,
     .pkg-card .pkg-install,
     .pkg-card .pkg-action,
@@ -1895,8 +1896,40 @@
     html.light-theme .pkg-card-bar { background: rgba(139, 92, 246, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
     .pkg-card-bar .ab-dot { width: 10px; height: 10px; }
     .pkg-filename { margin-left: auto; }
+    .pkg-preview {
+        height: 130px;
+        position: relative;
+        overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        z-index: 2;
+    }
+    html.light-theme .pkg-preview { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); }
+    .pkg-preview img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .pkg-card:hover .pkg-preview img { transform: scale(1.08); }
+    .pkg-preview::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(180deg, transparent 55%, rgba(13, 23, 43, 0.85));
+        pointer-events: none;
+    }
+    html.light-theme .pkg-preview::after { background: linear-gradient(180deg, transparent 55%, rgba(248, 250, 252, 0.9)); }
+    .pkg-icon-big { font-size: 3rem; color: rgba(59, 130, 246, 0.55); }
+    .pkg-zoom {
+        position: absolute; top: 0.55rem; right: 0.55rem;
+        z-index: 3;
+        width: 30px; height: 30px;
+        display: flex; align-items: center; justify-content: center;
+        background: rgba(15, 23, 42, 0.6);
+        -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        color: #e2e8f0; font-size: 0.75rem;
+        transition: var(--transition);
+    }
     .pkg-body {
-        padding: 1.5rem 1.5rem 1rem;
+        flex: 1 1 auto;
+        padding: 1.2rem 1.5rem 0rem;
         text-align: center;
         font-family: var(--font);
         position: relative; z-index: 2;
@@ -2768,7 +2801,8 @@
         .project-card .card-body .view-details-btn { font-size: 0.8rem; }
         .pkg-grid { gap: 1.5rem; }
         .pkg-card { flex-basis: calc((100% - 1.5rem) / 2); max-width: calc((100% - 1.5rem) / 2); min-width: 240px; }
-        .pkg-body { padding: 1.3rem 1.2rem 0.9rem; }
+        .pkg-preview { height: 110px; }
+        .pkg-body { padding: 1.2rem 1.2rem 0rem; }
         .pkg-price { font-size: 2rem; }
         .pkg-title { font-size: 1.1rem; }
         .filter-tabs { gap: 0.4rem; }
@@ -2844,7 +2878,8 @@
         .pkg-grid { display: block !important; gap: unset; width: 100% !important; }
         .pkg-card { width: 100% !important; min-width: 0 !important; display: flex; max-width: none !important; }
         .pkg-card + .pkg-card { margin-top: 1rem; }
-        .pkg-body { padding: 1.2rem 1.1rem 0.9rem; }
+        .pkg-preview { height: 90px; }
+        .pkg-body { padding: 1.1rem 1.1rem 0rem; }
         .pkg-body h3 { margin-bottom: 0.3rem; }
         .pkg-desc { font-size: 0.82rem; line-height: 1.5; }
         .pkg-ribbon { display: none; }
@@ -3303,6 +3338,14 @@
                             <span class="pkg-filename">pricing-{{ $index + 1 }}.js</span>
                         </div>
                         <span class="pkg-ribbon">npm</span>
+                        <div class="pkg-preview">
+                            @if($gig->image)
+                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
+                            @else
+                                <span class="pkg-icon-big"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
+                            @endif
+                            <span class="pkg-zoom"><i class="bi bi-arrows-fullscreen"></i></span>
+                        </div>
                         <div class="pkg-body">
                             <div class="pkg-price"><span class="pkg-cur">$</span>{{ $gig->basic_price }}<span class="pkg-curr-label">USD</span></div>
                             <div class="pkg-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></div>
