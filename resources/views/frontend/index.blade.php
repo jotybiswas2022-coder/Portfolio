@@ -359,18 +359,6 @@
     section { position: relative; z-index: 1; }
     .section-padding { padding: 7rem 2rem; }
     .container { max-width: 1200px; margin: 0 auto; padding-left: 1rem; padding-right: 1rem; }
-    .section-title { text-align: center; margin-bottom: 4rem; }
-    .section-title h2 {
-        font-size: 2.5rem; font-weight: 800;
-        margin-bottom: 0.8rem; letter-spacing: -1px;
-    }
-    .section-title .line {
-        width: 60px; height: 4px;
-        background: var(--accent-gradient);
-        margin: 0 auto 1.2rem; border-radius: 2px;
-    }
-    .section-title p { color: var(--text-secondary); font-size: 1.05rem; }
-
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(40px); }
         to { opacity: 1; transform: translateY(0); }
@@ -404,8 +392,6 @@
         pointer-events: none;
     }
     html.light-theme .about-section { background: linear-gradient(180deg, #eef3fb 0%, #f8fafc 100%); }
-    .about-section .section-title { position: relative; z-index: 1; }
-
     .about-shell { position: relative; max-width: 1040px; width: 100%; margin: 0 auto; }
 
     /* Traffic-light dots (shared with the services + pricing cards) */
@@ -3146,9 +3132,6 @@
     /* Mobile Large (max 768px) */
     @media (max-width: 768px) {
         .section-padding { padding: 5rem 1.5rem; }
-        .section-title { margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2rem; }
-        .section-title p { font-size: 0.95rem; }
         .hero h1 { font-size: clamp(1.9rem, 7.5vw, 3.2rem); }
         .hero p { font-size: 1rem; line-height: 1.75; max-width: 100%; }
         .hero-badge { font-size: 0.72rem; padding: 0.3rem 1rem; margin-bottom: 1.1rem; }
@@ -3212,9 +3195,6 @@
     /* Mobile Small (max 480px) */
     @media (max-width: 480px) {
         .section-padding { padding: 3rem 1rem; }
-        .section-title { padding: 0 0.5rem; margin-bottom: 2.5rem; }
-        .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
-        .section-title .line { width: 45px; height: 3px; }
         .hero { padding: 3.5rem 1rem 2rem; min-height: 70vh; }
         .hero h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
         .hero h1 .gradient-text { white-space: normal; }
@@ -3320,7 +3300,6 @@
         .skill-card .skill-icon { font-size: 1.3rem; }
         .skill-card .skill-name { font-size: 0.72rem; }
         .skill-card .skill-percent { font-size: 0.6rem; }
-        .section-title h2 { font-size: 1.4rem; }
         .hero { padding: 2.75rem 0.75rem 1.2rem; min-height: auto; }
         .hero p { font-size: 0.82rem; }
         .hero-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
@@ -3393,11 +3372,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.about_title') }}</h2>
-                <p>{{ __('messages.about_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'about.git',
+                'hTag' => 'repo',
+                'hCmd' => 'git log --oneline -1',
+                'hTitle' => __('messages.about_title'),
+                'hTime' => '0.18s',
+                'hRight' => __('messages.avail_for_work'),
+                'hTests' => [__('messages.about_subtitle')],
+            ])
 
             <div class="about-shell reveal reveal-delay-1" id="aboutWorkbench">
                 <span class="ab-chip c1"><i class="bi bi-code-slash"></i> Laravel</span>
@@ -3615,11 +3598,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.services_title') }}</h2>
-                <p>{{ __('messages.services_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'services.php',
+                'hTag' => 'api',
+                'hCmd' => 'php artisan route:list',
+                'hTitle' => __('messages.services_title'),
+                'hTime' => '0.24s',
+                'hRight' => $services->count() . ' ' . __('messages.services_title'),
+                'hTests' => [__('messages.services_subtitle')],
+            ])
 
             @if($services->isNotEmpty())
                 <div class="svc-grid">
@@ -3691,11 +3678,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.gigs_title') }}</h2>
-                <p>{{ __('messages.gigs_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'pricing.sh',
+                'hTag' => 'sh',
+                'hCmd' => './install --list-plans',
+                'hTitle' => __('messages.gigs_title'),
+                'hTime' => '0.31s',
+                'hRight' => $gigs->count() . ' ' . __('messages.gigs_title'),
+                'hTests' => [__('messages.gigs_subtitle')],
+            ])
             <div class="pkg-grid">
                 @foreach($gigs as $index => $gig)
                     @php
@@ -3789,41 +3780,16 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="csh reveal" id="caseStudiesHead">
-                <div class="csh-bar">
-                    <span class="ab-dot red"></span>
-                    <span class="ab-dot yellow"></span>
-                    <span class="ab-dot green"></span>
-                    <span class="csh-file"><i class="bi bi-filetype-tsx"></i> case-studies.spec.ts</span>
-                    <span class="csh-tag">suite</span>
-                    <span class="csh-right"><span class="ab-dot2"></span> {{ $caseStudies->count() }} {{ __('messages.casestudy_title') }}</span>
-                </div>
-
-                <div class="csh-cmd">
-                    <span class="csh-prompt">&#10095;</span>
-                    <span class="csh-cmd-text" data-cmd="npm test -- case-studies.spec.ts"></span><span class="csh-caret"></span>
-                </div>
-
-                <div class="csh-body">
-                    <div class="csh-suite csh-anim" style="--d: 0">
-                        <span class="csh-pass"><i class="bi bi-check2"></i> PASS</span>
-                        <h2 class="csh-title">{{ __('messages.casestudy_title') }}</h2>
-                        <span class="csh-time">0.42s</span>
-                    </div>
-
-                    <ul class="csh-tests">
-                        <li class="csh-test csh-anim" style="--d: 2">
-                            <span class="csh-check"><i class="bi bi-check-lg"></i></span>
-                            <span>{{ __('messages.casestudy_subtitle') }}</span>
-                        </li>
-                    </ul>
-
-                    <div class="csh-summary csh-anim" style="--d: 3">
-                        <span>Tests: <b>1 passed</b>, 1 total</span>
-                        <span class="csh-sum-right">snapshots: 0 failed</span>
-                    </div>
-                </div>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'case-studies.spec.ts',
+                'hTag' => 'suite',
+                'hCmd' => 'npm test -- case-studies.spec.ts',
+                'hTitle' => __('messages.casestudy_title'),
+                'hTime' => '0.42s',
+                'hRight' => $caseStudies->count() . ' ' . __('messages.casestudy_title'),
+                'hTests' => [__('messages.casestudy_subtitle')],
+                'hSumRight' => 'snapshots: 0 failed',
+            ])
 
             @if($caseStudies->isNotEmpty())
                 <div class="coding-grid cs-grid">
@@ -3908,7 +3874,7 @@
                     <p>{{ __('messages.no_casestudy_desc') }}</p>
                 </div>
             @endif
-            <div class="csh csh-cta reveal" id="caseStudiesCta">
+            <div class="csh csh-cta reveal" data-csh>
                 <div class="csh-bar">
                     <span class="ab-dot red"></span>
                     <span class="ab-dot yellow"></span>
@@ -3949,11 +3915,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.experience_title') }}</h2>
-                <p>{{ __('messages.experience_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'experience.ts',
+                'hTag' => 'module',
+                'hCmd' => 'npx ts-node experience.ts',
+                'hTitle' => __('messages.experience_title'),
+                'hTime' => '0.15s',
+                'hRight' => $experiences->count() . ' ' . __('messages.experience_title'),
+                'hTests' => [__('messages.experience_subtitle')],
+            ])
 
             @if($experiences->isNotEmpty())
                 <div class="timeline reveal">
@@ -4007,11 +3977,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.education_title') }}</h2>
-                <p>{{ __('messages.education_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'education.ts',
+                'hTag' => 'module',
+                'hCmd' => 'npx ts-node education.ts',
+                'hTitle' => __('messages.education_title'),
+                'hTime' => '0.12s',
+                'hRight' => $educations->count() . ' ' . __('messages.education_title'),
+                'hTests' => [__('messages.education_subtitle')],
+            ])
 
             @if($educations->isNotEmpty())
                 <div class="row g-4 justify-content-center reveal">
@@ -4157,11 +4131,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.skills_title') }}</h2>
-                <p>{{ __('messages.skills_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'skills.ts',
+                'hTag' => 'module',
+                'hCmd' => 'npm run lint -- skills',
+                'hTitle' => __('messages.skills_title'),
+                'hTime' => '0.09s',
+                'hRight' => $skills->count() . ' ' . __('messages.skills_title'),
+                'hTests' => [__('messages.skills_subtitle')],
+            ])
 
             @if($skills->isNotEmpty())
                 <div class="skills-wrapper">
@@ -4239,11 +4217,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.projects_title') }}</h2>
-                <p>{{ __('messages.projects_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'projects.jsx',
+                'hTag' => 'ui',
+                'hCmd' => 'npm run build -- projects',
+                'hTitle' => __('messages.projects_title'),
+                'hTime' => '0.27s',
+                'hRight' => $projects->count() . ' ' . __('messages.projects_title'),
+                'hTests' => [__('messages.projects_subtitle')],
+            ])
             <!-- Filter Buttons -->
             <div class="filter-tabs reveal">
                 <button class="filter-btn active" data-filter="all">{{ __('messages.all') }}</button>
@@ -4324,11 +4306,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.testimonials_title') }}</h2>
-                <p>{{ __('messages.testimonials_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'testimonials.ts',
+                'hTag' => 'suite',
+                'hCmd' => 'npm test -- testimonials.ts',
+                'hTitle' => __('messages.testimonials_title'),
+                'hTime' => '0.21s',
+                'hRight' => $testimonials->count() . ' ' . __('messages.testimonials_title'),
+                'hTests' => [__('messages.testimonials_subtitle')],
+            ])
 
             @if($testimonials->isNotEmpty())
                 <div class="testimonial-carousel reveal">
@@ -4392,11 +4378,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __("messages.contact_title") }}</h2>
-                <p>{{ __("messages.contact_subtitle") }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'contact.php',
+                'hTag' => 'api',
+                'hCmd' => 'php artisan serve --contact',
+                'hTitle' => __('messages.contact_title'),
+                'hTime' => '0.08s',
+                'hRight' => __('messages.avail_for_work'),
+                'hTests' => [__('messages.contact_subtitle')],
+            ])
 
             <div class="contact-grid">
                 <div class="contact-info-card reveal reveal-delay-1">
@@ -4516,11 +4506,15 @@
                 <span class="cd-cursor"></span>
                 <span class="cd-line"></span>
             </div>
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.faq_title') }}</h2>
-                <p>{{ __('messages.faq_subtitle') }}</p>
-            </div>
+            @include('frontend.partials.section-header', [
+                'hFile' => 'faq.md',
+                'hTag' => 'docs',
+                'hCmd' => 'cat faq.md',
+                'hTitle' => __('messages.faq_title'),
+                'hTime' => '0.06s',
+                'hRight' => $faqs->count() . ' ' . __('messages.faq_title'),
+                'hTests' => [__('messages.faq_subtitle')],
+            ])
 
             @if($faqs->isNotEmpty())
                 <div class="faq-list reveal" style="max-width: 800px; margin: 0 auto;">
@@ -5642,12 +5636,9 @@
     setTimeout(function() { start(); fillAll(); }, 3500);
 })();
 
-// ===== CASE STUDIES HEADER + CTA (suite reveal + typed command) =====
+// ===== SECTION HEADERS + CASE STUDIES CTA (suite reveal + typed command) =====
 (function() {
-    var panels = [
-        document.getElementById('caseStudiesHead'),
-        document.getElementById('caseStudiesCta')
-    ].filter(Boolean);
+    var panels = [].slice.call(document.querySelectorAll('[data-csh]'));
     if (!panels.length) return;
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
