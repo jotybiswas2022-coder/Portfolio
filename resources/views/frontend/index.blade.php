@@ -487,6 +487,38 @@
     }
     @keyframes atSweep { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
+    /* Light reflect / glare sweep on hover */
+    .ab-wb::after {
+        content: '';
+        position: absolute;
+        top: -120%; left: -60%;
+        width: 55%; height: 340%;
+        background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.07) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(255, 255, 255, 0.07) 65%, transparent 100%);
+        transform: rotate(22deg) translateX(-140%);
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0;
+    }
+    .ab-wb:hover {
+        border-color: rgba(59, 130, 246, 0.55);
+        box-shadow:
+            0 40px 110px rgba(2, 8, 23, 0.7),
+            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+            0 0 90px rgba(59, 130, 246, 0.22);
+    }
+    .ab-wb:hover::after {
+        opacity: 1;
+        transform: rotate(22deg) translateX(340%);
+        transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+    }
+    html.light-theme .ab-wb:hover {
+        border-color: rgba(59, 130, 246, 0.6);
+        box-shadow: 0 40px 90px rgba(59, 130, 246, 0.28);
+    }
+    html.light-theme .ab-wb::after {
+        background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0.4) 65%, transparent 100%);
+    }
+
     /* Title bar */
     .ab-titlebar {
         display: flex; align-items: center; gap: 0.6rem;
