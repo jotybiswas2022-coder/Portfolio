@@ -493,12 +493,12 @@
     /* Shine follows cursor — same as project/gig cards */
     .ab-wb::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.42) 0%, rgba(59, 130, 246, 0.1) 12%, transparent 45%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.15) 28%, transparent 55%);
         pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
         z-index: 1; border-radius: inherit;
     }
     html.light-theme .ab-wb::after {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.32) 0%, rgba(59, 130, 246, 0.08) 12%, transparent 45%);
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.1) 28%, transparent 55%);
     }
     .ab-wb:hover::after { opacity: 1; }
     .ab-wb:hover {
