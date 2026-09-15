@@ -1061,37 +1061,38 @@
         z-index: 0;
     }
 
-    /* Surface water wave at top of section */
-    .services-section .water-surface {
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 50px;
-        z-index: 1;
-        pointer-events: none;
-        overflow: hidden;
+    /* Code-style section divider (About -> Services transition) */
+    .code-divider {
+        display: flex; align-items: center; gap: 0.9rem;
+        max-width: 760px; margin: 0 auto 2.6rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
     }
-    .services-section .water-surface .wave {
-        position: absolute;
-        top: -20px; left: -50%;
-        width: 200%; height: 60px;
-        border-radius: 45%;
+    .code-divider .cd-line { flex: 1; height: 1px; position: relative; }
+    .code-divider .cd-line::before {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.35));
     }
-    .services-section .water-surface .wave:nth-child(1) {
-        background: rgba(59, 130, 246, 0.06);
-        animation: surfaceWave1 4s linear infinite alternate;
+    .code-divider .cd-line:last-child::before {
+        background: linear-gradient(90deg, rgba(59, 130, 246, 0.35), transparent);
     }
-    .services-section .water-surface .wave:nth-child(2) {
-        background: rgba(99, 102, 241, 0.04);
-        animation: surfaceWave2 6s linear infinite alternate;
+    .code-divider .cd-tag {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-size: 0.78rem; color: var(--accent-light);
+        background: rgba(59, 130, 246, 0.07);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 0.4rem 0.95rem; border-radius: 8px;
+        white-space: nowrap;
     }
-    @keyframes surfaceWave1 {
-        0%   { transform: translateX(0) rotate(0deg); }
-        100% { transform: translateX(-20%) rotate(5deg); }
+    .code-divider .cd-tag i { font-size: 0.85rem; }
+    .code-divider .cd-arrow { color: var(--text-muted); }
+    .code-divider .cd-cursor {
+        width: 7px; height: 14px;
+        background: var(--accent-light);
+        border-radius: 1px;
+        animation: cdBlink 1s step-end infinite;
     }
-    @keyframes surfaceWave2 {
-        0%   { transform: translateX(0) rotate(0deg); }
-        100% { transform: translateX(15%) rotate(-3deg); }
-    }
+    html.light-theme .code-divider .cd-tag { background: rgba(59, 130, 246, 0.06); }
+    @keyframes cdBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
     /* ===== WAVE SCENE — continuous full-width water body ===== */
     .wave-scene {
@@ -1445,12 +1446,6 @@
         background: var(--accent-gradient);
         border-color: transparent;
     }
-    html.light-theme .services-section .water-surface .wave:nth-child(1) {
-        background: rgba(59, 130, 246, 0.04);
-    }
-    html.light-theme .services-section .water-surface .wave:nth-child(2) {
-        background: rgba(99, 102, 241, 0.03);
-    }
     html.light-theme .services-section .bottom-waves .wave:nth-child(1) {
         background: rgba(59, 130, 246, 0.04);
     }
@@ -1463,8 +1458,6 @@
 
     /* ---- Mobile: grid cards ---- */
     @media (max-width: 768px) {
-        .services-section .water-surface { height: 30px; }
-        .services-section .water-surface .wave { height: 40px; }
         .services-section .bottom-waves { height: 40px; }
         .wave-scene { min-height: auto; padding: 1rem 0; }
         .wave-scene .wave-bubbles .bub { display: none; }
@@ -3321,6 +3314,12 @@
         <!-- Services Section -->
     <section class="services-section section-padding" id="services">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> services.php</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.services_title') }}</h2>
@@ -3328,10 +3327,6 @@
             </div>
 
             @if($services->isNotEmpty())
-                <div class="water-surface">
-                    <div class="wave"></div>
-                    <div class="wave"></div>
-                </div>
                 <div class="wave-scene">
                     <!-- Flowing wave layers (4 layers) -->
                     <div class="wave-layer"></div>
