@@ -1093,6 +1093,11 @@
     }
     html.light-theme .code-divider .cd-tag { background: rgba(59, 130, 246, 0.06); }
     @keyframes cdBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @media (max-width: 768px) {
+        .code-divider { gap: 0.5rem; margin: 0 auto 2rem; }
+        .code-divider .cd-tag { font-size: 0.66rem; padding: 0.32rem 0.6rem; gap: 0.35rem; }
+        .code-divider .cd-cursor { width: 6px; height: 12px; }
+    }
 
     /* ===== WAVE SCENE — continuous full-width water body ===== */
     .wave-scene {
@@ -1339,46 +1344,6 @@
         text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
 
-    /* Bottom section waves */
-    .services-section .bottom-waves {
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 70px;
-        z-index: 1;
-        pointer-events: none;
-        overflow: hidden;
-    }
-    .services-section .bottom-waves .wave {
-        position: absolute;
-        bottom: 0; left: -50%;
-        width: 200%; height: 100%;
-        border-radius: 45%;
-    }
-    .services-section .bottom-waves .wave:nth-child(1) {
-        background: rgba(59, 130, 246, 0.05);
-        animation: bottomWave1 5s linear infinite alternate;
-    }
-    .services-section .bottom-waves .wave:nth-child(2) {
-        background: rgba(99, 102, 241, 0.04);
-        animation: bottomWave2 7s linear infinite alternate;
-    }
-    .services-section .bottom-waves .wave:nth-child(3) {
-        background: rgba(6, 182, 212, 0.03);
-        animation: bottomWave3 4s linear infinite alternate;
-    }
-    @keyframes bottomWave1 {
-        0%   { transform: translateX(0) rotate(0deg); opacity: 0.4; }
-        100% { transform: translateX(-25%) rotate(4deg); opacity: 0.6; }
-    }
-    @keyframes bottomWave2 {
-        0%   { transform: translateX(0) rotate(0deg); opacity: 0.3; }
-        100% { transform: translateX(20%) rotate(-3deg); opacity: 0.5; }
-    }
-    @keyframes bottomWave3 {
-        0%   { transform: translateX(0) rotate(0deg); opacity: 0.2; }
-        100% { transform: translateX(-20%) rotate(5deg); opacity: 0.4; }
-    }
-
     /* ---- Light theme ---- */
     html.light-theme .services-section::before {
         background:
@@ -1446,19 +1411,9 @@
         background: var(--accent-gradient);
         border-color: transparent;
     }
-    html.light-theme .services-section .bottom-waves .wave:nth-child(1) {
-        background: rgba(59, 130, 246, 0.04);
-    }
-    html.light-theme .services-section .bottom-waves .wave:nth-child(2) {
-        background: rgba(99, 102, 241, 0.03);
-    }
-    html.light-theme .services-section .bottom-waves .wave:nth-child(3) {
-        background: rgba(6, 182, 212, 0.02);
-    }
 
     /* ---- Mobile: grid cards ---- */
     @media (max-width: 768px) {
-        .services-section .bottom-waves { height: 40px; }
         .wave-scene { min-height: auto; padding: 1rem 0; }
         .wave-scene .wave-bubbles .bub { display: none; }
         .wave-scene .wave-shimmer { opacity: 0.3; }
@@ -3081,6 +3036,12 @@
 <!-- About Section -->
     <section class="about-section section-padding" id="about">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> about.js</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <div class="about-kicker"><span class="ab-kbracket">&lt;</span> {{ __('messages.about') }} <span class="ab-kbracket">/&gt;</span> <span class="about-kicker-caret"></span></div>
@@ -3358,11 +3319,6 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="bottom-waves">
-                    <div class="wave"></div>
-                    <div class="wave"></div>
-                    <div class="wave"></div>
-                </div>
             @else
                 <div class="empty-state reveal">
                     <i class="bi bi-gear"></i>
@@ -3377,6 +3333,12 @@
     @if($gigs->isNotEmpty())
     <section class="gigs-section section-padding" id="gigs">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> gigs.js</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.gigs_title') }}</h2>
@@ -3422,6 +3384,12 @@
     @if($caseStudies->isNotEmpty())
     <section class="casestudy-section section-padding" id="case-studies">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> casestudy.jsx</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.casestudy_title') }}</h2>
@@ -3457,6 +3425,12 @@
     <!-- Experience Timeline Section -->
     <section class="timeline-section section-padding" id="experience">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> experience.ts</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.experience_title') }}</h2>
@@ -3509,6 +3483,12 @@
     <section class="section-padding" id="education"
         style="background: linear-gradient(180deg, var(--bg-secondary) 0%, #080d1a 100%);">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> education.ts</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.education_title') }}</h2>
@@ -3653,6 +3633,12 @@
     <!-- Skills Section -->
     <section class="skills-section section-padding" id="skills">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> skills.ts</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.skills_title') }}</h2>
@@ -3729,6 +3715,12 @@
     <!-- Projects Section -->
     <section class="projects-section section-padding" id="projects">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> projects.jsx</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.projects_title') }}</h2>
@@ -3807,7 +3799,14 @@
 
     <!-- Testimonials Section -->
     <section class="testimonials-section section-padding" id="testimonials">
-        <div class="container">                            <div class="section-title reveal">
+        <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> testimonials.ts</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
+            <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.testimonials_title') }}</h2>
                 <p>{{ __('messages.testimonials_subtitle') }}</p>
@@ -3869,6 +3868,12 @@
     <section class="contact-section section-padding" id="contact">
         <div class="contact-bg-grid"></div>
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> contact.php</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __("messages.contact_title") }}</h2>
@@ -3987,6 +3992,12 @@
     </section><!-- FAQ Section -->
     <section class="faq-section section-padding" id="faq">
         <div class="container">
+            <div class="code-divider reveal" aria-hidden="true">
+                <span class="cd-line"></span>
+                <span class="cd-tag"><i class="bi bi-terminal-fill"></i> ~/portfolio <span class="cd-arrow">&rarr;</span> faq.md</span>
+                <span class="cd-cursor"></span>
+                <span class="cd-line"></span>
+            </div>
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.faq_title') }}</h2>
