@@ -1297,8 +1297,7 @@
     /* Ensure content stays above shine */
     .project-card .card-image,
     .pkg-card .pkg-card-bar,
-    .pkg-card .pkg-preview,
-    .pkg-card .pkg-body,
+    .pkg-card .plan-code,
     .pkg-card .pkg-install,
     .pkg-card .pkg-action,
     .pkg-card .pkg-foot,
@@ -2007,7 +2006,7 @@
     .project-card:hover .view-details-btn { background: rgba(59,130,246,0.12); gap: 0.7rem; }
     .project-card:hover .view-details-btn i { transform: translateX(3px); }
 
-/* ===== GIGS � PACKAGE TERMINAL CARDS ===== */
+/* ===== GIGS � PLAN CODE CARDS ===== */
     .gigs-section {
         background: linear-gradient(180deg, #080d1a 0%, #0a1628 50%, #080d1a 100%);
         position: relative;
@@ -2041,10 +2040,9 @@
         position: relative;
         flex: 0 0 calc((100% - 3.5rem) / 3);
         max-width: calc((100% - 3.5rem) / 3);
-        min-width: 240px;
+        min-width: 250px;
         display: flex;
         flex-direction: column;
-        text-decoration: none;
         background: rgba(13, 23, 43, 0.58);
         -webkit-backdrop-filter: blur(18px) saturate(160%);
         backdrop-filter: blur(18px) saturate(160%);
@@ -2096,103 +2094,166 @@
     html.light-theme .pkg-card-bar { background: rgba(139, 92, 246, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
     .pkg-card-bar .ab-dot { width: 10px; height: 10px; }
     .pkg-filename { margin-left: auto; }
-    .pkg-preview {
-        height: 130px;
-        position: relative;
-        overflow: hidden;
-        display: flex; align-items: center; justify-content: center;
-        background: linear-gradient(135deg, #0f172a, #1e293b);
-        z-index: 2;
-    }
-    html.light-theme .pkg-preview { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); }
-    .pkg-preview img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-    .pkg-card:hover .pkg-preview img { transform: scale(1.08); }
-    .pkg-preview { border-bottom: 1px solid rgba(139, 92, 246, 0.16); }
-    .pkg-icon-big { font-size: 3rem; color: rgba(59, 130, 246, 0.55); }
-    .pkg-zoom {
-        position: absolute; top: 0.55rem; right: 0.55rem;
-        z-index: 3;
-        width: 30px; height: 30px;
-        display: flex; align-items: center; justify-content: center;
-        background: rgba(15, 23, 42, 0.6);
-        -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 8px;
-        color: #e2e8f0; font-size: 0.75rem;
-        transition: var(--transition);
-    }
-    .pkg-body {
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 1.2rem 1.5rem 0rem;
-        text-align: center;
-        font-family: var(--font);
+
+    /* ---- Editor pane: the plan as a syntax-highlighted code object ---- */
+    .plan-code {
         position: relative; z-index: 2;
+        flex: 1 1 auto;
+        padding: 1rem 1rem 1rem 0.85rem;
+        background: rgba(2, 6, 18, 0.34);
+        border-bottom: 1px solid rgba(139, 92, 246, 0.16);
+        overflow: hidden;
     }
-    .pkg-price {
-        font-size: 2.4rem; font-weight: 800;
-        letter-spacing: -0.5px; line-height: 1.1;
-        background: linear-gradient(135deg, var(--accent-light), #8b5cf6);
+    html.light-theme .plan-code { background: rgba(15, 23, 42, 0.035); }
+    .plan-scan {
+        position: absolute; left: 0; right: 0; top: -45%;
+        height: 45%; pointer-events: none; z-index: 1;
+        background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.14) 45%, rgba(96, 165, 250, 0.22) 50%, rgba(139, 92, 246, 0.14) 55%, transparent);
+        animation: planScan 5s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+    }
+    html.light-theme .plan-scan {
+        background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.09) 45%, rgba(59, 130, 246, 0.15) 50%, rgba(139, 92, 246, 0.09) 55%, transparent);
+    }
+    @keyframes planScan {
+        0%   { top: -45%; opacity: 0; }
+        15%  { opacity: 1; }
+        70%  { top: 105%; opacity: 1; }
+        100% { top: 105%; opacity: 0; }
+    }
+
+    .plan-line {
+        display: block; position: relative; z-index: 2;
+        padding-left: 2.2rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.8rem; line-height: 1.9;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        color: #e2e8f0;
+    }
+    .plan-line.plan-l5 { white-space: normal; overflow: visible; text-overflow: clip; }
+    .plan-line::before {
+        counter-increment: planLine;
+        content: counter(planLine);
+        position: absolute; left: 0; top: 0;
+        width: 1.6rem; text-align: right;
+        color: #334155; font-size: 0.72rem;
+        user-select: none;
+    }
+    .plan-code { counter-reset: planLine; }
+    html.light-theme .plan-line { color: #1e293b; }
+    html.light-theme .plan-line::before { color: #cbd5e1; }
+
+    .pl-kw { color: #c4b5fd; }
+    .pl-fn { color: #7dd3fc; }
+    .pl-prop { color: #93c5fd; }
+    .pl-str { color: #86efac; }
+    .pl-num { color: #fbbf24; }
+    .pl-punc { color: #94a3b8; }
+    html.light-theme .pl-kw { color: #7c3aed; }
+    html.light-theme .pl-fn { color: #0891b2; }
+    html.light-theme .pl-prop { color: #2563eb; }
+    html.light-theme .pl-str { color: #047857; }
+    html.light-theme .pl-num { color: #c2410c; }
+    html.light-theme .pl-punc { color: #475569; }
+
+    /* The price value itself */
+    .plan-price {
+        font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px;
+        background: linear-gradient(135deg, #fbbf24, #f97316);
         -webkit-background-clip: text; background-clip: text;
-        color: transparent;
-        margin: 1.1rem 0 0;
+        -webkit-text-fill-color: transparent;
     }
-    .pkg-cur { font-size: 1.35rem; font-weight: 700; vertical-align: super; }
-    .pkg-curr-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-left: 0.35rem; letter-spacing: 0.8px; }
-    .pkg-title { font-size: 1.18rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
-    html.light-theme .pkg-title { color: #0f172a; }
-    .pkg-desc {
-        font-size: 0.86rem; line-height: 1.65; color: var(--text-secondary); margin: 0;
-        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    html.light-theme .plan-price {
+        background: linear-gradient(135deg, #d97706, #ea580c);
+        -webkit-background-clip: text; background-clip: text;
     }
-    html.light-theme .pkg-desc { color: #475569; }
+
+    .plan-caret {
+        display: inline-block; position: relative; z-index: 2;
+        width: 8px; height: 1em; margin-left: 2.2rem;
+        vertical-align: text-bottom;
+        background: #34d399; border-radius: 1px;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+        animation: planCaret 1s step-end infinite;
+    }
+    @keyframes planCaret { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    /* ---- Install terminal row ---- */
     .pkg-install {
-        display: inline-flex; align-items: center; gap: 0.45rem;
-        flex: 1; min-width: 0;
+        display: flex; align-items: center; gap: 0.45rem;
+        margin: 0.85rem 1.25rem 0;
+        padding: 0.55rem 0.8rem;
+        background: rgba(2, 6, 18, 0.42);
+        border: 1px solid rgba(52, 211, 153, 0.22);
+        border-radius: 10px;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.72rem; color: #cbd5e1;
         white-space: nowrap; overflow: hidden;
         position: relative; z-index: 2;
     }
+    html.light-theme .pkg-install { background: rgba(15, 23, 42, 0.04); border-color: rgba(16, 185, 129, 0.28); color: #334155; }
     .pkg-prompt { color: #34d399; font-weight: 700; }
     .pkg-cmd { overflow: hidden; text-overflow: ellipsis; }
     .pkg-cursormini {
         width: 7px; height: 0.95em;
-        background: var(--accent-light);
-        animation: svcBlink 1s step-end infinite;
+        background: #34d399;
+        animation: planCaret 1s step-end infinite;
         flex-shrink: 0;
     }
+
+    /* ---- Action ---- */
     .pkg-action {
         display: flex; align-items: center; justify-content: space-between;
-        margin: 0.9rem 1.5rem 1.1rem;
+        margin: 0.75rem 1.25rem 1.1rem;
         padding: 0.75rem 1rem;
         background: var(--accent-gradient);
         border-radius: 12px;
         font-family: var(--font); font-weight: 600; font-size: 0.9rem;
-        color: #fff;
+        color: #fff; text-decoration: none;
         box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
         position: relative; z-index: 2;
     }
+    .pkg-run-label { display: inline-flex; align-items: center; gap: 0.5rem; }
     .pkg-card:hover .pkg-action { box-shadow: 0 12px 32px rgba(59, 130, 246, 0.45); }
     .pkg-arrow { transition: transform 0.3s ease; }
     .pkg-card:hover .pkg-arrow { transform: translateX(4px); }
+
+    /* ---- Status bar ---- */
     .pkg-foot {
         display: flex; justify-content: space-between; align-items: center;
-        padding: 0.55rem 0.9rem;
+        margin-top: auto;
+        padding: 0.5rem 0.9rem;
         border-top: 1px solid rgba(255, 255, 255, 0.06);
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.68rem; color: var(--text-muted);
+        font-size: 0.66rem; color: var(--text-muted);
         position: relative; z-index: 2;
     }
     html.light-theme .pkg-foot { border-top-color: rgba(15, 23, 42, 0.08); }
-    .pkg-status { display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.75rem; flex-shrink: 0; }
-    .pkg-body, .pkg-install, .pkg-action { opacity: 0; }
-    .pkg-card.visible .pkg-body { animation: pkgIn 0.45s ease forwards; }
-    .pkg-card.visible .pkg-install { animation: pkgIn 0.45s ease forwards; animation-delay: 0.12s; }
-    .pkg-card.visible .pkg-action { animation: pkgIn 0.45s ease forwards; animation-delay: 0.24s; }
+    .pkg-status { display: inline-flex; align-items: center; gap: 0.4rem; color: #34d399; flex-shrink: 0; }
+    .pkg-lang { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+    /* ---- Compile-in reveal (driven by .visible) ---- */
+    .plan-line, .plan-caret, .pkg-install, .pkg-action {
+        opacity: 0; transform: translateY(10px);
+    }
+    .pkg-card.visible .plan-line,
+    .pkg-card.visible .plan-caret,
+    .pkg-card.visible .pkg-install,
+    .pkg-card.visible .pkg-action {
+        animation: pkgIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .pkg-card.visible .plan-l1 { animation-delay: 0.05s; }
+    .pkg-card.visible .plan-l2 { animation-delay: 0.15s; }
+    .pkg-card.visible .plan-l3 { animation-delay: 0.25s; }
+    .pkg-card.visible .plan-l4 { animation-delay: 0.35s; }
+    .pkg-card.visible .plan-l5 { animation-delay: 0.45s; }
+    .pkg-card.visible .plan-l6 { animation-delay: 0.55s; }
+    .pkg-card.visible .plan-caret { animation-delay: 0.62s; }
+    .pkg-card.visible .pkg-install { animation-delay: 0.76s; }
+    .pkg-card.visible .pkg-action { animation-delay: 0.9s; }
     @keyframes pkgIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     @media (prefers-reduced-motion: reduce) {
-        .pkg-body, .pkg-install, .pkg-action { opacity: 1; animation: none; }
+        .plan-scan, .plan-caret, .pkg-cursormini { animation: none; }
+        .plan-line, .plan-caret, .pkg-install, .pkg-action { opacity: 1; transform: none; animation: none; }
     }
 
     /* Testimonials */
@@ -2975,10 +3036,10 @@
         .project-card .card-body .view-details-btn { font-size: 0.8rem; }
         .pkg-grid { gap: 1.5rem; }
         .pkg-card { flex-basis: calc((100% - 1.5rem) / 2); max-width: calc((100% - 1.5rem) / 2); min-width: 240px; }
-        .pkg-preview { height: 110px; }
-        .pkg-body { padding: 1.2rem 1.2rem 0rem; }
-        .pkg-price { font-size: 2rem; }
-        .pkg-title { font-size: 1.1rem; }
+        .plan-line { font-size: 0.76rem; }
+        .plan-price { font-size: 1.35rem; }
+        .pkg-install { margin-left: 1rem; margin-right: 1rem; font-size: 0.68rem; }
+        .pkg-action { margin-left: 1rem; margin-right: 1rem; font-size: 0.85rem; }
         .filter-tabs { gap: 0.4rem; }
         .filter-btn { font-size: 0.75rem; padding: 0.4rem 1rem; }
         
@@ -3052,10 +3113,11 @@
         .pkg-grid { display: block !important; gap: unset; width: 100% !important; }
         .pkg-card { width: 100% !important; min-width: 0 !important; display: flex; max-width: none !important; }
         .pkg-card + .pkg-card { margin-top: 1rem; }
-        .pkg-preview { height: 90px; }
-        .pkg-body { padding: 1.1rem 1.1rem 0rem; }
-        .pkg-body h3 { margin-bottom: 0.3rem; }
-        .pkg-desc { font-size: 0.82rem; line-height: 1.5; }
+        .plan-line { font-size: 0.74rem; padding-left: 1.9rem; }
+        .plan-price { font-size: 1.25rem; }
+        .plan-caret { margin-left: 1.9rem; }
+        .pkg-install { margin-left: 0.85rem; margin-right: 0.85rem; font-size: 0.66rem; }
+        .pkg-action { margin-left: 0.85rem; margin-right: 0.85rem; padding: 0.65rem 0.85rem; font-size: 0.82rem; }
         .pkg-ribbon { display: none; }
         .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
         .filter-tabs::-webkit-scrollbar { height: 2px; }
@@ -3500,42 +3562,52 @@
             <div class="pkg-grid">
                 @foreach($gigs as $index => $gig)
                     @php
-                        $delay = ($index % 4) + 1;
-                        $icons = ['bi bi-star-fill', 'bi bi-rocket-takeoff-fill', 'bi bi-lightning-fill', 'bi bi-diamond-fill'];
+                        $delay = ($index % 3) + 1;
+                        $fileSlug = \Illuminate\Support\Str::slug($gig->title ?: 'plan');
+                        $fileSlug = $fileSlug !== '' ? $fileSlug : 'plan';
+                        $fnName = \Illuminate\Support\Str::camel($gig->title ?: 'plan');
                         $pkgName = \Illuminate\Support\Str::slug($gig->title ?: 'package', '_');
+                        $priceVal = (float) $gig->basic_price;
+                        $priceLabel = rtrim(rtrim(number_format($priceVal, 2, '.', ''), '0'), '.');
+                        $isWhole = ($priceVal == floor($priceVal));
                     @endphp
-                    <a href="{{ route('gig.detail', $gig->id) }}" class="pkg-card reveal reveal-delay-{{ $delay }}">
+                    <div class="pkg-card reveal reveal-delay-{{ $delay }}">
                         <div class="pkg-card-bar">
                             <span class="ab-dot red"></span>
                             <span class="ab-dot yellow"></span>
                             <span class="ab-dot green"></span>
-                            <span class="pkg-filename">pricing-{{ $index + 1 }}.js</span>
+                            <span class="pkg-filename">{{ $fileSlug }}.ts</span>
                         </div>
                         <span class="pkg-ribbon">npm</span>
-                        <div class="pkg-preview">
-                            @if($gig->image)
-                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
-                            @else
-                                <span class="pkg-icon-big"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
-                            @endif
-                            <span class="pkg-zoom"><i class="bi bi-arrows-fullscreen"></i></span>
-                        </div>
-                        <div class="pkg-body">
-                            <h3 class="pkg-title">{{ $gig->title }}</h3>
+
+                        <div class="plan-code">
+                            <span class="plan-line plan-l1"><span class="pl-kw">const</span> <span class="pl-fn">{{ $fnName }}</span> <span class="pl-punc">=</span> <span class="pl-punc">{</span></span>
+                            <span class="plan-line plan-l2"><span class="pl-prop">name</span><span class="pl-punc">:</span> <span class="pl-str">"{{ $gig->title }}"</span><span class="pl-punc">,</span></span>
+                            <span class="plan-line plan-l3"><span class="pl-prop">price</span><span class="pl-punc">:</span> <span class="plan-price"@if($isWhole) data-price="{{ (int) $priceVal }}"@endif>{{ $priceLabel }}</span><span class="pl-punc">,</span></span>
+                            <span class="plan-line plan-l4"><span class="pl-prop">currency</span><span class="pl-punc">:</span> <span class="pl-str">"USD"</span><span class="pl-punc">,</span></span>
                             @if($gig->short_description)
-                                <p class="pkg-desc">{{ $gig->short_description }}</p>
+                                <span class="plan-line plan-l5"><span class="pl-prop">about</span><span class="pl-punc">:</span> <span class="pl-str">"{{ $gig->short_description }}"</span><span class="pl-punc">,</span></span>
                             @endif
-                            <div class="pkg-price"><span class="pkg-cur">$</span>{{ $gig->basic_price }}<span class="pkg-curr-label">USD</span></div>
+                            <span class="plan-line plan-l6"><span class="pl-punc">}</span><span class="pl-punc">;</span></span>
+                            <span class="plan-caret"></span>
+                            <span class="plan-scan" aria-hidden="true"></span>
                         </div>
-                        <div class="pkg-action">
-                            <span>{{ __('messages.pkg_choose') }}</span>
-                            <span class="pkg-arrow"><i class="bi bi-arrow-up-right"></i></span>
+
+                        <div class="pkg-install">
+                            <span class="pkg-prompt">$</span>
+                            <span class="pkg-cmd" data-cmd="npm i {{ $pkgName }}"></span><span class="pkg-cursormini"></span>
                         </div>
+
+                        <a href="{{ route('gig.detail', $gig->id) }}" class="pkg-action">
+                            <span class="pkg-run-label"><i class="bi bi-play-fill"></i> {{ __('messages.pkg_choose') }}</span>
+                            <span class="pkg-arrow"><i class="bi bi-arrow-right"></i></span>
+                        </a>
+
                         <div class="pkg-foot">
-                            <span class="pkg-install"><span class="pkg-prompt">$</span> <span class="pkg-cmd">npm i {{ $pkgName }}</span><span class="pkg-cursormini"></span></span>
                             <span class="pkg-status"><span class="sv-dot"></span> available</span>
+                            <span class="pkg-lang"><i class="bi bi-git"></i> v{{ $index + 1 }}.0.0</span>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -5154,6 +5226,75 @@
         });
     }, { threshold: 0.3 });
     [].forEach.call(cards, function(card) { obs.observe(card); });
+})();
+
+// ===== PRICING - PLAN CODE CARDS (price count-up + install typewriter) =====
+(function() {
+    var cards = document.querySelectorAll('.pkg-card');
+    if (!cards.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function countUp(card) {
+        var el = card.querySelector('.plan-price');
+        if (!el) return;
+        var target = parseInt(el.getAttribute('data-price'), 10);
+        if (isNaN(target)) return;
+        if (reduce || !window.requestAnimationFrame) { el.textContent = target; return; }
+        var start = null;
+        var dur = 900;
+        (function tick(ts) {
+            if (start === null) start = ts;
+            var p = Math.min((ts - start) / dur, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(target * eased);
+            if (p < 1) requestAnimationFrame(tick);
+        })();
+    }
+
+    function typeCmd(card) {
+        var el = card.querySelector('.pkg-cmd');
+        if (!el) return;
+        var full = el.getAttribute('data-cmd') || el.textContent || '';
+        if (!full) return;
+        el.setAttribute('data-cmd', full);
+        if (reduce) { el.textContent = full; return; }
+        el.textContent = '';
+        var i = 0;
+        (function step() {
+            el.textContent = full.substring(0, i + 1);
+            i++;
+            if (i <= full.length) setTimeout(step, 40);
+        })();
+    }
+
+    function run(card) {
+        if (card.dataset.planRan) return;
+        card.dataset.planRan = '1';
+        countUp(card);
+        typeCmd(card);
+    }
+
+    if ('IntersectionObserver' in window && !reduce) {
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                var card = entry.target;
+                setTimeout(function() { run(card); }, 620);
+                obs.unobserve(card);
+            });
+        }, { threshold: 0.3 });
+        [].forEach.call(cards, function(c) { obs.observe(c); });
+    } else {
+        [].forEach.call(cards, function(c) { run(c); });
+    }
+
+    // Safety net: reveal and fill in values if the observers never fired
+    setTimeout(function() {
+        [].forEach.call(cards, function(c) {
+            run(c);
+            c.classList.add('visible');
+        });
+    }, 4000);
 })();
 
 // ===== ABOUT � IDE WORKBENCH (code line reveal animation) =====
