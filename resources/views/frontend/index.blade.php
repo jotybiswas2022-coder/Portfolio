@@ -1205,16 +1205,19 @@
     }
 
     @media (max-width: 860px) {
-        .svc-grid { max-width: 560px; }
-        .svc-card { flex: 0 0 calc((100% - 1rem) / 2); max-width: calc((100% - 1rem) / 2); min-width: 0; }
+        .svc-grid { max-width: 100%; gap: 1rem; }
+        .svc-card { flex: 0 0 calc((100% - 1rem) / 2) !important; max-width: calc((100% - 1rem) / 2) !important; min-width: 0 !important; }
     }
     @media (max-width: 480px) {
-        .svc-card-body { padding: 0.9rem 0.85rem 0.95rem; gap: 0.7rem; }
-        .svc-card-icon { width: 44px; height: 44px; font-size: 1.25rem; border-radius: 12px; }
-        .svc-card-title { font-size: 0.95rem; }
-        .svc-card-desc { font-size: 0.8rem; }
-        .svc-route { font-size: 0.66rem; }
-        .svc-card-foot { padding: 0.5rem 0.7rem; }
+        .svc-grid { gap: 0.75rem; }
+        .svc-card-body { padding: 0.65rem 0.6rem 0.7rem; gap: 0.5rem; }
+        .svc-card-icon { width: 36px; height: 36px; font-size: 1rem; border-radius: 10px; }
+        .svc-card-title { font-size: 0.78rem; }
+        .svc-card-desc { font-size: 0.68rem; line-height: 1.5; }
+        .svc-route { font-size: 0.58rem; }
+        .svc-card-foot { padding: 0.4rem 0.55rem; font-size: 0.6rem; }
+        .svc-card-bar { padding: 0.35rem 0.6rem; }
+        .svc-card-bar .ab-dot { width: 8px; height: 8px; }
     }
 /* ===== Glass Card Shine Effect ===== */
     .project-card::after,
