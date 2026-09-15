@@ -977,7 +977,9 @@
         .ab-chip { display: none; }
     }
     @media (max-width: 768px) {
-        .ab-tab:not(.active) { display: none; }
+        .ab-tabs { display: none; }
+        .ab-editor { display: none; }
+        .ab-statusbar { display: none; }
         .ab-avail { font-size: 0.66rem; }
         .ab-minimap { display: none; }
         .ab-dock { display: none; }
@@ -991,8 +993,6 @@
         .ab-gutter { width: 40px; }
         .ab-gutter span { height: calc(0.8rem * 1.9); line-height: calc(0.8rem * 1.9); font-size: 0.72rem; }
         .ab-line { font-size: 0.8rem; }
-        .ab-statusbar { gap: 0.7rem; }
-        .ab-statusbar .sb-hide { display: none; }
     }
     @media (max-width: 480px) {
         .ab-line { font-size: 0.74rem; }
@@ -2888,7 +2888,7 @@
         .section-title { padding: 0 0.5rem; margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .section-title .line { width: 45px; height: 3px; }
-        .hero { padding: 4.5rem 1rem 2.5rem; min-height: 88vh; }
+        .hero { padding: 3.5rem 1rem 2rem; min-height: 70vh; }
         .hero h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
         .hero h1 .gradient-text { white-space: normal; }
         .hero p { font-size: 0.92rem; }
@@ -2995,7 +2995,7 @@
         .skill-card .skill-name { font-size: 0.72rem; }
         .skill-card .skill-percent { font-size: 0.6rem; }
         .section-title h2 { font-size: 1.4rem; }
-        .hero { padding: 3.5rem 0.75rem 1rem; }
+        .hero { padding: 2.75rem 0.75rem 1.2rem; min-height: auto; }
         .hero p { font-size: 0.82rem; }
         .hero-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
         .btn-primary-custom, .btn-outline-custom { font-size: 0.78rem; padding: 0.55rem 1.2rem; }
