@@ -969,7 +969,8 @@
     @media (max-width: 1024px) {
         .ab-body { grid-template-columns: 1fr; }
         .ab-activity { display: none; }
-        .ab-editor { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+        .ab-editor { order: 2; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+        .ab-profile { order: 1; }
         html.light-theme .ab-editor { border-bottom-color: rgba(15, 23, 42, 0.08); }
     }
     @media (max-width: 900px) {
@@ -978,6 +979,8 @@
     @media (max-width: 768px) {
         .ab-tab:not(.active) { display: none; }
         .ab-avail { font-size: 0.66rem; }
+        .ab-minimap { display: none; }
+        .ab-dock { display: none; }
         .ab-u-name { font-size: 1.35rem; }
         .ab-avatar { width: 76px; height: 76px; }
         .ab-avatar::after { inset: -7px; }
