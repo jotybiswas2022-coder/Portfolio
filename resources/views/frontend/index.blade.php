@@ -1085,14 +1085,17 @@
 
         /* ===== SERVICES - CODE TERMINAL GRID ===== */
     .svc-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1.75rem;
         position: relative;
         z-index: 1;
     }
     .svc-card {
         position: relative;
+        flex: 0 0 calc((100% - 3.5rem) / 3);
+        max-width: calc((100% - 3.5rem) / 3);
         display: flex;
         flex-direction: column;
         background: rgba(13, 23, 43, 0.58);
@@ -1242,7 +1245,8 @@
     }
     .sv-time { opacity: 0.5; }
     @media (max-width: 768px) {
-        .svc-grid { grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+        .svc-grid { gap: 0.8rem; }
+        .svc-card { flex-basis: calc((100% - 1.6rem) / 3); max-width: calc((100% - 1.6rem) / 3); }
         .svc-card-body { padding: 1rem 0.6rem 0.8rem; }
         .svc-card-icon { width: 44px; height: 44px; font-size: 1.2rem; border-radius: 12px; margin-bottom: 0.6rem; }
         .svc-card-title { font-size: 0.78rem; margin-bottom: 0.3rem; }
@@ -1254,6 +1258,7 @@
     }
     @media (max-width: 480px) {
         .svc-grid { gap: 0.5rem; }
+        .svc-card { flex-basis: calc((100% - 1rem) / 3); max-width: calc((100% - 1rem) / 3); }
         .svc-card-body { padding: 0.8rem 0.4rem 0.6rem; }
         .svc-card-icon { width: 36px; height: 36px; font-size: 1rem; border-radius: 10px; }
         .svc-card-title { font-size: 0.68rem; }
