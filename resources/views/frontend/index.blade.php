@@ -406,24 +406,6 @@
     html.light-theme .about-section { background: linear-gradient(180deg, #eef3fb 0%, #f8fafc 100%); }
     .about-section .section-title { position: relative; z-index: 1; }
 
-    .about-kicker {
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.78rem; color: var(--accent-light);
-        background: rgba(59, 130, 246, 0.08);
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        padding: 0.35rem 0.9rem; border-radius: 8px;
-        margin-bottom: 1.1rem;
-        box-shadow: 0 0 24px rgba(59, 130, 246, 0.12);
-    }
-    .ab-kbracket { color: #fbbf24; font-weight: 800; }
-    .about-kicker-caret {
-        display: inline-block; width: 8px; height: 14px;
-        background: var(--accent-light); margin-left: 2px; border-radius: 1px;
-        animation: akCaret 1s step-end infinite;
-    }
-    @keyframes akCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
     .about-shell {
         position: relative;
         max-width: 1220px;
@@ -3044,7 +3026,6 @@
             </div>
             <div class="section-title reveal">
                 <div class="line"></div>
-                <div class="about-kicker"><span class="ab-kbracket">&lt;</span> {{ __('messages.about') }} <span class="ab-kbracket">/&gt;</span> <span class="about-kicker-caret"></span></div>
                 <h2>{{ __('messages.about_title') }}</h2>
                 <p>{{ __('messages.about_subtitle') }}</p>
             </div>
