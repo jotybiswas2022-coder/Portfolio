@@ -1923,52 +1923,34 @@
     }
     .pkg-body {
         flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         padding: 1.2rem 1.5rem 0rem;
         text-align: center;
         font-family: var(--font);
         position: relative; z-index: 2;
     }
     .pkg-price {
-        font-size: 2.3rem; font-weight: 800;
+        font-size: 2.4rem; font-weight: 800;
         letter-spacing: -0.5px; line-height: 1.1;
         background: linear-gradient(135deg, var(--accent-light), #8b5cf6);
         -webkit-background-clip: text; background-clip: text;
         color: transparent;
-        margin-bottom: 0.8rem;
+        margin: 1.1rem 0 0;
     }
-    .pkg-cur { font-size: 1.3rem; font-weight: 700; vertical-align: super; }
+    .pkg-cur { font-size: 1.35rem; font-weight: 700; vertical-align: super; }
     .pkg-curr-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-left: 0.35rem; letter-spacing: 0.8px; }
-    .pkg-icon {
-        width: 58px; height: 58px;
-        margin: 0 auto 1rem;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.7rem; color: var(--accent-light);
-        background: rgba(139, 92, 246, 0.1);
-        border: 1px solid rgba(139, 92, 246, 0.16);
-        border-radius: 16px;
-        transition: all 0.4s ease;
-    }
-    .pkg-card:hover .pkg-icon {
-        background: var(--accent-gradient);
-        color: #fff; border-color: transparent;
-        transform: scale(1.08) rotate(-4deg);
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
-    }
-    html.light-theme .pkg-icon { background: rgba(255, 255, 255, 0.85); border-color: rgba(139, 92, 246, 0.2); }
-    html.light-theme .pkg-card:hover .pkg-icon { background: var(--accent-gradient); color: #fff; border-color: transparent; }
     .pkg-title { font-size: 1.18rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
     html.light-theme .pkg-title { color: #0f172a; }
-    .pkg-desc { font-size: 0.86rem; line-height: 1.65; color: var(--text-secondary); margin: 0; }
+    .pkg-desc {
+        font-size: 0.86rem; line-height: 1.65; color: var(--text-secondary); margin: 0;
+        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
     html.light-theme .pkg-desc { color: #475569; }
     .pkg-install {
-        display: flex; align-items: center; gap: 0.5rem;
-        margin: 1rem 1.5rem 0;
-        padding: 0.5rem 0.8rem;
-        background: rgba(139, 92, 246, 0.06);
-        border: 1px solid rgba(139, 92, 246, 0.14);
-        border-radius: 10px;
-        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 0.74rem; color: var(--text-muted);
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        flex: 1; min-width: 0;
         white-space: nowrap; overflow: hidden;
         position: relative; z-index: 2;
     }
@@ -1982,7 +1964,7 @@
     }
     .pkg-action {
         display: flex; align-items: center; justify-content: space-between;
-        margin: auto 1.5rem 1.1rem;
+        margin: 0.9rem 1.5rem 1.1rem;
         padding: 0.75rem 1rem;
         background: var(--accent-gradient);
         border-radius: 12px;
@@ -1996,16 +1978,14 @@
     .pkg-card:hover .pkg-arrow { transform: translateX(4px); }
     .pkg-foot {
         display: flex; justify-content: space-between; align-items: center;
-        margin-top: 0.6rem;
-        padding: 0.5rem 0.9rem;
+        padding: 0.55rem 0.9rem;
         border-top: 1px solid rgba(255, 255, 255, 0.06);
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         font-size: 0.68rem; color: var(--text-muted);
         position: relative; z-index: 2;
     }
     html.light-theme .pkg-foot { border-top-color: rgba(15, 23, 42, 0.08); }
-    .pkg-status { display: inline-flex; align-items: center; gap: 0.4rem; }
-    .pkg-id { opacity: 0.5; }
+    .pkg-status { display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.75rem; flex-shrink: 0; }
     .pkg-body, .pkg-install, .pkg-action { opacity: 0; }
     .pkg-card.visible .pkg-body { animation: pkgIn 0.45s ease forwards; }
     .pkg-card.visible .pkg-install { animation: pkgIn 0.45s ease forwards; animation-delay: 0.12s; }
@@ -3341,25 +3321,19 @@
                             <span class="pkg-zoom"><i class="bi bi-arrows-fullscreen"></i></span>
                         </div>
                         <div class="pkg-body">
-                            <div class="pkg-price"><span class="pkg-cur">$</span>{{ $gig->basic_price }}<span class="pkg-curr-label">USD</span></div>
-                            <div class="pkg-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></div>
                             <h3 class="pkg-title">{{ $gig->title }}</h3>
                             @if($gig->short_description)
                                 <p class="pkg-desc">{{ $gig->short_description }}</p>
                             @endif
-                        </div>
-                        <div class="pkg-install">
-                            <span class="pkg-prompt">$</span>
-                            <span class="pkg-cmd">npm i {{ $pkgName }}</span>
-                            <span class="pkg-cursormini"></span>
+                            <div class="pkg-price"><span class="pkg-cur">$</span>{{ $gig->basic_price }}<span class="pkg-curr-label">USD</span></div>
                         </div>
                         <div class="pkg-action">
                             <span>{{ __('messages.pkg_choose') }}</span>
                             <span class="pkg-arrow"><i class="bi bi-arrow-up-right"></i></span>
                         </div>
                         <div class="pkg-foot">
+                            <span class="pkg-install"><span class="pkg-prompt">$</span> <span class="pkg-cmd">npm i {{ $pkgName }}</span><span class="pkg-cursormini"></span></span>
                             <span class="pkg-status"><span class="sv-dot"></span> available</span>
-                            <span class="pkg-id">package #{{ $index + 1 }}</span>
                         </div>
                     </a>
                 @endforeach
