@@ -1086,13 +1086,16 @@
         /* ===== SERVICES - CODE TERMINAL GRID ===== */
     .svc-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 400px));
         gap: 1.75rem;
+        justify-content: center;
         position: relative;
         z-index: 1;
     }
     .svc-card {
         position: relative;
+        display: flex;
+        flex-direction: column;
         background: rgba(13, 23, 43, 0.58);
         -webkit-backdrop-filter: blur(18px) saturate(160%);
         backdrop-filter: blur(18px) saturate(160%);
@@ -1190,6 +1193,7 @@
     html.light-theme .svc-card-desc { color: #475569; }
     .svc-card-foot {
         display: flex; justify-content: space-between; align-items: center;
+        margin-top: auto;
         padding: 0.55rem 0.85rem;
         border-top: 1px solid rgba(255, 255, 255, 0.06);
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
