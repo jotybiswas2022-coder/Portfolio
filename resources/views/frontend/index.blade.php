@@ -810,13 +810,14 @@
     .ab-bio p:last-child { margin-bottom: 0; }
 
     /* Stats */
-    .ab-stats { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ab-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
     .ab-stat {
         display: grid;
-        grid-template-columns: auto 1fr auto;
-        grid-template-rows: auto auto;
-        align-items: center; column-gap: 0.7rem; row-gap: 0.45rem;
-        padding: 0.6rem 0.8rem;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+        justify-items: center; row-gap: 0.45rem;
+        padding: 0.85rem 0.6rem 0.75rem;
+        text-align: center;
         background: rgba(59, 130, 246, 0.045);
         border: 1px solid var(--border-color);
         border-radius: 13px;
@@ -824,25 +825,27 @@
     }
     .ab-stat:hover { transform: translateY(-3px); border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
     .ab-stat .stat-ico {
+        grid-row: 1;
         width: 32px; height: 32px; border-radius: 10px;
         display: inline-flex; align-items: center; justify-content: center;
         font-size: 0.9rem; color: var(--accent-light);
         background: rgba(59, 130, 246, 0.1);
     }
-    .ab-stat .stat-text { display: flex; flex-direction: column; line-height: 1.25; }
+    .ab-stat .stat-text { grid-row: 3; display: flex; flex-direction: column; line-height: 1.3; }
     .ab-stat .stat-key {
-        font-size: 0.66rem; color: var(--text-muted);
-        font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+        font-size: 0.6rem; color: var(--text-muted);
+        font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
     }
     .ab-stat .number {
+        grid-row: 2;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
-        font-size: 1.05rem; font-weight: 800; line-height: 1;
+        font-size: 1.4rem; font-weight: 800; line-height: 1;
         background: linear-gradient(135deg, var(--accent-light), #a78bfa);
         -webkit-background-clip: text; background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    .ab-stat .stat-bar { grid-column: 2 / -1; height: 4px; border-radius: 50px; background: rgba(59, 130, 246, 0.12); overflow: hidden; }
+    .ab-stat .stat-bar { grid-row: 4; grid-column: 1; width: 100%; height: 4px; border-radius: 50px; background: rgba(59, 130, 246, 0.12); overflow: hidden; }
     .ab-stat .stat-fill {
         display: block; height: 100%; width: 0;
         background: linear-gradient(90deg, #3b82f6, #8b5cf6, #22d3ee);
@@ -994,6 +997,8 @@
         .ab-u-name { font-size: 1.2rem; }
         .ab-user { gap: 0.8rem; }
         .ab-freelance { flex: 1 1 100%; }
+        .ab-stats { grid-template-columns: 1fr; }
+        .ab-stat { padding: 0.7rem 0.9rem; }
     }
 
     /* ===== SERVICES — PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
