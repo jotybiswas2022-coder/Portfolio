@@ -1917,242 +1917,212 @@
         .current-badge { animation: none; }
     }
 
-    /* Skills section */
+    /* ===== SKILLS - LIVE PROCESS MONITOR (coding design) ===== */
     .skills-section { background: linear-gradient(180deg, #080d1a 0%, var(--bg-secondary) 100%); }
     html.light-theme .skills-section { background: linear-gradient(180deg, #f1f5f9 0%, #eef2f7 100%); }
-    .skills-wrapper {
-    }
-    .skills-grid {
-        display: flex;
-        gap: 1.5rem;
-        width: max-content;
-        animation: skillScroll 30s linear infinite;
-    }
-    .skills-grid:hover {
-        animation-play-state: paused;
-    }
-    @keyframes skillScroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-    .skill-card {
-        text-align: center;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: default;
+
+    .sk-panel {
         position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-shrink: 0;
-    }
-    .skill-card .skill-circle {
-        position: relative;
-        width: 120px;
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 0.75rem;
-        border-radius: 50%;
-        background: transparent;
-    }
-    .skill-circle-svg {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        transform: rotate(-90deg);
-    }
-    .skill-circle-bg {
-        fill: none;
-        stroke: rgba(59, 130, 246, 0.1);
-        stroke-width: 6;
-    }
-    .skill-circle-progress {
-        fill: none;
-        stroke: var(--accent-gradient);
-        stroke-width: 6;
-        stroke-linecap: round;
-        transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .skill-card .skill-icon {
-        font-size: 1.8rem;
-        color: var(--accent-light);
-        display: block;
-        z-index: 2;
-        transition: color 0.3s ease;
-    }
-
-    html.light-theme .skill-card .skill-icon {
-        color: var(--accent);
-    }
-    .skill-card    .skill-percent {
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: var(--text-muted);
-        z-index: 2;
-        display: block;
-        line-height: 1;
-    }
-    html.light-theme .skill-card .skill-percent {
-        color: var(--text-secondary);
-    }
-    .skill-card .skill-name {
-        font-weight: 700;
-        font-size: 0.88rem;
-        color: var(--text-primary);
-        display: block;
-    }
-
-    /* ===== Thunder and Lightning Effects ===== */
-    .skill-card {
-        position: relative;
-    }
-
-    /* Lightning bolt SVG */
-    .skill-lightning {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        width: 40px;
-        height: 40px;
-        z-index: 10;
-        pointer-events: none;
-        opacity: 0;
-        transform-origin: center;
-        transition: opacity 0.05s ease;
-    }
-    .skill-lightning.thunder-active {
-        opacity: 1;
-        animation: lightningBolt 0.6s ease-out forwards;
-    }
-    @keyframes lightningBolt {
-        0%   { transform: scale(0.3) rotate(-20deg); opacity: 1; filter: brightness(2); }
-        10%  { transform: scale(1.2) rotate(5deg); opacity: 1; filter: brightness(2.5); }
-        20%  { transform: scale(0.9) rotate(-5deg); opacity: 0.9; filter: brightness(1.5); }
-        35%  { transform: scale(1.1) rotate(2deg); opacity: 0.7; filter: brightness(1.2); }
-        50%  { transform: scale(1) rotate(0deg); opacity: 0.6; filter: brightness(1); }
-        100% { transform: scale(0.8) rotate(0deg); opacity: 0; }
-    }
-
-    /* Flash overlay on the skill circle */
-    .skill-circle .thunder-flash {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(180, 220, 255, 0.9), rgba(59, 130, 246, 0.3), transparent 70%);
-        z-index: 5;
-        pointer-events: none;
-        opacity: 0;
-    }
-    .skill-circle .thunder-flash.flash-active {
-        opacity: 0;
-        animation: thunderFlash 0.5s ease-out forwards;
-    }
-    @keyframes thunderFlash {
-        0%   { opacity: 0.9; transform: scale(0.8); }
-        10%  { opacity: 1; transform: scale(1.15); }
-        25%  { opacity: 0.6; transform: scale(1.05); }
-        50%  { opacity: 0.2; transform: scale(1); }
-        100% { opacity: 0; transform: scale(0.95); }
-    }
-
-    /* Electric arc ring around the skill circle */
-    .skill-circle .electric-ring {
-        position: absolute;
-        top: -4px; left: -4px; right: -4px; bottom: -4px;
-        border-radius: 50%;
-        border: 2px solid transparent;
-        z-index: 4;
-        pointer-events: none;
-        opacity: 0;
-        box-shadow: none;
-    }
-    .skill-circle .electric-ring.arc-active {
-        opacity: 1;
-        border-color: rgba(147, 197, 253, 0.6);
+        max-width: 880px;
+        margin: 0 auto;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.6) 0%, rgba(8, 15, 32, 0.45) 100%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(147, 197, 253, 0.22);
+        border-radius: 18px;
+        overflow: hidden;
         box-shadow:
-            0 0 8px 2px rgba(96, 165, 250, 0.6),
-            0 0 20px 6px rgba(59, 130, 246, 0.3),
-            inset 0 0 8px 2px rgba(96, 165, 250, 0.3);
-        animation: electricArc 0.8s ease-out forwards;
+            0 30px 90px rgba(2, 8, 23, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 60px rgba(34, 211, 238, 0.07);
     }
-    @keyframes electricArc {
-        0%   { opacity: 0; transform: scale(0.85) rotate(0deg); box-shadow: 0 0 0 0 rgba(96, 165, 250, 0); }
-        15%  { opacity: 1; transform: scale(1.08) rotate(30deg); box-shadow: 0 0 12px 4px rgba(96, 165, 250, 0.8), 0 0 30px 10px rgba(59, 130, 246, 0.4), inset 0 0 12px 4px rgba(96, 165, 250, 0.4); }
-        30%  { opacity: 0.8; transform: scale(1.02) rotate(60deg); box-shadow: 0 0 8px 2px rgba(96, 165, 250, 0.5), 0 0 20px 6px rgba(59, 130, 246, 0.3); }
-        50%  { opacity: 0.5; transform: scale(1) rotate(90deg); box-shadow: 0 0 4px 1px rgba(96, 165, 250, 0.3); }
-        100% { opacity: 0; transform: scale(0.95) rotate(120deg); box-shadow: 0 0 0 0 rgba(96, 165, 250, 0); }
+    html.light-theme .sk-panel {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(232, 240, 252, 0.62) 100%);
+        border-color: rgba(59, 130, 246, 0.26);
+        box-shadow: 0 30px 70px rgba(59, 130, 246, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
     }
-
-    /* Background thunder flash on the whole skills section */
-    .skills-section.thunder-bg-flash {
-        animation: sectionThunderFlash 0.6s ease-out;
-    }
-    @keyframes sectionThunderFlash {
-        0%   { background: linear-gradient(180deg, #0a1628, #0f172a); }
-        8%   { background: linear-gradient(180deg, rgba(180, 220, 255, 0.15) 0%, #0f172a 40%); }
-        20%  { background: linear-gradient(180deg, rgba(180, 220, 255, 0.08) 0%, #0f172a 60%); }
-        100% { background: linear-gradient(180deg, #080d1a 0%, var(--bg-secondary) 100%); }
-    }
-    html.light-theme .skills-section.thunder-bg-flash {
-        animation: sectionThunderFlashLight 0.6s ease-out;
-    }
-    @keyframes sectionThunderFlashLight {
-        0%   { background: linear-gradient(180deg, #f1f5f9, #eef2f7); }
-        8%   { background: linear-gradient(180deg, rgba(180, 220, 255, 0.3) 0%, #eef2f7 40%); }
-        20%  { background: linear-gradient(180deg, rgba(180, 220, 255, 0.15) 0%, #eef2f7 60%); }
-        100% { background: linear-gradient(180deg, #f1f5f9 0%, #eef2f7 100%); }
+    .sk-panel::before {
+        content: '';
+        position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, transparent);
+        background-size: 200% 100%;
+        animation: atSweep 5s linear infinite;
     }
 
-    /* Skill card shake on thunder strike */
-    .skill-card.thunder-shake {
-        animation: thunderShake 0.5s ease-out;
+    .sk-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255, 255, 255, 0.035);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
-    @keyframes thunderShake {
-        0%   { transform: translateX(0) translateY(0); }
-        5%   { transform: translateX(-3px) translateY(2px); }
-        10%  { transform: translateX(4px) translateY(-1px); }
-        15%  { transform: translateX(-2px) translateY(3px); }
-        25%  { transform: translateX(1px) translateY(-2px); }
-        40%  { transform: translateX(-1px) translateY(0); }
-        100% { transform: translateX(0) translateY(0); }
+    html.light-theme .sk-bar { background: rgba(15, 23, 42, 0.035); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .sk-file {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        margin-left: 0.35rem; font-size: 0.73rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .sk-file i { color: #22d3ee; }
+    html.light-theme .sk-file { color: #334155; }
+    .sk-badge {
+        margin-left: auto;
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+        color: #93c5fd; background: rgba(59, 130, 246, 0.14);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        padding: 0.16rem 0.5rem; border-radius: 50px;
+        white-space: nowrap;
+    }
+    .sk-live {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.4px;
+        color: #34d399; white-space: nowrap;
+    }
+    .sk-live-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #34d399;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.9);
+        animation: abPulse 1.4s ease-in-out infinite;
     }
 
-    /* Small electric spark particles */
-    .skill-card .spark {
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: #60a5fa;
+    .sk-cmd {
+        display: flex; align-items: center; gap: 0.5rem;
+        min-height: 2.3rem;
+        padding: 0.45rem 0.95rem;
+        font-size: 0.76rem;
+        background: rgba(2, 8, 23, 0.45);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        overflow: hidden;
+    }
+    html.light-theme .sk-cmd { background: rgba(15, 23, 42, 0.05); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .sk-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .sk-cmd-text { color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    html.light-theme .sk-cmd-text { color: #1e293b; }
+    .sk-caret {
+        display: inline-block; width: 8px; height: 1em; flex-shrink: 0;
+        background: #34d399; border-radius: 1px;
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+        animation: glBlink 1s step-end infinite;
+    }
+
+    .sk-head, .sk-row {
+        display: grid;
+        grid-template-columns: 2.6rem minmax(0, 1fr) minmax(0, 1.1fr) 3.2rem 4.2rem;
+        gap: 0.75rem;
+        align-items: center;
+    }
+    .sk-head {
+        padding: 0.4rem 0.95rem;
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+        color: #64748b;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+    .sk-rows { padding: 0.4rem 0.55rem 0.55rem; }
+    .sk-row {
+        padding: 0.3rem 0.4rem;
+        border-radius: 7px;
+        font-size: 0.7rem;
+        color: #cbd5e1;
+        transition: opacity 0.45s ease, transform 0.45s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+    html.light-theme .sk-row { color: #334155; }
+    .sk-row.is-active { background: rgba(34, 211, 238, 0.08); box-shadow: inset 2px 0 0 #22d3ee; }
+    .sk-row.is-active .sk-pid,
+    .sk-row.is-active .sk-state { color: #22d3ee; }
+    .sk-pid { color: #64748b; font-size: 0.66rem; }
+    .sk-name {
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+        font-weight: 600; color: var(--text-primary);
+    }
+    .sk-name i { font-size: 0.82rem; flex-shrink: 0; color: var(--accent-light); }
+    .sk-pct { font-size: 0.68rem; font-weight: 700; color: var(--accent-light); }
+    .sk-state {
+        font-size: 0.6rem; letter-spacing: 0.3px; text-transform: uppercase;
+        color: #64748b; text-align: right;
+    }
+
+    /* meter: marching stripes + a sweeping light keep it visibly alive */
+    .sk-meter {
+        position: relative;
+        height: 9px; border-radius: 50px;
+        background: rgba(99, 102, 241, 0.16);
+        overflow: hidden;
+    }
+    .sk-meter-fill {
+        display: block; height: 100%; width: var(--w, 0%);
+        border-radius: 50px;
+        background-image:
+            repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.22) 0 5px, transparent 5px 11px),
+            linear-gradient(90deg, #3b82f6, #22d3ee);
+        background-size: 22px 100%, 100% 100%;
+        animation: skMarch 1.15s linear infinite;
+        transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+    }
+    @keyframes skMarch {
+        from { background-position: 0 0, 0 0; }
+        to { background-position: 22px 0, 0 0; }
+    }
+    .sk-meter-sweep {
+        position: absolute; top: 0; bottom: 0; left: -30%; width: 30%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+        animation: skSweep 2.8s ease-in-out infinite;
+        animation-delay: calc(var(--i, 0) * 0.17s);
         pointer-events: none;
-        z-index: 11;
-        opacity: 0;
-        box-shadow: 0 0 6px 2px rgba(96, 165, 250, 0.8);
     }
-    .skill-card .spark.spark-active {
-        animation: sparkFly 0.7s ease-out forwards;
-    }
-    @keyframes sparkFly {
-        0%   { opacity: 1; transform: translate(0, 0) scale(1); }
-        100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0); }
+    @keyframes skSweep {
+        0% { left: -30%; opacity: 0; }
+        15% { opacity: 1; }
+        85% { opacity: 1; }
+        100% { left: 100%; opacity: 0; }
     }
 
-    /* Thunder strike: skill icon glows */
-    .skill-card.thunder-strike .skill-icon {
-        animation: iconGlow 0.4s ease-out 2;
+    .sk-foot {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.5rem 0.95rem;
+        font-size: 0.64rem; color: #64748b;
+        background: rgba(2, 8, 23, 0.42);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
-    @keyframes iconGlow {
-        0%   { color: #fff; filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.8)); }
-        50%  { color: #93c5fd; filter: drop-shadow(0 0 16px rgba(96, 165, 250, 0.6)); }
-        100% { color: var(--accent-light); filter: none; }
+    html.light-theme .sk-foot { background: rgba(15, 23, 42, 0.05); color: #94a3b8; }
+    .sk-foot i { color: var(--accent-light); }
+    .sk-foot b { color: #22d3ee; }
+    .sk-foot-right { margin-left: auto; }
+
+    /* reveal (armed by JS, so nothing hides without it) */
+    .sk-panel.sk-armed .sk-row { opacity: 0; transform: translateY(8px); }
+    .sk-panel.sk-armed .sk-meter-fill { width: 0; }
+    .sk-panel.sk-ready .sk-row {
+        opacity: 1; transform: translateY(0);
+        transition:
+            opacity 0.45s ease calc(var(--i, 0) * 60ms + 0.1s),
+            transform 0.45s ease calc(var(--i, 0) * 60ms + 0.1s),
+            background 0.25s ease 0s,
+            box-shadow 0.25s ease 0s;
+    }
+    .sk-panel.sk-ready .sk-meter-fill { width: var(--w, 0%); }
+
+    @media (max-width: 720px) {
+        .sk-head, .sk-row { grid-template-columns: 2.2rem minmax(0, 1fr) minmax(0, 0.9fr) 3rem; gap: 0.55rem; }
+        .sk-state { display: none; }
+        .sk-row { font-size: 0.66rem; }
+        .sk-name i { font-size: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+        .sk-head, .sk-row { grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) 2.7rem; gap: 0.45rem; }
+        .sk-pid { display: none; }
+        .sk-file { max-width: 11ch; }
+        .sk-badge, .sk-foot-right { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .sk-panel.sk-armed .sk-row { opacity: 1; transform: none; }
+        .sk-panel.sk-armed .sk-meter-fill { width: var(--w, 0%); }
+        .sk-panel::before,
+        .sk-live-dot,
+        .sk-caret,
+        .sk-meter-fill { animation: none; }
+        .sk-meter-sweep { display: none; }
     }
 
-    /* Skill circle progress glows on thunder */
-    .skill-card.thunder-strike .skill-circle-progress {
-        filter: brightness(1.4) drop-shadow(0 0 6px rgba(59, 130, 246, 0.6));
-        transition: filter 0.3s ease;
-    }
     /* Filter Tabs */
     .filter-tabs {
         display: flex; flex-wrap: wrap; gap: 0.6rem;
@@ -3317,12 +3287,6 @@
         .current-badge { font-size: 0.5rem; padding: 0.15rem 0.5rem; }
         .timeline-location { font-size: 0.68rem; }
 
-        .skills-grid { gap: 1.2rem; }
-        .skill-card .skill-circle { width: 100px; height: 100px; }
-        .skill-card .skill-icon { font-size: 1.5rem; }
-        .skill-card .skill-name { font-size: 0.8rem; }
-        .skill-card .skill-percent { font-size: 0.65rem; }
-        .skills-grid { animation-duration: 20s; }
 
         .projects-grid { grid-template-columns: 1fr; gap: 1.2rem; }
         .project-card .card-image { height: 160px; }
@@ -3400,11 +3364,6 @@
     @media (max-width: 360px) {
         html { font-size: 13px; }
         .hero h1 { font-size: 1.5rem; }
-        .skills-grid { gap: 1rem; animation-duration: 15s; }
-        .skill-card .skill-circle { width: 90px; height: 90px; }
-        .skill-card .skill-icon { font-size: 1.3rem; }
-        .skill-card .skill-name { font-size: 0.72rem; }
-        .skill-card .skill-percent { font-size: 0.6rem; }
         .hero { padding: 2.75rem 0.75rem 1.2rem; min-height: auto; }
         .hero p { font-size: 0.82rem; }
         .hero-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
@@ -4397,60 +4356,48 @@
             ])
 
             @if($skills->isNotEmpty())
-                <div class="skills-wrapper">
-                    <div class="skills-grid">
+                <div class="sk-panel" data-sk-panel role="group" aria-label="{{ __('messages.skills_title') }}">
+                    <div class="sk-bar">
+                        <span class="edu-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span class="sk-file"><i class="bi bi-cpu"></i> skills.monitor</span>
+                        <span class="sk-badge">{{ $skills->count() }} processes</span>
+                        <span class="sk-live"><span class="sk-live-dot"></span> live</span>
+                    </div>
+
+                    <div class="sk-cmd">
+                        <span class="sk-prompt">&#10095;</span>
+                        <span class="sk-cmd-text" data-sk-cmd="top -n 1 -u skills --live"></span>
+                        <span class="sk-caret" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="sk-head" aria-hidden="true">
+                        <span>PID</span>
+                        <span>PROCESS</span>
+                        <span>CPU</span>
+                        <span>LOAD</span>
+                        <span>STATE</span>
+                    </div>
+
+                    <div class="sk-rows">
                         @foreach($skills as $index => $skill)
-                            <div class="skill-card" data-skill-index="{{ $index }}">
-                                <div class="skill-circle">
-                                    <svg class="skill-circle-svg" viewBox="0 0 120 120">
-                                        <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
-                                        <circle class="skill-circle-progress" cx="60" cy="60" r="52"
-                                            stroke-dasharray="326.73"
-                                            stroke-dashoffset="326.73"
-                                            data-dashoffset="{{ 326.73 - (326.73 * $skill->percentage / 100) }}"/>
-                                    </svg>
-                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i></span>
-                                    <span class="skill-percent">{{ $skill->percentage }}%</span>
-                                    <!-- Thunder flash overlay -->
-                                    <div class="thunder-flash"></div>
-                                    <!-- Electric arc ring -->
-                                    <div class="electric-ring"></div>
-                                    <!-- Lightning bolt SVG top-right -->
-                                    <svg class="skill-lightning" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fbbf24" stroke="#f59e0b" stroke-width="0.5"/>
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fff" opacity="0.3"/>
-                                    </svg>
-                                </div>
-                                <span class="skill-name">{{ $skill->name }}</span>
-                                <!-- Spark particles (generated by JS) -->
+                            <div class="sk-row" style="--i: {{ $index }}" data-sk-pct="{{ $skill->percentage }}">
+                                <span class="sk-pid">{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}</span>
+                                <span class="sk-name"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i> {{ $skill->name }}</span>
+                                <span class="sk-meter" aria-hidden="true">
+                                    <span class="sk-meter-fill" style="--w: {{ $skill->percentage }}%"></span>
+                                    <span class="sk-meter-sweep" style="--i: {{ $index }}"></span>
+                                </span>
+                                <span class="sk-pct">{{ $skill->percentage }}%</span>
+                                <span class="sk-state">running</span>
                             </div>
                         @endforeach
-                        @foreach($skills as $index => $skill)
-                            <div class="skill-card" data-skill-index="{{ $index }}">
-                                <div class="skill-circle">
-                                    <svg class="skill-circle-svg" viewBox="0 0 120 120">
-                                        <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
-                                        <circle class="skill-circle-progress" cx="60" cy="60" r="52"
-                                            stroke-dasharray="326.73"
-                                            stroke-dashoffset="326.73"
-                                            data-dashoffset="{{ 326.73 - (326.73 * $skill->percentage / 100) }}"/>
-                                    </svg>
-                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i></span>
-                                    <span class="skill-percent">{{ $skill->percentage }}%</span>
-                                    <!-- Thunder flash overlay -->
-                                    <div class="thunder-flash"></div>
-                                    <!-- Electric arc ring -->
-                                    <div class="electric-ring"></div>
-                                    <!-- Lightning bolt SVG top-right -->
-                                    <svg class="skill-lightning" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fbbf24" stroke="#f59e0b" stroke-width="0.5"/>
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fff" opacity="0.3"/>
-                                    </svg>
-                                </div>
-                                <span class="skill-name">{{ $skill->name }}</span>
-                                <!-- Spark particles (generated by JS) -->
-                            </div>
-                        @endforeach
+                    </div>
+
+                    <div class="sk-foot">
+                        <i class="bi bi-activity"></i>
+                        <span>tick <b data-sk-tick>0</b></span>
+                        <span>&middot; cpu avg <b data-sk-avg>{{ (int) round($skills->avg('percentage')) }}%</b></span>
+                        <span class="sk-foot-right"><i class="bi bi-shield-check"></i> all systems nominal</span>
                     </div>
                 </div>
             @else
@@ -5235,16 +5182,7 @@
                     el.textContent = count + '+';
                 }, 30);
             }
-        });
-        // Skill circle animation
-        [].forEach.call(document.querySelectorAll('.skill-circle-progress'), function(circle) {
-            if (circle.dataset.animated) return;
-            if (circle.getBoundingClientRect().top < winHeight - 80) {
-                circle.dataset.animated = 'true';
-                circle.style.strokeDashoffset = circle.getAttribute('data-dashoffset');
-            }
-        });
-    }
+        });    }
 
     // rAF-coalesced scroll for zero layout thrashing
     function scrollHandler() {
@@ -5429,228 +5367,119 @@
     });
 })();
 
-// ===== THUNDER / LIGHTNING EFFECT FOR SKILLS (HOVER-TRIGGERED) =====
+// ===== SKILLS - LIVE PROCESS MONITOR (typed command + moving meters) =====
 (function() {
-    var section = document.querySelector('.skills-section');
-    if (!section) return;
+    var panel = document.querySelector('[data-sk-panel]');
+    if (!panel) return;
 
-    var allCards = document.querySelectorAll('.skills-grid .skill-card');
-    if (!allCards.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cmdEl = panel.querySelector('[data-sk-cmd]');
+    var cmd = cmdEl ? (cmdEl.getAttribute('data-sk-cmd') || '') : '';
+    var tickEl = panel.querySelector('[data-sk-tick]');
+    var avgEl = panel.querySelector('[data-sk-avg]');
 
-    var originalCount = Math.ceil(allCards.length / 2);
-    var cards = [];
-    for (var i = 0; i < originalCount; i++) {
-        cards.push(allCards[i]);
-    }
-
-    var dupCards = [];
-    for (var i = originalCount; i < allCards.length; i++) {
-        dupCards.push(allCards[i]);
-    }
-
-    function getPair(index) {
-        return { orig: cards[index], dup: dupCards[index] };
-    }
-
-    function createSparks(card) {
-        var count = 8;
-        for (var i = 0; i < count; i++) {
-            var spark = document.createElement('div');
-            spark.className = 'spark';
-            var angle = (i / count) * 360;
-            var dist = 30 + Math.random() * 40;
-            spark.style.setProperty('--spark-x', Math.cos(angle * Math.PI / 180) * dist + 'px');
-            spark.style.setProperty('--spark-y', Math.sin(angle * Math.PI / 180) * dist + 'px');
-            var size = 2 + Math.random() * 3;
-            spark.style.width = size + 'px';
-            spark.style.height = size + 'px';
-            var hue = 200 + Math.random() * 40;
-            spark.style.background = 'hsl(' + hue + ', 100%, 70%)';
-            spark.style.boxShadow = '0 0 ' + (4 + Math.random() * 6) + 'px hsla(' + hue + ', 100%, 70%, 0.8)';
-            card.appendChild(spark);
-            setTimeout(function() {
-                spark.classList.add('spark-active');
-                setTimeout(function() { spark.remove(); }, 800);
-            }, i * 30);
-        }
-    }
-
-    function strikeCard(card) {
-        if (!card) return;
-        card.classList.add('thunder-strike', 'thunder-shake');
-        var flash = card.querySelector('.thunder-flash');
-        var electric = card.querySelector('.electric-ring');
-        var bolt = card.querySelector('.skill-lightning');
-        [flash, electric, bolt].forEach(function(el) {
-            if (!el) return;
-            var cls = el === flash ? 'flash-active' : el === electric ? 'arc-active' : 'thunder-active';
-            el.classList.remove(cls);
-            el.offsetWidth;
-            el.classList.add(cls);
-        });
-        createSparks(card);
-        setTimeout(function() {
-            card.classList.remove('thunder-strike', 'thunder-shake');
-            card.querySelectorAll('.skill-circle-progress').forEach(function(c) { c.style.filter = ''; });
-        }, 1000);
-    }
-
-    function triggerLightning(index) {
-        var pair = getPair(index);
-        strikeCard(pair.orig);
-        if (pair.dup) strikeCard(pair.dup);
-    }
-
-    function triggerBgFlash() {
-        if (!section) return;
-        section.classList.remove('thunder-bg-flash');
-        section.offsetWidth;
-        section.classList.add('thunder-bg-flash');
-        setTimeout(function() { section.classList.remove('thunder-bg-flash'); }, 700);
-    }
-
-    // Throttle helper to prevent rapid re-triggers (1.5s cooldown)
-    var hoverTimers = {};
-
-    function isThrottled(index) {
-        var now = Date.now();
-        if (hoverTimers[index] && now - hoverTimers[index] < 1500) return true;
-        hoverTimers[index] = now;
-        return false;
-    }
-
-    // Attach hover listeners to each card
-    cards.forEach(function(card, index) {
-        card.addEventListener('mouseenter', function() {
-            if (isThrottled(index)) return;
-            triggerLightning(index);
-            triggerBgFlash();
-        });
+    var rows = [].slice.call(panel.querySelectorAll('.sk-row')).map(function(row) {
+        return {
+            row: row,
+            fill: row.querySelector('.sk-meter-fill'),
+            state: row.querySelector('.sk-state'),
+            base: parseInt(row.getAttribute('data-sk-pct'), 10) || 0,
+            phase: Math.random() * Math.PI * 2
+        };
     });
 
-    // Also attach hover to duplicate cards for seamless scroll continuity
-    dupCards.forEach(function(dup, index) {
-        dup.addEventListener('mouseenter', function() {
-            if (isThrottled(index)) return;
-            triggerLightning(index);
-            triggerBgFlash();
+    var revealed = false;
+    var liveTimer = null;
+    var active = -1;
+    var ticks = 0;
+
+    function typeCmd() {
+        if (!cmdEl || !cmd) return;
+        if (reduce) { cmdEl.textContent = cmd; return; }
+        var i = 0;
+        (function step() {
+            cmdEl.textContent = cmd.slice(0, ++i);
+            if (i < cmd.length) setTimeout(step, 20 + Math.random() * 26);
+        })();
+    }
+
+    // One sampling pass: the highlight moves down the list and every meter
+    // drifts a little, so the panel keeps visibly moving instead of sitting still.
+    function sample() {
+        ticks++;
+        if (tickEl) tickEl.textContent = ticks;
+
+        active = rows.length ? (active + 1) % rows.length : -1;
+
+        var sum = 0;
+        var n = 0;
+        rows.forEach(function(m, i) {
+            var isActive = i === active;
+            m.row.classList.toggle('is-active', isActive);
+            if (m.state) m.state.textContent = isActive ? 'sampling' : 'running';
+            if (!m.fill) return;
+            var drift = Math.sin(ticks / 2.1 + m.phase) * 4;
+            var val = Math.max(4, Math.min(100, Math.round(m.base + drift)));
+            m.fill.style.setProperty('--w', val + '%');
+            m.fill.style.width = val + '%';
+            sum += val;
+            n++;
         });
-    });
-})();
-// ===== THUNDER / LIGHTNING EFFECT FOR SKILLS =====
-(function() {
-    var section = document.querySelector('.skills-section');
-    if (!section) return;
 
-    var allCards = document.querySelectorAll('.skills-grid .skill-card');
-    if (!allCards.length) return;
-
-    var originalCount = Math.ceil(allCards.length / 2);
-    var cards = [];
-    for (var i = 0; i < originalCount; i++) {
-        cards.push(allCards[i]);
+        if (avgEl && n) avgEl.textContent = Math.round(sum / n) + '%';
     }
 
-    var dupCards = [];
-    for (var i = originalCount; i < allCards.length; i++) {
-        dupCards.push(allCards[i]);
+    function startLive() {
+        if (liveTimer || reduce || !rows.length) return;
+        sample();
+        liveTimer = setInterval(function() {
+            if (document.hidden || !inView()) return;
+            sample();
+        }, 1500);
     }
 
-    function getPair(index) {
-        return { orig: cards[index], dup: dupCards[index] };
+    function stopLive() {
+        if (liveTimer) { clearInterval(liveTimer); liveTimer = null; }
     }
 
-    function createSparks(card) {
-        var count = 8;
-        for (var i = 0; i < count; i++) {
-            var spark = document.createElement('div');
-            spark.className = 'spark';
-            var angle = (i / count) * 360;
-            var dist = 30 + Math.random() * 40;
-            spark.style.setProperty('--spark-x', Math.cos(angle * Math.PI / 180) * dist + 'px');
-            spark.style.setProperty('--spark-y', Math.sin(angle * Math.PI / 180) * dist + 'px');
-            var size = 2 + Math.random() * 3;
-            spark.style.width = size + 'px';
-            spark.style.height = size + 'px';
-            var hue = 200 + Math.random() * 40;
-            spark.style.background = 'hsl(' + hue + ', 100%, 70%)';
-            spark.style.boxShadow = '0 0 ' + (4 + Math.random() * 6) + 'px hsla(' + hue + ', 100%, 70%, 0.8)';
-            card.appendChild(spark);
-            setTimeout(function() {
-                spark.classList.add('spark-active');
-                setTimeout(function() { spark.remove(); }, 800);
-            }, i * 30);
-        }
+    function inView() {
+        var r = panel.getBoundingClientRect();
+        return r.top < window.innerHeight - 40 && r.bottom > 40;
     }
 
-    function strikeCard(card) {
-        if (!card) return;
-        card.classList.add('thunder-strike', 'thunder-shake');
-        var flash = card.querySelector('.thunder-flash');
-        var electric = card.querySelector('.electric-ring');
-        var bolt = card.querySelector('.skill-lightning');
-        [flash, electric, bolt].forEach(function(el) {
-            if (!el) return;
-            var cls = el === flash ? 'flash-active' : el === electric ? 'arc-active' : 'thunder-active';
-            el.classList.remove(cls);
-            void el.offsetWidth;
-            el.classList.add(cls);
-        });
-        createSparks(card);
-        setTimeout(function() {
-            card.classList.remove('thunder-strike', 'thunder-shake');
-            card.querySelectorAll('.skill-circle-progress').forEach(function(c) { c.style.filter = ''; });
-        }, 1000);
+    function reveal() {
+        if (revealed) { startLive(); return; }
+        if (!inView()) return;
+        revealed = true;
+        panel.classList.remove('sk-armed');
+        panel.classList.add('sk-ready');
+        setTimeout(typeCmd, 280);
+        startLive();
     }
 
-    function triggerLightning(index) {
-        var pair = getPair(index);
-        strikeCard(pair.orig);
-        if (pair.dup) strikeCard(pair.dup);
-    }
-
-    function triggerBgFlash() {
-        section.classList.remove('thunder-bg-flash');
-        void section.offsetWidth;
-        section.classList.add('thunder-bg-flash');
-        setTimeout(function() { section.classList.remove('thunder-bg-flash'); }, 700);
-    }
-
-    function randomThunder() {
-        if (!cards.length) return;
-        var index = Math.floor(Math.random() * cards.length);
-        triggerLightning(index);
-        if (Math.random() < 0.2) triggerBgFlash();
-    }
-
-    var isVisible = false;
-    var timeoutId = null;
-
-    function scheduleNext() {
-        if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
-        if (!isVisible) return;
-        timeoutId = setTimeout(function() {
-            if (isVisible) { randomThunder(); scheduleNext(); }
-        }, 2000 + Math.random() * 6000);
-    }
+    // Armed by JS, so the panel is never hidden without scripts.
+    panel.classList.add('sk-armed');
 
     if (window.IntersectionObserver) {
         new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                isVisible = entry.isIntersecting;
-                if (isVisible) scheduleNext();
-                else if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+                if (entry.isIntersecting) reveal();
+                else stopLive();
             });
-        }, { threshold: 0.1 }).observe(section);
+        }, { threshold: 0.15 }).observe(panel);
     } else {
-        window.addEventListener('scroll', function() {
-            var rect = section.getBoundingClientRect();
-            isVisible = rect.top < window.innerHeight + 100 && rect.bottom > -100;
-            if (isVisible) scheduleNext();
-        });
+        window.addEventListener('scroll', function() { reveal(); });
     }
 
-    setTimeout(function() { if (isVisible) randomThunder(); }, 1000);
+    // Safety net: never leave the rows hidden if the observer never fires.
+    setTimeout(function() {
+        if (!revealed && inView()) {
+            panel.classList.remove('sk-armed');
+            panel.classList.add('sk-ready');
+            revealed = true;
+            startLive();
+        }
+    }, 2200);
 })();
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
