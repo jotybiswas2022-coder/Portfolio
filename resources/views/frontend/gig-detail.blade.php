@@ -290,11 +290,6 @@
         transition: background 0.25s ease;
     }
     .desc-line:hover { background: rgba(59, 130, 246, 0.05); }
-    .desc-num {
-        flex-shrink: 0; width: 1.9rem; text-align: right; padding-top: 0.14rem;
-        color: #475569; font-size: 0.72rem; user-select: none;
-    }
-    html.light-theme .desc-num { color: #94a3b8; }
     .desc-txt { min-width: 0; word-break: break-word; }
     /* the listing cascades in when the card reveals */
     .gd-description-wrap.in .desc-line { animation: descIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 45ms); }
@@ -353,13 +348,6 @@
         padding: 0.12rem 0.5rem; border-radius: 4px;
         flex-shrink: 0;
     }
-    .pkg-step {
-        flex-shrink: 0; font-family: var(--mono); font-size: 0.56rem; font-weight: 700;
-        color: #a5b4fc; background: rgba(99, 102, 241, 0.14);
-        border: 1px solid rgba(99, 102, 241, 0.28);
-        border-radius: 4px; padding: 0.1rem 0.3rem;
-    }
-    html.light-theme .pkg-step { color: #4f46e5; background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.2); }
     .pkg-body { padding: 1.4rem 1.4rem 1.45rem; display: flex; flex-direction: column; flex: 1; position: relative; }
     .pkg-icon {
         width: 42px; height: 42px; margin-bottom: 0.8rem;
@@ -531,13 +519,6 @@
     }
     html.light-theme .sc-bar { background: rgba(15, 23, 42, 0.75); color: #e2e8f0; }
     .sc-bar i { color: #818cf8; font-size: 0.68rem; }
-    .sc-index {
-        font-family: var(--mono); font-size: 0.54rem; font-weight: 700;
-        color: #a5b4fc; background: rgba(99, 102, 241, 0.16);
-        border: 1px solid rgba(99, 102, 241, 0.3);
-        border-radius: 4px; padding: 0.08rem 0.28rem;
-    }
-    html.light-theme .sc-index { color: #4f46e5; background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.2); }
     .suggested-card .sc-image::after {
         content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
         background: linear-gradient(transparent, rgba(10, 15, 30, 0.95)); pointer-events: none; z-index: 1;
@@ -584,7 +565,6 @@
         .gd-file { font-size: 0.66rem; }
         .gd-crumb { display: none; }
         .desc-line { font-size: 0.82rem; line-height: 1.8; gap: 0.55rem; }
-        .desc-num { width: 1.6rem; font-size: 0.66rem; }
         .gd-inner { padding: 1.1rem; }
         .gd-foot { padding: 0.5rem 0.8rem; }
         .top-bar { margin-bottom: 1.4rem; }
@@ -610,7 +590,6 @@
         .gd-shell { border-radius: 12px; }
         .gd-file { font-size: 0.6rem; }
         .desc-line { font-size: 0.75rem; line-height: 1.75; padding: 0.05rem 0.2rem; }
-        .desc-num { width: 1.35rem; font-size: 0.6rem; }
         .gd-from { font-size: 0.62rem; padding: 0.26rem 0.6rem; }
         .gd-branch { display: none; }
         .gd-img-bar { top: 8px; left: 8px; font-size: 0.6rem; padding: 0.28rem 0.65rem; }
@@ -714,7 +693,6 @@
                                 <div class="desc-code">
                                     @foreach(preg_split('/\r\n|\r|\n/', trim($gig->description)) as $line)
                                         <div class="desc-line" style="--i: {{ min($loop->index, 12) }}">
-                                            <span class="desc-num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                                             <span class="desc-txt">@if(trim($line) === '')&nbsp;@else{{ $line }}@endif</span>
                                         </div>
                                     @endforeach
@@ -736,7 +714,6 @@
                             <span class="ab-dot red" aria-hidden="true"></span>
                             <span class="ab-dot yellow" aria-hidden="true"></span>
                             <span class="ab-dot green" aria-hidden="true"></span>
-                            <span class="pkg-step">01</span>
                             <span class="pkg-file"><i class="bi bi-file-earmark-code"></i> install-basic.sh</span>
                             <span class="pkg-flag">--basic</span>
                         </div>
@@ -769,7 +746,6 @@
                             <span class="ab-dot red" aria-hidden="true"></span>
                             <span class="ab-dot yellow" aria-hidden="true"></span>
                             <span class="ab-dot green" aria-hidden="true"></span>
-                            <span class="pkg-step">02</span>
                             <span class="pkg-file"><i class="bi bi-file-earmark-code"></i> install-standard.sh</span>
                             <span class="pkg-flag">--standard</span>
                         </div>
@@ -801,7 +777,6 @@
                             <span class="ab-dot red" aria-hidden="true"></span>
                             <span class="ab-dot yellow" aria-hidden="true"></span>
                             <span class="ab-dot green" aria-hidden="true"></span>
-                            <span class="pkg-step">03</span>
                             <span class="pkg-file"><i class="bi bi-file-earmark-code"></i> install-premium.sh</span>
                             <span class="pkg-flag">--premium</span>
                         </div>
@@ -847,7 +822,7 @@
                                                 <i class="bi bi-image"></i>
                                             </div>
                                         @endif
-                                        <div class="sc-bar"><span class="sc-index">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span><i class="bi bi-folder-fill"></i> ./open.git</div>
+                                        <div class="sc-bar"><i class="bi bi-folder-fill"></i> ./open.git</div>
                                     </div>
                                     <div class="sc-body">
                                         <h3>{{ $suggested->title }}</h3>
