@@ -536,28 +536,56 @@
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
         .chat-page { padding-top: 85px; }
+        .chat-container { max-width: 100%; padding: 0 0.5rem; }
         .messages-box { max-height: 420px; padding: 1.2rem; }
         .message { max-width: 92%; }
         .chat-header { padding: 0.85rem 1.1rem; }
         .chat-header .header-info h2 { font-size: 1rem; }
         .package-summary { padding: 1rem 1.2rem; }
+        .package-summary .pkg-body { gap: 0.6rem 1rem; }
+        .package-summary .pkg-details { font-size: 0.8rem; }
+        .msg-bubble img.msg-text,
+        .msg-bubble .msg-text img { max-width: 100%; }
         .chat-form { padding: 1rem; }
+        .input-group { gap: 0.45rem; }
     }
     @media (max-width: 480px) {
-        .chat-page { padding-top: 75px; }
-        .messages-box { max-height: 360px; padding: 1rem; gap: 1rem; }
-        .message { max-width: 95%; }
+        .chat-page { padding-top: 75px; padding-bottom: 2.5rem; }
+        .chat-container { padding: 0; }
+        .messages-box { max-height: 360px; padding: 1rem 0.7rem; gap: 1rem; }
+        .message { max-width: 97%; gap: 0.55rem; }
         .msg-avatar { width: 28px; height: 28px; min-width: 28px; font-size: 0.7rem; border-radius: 10px; }
-        .msg-bubble { padding: 0.6rem 0.9rem; font-size: 0.85rem; border-radius: 14px; }
-        .chat-header { padding: 0.75rem 0.9rem; gap: 0.65rem; }
+        .msg-bubble { padding: 0.6rem 0.85rem; font-size: 0.85rem; border-radius: 14px; }
+        .msg-bubble img.msg-text,
+        .msg-bubble .msg-text img { max-width: 100%; max-height: 200px; }
+        .chat-header { padding: 0.7rem 0.8rem; gap: 0.65rem; border-radius: 16px; }
         .chat-header .back-btn { width: 32px; height: 32px; font-size: 0.9rem; }
         .chat-header .header-info h2 { font-size: 0.9rem; }
-        .header-status .status-badge { font-size: 0.65rem; padding: 0.25rem 0.65rem; }
-        .package-summary { padding: 0.8rem 1rem; }
+        .chat-header .header-sub { font-size: 0.68rem; }
+        .header-status .status-badge { font-size: 0.62rem; padding: 0.22rem 0.55rem; gap: 0.2rem; }
+        .package-summary { padding: 0.8rem 0.9rem; border-radius: 16px; }
         .package-summary .pkg-name { font-size: 0.95rem; }
-        .chat-form { padding: 0.8rem; }
-        .input-group textarea { padding: 0.6rem 0.8rem; font-size: 0.85rem; min-height: 40px; }
-        .input-group .action-btn, .input-group .send-btn { width: 40px; height: 40px; font-size: 1rem; }
+        .package-summary .pkg-price { font-size: 0.9rem; }
+        .package-summary .pkg-details { font-size: 0.78rem; }
+        .chat-form { padding: 0.7rem; border-radius: 16px; }
+        .input-group { gap: 0.4rem; }
+        .input-group textarea { padding: 0.55rem 0.75rem; font-size: 0.85rem; min-height: 40px; border-radius: 12px; }
+        .input-group .action-btn, .input-group .send-btn { width: 40px; height: 40px; font-size: 1rem; border-radius: 12px; }
+        .emoji-picker button { font-size: 1.15rem; }
+        .conversation-closed { padding: 1rem; font-size: 0.82rem; }
+        .messages-empty p { font-size: 0.82rem; }
+    }
+    @media (max-width: 360px) {
+        .chat-page { padding-top: 68px; }
+        .chat-header { padding: 0.6rem 0.7rem; gap: 0.55rem; }
+        .chat-header .header-info h2 { font-size: 0.82rem; }
+        .header-status .status-badge { font-size: 0.55rem; padding: 0.18rem 0.45rem; }
+        .messages-box { padding: 0.8rem 0.55rem; gap: 0.85rem; }
+        .msg-avatar { width: 26px; height: 26px; min-width: 26px; font-size: 0.65rem; }
+        .msg-bubble { padding: 0.55rem 0.75rem; font-size: 0.8rem; }
+        .input-group textarea { padding: 0.5rem 0.65rem; font-size: 0.8rem; min-height: 38px; }
+        .input-group .action-btn, .input-group .send-btn { width: 38px; height: 38px; font-size: 0.95rem; }
+        .package-summary .pkg-details { font-size: 0.74rem; }
     }
 </style>
 
