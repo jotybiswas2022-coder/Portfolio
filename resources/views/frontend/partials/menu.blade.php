@@ -10,6 +10,13 @@
         border-bottom: 1px solid rgba(59, 130, 246, 0.12);
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .navbar-main::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #8b5cf6, transparent);
+        background-size: 200% 100%; animation: navSweep 5s linear infinite; opacity: 0.9;
+        pointer-events: none;
+    }
+    @keyframes navSweep { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
     html.light-theme .navbar-main {
         background: rgba(248, 250, 252, 0.92);
         border-bottom: 1px solid rgba(59, 130, 246, 0.12);
@@ -26,6 +33,7 @@
     }
     .nav-logo {
         font-size: 1.4rem; font-weight: 800;
+        display: inline-flex; align-items: center; gap: 0.4rem;
         background: linear-gradient(135deg, #3b82f6, #60a5fa, #a78bfa, #3b82f6);
         background-size: 300% 300%;
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -34,6 +42,12 @@
         letter-spacing: -0.5px;
         text-decoration: none;
     }
+    .nav-logo::before {
+        content: '❯'; font-size: 1rem; color: #34d399; font-weight: 700;
+        -webkit-text-fill-color: #34d399;
+        animation: logoBlink 1.4s steps(1) infinite;
+    }
+    @keyframes logoBlink { 50% { opacity: 0.35; } }
     @keyframes navGradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -41,16 +55,45 @@
     }
 
     /* ===== Desktop nav links ===== */
-    .nav-links { display: flex; gap: 0.25rem; list-style: none; align-items: center; margin: 0; padding: 0; }
+    .nav-links {
+        display: flex; gap: 0.25rem; list-style: none; align-items: center; margin: 0; padding: 0;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+    }
     .nav-links a { 
         color: #94a3b8; font-weight: 500; font-size: 0.88rem;
         padding: 0.5rem 0.9rem; border-radius: 8px;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         text-decoration: none; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: 0.4rem; position: relative;
     }
     html.light-theme .nav-links a { color: #475569; }
+    .nav-links a::before {
+        content: '$'; font-weight: 700; color: #34d399;
+        opacity: 0; transform: translateX(-4px);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
     .nav-links a:hover { color: #60a5fa; background: rgba(59, 130, 246, 0.08); }
-    .nav-links a.nav-active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
+    .nav-links a:hover::before,
+    .nav-links a.nav-active::before { opacity: 1; transform: translateX(0); }
+    .nav-links a.nav-active {
+        color: #60a5fa; background: rgba(59, 130, 246, 0.12);
+        box-shadow: inset 0 -2px 0 0 rgba(59, 130, 246, 0.55);
+    }
+
+    .nav-status {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.68rem; color: #94a3b8; margin: 0 0.4rem 0 0.2rem;
+        padding: 0.28rem 0.65rem; border-radius: 6px; white-space: nowrap;
+        background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.14);
+    }
+    html.light-theme .nav-status { color: #475569; background: rgba(59, 130, 246, 0.05); }
+    .nav-status-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #34d399; box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+        animation: statusPulse 2s ease infinite;
+    }
+    @keyframes statusPulse { 50% { opacity: 0.4; } }
 
     .nav-action-login { 
         color: #60a5fa !important; border: 1px solid rgba(59, 130, 246, 0.25); 
@@ -201,18 +244,31 @@
         flex-shrink: 0;
         background: rgba(59, 130, 246, 0.03);
     }
-    .drawer-logo {
-        font-size: 1.15rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #3b82f6, #60a5fa, #a78bfa, #3b82f6);
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: navGradient 4s ease infinite;
-        letter-spacing: -0.5px;
-        text-decoration: none;
+    .drawer-header::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #8b5cf6, transparent);
+        background-size: 200% 100%; animation: navSweep 5s linear infinite;
+        pointer-events: none;
     }
+    .drawer-id {
+        display: flex; align-items: center; gap: 0.5rem; min-width: 0;
+    }
+    .drawer-path {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.72rem; color: #94a3b8; white-space: nowrap;
+        overflow: hidden; text-overflow: ellipsis;
+    }
+    html.light-theme .drawer-path { color: #475569; }
+    .ft-k {
+        color: #818cf8; background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 0.14rem 0.5rem; border-radius: 4px;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        font-weight: 700; letter-spacing: 0.5px;
+        white-space: nowrap; display: inline-block;
+    }
+    html.light-theme .ft-k { color: #4f46e5; background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.2); }
     .drawer-close {
         width: 34px; height: 34px;
         border-radius: 10px;
@@ -237,6 +293,22 @@
         padding: 0.5rem 0.8rem 1rem;
         display: flex;
         flex-direction: column;
+    }
+    .drawer-cmd {
+        display: flex; align-items: center; gap: 0.45rem;
+        padding: 0.45rem 1rem;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.75rem; flex-shrink: 0;
+        background: rgba(2, 8, 23, 0.45); border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    html.light-theme .drawer-cmd { background: rgba(15, 23, 42, 0.05); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .drawer-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .drawer-cmd-text { color: #e2e8f0; }
+    html.light-theme .drawer-cmd-text { color: #1e293b; }
+    .drawer-sec {
+        padding: 0.6rem 0.85rem 0.2rem;
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.5px;
+        color: #64748b;
     }
     .drawer-nav {
         list-style: none;
@@ -273,6 +345,7 @@
         border-radius: 10px;
         font-size: 0.92rem;
         font-weight: 500;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
         color: var(--text-secondary, #94a3b8);
         text-decoration: none;
         transition: all 0.2s ease;
@@ -280,7 +353,6 @@
         background: none;
         border: none;
         cursor: pointer;
-        font-family: inherit;
         text-align: left;
     }
     .drawer-nav a i,
@@ -288,7 +360,7 @@
         width: 20px;
         text-align: center;
         font-size: 1rem;
-        color: var(--text-muted, #64748b);
+        color: #60a5fa;
         transition: color 0.2s;
     }
     .drawer-nav a:hover {
@@ -299,11 +371,12 @@
         color: #60a5fa;
     }
     .drawer-nav a.active {
-        background: rgba(59, 130, 246, 0.12);
-        color: #3b82f6;
+        background: rgba(59, 130, 246, 0.14);
+        color: #60a5fa;
+        box-shadow: inset 3px 0 0 0 #22d3ee;
     }
     .drawer-nav a.active i {
-        color: #3b82f6;
+        color: #22d3ee;
     }
 
     /* Divider */
@@ -351,14 +424,28 @@
         background: rgba(59, 130, 246, 0.1) !important;
     }
 
-    /* Drawer Footer (lang) */
-    .drawer-footer {
+    /* Drawer Footer (lang + status) */
+    .drawer-bottom {
         margin-top: auto;
-        padding: 0.8rem 0.5rem 0.4rem;
+        padding-top: 0.6rem;
         border-top: 1px solid rgba(59, 130, 246, 0.08);
+    }
+    .drawer-status {
+        display: flex; align-items: center; gap: 0.4rem;
+        padding: 0.15rem 0.85rem 0.5rem;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; color: #34d399;
+    }
+    .drawer-status i { font-size: 0.7rem; }
+    .drawer-footer {
         display: flex;
         justify-content: center;
         gap: 0.5rem;
+        padding: 0.4rem 0.5rem 0.6rem;
+    }
+
+    @media (max-width: 992px) {
+        .nav-status { display: none; }
     }
 
     /* ===== Mobile responsive ===== */
@@ -384,6 +471,7 @@
         .theme-toggle-btn {
             width: 34px; height: 34px; font-size: 0.9rem;
         }
+        .drawer-cmd { font-size: 0.7rem; padding: 0.4rem 0.9rem; }
     }
 
     @media (max-width: 480px) {
@@ -413,8 +501,9 @@
         .drawer-header {
             padding: 0.8rem 1rem;
         }
-        .drawer-logo {
-            font-size: 1rem;
+        .drawer-cmd {
+            font-size: 0.64rem;
+            padding: 0.35rem 0.75rem;
         }
         .drawer-close {
             width: 30px; height: 30px; font-size: 0.85rem;
@@ -438,8 +527,14 @@
         .drawer-divider {
             margin: 0.3rem 0.6rem;
         }
+        .drawer-sec {
+            padding: 0.5rem 0.7rem 0.1rem;
+        }
+        .drawer-status {
+            padding: 0.1rem 0.75rem 0.4rem;
+        }
         .drawer-footer {
-            padding: 0.6rem 0.3rem 0.3rem;
+            padding: 0.3rem 0.3rem 0.5rem;
         }
     }
 
@@ -477,6 +572,7 @@
 
     <!-- Right Group -->
     <div class="nav-right-group">
+        <div class="nav-status"><span class="nav-status-dot"></span> 200 OK</div>
         <div class="lang-switcher">
             <a href="{{ route('language.switch', 'en') }}" 
                class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
@@ -502,20 +598,32 @@
 <div class="mobile-drawer" id="mobileDrawer">
     <!-- Drawer Header -->
     <div class="drawer-header">
-        <a href="/" class="drawer-logo">{{ config('app.name', 'Portfolio') }}</a>
+        <div class="drawer-id">
+            <span class="ab-dot red"></span>
+            <span class="ab-dot yellow"></span>
+            <span class="ab-dot green"></span>
+            <span class="drawer-path"><i class="bi bi-folder-fill" style="color:#818cf8"></i> ~/portfolio</span>
+        </div>
         <button class="drawer-close" id="drawerClose" aria-label="Close menu">
             <i class="bi bi-x-lg"></i>
         </button>
     </div>
 
+    <div class="drawer-cmd">
+        <span class="drawer-prompt">&#10095;</span>
+        <span class="drawer-cmd-text">open ./menu</span>
+    </div>
+
     <!-- Drawer Body -->
     <div class="drawer-body">
+        <div class="drawer-sec"><span class="ft-k">PAGES</span></div>
         <ul class="drawer-nav">
             <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}"><i class="bi bi-house-fill"></i>{{ __('messages.home') }}</a></li>
         </ul>
 
         <div class="drawer-divider"></div>
 
+        <div class="drawer-sec"><span class="ft-k">SESSION</span></div>
         <ul class="drawer-nav">
             @auth
                 <li><a href="{{ route('inbox.index') }}" class="{{ request()->is('inbox*') ? 'active' : '' }}"><i class="bi bi-chat-dots"></i>{{ __('messages.inbox') }}</a></li>
@@ -537,14 +645,15 @@
         </ul>
 
         <div class="drawer-footer">
-            <a href="{{ route('language.switch', 'en') }}" 
-               class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
-               title="{{ __('messages.english') }}">EN</a>
-            <span class="lang-divider">|</span>
-            <a href="{{ route('language.switch', 'bn') }}" 
-               class="lang-btn {{ app()->getLocale() == 'bn' ? 'active' : '' }}"
-               title="{{ __('messages.bengali') }}">বাংলা</a>
-        </div>
+                <a href="{{ route('language.switch', 'en') }}" 
+                   class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
+                   title="{{ __('messages.english') }}">EN</a>
+                <span class="lang-divider">|</span>
+                <a href="{{ route('language.switch', 'bn') }}" 
+                   class="lang-btn {{ app()->getLocale() == 'bn' ? 'active' : '' }}"
+                   title="{{ __('messages.bengali') }}">বাংলা</a>
+            </div>
+            </div>
     </div>
 </div>
 
