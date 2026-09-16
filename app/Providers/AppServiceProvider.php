@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
+use App\Models\Account;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer(['frontend.app', 'frontend.partials.menu'], function ($view) {
+            $view->with('account', Cache::remember('portfolio.account', 300, function () {
+                return Account::first();
+            }));
+        });
     }
 }

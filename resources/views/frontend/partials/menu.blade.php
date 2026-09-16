@@ -546,7 +546,7 @@
 
 <nav class="navbar-main" id="navbar">
     <!-- Logo -->
-    <a href="/" class="nav-logo">{{ config('app.name', 'Portfolio') }}</a>
+    <a href="/" class="nav-logo">{{ optional($account)->name ?? config('app.name', 'Portfolio') }}</a>
 
     <!-- Desktop Nav Links -->
     <ul class="nav-links" id="navLinks">
