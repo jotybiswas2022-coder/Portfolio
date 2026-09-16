@@ -184,6 +184,229 @@
             document.documentElement.classList.add('light-theme');
         }
     </script>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" src="{{ optional($account)->music ? config('app.storage_url') . $account->music : config('app.storage_url') . 'music/music.mp3' }}" loop preload="auto" autoplay muted></audio>
+    <div id="musicWidget" class="music-widget" role="button" tabindex="0" aria-label="Toggle music">
+        <span class="music-ring"></span>
+        <span class="music-icon-box">
+            <i class="bi bi-music-note-beamed"></i>
+            <span class="music-eq">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+            </span>
+        </span>
+        <span class="music-label">
+            <span class="music-label-text">Music On</span>
+            <span class="music-label-off">Music Off</span>
+        </span>
+    </div>
+    <style>
+        .music-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 99995;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            animation: musicFloatIn 0.8s 1s cubic-bezier(0.16,1,0.3,1) both,
+                       musicFloat 3s ease-in-out 1.8s infinite;
+        }
+        @keyframes musicFloatIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.7); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes musicFloat {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-6px); }
+        }
+        .music-widget:hover { animation-play-state: paused, paused; transform: translateY(0) scale(1.05); }
+
+        /* Glowing ring pulse */
+        .music-ring {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 2px solid #22d3ee;
+            animation: ringPulse 2s ease-in-out infinite;
+        }
+        .music-widget.muted .music-ring {
+            border-color: #64748b;
+            animation: none;
+            opacity: 0.3;
+        }
+        @keyframes ringPulse {
+            0%   { transform: scale(1);   opacity: 0.9; border-color: #22d3ee; }
+            50%  { transform: scale(1.35); opacity: 0;   border-color: #a78bfa; }
+            100% { transform: scale(1);   opacity: 0;   border-color: #22d3ee; }
+        }
+
+        /* Icon circle */
+        .music-icon-box {
+            position: relative;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            color: #fff;
+            font-size: 1.5rem;
+            border: 2px solid rgba(255,255,255,0.35);
+            box-shadow:
+                0 0 18px 4px rgba(34,211,238,0.45),
+                0 0 40px 8px rgba(139,92,246,0.25),
+                inset 0 1px 0 rgba(255,255,255,0.35);
+            transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease;
+        }
+        .music-widget:hover .music-icon-box {
+            transform: scale(1.08);
+            box-shadow:
+                0 0 24px 6px rgba(34,211,238,0.6),
+                0 0 50px 12px rgba(139,92,246,0.35),
+                inset 0 1px 0 rgba(255,255,255,0.45);
+        }
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .music-icon-box i { transition: opacity 0.2s ease; }
+        .music-widget.muted .music-icon-box {
+            background: linear-gradient(135deg, #475569, #334155);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        /* Equalizer bars */
+        .music-eq {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 14px;
+        }
+        .eq-bar {
+            width: 3px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.9);
+            height: 3px;
+            transition: opacity 0.3s ease;
+        }
+        .music-widget.playing .eq-bar { animation: eqBounce 0.5s ease-in-out infinite; }
+        .music-widget.playing .eq-bar:nth-child(1) { animation-delay: 0s; }
+        .music-widget.playing .eq-bar:nth-child(2) { animation-delay: 0.12s; }
+        .music-widget.playing .eq-bar:nth-child(3) { animation-delay: 0.24s; }
+        .music-widget.playing .eq-bar:nth-child(4) { animation-delay: 0.36s; }
+        .music-widget.muted .eq-bar { opacity: 0.2; animation: none; }
+        @keyframes eqBounce {
+            0%, 100% { height: 3px; }
+            50%      { height: 12px; }
+        }
+
+        /* Label */
+        .music-label {
+            background: rgba(15, 23, 42, 0.88);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .music-label-off { display: none; }
+        .music-widget.muted .music-label-text  { display: none; }
+        .music-widget.muted .music-label-off   { display: inline; }
+        .music-widget:hover .music-label { transform: translateX(-3px); }
+    </style>
+    <script>
+        (function() {
+            var music = document.getElementById('bgMusic');
+            var widget = document.getElementById('musicWidget');
+            if (!music || !widget) return;
+
+            var playing = false;
+            music.volume = 0.3;
+
+            // Toggle the actual sound (respects browser autoplay policy)
+            function toggleSound() {
+                if (music.paused) {
+                    music.muted = false;
+                    music.play().then(function() {
+                        playing = true;
+                        widget.classList.remove('muted');
+                        widget.classList.add('playing');
+                    }).catch(function() {});
+                } else {
+                    music.pause();
+                    playing = false;
+                    widget.classList.remove('playing');
+                    widget.classList.add('muted');
+                }
+            }
+
+            widget.addEventListener('click', toggleSound);
+            widget.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleSound();
+                }
+            });
+
+            // Muted autoplay starts instantly on load (no click needed).
+            // Browsers only allow audible autoplay AFTER a user gesture,
+            // so music starts silent, then sound is enabled on first interaction.
+            music.play().then(function() {
+                playing = true;
+                widget.classList.add('playing');
+            }).catch(function() {});
+
+            // First interaction (scroll, mousemove, touch, keydown) = enable sound,
+            // WITHOUT pausing the currently-playing track.
+            var soundOn = false;
+            function enableSound() {
+                if (soundOn) return;
+                soundOn = true;
+                music.muted = false;
+                document.removeEventListener('scroll', enableSound);
+                document.removeEventListener('mousemove', enableSound);
+                document.removeEventListener('touchstart', enableSound);
+                document.removeEventListener('keydown', enableSound);
+                document.removeEventListener('wheel', enableSound);
+            }
+            document.addEventListener('scroll', enableSound);
+            document.addEventListener('mousemove', enableSound);
+            document.addEventListener('touchstart', enableSound);
+            document.addEventListener('keydown', enableSound);
+            document.addEventListener('wheel', enableSound);
+
+            // Restore loop on ended (safety)
+            music.addEventListener('ended', function() {
+                music.currentTime = 0;
+                music.play();
+            });
+        })();
+    </script>
     <!-- Page Transition Overlay (for link clicks) -->
     <div class="page-transition-overlay" id="pageTransitionOverlay"></div>
 

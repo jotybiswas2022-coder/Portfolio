@@ -12,6 +12,7 @@ class Account extends Model
         'phone',
         'email',
         'cv',
+        'music',
         'github',
         'linkedin',
         'facebook',

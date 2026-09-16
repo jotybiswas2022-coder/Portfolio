@@ -188,7 +188,7 @@
                         <div class="avatar-section d-flex align-items-end gap-4 flex-wrap mb-4">
                             <div class="flex-shrink-0">
                                 <img id="preview"
-                                     @if(isset($account) && $account->image) src="{{ asset('storage/' . $account->image) }}" @endif
+                                     @if(isset($account) && $account->image) src="{{ config('app.storage_url') }}{{ $account->image }}" @endif
                                      class="avatar-preview"
                                      style="{{ !isset($account) || !$account->image ? 'display:none' : '' }}">
                                 <div id="previewPlaceholder"
@@ -355,6 +355,33 @@
                     </div>
                 </div>
 
+                {{-- Background Music --}}
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-music-note-beamed me-1"></i> Background Music</div>
+                        <input type="file" accept=".mp3,.wav,.ogg,.m4a,.aac" id="music" name="music" class="form-control" onchange="previewMusic(event)">
+                        <div class="form-text mt-1">Auto-plays in the background on the website. Maximum 10MB. Accepted formats: MP3, WAV, OGG, M4A, AAC.</div>
+
+                        @if(isset($account) && $account->music)
+                            <div class="mt-3 p-3 rounded-3 d-flex align-items-center gap-3 flex-wrap" style="background:#eef2ff; border:1px solid #c7d2fe;">
+                                <i class="bi bi-music-note-beamed" style="font-size:1.5rem; color:#6366f1;"></i>
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold mb-1" style="font-size:0.8rem; color:#334155;">Current music</div>
+                                    <audio controls preload="metadata" style="height:38px; max-width:100%;">
+                                        <source src="{{ config('app.storage_url') }}{{ $account->music }}" type="audio/mpeg">
+                                    </audio>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remove_music" id="removeMusic" value="1">
+                                    <label class="form-check-label" style="font-size:0.75rem; color:#ef4444;" for="removeMusic">
+                                        <i class="bi bi-trash3 me-1"></i>Remove existing
+                                    </label>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
                 {{-- Submit --}}
                 <div class="d-flex justify-content-end gap-2 mt-4 mb-3">
                     <a href="{{ route('admin.account.index') }}" class="btn-cancel text-decoration-none">Cancel</a>
@@ -378,6 +405,27 @@ function previewImage(event) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'block';
         if (placeholder) placeholder.style.display = 'none';
+    }
+}
+function previewMusic(event) {
+    var input = event.target;
+    var playerWrap = document.getElementById('musicPlayerWrap');
+    var audio = document.getElementById('musicPlayerPreview');
+    if (input.files && input.files[0]) {
+        if (!playerWrap) {
+            playerWrap = document.createElement('div');
+            playerWrap.id = 'musicPlayerWrap';
+            playerWrap.classList.add('mt-3', 'p-3', 'rounded-3', 'd-flex', 'align-items-center', 'gap-2');
+            playerWrap.style.cssText = 'background:#eef2ff; border:1px solid #c7d2fe;';
+            playerWrap.innerHTML = '<i class="bi bi-music-note-beamed" style="font-size:1.5rem; color:#6366f1;"></i>' +
+                                   '<audio id="musicPlayerPreview" controls preload="metadata" style="height:38px; max-width:100%;">' +
+                                   '<source src="" type="audio/mpeg"></audio>';
+            input.closest('.card-body').appendChild(playerWrap);
+        }
+        audio = document.getElementById('musicPlayerPreview');
+        var source = audio.querySelector('source');
+        source.src = URL.createObjectURL(input.files[0]);
+        audio.load();
     }
 }
 function confirmDeleteImage() {

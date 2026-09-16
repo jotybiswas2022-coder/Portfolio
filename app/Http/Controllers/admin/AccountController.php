@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Account;
 
 class AccountController extends Controller
@@ -29,6 +30,7 @@ class AccountController extends Controller
             'email'   => 'nullable|email|max:255',
             'image'   => 'nullable|image|max:2048',
             'cv'      => 'nullable|mimes:pdf,doc,docx|max:5120',
+            'music'   => 'nullable|mimes:mp3,wav,ogg,aac|max:10240',
             'github'  => 'nullable|url|max:500',
             'linkedin'=> 'nullable|url|max:500',
             'facebook'=> 'nullable|url|max:500',
@@ -83,7 +85,25 @@ class AccountController extends Controller
             $account->cv = null;
         }
 
+        // Music upload
+        if ($request->hasFile('music')) {
+            if ($account->music && Storage::disk('public')->exists($account->music)) {
+                Storage::disk('public')->delete($account->music);
+            }
+            $account->music = $request->file('music')->store('music', 'public');
+        }
+
+        // Remove music
+        if ($request->has('remove_music') && $request->remove_music == '1') {
+            if ($account->music && Storage::disk('public')->exists($account->music)) {
+                Storage::disk('public')->delete($account->music);
+            }
+            $account->music = null;
+        }
+
         $account->save();
+
+        Cache::forget('portfolio.account');
 
         return redirect()->back()->with('success', 'Account updated successfully!');
     }
@@ -98,6 +118,7 @@ class AccountController extends Controller
             $account->image = null;
             $account->save();
         }
+        Cache::forget('portfolio.account');
         return redirect()->back()->with('success', 'Profile picture deleted successfully!');
     }
 }

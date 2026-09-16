@@ -1,73 +1,71 @@
 @forelse($projects as $project)
-    <tr>
-        <td class="ps-4 fw-semibold text-muted">{{ $loop->iteration }}</td>
-        <td>
-            @if($project->image)
-                <img src="{{ config('app.storage_url') }}{{ $project->image }}"
-                     alt="{{ $project->title }}"
-                     class="rounded"
-                     style="width:48px; height:36px; object-fit:cover;">
-            @else
-                <div class="rounded d-inline-flex align-items-center justify-content-center"
-                     style="width:48px; height:36px; background:#f1f5f9; color:#cbd5e1;">
-                    <i class="bi bi-image"></i>
+    <div class="col-12 col-sm-6 col-xl-4 slide-up">
+        <div class="proj-card">
+
+            {{-- Image + Title + Cat --}}
+            <div class="d-flex align-items-start gap-3">
+                <div class="proj-thumb">
+                    @if($project->image)
+                        <img src="{{ config('app.storage_url') }}{{ $project->image }}" alt="{{ $project->title }}">
+                    @else
+                        <i class="bi bi-folder2-open"></i>
+                    @endif
+                </div>
+                <div class="flex-grow-1 pe-1">
+                    <div class="proj-title">{{ $project->title }}</div>
+                    @if($project->category)
+                        <div class="proj-cat"><i class="bi bi-tag me-1"></i>{{ $project->category }}</div>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Tech Stack --}}
+            @if(!empty($project->getTechStackArray()))
+                <div class="d-flex flex-wrap gap-1 pt-2" style="border-top:1px dashed var(--admin-border, #f1f5f9);">
+                    @foreach($project->getTechStackArray() as $tech)
+                        <span class="tech-tag"><i class="bi bi-code-slash me-1"></i>{{ $tech }}</span>
+                    @endforeach
                 </div>
             @endif
-        </td>
-        <td class="fw-semibold">{{ $project->title }}</td>
-        <td>
-            @if($project->category)
-                <span class="badge rounded-pill px-3 py-1" style="background:rgba(99,102,241,0.08); color:#6366f1; font-weight:500;">
-                    {{ $project->category }}
-                </span>
-            @else
-                <span class="text-muted small">—</span>
-            @endif
-        </td>
-        <td>
-            <div style="display:flex; flex-wrap:wrap; gap:3px; max-width:220px;">
-                @foreach($project->getTechStackArray() as $tech)
-                    <span class="tech-tag">{{ $tech }}</span>
-                @endforeach
-            </div>
-        </td>
-        <td><span class="badge rounded-pill px-3 py-1" style="background:#f1f5f9; color:#475569; font-weight:500;">{{ $project->sort_order }}</span></td>
-        <td>
-            <a href="{{ route('admin.projects.toggleStatus', $project->id) }}"
-               class="badge rounded-pill px-3 py-1 text-decoration-none status-badge {{ $project->is_active ? 'active-badge' : 'inactive-badge' }}"
-               data-title="{{ $project->title }}">
-                {{ $project->is_active ? 'Active' : 'Inactive' }}
-            </a>
-        </td>
-        <td>
-            <div class="d-flex gap-1">
-                <a href="{{ route('admin.projects.edit', $project->id) }}"
-                   class="btn btn-sm btn-outline-primary rounded-3 px-2">
-                    <i class="bi bi-pencil"></i>
+
+            {{-- Footer: Order + Status + Actions --}}
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px dashed var(--admin-border, #f1f5f9);">
+                <a href="{{ route('admin.projects.toggleStatus', $project->id) }}"
+                   class="status-badge {{ $project->is_active ? 'status-active' : 'status-inactive' }}"
+                   data-title="{{ $project->title }}">
+                    <i class="bi {{ $project->is_active ? 'bi-check-circle-fill' : 'bi-clock' }}"></i>
+                    {{ $project->is_active ? 'Active' : 'Inactive' }}
                 </a>
-                <button type="button"
-                        class="btn btn-sm btn-outline-danger rounded-3 px-2 delete-btn"
-                        data-id="{{ $project->id }}"
-                        data-title="{{ $project->title }}">
-                    <i class="bi bi-trash"></i>
-                </button>
-                <form id="delete-form-{{ $project->id }}"
-                      action="{{ route('admin.projects.destroy', $project->id) }}"
-                      method="POST" class="d-none">
-                    @csrf
-                    @method('DELETE')
-                </form>
+                <div class="d-flex gap-1 align-items-center">
+                    <span class="order-badge"><i class="bi bi-arrow-down-up me-1"></i>{{ $project->sort_order }}</span>
+                    <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn-icon btn-icon-edit" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <button type="button"
+                            class="btn-icon btn-icon-del delete-btn"
+                            data-id="{{ $project->id }}"
+                            data-title="{{ $project->title }}" title="Delete">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <form id="delete-form-{{ $project->id }}"
+                          action="{{ route('admin.projects.destroy', $project->id) }}"
+                          method="POST" class="d-none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </div>
             </div>
-        </td>
-    </tr>
+
+        </div>
+    </div>
 @empty
-    <tr>
-        <td colspan="8" class="text-center py-5">
+    <div class="col-12">
+        <div class="text-center py-5">
             <div class="empty-state">
-                <i class="bi bi-search" style="font-size:2rem; color:#94a3b8; display:block; margin-bottom:0.5rem;"></i>
+                <i class="bi bi-folder" style="display:block; font-size:2rem; color:var(--admin-text-muted, #94a3b8); margin-bottom:0.5rem;"></i>
                 <div class="fw-semibold mb-2">No Projects Found</div>
                 <p class="text-muted small">Try adjusting your search terms.</p>
             </div>
-        </td>
-    </tr>
+        </div>
+    </div>
 @endforelse
