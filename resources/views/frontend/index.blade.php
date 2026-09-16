@@ -1708,15 +1708,31 @@
     }
 
     @media (max-width: 768px) {
-        .csh { margin-bottom: 2.25rem; }
-        .csh-cta { margin-top: 2.5rem; }
-        .csh-body { padding: 1.25rem 1.15rem 1.35rem; }
-        .csh-title { font-size: 1.55rem; }
-        .csh-cmd { font-size: 0.72rem; }
+        .csh { margin-bottom: 1.5rem; }
+        .csh-cta { margin-top: 2rem; }
+        .csh-bar { padding: 0.5rem 0.8rem; }
+        .csh-file { font-size: 0.66rem; }
+        .csh-tag { font-size: 0.52rem; padding: 0.14rem 0.45rem; }
+        .csh-right { font-size: 0.58rem; padding: 0.18rem 0.55rem; }
+        .csh-cmd { min-height: 2rem; padding: 0.4rem 0.8rem; font-size: 0.68rem; }
+        .csh-body { padding: 1.1rem 1rem 1.15rem; }
+        .csh-suite { gap: 0.5rem; }
+        .csh-pass { font-size: 0.56rem; padding: 0.2rem 0.5rem; }
+        .csh-title { font-size: 1.45rem; }
+        .csh-time { font-size: 0.6rem; }
+        .csh-tests { margin-top: 0.75rem; }
+        .csh-test { font-size: 0.78rem; line-height: 1.6; gap: 0.5rem; }
+        .csh-check { width: 16px; height: 16px; border-radius: 4px; font-size: 0.56rem; margin-top: 0.16rem; }
+        .csh-summary { font-size: 0.6rem; gap: 0.7rem; margin-top: 0.9rem; padding-top: 0.8rem; }
     }
     @media (max-width: 480px) {
         .csh-tag, .csh-time { display: none; }
-        .csh-title { font-size: 1.35rem; }
+        .csh-title { font-size: 1.2rem; }
+        .csh-body { padding: 0.95rem 0.85rem 1rem; }
+        .csh-cmd { font-size: 0.65rem; padding: 0.35rem 0.75rem; }
+        .csh-test { font-size: 0.73rem; }
+        .csh-file { font-size: 0.62rem; }
+        .csh-right { font-size: 0.54rem; padding: 0.14rem 0.45rem; }
         .csh-actions .btn-primary-custom,
         .csh-actions .btn-outline-custom { flex: 1 1 100%; justify-content: center; }
     }
