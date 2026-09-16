@@ -1256,7 +1256,7 @@
     .testimonial-card .rv-diff,
     .testimonial-card .rv-foot,
     .faq-item button,
-    .faq-item .faq-answer,
+    .faq-item .faq-a-block,
     .contact-info-card h3,
     .contact-info-card p,
     .contact-info-card .contact-item,
@@ -3215,105 +3215,158 @@
     }
 
     
-    /* ===== FAQ — CODING COLLAPSIBLE BLOCKS ===== */
+    /* ===== FAQ — TERMINAL HELP OUTPUT (coding design) ===== */
     .faq-section {
+        position: relative; overflow: hidden;
         background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%);
     }
     html.light-theme .faq-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
-    .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+    /* faint scanlines, like a terminal screen */
+    .faq-section::before {
+        content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        background-image: repeating-linear-gradient(180deg, rgba(99,102,241,0.055) 0 1px, transparent 1px 34px);
+        -webkit-mask-image: radial-gradient(ellipse 72% 65% at 50% 45%, #000 0%, transparent 78%);
+        mask-image: radial-gradient(ellipse 72% 65% at 50% 45%, #000 0%, transparent 78%);
+    }
+    html.light-theme .faq-section::before {
+        background-image: repeating-linear-gradient(180deg, rgba(59,130,246,0.08) 0 1px, transparent 1px 34px);
+    }
+    .faq-section .container { position: relative; z-index: 1; }
+
+    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.7rem; }
     .faq-item {
+        position: relative; overflow: hidden;
         font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
-        background: linear-gradient(180deg, rgba(13, 23, 43, 0.6) 0%, rgba(8, 15, 32, 0.45) 100%);
-        -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
-        border: 1px solid rgba(147, 197, 253, 0.18); border-radius: 14px;
-        overflow: hidden; position: relative;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.62) 0%, rgba(8, 15, 32, 0.48) 100%);
+        border: 1px solid rgba(147, 197, 253, 0.16); border-radius: 13px;
+        transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
     }
-    .faq-item::before {
-        content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-        background: linear-gradient(180deg, #3b82f6, #8b5cf6);
-        opacity: 0.4; transition: opacity 0.4s ease;
-    }
-    .faq-item:hover {
-        border-color: rgba(147, 197, 253, 0.35);
-        box-shadow: 0 8px 30px rgba(2, 8, 23, 0.5), 0 0 40px rgba(59, 130, 246, 0.06);
-        transform: translateX(4px);
-    }
-    .faq-item:hover::before { opacity: 1; }
-    .faq-item.faq-open {
-        border-color: rgba(59, 130, 246, 0.3);
-        box-shadow: 0 12px 40px rgba(2, 8, 23, 0.6), 0 0 60px rgba(59, 130, 246, 0.08);
-    }
-    .faq-item.faq-open::before { opacity: 1; }
     html.light-theme .faq-item {
-        background: linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(230,240,252,0.6) 100%);
-        border-color: rgba(59,130,246,0.22);
+        background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(232,240,252,0.66) 100%);
+        border-color: rgba(59,130,246,0.2);
     }
-    html.light-theme .faq-item:hover { box-shadow: 0 8px 30px rgba(59,130,246,0.12); }
-    html.light-theme .faq-item.faq-open { border-color: rgba(59,130,246,0.35); box-shadow: 0 12px 40px rgba(59,130,246,0.15); }
+    /* rail draws itself down the side when the entry is active */
+    .faq-item::before {
+        content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+        background: linear-gradient(180deg, #6366f1, #22d3ee);
+        transform: scaleY(0); transform-origin: top;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item:hover::before, .faq-item.faq-open::before { transform: scaleY(1); }
+    .faq-item:hover {
+        border-color: rgba(147, 197, 253, 0.34);
+        box-shadow: 0 8px 26px rgba(2, 8, 23, 0.45);
+        transition-delay: 0s;
+    }
+    .faq-item.faq-open {
+        border-color: rgba(99, 102, 241, 0.42);
+        box-shadow: 0 14px 40px rgba(2, 8, 23, 0.55), 0 0 50px rgba(99, 102, 241, 0.1);
+    }
+    html.light-theme .faq-item:hover { box-shadow: 0 8px 26px rgba(59,130,246,0.1); }
+    html.light-theme .faq-item.faq-open { border-color: rgba(59,130,246,0.34); box-shadow: 0 14px 40px rgba(59,130,246,0.14); }
 
-    /* Question row */
+    /* prompt row: › 01  question… */
     .faq-q-row {
-        display: flex; align-items: center; gap: 0.65rem;
-        width: 100%; padding: 1rem 1.2rem; background: none; border: none;
-        color: var(--text-primary); font-family: inherit; font-size: 0.88rem;
-        font-weight: 600; text-align: left; cursor: pointer;
-        transition: all 0.3s ease; position: relative;
+        position: relative; z-index: 2;
+        display: flex; align-items: center; gap: 0.7rem;
+        width: 100%; padding: 0.95rem 1.1rem;
+        background: none; border: none; cursor: pointer;
+        color: var(--text-primary); font-family: inherit;
+        font-size: 0.87rem; font-weight: 600; text-align: left;
+        transition: background 0.3s ease;
     }
-    .faq-q-row:hover { background: rgba(59, 130, 246, 0.04); }
-    .faq-q-icon {
-        width: 28px; height: 28px; min-width: 28px; border-radius: 8px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 0.75rem; color: #818cf8;
-        background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.18);
-        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    .faq-q-row:hover { background: rgba(99, 102, 241, 0.05); }
+    html.light-theme .faq-q-row:hover { background: rgba(59, 130, 246, 0.05); }
+    .fq-prompt { flex-shrink: 0; color: #34d399; font-weight: 700; font-size: 0.8rem; }
+    .fq-num {
+        flex-shrink: 0;
+        min-width: 2.1rem; padding: 0.16rem 0.4rem;
+        border-radius: 6px; text-align: center;
+        font-size: 0.62rem; font-weight: 800; letter-spacing: 0.4px;
+        color: #818cf8; background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.24);
+        transition: color 0.35s ease, background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     }
-    .faq-item.faq-open .faq-q-icon {
-        background: var(--accent-gradient); color: #fff; border-color: transparent;
-        transform: rotate(-5deg) scale(1.1);
+    html.light-theme .fq-num { color: #4338ca; }
+    .faq-item.faq-open .fq-num {
+        color: #fff; background: var(--accent-gradient); border-color: transparent;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
     }
-    .faq-q-text { flex: 1; color: var(--text-primary); line-height: 1.4; }
-    .faq-q-chevron {
-        font-size: 0.7rem; color: var(--accent-light); flex-shrink: 0;
-        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    .faq-q-text { flex: 1; color: var(--text-primary); line-height: 1.45; }
+    .fq-toggle {
+        flex-shrink: 0; font-size: 0.7rem; color: #64748b;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
     }
-    .faq-item.faq-open .faq-q-chevron { transform: rotate(180deg); }
+    .faq-item:hover .fq-toggle { color: #a5b4fc; }
+    .faq-item.faq-open .fq-toggle { color: #22d3ee; transform: rotate(180deg); }
 
-    /* Answer block */
-    .faq-a-block {
-        max-height: 0; overflow: hidden;
-        transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
-        padding: 0 1.2rem;
-    }
-    .faq-item.faq-open .faq-a-block {
-        max-height: 500px; padding: 0 1.2rem 1.1rem;
-    }
+    /* answer: collapses to the content's natural height (no max-height cap) */
+    .faq-a-block { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1); }
+    .faq-item.faq-open .faq-a-block { grid-template-rows: 1fr; }
+    .fq-clip { overflow: hidden; min-height: 0; }
     .faq-a-inner {
-        padding: 0.85rem 1rem;
-        background: rgba(2, 8, 23, 0.35); border-left: 2px solid rgba(59, 130, 246, 0.4);
-        border-radius: 0 10px 10px 0;
+        position: relative; overflow: hidden;
+        margin: 0 1.1rem 1.05rem;
+        padding: 0.8rem 0.95rem 0.9rem;
+        background: rgba(2, 8, 23, 0.42);
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        border-left: 2px solid rgba(99, 102, 241, 0.6);
+        border-radius: 9px;
         font-size: 0.82rem; line-height: 1.8; color: var(--text-secondary);
     }
-    html.light-theme .faq-a-inner { background: rgba(15, 23, 42, 0.04); }
+    html.light-theme .faq-a-inner { background: rgba(15, 23, 42, 0.04); border-color: rgba(15, 23, 42, 0.1); }
+    .fq-out-bar {
+        position: relative; z-index: 2;
+        margin-bottom: 0.5rem; font-size: 0.66rem; color: #64748b;
+    }
+    .fq-out-prompt { color: #22d3ee; font-weight: 700; margin-right: 0.3rem; }
+    .fq-out-body { position: relative; z-index: 2; }
     .faq-a-gutter { color: #6366f1; font-weight: 700; margin-right: 0.5rem; }
+    .fq-out-caret {
+        display: inline-block; width: 8px; height: 0.9em; margin-left: 3px;
+        vertical-align: text-bottom; border-radius: 1px;
+        background: #22d3ee; box-shadow: 0 0 8px rgba(34, 211, 238, 0.7);
+        animation: glBlink 1s step-end infinite;
+    }
+    .fq-scan {
+        position: absolute; left: 0; right: 0; top: -40%; height: 40%;
+        pointer-events: none; opacity: 0;
+        background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.18), transparent);
+    }
+    .faq-item.faq-open .fq-scan { animation: fqScan 1s cubic-bezier(0.4, 0, 0.2, 1) 0.15s 1 both; }
+    @keyframes fqScan {
+        0% { top: -40%; opacity: 0; }
+        25% { opacity: 1; }
+        100% { top: 110%; opacity: 0; }
+    }
+    /* the printed answer types in behind the prompt line */
+    .fq-out-bar, .fq-out-body {
+        opacity: 0; transform: translateY(6px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .faq-item.faq-open .fq-out-bar { opacity: 1; transform: none; transition-delay: 0.12s; }
+    .faq-item.faq-open .fq-out-body { opacity: 1; transform: none; transition-delay: 0.2s; }
 
     /* Responsive */
     @media (max-width: 768px) {
-        .faq-list { gap: 0.6rem; }
-        .faq-q-row { padding: 0.8rem 1rem; font-size: 0.8rem; gap: 0.5rem; }
-        .faq-q-icon { width: 24px; height: 24px; min-width: 24px; font-size: 0.65rem; }
-        .faq-a-block { padding: 0 1rem; }
-        .faq-item.faq-open .faq-a-block { padding: 0 1rem 1rem; }
-        .faq-a-inner { padding: 0.7rem 0.8rem; font-size: 0.76rem; line-height: 1.7; }
+        .faq-list { gap: 0.55rem; }
+        .faq-q-row { gap: 0.55rem; padding: 0.8rem 0.9rem; font-size: 0.78rem; }
+        .fq-prompt { display: none; }
+        .fq-num { min-width: 1.85rem; font-size: 0.56rem; padding: 0.13rem 0.3rem; }
+        .fq-toggle { font-size: 0.66rem; }
+        .faq-a-inner { margin: 0 0.9rem 0.9rem; padding: 0.7rem 0.8rem 0.8rem; font-size: 0.76rem; line-height: 1.7; }
+        .fq-out-bar { font-size: 0.62rem; margin-bottom: 0.4rem; }
     }
     @media (max-width: 480px) {
-        .faq-q-row { padding: 0.7rem 0.8rem; font-size: 0.75rem; gap: 0.45rem; }
-        .faq-q-icon { width: 22px; height: 22px; min-width: 22px; font-size: 0.6rem; border-radius: 7px; }
-        .faq-q-chevron { font-size: 0.65rem; }
-        .faq-a-block { padding: 0 0.8rem; }
-        .faq-item.faq-open .faq-a-block { padding: 0 0.8rem 0.85rem; }
-        .faq-a-inner { padding: 0.6rem 0.7rem; font-size: 0.72rem; line-height: 1.65; }
+        .faq-q-row { gap: 0.45rem; padding: 0.7rem 0.75rem; font-size: 0.74rem; }
+        .fq-num { min-width: 1.6rem; font-size: 0.52rem; padding: 0.11rem 0.24rem; }
+        .faq-a-inner { margin: 0 0.75rem 0.8rem; padding: 0.6rem 0.65rem 0.7rem; font-size: 0.72rem; line-height: 1.65; }
+        .fq-out-bar { display: none; }
         .faq-a-gutter { margin-right: 0.3rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .fq-out-bar, .fq-out-body { opacity: 1; transform: none; }
+        .fq-scan, .fq-out-caret { display: none; }
     }
 
 /* Map */
@@ -3687,8 +3740,6 @@
         .contact-info h3 { font-size: 1.4rem; }
         .contact-form { padding: 1.8rem; }
         
-        .faq-item .faq-question { padding: 1rem 1.2rem !important; font-size: 0.92rem !important; }
-        .faq-answer p { font-size: 0.85rem !important; }
         
         .footer { padding: 2.5rem 0 0; }
         .footer-inner { max-width: 100%; }
@@ -5267,7 +5318,7 @@
     </section>
 
     </section><!-- FAQ Section -->
-        <!-- FAQ Section — CODING COLLAPSIBLE BLOCKS -->
+        <!-- FAQ Section — TERMINAL HELP OUTPUT -->
     <section class="faq-section section-padding" id="faq">
         <div class="container">
             <div class="code-divider reveal" aria-hidden="true">
@@ -5287,17 +5338,22 @@
             ])
 
             @if($faqs->isNotEmpty())
-                <div class="faq-list reveal">
+                <div class="faq-list">
                     @foreach($faqs as $index => $faq)
-                        <div class="faq-item" data-faq>
-                            <button class="faq-q-row" onclick="toggleFaq(this)">
-                                <span class="faq-q-icon"><i class="bi bi-question-lg"></i></span>
+                        <div class="faq-item reveal reveal-delay-{{ ($loop->iteration % 4) + 1 }}" data-faq>
+                            <button class="faq-q-row" type="button" aria-expanded="false" aria-controls="faq-a-{{ $faq->id }}" onclick="toggleFaq(this)">
+                                <span class="fq-prompt" aria-hidden="true">&#10095;</span>
+                                <span class="fq-num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                                 <span class="faq-q-text">{{ $faq->question }}</span>
-                                <i class="bi bi-chevron-down faq-q-chevron"></i>
+                                <i class="bi bi-chevron-down fq-toggle" aria-hidden="true"></i>
                             </button>
-                            <div class="faq-a-block">
-                                <div class="faq-a-inner">
-                                    <span class="faq-a-gutter">//</span>{{ $faq->answer }}
+                            <div class="faq-a-block" id="faq-a-{{ $faq->id }}">
+                                <div class="fq-clip">
+                                    <div class="faq-a-inner">
+                                        <span class="fq-scan" aria-hidden="true"></span>
+                                        <div class="fq-out-bar"><span class="fq-out-prompt" aria-hidden="true">&#10095;</span>cat faq/{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}.md</div>
+                                        <div class="fq-out-body"><span class="faq-a-gutter" aria-hidden="true">//</span>{{ $faq->answer }}<span class="fq-out-caret" aria-hidden="true"></span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -5308,14 +5364,17 @@
                     var item = btn.closest('.faq-item');
                     var wasOpen = item.classList.contains('faq-open');
 
-                    // Close all
+                    // Close all entries first (and keep the ARIA state honest)
                     document.querySelectorAll('.faq-item').forEach(function(el) {
                         el.classList.remove('faq-open');
+                        var row = el.querySelector('.faq-q-row');
+                        if (row) row.setAttribute('aria-expanded', 'false');
                     });
 
                     // Toggle clicked
                     if (!wasOpen) {
                         item.classList.add('faq-open');
+                        btn.setAttribute('aria-expanded', 'true');
                     }
                 }
                 </script>
