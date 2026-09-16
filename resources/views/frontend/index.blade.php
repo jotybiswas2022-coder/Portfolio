@@ -4381,21 +4381,32 @@
         .edu-grid { max-width: 560px; }
     }
     @media (max-width: 768px) {
-        .edu-line { font-size: 0.7rem; }
-        .edu-result { font-size: 0.66rem; }
-        .edu-foot { font-size: 0.64rem; }
+        .edu-grid { gap: 1rem; }
+        .edu-head { padding: 0.45rem 0.8rem; }
+        .edu-code { padding: 0.7rem 0.75rem 0.75rem; }
+        .edu-line { font-size: 0.68rem; line-height: 1.8; }
+        .edu-line::before { width: 1.6rem; font-size: 0.66rem; }
+        .edu-line { padding-left: 2.05rem; }
+        .edu-lines::after { margin-left: 2.05rem; }
+        .edu-file { font-size: 0.64rem; }
+        .edu-status { font-size: 0.55rem; }
+        .edu-result { font-size: 0.64rem; padding: 0.18rem 0.6rem; }
+        .edu-foot { font-size: 0.62rem; padding: 0.5rem 0.8rem; }
+        .edu-gauge-bar { width: 72px; }
+        .edu-gauge-num { font-size: 0.66rem; }
     }
     @media (max-width: 480px) {
-        .edu-line { font-size: 0.62rem; line-height: 1.75; }
-        .edu-line::before { width: 1.3rem; font-size: 0.6rem; }
-        .edu-line { padding-left: 1.85rem; }
-        .edu-lines::after { margin-left: 1.85rem; }
-        .edu-gauge-bar { width: 56px; }
-        .edu-file { max-width: 12ch; font-size: 0.62rem; }
-        .edu-status { font-size: 0.54rem; }
-        .edu-result { font-size: 0.62rem; padding: 0.16rem 0.55rem; }
-        .edu-foot { font-size: 0.6rem; }
-        .edu-gauge-num { font-size: 0.64rem; }
+        .edu-line { font-size: 0.58rem; line-height: 1.7; }
+        .edu-line::before { width: 1.25rem; font-size: 0.56rem; }
+        .edu-line { padding-left: 1.75rem; }
+        .edu-lines::after { margin-left: 1.75rem; }
+        .edu-gauge-bar { width: 52px; }
+        .edu-file { max-width: 12ch; font-size: 0.6rem; }
+        .edu-status { font-size: 0.5rem; }
+        .edu-result { font-size: 0.58rem; padding: 0.14rem 0.5rem; }
+        .edu-foot { font-size: 0.56rem; }
+        .edu-gauge-num { font-size: 0.6rem; }
+        .edu-code { padding: 0.6rem 0.65rem 0.65rem; }
     }
     @media (prefers-reduced-motion: reduce) {
         .edu-grid.edu-armed .edu-card,
