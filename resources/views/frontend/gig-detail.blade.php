@@ -99,45 +99,7 @@
     }
     html.light-theme .gd-branch { color: #2563eb; }
 
-    .gd-cmd {
-        display: flex; align-items: center; gap: 0.5rem;
-        padding: 0.55rem 0.9rem; font-family: var(--mono); font-size: 0.8rem;
-        background: rgba(2, 8, 23, 0.5); border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-        min-height: 2.2rem;
-    }
-    html.light-theme .gd-cmd { background: rgba(15, 23, 42, 0.05); border-bottom-color: rgba(15, 23, 42, 0.08); }
-    .gd-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
-    .gd-cmd-text { color: #e2e8f0; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-    html.light-theme .gd-cmd-text { color: #1e293b; }
-    .gd-cursor {
-        width: 9px; height: 16px; flex-shrink: 0;
-        background: #22d3ee; animation: gdBlink 1s steps(1) infinite;
-    }
-    @keyframes gdBlink { 50% { opacity: 0; } }
 
-    /* ===== RESPONSE PAYLOAD — writes itself in once the command finishes ===== */
-    .gd-output {
-        display: flex; flex-direction: column; gap: 0.3rem;
-        padding: 0.8rem 0.9rem 0.9rem;
-        font-family: var(--mono); font-size: 0.75rem; line-height: 1.6;
-        background: rgba(2, 8, 23, 0.28);
-        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-    }
-    html.light-theme .gd-output { background: rgba(15, 23, 42, 0.035); border-bottom-color: rgba(15, 23, 42, 0.08); }
-    .gd-out-line {
-        display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem; min-width: 0;
-        opacity: 0; transform: translateY(5px);
-        transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-        transition-delay: calc(var(--i, 0) * 110ms);
-    }
-    .gd-output.on .gd-out-line { opacity: 1; transform: none; }
-    .gd-out-brace, .gd-out-c, .gd-out-p { color: #64748b; }
-    .gd-out-k { color: #93c5fd; }
-    html.light-theme .gd-out-k { color: #2563eb; }
-    .gd-out-v { color: #fbbf24; word-break: break-word; }
-    html.light-theme .gd-out-v { color: #b45309; }
-    .gd-out-num { color: #f472b6; }
-    html.light-theme .gd-out-num { color: #be185d; }
 
     .gd-inner { padding: 2rem; position: relative; z-index: 1; }
     .gd-foot {
@@ -620,9 +582,6 @@
         .gd-shell { border-radius: 14px; }
         .gd-bar { padding: 0.5rem 0.8rem; }
         .gd-file { font-size: 0.66rem; }
-        .gd-cmd { font-size: 0.7rem; padding: 0.45rem 0.8rem; min-height: 2rem; }
-        .gd-cursor { width: 7px; height: 13px; }
-        .gd-output { font-size: 0.7rem; padding: 0.7rem 0.8rem 0.8rem; }
         .gd-crumb { display: none; }
         .desc-line { font-size: 0.82rem; line-height: 1.8; gap: 0.55rem; }
         .desc-num { width: 1.6rem; font-size: 0.66rem; }
@@ -650,10 +609,6 @@
         .gd-inner { padding: 0.8rem; }
         .gd-shell { border-radius: 12px; }
         .gd-file { font-size: 0.6rem; }
-        .gd-cmd { font-size: 0.64rem; padding: 0.4rem 0.7rem; }
-        .gd-output { font-size: 0.62rem; padding: 0.6rem 0.7rem 0.65rem; gap: 0.2rem; }
-        .gd-output .gd-out-line:first-child,
-        .gd-output .gd-out-line:last-child { display: none; }
         .desc-line { font-size: 0.75rem; line-height: 1.75; padding: 0.05rem 0.2rem; }
         .desc-num { width: 1.35rem; font-size: 0.6rem; }
         .gd-from { font-size: 0.62rem; padding: 0.26rem 0.6rem; }
@@ -683,9 +638,8 @@
 
     /* ===== REDUCED MOTION ===== */
     @media (prefers-reduced-motion: reduce) {
-        .gd-shell::before, .gd-cursor { animation: none; }
+        .gd-shell::before { animation: none; }
         .gd-rv { opacity: 1 !important; transform: none !important; }
-        .gd-out-line { opacity: 1; transform: none; }
         .gd-image-wrap.in .gd-scan { display: none; }
         .gd-description-wrap.in .desc-line,
         .pricing-card.in .pricing-features li,
@@ -708,22 +662,6 @@
                 <span class="ab-dot green" aria-hidden="true"></span>
                 <span class="gd-file"><i class="bi bi-file-earmark-code-fill"></i> ~/portfolio/gigs/{{ $gig->id }}.json</span>
                 <span class="gd-branch"><i class="bi bi-git"></i> main</span>
-            </div>
-
-            <div class="gd-cmd">
-                <span class="gd-prompt" aria-hidden="true">&#10095;</span>
-                <span class="gd-cmd-text" id="gdCmdText" data-text="cat ./gigs/{{ $gig->id }}.json"></span>
-                <span class="gd-cursor" aria-hidden="true"></span>
-            </div>
-
-            <!-- response: the payload writes itself in after the command finishes -->
-            <div class="gd-output" id="gdOutput" aria-hidden="true">
-                <div class="gd-out-line" style="--i: 0"><span class="gd-out-brace">{</span></div>
-                <div class="gd-out-line" style="--i: 1"><span class="gd-out-k">"id"</span><span class="gd-out-c">:</span><span class="gd-out-num">{{ $gig->id }}</span><span class="gd-out-p">,</span></div>
-                <div class="gd-out-line" style="--i: 2"><span class="gd-out-k">"type"</span><span class="gd-out-c">:</span><span class="gd-out-v">"service"</span><span class="gd-out-p">,</span></div>
-                <div class="gd-out-line" style="--i: 3"><span class="gd-out-k">"packages"</span><span class="gd-out-c">:</span><span class="gd-out-num">3</span><span class="gd-out-p">,</span></div>
-                <div class="gd-out-line" style="--i: 4"><span class="gd-out-k">"from"</span><span class="gd-out-c">:</span><span class="gd-out-v">"${{ number_format($minPrice, 0) }}"</span></div>
-                <div class="gd-out-line" style="--i: 5"><span class="gd-out-brace">}</span></div>
             </div>
 
             <div class="gd-inner">
@@ -962,32 +900,6 @@
     });
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // ===== Typewriter command, then the payload writes itself in =====
-    var cmdEl = document.getElementById('gdCmdText');
-    var outEl = document.getElementById('gdOutput');
-
-    if (cmdEl) {
-        var text = cmdEl.getAttribute('data-text') || '';
-
-        if (reduce) {
-            cmdEl.textContent = text;
-            if (outEl) outEl.classList.add('on');
-        } else {
-            var i = 0, speed = 45;
-            var type = function() {
-                cmdEl.textContent = text.slice(0, ++i);
-                if (i < text.length) {
-                    setTimeout(type, speed);
-                } else if (outEl) {
-                    setTimeout(function() { outEl.classList.add('on'); }, 220);
-                }
-            };
-            setTimeout(type, 450);
-        }
-    } else if (outEl) {
-        outEl.classList.add('on');
-    }
 
     // ===== Package prices count up the first time they scroll into view =====
     var counts = [].slice.call(document.querySelectorAll('.pkg-num[data-count]'));
