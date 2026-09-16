@@ -2,37 +2,72 @@
 
 @section('content')
 <style>
+.education-form-page h4 { letter-spacing: -0.3px; }
+.education-form-page .text-muted { color: var(--admin-text-muted) !important; }
+
 .form-section .form-label {
     font-size: 0.82rem;
     font-weight: 600;
     color: var(--admin-text);
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.4rem;
 }
 .form-section .form-control {
-    font-size: 0.85rem;
-    padding: 0.6rem 0.85rem;
-    border-radius: 8px;
+    font-size: 0.88rem;
+    padding: 0.72rem 0.9rem;
+    border-radius: 10px;
+    border: 1.5px solid var(--admin-border);
+    box-shadow: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
-.form-section .form-switch .form-check-input { cursor: pointer; }
+.form-section .form-control:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+}
+.form-section .form-switch .form-check-input {
+    width: 2.4em;
+    height: 1.3em;
+    cursor: pointer;
+    border-color: var(--admin-border);
+}
+.form-section .form-switch .form-check-input:focus { box-shadow: none; }
 .form-section .form-switch .form-check-input:checked {
     background-color: var(--admin-primary);
     border-color: var(--admin-primary);
 }
-@media (max-width: 575.98px) {
-    .form-section .form-label { font-size: 0.76rem; }
-    .form-section .form-control { font-size: 0.8rem; padding: 0.55rem 0.75rem; }
-    .form-section .form-text { font-size: 0.68rem; }
+.form-icon { color: var(--admin-primary); }
+
+/* Mobile sticky action bar */
+.form-actions-bar {
+    position: sticky;
+    bottom: 0;
+    margin: 0 -12px -12px;
+    padding: 0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--admin-border);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.form-actions-bar .btn { flex: 1; white-space: nowrap; }
+.form-actions-bar .btn-outline { flex: 0 0 auto; }
+
+@media (max-width: 767.98px) {
+    .education-form-page .form-card { border-radius: 14px; }
+    .form-section .form-label { font-size: 0.78rem; }
+    .form-section .form-control { font-size: 0.95rem; padding: 0.8rem 0.9rem; }
+    .form-section .form-text { font-size: 0.7rem; }
 }
 </style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 education-form-page">
     <div class="row justify-content-center">
         <div class="col-lg-7 col-md-9">
 
             {{-- Header --}}
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
                 <div>
-                    <h4 class="fw-bold mb-1"><i class="bi bi-pencil-square me-2" style="color:var(--admin-primary);"></i>Edit Qualification</h4>
+                    <h4 class="fw-bold mb-1"><i class="bi bi-pencil-square me-2 form-icon"></i>Edit Qualification</h4>
                     <p class="text-muted small mb-0">Update details for <strong>{{ $education->degree_name }}</strong></p>
                 </div>
                 <a href="{{ route('admin.education.index') }}" class="btn btn-admin btn-admin-outline">
@@ -103,9 +138,19 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-end gap-2 slide-up" style="animation-delay:0.15s;">
+                {{-- Actions: sticky bottom bar on mobile, inline on desktop --}}
+                <div class="d-none d-md-flex justify-content-end gap-2 slide-up" style="animation-delay:0.15s;">
                     <a href="{{ route('admin.education.index') }}" class="btn btn-admin btn-admin-outline">Cancel</a>
                     <button type="submit" class="btn btn-admin btn-admin-primary px-4">
+                        <i class="bi bi-check-circle me-1"></i> Update Qualification
+                    </button>
+                </div>
+
+                <div class="form-actions-bar d-md-none">
+                    <a href="{{ route('admin.education.index') }}" class="btn btn-light border btn-outline">
+                        <i class="bi bi-x-lg me-1"></i> Cancel
+                    </a>
+                    <button type="submit" class="btn btn-admin btn-admin-primary">
                         <i class="bi bi-check-circle me-1"></i> Update Qualification
                     </button>
                 </div>
