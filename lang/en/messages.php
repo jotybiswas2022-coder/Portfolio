@@ -91,6 +91,7 @@ return [
     'your_email'       => 'Your Email',
     'your_message'     => 'Your Message',
     'send_message'     => 'Send Message',
+    'sending'          => 'Sending…',
     'name_placeholder' => 'Enter your name',
     'email_placeholder'=> 'Enter your email',
     'message_placeholder' => 'Write your message...',

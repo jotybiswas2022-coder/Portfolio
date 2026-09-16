@@ -91,6 +91,7 @@ return [
     'your_email'       => 'আপনার ইমেইল',
     'your_message'     => 'আপনার বার্তা',
     'send_message'     => 'বার্তা পাঠান',
+    'sending'          => 'পাঠানো হচ্ছে…',
     'name_placeholder' => 'আপনার নাম লিখুন',
     'email_placeholder'=> 'আপনার ইমেইল লিখুন',
     'message_placeholder' => 'আপনার বার্তা লিখুন...',

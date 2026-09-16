@@ -3001,258 +3001,218 @@
         gap: 3rem; align-items: start;
     }
 
-    /* ===== TERMINAL WINDOW — CONTACT INFO ===== */
-    .ct-terminal {
+    /* ===== API CONSOLE — RESPONSE PANEL (contact info) ===== */
+    .ap-panel {
         position: relative; font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
-        background: linear-gradient(180deg, rgba(13, 23, 43, 0.6) 0%, rgba(8, 15, 32, 0.45) 100%);
+        background: linear-gradient(180deg, rgba(13, 23, 43, 0.72) 0%, rgba(8, 15, 32, 0.58) 100%);
         -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
-        border: 1px solid rgba(147, 197, 253, 0.22); border-radius: 16px;
+        border: 1px solid rgba(147, 197, 253, 0.2); border-radius: 15px;
         overflow: hidden;
-        box-shadow: 0 40px 110px rgba(2, 8, 23, 0.7), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 70px rgba(59, 130, 246, 0.09);
-        transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+        box-shadow: 0 32px 90px rgba(2, 8, 23, 0.6), 0 0 0 1px rgba(255,255,255,0.05) inset;
+        transition: border-color 0.4s ease, box-shadow 0.4s ease;
     }
-    .ct-terminal:hover { border-color: rgba(147, 197, 253, 0.4); box-shadow: 0 40px 110px rgba(2,8,23,0.7), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 90px rgba(59,130,246,0.15); transform: translateY(-4px); }
-    .ct-terminal::before {
-        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    .ap-panel:hover {
+        border-color: rgba(147, 197, 253, 0.42);
+        box-shadow: 0 36px 100px rgba(2, 8, 23, 0.62), 0 0 70px rgba(59, 130, 246, 0.14);
+    }
+    .ap-panel::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 4;
         background: linear-gradient(90deg, transparent, #3b82f6, #22d3ee, #8b5cf6, transparent);
-        background-size: 200% 100%; animation: atSweep 6s linear infinite; z-index: 3;
+        background-size: 200% 100%; animation: atSweep 6s linear infinite;
     }
-    html.light-theme .ct-terminal {
-        background: linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(230,240,252,0.6) 100%);
-        border-color: rgba(59,130,246,0.28);
-        box-shadow: 0 40px 90px rgba(59,130,246,0.2), 0 0 0 1px rgba(255,255,255,0.7) inset;
+    html.light-theme .ap-panel {
+        background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(232,241,253,0.7) 100%);
+        border-color: rgba(59,130,246,0.26);
+        box-shadow: 0 32px 80px rgba(59,130,246,0.18), 0 0 0 1px rgba(255,255,255,0.75) inset;
     }
-    .ct-term-bar {
-        display: flex; align-items: center; gap: 0.55rem;
+
+    /* ---- console request line ---- */
+    .ap-bar {
+        display: flex; align-items: center; gap: 0.5rem;
         padding: 0.6rem 0.9rem;
         background: rgba(255,255,255,0.035);
         border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    html.light-theme .ct-term-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
-    .ct-term-dots { display: flex; gap: 6px; }
-    .ct-term-dots i { width: 11px; height: 11px; border-radius: 50%; }
-    .ct-term-dots i:nth-child(1) { background: #ff5f57; }
-    .ct-term-dots i:nth-child(2) { background: #febc2e; }
-    .ct-term-dots i:nth-child(3) { background: #28c840; }
-    .ct-term-title { margin-left: 0.3rem; font-size: 0.7rem; color: #94a3b8; white-space: nowrap; }
-    html.light-theme .ct-term-title { color: #64748b; }
-    .ct-term-status {
-        margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.62rem; color: #34d399;
-        background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.28);
-        padding: 0.2rem 0.6rem; border-radius: 50px; white-space: nowrap;
+    html.light-theme .ap-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
+    .ap-bar .ab-dot { width: 9px; height: 9px; }
+    .ap-method {
+        flex-shrink: 0; margin-left: 0.3rem;
+        font-size: 0.58rem; font-weight: 800; letter-spacing: 0.5px;
+        padding: 0.16rem 0.45rem; border-radius: 5px;
     }
-    .ct-term-cmd {
+    .ap-method-get { color: #6ee7b7; background: rgba(16,185,129,0.14); border: 1px solid rgba(16,185,129,0.32); }
+    .ap-method-post { color: #fcd34d; background: rgba(245,158,11,0.14); border: 1px solid rgba(245,158,11,0.32); }
+    html.light-theme .ap-method-get { color: #047857; }
+    html.light-theme .ap-method-post { color: #b45309; }
+    .ap-endpoint {
+        flex: 1 1 auto; min-width: 0;
+        font-size: 0.7rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    html.light-theme .ap-endpoint { color: #334155; }
+    .ap-status {
+        flex-shrink: 0; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.4px;
+        padding: 0.18rem 0.55rem; border-radius: 50px;
+    }
+    .ap-status-ok { color: #34d399; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); }
+    .ap-status-ok i {
+        width: 5px; height: 5px; border-radius: 50%; background: #34d399;
+        box-shadow: 0 0 8px rgba(52,211,153,0.9);
+        animation: pjcPulse 1.8s ease-in-out infinite;
+    }
+    .ap-status-type { color: #a5b4fc; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.28); }
+    html.light-theme .ap-status-ok { color: #047857; }
+    html.light-theme .ap-status-type { color: #4338ca; }
+
+    .ap-cmd {
         display: flex; align-items: center; gap: 0.5rem;
-        padding: 0.55rem 0.9rem; font-size: 0.75rem;
+        min-height: 2.2rem;
+        padding: 0.5rem 0.9rem; font-size: 0.72rem;
         background: rgba(2,8,23,0.45); border-bottom: 1px solid rgba(148,163,184,0.12);
     }
-    html.light-theme .ct-term-cmd { background: rgba(15,23,42,0.05); border-bottom-color: rgba(15,23,42,0.08); }
-    .ct-term-prompt { color: #34d399; font-weight: 700; }
-    .ct-term-cmd-text { color: #e2e8f0; }
-    html.light-theme .ct-term-cmd-text { color: #1e293b; }
-    .ct-term-caret {
-        display: inline-block; width: 7px; height: 1em; background: #34d399;
-        border-radius: 1px; box-shadow: 0 0 10px rgba(52,211,153,0.7);
+    html.light-theme .ap-cmd { background: rgba(15,23,42,0.05); border-bottom-color: rgba(15,23,42,0.08); }
+    .ap-prompt { flex-shrink: 0; color: #34d399; font-weight: 700; }
+    .ap-cmd-text { min-width: 0; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    html.light-theme .ap-cmd-text { color: #1e293b; }
+    .ap-caret {
+        flex-shrink: 0; width: 7px; height: 1em; border-radius: 1px;
+        background: #34d399; box-shadow: 0 0 10px rgba(52,211,153,0.7);
         animation: glBlink 1s step-end infinite;
     }
-    .ct-term-body { padding: 1.2rem 1rem 1.3rem; }
-    .ct-term-heading {
-        font-family: var(--font); font-size: 1.2rem; font-weight: 800;
-        margin-bottom: 0.5rem; color: var(--text-primary);
-    }
-    .ct-term-desc { font-family: var(--font); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
 
-    /* Contact items as config lines */
-    .ct-config-list { display: flex; flex-direction: column; gap: 0.6rem; }
-    .ct-config-line {
-        display: flex; align-items: center; gap: 0.6rem;
-        padding: 0.7rem 0.85rem; border-radius: 10px;
-        background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.08);
-        transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-        position: relative; overflow: hidden;
+    .ap-body { padding: 1.1rem 1.05rem 1.2rem; }
+    .ap-comment { margin-bottom: 0.85rem; font-size: 0.78rem; color: #6ee7b7; }
+    html.light-theme .ap-comment { color: #047857; }
+    .ap-sub {
+        font-family: var(--font); font-size: 0.78rem; line-height: 1.65;
+        color: var(--text-secondary); margin-bottom: 1rem;
     }
-    .ct-config-line::before {
-        content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
-        background: linear-gradient(180deg, #3b82f6, #8b5cf6);
-        border-radius: 0 3px 3px 0;
-        transform: scaleY(0); transform-origin: top;
-        transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .ct-config-line:hover::before { transform: scaleY(1); }
-    .ct-config-line:hover {
-        border-color: rgba(59,130,246,0.25); transform: translateX(6px);
-        background: rgba(59,130,246,0.07);
-        box-shadow: 0 6px 24px rgba(59,130,246,0.08);
-    }
-    html.light-theme .ct-config-line { background: rgba(255,255,255,0.5); border-color: rgba(59,130,246,0.12); }
-    html.light-theme .ct-config-line:hover { background: rgba(255,255,255,0.8); box-shadow: 0 6px 24px rgba(59,130,246,0.12); }
-    .ct-config-icon {
-        width: 36px; height: 36px; min-width: 36px; border-radius: 10px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 0.95rem; color: var(--accent-light);
-        background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
-        transition: all 0.4s ease;
-    }
-    .ct-config-line:hover .ct-config-icon {
-        background: var(--accent-gradient); color: #fff;
-        transform: scale(1.1) rotate(-5deg); box-shadow: 0 6px 20px rgba(59,130,246,0.3);
-    }
-    .ct-config-key {
-        font-size: 0.62rem; color: #818cf8; text-transform: uppercase;
-        letter-spacing: 0.5px; font-weight: 700; margin-bottom: 1px;
-    }
-    .ct-config-val { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); transition: color 0.3s; }
-    .ct-config-line:hover .ct-config-val { color: var(--accent-light); }
-    html.light-theme .ct-config-key { color: #6366f1; }
 
-    /* Social row */
-    .ct-socials { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(59,130,246,0.08); }
-    .ct-socials-label {
-        font-size: 0.64rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
-        color: var(--text-muted); margin-bottom: 0.6rem;
+    /* ---- json payload rows ---- */
+    .ap-json { display: flex; flex-direction: column; gap: 0.3rem; }
+    .ap-line {
+        display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.1rem 0.5rem;
+        font-size: 0.79rem; line-height: 1.65;
+    }
+    .ap-k { flex-shrink: 0; min-width: 6.4rem; }
+    .ap-v { flex: 1 1 auto; min-width: 0; }
+    .ap-brace { color: #64748b; }
+    .ap-key { color: #93c5fd; }
+    .ap-colon { color: #64748b; }
+    .ap-str { color: #fbbf24; word-break: break-word; }
+    .ap-bool { color: #f472b6; }
+    .ap-punct { color: #64748b; }
+    html.light-theme .ap-key { color: #2563eb; }
+    html.light-theme .ap-str { color: #b45309; }
+    html.light-theme .ap-bool { color: #be185d; }
+
+    /* payload writes itself in once the panel scrolls into view (JS adds .ap-on).
+       Only the read-only response payload is hidden first, never the form fields. */
+    .ap-payload .ap-line, .ap-payload .ap-brace {
+        opacity: 0; transform: translateY(6px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .ap-panel.ap-on .ap-payload .ap-line,
+    .ap-panel.ap-on .ap-payload .ap-brace {
+        opacity: 1; transform: translateY(0);
+        transition-delay: calc(var(--i, 0) * 90ms + 0.1s);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .ap-payload .ap-line, .ap-payload .ap-brace { opacity: 1; transform: none; }
+        .ap-panel::before, .ap-status-ok i, .ap-send.is-sending .ap-send-icon, .ap-send.is-sending .ap-send-bar { animation: none; }
+    }
+
+    /* ---- connect row ---- */
+    .ap-socials { margin-top: 1.1rem; padding-top: 0.95rem; border-top: 1px dashed rgba(148,163,184,0.22); }
+    .ap-socials-label {
         display: flex; align-items: center; gap: 0.4rem;
+        margin-bottom: 0.6rem; font-size: 0.68rem; color: #34d399;
     }
-    .ct-socials-label i { color: var(--accent-light); }
-    .ct-socials-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .ct-social-link {
-        width: 38px; height: 38px; border-radius: 10px;
-        background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.14);
+    .ap-socials-label::before { content: "//"; color: #64748b; }
+    .ap-socials-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .ap-net {
+        width: 36px; height: 36px; border-radius: 9px;
+        background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.16);
         display: inline-flex; align-items: center; justify-content: center;
-        color: var(--text-muted); font-size: 1rem; text-decoration: none;
+        color: var(--text-muted); font-size: 0.95rem; text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
     }
-    .ct-social-link:hover {
+    .ap-net:hover {
         background: var(--accent-gradient); border-color: transparent;
         color: #fff; transform: translateY(-4px) scale(1.08);
         box-shadow: 0 8px 24px rgba(59,130,246,0.3);
     }
 
-    /* ===== CODE EDITOR — CONTACT FORM ===== */
-    .ct-editor {
-        position: relative; font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
-        background: linear-gradient(180deg, rgba(13,23,43,0.6) 0%, rgba(8,15,32,0.45) 100%);
-        -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
-        border: 1px solid rgba(147,197,253,0.22); border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 40px 110px rgba(2,8,23,0.7), 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 70px rgba(59,130,246,0.09);
-        transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+    /* ===== API CONSOLE — REQUEST PANEL (contact form) ===== */
+    .ap-line-message { align-items: flex-start; }
+    .ap-line-message .ap-v { align-items: flex-start; }
+    .ap-line-message .ap-quote { line-height: 1.65; }
+    .ap-field {
+        margin: 0 -0.55rem; padding: 0.3rem 0.55rem;
+        border: 1px solid transparent; border-radius: 9px;
+        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .ct-editor:hover { border-color: rgba(147,197,253,0.4); box-shadow: 0 40px 110px rgba(2,8,23,0.7), 0 0 90px rgba(59,130,246,0.15); transform: translateY(-4px); }
-    .ct-editor::before {
-        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #8b5cf6, transparent);
-        background-size: 200% 100%; animation: atSweep 6s linear infinite; z-index: 3;
+    .ap-field:focus-within {
+        background: rgba(59,130,246,0.07);
+        border-color: rgba(59,130,246,0.26);
+        box-shadow: 0 4px 20px rgba(59,130,246,0.08);
     }
-    html.light-theme .ct-editor {
-        background: linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(230,240,252,0.6) 100%);
-        border-color: rgba(59,130,246,0.28);
-        box-shadow: 0 40px 90px rgba(59,130,246,0.2), 0 0 0 1px rgba(255,255,255,0.7) inset;
+    html.light-theme .ap-field:focus-within { background: rgba(59,130,246,0.06); border-color: rgba(59,130,246,0.32); }
+    .ap-quote { flex-shrink: 0; color: #fbbf24; }
+    html.light-theme .ap-quote { color: #b45309; }
+    .ap-v { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.15rem; }
+    .ap-input, .ap-textarea {
+        flex: 1 1 6rem; min-width: 0;
+        background: transparent; border: none; outline: none;
+        color: var(--text-primary) !important;
+        font-family: inherit; font-size: 0.79rem; line-height: 1.65; padding: 0;
     }
-    .ct-editor-bar {
+    html.light-theme .ap-input, html.light-theme .ap-textarea { color: #0f172a !important; }
+    .ap-input::placeholder, .ap-textarea::placeholder { color: rgba(148,163,184,0.45); }
+    html.light-theme .ap-input::placeholder, html.light-theme .ap-textarea::placeholder { color: rgba(100,116,139,0.5); }
+    .ap-textarea { resize: vertical; min-height: 92px; }
+
+    /* ---- send button ---- */
+    .ap-send {
+        position: relative; overflow: hidden;
+        width: 100%; margin-top: 1rem; padding: 0.8rem 1.1rem;
         display: flex; align-items: center; gap: 0.55rem;
-        padding: 0.6rem 0.9rem;
-        background: rgba(255,255,255,0.035);
-        border-bottom: 1px solid rgba(255,255,255,0.07);
+        background: linear-gradient(135deg, #1d4ed8, #4f46e5, #7c3aed);
+        color: #fff; border: 1px solid rgba(129,140,248,0.45); border-radius: 11px;
+        font-family: inherit; font-size: 0.79rem; font-weight: 700; letter-spacing: 0.2px;
+        cursor: pointer;
+        box-shadow: 0 12px 32px rgba(79,70,229,0.32);
+        transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease;
     }
-    html.light-theme .ct-editor-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
-    .ct-editor-tab {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.7rem; color: #93c5fd;
-        background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25);
-        padding: 0.22rem 0.65rem; border-radius: 6px 6px 0 0; white-space: nowrap;
-        border-bottom: none; position: relative; top: 1px;
+    .ap-send::before {
+        content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 40%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+        transform: skewX(-16deg); transition: left 0.6s ease;
     }
-    .ct-editor-tab i { font-size: 0.8rem; color: #fbbf24; }
-    html.light-theme .ct-editor-tab { color: #2563eb; background: rgba(59,130,246,0.1); }
-    .ct-editor-lang {
-        margin-left: auto; font-size: 0.6rem; color: #64748b; font-weight: 600;
-        letter-spacing: 0.3px; text-transform: uppercase;
+    .ap-send:hover::before { left: 115%; }
+    .ap-send:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(79,70,229,0.42); }
+    .ap-send-icon { flex-shrink: 0; font-size: 0.9rem; transition: transform 0.4s ease; }
+    .ap-send:hover .ap-send-icon { transform: translateX(4px); }
+    .ap-send-label { flex: 1 1 auto; text-align: left; }
+    .ap-send-badge {
+        flex-shrink: 0; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.5px;
+        background: rgba(255,255,255,0.2); border-radius: 5px; padding: 0.15rem 0.45rem;
     }
-    .ct-editor-body { padding: 1.2rem 1rem 1.3rem; }
-    .ct-editor-heading {
-        font-family: var(--font); font-size: 1.1rem; font-weight: 700;
-        color: var(--text-primary); margin-bottom: 0.3rem;
+    .ap-send-bar {
+        position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+        background: linear-gradient(90deg, #22d3ee, #a78bfa);
     }
-    .ct-editor-desc { font-family: var(--font); font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 1.2rem; }
-
-    /* Form fields as code lines */
-    .ct-code-group { margin-bottom: 1.2rem; position: relative; }
-    .ct-code-label {
-        display: flex; align-items: center; gap: 0.4rem;
-        font-size: 0.66rem; font-weight: 700; margin-bottom: 0.35rem;
-        color: #818cf8; letter-spacing: 0.3px;
+    .ap-send:disabled { cursor: progress; opacity: 0.9; transform: none; }
+    .ap-send.is-sending .ap-send-icon { animation: apSpin 0.9s linear infinite; }
+    .ap-send.is-sending .ap-send-bar { animation: apSendBar 1.1s ease-in-out infinite; }
+    @keyframes apSpin { to { transform: rotate(1turn); } }
+    @keyframes apSendBar {
+        0% { width: 0; left: 0; }
+        50% { width: 55%; left: 22%; }
+        100% { width: 0; left: 100%; }
     }
-    html.light-theme .ct-code-label { color: #6366f1; }
-    .ct-code-label i { font-size: 0.75rem; color: #fbbf24; }
-    .ct-code-input-wrap { position: relative; }
-    .ct-code-line {
-        display: flex; align-items: center; gap: 0.5rem;
-        background: rgba(2,8,23,0.4); border: 1px solid rgba(148,163,184,0.12);
-        border-radius: 10px; padding: 0 0.85rem;
-        transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-    }
-    html.light-theme .ct-code-line { background: rgba(15,23,42,0.05); border-color: rgba(15,23,42,0.08); }
-    .ct-code-line:focus-within {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59,130,246,0.08), 0 4px 20px rgba(59,130,246,0.05);
-        background: rgba(2,8,23,0.6);
-    }
-    html.light-theme .ct-code-line:focus-within { background: #fff; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
-    .ct-code-ln {
-        font-size: 0.6rem; color: #475569; min-width: 1.5rem;
-        text-align: right; user-select: none; padding-right: 0.3rem;
-    }
-    .ct-code-input {
-        flex: 1; padding: 0.7rem 0; background: transparent; border: none;
-        color: var(--text-primary) !important; font-family: inherit; font-size: 0.85rem;
-        outline: none;
-    }
-    html.light-theme .ct-code-input { color: #0f172a !important; }
-    .ct-code-input::placeholder { color: rgba(148,163,184,0.35); }
-    html.light-theme .ct-code-input::placeholder { color: rgba(100,116,139,0.4); }
-    .ct-code-textarea {
-        flex: 1; padding: 0.7rem 0; background: transparent; border: none;
-        color: var(--text-primary) !important; font-family: inherit; font-size: 0.85rem;
-        outline: none; resize: vertical; min-height: 100px; line-height: 1.6;
-    }
-    html.light-theme .ct-code-textarea { color: #0f172a !important; }
-    .ct-code-textarea::placeholder { color: rgba(148,163,184,0.35); }
-    html.light-theme .ct-code-textarea::placeholder { color: rgba(100,116,139,0.4); }
-    .ct-code-end { font-size: 0.7rem; color: #64748b; user-select: none; }
-
-    /* Submit as git push button */
-    .ct-push-btn {
-        width: 100%; padding: 0.85rem 1.2rem; margin-top: 0.5rem;
-        background: linear-gradient(135deg, #065f46, #047857, #059669);
-        color: #d1fae5; border: 1px solid rgba(52,211,153,0.4); border-radius: 12px;
-        font-family: inherit; font-size: 0.82rem; font-weight: 700;
-        cursor: pointer; position: relative; overflow: hidden;
-        display: flex; align-items: center; justify-content: center; gap: 0.55rem;
-        box-shadow: 0 10px 30px rgba(16,185,129,0.24);
-        transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .ct-push-btn::before {
-        content: ""; position: absolute; top: 0; left: -100%;
-        width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-        transition: left 0.6s ease;
-    }
-    .ct-push-btn:hover::before { left: 100%; }
-    .ct-push-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 38px rgba(16,185,129,0.38); color: #fff; }
-    .ct-push-btn .push-icon { transition: transform 0.4s ease; }
-    .ct-push-btn:hover .push-icon { transform: translateX(4px); }
-    .ct-push-prompt { color: #6ee7b7; }
-    .ct-push-badge {
-        margin-left: auto; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
-        background: rgba(255,255,255,0.18); border-radius: 6px; padding: 0.15rem 0.45rem;
-    }
-    .ct-push-shimmer {
-        position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-        transition: left 0.6s ease;
-    }
-    .ct-push-btn:hover .ct-push-shimmer { left: 100%; }
 
     
     /* ===== FAQ — CODING COLLAPSIBLE BLOCKS ===== */
@@ -3369,47 +3329,41 @@
     html.light-theme .map-container iframe { filter: none !important; }
     html.light-theme .map-container { box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
     html.light-theme .map-container:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
-    /* Contact responsive */
+    /* Contact responsive — keep the console readable, drop the extra chrome */
     @media (max-width: 768px) {
-        .contact-grid { gap: 2rem; }
-        .ct-term-bar, .ct-editor-bar { padding: 0.5rem 0.8rem; }
-        .ct-term-cmd { padding: 0.45rem 0.85rem; font-size: 0.7rem; }
-        .ct-term-body, .ct-editor-body { padding: 1.05rem 0.9rem 1.15rem; }
-        .ct-term-heading { font-size: 1.05rem; margin-bottom: 0.4rem; }
-        .ct-term-desc { font-size: 0.8rem; margin-bottom: 1rem; }
-        .ct-config-list { gap: 0.5rem; }
-        .ct-config-line { padding: 0.6rem 0.75rem; gap: 0.5rem; }
-        .ct-config-icon { width: 32px; height: 32px; min-width: 32px; font-size: 0.85rem; }
-        .ct-config-key { font-size: 0.58rem; }
-        .ct-config-val { font-size: 0.82rem; }
-        .ct-editor-heading { font-size: 1rem; }
-        .ct-editor-desc { font-size: 0.78rem; margin-bottom: 1rem; }
-        .ct-code-group { margin-bottom: 1rem; }
-        .ct-code-label { font-size: 0.62rem; }
-        .ct-code-line { padding: 0 0.7rem; }
-        .ct-code-ln { font-size: 0.56rem; }
-        .ct-code-input, .ct-code-textarea { font-size: 0.8rem; }
-        .ct-push-btn { font-size: 0.78rem; padding: 0.75rem 1rem; }
+        .contact-grid { gap: 1.8rem; }
+        .ap-bar { gap: 0.4rem; padding: 0.5rem 0.75rem; }
+        .ap-bar .ab-dot { width: 8px; height: 8px; }
+        .ap-endpoint { font-size: 0.66rem; }
+        .ap-status { font-size: 0.54rem; padding: 0.15rem 0.45rem; }
+        .ap-cmd { min-height: 2rem; padding: 0.4rem 0.75rem; font-size: 0.68rem; }
+        .ap-body { padding: 0.95rem 0.85rem 1rem; }
+        .ap-comment { font-size: 0.74rem; margin-bottom: 0.7rem; }
+        .ap-sub { display: none; }
+        .ap-json { gap: 0.25rem; }
+        .ap-line { font-size: 0.74rem; }
+        .ap-k { min-width: 5.9rem; }
+        .ap-input, .ap-textarea { font-size: 0.74rem; }
+        .ap-textarea { min-height: 84px; }
+        .ap-socials { margin-top: 0.95rem; padding-top: 0.8rem; }
+        .ap-socials-label { font-size: 0.64rem; margin-bottom: 0.5rem; }
+        .ap-net { width: 33px; height: 33px; font-size: 0.9rem; }
+        .ap-send { margin-top: 0.85rem; padding: 0.72rem 0.95rem; font-size: 0.75rem; }
         .map-container { border-radius: 12px; }
     }
     @media (max-width: 480px) {
-        .contact-grid { gap: 1.4rem; }
-        .ct-term-body, .ct-editor-body { padding: 0.9rem 0.7rem 1rem; }
-        .ct-term-title { font-size: 0.64rem; }
-        .ct-term-status { font-size: 0.56rem; padding: 0.16rem 0.5rem; }
-        .ct-term-cmd { font-size: 0.66rem; padding: 0.4rem 0.75rem; }
-        .ct-term-heading { font-size: 0.98rem; }
-        .ct-term-desc { font-size: 0.76rem; }
-        .ct-config-line { padding: 0.55rem 0.65rem; gap: 0.45rem; }
-        .ct-config-icon { width: 28px; height: 28px; min-width: 28px; font-size: 0.75rem; border-radius: 8px; }
-        .ct-config-val { font-size: 0.76rem; }
-        .ct-editor-lang { display: none; }
-        .ct-editor-heading { font-size: 0.95rem; }
-        .ct-editor-desc { font-size: 0.74rem; }
-        .ct-code-label i { font-size: 0.7rem; }
-        .ct-code-ln { font-size: 0.54rem; min-width: 1.3rem; }
-        .ct-code-input, .ct-code-textarea { font-size: 0.76rem; padding: 0.6rem 0; }
-        .ct-push-badge { display: none; }
+        .contact-grid { gap: 1.3rem; }
+        .ap-method { margin-left: 0.2rem; font-size: 0.54rem; padding: 0.13rem 0.38rem; }
+        .ap-endpoint { font-size: 0.62rem; }
+        .ap-status { display: none; }
+        .ap-cmd { padding: 0.35rem 0.65rem; font-size: 0.64rem; }
+        .ap-body { padding: 0.8rem 0.7rem 0.9rem; }
+        .ap-line { font-size: 0.71rem; }
+        .ap-k { min-width: 5rem; }
+        .ap-input, .ap-textarea { font-size: 0.71rem; }
+        .ap-net { width: 30px; height: 30px; font-size: 0.85rem; border-radius: 8px; }
+        .ap-send { padding: 0.68rem 0.85rem; font-size: 0.72rem; }
+        .ap-send-badge { display: none; }
     }
     /* Footer */
 /* ===== FOOTER — TERMINAL SHELL ===== */
@@ -3632,6 +3586,12 @@
         display: flex; align-items: center; gap: 0.5rem;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast-code {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.7rem; font-weight: 800; letter-spacing: 0.4px;
+        background: rgba(255,255,255,0.22); border-radius: 5px;
+        padding: 0.12rem 0.4rem;
+    }
 
     /* Shared Utilities */
     .empty-state { text-align: center; padding: 4rem 2rem; }
@@ -3816,15 +3776,11 @@
         .testimonial-stars { font-size: 0.72rem; }
         .carousel-dots .dot { min-width: 24px; height: 24px; font-size: 0.58rem; }
         
-        .contact-grid { gap: 2rem; }
-        .contact-form { padding: 1.4rem; }
-        .contact-info h3 { font-size: 1.2rem; }
-        .contact-item { padding: 0.8rem; }
-        .contact-item .icon-box { width: 38px; height: 38px; font-size: 1rem; }
-        .contact-item .text .value { font-size: 0.82rem; }
-        .form-group label { font-size: 0.8rem; }
-        .form-group input, .form-group textarea { padding: 0.75rem 1rem; font-size: 0.85rem; }
-        .btn-submit { padding: 0.85rem; font-size: 0.88rem; }
+        .contact-grid { gap: 1.3rem; }
+        .ap-body { padding: 0.75rem 0.65rem 0.85rem; }
+        .ap-comment { font-size: 0.7rem; }
+        .ap-socials { margin-top: 0.85rem; padding-top: 0.7rem; }
+        .ap-send { margin-top: 0.75rem; padding: 0.65rem 0.8rem; }
         
         .whatsapp-tooltip { display: none; }
         .whatsapp-float { width: 44px; height: 44px; font-size: 1.2rem; bottom: 1rem; left: 1rem; }
@@ -5148,7 +5104,7 @@
         </div>
     </section>
 
-            <!-- Contact Section — CODING TERMINAL DESIGN -->
+            <!-- Contact Section — API CONSOLE (request / response) -->
     <section class="contact-section section-padding" id="contact">
         <div class="contact-bg-grid"></div>
         <div class="container">
@@ -5169,67 +5125,67 @@
             ])
 
             <div class="contact-grid">
-                <!-- Left: Terminal Info Card -->
-                <div class="ct-terminal reveal reveal-delay-1">
-                    <div class="ct-term-bar">
-                        <span class="ct-term-dots"><i></i><i></i><i></i></span>
-                        <span class="ct-term-title"><i class="bi bi-folder2-open" style="color:#818cf8"></i> contact-config.env</span>
-                        <span class="ct-term-status"><i class="bi bi-circle-fill" style="font-size:0.4rem"></i> online</span>
+                <!-- Left: GET /api/profile → JSON response -->
+                <div class="ap-panel reveal reveal-delay-1" data-ap>
+                    <div class="ap-bar">
+                        <span class="ab-dot red" aria-hidden="true"></span>
+                        <span class="ab-dot yellow" aria-hidden="true"></span>
+                        <span class="ab-dot green" aria-hidden="true"></span>
+                        <span class="ap-method ap-method-get">GET</span>
+                        <span class="ap-endpoint">/api/profile</span>
+                        <span class="ap-status ap-status-ok"><i aria-hidden="true"></i> 200 OK</span>
                     </div>
-                    <div class="ct-term-cmd">
-                        <span class="ct-term-prompt">$</span>
-                        <span class="ct-term-cmd-text">cat .env.local</span>
-                        <span class="ct-term-caret"></span>
+                    <div class="ap-cmd">
+                        <span class="ap-prompt" aria-hidden="true">&#10095;</span>
+                        <span class="ap-cmd-text" data-ap-cmd="curl -s {{ url('/api/profile') }}">curl -s {{ url('/api/profile') }}</span>
+                        <span class="ap-caret" aria-hidden="true"></span>
                     </div>
-                    <div class="ct-term-body">
-                        <div class="ct-term-heading">{{ __("messages.contact_heading") }}</div>
-                        <div class="ct-term-desc">{{ __("messages.contact_desc") }}</div>
+                    <div class="ap-body">
+                        <div class="ap-comment">// {{ __('messages.contact_heading') }}</div>
+                        <p class="ap-sub">{{ __('messages.contact_desc') }}</p>
 
-                        <div class="ct-config-list">
-                            <div class="ct-config-line">
-                                <div class="ct-config-icon"><i class="bi bi-envelope-fill"></i></div>
-                                <div>
-                                    <div class="ct-config-key">MAIL_TO</div>
-                                    <div class="ct-config-val">{{ $account->email ?? "joty@example.com" }}</div>
-                                </div>
+                        <div class="ap-json ap-payload">
+                            <div class="ap-brace" style="--i: 0">{</div>
+                            <div class="ap-line" style="--i: 1">
+                                <span class="ap-k"><span class="ap-key">"email"</span><span class="ap-colon">:</span></span>
+                                <span class="ap-v"><span class="ap-str">"{{ $account->email ?? 'joty@example.com' }}"</span><span class="ap-punct">,</span></span>
                             </div>
-                            <div class="ct-config-line">
-                                <div class="ct-config-icon"><i class="bi bi-phone-fill"></i></div>
-                                <div>
-                                    <div class="ct-config-key">PHONE</div>
-                                    <div class="ct-config-val">{{ $account->phone ?? "+880 1XXX-XXXXXX" }}</div>
-                                </div>
+                            <div class="ap-line" style="--i: 2">
+                                <span class="ap-k"><span class="ap-key">"phone"</span><span class="ap-colon">:</span></span>
+                                <span class="ap-v"><span class="ap-str">"{{ $account->phone ?? '+880 1XXX-XXXXXX' }}"</span><span class="ap-punct">,</span></span>
                             </div>
-                            <div class="ct-config-line">
-                                <div class="ct-config-icon"><i class="bi bi-geo-alt-fill"></i></div>
-                                <div>
-                                    <div class="ct-config-key">LOCATION</div>
-                                    <div class="ct-config-val">Bangladesh</div>
-                                </div>
+                            <div class="ap-line" style="--i: 3">
+                                <span class="ap-k"><span class="ap-key">"location"</span><span class="ap-colon">:</span></span>
+                                <span class="ap-v"><span class="ap-str">"Bangladesh"</span><span class="ap-punct">,</span></span>
                             </div>
+                            <div class="ap-line" style="--i: 4">
+                                <span class="ap-k"><span class="ap-key">"available"</span><span class="ap-colon">:</span></span>
+                                <span class="ap-v"><span class="ap-bool">true</span></span>
+                            </div>
+                            <div class="ap-brace" style="--i: 5">}</div>
                         </div>
 
                         @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube))
-                            <div class="ct-socials">
-                                <div class="ct-socials-label"><i class="bi bi-share-fill"></i> {{ __("messages.connect") }}</div>
-                                <div class="ct-socials-row">
+                            <div class="ap-socials">
+                                <div class="ap-socials-label">{{ __('messages.connect') }}</div>
+                                <div class="ap-socials-row">
                                     @if(isset($account) && $account->github)
-                                        <a href="{{ $account->github }}" target="_blank" class="ct-social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                                        <a href="{{ $account->github }}" target="_blank" rel="noopener" class="ap-net" aria-label="GitHub"><i class="bi bi-github"></i></a>
                                     @endif
                                     @if(isset($account) && $account->linkedin)
-                                        <a href="{{ $account->linkedin }}" target="_blank" class="ct-social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                        <a href="{{ $account->linkedin }}" target="_blank" rel="noopener" class="ap-net" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
                                     @endif
                                     @if(isset($account) && $account->facebook)
-                                        <a href="{{ $account->facebook }}" target="_blank" class="ct-social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                        <a href="{{ $account->facebook }}" target="_blank" rel="noopener" class="ap-net" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
                                     @endif
                                     @if(isset($account) && $account->instagram)
-                                        <a href="{{ $account->instagram }}" target="_blank" class="ct-social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                        <a href="{{ $account->instagram }}" target="_blank" rel="noopener" class="ap-net" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
                                     @endif
                                     @if(isset($account) && $account->twitter)
-                                        <a href="{{ $account->twitter }}" target="_blank" class="ct-social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                        <a href="{{ $account->twitter }}" target="_blank" rel="noopener" class="ap-net" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
                                     @endif
                                     @if(isset($account) && $account->youtube)
-                                        <a href="{{ $account->youtube }}" target="_blank" class="ct-social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                        <a href="{{ $account->youtube }}" target="_blank" rel="noopener" class="ap-net" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                                     @endif
                                 </div>
                             </div>
@@ -5237,53 +5193,59 @@
                     </div>
                 </div>
 
-                <!-- Right: Code Editor Form -->
-                <div class="ct-editor reveal reveal-delay-2">
-                    <div class="ct-editor-bar">
-                        <span class="ct-editor-tab"><i class="bi bi-filetype-php"></i> send_message.php</span>
-                        <span class="ct-editor-lang">PHP</span>
+                <!-- Right: POST /api/contact → JSON request body form -->
+                <div class="ap-panel reveal reveal-delay-2" data-ap>
+                    <div class="ap-bar">
+                        <span class="ab-dot red" aria-hidden="true"></span>
+                        <span class="ab-dot yellow" aria-hidden="true"></span>
+                        <span class="ab-dot green" aria-hidden="true"></span>
+                        <span class="ap-method ap-method-post">POST</span>
+                        <span class="ap-endpoint">/api/contact</span>
+                        <span class="ap-status ap-status-type">application/json</span>
                     </div>
-                    <div class="ct-editor-body">
-                        <div class="ct-editor-heading"><i class="bi bi-pencil-square me-1" style="color:#818cf8"></i> {{ __("messages.send_message") }}</div>
-                        <div class="ct-editor-desc">{{ __("messages.contact_desc") }}</div>
-                        <form action="{{ url("/contactus") }}" method="POST" id="contactForm">
+                    <div class="ap-body">
+                        <div class="ap-comment">// {{ __('messages.send_message') }}</div>
+
+                        <form action="{{ url('/contactus') }}" method="POST" id="contactForm">
                             @csrf
-                            <div class="ct-code-group">
-                                <div class="ct-code-label"><i class="bi bi-tag-fill"></i> const name =</div>
-                                <div class="ct-code-input-wrap">
-                                    <div class="ct-code-line">
-                                        <span class="ct-code-ln">1</span>
-                                        <input type="text" id="name" name="name" class="ct-code-input" placeholder="{{ __("messages.name_placeholder") }}" required>
-                                        <span class="ct-code-end">;</span>
-                                    </div>
+                            <div class="ap-json">
+                                <div class="ap-brace" aria-hidden="true">{</div>
+
+                                <div class="ap-line ap-field">
+                                    <span class="ap-k"><span class="ap-key">"name"</span><span class="ap-colon">:</span></span>
+                                    <span class="ap-v">
+                                        <span class="ap-quote" aria-hidden="true">"</span>
+                                        <input type="text" id="name" name="name" class="ap-input" placeholder="{{ __('messages.name_placeholder') }}" required>
+                                        <span class="ap-quote" aria-hidden="true">"</span><span class="ap-punct">,</span>
+                                    </span>
                                 </div>
-                            </div>
-                            <div class="ct-code-group">
-                                <div class="ct-code-label"><i class="bi bi-tag-fill"></i> const email =</div>
-                                <div class="ct-code-input-wrap">
-                                    <div class="ct-code-line">
-                                        <span class="ct-code-ln">2</span>
-                                        <input type="email" id="email" name="email" class="ct-code-input" placeholder="{{ __("messages.email_placeholder") }}" required>
-                                        <span class="ct-code-end">;</span>
-                                    </div>
+
+                                <div class="ap-line ap-field">
+                                    <span class="ap-k"><span class="ap-key">"email"</span><span class="ap-colon">:</span></span>
+                                    <span class="ap-v">
+                                        <span class="ap-quote" aria-hidden="true">"</span>
+                                        <input type="email" id="email" name="email" class="ap-input" placeholder="{{ __('messages.email_placeholder') }}" required>
+                                        <span class="ap-quote" aria-hidden="true">"</span><span class="ap-punct">,</span>
+                                    </span>
                                 </div>
-                            </div>
-                            <div class="ct-code-group">
-                                <div class="ct-code-label"><i class="bi bi-tag-fill"></i> const message =</div>
-                                <div class="ct-code-input-wrap">
-                                    <div class="ct-code-line" style="align-items: flex-start;">
-                                        <span class="ct-code-ln">3</span>
-                                        <textarea id="message" name="message" class="ct-code-textarea" placeholder="{{ __("messages.message_placeholder") }}" rows="4" required></textarea>
-                                        <span class="ct-code-end" style="padding-top:0.7rem">;</span>
-                                    </div>
+
+                                <div class="ap-line ap-field ap-line-message">
+                                    <span class="ap-k"><span class="ap-key">"message"</span><span class="ap-colon">:</span></span>
+                                    <span class="ap-v">
+                                        <span class="ap-quote" aria-hidden="true">"</span>
+                                        <textarea id="message" name="message" class="ap-textarea" placeholder="{{ __('messages.message_placeholder') }}" rows="4" required></textarea>
+                                        <span class="ap-quote" aria-hidden="true">"</span>
+                                    </span>
                                 </div>
+
+                                <div class="ap-brace" aria-hidden="true">}</div>
                             </div>
-                            <button type="submit" class="ct-push-btn">
-                                <span class="ct-push-shimmer"></span>
-                                <span class="ct-push-prompt">$</span>
-                                <i class="bi bi-send-fill push-icon"></i>
-                                <span>git push origin main</span>
-                                <span class="ct-push-badge">deploy</span>
+
+                            <button type="submit" class="ap-send" data-send data-sending-label="{{ __('messages.sending') }}">
+                                <span class="ap-send-icon" aria-hidden="true"><i class="bi bi-send-fill"></i></span>
+                                <span class="ap-send-label">{{ __('messages.send_message') }}</span>
+                                <span class="ap-send-badge">POST</span>
+                                <span class="ap-send-bar" aria-hidden="true"></span>
                             </button>
                         </form>
                     </div>
@@ -5466,8 +5428,9 @@
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Toast -->
+    <!-- Toast (rendered as the API response to the contact form) -->
     <div class="toast" id="toast">
+        <span class="toast-code">201</span>
         <i class="bi bi-check-circle-fill"></i> {{ __('messages.msg_sent') }}
     </div>
 
@@ -5972,17 +5935,75 @@
     });
 })();
 
+// ===== API CONSOLE PANELS (typed request + payload writes in) =====
+(function() {
+    var panels = document.querySelectorAll('[data-ap]');
+    if (!panels.length) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function run(panel) {
+        if (panel.dataset.apDone) return;
+        panel.dataset.apDone = '1';
+
+        var el = panel.querySelector('[data-ap-cmd]');
+        var full = el ? (el.getAttribute('data-ap-cmd') || el.textContent || '') : '';
+
+        if (!el || reduce) {
+            if (el) el.textContent = full;
+            panel.classList.add('ap-on');
+            return;
+        }
+
+        el.textContent = '';
+        var i = 0;
+        (function type() {
+            el.textContent = full.slice(0, ++i);
+            if (i < full.length) setTimeout(type, 24 + Math.random() * 22);
+            else panel.classList.add('ap-on');
+        })();
+    }
+
+    if (window.IntersectionObserver) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                run(entry.target);
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.25 });
+        panels.forEach(function(panel) { io.observe(panel); });
+    } else {
+        panels.forEach(run);
+    }
+
+    // safety net: arm a panel that is already on screen if the observer missed it
+    setTimeout(function() {
+        panels.forEach(function(panel) {
+            if (panel.dataset.apDone === '1') return;
+            if (panel.getBoundingClientRect().top < window.innerHeight) run(panel);
+        });
+    }, 3000);
+})();
+
 // ===== CONTACT FORM AJAX =====
 (function() {
     var form = document.getElementById('contactForm');
     if (!form) return;
+
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        var formData = new FormData(form);
-        var btn = form.querySelector('.btn-submit');
-        var origText = btn.innerHTML;
-        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending...';
-        btn.disabled = true;
+
+        var btn = form.querySelector('[data-send]');
+        var label = btn ? btn.querySelector('.ap-send-label') : null;
+        var origLabel = label ? label.textContent : '';
+        var sendingLabel = btn ? (btn.getAttribute('data-sending-label') || origLabel) : '';
+
+        if (btn) {
+            btn.disabled = true;
+            btn.classList.add('is-sending');
+            if (label) label.textContent = sendingLabel;
+        }
 
         fetch(form.action, {
             method: 'POST',
@@ -5990,7 +6011,7 @@
                 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
                 'Accept': 'application/json'
             },
-            body: formData
+            body: new FormData(form)
         })
         .then(async function(response) {
             if (!response.ok) { var err = await response.json(); throw err; }
@@ -6002,7 +6023,12 @@
             form.reset();
         })
         .catch(function(error) { console.error('Error:', error); alert('Message send failed!'); })
-        .finally(function() { btn.innerHTML = origText; btn.disabled = false; });
+        .finally(function() {
+            if (!btn) return;
+            btn.disabled = false;
+            btn.classList.remove('is-sending');
+            if (label) label.textContent = origLabel;
+        });
     });
 })();
 
