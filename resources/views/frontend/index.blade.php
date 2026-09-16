@@ -1210,14 +1210,15 @@
     }
     @media (max-width: 480px) {
         .svc-grid { gap: 0.75rem; }
-        .svc-card-body { padding: 0.65rem 0.6rem 0.7rem; gap: 0.5rem; }
-        .svc-card-icon { width: 36px; height: 36px; font-size: 1rem; border-radius: 10px; }
-        .svc-card-title { font-size: 0.78rem; }
-        .svc-card-desc { font-size: 0.68rem; line-height: 1.5; }
-        .svc-route { font-size: 0.58rem; }
-        .svc-card-foot { padding: 0.4rem 0.55rem; font-size: 0.6rem; }
-        .svc-card-bar { padding: 0.35rem 0.6rem; }
-        .svc-card-bar .ab-dot { width: 8px; height: 8px; }
+        .svc-card { min-width: 0 !important; }
+        .svc-card-body { padding: 0.45rem 0.45rem 0.55rem; gap: 0.35rem; }
+        .svc-card-icon { width: 30px; height: 30px; font-size: 0.8rem; border-radius: 8px; }
+        .svc-card-title { font-size: 0.65rem; }
+        .svc-card-desc { font-size: 0.55rem; line-height: 1.3; max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
+        .svc-route { font-size: 0.5rem; }
+        .svc-card-foot { padding: 0.25rem 0.35rem; font-size: 0.48rem; }
+        .svc-card-bar { padding: 0.25rem 0.45rem; }
+        .svc-card-bar .ab-dot { width: 6px; height: 6px; }
     }
 /* ===== Glass Card Shine Effect ===== */
     .project-card::after,
@@ -3258,6 +3259,8 @@
     @media (max-width: 968px) {
         .about-shell, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .pkg-grid { gap: 1.75rem; }
+        .pkg-card { flex: 0 0 calc((100% - 3.5rem) / 3); max-width: calc((100% - 3.5rem) / 3); min-width: 0; }
         .hero { padding: 5rem 1.5rem 2rem; }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
@@ -3291,7 +3294,9 @@
         .pj-artifact { height: 150px; }
         .project-card .card-body .view-details-btn { font-size: 0.8rem; }
         .pkg-grid { gap: 1.5rem; }
-        .pkg-card { flex-basis: calc((100% - 1.5rem) / 2); max-width: calc((100% - 1.5rem) / 2); min-width: 240px; }
+        .pkg-card { flex: 0 0 100%; max-width: 100%; min-width: 0; }
+        .term-exit { display: none !important; }
+        .term-includes { display: none !important; }
         .term-body { font-size: 0.74rem; }
         .term-price { font-size: 1.45rem; }
         .pkg-action { margin-left: 1rem; margin-right: 1rem; font-size: 0.85rem; }
@@ -3315,10 +3320,15 @@
         .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
         
         .scroll-indicator { display: none; }
-        .toast { padding: 0.8rem 1.5rem; font-size: 0.85rem; max-width: 90%; }
-        .empty-state { padding: 3rem 1.2rem; }
-        .empty-state i { font-size: 2.2rem; }
-        
+.toast { padding: 0.8rem 1.5rem; font-size: 0.85rem; max-width: 90%; }
+.empty-state { padding: 3rem 1.2rem; }
+.empty-state i { font-size: 2.2rem; }
+.pkg-card { font-size: 0.78rem; }
+.term-body { padding: 0.75rem 0.75rem 0.9rem; gap: 0.4rem; font-size: 0.7rem; line-height: 1.4; }
+.term-price { font-size: 1.2rem; }
+.pkg-action { font-size: 0.78rem; }
+.pkg-foot { font-size: 0.58rem; }
+
 /* Tablet hero decorative */
         .float-chip.c1 { top: 10%; right: 3%; }
         .float-chip.c2 { display: none; }
@@ -3357,13 +3367,18 @@
         .pj-artifact { height: 140px; }
         .project-card .card-body { padding: 0.8rem 0.8rem 0.95rem; }
         .project-card .card-body h3 { font-size: 1rem; }
-        .pkg-grid { display: block !important; gap: unset; width: 100% !important; }
-        .pkg-card { width: 100% !important; min-width: 0 !important; display: flex; max-width: none !important; }
-        .pkg-card + .pkg-card { margin-top: 1rem; }
+        .pkg-grid { gap: 1rem; }
+        .pkg-card { flex: 0 0 100%; max-width: 100%; min-width: 0; display: flex; }
+        .term-exit { display: none !important; }
         .term-body { font-size: 0.72rem; padding: 0.85rem 0.8rem 1rem; }
         .term-price { font-size: 1.35rem; }
         .term-val { font-size: 0.8rem; }
         .pkg-action { margin-left: 0.85rem; margin-right: 0.85rem; padding: 0.65rem 0.85rem; font-size: 0.82rem; }
+        .term-includes { font-size: 0.65rem; }
+        .term-includes .term-key { font-size: 0.6rem; }
+        .term-items { gap: 0.2rem; }
+        .term-items li { font-size: 0.6rem; line-height: 1.2; }
+        .term-items li i { font-size: 0.5rem; }
         .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
         .filter-tabs::-webkit-scrollbar { height: 2px; }
         .filter-tabs::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
