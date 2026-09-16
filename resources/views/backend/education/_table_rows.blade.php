@@ -1,25 +1,28 @@
 @forelse($educations as $education)
-    <div class="col-12 col-sm-6 col-xl-4">
-        <div class="edu-card slide-up">
+    <div class="col-12 col-md-6 col-xxl-4">
+        <div class="edu-card">
 
             {{-- Degree + Institution --}}
             <div class="d-flex align-items-start gap-3">
                 <div class="degree-tile">
                     <i class="bi bi-mortarboard"></i>
                 </div>
-                <div class="flex-grow-1 pe-1">
-                    <div class="edu-degree">{{ $education->degree_name }}</div>
-                    <div class="edu-institution">{{ $education->institution }}
+                <div class="flex-grow-1 pe-1 min-w-0">
+                    <div class="edu-degree text-truncate">{{ $education->degree_name }}</div>
+                    <div class="edu-institution text-truncate">
+                        {{ $education->institution }}
                         @if($education->board_or_university)
-                            <span class="text-muted"> — {{ $education->board_or_university }}</span>
+                            <span class="text-muted"> &middot; {{ $education->board_or_university }}</span>
                         @endif
                     </div>
                 </div>
-                <span class="order-badge"><i class="bi bi-arrow-down-up"></i>{{ $education->display_order }}</span>
+                <span class="order-badge" title="Display order">
+                    <i class="bi bi-arrow-down-up"></i>{{ $education->display_order }}
+                </span>
             </div>
 
             {{-- Meta --}}
-            <div class="d-flex flex-wrap gap-2 mobile-stack">
+            <div class="edu-meta-row">
                 <span class="edu-meta"><i class="bi bi-calendar3"></i>{{ $education->duration }}</span>
                 @if($education->result)
                     <span class="edu-result"><i class="bi bi-award"></i>{{ $education->result }}</span>
@@ -27,10 +30,11 @@
             </div>
 
             {{-- Status + Actions --}}
-            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px dashed var(--admin-border, #f1f5f9);">
+            <div class="edu-actions">
                 <a href="{{ route('admin.education.toggleStatus', $education->id) }}"
                    class="status-badge {{ $education->is_active ? 'status-active' : 'status-inactive' }}"
                    data-title="{{ $education->degree_name }}">
+                    <span class="status-dot"></span>
                     {{ $education->is_active ? 'Active' : 'Inactive' }}
                 </a>
                 <div class="d-flex gap-1 align-items-center">
@@ -57,11 +61,11 @@
     </div>
 @empty
     <div class="col-12">
-        <div class="text-center py-4">
+        <div class="text-center py-5">
             <div class="empty-state">
                 <i class="bi bi-search"></i>
                 <div class="fw-semibold mb-2">No Qualifications Found</div>
-                <p class="text-muted small">Try adjusting your search terms.</p>
+                <p class="text-muted small mb-0">Try adjusting your search terms.</p>
             </div>
         </div>
     </div>
