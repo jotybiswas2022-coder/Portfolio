@@ -1,5 +1,7 @@
 @forelse($gigs as $gig)
     <div class="gig-card">
+
+        {{-- Thumb + Title + Actions --}}
         <div class="gig-card-top">
             @if($gig->image)
                 <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}" class="gig-thumb">
@@ -9,14 +11,15 @@
                 </div>
             @endif
             <div class="gig-card-info">
-                <h5>{{ $gig->title }}</h5>
+                <div class="gig-title">{{ $gig->title }}</div>
                 <span class="gig-id">#{{ $loop->iteration }}</span>
             </div>
+            <span class="order-badge" title="Sort order"><i class="bi bi-arrow-down-up"></i>{{ $gig->sort_order }}</span>
             <div class="gig-card-actions">
-                <a href="{{ route('admin.gigs.edit', $gig->id) }}" class="btn-icon" title="Edit">
+                <a href="{{ route('admin.gigs.edit', $gig->id) }}" class="btn-icon btn-icon-edit" title="Edit">
                     <i class="bi bi-pencil"></i>
                 </a>
-                <button type="button" class="btn-icon danger delete-btn"
+                <button type="button" class="btn-icon btn-icon-del delete-btn"
                         data-id="{{ $gig->id }}"
                         data-title="{{ $gig->title }}" title="Delete">
                     <i class="bi bi-trash"></i>
@@ -30,6 +33,7 @@
             </div>
         </div>
 
+        {{-- Pricing --}}
         <div class="gig-card-body">
             <div class="pricing-chips">
                 <div class="pricing-chip">
@@ -47,14 +51,12 @@
             </div>
         </div>
 
+        {{-- Footer --}}
         <div class="gig-card-footer">
-            <div class="footer-left">
-                <span class="order-badge"><i class="bi bi-sort-numeric-up"></i> Order {{ $gig->sort_order }}</span>
-            </div>
             <a href="{{ route('admin.gigs.toggleStatus', $gig->id) }}"
-               class="status-toggle {{ $gig->is_active ? 'active' : 'inactive' }}"
+               class="status-badge {{ $gig->is_active ? 'status-active' : 'status-inactive' }}"
                data-title="{{ $gig->title }}">
-                <i class="bi bi-{{ $gig->is_active ? 'check-circle-fill' : 'circle' }} me-1"></i>
+                <span class="status-dot"></span>
                 {{ $gig->is_active ? 'Active' : 'Inactive' }}
             </a>
         </div>
