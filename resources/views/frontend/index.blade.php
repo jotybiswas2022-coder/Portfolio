@@ -3296,6 +3296,9 @@
         .pj-artifact { height: 130px; margin: 0 0.7rem; }
         .project-card .card-body .view-details-btn { font-size: 0.7rem; }
         .pj-bar, .pj-run, .pj-steps, .pj-foot { padding-left: 0.7rem; padding-right: 0.7rem; }
+        .pj-bar { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .pj-run, .pj-steps, .pj-techs, .pj-foot { display: none !important; }
+        .pj-body { gap: 0.4rem; }
         .pkg-grid { gap: 1.5rem; }
         .pkg-card { flex: 0 0 100%; max-width: 100%; min-width: 0; }
         .term-exit { display: none !important; }
