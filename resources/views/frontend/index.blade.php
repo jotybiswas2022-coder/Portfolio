@@ -3151,7 +3151,7 @@
 /* ===== FOOTER — TERMINAL SHELL ===== */
     .footer {
         background: #080b14; position: relative; z-index: 1;
-        padding: 3rem 1.5rem 0; overflow: hidden;
+        padding: 3rem 0 0; overflow: hidden;
     }
     .footer::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -3167,14 +3167,16 @@
     }
     html.light-theme .footer { background: linear-gradient(180deg, #f1f5f9, #e2e8f0) !important; }
     html.light-theme .footer::after { background: radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%); }
-    .footer-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+    .footer-inner { position: relative; z-index: 2; width: 100%; }
 
     .ft-shell {
         position: relative;
         font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
         background: linear-gradient(180deg, rgba(13,23,43,0.6) 0%, rgba(8,15,32,0.45) 100%);
         -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
-        border: 1px solid rgba(147,197,253,0.22); border-radius: 16px; overflow: hidden;
+        border: 1px solid rgba(147,197,253,0.22);
+        border-left: none; border-right: none;
+        border-radius: 0; overflow: hidden;
         box-shadow: 0 30px 90px rgba(2,8,23,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 60px rgba(34,211,238,0.07);
         transition: border-color 0.4s ease, box-shadow 0.4s ease;
     }
@@ -3453,9 +3455,9 @@
         .faq-item .faq-question { padding: 1rem 1.2rem !important; font-size: 0.92rem !important; }
         .faq-answer p { font-size: 0.85rem !important; }
         
-        .footer { padding: 2.5rem 1.5rem 0; }
+        .footer { padding: 2.5rem 0 0; }
         .footer-inner { max-width: 100%; }
-        .ft-shell { border-radius: 14px; }
+        .ft-shell { border-radius: 0; }
         .ft-bar { padding: 0.5rem 0.8rem; }
         .ft-file { font-size: 0.66rem; }
         .ft-cmd { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
@@ -3555,15 +3557,15 @@
         .map-container iframe { height: 220px; }
         .map-wrapper { margin-top: 2rem; }
         
-        .footer { padding: 2rem 1rem 0; }
+        .footer { padding: 2rem 0 0; }
         .footer-inner { max-width: 100%; }
-        .ft-shell { border-radius: 12px; }
+        .ft-shell { border-radius: 0; }
         .ft-bar { padding: 0.45rem 0.7rem; }
         .ft-file { font-size: 0.62rem; }
         .ft-cmd { font-size: 0.66rem; padding: 0.35rem 0.7rem; }
         .ft-body { padding: 1rem 0.9rem 1.1rem; }
         .ft-brand h4 { font-size: 0.98rem; }
-        .ft-nav { flex-direction: column; gap: 0.5rem; }
+        .ft-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.4rem 0.8rem; }
         .ft-nav a { font-size: 0.75rem; }
         .ft-socials { justify-content: center; }
         .ft-social { font-size: 0.64rem; padding: 0.25rem 0.6rem; }
