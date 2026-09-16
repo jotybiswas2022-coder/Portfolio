@@ -2111,15 +2111,30 @@
 
     @media (max-width: 720px) {
         .sk-head, .sk-row { grid-template-columns: 2.2rem minmax(0, 1fr) minmax(0, 0.9fr) 3rem; gap: 0.55rem; }
+        .sk-head span:nth-child(5) { display: none; }
         .sk-state { display: none; }
         .sk-row { font-size: 0.66rem; }
         .sk-name i { font-size: 0.75rem; }
     }
     @media (max-width: 480px) {
-        .sk-head, .sk-row { grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) 2.7rem; gap: 0.45rem; }
+        .sk-panel { border-radius: 14px; }
+        .sk-head, .sk-row { grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) 2.7rem; gap: 0.4rem; }
+        .sk-head span:nth-child(1) { display: none; }
         .sk-pid { display: none; }
-        .sk-file { max-width: 11ch; }
+        .sk-bar { padding: 0.5rem 0.7rem; gap: 0.45rem; }
+        .sk-file { max-width: 12ch; font-size: 0.62rem; }
         .sk-badge, .sk-foot-right { display: none; }
+        .sk-live { font-size: 0.56rem; }
+        .sk-live-dot { width: 6px; height: 6px; }
+        .sk-cmd { min-height: 2rem; padding: 0.3rem 0.7rem; font-size: 0.64rem; }
+        .sk-head { padding: 0.3rem 0.7rem; font-size: 0.5rem; }
+        .sk-rows { padding: 0.3rem 0.4rem 0.45rem; }
+        .sk-row { padding: 0.24rem 0.3rem; font-size: 0.6rem; }
+        .sk-name { gap: 0.35rem; }
+        .sk-name i { font-size: 0.68rem; }
+        .sk-pct { font-size: 0.58rem; }
+        .sk-meter { height: 7px; }
+        .sk-foot { padding: 0.45rem 0.7rem; font-size: 0.58rem; gap: 0.4rem; }
     }
     @media (prefers-reduced-motion: reduce) {
         .sk-panel.sk-armed .sk-row { opacity: 1; transform: none; }
