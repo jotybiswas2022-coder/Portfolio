@@ -2,183 +2,373 @@
 
 @section('content')
 <style>
-@media (max-width: 767.98px) {
-    .testimonials-page h4 { font-size: 0.9rem; }
-    .testimonials-page p.text-muted { font-size: 0.75rem; }
-    .testimonials-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
-    .testimonials-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
-    .testimonials-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .testimonials-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .testimonials-page .small.text-muted { font-size: 0.7rem; }
-    .testimonials-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
-    .testimonials-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
-    .testimonials-page .table tbody td .btn { font-size: 0.65rem; padding: 0.15rem 0.4rem; }
-    .testimonials-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .testimonials-page .card-body { padding: 0.6rem !important; }
+.testimonials-page h4 { letter-spacing: -0.3px; }
+.testimonials-page .text-muted { color: var(--admin-text-muted) !important; }
+
+/* ---- Clean card list ---- */
+.tst-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    padding: 1.15rem 1.2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    box-shadow: 0 1px 2px rgba(15,23,42,0.04);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
+.tst-card:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 10px 28px rgba(99,102,241,0.08);
+    transform: translateY(-2px);
+}
+.min-w-0 { min-width: 0; }
+.tst-avatar {
+    width: 48px; height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg,#6366f1,#8b5cf6);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 2px solid rgba(99,102,241,0.18);
+}
+.tst-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.tst-name {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--admin-text);
+    line-height: 1.35;
+    margin-bottom: 1px;
+}
+.tst-role {
+    font-size: 0.75rem;
+    color: var(--admin-text-muted);
+    line-height: 1.4;
+}
+.tst-stars {
+    color: #f59e0b;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+.tst-msg {
+    font-size: 0.8rem;
+    color: #475569;
+    line-height: 1.6;
+    font-style: italic;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.tst-msg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    align-self: flex-start;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--admin-primary);
+    background: rgba(99,102,241,0.08);
+    border: 1px solid rgba(99,102,241,0.18);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.tst-msg-btn:hover { background: rgba(99,102,241,0.14); }
+.order-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--admin-text-muted);
+    background: #f8fafc;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    padding: 4px 9px;
+    flex-shrink: 0;
+}
+.tst-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--admin-border);
+}
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.status-badge:hover { transform: scale(1.04); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.status-active { background: rgba(16,185,129,0.1); color: #059669; border: 1px solid rgba(16,185,129,0.2); }
+.status-inactive { background: #f1f5f9; color: #64748b; border: 1px solid var(--admin-border); }
+.btn-icon {
+    width: 32px; height: 32px;
+    padding: 0;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.86rem;
+    border: 1px solid var(--admin-border);
+    background: #fff;
+    color: var(--admin-text-muted);
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn-icon:active { transform: scale(0.92); }
+.btn-icon-edit:hover { color: var(--admin-primary); border-color: #c7d2fe; background: #eef2ff; }
+.btn-icon-del:hover { color: #dc2626; border-color: #fecaca; background: #fef2f2; }
+
+/* ---- Sticky search ---- */
+.tst-search-wrap {
+    position: sticky;
+    top: calc(var(--admin-topbar-height) + 6px);
+    z-index: 1020;
+}
+.tst-search {
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    box-shadow: 0 4px 18px rgba(15,23,42,0.06);
+    padding: 0.45rem 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.tst-search:focus-within {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.1), 0 4px 18px rgba(15,23,42,0.06);
+}
+.tst-search i { color: var(--admin-text-muted); }
+.tst-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.85rem;
+    color: var(--admin-text);
+    padding: 0.15rem 0;
+    min-width: 0;
+}
+.tst-search input::placeholder { color: #94a3b8; }
+
+/* ---- Mobile floating Add button ---- */
+.tst-fab {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 1051;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-dark));
+    border: none;
+    box-shadow: 0 10px 26px rgba(99,102,241,0.45);
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+.tst-fab:active { transform: scale(0.92); }
+@media (max-width: 575.98px) {
+    .tst-fab { display: flex; }
+    .tst-add-desktop { display: none !important; }
+    .tst-card { padding: 1rem 1.05rem; border-radius: 14px; gap: 0.8rem; }
+    .tst-avatar { width: 44px; height: 44px; min-width: 44px; }
+    .tst-name { font-size: 0.85rem; }
+    .tst-role { font-size: 0.71rem; }
+    .tst-msg { font-size: 0.76rem; }
+    .order-badge { font-size: 0.68rem; padding: 3px 8px; }
+    .btn-icon { width: 34px; height: 34px; font-size: 0.9rem; }
+    .tst-search-wrap { top: 60px; }
+}
+
+/* ---- Review modal ---- */
+.tst-modal-header {
+    background: linear-gradient(135deg,#6366f1,#8b5cf6);
+}
+.tst-modal-header .btn-close { filter: invert(1); }
 </style>
 
 <div class="container-fluid py-3 testimonials-page">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-11 col-xxl-10">
 
-    {{-- Header --}}
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h4 class="fw-bold mb-1"><i class="bi bi-chat-quote me-2" style="color:#6366f1;"></i>Testimonials</h4>
-            <p class="text-muted small mb-0">Manage client reviews and testimonials</p>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500;">
-                <i class="bi bi-database me-1"></i> {{ $testimonials->count() }} Total
-            </span>
-            <a href="{{ route('admin.testimonials.create') }}" class="btn btn-primary rounded-3 px-3" style="background:#6366f1; border-color:#6366f1;">
-                <i class="bi bi-plus-lg me-1"></i> Add New
-            </a>
+            {{-- Header --}}
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                    <h4 class="fw-bold mb-1"><i class="bi bi-chat-quote me-2" style="color:var(--admin-primary);"></i>Testimonials</h4>
+                    <p class="text-muted small mb-0">Manage client reviews and testimonials</p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge-count" id="countBadge">
+                        <i class="bi bi-database me-1"></i> {{ $testimonials->count() }} Total
+                    </span>
+                    <a href="{{ route('admin.testimonials.create') }}" class="btn btn-admin btn-admin-primary tst-add-desktop">
+                        <i class="bi bi-plus-lg me-1"></i> Add New
+                    </a>
+                </div>
+            </div>
+
+            {{-- Live Search (sticky on scroll) --}}
+            <div class="tst-search-wrap mb-3">
+                <div class="tst-search">
+                    <i class="bi bi-search" style="font-size:0.9rem;"></i>
+                    <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
+                           placeholder="Search by name, designation or company..."
+                           autocomplete="off">
+                    <span class="d-flex align-items-center">
+                        <span class="spinner-border spinner-border-sm d-none text-primary" role="status" id="searchLoading"></span>
+                        @if(request()->has('q') && request()->q != '')
+                            <a href="{{ route('admin.testimonials.index') }}" class="text-muted text-decoration-none ms-2"><i class="bi bi-x-lg"></i></a>
+                        @endif
+                    </span>
+                </div>
+                <div class="mt-2" id="searchInfo">
+                    @if($query ?? false)
+                        <small class="text-muted" style="font-size:0.75rem;">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Showing results for "<strong>{{ $query }}</strong>" —
+                            <span id="resultCount">{{ $testimonials->count() }}</span> testimonial(s) found
+                        </small>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Cards Grid --}}
+            @if($testimonials->isEmpty() && !request()->ajax())
+                <div class="text-center py-5">
+                    <div class="empty-state">
+                        <i class="bi bi-chat-quote"></i>
+                        <div class="fw-semibold mb-2">No Testimonials Found</div>
+                        <p class="text-muted small mb-0">Start by adding your first client testimonial!</p>
+                        <a href="{{ route('admin.testimonials.create') }}" class="btn btn-admin btn-admin-primary mt-3">
+                            <i class="bi bi-plus-lg me-1"></i> Add Testimonial
+                        </a>
+                    </div>
+                </div>
+            @else
+                <div id="testimonialsGrid" class="row g-3">
+                    @include('backend.testimonial._table_rows', ['testimonials' => $testimonials])
+                </div>
+            @endif
+
         </div>
     </div>
-
-    {{-- Live Search Bar --}}
-    <div class="mb-4">
-        <div class="d-flex gap-2 align-items-center">
-            <div class="input-group" style="max-width:600px;">
-                <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-search text-muted"></i>
-                </span>
-                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}" 
-                       class="form-control border-start-0 ps-0" 
-                       placeholder="Live search by name, designation or company..."
-                       style="border-color:#e2e8f0; box-shadow:none;"
-                       autocomplete="off">
-                <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
-                    <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
-                </span>
-            </div>
-            @if(request()->has('q') && request()->q != '')
-                <a href="{{ route('admin.testimonials.index') }}" class="btn btn-outline-secondary rounded-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-x-lg"></i>
-                </a>
-            @endif
-        </div>
-        <div class="mt-2" id="searchInfo">
-            @if($query ?? false)
-                <small class="text-muted">
-                    <i class="bi bi-info-circle me-1"></i>
-                    Showing results for "<strong>{{ $query }}</strong>" — 
-                    <span id="resultCount">{{ $testimonials->count() }}</span> testimonial(s) found
-                </small>
-            @endif
-        </div>
-    </div>
-
-    {{-- Table Card --}}
-    @if($testimonials->isEmpty() && !request()->ajax())
-        <div class="text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-chat-quote"></i>
-                <div class="fw-semibold mb-2">No Testimonials Found</div>
-                <p class="text-muted small">Start by adding your first client testimonial!</p>
-                <a href="{{ route('admin.testimonials.create') }}" class="btn btn-primary rounded-3 px-4" style="background:#6366f1; border-color:#6366f1;">
-                    <i class="bi bi-plus-lg me-1"></i> Add Testimonial
-                </a>
-            </div>
-        </div>
-    @else
-        <div class="card border-0 shadow-sm rounded-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0" style="min-width:800px;">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="ps-4 py-3 text-muted small fw-semibold" style="width:45px;">#</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:55px;">Avatar</th>
-                            <th class="py-3 text-muted small fw-semibold">Name</th>
-                            <th class="py-3 text-muted small fw-semibold">Designation</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:110px;">Rating</th>
-                            <th class="py-3 text-muted small fw-semibold">Message</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:60px;">Order</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:90px;">Status</th>
-                            <th class="pe-4 py-3 text-muted small fw-semibold" style="width:100px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="testimonialsTableBody">
-                        @include('backend.testimonial._table_rows', ['testimonials' => $testimonials])
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @endif
-
 </div>
 
-<style>
-.status-badge { transition: all 0.2s; }
-.status-badge:hover { transform: scale(1.05); }
-.active-badge { background: rgba(16,185,129,0.12); color: #059669; }
-.inactive-badge { background: #f1f5f9; color: #94a3b8; }
-</style>
+{{-- Mobile Floating Add Button --}}
+<a href="{{ route('admin.testimonials.create') }}" class="tst-fab" aria-label="Add Testimonial">
+    <i class="bi bi-plus-lg"></i>
+</a>
 
 @section('scripts')
 <script>
-// ===== DELETE CONFIRMATION & STATUS TOGGLE =====
-(function() {
-    function bindTestimonialEvents() {
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.dataset.id;
-                const title = this.dataset.title;
-                Swal.fire({
-                    title: 'Delete Testimonial?',
-                    text: 'Are you sure you want to delete the testimonial from "' + title + '"?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc2626',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-trash me-1"></i> Delete',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete-form-' + id).submit();
-                    }
-                });
-            });
-        });
-
-        document.querySelectorAll('.status-badge').forEach(badge => {
-            badge.addEventListener('click', function (e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                const title = this.dataset.title;
-                const current = this.textContent.trim();
-                Swal.fire({
-                    title: 'Toggle Status?',
-                    text: 'Change "' + title + '" from ' + current + ' to ' + (current === 'Active' ? 'Inactive' : 'Active') + '?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#6366f1',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = href;
-                    }
-                });
-            });
-        });
+@if(session('success'))
+Swal.fire({
+    icon: 'success',
+    title: 'Success!',
+    text: {!! json_encode(session('success')) !!},
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
     }
+});
+@endif
 
-    bindTestimonialEvents();
-    window.bindTestimonialEvents = bindTestimonialEvents;
-})();
+// ===== VIEW REVIEW MODAL (delegated so it survives AJAX re-renders) =====
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.view-msg-btn');
+    if (!btn) return;
+    var modalEl = document.getElementById(btn.dataset.modalTarget);
+    if (modalEl && window.bootstrap) {
+        new bootstrap.Modal(modalEl).show();
+    }
+});
+
+// ===== STATUS TOGGLE (delegated) =====
+document.addEventListener('click', function(e) {
+    var badge = e.target.closest('.status-badge');
+    if (!badge) return;
+    e.preventDefault();
+    var href = badge.getAttribute('href');
+    var title = badge.dataset.title || 'this testimonial';
+    var currentLabel = badge.textContent.trim();
+    var next = currentLabel === 'Active' ? 'Inactive' : 'Active';
+    Swal.fire({
+        title: 'Toggle Status?',
+        text: 'Change "' + title + '" from ' + currentLabel + ' to ' + next + '?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#6366f1',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            window.location.href = href;
+        }
+    });
+});
+
+// ===== DELETE CONFIRMATION (delegated) =====
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.delete-btn');
+    if (!btn) return;
+    var id = btn.dataset.id;
+    var title = btn.dataset.title || 'this testimonial';
+    Swal.fire({
+        title: 'Delete Testimonial?',
+        text: 'Are you sure you want to delete the testimonial from "' + title + '"?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-trash me-1"></i> Delete',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + id).submit();
+        }
+    });
+});
 
 // ===== LIVE SEARCH (AJAX) =====
 (function() {
     var searchInput = document.getElementById('liveSearch');
-    var tableBody = document.getElementById('testimonialsTableBody');
+    var grid = document.getElementById('testimonialsGrid');
     var searchInfo = document.getElementById('searchInfo');
     var searchLoading = document.getElementById('searchLoading');
 
-    if (!searchInput || !tableBody) return;
+    if (!searchInput || !grid) return;
 
     var debounceTimer;
 
@@ -195,22 +385,20 @@
         })
         .then(function(response) { return response.json(); })
         .then(function(data) {
-            tableBody.innerHTML = data.html;
+            grid.innerHTML = data.html;
 
-            var countBadge = document.querySelector('.badge.rounded-pill.px-3.py-2');
+            var countBadge = document.getElementById('countBadge');
             if (countBadge) {
                 countBadge.innerHTML = '<i class="bi bi-database me-1"></i> ' + data.count + ' Total';
             }
 
             if (searchInfo) {
                 if (query) {
-                    searchInfo.innerHTML = '<small class="text-muted"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' testimonial(s) found</small>';
+                    searchInfo.innerHTML = '<small class="text-muted" style="font-size:0.75rem;"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' testimonial(s) found</small>';
                 } else {
                     searchInfo.innerHTML = '';
                 }
             }
-
-            if (window.bindTestimonialEvents) window.bindTestimonialEvents();
         })
         .catch(function(error) {
             console.error('Search error:', error);
