@@ -120,6 +120,7 @@ return [
     'start_project'      => 'আপনার প্রকল্প শুরু করুন',
     'back'               => 'পেছনে',
     'technologies_used'  => 'ব্যবহৃত প্রযুক্তি',
+    'project_description' => 'প্রকল্পের বর্ণনা',
     'project_details'    => 'প্রকল্পের বিবরণ',
     'client'             => 'ক্লায়েন্ট',
     'category'           => 'শ্রেণী',

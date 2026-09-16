@@ -121,6 +121,7 @@ return [
     'start_project'      => 'Start Your Project',
     'back'               => 'Back',
     'technologies_used'  => 'Technologies Used',
+    'project_description' => 'Project Description',
     'project_details'    => 'Project Details',
     'client'             => 'Client',
     'category'           => 'Category',

@@ -15,6 +15,7 @@
         --border-color: rgba(59, 130, 246, 0.12);
         --radius-lg: 20px;
         --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        --mono: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
     }
     html.light-theme {
         --bg-primary: #f8fafc;
@@ -30,68 +31,137 @@
         font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
     }
 
-    .project-detail-page {
-        padding-top: 80px;
-        padding-bottom: 6rem;
+    .pd-detail-page {
+        padding-top: 90px;
+        padding-bottom: 5rem;
         min-height: 100vh;
         background: var(--bg-primary);
         position: relative;
     }
-    .project-detail-page::before {
-        content: ''; position: fixed; top: -40%; right: -20%;
-        width: 700px; height: 700px;
-        background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%);
+    .pd-detail-page::before {
+        content: ''; position: fixed; top: -30%; left: -15%;
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%);
         pointer-events: none; z-index: 0;
     }
-    html.light-theme .project-detail-page::before {
-        background: radial-gradient(circle, rgba(99,102,241,0.03) 0%, transparent 70%);
-    }
 
-    .pd-container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+    .pd-container { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; position: relative; z-index: 1; }
 
-    /* ===== Back bar ===== */
-    .top-bar {
-        display: flex; align-items: center; justify-content: space-between;
-        margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;
+    /* ===== MAIN TERMINAL SHELL ===== */
+    .pd-shell {
+        position: relative;
+        border: 1px solid rgba(147, 197, 253, 0.2);
+        border-radius: 20px; overflow: hidden;
+        background: rgba(13, 20, 40, 0.35);
+        -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%);
+        box-shadow: 0 40px 120px rgba(2, 8, 23, 0.55);
     }
+    html.light-theme .pd-shell {
+        background: rgba(255, 255, 255, 0.78);
+        border-color: rgba(59, 130, 246, 0.25);
+        box-shadow: 0 40px 100px rgba(59, 130, 246, 0.12);
+    }
+    .pd-shell::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #8b5cf6, transparent);
+        background-size: 200% 100%; animation: pdSweep 6s linear infinite;
+        z-index: 5; pointer-events: none;
+    }
+    @keyframes pdSweep { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .pd-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255,255,255,0.035); border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    html.light-theme .pd-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
+    .pd-file {
+        margin-left: 0.35rem; font-family: var(--mono); font-size: 0.72rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    html.light-theme .pd-file { color: #334155; }
+    .pd-file i { color: #818cf8; font-size: 0.72rem; }
+
+    .pd-cmd {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.9rem; font-family: var(--mono); font-size: 0.8rem;
+        background: rgba(2, 8, 23, 0.5); border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        min-height: 2.2rem;
+    }
+    html.light-theme .pd-cmd { background: rgba(15, 23, 42, 0.05); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .pd-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .pd-cmd-text { color: #e2e8f0; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    html.light-theme .pd-cmd-text { color: #1e293b; }
+    .pd-cursor {
+        width: 9px; height: 16px; flex-shrink: 0;
+        background: #22d3ee; animation: pdBlink 1s steps(1) infinite;
+    }
+    @keyframes pdBlink { 50% { opacity: 0; } }
+
+    .pd-inner { padding: 2rem; position: relative; z-index: 1; }
+    .pd-foot {
+        display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;
+        padding: 0.6rem 1rem; font-family: var(--mono); font-size: 0.64rem; color: #64748b;
+        background: rgba(2, 8, 23, 0.28); border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    html.light-theme .pd-foot { background: rgba(15, 23, 42, 0.04); border-top-color: rgba(15, 23, 42, 0.08); }
+    .pd-exit { display: inline-flex; align-items: center; gap: 0.35rem; color: #34d399; }
+    .pd-exit i { font-size: 0.7rem; }
+    .pd-loc { color: #475569; }
+    html.light-theme .pd-loc { color: #64748b; }
+
+    /* ===== Reveal ===== */
+    .pd-rv {
+        opacity: 0; transform: translateY(26px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pd-rv.in { opacity: 1; transform: none; }
+
+    /* ===== Top bar ===== */
+    .top-bar { display: flex; align-items: center; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 1rem; }
     .back-link {
         display: inline-flex; align-items: center; gap: 0.5rem;
-        padding: 0.55rem 1.3rem; background: var(--bg-card);
-        border: 1px solid var(--border-color); border-radius: 50px;
-        color: var(--text-secondary); text-decoration: none;
-        font-size: 0.82rem; font-weight: 500;
-        backdrop-filter: blur(12px); transition: var(--transition);
-        position: relative; overflow: hidden;
+        padding: 0.5rem 1.1rem; background: rgba(59,130,246,0.06);
+        border: 1px solid rgba(59, 130, 246, 0.16); border-radius: 10px;
+        color: #93c5fd; text-decoration: none; font-family: var(--mono); font-size: 0.78rem; font-weight: 600;
+        transition: var(--transition); position: relative; overflow: hidden;
     }
+    html.light-theme .back-link { background: rgba(59,130,246,0.05); color: #2563eb; }
+    .back-link::before { content: '$'; color: #34d399; font-weight: 700; }
+    .back-link span { position: relative; z-index: 1; }
     .back-link::after {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        content: ''; position: absolute; inset: 0;
         background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.4) 0%, rgba(99,102,241,0.1) 30%, transparent 60%);
-        opacity: 0; transition: opacity 0.4s; pointer-events: none;
+        opacity: 0; transition: opacity 0.4s; pointer-events: none; border-radius: inherit;
     }
     .back-link:hover::after { opacity: 1; }
     .back-link:hover {
-        border-color: rgba(99,102,241,0.3); color: var(--accent-light);
-        transform: translateX(-4px); box-shadow: 0 4px 20px rgba(99,102,241,0.08);
+        border-color: rgba(99,102,241,0.35); color: #c4b5fd;
+        transform: translateX(-4px); box-shadow: 0 6px 20px rgba(99,102,241,0.1);
     }
-    .back-link i { font-size: 0.9rem; position: relative; z-index: 1; }
-    .back-link span { position: relative; z-index: 1; }
+    html.light-theme .back-link:hover { color: #4338ca; }
 
     /* ===== Hero image ===== */
     .pd-image-wrap {
         width: 100%; aspect-ratio: 16 / 9;
-        border-radius: 24px; overflow: hidden;
-        margin-bottom: 3rem;
-        position: relative;
-        box-shadow: 0 30px 100px rgba(0,0,0,0.35), 0 0 0 1px var(--border-color);
+        border-radius: 16px; overflow: hidden;
+        margin-bottom: 2rem; position: relative;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-color);
         background: var(--bg-secondary);
     }
-    .pd-image-wrap::after {
-        content: ''; position: absolute; inset: 0;
-        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.3) 0%, rgba(99,102,241,0.08) 30%, transparent 60%);
-        pointer-events: none; z-index: 1;
-        opacity: 0; transition: opacity 0.5s ease;
+    .pd-img-bar {
+        position: absolute; top: 12px; left: 12px; z-index: 3;
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.35rem 0.8rem; border-radius: 9px;
+        background: rgba(8, 12, 24, 0.72); border: 1px solid rgba(147, 197, 253, 0.25);
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        font-family: var(--mono); font-size: 0.66rem; color: #cbd5e1;
+        opacity: 0; transform: translateY(-8px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .pd-image-wrap:hover::after { opacity: 1; }
+    .pd-image-wrap:hover .pd-img-bar, .pd-img-bar.static { opacity: 1; transform: none; }
+    html.light-theme .pd-img-bar { background: rgba(15, 23, 42, 0.75); color: #e2e8f0; }
+    .pd-img-bar i { color: #818cf8; font-size: 0.7rem; }
     .pd-image-wrap img {
         width: 100%; height: 100%; object-fit: cover;
         display: block; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -102,340 +172,388 @@
         background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1a3e 100%);
         display: flex; align-items: center; justify-content: center;
     }
-    .pd-image-wrap .img-fallback i { font-size: 5rem; opacity: 0.15; color: var(--accent); }
+    .pd-image-wrap .img-fallback i { font-size: 5rem; opacity: 0.2; color: var(--accent); }
+    .pd-image-wrap::after {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.3) 0%, rgba(99,102,241,0.08) 30%, transparent 60%);
+        pointer-events: none; z-index: 1; opacity: 0; transition: opacity 0.5s ease;
+    }
+    .pd-image-wrap:hover::after { opacity: 1; }
 
     /* ===== Hero content ===== */
-    .pd-hero-content {
-        margin-bottom: 3.5rem;
-        padding: 0 0.5rem;
-        position: relative;
-    }
+    .pd-hero-content { margin-bottom: 2.8rem; padding: 0 0.2rem; }
     .pd-hero-content .hero-meta {
-        display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
-        margin-bottom: 1rem;
+        display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem;
     }
     .pd-hero-content .hero-category {
         display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.32rem 0.9rem; border-radius: 8px;
         background: linear-gradient(135deg, #6366f1, #8b5cf6);
-        color: #fff; padding: 0.35rem 1.2rem; border-radius: 50px;
-        font-size: 0.78rem; font-weight: 700; letter-spacing: 0.3px;
-        box-shadow: 0 4px 15px rgba(99,102,241,0.25);
+        color: #fff; font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.28);
     }
     .pd-hero-content .hero-category i { font-size: 0.7rem; }
     .pd-hero-content h1 {
-        font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 900;
-        color: var(--text-primary); margin: 0; letter-spacing: -1.5px;
-        line-height: 1.1;
+        font-size: clamp(1.7rem, 3.6vw, 2.7rem); font-weight: 900;
+        color: var(--text-primary); margin: 0; letter-spacing: -1px; line-height: 1.12;
         background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-light) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     html.light-theme .pd-hero-content h1 {
         background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .pd-hero-content h1::before {
+        content: '>'; margin-right: 0.4rem; color: #22d3ee; -webkit-text-fill-color: #22d3ee; font-weight: 700;
     }
 
     /* ===== Content grid ===== */
     .pd-body {
-        display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem;
+        display: grid; grid-template-columns: 1fr 320px; gap: 2rem;
         align-items: start;
     }
 
     .pd-main { display: flex; flex-direction: column; gap: 1.5rem; }
 
-    /* ===== Shine effect on all cards ===== */
-    .pd-desc-block::after,
-    .pd-tech-wrap::after,
-    .sidebar-card::after,
-    .sidebar-link::after {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.5) 0%, rgba(99,102,241,0.15) 25%, rgba(99,102,241,0.04) 45%, transparent 65%);
-        pointer-events: none; opacity: 0; transition: opacity 0.4s ease; z-index: 0; border-radius: inherit;
-    }
-    html.light-theme .pd-desc-block::after,
-    html.light-theme .pd-tech-wrap::after,
-    html.light-theme .sidebar-card::after,
-    html.light-theme .sidebar-link::after {
-        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 25%, rgba(59,130,246,0.03) 45%, transparent 65%);
-    }
-    .pd-desc-block:hover::after,
-    .pd-tech-wrap:hover::after,
-    .sidebar-card:hover::after,
-    .sidebar-link:hover::after { opacity: 1; }
-
-    /* ===== Description block ===== */
-    .pd-desc-block {
+    /* ===== Main terminal blocks ===== */
+    .pd-desc-block, .pd-tech-wrap {
         background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: 20px; padding: 2.5rem;
-        position: relative; overflow: hidden;
-        backdrop-filter: blur(12px); transition: var(--transition);
+        border-radius: 14px; overflow: hidden;
+        backdrop-filter: blur(12px); transition: var(--transition); position: relative;
     }
-    .pd-desc-block:hover {
-        border-color: rgba(99,102,241,0.2);
-        box-shadow: 0 12px 40px rgba(99,102,241,0.06);
+    html.light-theme .pd-desc-block, html.light-theme .pd-tech-wrap { background: rgba(255,255,255,0.9); }
+    .pd-desc-block:hover, .pd-tech-wrap:hover {
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 14px 40px rgba(99, 102, 241, 0.08);
+        transform: translateY(-4px);
     }
-    .pd-desc-block .desc-accent {
-        position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-        background: linear-gradient(180deg, #3b82f6, #8b5cf6);
-        border-radius: 0 4px 4px 0;
-    }
-    .pd-desc-block p {
-        color: var(--text-secondary); font-size: 1.05rem; line-height: 1.85;
-        margin: 0; position: relative; z-index: 1;
-    }
-
-    /* ===== TECH SECTION ===== */
-    .pd-tech-wrap {
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: 20px; padding: 2.5rem;
-        position: relative; overflow: hidden;
-        backdrop-filter: blur(12px); transition: var(--transition);
-    }
-    .pd-tech-wrap:hover {
-        border-color: rgba(139,92,246,0.2);
-        box-shadow: 0 12px 40px rgba(139,92,246,0.06);
-    }
-    .pd-tech-wrap .tech-header {
-        display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;
-        position: relative; z-index: 1;
-    }
-    .pd-tech-wrap .tech-header .tech-icon {
-        width: 42px; height: 42px; border-radius: 14px;
-        display: flex; align-items: center; justify-content: center;
-        background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(99,102,241,0.12));
-        color: #a78bfa; font-size: 1.05rem;
-    }
-    .pd-tech-wrap .tech-header .tech-label {
-        font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-        letter-spacing: 0.8px; color: #a78bfa;
-    }
-    .pd-tech-list {
-        display: flex; flex-wrap: wrap; gap: 0.55rem;
-        position: relative; z-index: 1;
-    }
-    .pd-tech-item {
-        font-size: 0.78rem; font-weight: 600; padding: 0.4rem 1.2rem;
-        background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08));
-        color: var(--accent-light); border-radius: 50px;
-        border: 1px solid rgba(99,102,241,0.08);
-        transition: var(--transition); cursor: default;
-        position: relative; overflow: hidden;
-    }
-    .pd-tech-item::after {
+    .pd-desc-block::after, .pd-tech-wrap::after {
         content: ''; position: absolute; inset: 0;
-        background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(139,92,246,0.12));
-        opacity: 0; transition: opacity 0.3s;
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.4) 0%, rgba(99,102,241,0.12) 30%, transparent 60%);
+        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; border-radius: inherit; z-index: 1;
     }
-    .pd-tech-item:hover::after { opacity: 1; }
+    .pd-desc-block:hover::after, .pd-tech-wrap:hover::after { opacity: 1; }
+
+    .pd-block-bar, .custech-bar {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.5rem 0.85rem; font-family: var(--mono); font-size: 0.68rem; color: #94a3b8;
+        background: rgba(255,255,255,0.035); border-bottom: 1px solid rgba(255,255,255,0.07);
+        position: relative; z-index: 2;
+    }
+    html.light-theme .pd-block-bar, html.light-theme .custech-bar {
+        background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08);
+    }
+    .pd-block-file, .custech-file {
+        display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.35rem;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pd-block-file i, .custech-file i { font-size: 0.72rem; }
+    .pd-block-bar .pd-block-file i { color: #60a5fa; }
+    .custech-file i { color: #a78bfa; }
+
+    .pd-block-body, .custech-body { padding: 1.5rem 1.6rem; position: relative; z-index: 2; }
+    .pd-block-body .block-header {
+        display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+    }
+    .pd-block-body .block-icon {
+        width: 36px; height: 36px; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.9rem; flex-shrink: 0;
+        background: rgba(59,130,246,0.1); color: #60a5fa;
+    }
+    .pd-block-body .block-label {
+        font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+        letter-spacing: 0.8px; text-transform: uppercase; color: #60a5fa;
+    }
+    .pd-block-body p {
+        color: var(--text-secondary); font-family: var(--mono); font-size: 0.9rem;
+        line-height: 1.9; margin: 0;
+    }
+
+    /* ===== Tech ===== */
+    .custech-body .tech-header {
+        display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;
+    }
+    .custech-body .tech-header .tech-icon {
+        width: 36px; height: 36px; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        background: rgba(139,92,246,0.1); color: #a78bfa; font-size: 0.9rem;
+    }
+    .custech-body .tech-header .tech-label {
+        font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+        letter-spacing: 0.8px; text-transform: uppercase; color: #a78bfa;
+    }
+    .pd-tech-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pd-tech-item {
+        font-family: var(--mono); font-size: 0.76rem; font-weight: 600;
+        padding: 0.32rem 0.85rem;
+        background: rgba(99,102,241,0.07); color: #a5b4fc;
+        border: 1px solid rgba(99,102,241,0.15); border-radius: 8px;
+        transition: var(--transition);
+    }
+    html.light-theme .pd-tech-item { color: #4f46e5; }
+    .pd-tech-item::before { content: '#'; color: #22d3ee; margin-right: 0.2rem; }
     .pd-tech-item:hover {
-        transform: translateY(-3px) scale(1.04);
-        border-color: rgba(99,102,241,0.2);
-        box-shadow: 0 6px 20px rgba(99,102,241,0.12);
+        background: rgba(99,102,241,0.14); border-color: rgba(99,102,241,0.3);
+        transform: translateY(-2px);
     }
-    .pd-tech-item span { position: relative; z-index: 1; }
 
     /* ===== Sidebar ===== */
     .pd-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
 
     .sidebar-card {
         background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: 20px; padding: 2rem;
-        position: relative; overflow: hidden;
+        border-radius: 14px; overflow: hidden; position: relative;
         backdrop-filter: blur(12px); transition: var(--transition);
     }
+    html.light-theme .sidebar-card { background: rgba(255,255,255,0.9); }
     .sidebar-card:hover {
-        border-color: rgba(99,102,241,0.2);
-        box-shadow: 0 12px 40px rgba(99,102,241,0.06);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 14px 40px rgba(99, 102, 241, 0.08);
+        transform: translateY(-4px);
     }
-    .sidebar-card .sc-accent {
-        position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6, transparent);
+    .sb-bar {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.5rem 0.85rem; font-family: var(--mono); font-size: 0.68rem; color: #94a3b8;
+        background: rgba(255,255,255,0.035); border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .sidebar-card .sc-header {
-        display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.2rem;
-        padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
-        position: relative; z-index: 1;
+    html.light-theme .sb-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
+    .sb-bar .sb-file {
+        display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.35rem;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .sidebar-card .sc-header i {
-        font-size: 1.15rem;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+    .sb-bar .sb-file i { color: #22d3ee; font-size: 0.72rem; }
+    .sb-body { padding: 1.2rem 1.4rem 1.5rem; }
+    .sb-body .sc-header {
+        display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+        padding-bottom: 0.9rem; border-bottom: 1px solid var(--border-color);
     }
-    .sidebar-card .sc-header h4 {
-        font-size: 0.82rem; font-weight: 700; text-transform: uppercase;
+    .sb-body .sc-header i { font-size: 0.95rem; color: #22d3ee; }
+    .sb-body .sc-header h4 {
+        font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
         letter-spacing: 0.5px; color: var(--text-primary); margin: 0;
     }
-    .sidebar-card .sc-rows { position: relative; z-index: 1; }
-    .sidebar-card .sc-row {
-        display: flex; align-items: center; gap: 0.75rem;
-        padding: 0.7rem 0;
+    .sb-body .sc-row {
+        display: flex; align-items: baseline; gap: 0.6rem;
+        padding: 0.55rem 0; font-family: var(--mono);
     }
-    .sidebar-card .sc-row:not(:last-child) { border-bottom: 1px solid rgba(99,102,241,0.06); }
-    .sidebar-card .sc-row .sc-dot {
-        width: 6px; height: 6px; border-radius: 50%;
-        background: var(--accent-light); flex-shrink: 0;
+    .sb-body .sc-row:not(:last-child) { border-bottom: 1px dashed var(--border-color); }
+    .sb-body .sc-row .sc-label { font-size: 0.72rem; color: var(--text-muted); flex-shrink: 0; }
+    .sb-body .sc-row .sc-label::after { content: ':'; }
+    .sb-body .sc-row .sc-value {
+        font-size: 0.78rem; font-weight: 600; color: #93c5fd;
+        overflow-wrap: anywhere;
     }
-    .sidebar-card .sc-row .sc-label {
-        font-size: 0.78rem; color: var(--text-muted);
-    }
-    .sidebar-card .sc-row .sc-value {
-        font-size: 0.85rem; font-weight: 600; color: var(--text-primary);
-        margin-left: auto;
-    }
+    html.light-theme .sb-body .sc-row .sc-value { color: #2563eb; }
 
     .sidebar-links { display: flex; flex-direction: column; gap: 0.85rem; }
     .sidebar-link {
         display: flex; align-items: center; gap: 0.7rem;
-        padding: 1rem 1.4rem;
+        padding: 0.85rem 1.1rem;
         background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: 16px; color: var(--text-primary);
-        text-decoration: none; font-weight: 600; font-size: 0.9rem;
-        transition: var(--transition); backdrop-filter: blur(12px);
-        position: relative; overflow: hidden;
+        border-radius: 12px; color: var(--text-primary);
+        text-decoration: none; font-weight: 600; font-family: var(--mono); font-size: 0.84rem;
+        transition: var(--transition); position: relative; overflow: hidden;
     }
+    html.light-theme .sidebar-link { background: rgba(255,255,255,0.9); }
+    .sidebar-link::before { content: '$'; color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .sidebar-link::after {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(circle at var(--shx, 50%) var(--shy, 50%), rgba(99,102,241,0.4) 0%, rgba(99,102,241,0.1) 30%, transparent 60%);
+        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1;
+    }
+    .sidebar-link:hover::after { opacity: 1; }
     .sidebar-link:hover {
-        border-color: rgba(99,102,241,0.25);
+        border-color: rgba(99,102,241,0.3);
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(99,102,241,0.08);
+        box-shadow: 0 10px 30px rgba(99,102,241,0.1);
     }
-    .sidebar-link i { font-size: 1.15rem; position: relative; z-index: 1; }
-    .sidebar-link span { position: relative; z-index: 1; }
+    .sidebar-link i { font-size: 1.05rem; position: relative; z-index: 2; }
+    .sidebar-link span { position: relative; z-index: 2; }
     .sidebar-link .link-arrow {
         margin-left: auto; font-size: 0.8rem; opacity: 0;
         transform: translateX(-8px); transition: var(--transition);
-        position: relative; z-index: 1;
+        position: relative; z-index: 2;
     }
     .sidebar-link:hover .link-arrow { opacity: 1; transform: translateX(0); }
 
+    /* ===== Responsive ===== */
     @media (max-width: 968px) {
         .pd-body { grid-template-columns: 1fr; }
         .pd-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
 
     @media (max-width: 768px) {
-        .project-detail-page { padding-top: 70px; padding-bottom: 3rem; }
+        .pd-detail-page { padding-top: 70px; padding-bottom: 3rem; }
         .pd-container { padding: 0 1rem; }
-        .pd-image-wrap { border-radius: 16px; margin-bottom: 2rem; }
-        .pd-hero-content { margin-bottom: 2.5rem; padding: 0; }
-        .pd-hero-content h1 { font-size: 1.6rem; }
-        .pd-desc-block { padding: 1.5rem; }
-        .pd-desc-block p { font-size: 0.95rem; }
-        .pd-tech-wrap { padding: 1.5rem; }
+        .pd-shell { border-radius: 14px; }
+        .pd-bar { padding: 0.5rem 0.8rem; }
+        .pd-file { font-size: 0.66rem; }
+        .pd-cmd { font-size: 0.7rem; padding: 0.45rem 0.8rem; min-height: 2rem; }
+        .pd-cursor { width: 7px; height: 13px; }
+        .pd-inner { padding: 1.1rem; }
+        .pd-foot { padding: 0.5rem 0.8rem; }
+        .top-bar { margin-bottom: 1.4rem; }
+        .pd-image-wrap { aspect-ratio: 16 / 9; border-radius: 12px; margin-bottom: 1.4rem; }
+        .pd-hero-content { margin-bottom: 2.2rem; padding: 0; }
+        .pd-hero-content h1 { font-size: 1.5rem; }
+        .pd-block-body, .custech-body { padding: 1.3rem 1.2rem; }
+        .pd-block-body p { font-size: 0.84rem; }
         .pd-sidebar { grid-template-columns: 1fr; }
-        .sidebar-card { padding: 1.4rem; }
-        .sidebar-link { padding: 0.85rem 1.2rem; }
+        .sb-body { padding: 1.1rem 1.2rem; }
+        .sidebar-link { padding: 0.75rem 1rem; }
     }
-
     @media (max-width: 480px) {
-        .pd-image-wrap { border-radius: 12px; margin-bottom: 1.5rem; }
-        .pd-hero-content h1 { font-size: 1.3rem; }
-        .pd-hero-content .hero-meta { gap: 0.5rem; }
-        .pd-hero-content .hero-category { font-size: 0.7rem; padding: 0.25rem 0.9rem; }
-        .pd-desc-block { padding: 1.2rem; border-radius: 16px; }
-        .pd-tech-wrap { padding: 1.2rem; }
-        .pd-tech-item { font-size: 0.72rem; padding: 0.3rem 0.9rem; }
-        .sidebar-card { padding: 1.2rem; border-radius: 16px; }
-        .sidebar-link { padding: 0.75rem 1rem; font-size: 0.82rem; border-radius: 14px; }
+        .pd-inner { padding: 0.8rem; }
+        .pd-shell { border-radius: 12px; }
+        .pd-file { font-size: 0.6rem; }
+        .pd-cmd { font-size: 0.64rem; padding: 0.4rem 0.7rem; }
+        .pd-img-bar { top: 8px; left: 8px; font-size: 0.6rem; padding: 0.28rem 0.65rem; }
+        .pd-hero-content h1 { font-size: 1.25rem; }
+        .pd-hero-content .hero-meta { gap: 0.45rem; }
+        .pd-hero-content .hero-category { font-size: 0.64rem; padding: 0.25rem 0.7rem; }
+        .pd-block-body, .custech-body { padding: 1.1rem 1rem; }
+        .back-link { font-size: 0.7rem; padding: 0.45rem 0.9rem; }
     }
 </style>
 
-<div class="project-detail-page">
+<div class="pd-detail-page">
     <div class="pd-container">
-        <div class="top-bar">
-            <a href="/#projects" class="back-link">
-                <i class="bi bi-arrow-left"></i> <span>{{ __('messages.back') }}</span>
-            </a>
-        </div>
+        <div class="pd-shell">
+            <div class="pd-bar">
+                <span class="ab-dot red"></span>
+                <span class="ab-dot yellow"></span>
+                <span class="ab-dot green"></span>
+                <span class="pd-file"><i class="bi bi-folder-fill"></i> ~/portfolio/projects/{{ $project->id }}</span>
+            </div>
 
-        <div class="pd-image-wrap">
-            @if($project->image)
-                <img src="{{ config('app.storage_url') }}{{ $project->image }}" alt="{{ $project->title }}">
-            @else
-                <div class="img-fallback">
-                    <i class="bi bi-folder2-open"></i>
+            <div class="pd-cmd">
+                <span class="pd-prompt">&#10095;</span>
+                <span class="pd-cmd-text" id="pdCmdText" data-text="cat ./README_{{ $project->id }}.md"></span>
+                <span class="pd-cursor"></span>
+            </div>
+
+            <div class="pd-inner">
+                <div class="top-bar pd-rv">
+                    <a href="/#projects" class="back-link">
+                        <span>{{ __('messages.back') }}</span>
+                    </a>
                 </div>
-            @endif
-        </div>
 
-        <div class="pd-hero-content">
-            <div class="hero-meta">
-                @if($project->category)
-                    <span class="hero-category"><i class="bi bi-tag-fill"></i> {{ $project->category }}</span>
-                @endif
-            </div>
-            <h1>{{ $project->title }}</h1>
-        </div>
-
-        <div class="pd-body">
-            <div class="pd-main">
-                @if($project->description)
-                    <div class="pd-desc-block">
-                        <div class="desc-accent"></div>
-                        <p>{{ $project->description }}</p>
-                    </div>
-                @endif
-
-                @if($project->tech_stack)
-                    <div class="pd-tech-wrap">
-                        <div class="tech-header">
-                            <div class="tech-icon"><i class="bi bi-cpu-fill"></i></div>
-                            <span class="tech-label">{{ __('messages.technologies_used') }}</span>
+                <div class="pd-image-wrap pd-rv">
+                    @if($project->image)
+                        <img src="{{ config('app.storage_url') }}{{ $project->image }}" alt="{{ $project->title }}">
+                    @else
+                        <div class="img-fallback">
+                            <i class="bi bi-folder2-open"></i>
                         </div>
-                        <div class="pd-tech-list">
-                            @foreach($project->getTechStackArray() as $tech)
-                                <span class="pd-tech-item"><span>{{ $tech }}</span></span>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-            </div>
+                    @endif
+                    <div class="pd-img-bar static"><i class="bi bi-image-fill"></i> ./screenshot.png</div>
+                </div>
 
-            <div class="pd-sidebar">
-                <div class="sidebar-card">
-                    <div class="sc-accent"></div>
-                    <div class="sc-header">
-                        <i class="bi bi-info-circle-fill"></i>
-                        <h4>{{ __('messages.project_details') }}</h4>
-                    </div>
-                    <div class="sc-rows">
+                <div class="pd-hero-content pd-rv">
+                    <div class="hero-meta">
                         @if($project->category)
-                            <div class="sc-row">
-                                <span class="sc-dot"></span>
-                                <span class="sc-label">{{ __('messages.category') }}</span>
-                                <span class="sc-value">{{ $project->category }}</span>
+                            <span class="hero-category"><i class="bi bi-tag-fill"></i> --category={{ $project->category }}</span>
+                        @endif
+                    </div>
+                    <h1>{{ $project->title }}</h1>
+                </div>
+
+                <div class="pd-body">
+                    <div class="pd-main">
+                        @if($project->description)
+                            <div class="pd-desc-block pd-rv">
+                                <div class="pd-block-bar">
+                                    <span class="ab-dot red"></span>
+                                    <span class="ab-dot yellow"></span>
+                                    <span class="ab-dot green"></span>
+                                    <span class="pd-block-file"><i class="bi bi-file-earmark-code"></i> DESCRIPTION.md</span>
+                                </div>
+                                <div class="pd-block-body">
+                                    <div class="block-header">
+                                        <div class="block-icon"><i class="bi bi-file-earmark-text-fill"></i></div>
+                                        <span class="block-label">&gt;&gt; {{ __('messages.project_description') }}</span>
+                                    </div>
+                                    <p>{{ $project->description }}</p>
+                                </div>
                             </div>
                         @endif
-                        <div class="sc-row">
-                            <span class="sc-dot"></span>
-                            <span class="sc-label">{{ __('messages.status') }}</span>
-                            <span class="sc-value" style="color: #10b981;">{{ __('messages.completed') }}</span>
+
+                        @if($project->tech_stack)
+                            <div class="pd-tech-wrap pd-rv">
+                                <div class="custech-bar">
+                                    <span class="ab-dot red"></span>
+                                    <span class="ab-dot yellow"></span>
+                                    <span class="ab-dot green"></span>
+                                    <span class="custech-file"><i class="bi bi-file-earmark-code"></i> stack.config</span>
+                                </div>
+                                <div class="custech-body">
+                                    <div class="tech-header">
+                                        <div class="tech-icon"><i class="bi bi-cpu-fill"></i></div>
+                                        <span class="tech-label">&gt;&gt; {{ __('messages.technologies_used') }}</span>
+                                    </div>
+                                    <div class="pd-tech-list">
+                                        @foreach($project->getTechStackArray() as $tech)
+                                            <span class="pd-tech-item"><span>{{ $tech }}</span></span>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="pd-sidebar">
+                        <div class="sidebar-card pd-rv">
+                            <div class="sb-bar">
+                                <span class="ab-dot red"></span>
+                                <span class="ab-dot yellow"></span>
+                                <span class="ab-dot green"></span>
+                                <span class="sb-file"><i class="bi bi-file-earmark-text"></i> info.txt</span>
+                            </div>
+                            <div class="sb-body">
+                                <div class="sc-header">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                    <h4>> {{ __('messages.project_details') }}</h4>
+                                </div>
+                                @if($project->category)
+                                    <div class="sc-row">
+                                        <span class="sc-label">{{ __('messages.category') }}</span>
+                                        <span class="sc-value">{{ $project->category }}</span>
+                                    </div>
+                                @endif
+                                <div class="sc-row">
+                                    <span class="sc-label">{{ __('messages.status') }}</span>
+                                    <span class="sc-value" style="color:#34d399;">&#10003; {{ __('messages.completed') }}</span>
+                                </div>
+                            </div>
                         </div>
+
+                        @if($project->live_link || $project->github_link)
+                            <div class="sidebar-links pd-rv">
+                                @if($project->live_link)
+                                    <a href="{{ $project->live_link }}" target="_blank" rel="noopener noreferrer" class="sidebar-link">
+                                        <i class="bi bi-box-arrow-up-right" style="color: var(--accent-light);"></i>
+                                        <span>{{ __('messages.live_demo') }}</span>
+                                        <span class="link-arrow"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                @endif
+                                @if($project->github_link)
+                                    <a href="{{ $project->github_link }}" target="_blank" rel="noopener noreferrer" class="sidebar-link">
+                                        <i class="bi bi-github" style="color: #94a3b8;"></i>
+                                        <span>{{ __('messages.source') }}</span>
+                                        <span class="link-arrow"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
+            </div>
 
-                @if($project->live_link || $project->github_link)
-                    <div class="sidebar-links">
-                        @if($project->live_link)
-                            <a href="{{ $project->live_link }}" target="_blank" rel="noopener noreferrer" class="sidebar-link" style="background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(99,102,241,0.06));">
-                                <i class="bi bi-box-arrow-up-right" style="color: var(--accent-light);"></i>
-                                <span>{{ __('messages.live_demo') }}</span>
-                                <span class="link-arrow"><i class="bi bi-arrow-right"></i></span>
-                            </a>
-                        @endif
-                        @if($project->github_link)
-                            <a href="{{ $project->github_link }}" target="_blank" rel="noopener noreferrer" class="sidebar-link">
-                                <i class="bi bi-github" style="color: #94a3b8;"></i>
-                                <span>{{ __('messages.source') }}</span>
-                                <span class="link-arrow"><i class="bi bi-arrow-right"></i></span>
-                            </a>
-                        @endif
-                    </div>
-                @endif
+            <div class="pd-foot">
+                <span class="pd-exit"><i class="bi bi-check-circle"></i> exit code 0</span>
+                <span class="pd-loc">~/portfolio/projects/{{ $project->id }}</span>
             </div>
         </div>
     </div>
@@ -443,7 +561,8 @@
 
 <script>
 (function() {
-    var selectors = '.pd-image-wrap, .pd-desc-block, .pd-tech-wrap, .sidebar-card, .sidebar-link, .back-link';
+    // ===== Spotlight cursor tracking =====
+    var selectors = '.back-link, .pd-image-wrap, .pd-desc-block, .pd-tech-wrap, .sidebar-card, .sidebar-link';
     document.querySelectorAll(selectors).forEach(function(el) {
         var rafId = null;
         el.addEventListener('mousemove', function(e) {
@@ -464,6 +583,39 @@
             this.style.setProperty('--shy', '50%');
         });
     });
+
+    // ===== Typewriter command =====
+    var cmdEl = document.getElementById('pdCmdText');
+    if (cmdEl) {
+        var text = cmdEl.getAttribute('data-text') || '';
+        var i = 0, speed = 45;
+        function type() {
+            if (i < text.length) {
+                cmdEl.textContent = text.slice(0, ++i);
+                setTimeout(type, speed);
+            }
+        }
+        setTimeout(type, 450);
+    }
+
+    // ===== Scroll reveal =====
+    var revealEls = document.querySelectorAll('.pd-rv');
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(en) {
+                if (en.isIntersecting) {
+                    en.target.classList.add('in');
+                    io.unobserve(en.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        revealEls.forEach(function(el, i) {
+            el.style.transitionDelay = (i % 4) * 0.07 + 's';
+            io.observe(el);
+        });
+    } else {
+        revealEls.forEach(function(el) { el.classList.add('in'); });
+    }
 })();
 </script>
 @endsection
