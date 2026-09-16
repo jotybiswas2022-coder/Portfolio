@@ -4374,13 +4374,22 @@
     @media (max-width: 860px) {
         .edu-grid { max-width: 560px; }
     }
+    @media (max-width: 768px) {
+        .edu-line { font-size: 0.7rem; }
+        .edu-result { font-size: 0.66rem; }
+        .edu-foot { font-size: 0.64rem; }
+    }
     @media (max-width: 480px) {
-        .edu-line { font-size: 0.72rem; }
-        .edu-line::before { width: 1.5rem; }
-        .edu-line { padding-left: 2.1rem; }
-        .edu-lines::after { margin-left: 2.1rem; }
-        .edu-gauge-bar { width: 64px; }
-        .edu-file { max-width: 12ch; }
+        .edu-line { font-size: 0.62rem; line-height: 1.75; }
+        .edu-line::before { width: 1.3rem; font-size: 0.6rem; }
+        .edu-line { padding-left: 1.85rem; }
+        .edu-lines::after { margin-left: 1.85rem; }
+        .edu-gauge-bar { width: 56px; }
+        .edu-file { max-width: 12ch; font-size: 0.62rem; }
+        .edu-status { font-size: 0.54rem; }
+        .edu-result { font-size: 0.62rem; padding: 0.16rem 0.55rem; }
+        .edu-foot { font-size: 0.6rem; }
+        .edu-gauge-num { font-size: 0.64rem; }
     }
     @media (prefers-reduced-motion: reduce) {
         .edu-grid.edu-armed .edu-card,
