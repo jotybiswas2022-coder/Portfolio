@@ -2,181 +2,248 @@
 
 @section('content')
 <style>
+.cs-admin { font-size: 0.88rem; }
+.cs-admin .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.cs-admin .status-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+.cs-admin .status-badge:hover { transform: scale(1.05); }
+.cs-admin .active-badge { background: rgba(16,185,129,0.12); color: #059669; }
+.cs-admin .inactive-badge { background: #f1f5f9; color: #94a3b8; }
+
+.cs-card {
+    background: #fff;
+    border: 1px solid #eef0f4;
+    border-radius: 14px;
+    padding: 16px;
+    height: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.cs-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(99,102,241,0.08);
+    border-color: #e0e7ff;
+}
+.cs-card .cs-thumb {
+    width: 74px; height: 56px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid #eef0f4;
+}
+.cs-card .cs-thumb-placeholder {
+    width: 74px; height: 56px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.cs-card .order-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 3px 8px;
+    flex-shrink: 0;
+}
+.cs-card .cs-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.3;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.cs-card .cs-client {
+    font-size: 0.72rem;
+    color: #64748b;
+    font-weight: 500;
+}
+.cs-card .cs-client i { color: #6366f1; font-size: 0.78rem; }
+.cs-card .cat-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #6366f1;
+    background: rgba(99,102,241,0.1);
+    border-radius: 20px;
+    padding: 2px 10px;
+}
+.cs-card .tech-badge {
+    font-size: 0.66rem;
+    font-weight: 500;
+    color: #475569;
+    background: #f1f5f9;
+    border-radius: 20px;
+    padding: 2px 9px;
+}
+.cs-card .sv-actions .btn-icon {
+    width: 30px; height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: #64748b;
+    transition: all 0.2s;
+}
+.cs-card .sv-actions .btn-icon-edit:hover {
+    color: #6366f1;
+    border-color: #c7d2fe;
+    background: #eef2ff;
+}
+.cs-card .sv-actions .btn-icon-del:hover {
+    color: #dc2626;
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
 @media (max-width: 767.98px) {
-    .casestudies-page h4 { font-size: 0.9rem; }
-    .casestudies-page p.text-muted { font-size: 0.75rem; }
-    .casestudies-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
-    .casestudies-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
-    .casestudies-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .casestudies-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .casestudies-page .small.text-muted { font-size: 0.7rem; }
-    .casestudies-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
-    .casestudies-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
-    .casestudies-page .table tbody td .btn { font-size: 0.65rem; padding: 0.15rem 0.4rem; }
-    .casestudies-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .casestudies-page .card-body { padding: 0.6rem !important; }
+    .cs-admin { font-size: 0.8rem; }
+    .cs-card { padding: 12px; border-radius: 12px; gap: 10px; }
+    .cs-card .cs-thumb,
+    .cs-card .cs-thumb-placeholder { width: 60px; height: 46px; font-size: 1rem; }
+    .cs-card .cs-title { font-size: 0.84rem; }
+    .cs-card .cs-client { font-size: 0.7rem; }
+    .cs-card .status-badge { font-size: 0.66rem; padding: 3px 9px; }
+    .cs-card .sv-actions .btn-icon { width: 26px; height: 26px; font-size: 0.75rem; }
 }
 </style>
 
-<div class="container-fluid py-3 casestudies-page">
+<div class="container-fluid py-3 cs-admin">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-11 col-xxl-10">
 
-    {{-- Header --}}
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h4 class="fw-bold mb-1"><i class="bi bi-journal-code me-2" style="color:#6366f1;"></i>Case Studies</h4>
-            <p class="text-muted small mb-0">Manage IT project case studies (Problem → Solution → Result)</p>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500;">
-                <i class="bi bi-database me-1"></i> {{ $caseStudies->count() }} Total
-            </span>
-            <a href="{{ route('admin.casestudies.create') }}" class="btn btn-primary rounded-3 px-3" style="background:#6366f1; border-color:#6366f1;">
-                <i class="bi bi-plus-lg me-1"></i> Add New
-            </a>
+            {{-- Header --}}
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                    <h5 class="fw-bold mb-1" style="font-size:0.95rem;">
+                        <i class="bi bi-journal-code me-2" style="color:#6366f1;"></i>Case Studies
+                    </h5>
+                    <p class="text-muted mb-0" style="font-size:0.74rem;">Manage IT project case studies (Problem → Solution → Result)</p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge rounded-pill px-3 py-2" id="caseStudiesCount" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500; font-size:0.72rem;">
+                        <i class="bi bi-database me-1"></i> {{ $caseStudies->count() }} Total
+                    </span>
+                    <a href="{{ route('admin.casestudies.create') }}" class="btn btn-admin btn-admin-primary" style="font-size:0.78rem; padding:6px 16px;">
+                        <i class="bi bi-plus-lg me-1"></i> Add New
+                    </a>
+                </div>
+            </div>
+
+            {{-- Live Search --}}
+            <div class="mb-3">
+                <div class="input-group" style="max-width:440px;">
+                    <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0; font-size:0.8rem;">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
+                           class="form-control border-start-0 ps-2" style="border-color:#e2e8f0; box-shadow:none; font-size:0.8rem; padding:7px 10px;"
+                           placeholder="Search by title, client or category..."
+                           autocomplete="off">
+                    <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0; font-size:0.8rem;">
+                        <span class="spinner-border spinner-border-sm d-none text-primary" role="status" id="searchLoading"></span>
+                        @if(request()->has('q') && request()->q != '')
+                            <a href="{{ route('admin.casestudies.index') }}" class="text-muted text-decoration-none"><i class="bi bi-x-lg"></i></a>
+                        @endif
+                    </span>
+                </div>
+                <div class="mt-2" id="searchInfo">
+                    @if($query ?? false)
+                        <small class="text-muted" style="font-size:0.72rem;">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Showing results for "<strong>{{ $query }}</strong>" —
+                            <span id="resultCount">{{ $caseStudies->count() }}</span> case study(ies) found
+                        </small>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Case Studies Grid --}}
+            @if($caseStudies->isEmpty() && !request()->ajax())
+                <div class="text-center py-5">
+                    <div class="empty-state">
+                        <i class="bi bi-journal-code"></i>
+                        <div class="fw-semibold mb-2">No Case Studies Found</div>
+                        <p class="text-muted" style="font-size:0.78rem;">Start by adding your first IT case study!</p>
+                        <a href="{{ route('admin.casestudies.create') }}" class="btn btn-admin btn-admin-primary" style="font-size:0.78rem;">
+                            <i class="bi bi-plus-lg me-1"></i> Add Case Study
+                        </a>
+                    </div>
+                </div>
+            @else
+                <div id="caseStudiesGrid" class="row g-3">
+                    @include('backend.casestudy._table_rows', ['caseStudies' => $caseStudies])
+                </div>
+            @endif
+
         </div>
     </div>
-
-    {{-- Live Search Bar --}}
-    <div class="mb-4">
-        <div class="d-flex gap-2 align-items-center">
-            <div class="input-group" style="max-width:600px;">
-                <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-search text-muted"></i>
-                </span>
-                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}" 
-                       class="form-control border-start-0 ps-0" 
-                       placeholder="Live search by title, client or category..."
-                       style="border-color:#e2e8f0; box-shadow:none;"
-                       autocomplete="off">
-                <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
-                    <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
-                </span>
-            </div>
-            @if(request()->has('q') && request()->q != '')
-                <a href="{{ route('admin.casestudies.index') }}" class="btn btn-outline-secondary rounded-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-x-lg"></i>
-                </a>
-            @endif
-        </div>
-        <div class="mt-2" id="searchInfo">
-            @if($query ?? false)
-                <small class="text-muted">
-                    <i class="bi bi-info-circle me-1"></i>
-                    Showing results for "<strong>{{ $query }}</strong>" — 
-                    <span id="resultCount">{{ $caseStudies->count() }}</span> case study(ies) found
-                </small>
-            @endif
-        </div>
-    </div>
-
-    {{-- Table Card --}}
-    @if($caseStudies->isEmpty() && !request()->ajax())
-        <div class="text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-journal-code"></i>
-                <div class="fw-semibold mb-2">No Case Studies Found</div>
-                <p class="text-muted small">Start by adding your first IT case study!</p>
-                <a href="{{ route('admin.casestudies.create') }}" class="btn btn-primary rounded-3 px-4" style="background:#6366f1; border-color:#6366f1;">
-                    <i class="bi bi-plus-lg me-1"></i> Add Case Study
-                </a>
-            </div>
-        </div>
-    @else
-        <div class="card border-0 shadow-sm rounded-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0" style="min-width:800px;">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="ps-4 py-3 text-muted small fw-semibold" style="width:45px;">#</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:55px;">Image</th>
-                            <th class="py-3 text-muted small fw-semibold">Title</th>
-                            <th class="py-3 text-muted small fw-semibold">Client</th>
-                            <th class="py-3 text-muted small fw-semibold">Category</th>
-                            <th class="py-3 text-muted small fw-semibold">Technologies</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:60px;">Order</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:90px;">Status</th>
-                            <th class="pe-4 py-3 text-muted small fw-semibold" style="width:100px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="caseStudiesTableBody">
-                        @include('backend.casestudy._table_rows', ['caseStudies' => $caseStudies])
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @endif
-
 </div>
-
-<style>
-.status-badge { transition: all 0.2s; }
-.status-badge:hover { transform: scale(1.05); }
-.active-badge { background: rgba(16,185,129,0.12); color: #059669; }
-.inactive-badge { background: #f1f5f9; color: #94a3b8; }
-</style>
 
 @section('scripts')
 <script>
-(function() {
-    function bindCaseStudyEvents() {
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.dataset.id;
-                const title = this.dataset.title;
-                Swal.fire({
-                    title: 'Delete Case Study?',
-                    text: 'Are you sure you want to delete "' + title + '"?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc2626',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-trash me-1"></i> Delete',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete-form-' + id).submit();
-                    }
-                });
-            });
-        });
+// ===== STATUS TOGGLE (delegated so it survives AJAX re-renders) =====
+document.addEventListener('click', function(e) {
+    var badge = e.target.closest('.status-badge');
+    if (!badge) return;
+    e.preventDefault();
+    var href = badge.getAttribute('href');
+    var title = badge.dataset.title || 'this case study';
+    var current = badge.textContent.trim();
+    var next = current === 'Active' ? 'Inactive' : 'Active';
+    Swal.fire({
+        title: 'Toggle Status?',
+        text: 'Change "' + title + '" from ' + current + ' to ' + next + '?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#6366f1',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            window.location.href = href;
+        }
+    });
+});
 
-        document.querySelectorAll('.status-badge').forEach(badge => {
-            badge.addEventListener('click', function (e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                const title = this.dataset.title;
-                const current = this.textContent.trim();
-                Swal.fire({
-                    title: 'Toggle Status?',
-                    text: 'Change "' + title + '" from ' + current + ' to ' + (current === 'Active' ? 'Inactive' : 'Active') + '?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#6366f1',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = href;
-                    }
-                });
-            });
-        });
-    }
-
-    bindCaseStudyEvents();
-    window.bindCaseStudyEvents = bindCaseStudyEvents;
-})();
-
+// ===== LIVE SEARCH (AJAX) =====
 (function() {
     var searchInput = document.getElementById('liveSearch');
-    var tableBody = document.getElementById('caseStudiesTableBody');
+    var grid = document.getElementById('caseStudiesGrid');
     var searchInfo = document.getElementById('searchInfo');
     var searchLoading = document.getElementById('searchLoading');
 
-    if (!searchInput || !tableBody) return;
+    if (!searchInput || !grid) return;
 
     var debounceTimer;
 
@@ -193,22 +260,20 @@
         })
         .then(function(response) { return response.json(); })
         .then(function(data) {
-            tableBody.innerHTML = data.html;
+            grid.innerHTML = data.html;
 
-            var countBadge = document.querySelector('.badge.rounded-pill.px-3.py-2');
+            var countBadge = document.getElementById('caseStudiesCount');
             if (countBadge) {
                 countBadge.innerHTML = '<i class="bi bi-database me-1"></i> ' + data.count + ' Total';
             }
 
             if (searchInfo) {
                 if (query) {
-                    searchInfo.innerHTML = '<small class="text-muted"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' case study(ies) found</small>';
+                    searchInfo.innerHTML = '<small class="text-muted" style="font-size:0.72rem;"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' case study(ies) found</small>';
                 } else {
                     searchInfo.innerHTML = '';
                 }
             }
-
-            if (window.bindCaseStudyEvents) window.bindCaseStudyEvents();
         })
         .catch(function(error) {
             console.error('Search error:', error);
