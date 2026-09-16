@@ -184,15 +184,16 @@
                 <div class="card border-0 shadow-sm rounded-4 mb-3">
                     <div class="card-body px-4 py-3">
                         <div class="section-label"><i class="bi bi-image me-1"></i> Client Avatar</div>
-                        <div class="d-flex align-items-center gap-3 flex-wrap">
-                            <div class="avatar-preview">
+                        <div class="d-flex align-items-start gap-3 flex-wrap">
+                            <div class="flex-shrink-0" style="width:80px;">
                                 <div id="previewPlaceholder"
-                                     class="w-100 h-100 d-flex align-items-center justify-content-center"
-                                     style="background:#f1f5f9; color:#94a3b8; font-size:2rem;">
+                                     class="rounded-circle d-flex align-items-center justify-content-center mx-auto"
+                                     style="width:80px; height:80px; background:#f1f5f9; color:#94a3b8; font-size:2rem;">
                                     <i class="bi bi-person"></i>
                                 </div>
-                                <img id="preview" src="" style="display:none; width:100%; height:100%; object-fit:cover;"
-                                     class="rounded-circle shadow-sm">
+                                <img id="preview" src=""
+                                     style="display:none; width:80px; height:80px; object-fit:cover; border-radius:50%;"
+                                     class="shadow-sm">
                             </div>
                             <div style="min-width:220px;">
                                 <input type="file" accept="image/*" id="avatar" name="avatar"
@@ -226,7 +227,7 @@ function previewImage(event) {
     const placeholder = document.getElementById('previewPlaceholder');
     if (input.files && input.files[0]) {
         preview.src = URL.createObjectURL(input.files[0]);
-        preview.style.display = 'block';
+        preview.style.display = 'inline-block';
         if (placeholder) placeholder.style.display = 'none';
     }
 }
