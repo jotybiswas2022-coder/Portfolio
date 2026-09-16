@@ -162,6 +162,19 @@
 
         /* Prevent overflow from decorative elements */
         section, .hero { overflow: hidden; }
+
+        /* ===== ONE TYPEFACE EVERYWHERE =====
+           Same English font as the hero tagline (Poppins). Bengali has no
+           Poppins glyphs, so it still falls back to Hind Siliguri.
+           Icon fonts are pinned by their own vendor !important rules, and the
+           icon classes are excluded here as a second guard. */
+        html body,
+        html body *:not(.bi):not([class*="bi-"]):not([class^="bi-"]):not([class*="fa-"]):not([class^="fa-"]) {
+            font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif !important;
+        }
+        html body code, html body pre, html body kbd, html body samp {
+            font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif !important;
+        }
     </style>
 </head>
 <body>

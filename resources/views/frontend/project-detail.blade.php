@@ -31,6 +31,49 @@
         font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
     }
 
+    /* window dots — declared here so every bar on this page actually shows them */
+    .ab-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .ab-dot.red { background: #ff5f57; }
+    .ab-dot.yellow { background: #febc2e; }
+    .ab-dot.green { background: #28c840; }
+    .pd-bar .ab-dot, .custech-bar .ab-dot, .sb-bar .ab-dot, .pd-block-bar .ab-dot { width: 8px; height: 8px; }
+
+    .pd-branch {
+        margin-left: auto; flex-shrink: 0; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-family: var(--mono); font-size: 0.56rem; font-weight: 700; letter-spacing: 0.4px;
+        color: #93c5fd; background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.26);
+        padding: 0.13rem 0.45rem; border-radius: 50px;
+    }
+    html.light-theme .pd-branch { color: #2563eb; }
+
+    /* scanner that sweeps the preview once, right after it reveals */
+    .pd-scan {
+        position: absolute; left: 0; right: 0; top: 0; height: 35%; z-index: 2;
+        background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+        transform: translateY(-140%); pointer-events: none;
+    }
+    .pd-image-wrap.in .pd-scan { animation: pdImgScan 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s 1 forwards; }
+    @keyframes pdImgScan { to { transform: translateY(330%); } }
+
+    /* stack chips tick in one by one */
+    .pd-tech-wrap.in .pd-tech-item {
+        animation: pdChipIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        animation-delay: calc(var(--i, 0) * 45ms + 0.1s);
+    }
+    @keyframes pdChipIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    @media (max-width: 480px) {
+        .pd-bar { padding: 0.45rem 0.7rem; }
+        .pd-branch { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .pd-detail-page::before, .pd-cursor { animation: none; }
+        .pd-rv { opacity: 1 !important; transform: none !important; }
+        .pd-image-wrap.in .pd-scan, .pd-tech-wrap.in .pd-tech-item { animation: none; }
+    }
+
     .pd-detail-page {
         padding-top: 90px;
         padding-bottom: 5rem;
@@ -424,13 +467,8 @@
                 <span class="ab-dot red"></span>
                 <span class="ab-dot yellow"></span>
                 <span class="ab-dot green"></span>
-                <span class="pd-file"><i class="bi bi-folder-fill"></i> ~/portfolio/projects/{{ $project->id }}</span>
-            </div>
-
-            <div class="pd-cmd">
-                <span class="pd-prompt">&#10095;</span>
-                <span class="pd-cmd-text" id="pdCmdText" data-text="cat ./README_{{ $project->id }}.md"></span>
-                <span class="pd-cursor"></span>
+                <span class="pd-file"><i class="bi bi-file-earmark-code-fill"></i> ~/portfolio/projects/{{ $project->id }}/README.md</span>
+                <span class="pd-branch"><i class="bi bi-git"></i> main</span>
             </div>
 
             <div class="pd-inner">
@@ -448,6 +486,7 @@
                             <i class="bi bi-folder2-open"></i>
                         </div>
                     @endif
+                    <span class="pd-scan" aria-hidden="true"></span>
                     <div class="pd-img-bar static"><i class="bi bi-image-fill"></i> ./screenshot.png</div>
                 </div>
 
@@ -495,7 +534,7 @@
                                     </div>
                                     <div class="pd-tech-list">
                                         @foreach($project->getTechStackArray() as $tech)
-                                            <span class="pd-tech-item"><span>{{ $tech }}</span></span>
+                                            <span class="pd-tech-item" style="--i: {{ min($loop->index, 10) }}"><span>{{ $tech }}</span></span>
                                         @endforeach
                                     </div>
                                 </div>

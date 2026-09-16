@@ -1553,5 +1553,6 @@
 
     });
     </script>
+@include('frontend.auth.partials.coding')
 </body>
 </html>

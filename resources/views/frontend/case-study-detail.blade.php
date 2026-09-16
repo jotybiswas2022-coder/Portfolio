@@ -31,6 +31,49 @@
         font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
     }
 
+    /* window dots — declared here so every bar on this page actually shows them */
+    .ab-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .ab-dot.red { background: #ff5f57; }
+    .ab-dot.yellow { background: #febc2e; }
+    .ab-dot.green { background: #28c840; }
+    .cs-bar .ab-dot, .csb-bar .ab-dot, .custech-bar .ab-dot, .sb-bar .ab-dot { width: 8px; height: 8px; }
+
+    .cs-branch {
+        margin-left: auto; flex-shrink: 0; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-family: var(--mono); font-size: 0.56rem; font-weight: 700; letter-spacing: 0.4px;
+        color: #93c5fd; background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.26);
+        padding: 0.13rem 0.45rem; border-radius: 50px;
+    }
+    html.light-theme .cs-branch { color: #2563eb; }
+
+    /* scanner that sweeps the preview once, right after it reveals */
+    .cs-scan {
+        position: absolute; left: 0; right: 0; top: 0; height: 35%; z-index: 2;
+        background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+        transform: translateY(-140%); pointer-events: none;
+    }
+    .cs-image-wrap.in .cs-scan { animation: csImgScan 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s 1 forwards; }
+    @keyframes csImgScan { to { transform: translateY(330%); } }
+
+    /* stack chips tick in one by one */
+    .cs-tech-wrap.in .cs-tech-item {
+        animation: csChipIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        animation-delay: calc(var(--i, 0) * 45ms + 0.1s);
+    }
+    @keyframes csChipIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    @media (max-width: 480px) {
+        .cs-bar { padding: 0.45rem 0.7rem; }
+        .cs-branch { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .cs-detail-page::before, .cs-cursor { animation: none; }
+        .cs-rv { opacity: 1 !important; transform: none !important; }
+        .cs-image-wrap.in .cs-scan, .cs-tech-wrap.in .cs-tech-item { animation: none; }
+    }
+
     .cs-detail-page {
         padding-top: 90px;
         padding-bottom: 5rem;
@@ -448,13 +491,8 @@
                 <span class="ab-dot red"></span>
                 <span class="ab-dot yellow"></span>
                 <span class="ab-dot green"></span>
-                <span class="cs-file"><i class="bi bi-folder-fill"></i> ~/portfolio/case-studies/{{ $caseStudy->id }}</span>
-            </div>
-
-            <div class="cs-cmd">
-                <span class="cs-prompt">&#10095;</span>
-                <span class="cs-cmd-text" id="csCmdText" data-text="cat ./postmortem_{{ $caseStudy->id }}.md"></span>
-                <span class="cs-cursor"></span>
+                <span class="cs-file"><i class="bi bi-file-earmark-text-fill"></i> ~/portfolio/case-studies/{{ $caseStudy->id }}.md</span>
+                <span class="cs-branch"><i class="bi bi-git"></i> main</span>
             </div>
 
             <div class="cs-inner">
@@ -472,6 +510,7 @@
                             <i class="bi bi-folder2-open"></i>
                         </div>
                     @endif
+                    <span class="cs-scan" aria-hidden="true"></span>
                     <div class="cs-img-bar static"><i class="bi bi-image-fill"></i> ./screenshot.png</div>
                 </div>
 
@@ -558,7 +597,7 @@
                                     </div>
                                     <div class="cs-tech-list">
                                         @foreach($caseStudy->tech_list as $tech)
-                                            <span class="cs-tech-item">{{ $tech }}</span>
+                                            <span class="cs-tech-item" style="--i: {{ min($loop->index, 10) }}">{{ $tech }}</span>
                                         @endforeach
                                     </div>
                                 </div>
