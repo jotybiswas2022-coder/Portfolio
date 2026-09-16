@@ -3059,12 +3059,21 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-        .faq-q-row { padding: 0.85rem 1rem; font-size: 0.82rem; gap: 0.5rem; }
+        .faq-list { gap: 0.6rem; }
+        .faq-q-row { padding: 0.8rem 1rem; font-size: 0.8rem; gap: 0.5rem; }
         .faq-q-icon { width: 24px; height: 24px; min-width: 24px; font-size: 0.65rem; }
-        .faq-a-inner { padding: 0.7rem 0.85rem; font-size: 0.78rem; }
+        .faq-a-block { padding: 0 1rem; }
+        .faq-item.faq-open .faq-a-block { padding: 0 1rem 1rem; }
+        .faq-a-inner { padding: 0.7rem 0.8rem; font-size: 0.76rem; line-height: 1.7; }
     }
     @media (max-width: 480px) {
-        .faq-q-row { padding: 0.75rem 0.85rem; font-size: 0.78rem; }
+        .faq-q-row { padding: 0.7rem 0.8rem; font-size: 0.75rem; gap: 0.45rem; }
+        .faq-q-icon { width: 22px; height: 22px; min-width: 22px; font-size: 0.6rem; border-radius: 7px; }
+        .faq-q-chevron { font-size: 0.65rem; }
+        .faq-a-block { padding: 0 0.8rem; }
+        .faq-item.faq-open .faq-a-block { padding: 0 0.8rem 0.85rem; }
+        .faq-a-inner { padding: 0.6rem 0.7rem; font-size: 0.72rem; line-height: 1.65; }
+        .faq-a-gutter { margin-right: 0.3rem; }
     }
 
 /* Map */
