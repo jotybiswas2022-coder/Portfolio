@@ -2,49 +2,97 @@
 
 @section('content')
 <style>
-.form-section { margin-bottom: 0; }
-.form-section .form-label {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--admin-text);
-    margin-bottom: 0.35rem;
-}
-.form-section .form-text {
+.pjf { font-size: 0.88rem; }
+.pjf .section-label {
     font-size: 0.72rem;
-    color: var(--admin-text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #94a3b8;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f1f5f9;
+    margin-bottom: 16px;
 }
-.image-dropzone {
-    border: 2px dashed var(--admin-border);
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-    cursor: pointer;
+.pjf .form-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 4px;
+}
+.pjf .form-control {
+    font-size: 0.82rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e8f0;
     transition: all 0.2s;
-    background: rgba(99,102,241,0.02);
 }
-.image-dropzone:hover {
-    border-color: var(--admin-primary);
-    background: rgba(99,102,241,0.04);
+.pjf .form-control:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
 }
-.image-dropzone i { font-size: 2rem; color: var(--admin-primary); margin-bottom: 0.5rem; display: block; }
+.pjf .form-text { font-size: 0.7rem; }
+.pjf .invalid-feedback { font-size: 0.72rem; }
+.pjf .form-check-input:checked {
+    background-color: #6366f1;
+    border-color: #6366f1;
+}
+.pjf .btn-submit {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+    transition: all 0.2s;
+}
+.pjf .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99,102,241,0.4);
+    color: #fff;
+}
+.pjf .btn-cancel {
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.82rem;
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+.pjf .btn-cancel:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
 @media (max-width: 767.98px) {
-    .form-section .form-label { font-size: 0.75rem; }
-    .form-section .form-control, .form-section .form-select { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
-    .form-section .form-text { font-size: 0.68rem; }
+    .pjf { font-size: 0.8rem; }
+    .pjf .section-label { font-size: 0.68rem; }
+    .pjf .form-label { font-size: 0.73rem; }
+    .pjf .form-control { font-size: 0.76rem; padding: 7px 10px; }
+    .pjf .form-text { font-size: 0.65rem; }
+    .pjf .btn-submit { padding: 8px 20px; font-size: 0.76rem; }
+    .pjf .btn-cancel { padding: 8px 16px; font-size: 0.76rem; }
 }
 </style>
 
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 pjf">
     <div class="row justify-content-center">
-        <div class="col-lg-10 col-xl-9">
+        <div class="col-md-11 col-lg-9">
 
             {{-- Header --}}
-            <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
                 <div>
-                    <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:var(--admin-primary);"></i>Add New Project</h4>
+                    <h5 class="fw-bold mb-1" style="font-size:0.95rem;">
+                        <i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add Project
+                    </h5>
                     <p class="text-muted small mb-0">Create a new project to showcase in your portfolio.</p>
                 </div>
-                <a href="{{ route('admin.projects.index') }}" class="btn btn-admin btn-admin-outline">
+                <a href="{{ route('admin.projects.index') }}" class="btn-cancel text-decoration-none">
                     <i class="bi bi-arrow-left me-1"></i> Back
                 </a>
             </div>
@@ -53,11 +101,9 @@
                 @csrf
 
                 {{-- Basic Info --}}
-                <div class="form-card mb-4 slide-up">
-                    <div class="card-header">
-                        <h5><i class="bi bi-info-circle me-2"></i>Basic Information</h5>
-                    </div>
-                    <div class="card-body form-section">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-info-circle me-1"></i> Basic Info</div>
                         <div class="row g-3">
                             <div class="col-md-8">
                                 <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
@@ -85,11 +131,9 @@
                 </div>
 
                 {{-- Tech Stack & Status --}}
-                <div class="form-card mb-4 slide-up" style="animation-delay:0.1s;">
-                    <div class="card-header">
-                        <h5><i class="bi bi-gear me-2"></i>Tech Stack & Status</h5>
-                    </div>
-                    <div class="card-body form-section">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-gear me-1"></i> Tech Stack & Status</div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="tech_stack" class="form-label">Tech Stack</label>
@@ -108,7 +152,8 @@
                             </div>
                             <div class="col-md-3 d-flex align-items-end pb-1">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" checked>
+                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active"
+                                           value="1" {{ old('is_active', true) ? 'checked' : '' }}>
                                     <label class="form-check-label fw-medium" for="is_active">Active</label>
                                 </div>
                             </div>
@@ -116,22 +161,20 @@
                     </div>
                 </div>
 
-                {{-- Links --}}
-                <div class="form-card mb-4 slide-up" style="animation-delay:0.15s;">
-                    <div class="card-header">
-                        <h5><i class="bi bi-link-45deg me-2"></i>Project Links</h5>
-                    </div>
-                    <div class="card-body form-section">
+                {{-- Project Links --}}
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-link-45deg me-1"></i> Project Links</div>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="live_link" class="form-label"><i class="bi bi-globe me-1"></i> Live Link</label>
+                                <label for="live_link" class="form-label">Live Link</label>
                                 <input type="url" id="live_link" name="live_link"
                                        class="form-control @error('live_link') is-invalid @enderror"
                                        value="{{ old('live_link') }}" placeholder="https://example.com">
                                 @error('live_link')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="github_link" class="form-label"><i class="bi bi-github me-1"></i> GitHub Link</label>
+                                <label for="github_link" class="form-label">GitHub Link</label>
                                 <input type="url" id="github_link" name="github_link"
                                        class="form-control @error('github_link') is-invalid @enderror"
                                        value="{{ old('github_link') }}" placeholder="https://github.com/username/repo">
@@ -142,11 +185,9 @@
                 </div>
 
                 {{-- Project Image --}}
-                <div class="form-card mb-4 slide-up" style="animation-delay:0.2s;">
-                    <div class="card-header">
-                        <h5><i class="bi bi-image me-2"></i>Project Image</h5>
-                    </div>
-                    <div class="card-body form-section">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-image me-1"></i> Project Image</div>
                         <input type="file" accept="image/*" id="image" name="image"
                                class="form-control @error('image') is-invalid @enderror"
                                onchange="previewImage(event)">
@@ -159,9 +200,9 @@
                 </div>
 
                 {{-- Submit --}}
-                <div class="d-flex justify-content-end gap-2 slide-up" style="animation-delay:0.25s;">
-                    <a href="{{ route('admin.projects.index') }}" class="btn btn-admin btn-admin-outline">Cancel</a>
-                    <button type="submit" class="btn btn-admin btn-admin-primary px-4">
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{{ route('admin.projects.index') }}" class="btn-cancel text-decoration-none">Cancel</a>
+                    <button type="submit" class="btn-submit">
                         <i class="bi bi-check-circle me-1"></i> Create Project
                     </button>
                 </div>
