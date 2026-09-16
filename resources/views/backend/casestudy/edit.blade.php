@@ -242,7 +242,7 @@
                         <div class="d-flex align-items-center gap-3 flex-wrap">
                             <div>
                                 @if($caseStudy->image)
-                                    <img src="{{ asset('storage/' . $caseStudy->image) }}"
+                                    <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}"
                                          id="preview" class="img-preview" style="display:block;">
                                     <div id="previewPlaceholder" class="img-placeholder" style="display:none;">
                                         <i class="bi bi-image"></i>

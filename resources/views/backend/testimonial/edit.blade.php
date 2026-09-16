@@ -127,7 +127,7 @@
                             <div>
                                 @if($testimonial->avatar)
                                     <div class="d-flex align-items-start gap-2">
-                                        <img src="{{ asset('storage/' . $testimonial->avatar) }}"
+                                        <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
                                              alt="{{ $testimonial->name }}"
                                              class="rounded-circle shadow-sm"
                                              style="width:80px; height:80px; object-fit:cover;">

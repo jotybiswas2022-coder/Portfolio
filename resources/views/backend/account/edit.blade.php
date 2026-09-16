@@ -342,7 +342,7 @@
                         <div class="form-text mt-1">Maximum 5MB. Accepted formats: PDF, DOC, DOCX.</div>
                         @if(isset($account) && $account->cv)
                             <div class="mt-3 d-flex align-items-center gap-3 flex-wrap">
-                                <a href="{{ asset('storage/' . $account->cv) }}" target="_blank"
+                                <a href="{{ config('app.storage_url') }}{{ $account->cv }}" target="_blank"
                                    class="btn btn-sm rounded-3 px-3" style="font-size:0.78rem; color:#6366f1; background:#eef2ff; border:1px solid #c7d2fe;">
                                     <i class="bi bi-eye me-1"></i> View Current CV
                                 </a>

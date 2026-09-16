@@ -86,7 +86,7 @@
                                 <div class="mt-2">
                                     @if($gig->image)
                                         <div class="d-flex align-items-start gap-2">
-                                            <img id="preview" src="{{ asset('storage/' . $gig->image) }}"
+                                            <img id="preview" src="{{ config('app.storage_url') }}{{ $gig->image }}"
                                                  style="max-width:300px; max-height:180px; object-fit:cover;" class="rounded shadow-sm">
                                             <button type="button" onclick="confirmDeleteImage()" class="btn btn-sm btn-outline-danger rounded-3">
                                                 <i class="bi bi-trash3"></i>
