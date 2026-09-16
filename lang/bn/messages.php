@@ -78,6 +78,9 @@ return [
     'testimonials_subtitle' => 'আমার সাথে যারা কাজ করেছেন, তাদের কথা',
     'no_testimonials'       => 'কোনো মতামত নেই',
     'no_testimonials_desc'  => 'মতামত খুব শিগগির আসছে!',
+    'approved'              => 'অনুমোদিত',
+    'verified_review'       => 'যাচাই করা মতামত',
+    'merged_to_main'        => 'মেইনে যোগ হয়েছে',
 
     // Contact
     'contact_title'    => 'যোগাযোগ করুন',

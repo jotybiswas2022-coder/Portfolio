@@ -1251,12 +1251,10 @@
     .pkg-card .pkg-action,
     .pkg-card .pkg-foot,
     .testimonial-card .testimonial-stars,
-    .testimonial-card .testimonial-text,
-    .testimonial-card .testimonial-author,
-    .testimonial-card .tst-bar,
-    .testimonial-card .tst-head,
-    .testimonial-card .tst-review,
-    .testimonial-card .tst-foot,
+    .testimonial-card .rv-bar,
+    .testimonial-card .rv-author,
+    .testimonial-card .rv-diff,
+    .testimonial-card .rv-foot,
     .faq-item button,
     .faq-item .faq-answer,
     .contact-info-card h3,
@@ -2742,114 +2740,232 @@
         .pkg-action { opacity: 1; animation: none; }
     }
 
-    /* Testimonials */
-    .testimonials-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
+    /* ===== TESTIMONIALS - CODE REVIEW DIFF PANELS (coding design) ===== */
+    .testimonials-section {
+        position: relative; overflow: hidden;
+        background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%);
+    }
     html.light-theme .testimonials-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
-    /* ===== TESTIMONIALS - PULL-REQUEST REVIEW CARDS (coding design) ===== */
+    .testimonials-section::before {
+        content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        background-image: linear-gradient(90deg, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+        background-size: 46px 100%;
+        -webkit-mask-image: radial-gradient(ellipse 62% 72% at 50% 50%, #000 0%, transparent 78%);
+        mask-image: radial-gradient(ellipse 62% 72% at 50% 50%, #000 0%, transparent 78%);
+    }
+    html.light-theme .testimonials-section::before {
+        background-image: linear-gradient(90deg, rgba(59, 130, 246, 0.075) 1px, transparent 1px);
+    }
+    .testimonials-section .container { position: relative; z-index: 1; }
+
     .testimonial-carousel { max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; }
-    .testimonial-track { display: flex; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .testimonial-track { display: flex; transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1); }
 
     .testimonial-card {
         flex: 0 0 100%; width: 100%; padding: 0; box-sizing: border-box;
         display: flex; flex-direction: column; text-align: left;
-        background: linear-gradient(180deg, rgba(15, 25, 45, 0.78) 0%, rgba(10, 18, 35, 0.6) 100%);
-        border: 1px solid rgba(129, 140, 248, 0.24); border-radius: 16px;
+        background: linear-gradient(180deg, rgba(13, 22, 42, 0.94) 0%, rgba(8, 15, 30, 0.82) 100%);
+        border: 1px solid rgba(129, 140, 248, 0.22); border-radius: 15px;
         overflow: hidden; position: relative;
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         box-shadow: 0 22px 55px rgba(2, 8, 23, 0.45);
-        transition: var(--transition);
+        transition: border-color 0.4s ease;
     }
-    html.light-theme .testimonial-card {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(238, 242, 255, 0.72) 100%);
-        border-color: rgba(99, 102, 241, 0.26);
-        box-shadow: 0 22px 55px rgba(99, 102, 241, 0.16);
+    html.light-theme .testimonial-card { border-color: rgba(99, 102, 241, 0.24); }
+    .testimonial-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 5;
+        background: linear-gradient(90deg, #8b5cf6, #6366f1, #22d3ee, #8b5cf6);
+        background-size: 200% 100%;
+        animation: atSweep 6s linear infinite;
     }
-    .testimonial-card:hover { border-color: rgba(129, 140, 248, 0.5); box-shadow: 0 30px 75px rgba(99, 102, 241, 0.26); }
+    .testimonial-card:hover { border-color: rgba(129, 140, 248, 0.5); }
 
-    .tst-bar {
-        display: flex; align-items: center; gap: 0.55rem;
-        padding: 0.6rem 0.9rem;
+    /* ---- review title bar ---- */
+    .rv-bar {
+        position: relative; z-index: 3;
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.85rem;
         background: rgba(255, 255, 255, 0.035);
         border-bottom: 1px solid rgba(148, 163, 184, 0.14);
     }
-    html.light-theme .tst-bar { background: rgba(15, 23, 42, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
-    .tst-file { display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.3rem; font-size: 0.72rem; color: #cbd5e1; }
-    .tst-file i { color: #818cf8; }
-    html.light-theme .tst-file { color: #334155; }
-    .tst-hash { font-size: 0.66rem; color: #64748b; }
-    .tst-badge {
-        margin-left: auto; white-space: nowrap;
+    html.light-theme .rv-bar { background: rgba(15, 23, 42, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .rv-bar .ab-dot { width: 8px; height: 8px; }
+    .rv-file {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        flex: 1 1 auto; min-width: 0; margin-left: 0.25rem;
+        font-size: 0.7rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .rv-file i { flex-shrink: 0; color: #a78bfa; }
+    html.light-theme .rv-file { color: #334155; }
+    .rv-num { flex-shrink: 0; font-size: 0.64rem; color: #64748b; }
+    .rv-badge {
+        flex-shrink: 0; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: 0.35rem;
         font-size: 0.56rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
         color: #34d399; background: rgba(52, 211, 153, 0.12);
         border: 1px solid rgba(52, 211, 153, 0.32);
         padding: 0.16rem 0.5rem; border-radius: 50px;
     }
-    html.light-theme .tst-badge { color: #047857; }
-
-    .tst-head { display: flex; align-items: center; gap: 0.7rem; padding: 0.95rem 0.95rem 0.45rem; }
-    .testimonial-author { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
-    .author-avatar img, .avatar-fallback {
-        width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
-        border: 2px solid rgba(99, 102, 241, 0.35); display: block;
+    .rv-badge i {
+        width: 5px; height: 5px; border-radius: 50%; background: #34d399;
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.9);
+        animation: pjcPulse 1.8s ease-in-out infinite;
     }
-    .avatar-fallback {
+    html.light-theme .rv-badge { color: #047857; }
+
+    /* ---- reviewer identity ---- */
+    .rv-author {
+        position: relative; z-index: 2;
+        display: flex; align-items: center; gap: 0.75rem;
+        padding: 1rem 1.05rem 0.85rem;
+    }
+    .rv-avatar { position: relative; flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%; }
+    .rv-avatar::before {
+        content: ''; position: absolute; inset: -3px; border-radius: 50%;
+        background: conic-gradient(from 0deg, #6366f1, #22d3ee, #a78bfa, #6366f1);
+        animation: rvRing 7s linear infinite;
+    }
+    @keyframes rvRing { to { transform: rotate(1turn); } }
+    .rv-avatar img, .rv-avatar .rv-fallback {
+        position: relative; z-index: 1;
+        width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;
+        border: 2px solid rgba(8, 15, 30, 0.92);
+    }
+    html.light-theme .rv-avatar img, html.light-theme .rv-avatar .rv-fallback { border-color: #fff; }
+    .rv-avatar .rv-fallback {
         display: flex; align-items: center; justify-content: center;
         background: var(--accent-gradient); font-family: var(--font);
         font-weight: 700; font-size: 1.05rem; color: #fff;
     }
-    .author-name { font-family: var(--font); font-weight: 700; color: var(--text-primary); font-size: 0.95rem; line-height: 1.25; }
-    .author-designation { font-family: var(--font); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .rv-who { min-width: 0; }
+    .rv-name { font-family: var(--font); font-weight: 700; color: var(--text-primary); font-size: 0.96rem; line-height: 1.25; }
+    .rv-role { font-family: var(--font); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
     .testimonial-stars { margin-left: auto; display: flex; gap: 2px; font-size: 0.82rem; color: #f59e0b; flex-shrink: 0; }
-    .testimonial-stars .bi-star { opacity: 0.25; }
-
-    .tst-review {
-        display: flex; gap: 0.75rem;
-        margin: 0.4rem 0.95rem 0.95rem;
-        padding: 0.85rem 1rem 0.85rem 0.9rem;
-        background: rgba(2, 8, 23, 0.4);
-        border-left: 2px solid rgba(99, 102, 241, 0.55);
-        border-radius: 0 10px 10px 0;
+    .testimonial-stars .bi-star { opacity: 0.22; }
+    .testimonial-card.tst-in .testimonial-stars .bi-star-fill {
+        animation: rvStar 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        animation-delay: calc(var(--si, 0) * 70ms + 80ms);
     }
-    html.light-theme .tst-review { background: rgba(15, 23, 42, 0.045); }
-    .tst-gutter { flex-shrink: 0; padding-top: 0.14rem; color: #6366f1; font-size: 0.78rem; font-weight: 700; }
-    .testimonial-text { margin: 0; color: #cbd5e1; font-size: 0.92rem; line-height: 1.75; }
-    html.light-theme .testimonial-text { color: #334155 !important; }
+    @keyframes rvStar {
+        from { opacity: 0; transform: scale(0.3) rotate(-25deg); }
+        to { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
 
-    .tst-foot {
+    /* ---- diff body ---- */
+    .rv-diff {
+        position: relative; z-index: 2;
+        margin: 0 1.05rem 1rem;
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        border-radius: 10px; overflow: hidden;
+        background: rgba(2, 8, 23, 0.42);
+    }
+    html.light-theme .rv-diff { background: rgba(15, 23, 42, 0.035); border-color: rgba(15, 23, 42, 0.1); }
+    .rv-diff::after {
+        content: ''; position: absolute; left: 0; right: 0; top: -40%; height: 40%;
+        pointer-events: none; opacity: 0;
+        background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.18), transparent);
+    }
+    .testimonial-card.tst-in .rv-diff::after { animation: rvScan 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s 1 both; }
+    @keyframes rvScan {
+        0% { top: -40%; opacity: 0; }
+        20% { opacity: 1; }
+        100% { top: 105%; opacity: 0; }
+    }
+    .rv-hunk {
+        display: flex; align-items: center; gap: 0.4rem;
+        padding: 0.45rem 0.8rem;
+        font-size: 0.66rem; color: #7dd3fc;
+        background: rgba(56, 189, 248, 0.08);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    }
+    .rv-hunk i { font-size: 0.72rem; }
+    html.light-theme .rv-hunk { color: #0369a1; background: rgba(56, 189, 248, 0.12); }
+
+    .rv-line { display: flex; gap: 0.55rem; padding: 0.5rem 0.8rem; }
+    .rv-sign { flex-shrink: 0; width: 0.85rem; text-align: center; font-weight: 700; font-size: 0.8rem; line-height: 1.75; }
+    .rv-line-removed { color: #64748b; background: rgba(248, 113, 113, 0.07); font-size: 0.72rem; }
+    .rv-line-removed .rv-sign { color: #f87171; }
+    .rv-line-removed .rv-code { font-size: 0.72rem; line-height: 1.75; }
+    .rv-line-added { background: rgba(52, 211, 153, 0.07); }
+    .rv-line-added .rv-sign { color: #34d399; }
+    .rv-text {
+        margin: 0; color: #cbd5e1;
+        font-family: var(--font); font-size: 0.92rem; line-height: 1.75;
+    }
+    html.light-theme .rv-text { color: #334155; }
+
+    /* ---- status strip ---- */
+    .rv-foot {
+        position: relative; z-index: 2;
         display: flex; align-items: center; gap: 0.75rem;
-        padding: 0.5rem 0.95rem;
+        padding: 0.55rem 1.05rem;
         border-top: 1px solid rgba(148, 163, 184, 0.14);
+        background: rgba(255, 255, 255, 0.02);
         font-size: 0.64rem; color: #64748b;
     }
-    html.light-theme .tst-foot { border-top-color: rgba(15, 23, 42, 0.08); }
-    .tst-ok { display: inline-flex; align-items: center; gap: 0.32rem; color: #34d399; }
-    .tst-merge { margin-left: auto; }
+    html.light-theme .rv-foot { border-top-color: rgba(15, 23, 42, 0.08); background: rgba(15, 23, 42, 0.015); }
+    .rv-ok { display: inline-flex; align-items: center; gap: 0.32rem; color: #34d399; }
+    .rv-merge { margin-left: auto; display: inline-flex; align-items: center; gap: 0.32rem; }
 
-    /* review lines write in whenever a slide becomes active (JS adds .tst-in) */
-    .testimonial-card.tst-in > * { animation: tstIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-    .testimonial-card.tst-in > *:nth-child(2) { animation-delay: 80ms; }
-    .testimonial-card.tst-in > *:nth-child(3) { animation-delay: 160ms; }
-    .testimonial-card.tst-in > *:nth-child(4) { animation-delay: 240ms; }
-    @keyframes tstIn {
+    /* each slide replays its lines whenever JS adds .tst-in */
+    .testimonial-card.tst-in > * { animation: rvIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .testimonial-card.tst-in > *:nth-child(2) { animation-delay: 70ms; }
+    .testimonial-card.tst-in > *:nth-child(3) { animation-delay: 140ms; }
+    .testimonial-card.tst-in > *:nth-child(4) { animation-delay: 210ms; }
+    @keyframes rvIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    @media (prefers-reduced-motion: reduce) {
-        .testimonial-card.tst-in > * { animation: none; }
-    }
-    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 1.1rem; margin-top: 1.9rem; }
     .carousel-btn {
-        width: 44px; height: 44px; border-radius: 50%;
-        border: 1px solid rgba(59, 130, 246, 0.25);
+        flex-shrink: 0;
+        width: 42px; height: 42px; border-radius: 10px;
+        border: 1px solid rgba(129, 140, 248, 0.25);
         background: rgba(30, 41, 59, 0.4); color: var(--text-secondary);
         display: flex; align-items: center; justify-content: center;
-        cursor: pointer; transition: var(--transition); font-size: 1.1rem;
+        cursor: pointer; transition: var(--transition); font-size: 1rem;
     }
     html.light-theme .carousel-btn { background: rgba(255, 255, 255, 0.85) !important; color: #475569 !important; }
-    .carousel-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: scale(1.05); }
-    .carousel-dots { display: flex; gap: 8px; }
-    .carousel-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(59, 130, 246, 0.2); cursor: pointer; transition: var(--transition); }
-    .carousel-dots .dot.active { background: var(--accent); width: 28px; border-radius: 5px; }
+    .carousel-btn:hover { background: var(--accent-gradient); border-color: transparent; color: #fff; transform: translateY(-2px); }
+
+    /* slide index rendered as numbered diff tabs */
+    .carousel-dots {
+        display: flex; align-items: center; gap: 0.4rem;
+        min-width: 0; overflow-x: auto;
+        padding: 3px 2px;
+        counter-reset: rvdot;
+        scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .carousel-dots::-webkit-scrollbar { display: none; }
+    .carousel-dots .dot {
+        counter-increment: rvdot;
+        flex-shrink: 0;
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 30px; height: 30px; padding: 0 0.4rem;
+        border-radius: 8px; cursor: pointer;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; color: #64748b;
+        background: rgba(148, 163, 184, 0.08);
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        transition: var(--transition);
+    }
+    .carousel-dots .dot::before { content: counter(rvdot, decimal-leading-zero); }
+    .carousel-dots .dot:hover { color: #c7d2fe; border-color: rgba(129, 140, 248, 0.45); }
+    .carousel-dots .dot.active {
+        color: #fff; border-color: transparent;
+        background: var(--accent-gradient);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }
+    html.light-theme .carousel-dots .dot { color: #64748b; background: rgba(15, 23, 42, 0.04); border-color: rgba(15, 23, 42, 0.1); }
+    html.light-theme .carousel-dots .dot.active { color: #fff; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .testimonial-card::before, .rv-badge i, .rv-avatar::before { animation: none; }
+        .testimonial-card.tst-in > *, .testimonial-card.tst-in .testimonial-stars i { animation: none; }
+        .rv-diff::after { display: none; }
+    }
 
         /* ===== CONTACT — CODING TERMINAL DESIGN ===== */
     .contact-section {
@@ -3591,9 +3707,23 @@
         .term-price { font-size: 1.45rem; }
         .pkg-action { margin-left: 1rem; margin-right: 1rem; font-size: 0.85rem; }
         
-        .testimonial-text { font-size: 0.9rem; }
-        .tst-head { flex-wrap: wrap; }
-        .testimonial-stars { margin-left: 0; }
+        /* reviews: keep the identity + the quote, drop the diff chrome */
+        .rv-bar { gap: 0.4rem; padding: 0.45rem 0.65rem; }
+        .rv-bar .ab-dot { width: 7px; height: 7px; }
+        .rv-file { font-size: 0.63rem; }
+        .rv-num { display: none; }
+        .rv-author { gap: 0.6rem; padding: 0.85rem 0.85rem 0.7rem; }
+        .rv-avatar { width: 40px; height: 40px; }
+        .rv-name { font-size: 0.9rem; }
+        .rv-role { font-size: 0.7rem; }
+        .rv-diff { margin: 0 0.85rem 0.85rem; }
+        .rv-hunk, .rv-line-removed { display: none; }
+        .rv-line { padding: 0.4rem 0.7rem; }
+        .rv-text { font-size: 0.86rem; line-height: 1.7; }
+        .rv-foot { display: none; }
+        .carousel-controls { gap: 0.7rem; margin-top: 1.5rem; }
+        .carousel-btn { width: 38px; height: 38px; border-radius: 9px; font-size: 0.9rem; }
+        .carousel-dots .dot { min-width: 26px; height: 26px; font-size: 0.6rem; }
         .contact-info h3 { font-size: 1.4rem; }
         .contact-form { padding: 1.8rem; }
         
@@ -3678,12 +3808,13 @@
         .pj-toolbar { padding: 0.35rem 0.45rem; }
         .pj-toolbar .filter-btn { font-size: 0.6rem; padding: 0.24rem 0.55rem; }
         
-        .testimonial-text { font-size: 0.84rem; }
-        .tst-hash { display: none; }
-        .tst-review { padding: 0.7rem 0.8rem; }
-        .carousel-btn { width: 38px; height: 38px; font-size: 0.9rem; }
-        .carousel-dots .dot { width: 8px; height: 8px; }
-        .carousel-dots .dot.active { width: 22px; }
+        .rv-author { gap: 0.5rem; padding: 0.75rem 0.7rem 0.6rem; }
+        .rv-avatar { width: 36px; height: 36px; }
+        .rv-role { display: none; }
+        .rv-diff { margin: 0 0.7rem 0.7rem; border-radius: 8px; }
+        .rv-text { font-size: 0.82rem; }
+        .testimonial-stars { font-size: 0.72rem; }
+        .carousel-dots .dot { min-width: 24px; height: 24px; font-size: 0.58rem; }
         
         .contact-grid { gap: 2rem; }
         .contact-form { padding: 1.4rem; }
@@ -4944,45 +5075,54 @@
                                 $reviewId = substr(md5($testimonial->name . $testimonial->message), 0, 7);
                             @endphp
                             <div class="testimonial-card{{ $loop->first ? ' tst-in' : '' }}" data-tst>
-                                <div class="tst-bar">
-                                    <span class="edu-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                                    <span class="tst-file"><i class="bi bi-git-pull-request"></i> review #{{ $reviewId }}</span>
-                                    <span class="tst-hash">{{ $loop->iteration }}/{{ $testimonials->count() }}</span>
-                                    <span class="tst-badge">approved</span>
+                                {{-- review title bar --}}
+                                <div class="rv-bar">
+                                    <span class="ab-dot red" aria-hidden="true"></span>
+                                    <span class="ab-dot yellow" aria-hidden="true"></span>
+                                    <span class="ab-dot green" aria-hidden="true"></span>
+                                    <span class="rv-file"><i class="bi bi-git-pull-request"></i> review/{{ $reviewId }}.diff</span>
+                                    <span class="rv-num">{{ $loop->iteration }}/{{ $testimonials->count() }}</span>
+                                    <span class="rv-badge"><i aria-hidden="true"></i> {{ __('messages.approved') }}</span>
                                 </div>
 
-                                <div class="tst-head">
-                                    <div class="testimonial-author">
-                                        <div class="author-avatar">
-                                            @if($testimonial->avatar)
-                                                <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
-                                                     alt="{{ $testimonial->name }}">
-                                            @else
-                                                <div class="avatar-fallback">
-                                                    {{ strtoupper(substr($testimonial->name, 0, 1)) }}
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="author-info">
-                                            <div class="author-name">{{ $testimonial->name }}</div>
-                                            <div class="author-designation">{{ $testimonial->designation_display }}</div>
-                                        </div>
+                                {{-- who signed it off --}}
+                                <div class="rv-author">
+                                    <div class="rv-avatar">
+                                        @if($testimonial->avatar)
+                                            <img src="{{ config('app.storage_url') }}{{ $testimonial->avatar }}"
+                                                 alt="{{ $testimonial->name }}" loading="lazy">
+                                        @else
+                                            <span class="rv-fallback">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="rv-who">
+                                        <div class="rv-name">{{ $testimonial->name }}</div>
+                                        <div class="rv-role">{{ $testimonial->designation_display }}</div>
                                     </div>
                                     <div class="testimonial-stars" aria-label="{{ $rating }}/5">
                                         @foreach($testimonial->stars as $filled)
-                                            <i class="bi {{ $filled ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                            <i class="bi {{ $filled ? 'bi-star-fill' : 'bi-star' }}" style="--si: {{ $loop->index }}" aria-hidden="true"></i>
                                         @endforeach
                                     </div>
                                 </div>
 
-                                <div class="tst-review">
-                                    <span class="tst-gutter" aria-hidden="true">//</span>
-                                    <p class="testimonial-text">{{ $testimonial->message }}</p>
+                                {{-- the review itself, drawn as a diff patch --}}
+                                <div class="rv-diff">
+                                    <div class="rv-hunk"><i class="bi bi-code-slash"></i> &#64;&#64; -1,1 +1,1 &#64;&#64;</div>
+                                    <div class="rv-line rv-line-removed">
+                                        <span class="rv-sign" aria-hidden="true">-</span>
+                                        <span class="rv-code">// no review yet</span>
+                                    </div>
+                                    <div class="rv-line rv-line-added">
+                                        <span class="rv-sign" aria-hidden="true">+</span>
+                                        <p class="rv-text">{{ $testimonial->message }}</p>
+                                    </div>
                                 </div>
 
-                                <div class="tst-foot">
-                                    <span class="tst-ok"><i class="bi bi-patch-check-fill"></i> verified review</span>
-                                    <span class="tst-merge"><i class="bi bi-check2"></i> merged to main</span>
+                                {{-- status strip --}}
+                                <div class="rv-foot">
+                                    <span class="rv-ok"><i class="bi bi-patch-check-fill"></i> {{ __('messages.verified_review') }}</span>
+                                    <span class="rv-merge"><i class="bi bi-check2"></i> {{ __('messages.merged_to_main') }}</span>
                                 </div>
                             </div>
                         @endforeach

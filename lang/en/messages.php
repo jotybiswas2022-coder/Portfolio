@@ -78,6 +78,9 @@ return [
     'testimonials_subtitle' => 'Testimonials from people I\'ve worked with',
     'no_testimonials'       => 'No Testimonials Yet',
     'no_testimonials_desc'  => 'Testimonials coming soon!',
+    'approved'              => 'Approved',
+    'verified_review'       => 'Verified review',
+    'merged_to_main'        => 'Merged to main',
 
     // Contact
     'contact_title'    => 'Contact Me',
