@@ -3148,20 +3148,17 @@
         .ct-push-badge { display: none; }
     }
     /* Footer */
+/* ===== FOOTER — TERMINAL SHELL ===== */
     .footer {
         background: #080b14; position: relative; z-index: 1;
-        padding: 3.5rem 2rem 2.5rem; text-align: center;
-        border-top: none; overflow: hidden;
+        padding: 3rem 1.5rem 0; overflow: hidden;
     }
     .footer::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
         background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, #3b82f6, transparent);
         background-size: 200% 100%; animation: footerLine 3s linear infinite;
     }
-    @keyframes footerLine {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-    }
+    @keyframes footerLine { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
     .footer::after {
         content: ''; position: absolute; top: -50%; left: 50%; translate: -50% 0;
         width: 600px; height: 600px;
@@ -3169,79 +3166,135 @@
         pointer-events: none;
     }
     html.light-theme .footer { background: linear-gradient(180deg, #f1f5f9, #e2e8f0) !important; }
-    html.light-theme .footer::after {
-        background: radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%);
+    html.light-theme .footer::after { background: radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%); }
+    .footer-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+
+    .ft-shell {
+        position: relative;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        background: linear-gradient(180deg, rgba(13,23,43,0.6) 0%, rgba(8,15,32,0.45) 100%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(147,197,253,0.22); border-radius: 16px; overflow: hidden;
+        box-shadow: 0 30px 90px rgba(2,8,23,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 60px rgba(34,211,238,0.07);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease;
     }
-    .footer-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
-    .footer-brand { margin-bottom: 1.5rem; }
-    .footer-brand h4 {
-        font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px;
+    .ft-shell:hover { border-color: rgba(147,197,253,0.4); box-shadow: 0 30px 90px rgba(2,8,23,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 90px rgba(34,211,238,0.12); }
+    html.light-theme .ft-shell {
+        background: linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(232,240,252,0.62) 100%);
+        border-color: rgba(59,130,246,0.28);
+        box-shadow: 0 30px 70px rgba(59,130,246,0.18), 0 0 0 1px rgba(255,255,255,0.7) inset;
+    }
+    html.light-theme .ft-shell:hover { box-shadow: 0 30px 70px rgba(59,130,246,0.18), 0 0 0 1px rgba(255,255,255,0.7) inset, 0 0 90px rgba(59,130,246,0.12); }
+    .ft-shell::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #8b5cf6, transparent);
+        background-size: 200% 100%; animation: atSweep 6s linear infinite; z-index: 3;
+    }
+
+    /* shell bar */
+    .ft-bar {
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(255,255,255,0.035); border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    html.light-theme .ft-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
+    .ft-file {
+        margin-left: 0.35rem; font-size: 0.72rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    html.light-theme .ft-file { color: #334155; }
+
+    /* shell cmd */
+    .ft-cmd {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.45rem 0.9rem; font-size: 0.75rem;
+        background: rgba(2,8,23,0.45); border-bottom: 1px solid rgba(148,163,184,0.12);
+    }
+    html.light-theme .ft-cmd { background: rgba(15,23,42,0.05); border-bottom-color: rgba(15,23,42,0.08); }
+    .ft-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .ft-cmd-text { color: #e2e8f0; }
+    html.light-theme .ft-cmd-text { color: #1e293b; }
+
+    /* shell body */
+    .ft-body {
+        padding: 1.5rem 1.5rem 1.4rem;
+        display: flex; flex-direction: column; gap: 1rem;
+        font-size: 0.78rem; line-height: 1.7; color: #64748b;
+    }
+    html.light-theme .ft-body { color: #475569; }
+    .ft-brand { margin-bottom: 0.15rem; }
+    .ft-brand h4 {
+        margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px;
+        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
         background: linear-gradient(135deg, var(--accent-light), #a78bfa);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .footer-brand p { color: #64748b; font-size: 0.82rem; margin: 0.3rem 0 0; }
-    .footer-divider {
-        width: 80px; height: 2px; margin: 0 auto 1.5rem;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        border-radius: 2px;
+    html.light-theme .ft-brand h4 { background: none; -webkit-text-fill-color: #1e293b; color: #1e293b; }
+    .ft-brand p { margin: 0.3rem 0 0; color: #64748b; font-size: 0.78rem; }
+    html.light-theme .ft-brand p { color: #64748b; }
+
+    /* nav */
+    .ft-nav-label {
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.6px;
+        text-transform: uppercase; color: #64748b; margin-top: 0.2rem;
     }
-    .footer-links {
-        display: flex; justify-content: center; gap: 1.8rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+    html.light-theme .ft-nav-label { color: #64748b; }
+    .ft-k {
+        color: #818cf8; background: rgba(59,130,246,0.1);
+        border: 1px solid rgba(59,130,246,0.2);
+        padding: 0.14rem 0.5rem; border-radius: 4px;
     }
-    .footer-links a {
-        color: #64748b; transition: all 0.3s ease; font-size: 0.85rem;
-        font-weight: 500; text-decoration: none; position: relative;
-        padding: 0.2rem 0;
+    html.light-theme .ft-k { color: #4f46e5; background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.2); }
+    .ft-nav { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; }
+    .ft-nav a {
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-size: 0.78rem; color: #93c5fd; text-decoration: none;
+        transition: color 0.3s ease, transform 0.3s ease;
     }
-    .footer-links a::after {
-        content: ''; position: absolute; bottom: 0; left: 50%; right: 50%;
-        height: 1px; background: var(--accent);
+    html.light-theme .ft-nav a { color: #2563eb; }
+    .ft-nav a:hover { color: #c4b5fd; transform: translateX(4px); }
+    html.light-theme .ft-nav a:hover { color: #4338ca; }
+    .ft-link-prompt { color: #34d399; font-weight: 700; }
+
+    /* socials */
+    .ft-socials { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .ft-social {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.68rem; color: #94a3b8; text-decoration: none;
+        padding: 0.3rem 0.7rem; border-radius: 8px;
+        background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.12);
         transition: all 0.3s ease;
     }
-    .footer-links a:hover { color: var(--accent); }
-    .footer-links a:hover::after { left: 0; right: 0; }
-    .social-icon {
-        width: 44px; height: 44px; border-radius: 14px;
-        background: rgba(59,130,246,0.06);
-        border: 1px solid rgba(59,130,246,0.1);
-        display: inline-flex; align-items: center; justify-content: center;
-        color: #64748b; font-size: 1.2rem;
-        transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
-        text-decoration: none; position: relative; overflow: hidden;
+    html.light-theme .ft-social { background: rgba(59,130,246,0.04); border-color: rgba(59,130,246,0.15); color: #64748b; }
+    .ft-social:hover { border-color: rgba(59,130,246,0.35); color: #818cf8; background: rgba(59,130,246,0.1); transform: translateY(-2px); }
+    html.light-theme .ft-social:hover { color: #4f46e5; }
+    .ft-social i { font-size: 0.9rem; }
+    .ft-social svg { width: 0.9em; height: 0.9em; }
+
+    /* foot bar */
+    .ft-foot {
+        display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+        padding: 0.55rem 1rem;
+        background: rgba(2,8,23,0.28); border-top: 1px solid rgba(255,255,255,0.06);
+        font-size: 0.64rem; color: #64748b;
     }
-    .social-icon::before {
-        content: ''; position: absolute; inset: 0; border-radius: inherit;
-        background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
-        opacity: 0; transition: opacity 0.35s ease;
+    html.light-theme .ft-foot { background: rgba(15,23,42,0.04); border-top-color: rgba(15,23,42,0.08); }
+    .ft-exit { display: inline-flex; align-items: center; gap: 0.35rem; color: #34d399; }
+    .ft-exit i { font-size: 0.7rem; }
+    .ft-btt {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        text-decoration: none; color: #818cf8; font-weight: 600;
+        transition: all 0.3s ease;
     }
-    .social-icon i { position: relative; z-index: 1; }
-    .social-icon:hover::before { opacity: 1; }
-    .social-icon:hover {
-        border-color: rgba(59,130,246,0.35); color: var(--accent-light);
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(59,130,246,0.2);
-    }
-    html.light-theme .social-icon {
-        background: rgba(255,255,255,0.5); border-color: rgba(59,130,246,0.12);
-    }
-    html.light-theme .social-icon:hover {
-        background: rgba(255,255,255,0.8); border-color: var(--accent); color: var(--accent);
-    }
-    .footer-bottom {
-        padding-top: 1.2rem; border-top: 1px solid rgba(59,130,246,0.06);
-        display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;
-    }
-    .footer-bottom p { color: #475569; font-size: 0.82rem; margin: 0; }
+    html.light-theme .ft-btt { color: #4f46e5; }
+    .ft-btt:hover { color: #c4b5fd; transform: translateY(-2px); }
+    html.light-theme .ft-btt:hover { color: #4338ca; }
+    .ft-copy { margin-left: auto; color: #475569; }
+    html.light-theme .ft-copy { color: #64748b; }
     .footer-bottom .heart { color: #ef4444; display: inline-block; animation: heartBeat 1.4s ease infinite; }
     @keyframes heartBeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-    .back-top {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        color: var(--accent); font-size: 0.8rem; font-weight: 600;
-        text-decoration: none; transition: all 0.3s ease;
-    }
-    .back-top:hover { gap: 0.7rem; color: var(--accent-light); }
-    html.light-theme .footer-links a { color: #64748b; }
-    html.light-theme .footer-bottom p { color: #64748b; }
+    .back-top { display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; }
+    .back-top:hover { color: var(--accent-light); }
 
     /* WhatsApp */
     .whatsapp-float {
@@ -3400,12 +3453,17 @@
         .faq-item .faq-question { padding: 1rem 1.2rem !important; font-size: 0.92rem !important; }
         .faq-answer p { font-size: 0.85rem !important; }
         
-        .footer { padding: 2.5rem 1.5rem; }
+        .footer { padding: 2.5rem 1.5rem 0; }
         .footer-inner { max-width: 100%; }
-        .footer-links { gap: 1.2rem; }
-        .footer-links a { font-size: 0.82rem; }
-        .social-icon { width: 38px; height: 38px; font-size: 1rem; }
-        .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+        .ft-shell { border-radius: 14px; }
+        .ft-bar { padding: 0.5rem 0.8rem; }
+        .ft-file { font-size: 0.66rem; }
+        .ft-cmd { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
+        .ft-body { padding: 1.2rem 1.1rem 1.3rem; gap: 0.9rem; }
+        .ft-brand h4 { font-size: 1.05rem; }
+        .ft-nav { gap: 0.3rem 0.9rem; }
+        .ft-socials { gap: 0.35rem; }
+        .ft-foot { padding: 0.5rem 0.9rem; }
         
         .scroll-indicator { display: none; }
 .toast { padding: 0.8rem 1.5rem; font-size: 0.85rem; max-width: 90%; }
@@ -3497,12 +3555,20 @@
         .map-container iframe { height: 220px; }
         .map-wrapper { margin-top: 2rem; }
         
-        .footer { padding: 2rem 1rem; }
+        .footer { padding: 2rem 1rem 0; }
         .footer-inner { max-width: 100%; }
-        .footer-links { gap: 0.8rem; flex-direction: column; align-items: center; }
-        .footer-bottom { flex-direction: column; gap: 0.4rem; text-align: center; }
-        .footer p, .footer-bottom p, .footer-bottom span { font-size: 0.78rem; }
-        .social-icon { width: 36px; height: 36px; font-size: 0.95rem; }
+        .ft-shell { border-radius: 12px; }
+        .ft-bar { padding: 0.45rem 0.7rem; }
+        .ft-file { font-size: 0.62rem; }
+        .ft-cmd { font-size: 0.66rem; padding: 0.35rem 0.7rem; }
+        .ft-body { padding: 1rem 0.9rem 1.1rem; }
+        .ft-brand h4 { font-size: 0.98rem; }
+        .ft-nav { flex-direction: column; gap: 0.5rem; }
+        .ft-nav a { font-size: 0.75rem; }
+        .ft-socials { justify-content: center; }
+        .ft-social { font-size: 0.64rem; padding: 0.25rem 0.6rem; }
+        .ft-foot { flex-direction: column; align-items: flex-start; gap: 0.45rem; padding: 0.5rem 0.7rem; }
+        .ft-btt, .ft-copy { margin-left: 0; }
         .back-top { font-size: 0.75rem; }
         
         .toast { font-size: 0.8rem; padding: 0.7rem 1.2rem; max-width: 85%; bottom: 1.2rem; }
@@ -5009,74 +5075,74 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-inner">
-            <div class="footer-brand">
-                <h4>{{ optional($account)->name ?? 'Portfolio' }}</h4>
-                <p>{{ __('messages.copyright') }}</p>
-            </div>
-            <div class="footer-divider"></div>
+            <div class="ft-shell">
+                <div class="ft-bar">
+                    <span class="ab-dot red"></span>
+                    <span class="ab-dot yellow"></span>
+                    <span class="ab-dot green"></span>
+                    <span class="ft-file"><i class="bi bi-folder-fill" style="color:#818cf8"></i> ~/portfolio</span>
+                </div>
 
-            <div class="footer-links">
-                <a href="#about">{{ __('messages.about') }}</a>
-                <a href="#services">{{ __('messages.services') }}</a>
-                <a href="#skills">{{ __('messages.skills') }}</a>
-                <a href="#projects">{{ __('messages.projects') }}</a>
-                <a href="#faq">FAQ</a>
-                <a href="#contact">{{ __('messages.contact') }}</a>
-            </div>
+                <div class="ft-cmd">
+                    <span class="ft-prompt">&#10095;</span>
+                    <span class="ft-cmd-text">cat README.md</span>
+                </div>
 
-            <!-- Social Media Icons -->
-            <div class="footer-social d-flex justify-content-center gap-2 flex-wrap" style="margin-bottom: 1.5rem;">
-                @if(isset($account) && $account->github)
-                    <a href="{{ $account->github }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
-                        <i class="bi bi-github"></i>
-                    </a>
-                @endif
-                @if(isset($account) && $account->linkedin)
-                    <a href="{{ $account->linkedin }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
-                        <i class="bi bi-linkedin"></i>
-                    </a>
-                @endif
-                @if(isset($account) && $account->facebook)
-                    <a href="{{ $account->facebook }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
-                        <i class="bi bi-facebook"></i>
-                    </a>
-                @endif
-                @if(isset($account) && $account->instagram)
-                    <a href="{{ $account->instagram }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
-                        <i class="bi bi-instagram"></i>
-                    </a>
-                @endif
-                @if(isset($account) && $account->twitter)
-                    <a href="{{ $account->twitter }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Twitter">
-                        <i class="bi bi-twitter-x"></i>
-                    </a>
-                @endif
-                @if(isset($account) && $account->youtube)
-                    <a href="{{ $account->youtube }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
-                        <i class="bi bi-youtube"></i>
-                    </a>
-                @endif
-                @if(isset($account) && $account->fiverr)
-                    <a href="{{ $account->fiverr }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Fiverr">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1.15em;height:1.15em;vertical-align:middle"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg>
-                    </a>
-                @endif
-                @if(isset($account) && $account->upwork)
-                    <a href="{{ $account->upwork }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Upwork">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1.15em;height:1.15em;vertical-align:middle"><rect width="24" height="24" rx="5" fill="#6FDA44"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">U</text></svg>
-                    </a>
-                @endif
-                @if(isset($account) && $account->freelancer)
-                    <a href="{{ $account->freelancer }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Freelancer">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:1.15em;height:1.15em;vertical-align:middle"><rect width="24" height="24" rx="5" fill="#29B2FE"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="13" font-family="Arial,sans-serif">Fc</text></svg>
-                    </a>
-                @endif
-            </div>
+                <div class="ft-body">
+                    <div class="ft-brand">
+                        <h4>{{ optional($account)->name ?? 'Portfolio' }}</h4>
+                        <p>{{ __('messages.copyright') }}</p>
+                    </div>
 
-            <div class="footer-bottom">
-                <p>� {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}. {{ __('messages.copyright') }}</p>
-                <span style="color: #475569; font-size: 0.82rem;">{{ __('messages.made_with') }} <span class="heart">&hearts;</span></span>
-                <a href="#" class="back-top"><i class="bi bi-arrow-up"></i> {{ __('messages.back_to_top') }}</a>
+                    <div class="ft-nav-label"><span class="ft-k">NAV</span></div>
+                    <div class="ft-nav">
+                        <a href="#about"><span class="ft-link-prompt">$</span> ./about</a>
+                        <a href="#services"><span class="ft-link-prompt">$</span> ./services</a>
+                        <a href="#skills"><span class="ft-link-prompt">$</span> ./skills</a>
+                        <a href="#projects"><span class="ft-link-prompt">$</span> ./projects</a>
+                        <a href="#faq"><span class="ft-link-prompt">$</span> ./faq</a>
+                        <a href="#contact"><span class="ft-link-prompt">$</span> ./contact</a>
+                    </div>
+
+                    @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube || $account->fiverr || $account->upwork || $account->freelancer))
+                    <div class="ft-nav-label"><span class="ft-k">REMOTES</span></div>
+                    <div class="ft-socials">
+                        @if($account->github)
+                            <a href="{{ $account->github }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="GitHub"><i class="bi bi-github"></i> github</a>
+                        @endif
+                        @if($account->linkedin)
+                            <a href="{{ $account->linkedin }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="LinkedIn"><i class="bi bi-linkedin"></i> linkedin</a>
+                        @endif
+                        @if($account->facebook)
+                            <a href="{{ $account->facebook }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="Facebook"><i class="bi bi-facebook"></i> facebook</a>
+                        @endif
+                        @if($account->instagram)
+                            <a href="{{ $account->instagram }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="Instagram"><i class="bi bi-instagram"></i> instagram</a>
+                        @endif
+                        @if($account->twitter)
+                            <a href="{{ $account->twitter }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="Twitter"><i class="bi bi-twitter-x"></i> twitter</a>
+                        @endif
+                        @if($account->youtube)
+                            <a href="{{ $account->youtube }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="YouTube"><i class="bi bi-youtube"></i> youtube</a>
+                        @endif
+                        @if($account->fiverr)
+                            <a href="{{ $account->fiverr }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="Fiverr"><svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#1DBF73"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">f</text></svg> fiverr</a>
+                        @endif
+                        @if($account->upwork)
+                            <a href="{{ $account->upwork }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="Upwork"><svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#6FDA44"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="14" font-family="Arial,sans-serif">U</text></svg> upwork</a>
+                        @endif
+                        @if($account->freelancer)
+                            <a href="{{ $account->freelancer }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="Freelancer"><svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#29B2FE"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="13" font-family="Arial,sans-serif">Fc</text></svg> freelancer</a>
+                        @endif
+                    </div>
+                    @endif
+                </div>
+
+                <div class="ft-foot">
+                    <span class="ft-exit"><i class="bi bi-check-circle"></i> exit code 0</span>
+                    <a href="#" class="ft-btt back-top"><i class="bi bi-arrow-up"></i> cd ..</a>
+                    <span class="ft-copy">&copy; {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}. {{ __('messages.copyright') }}</span>
+                </div>
             </div>
         </div>
     </footer>
