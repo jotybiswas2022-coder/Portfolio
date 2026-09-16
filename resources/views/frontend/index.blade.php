@@ -4198,6 +4198,8 @@
     .edu-card {
         flex: 1 1 400px;
         max-width: 470px;
+        display: flex;
+        flex-direction: column;
         background: rgba(255,255,255,0.04) !important;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -4277,7 +4279,7 @@
     }
 
     /* code pane */
-    .edu-code { padding: 0.85rem 0.95rem 0.9rem; background: rgba(2, 8, 23, 0.2); }
+    .edu-code { padding: 0.85rem 0.95rem 0.9rem; background: rgba(2, 8, 23, 0.2); flex: 1 1 auto; }
     html.light-theme .edu-code { background: rgba(15, 23, 42, 0.02); }
     .edu-lines { counter-reset: edu-line; position: relative; }
     .edu-line {
@@ -4320,6 +4322,7 @@
     /* status bar */
     .edu-foot {
         display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+        margin-top: auto;
         padding: 0.6rem 0.95rem;
         background: rgba(2, 8, 23, 0.28);
         border-top: 1px solid rgba(148, 163, 184, 0.14);
