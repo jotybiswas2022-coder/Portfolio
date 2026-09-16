@@ -2,117 +2,204 @@
 
 @section('content')
 <style>
+.edu-admin { font-size: 0.88rem; }
+.edu-admin .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.edu-admin .status-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+.edu-admin .status-badge:hover { transform: scale(1.05); }
+.edu-admin .status-active { background: rgba(16,185,129,0.12); color: #059669; }
+.edu-admin .status-inactive { background: #f1f5f9; color: #94a3b8; }
+
+.edu-card {
+    background: #fff;
+    border: 1px solid #eef0f4;
+    border-radius: 14px;
+    padding: 16px;
+    height: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.edu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(99,102,241,0.08);
+    border-color: #e0e7ff;
+}
+.edu-card .degree-tile {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.edu-card .edu-degree {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.25;
+    margin: 0;
+}
+.edu-card .edu-institution {
+    font-size: 0.76rem;
+    color: #6366f1;
+    font-weight: 500;
+    margin: 0;
+}
+.edu-card .order-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 3px 8px;
+    flex-shrink: 0;
+}
+.edu-card .edu-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.74rem;
+    color: #64748b;
+    font-weight: 500;
+}
+.edu-card .edu-meta i { color: #6366f1; font-size: 0.85rem; }
+.edu-card .edu-result {
+    font-size: 0.72rem;
+    color: #059669;
+    background: rgba(16,185,129,0.1);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-weight: 600;
+    display: inline-block;
+}
+.edu-card .edu-actions .btn-icon {
+    width: 30px; height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: #64748b;
+    transition: all 0.2s;
+}
+.edu-card .edu-actions .btn-icon-edit:hover {
+    color: #6366f1;
+    border-color: #c7d2fe;
+    background: #eef2ff;
+}
+.edu-card .edu-actions .btn-icon-del:hover {
+    color: #dc2626;
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
 @media (max-width: 767.98px) {
-    .education-page h4 { font-size: 0.9rem; }
-    .education-page p.text-muted { font-size: 0.75rem; }
-    .education-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
-    .education-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
-    .education-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .education-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .education-page .small.text-muted { font-size: 0.7rem; }
-    .education-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
-    .education-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
-    .education-page .table tbody td .btn { font-size: 0.65rem; padding: 0.15rem 0.4rem; }
-    .education-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .education-page .card-body { padding: 0.6rem !important; }
+    .edu-admin { font-size: 0.8rem; }
+    .edu-card { padding: 12px; border-radius: 12px; gap: 10px; }
+    .edu-card .degree-tile { width: 38px; height: 38px; font-size: 0.95rem; }
+    .edu-card .edu-degree { font-size: 0.84rem; }
+    .edu-card .edu-institution { font-size: 0.72rem; }
+    .edu-card .edu-meta { font-size: 0.7rem; }
+    .edu-card .edu-result { font-size: 0.68rem; }
+    .edu-card .status-badge { font-size: 0.66rem; padding: 3px 9px; }
+    .edu-card .edu-actions .btn-icon { width: 26px; height: 26px; font-size: 0.75rem; }
 }
 </style>
 
-<div class="container-fluid py-3 education-page">
+<div class="container-fluid py-3 edu-admin">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-11 col-xxl-10">
 
-    {{-- Header --}}
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h4 class="fw-bold mb-1"><i class="bi bi-mortarboard me-2" style="color:#6366f1;"></i>Education</h4>
-            <p class="text-muted small mb-0">Manage your educational qualifications</p>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500;">
-                <i class="bi bi-database me-1"></i> {{ $educations->count() }} Qualifications
-            </span>
-            <a href="{{ route('admin.education.create') }}" class="btn btn-primary rounded-3 px-3" style="background:#6366f1; border-color:#6366f1;">
-                <i class="bi bi-plus-lg me-1"></i> Add Qualification
-            </a>
+            {{-- Header --}}
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                    <h5 class="fw-bold mb-1" style="font-size:0.95rem;">
+                        <i class="bi bi-mortarboard me-2" style="color:#6366f1;"></i>Education
+                    </h5>
+                    <p class="text-muted mb-0" style="font-size:0.74rem;">Manage your academic qualifications</p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge rounded-pill px-3 py-2" id="educationsCount" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500; font-size:0.72rem;">
+                        <i class="bi bi-database me-1"></i> {{ $educations->count() }} Qualifications
+                    </span>
+                    <a href="{{ route('admin.education.create') }}" class="btn btn-admin btn-admin-primary" style="font-size:0.78rem; padding:6px 16px; background:#6366f1; border-color:#6366f1;">
+                        <i class="bi bi-plus-lg me-1"></i> Add Qualification
+                    </a>
+                </div>
+            </div>
+
+            {{-- Live Search --}}
+            <div class="mb-3">
+                <div class="input-group" style="max-width:440px;">
+                    <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0; font-size:0.8rem;">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
+                           class="form-control border-start-0 ps-2" style="border-color:#e2e8f0; box-shadow:none; font-size:0.8rem; padding:7px 10px;"
+                           placeholder="Search by degree or institution..."
+                           autocomplete="off">
+                    <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0; font-size:0.8rem;">
+                        <span class="spinner-border spinner-border-sm d-none text-primary" role="status" id="searchLoading"></span>
+                        @if(request()->has('q') && request()->q != '')
+                            <a href="{{ route('admin.education.index') }}" class="text-muted text-decoration-none"><i class="bi bi-x-lg"></i></a>
+                        @endif
+                    </span>
+                </div>
+                <div class="mt-2" id="searchInfo">
+                    @if($query ?? false)
+                        <small class="text-muted" style="font-size:0.72rem;">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Showing results for "<strong>{{ $query }}</strong>" —
+                            <span id="resultCount">{{ $educations->count() }}</span> qualification(s) found
+                        </small>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Qualifications Grid --}}
+            @if($educations->isEmpty() && !request()->ajax())
+                <div class="text-center py-5">
+                    <div class="empty-state">
+                        <i class="bi bi-mortarboard" style="font-size:2.2rem; color:#b6b3f6; display:block; margin-bottom:0.6rem;"></i>
+                        <div class="fw-semibold mb-2">No Qualifications Found</div>
+                        <p class="text-muted" style="font-size:0.78rem;">Showcase your academic background to build credibility!</p>
+                        <a href="{{ route('admin.education.create') }}" class="btn" style="background:#6366f1; border-color:#6366f1; font-size:0.78rem; color:#fff;">
+                            <i class="bi bi-plus-lg me-1"></i> Add Qualification
+                        </a>
+                    </div>
+                </div>
+            @else
+                <div id="educationsGrid" class="row g-3">
+                    @include('backend.education._table_rows', ['educations' => $educations])
+                </div>
+            @endif
+
         </div>
     </div>
-
-    {{-- Live Search Bar --}}
-    <div class="mb-4">
-        <div class="d-flex gap-2 align-items-center">
-            <div class="input-group" style="max-width:600px;">
-                <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-search text-muted"></i>
-                </span>
-                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}" 
-                       class="form-control border-start-0 ps-0" 
-                       placeholder="Live search by degree or institution..."
-                       style="border-color:#e2e8f0; box-shadow:none;"
-                       autocomplete="off">
-                <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
-                    <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
-                </span>
-            </div>
-            @if(request()->has('q') && request()->q != '')
-                <a href="{{ route('admin.education.index') }}" class="btn btn-outline-secondary rounded-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-x-lg"></i>
-                </a>
-            @endif
-        </div>
-        <div class="mt-2" id="searchInfo">
-            @if($query ?? false)
-                <small class="text-muted">
-                    <i class="bi bi-info-circle me-1"></i>
-                    Showing results for "<strong>{{ $query }}</strong>" — 
-                    <span id="resultCount">{{ $educations->count() }}</span> qualification(s) found
-                </small>
-            @endif
-        </div>
-    </div>
-
-    {{-- Table Card --}}
-    @if($educations->isEmpty() && !request()->ajax())
-        <div class="text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-mortarboard"></i>
-                <div class="fw-semibold mb-2">No Qualifications Found</div>
-                <p class="text-muted small">Add your educational qualifications to showcase your academic background!</p>
-                <a href="{{ route('admin.education.create') }}" class="btn btn-primary rounded-3 px-4" style="background:#6366f1; border-color:#6366f1;">
-                    <i class="bi bi-plus-lg me-1"></i> Add Qualification
-                </a>
-            </div>
-        </div>
-    @else
-        <div class="card border-0 shadow-sm rounded-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0" style="min-width:750px;">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="ps-4 py-3 text-muted small fw-semibold" style="width:50px;">#</th>
-                            <th class="py-3 text-muted small fw-semibold">Degree</th>
-                            <th class="py-3 text-muted small fw-semibold">Institution</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:100px;">Duration</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:120px;">Result</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:65px;">Order</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:90px;">Status</th>
-                            <th class="pe-4 py-3 text-muted small fw-semibold" style="width:120px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="educationTableBody">
-                        @include('backend.education._table_rows', ['educations' => $educations])
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @endif
-
 </div>
-
-<style>
-.status-badge { transition: all 0.2s; }
-.status-badge:hover { transform: scale(1.05); }
-.active-badge { background: rgba(16,185,129,0.12); color: #059669; }
-.inactive-badge { background: #f1f5f9; color: #94a3b8; }
-</style>
 
 @section('scripts')
 <script>
@@ -134,68 +221,64 @@ Swal.fire({
 });
 @endif
 
-// ===== DELETE CONFIRMATION & STATUS TOGGLE =====
-(function() {
-    function bindEducationEvents() {
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.dataset.id;
-                const title = this.dataset.title;
-                Swal.fire({
-                    title: 'Delete Qualification?',
-                    text: 'Are you sure you want to delete "' + title + '"?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc2626',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-trash me-1"></i> Delete',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete-form-' + id).submit();
-                    }
-                });
-            });
-        });
+// ===== STATUS TOGGLE (delegated so it survives AJAX re-renders) =====
+document.addEventListener('click', function(e) {
+    var badge = e.target.closest('.status-badge');
+    if (!badge) return;
+    e.preventDefault();
+    var href = badge.getAttribute('href');
+    var title = badge.dataset.title || 'this qualification';
+    var current = badge.textContent.trim();
+    var next = current === 'Active' ? 'Inactive' : 'Active';
+    Swal.fire({
+        title: 'Toggle Status?',
+        text: 'Change "' + title + '" from ' + current + ' to ' + next + '?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#6366f1',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            window.location.href = href;
+        }
+    });
+});
 
-        document.querySelectorAll('.status-badge').forEach(badge => {
-            badge.addEventListener('click', function (e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                const title = this.dataset.title;
-                const current = this.textContent.trim();
-                Swal.fire({
-                    title: 'Toggle Status?',
-                    text: 'Change "' + title + '" from ' + current + ' to ' + (current === 'Active' ? 'Inactive' : 'Active') + '?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#6366f1',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = href;
-                    }
-                });
-            });
-        });
-    }
-
-    bindEducationEvents();
-    window.bindEducationEvents = bindEducationEvents;
-})();
+// ===== DELETE CONFIRMATION (delegated) + form submit =====
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.delete-btn');
+    if (!btn) return;
+    e.preventDefault();
+    var id = btn.dataset.id;
+    var title = btn.dataset.title;
+    Swal.fire({
+        title: 'Delete Qualification?',
+        text: 'Are you sure you want to delete "' + title + '"?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-trash me-1"></i> Delete',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + id).submit();
+        }
+    });
+});
 
 // ===== LIVE SEARCH (AJAX) =====
 (function() {
     var searchInput = document.getElementById('liveSearch');
-    var tableBody = document.getElementById('educationTableBody');
+    var grid = document.getElementById('educationsGrid');
     var searchInfo = document.getElementById('searchInfo');
     var searchLoading = document.getElementById('searchLoading');
 
-    if (!searchInput || !tableBody) return;
+    if (!searchInput || !grid) return;
 
     var debounceTimer;
 
@@ -212,22 +295,20 @@ Swal.fire({
         })
         .then(function(response) { return response.json(); })
         .then(function(data) {
-            tableBody.innerHTML = data.html;
+            grid.innerHTML = data.html;
 
-            var countBadge = document.querySelector('.badge.rounded-pill.px-3.py-2');
+            var countBadge = document.getElementById('educationsCount');
             if (countBadge) {
                 countBadge.innerHTML = '<i class="bi bi-database me-1"></i> ' + data.count + ' Qualifications';
             }
 
             if (searchInfo) {
                 if (query) {
-                    searchInfo.innerHTML = '<small class="text-muted"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' qualification(s) found</small>';
+                    searchInfo.innerHTML = '<small class="text-muted" style="font-size:0.72rem;"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' qualification(s) found</small>';
                 } else {
                     searchInfo.innerHTML = '';
                 }
             }
-
-            if (window.bindEducationEvents) window.bindEducationEvents();
         })
         .catch(function(error) {
             console.error('Search error:', error);
