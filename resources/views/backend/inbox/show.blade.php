@@ -154,18 +154,22 @@
 .c-composer {
     border-radius: 18px;
 }
-.c-composer .msg-textarea {
+.c-composer-row { display: flex; gap: 0.5rem; align-items: flex-start; }
+.c-composer-input { min-width: 0; flex: 1; }
+.c-composer-input .msg-textarea {
     border-radius: 12px;
     border: 1.5px solid #e2e8f0;
     font-size: 0.82rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.55rem 0.8rem;
     resize: none;
+    width: 100%;
     transition: all 0.2s;
 }
-.c-composer .msg-textarea:focus {
+.c-composer-input .msg-textarea:focus {
     border-color: #6366f1;
     box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
 }
+.c-composer-actions { display: flex; gap: 0.25rem; flex-shrink: 0; }
 .c-tool-btn {
     width: 38px; height: 38px;
     padding: 0;
@@ -238,15 +242,25 @@
     .inbox-show-page { font-size: 0.8rem; }
     .c-chat-title { font-size: 0.88rem; }
     .c-chat-sub { font-size: 0.7rem; }
-    .chat-messages { max-height: 380px; padding: 0.85rem; gap: 0.8rem; }
+    .chat-messages { max-height: 48vh; min-height: 220px; padding: 0.85rem; gap: 0.8rem; }
     .cmsg { max-width: 97%; }
     .cmsg .cbubble { font-size: 0.78rem; padding: 0.5rem 0.75rem; }
     .c-avatar { width: 28px; height: 28px; min-width: 28px; font-size: 0.65rem; }
     .cbubble .time { font-size: 0.6rem; }
     .cbubble img { max-width: 100%; max-height: 200px; }
     .c-pkg-icon { width: 36px; height: 36px; min-width: 36px; font-size: 0.95rem; }
-    .c-send-btn { padding: 0 0.8rem; font-size: 0.74rem; }
     .c-back { width: 34px; height: 34px; }
+
+    /* composer stacks: textarea full width, buttons on their own row */
+    .c-composer-row { flex-wrap: wrap; }
+    .c-composer-input { flex: 1 1 100%; }
+    .c-composer-actions { flex: 1 1 100%; justify-content: flex-end; gap: 0.35rem; }
+    .c-send-btn { padding: 0 1rem; font-size: 0.78rem; height: 38px; }
+
+    /* tighter header + package row on small screens */
+    .c-header-row { gap: 0.5rem !important; flex-wrap: nowrap; }
+    .c-pkg-row { gap: 0.6rem !important; }
+    .c-status { padding: 4px 9px; font-size: 0.66rem; }
 }
 </style>
 
@@ -255,7 +269,7 @@
         <div class="col-lg-8 col-md-10">
 
             {{-- Header --}}
-            <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="d-flex align-items-center gap-3 mb-3 c-header-row">
                 <a href="{{ route('admin.inbox.index') }}" class="c-back" title="Back to inbox">
                     <i class="bi bi-arrow-left"></i>
                 </a>
@@ -274,7 +288,7 @@
             @if($conversation->package_name)
                 <div class="card border-0 shadow-sm rounded-4 mb-3">
                     <div class="card-body px-3 py-2">
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3 c-pkg-row">
                             <div class="c-pkg-icon"><i class="bi bi-box-seam"></i></div>
                             <div class="min-w-0 flex-grow-1">
                                 <div class="small text-uppercase mb-1" style="font-size:0.65rem; letter-spacing:0.6px; color:#94a3b8;">Requested Package</div>
@@ -356,13 +370,13 @@
                                 <button type="button" onclick="insertEmoji('💰')">💰</button>
                             </div>
 
-                            <div class="d-flex gap-2 align-items-start">
-                                <div class="flex-grow-1">
+                            <div class="c-composer-row">
+                                <div class="c-composer-input">
                                     <textarea name="message" id="msgInput" class="form-control msg-textarea" rows="2" placeholder="Type your reply..."></textarea>
                                     @error('message')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                                     @error('image')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                                 </div>
-                                <div class="d-flex gap-1 flex-shrink-0">
+                                <div class="c-composer-actions">
                                     <button type="button" class="c-tool-btn" onclick="toggleEmojiPicker()" title="Emoji">
                                         <i class="bi bi-emoji-smile"></i>
                                     </button>
