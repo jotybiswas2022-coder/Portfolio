@@ -10,9 +10,6 @@
     .skills-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
     .skills-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
     .skills-page .small.text-muted { font-size: 0.7rem; }
-    .skills-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
-    .skills-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
-    .skills-page .table tbody td .btn { font-size: 0.65rem; padding: 0.15rem 0.4rem; }
     .skills-page .card-header { padding: 0.6rem 0.8rem !important; }
     .skills-page .card-body { padding: 0.6rem !important; }
 }
@@ -27,7 +24,7 @@
             <p class="text-muted small mb-0">Manage your technical skills</p>
         </div>
         <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500;">
+            <span class="badge rounded-pill px-3 py-2" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500;" id="countBadge">
                 <i class="bi bi-database me-1"></i> {{ $skills->count() }} Skills
             </span>
             <a href="{{ route('admin.skills.create') }}" class="btn btn-primary rounded-3 px-3" style="background:#6366f1; border-color:#6366f1;">
@@ -38,42 +35,35 @@
 
     {{-- Live Search Bar --}}
     <div class="mb-4">
-        <div class="d-flex gap-2 align-items-center">
-            <div class="input-group" style="max-width:600px;">
-                <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-search text-muted"></i>
-                </span>
-                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}" 
-                       class="form-control border-start-0 ps-0" 
-                       placeholder="Live search by skill name..."
-                       style="border-color:#e2e8f0; box-shadow:none;"
-                       autocomplete="off">
-                <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
-                    <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
-                </span>
-            </div>
-            @if(request()->has('q') && request()->q != '')
-                <a href="{{ route('admin.skills.index') }}" class="btn btn-outline-secondary rounded-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-x-lg"></i>
-                </a>
-            @endif
+        <div class="input-group" style="max-width:600px;">
+            <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
+                <i class="bi bi-search text-muted"></i>
+            </span>
+            <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
+                   class="form-control border-start-0 ps-0"
+                   placeholder="Live search by skill name..."
+                   style="border-color:#e2e8f0; box-shadow:none;"
+                   autocomplete="off">
+            <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
+                <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
+            </span>
         </div>
         <div class="mt-2" id="searchInfo">
             @if($query ?? false)
                 <small class="text-muted">
                     <i class="bi bi-info-circle me-1"></i>
-                    Showing results for "<strong>{{ $query }}</strong>" — 
+                    Showing results for "<strong>{{ $query }}</strong>" —
                     <span id="resultCount">{{ $skills->count() }}</span> skill(s) found
                 </small>
             @endif
         </div>
     </div>
 
-    {{-- Table Card --}}
+    {{-- Card Grid --}}
     @if($skills->isEmpty() && !request()->ajax())
         <div class="text-center py-5">
             <div class="empty-state">
-                <i class="bi bi-lightning-charge"></i>
+                <i class="bi bi-lightning-charge" style="display:block; font-size:2rem; color:#94a3b8; margin-bottom:0.5rem;"></i>
                 <div class="fw-semibold mb-2">No Skills Found</div>
                 <p class="text-muted small">Add your technical skills to showcase your expertise!</p>
                 <a href="{{ route('admin.skills.create') }}" class="btn btn-primary rounded-3 px-4" style="background:#6366f1; border-color:#6366f1;">
@@ -82,33 +72,15 @@
             </div>
         </div>
     @else
-        <div class="card border-0 shadow-sm rounded-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0" style="min-width:750px;">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="ps-4 py-3 text-muted small fw-semibold" style="width:50px;">#</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:55px;">Icon</th>
-                            <th class="py-3 text-muted small fw-semibold">Name</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:80px;">Level</th>
-                            <th class="py-3 text-muted small fw-semibold">Progress</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:65px;">Order</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:90px;">Status</th>
-                            <th class="pe-4 py-3 text-muted small fw-semibold" style="width:120px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="skillsTableBody">
-                        @include('backend.skill._table_rows', ['skills' => $skills])
-                    </tbody>
-                </table>
-            </div>
+        <div class="row g-3" id="skillsGrid">
+            @include('backend.skill._table_rows', ['skills' => $skills])
         </div>
     @endif
 
 </div>
 
 <style>
-.status-badge { transition: all 0.2s; }
+.status-badge { transition: all 0.2s; cursor:pointer; }
 .status-badge:hover { transform: scale(1.05); }
 .active-badge { background: rgba(16,185,129,0.12); color: #059669; }
 .inactive-badge { background: #f1f5f9; color: #94a3b8; }
@@ -178,6 +150,7 @@
     var searchLoading = document.getElementById('searchLoading');
 
     if (!searchInput || !tableBody) return;
+    tableBody = document.getElementById('skillsGrid') || document.getElementById('skillsTableBody');
 
     var debounceTimer;
 
@@ -194,9 +167,10 @@
         })
         .then(function(response) { return response.json(); })
         .then(function(data) {
-            tableBody.innerHTML = data.html;
+            var grid = document.getElementById('skillsGrid');
+            grid.innerHTML = data.html.replace(/^<div class="row[\s\S]*?<\/div>\s*$/m) ? data.html : data.html;
 
-            var countBadge = document.querySelector('.badge.rounded-pill.px-3.py-2');
+            var countBadge = document.getElementById('countBadge');
             if (countBadge) {
                 countBadge.innerHTML = '<i class="bi bi-database me-1"></i> ' + data.count + ' Skills';
             }

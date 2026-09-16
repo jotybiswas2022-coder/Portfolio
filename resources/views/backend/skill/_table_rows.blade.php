@@ -1,59 +1,65 @@
 @forelse($skills as $skill)
-    <tr>
-        <td class="ps-4 fw-semibold text-muted">{{ $loop->iteration }}</td>
-        <td class="text-center" style="font-size:1.3rem;">
-            @if($skill->icon)
-                <span style="color:#6366f1;"><i class="bi {{ $skill->icon }}"></i></span>
-            @else
-                <span class="text-muted small">—</span>
-            @endif
-        </td>
-        <td class="fw-semibold">{{ $skill->name }}</td>
-        <td>
-            <span class="badge rounded-pill px-3 py-1 fw-semibold" style="background:rgba(99,102,241,0.1); color:#6366f1;">{{ $skill->percentage }}%</span>
-        </td>
-        <td style="min-width:150px;">
-            <div class="progress" style="height:7px; border-radius:10px; background:#e2e8f0;">
+    <div class="col-12 col-sm-6 col-xl-4">
+        <div class="skill-card">
+
+            {{-- Icon + Name + Order --}}
+            <div class="d-flex align-items-start gap-3">
+                <div class="skill-tile">
+                    @if($skill->icon)
+                        <i class="bi {{ $skill->icon }}"></i>
+                    @else
+                        <i class="bi bi-star"></i>
+                    @endif
+                </div>
+                <div class="flex-grow-1 pe-1">
+                    <div class="skill-name">{{ $skill->name }}</div>
+                    <div class="small text-muted">{{ $skill->percentage }}% proficiency</div>
+                </div>
+                <span class="order-badge"><i class="bi bi-arrow-down-up me-1"></i>{{ $skill->sort_order }}</span>
+            </div>
+
+            {{-- Progress --}}
+            <div class="progress mt-3" style="height:8px; border-radius:10px; background:#eef2ff;">
                 <div class="progress-bar rounded-pill" style="width:{{ $skill->percentage }}%; background:linear-gradient(90deg,#6366f1,#818cf8);" role="progressbar"></div>
             </div>
-        </td>
-        <td><span class="badge rounded-pill px-3 py-1" style="background:#f1f5f9; color:#475569; font-weight:500;">{{ $skill->sort_order }}</span></td>
-        <td>
-            <a href="{{ route('admin.skills.toggleStatus', $skill->id) }}"
-               class="badge rounded-pill px-3 py-1 text-decoration-none status-badge {{ $skill->is_active ? 'active-badge' : 'inactive-badge' }}"
-               data-title="{{ $skill->name }}">
-                {{ $skill->is_active ? 'Active' : 'Inactive' }}
-            </a>
-        </td>
-        <td>
-            <div class="d-flex gap-1">
-                <a href="{{ route('admin.skills.edit', $skill->id) }}"
-                   class="btn btn-sm btn-outline-primary rounded-3 px-2">
-                    <i class="bi bi-pencil"></i>
+
+            {{-- Status + Actions --}}
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px dashed #f1f5f9;">
+                <a href="{{ route('admin.skills.toggleStatus', $skill->id) }}"
+                   class="status-badge {{ $skill->is_active ? 'status-active' : 'status-inactive' }}"
+                   data-title="{{ $skill->name }}">
+                    {{ $skill->is_active ? 'Active' : 'Inactive' }}
                 </a>
-                <button type="button"
-                        class="btn btn-sm btn-outline-danger rounded-3 px-2 delete-btn"
-                        data-id="{{ $skill->id }}"
-                        data-title="{{ $skill->name }}">
-                    <i class="bi bi-trash"></i>
-                </button>
-                <form id="delete-form-{{ $skill->id }}"
-                      action="{{ route('admin.skills.destroy', $skill->id) }}"
-                      method="POST" class="d-none">
-                    @csrf
-                    @method('DELETE')
-                </form>
+                <div class="d-flex gap-1">
+                    <a href="{{ route('admin.skills.edit', $skill->id) }}"
+                       class="btn-icon btn-icon-edit" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <button type="button"
+                            class="btn-icon btn-icon-del delete-btn"
+                            data-id="{{ $skill->id }}"
+                            data-title="{{ $skill->name }}" title="Delete">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <form id="delete-form-{{ $skill->id }}"
+                          action="{{ route('admin.skills.destroy', $skill->id) }}"
+                          method="POST" class="d-none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </div>
             </div>
-        </td>
-    </tr>
+
+        </div>
+    </div>
 @empty
-    <tr>
-        <td colspan="8" class="text-center py-5">
+    <div class="col-12">
+        <div class="text-center py-5">
             <div class="empty-state">
-                <i class="bi bi-search" style="font-size:2rem; color:#94a3b8; display:block; margin-bottom:0.5rem;"></i>
+                <i class="bi bi-lightning-charge" style="font-size:2rem; color:#94a3b8; display:block; margin-bottom:0.5rem;"></i>
                 <div class="fw-semibold mb-2">No Skills Found</div>
                 <p class="text-muted small">Try adjusting your search terms.</p>
             </div>
-        </td>
-    </tr>
+        </div>
+    </div>
 @endforelse
