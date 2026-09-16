@@ -48,6 +48,12 @@
 
     .gd-container { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; position: relative; z-index: 1; }
 
+    /* window dots — defined locally so every bar renders on this page too */
+    .ab-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .ab-dot.red { background: #ff5f57; }
+    .ab-dot.yellow { background: #febc2e; }
+    .ab-dot.green { background: #28c840; }
+
     /* ===== MAIN TERMINAL SHELL ===== */
     .gd-shell {
         position: relative;
@@ -83,6 +89,15 @@
     }
     html.light-theme .gd-file { color: #334155; }
     .gd-file i { color: #818cf8; font-size: 0.72rem; }
+    .gd-branch {
+        margin-left: auto; flex-shrink: 0; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-family: var(--mono); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.4px;
+        color: #93c5fd; background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.26);
+        padding: 0.14rem 0.5rem; border-radius: 50px;
+    }
+    html.light-theme .gd-branch { color: #2563eb; }
 
     .gd-cmd {
         display: flex; align-items: center; gap: 0.5rem;
@@ -99,6 +114,30 @@
         background: #22d3ee; animation: gdBlink 1s steps(1) infinite;
     }
     @keyframes gdBlink { 50% { opacity: 0; } }
+
+    /* ===== RESPONSE PAYLOAD — writes itself in once the command finishes ===== */
+    .gd-output {
+        display: flex; flex-direction: column; gap: 0.3rem;
+        padding: 0.8rem 0.9rem 0.9rem;
+        font-family: var(--mono); font-size: 0.75rem; line-height: 1.6;
+        background: rgba(2, 8, 23, 0.28);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+    html.light-theme .gd-output { background: rgba(15, 23, 42, 0.035); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .gd-out-line {
+        display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem; min-width: 0;
+        opacity: 0; transform: translateY(5px);
+        transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        transition-delay: calc(var(--i, 0) * 110ms);
+    }
+    .gd-output.on .gd-out-line { opacity: 1; transform: none; }
+    .gd-out-brace, .gd-out-c, .gd-out-p { color: #64748b; }
+    .gd-out-k { color: #93c5fd; }
+    html.light-theme .gd-out-k { color: #2563eb; }
+    .gd-out-v { color: #fbbf24; word-break: break-word; }
+    html.light-theme .gd-out-v { color: #b45309; }
+    .gd-out-num { color: #f472b6; }
+    html.light-theme .gd-out-num { color: #be185d; }
 
     .gd-inner { padding: 2rem; position: relative; z-index: 1; }
     .gd-foot {
@@ -145,6 +184,21 @@
         transform: translateX(-4px); box-shadow: 0 6px 20px rgba(99,102,241,0.1);
     }
     html.light-theme .back-link:hover { color: #4338ca; }
+    .gd-crumb {
+        display: inline-flex; align-items: center; gap: 0.4rem; min-width: 0;
+        font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .gd-crumb i { color: #818cf8; }
+    .gd-crumb-sep { color: #475569; }
+    .gd-from {
+        flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.4rem; margin-left: auto;
+        font-family: var(--mono); font-size: 0.68rem; font-weight: 700;
+        color: #34d399; background: rgba(52, 211, 153, 0.08);
+        border: 1px solid rgba(52, 211, 153, 0.22);
+        padding: 0.3rem 0.7rem; border-radius: 8px; white-space: nowrap;
+    }
+    html.light-theme .gd-from { color: #047857; }
 
     /* ===== Hero image ===== */
     .gd-image-wrap {
@@ -183,6 +237,14 @@
         pointer-events: none; z-index: 1; opacity: 0; transition: opacity 0.5s ease;
     }
     .gd-image-wrap:hover::after { opacity: 1; }
+    /* scanner that sweeps the preview once, the moment the card reveals */
+    .gd-scan {
+        position: absolute; left: 0; right: 0; top: 0; height: 35%; z-index: 2;
+        background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+        transform: translateY(-140%); pointer-events: none;
+    }
+    .gd-image-wrap.in .gd-scan { animation: gdImgScan 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s 1 forwards; }
+    @keyframes gdImgScan { to { transform: translateY(330%); } }
 
     /* ===== Hero content ===== */
     .gd-hero-content { margin-bottom: 2.8rem; padding: 0 0.2rem; }
@@ -257,10 +319,24 @@
         margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.45rem;
     }
     html.light-theme .gd-desc-body .desc-label { color: #4f46e5; }
-    .gd-desc-body .desc-text {
-        color: var(--text-secondary); font-family: var(--mono); font-size: 0.9rem;
-        line-height: 1.9; margin: 0; white-space: pre-line;
+    /* line-numbered listing — like opening the file in an editor */
+    .desc-code { display: flex; flex-direction: column; }
+    .desc-line {
+        display: flex; align-items: flex-start; gap: 0.7rem;
+        font-family: var(--mono); font-size: 0.88rem; line-height: 1.85;
+        color: var(--text-secondary); padding: 0.1rem 0.35rem; border-radius: 6px;
+        transition: background 0.25s ease;
     }
+    .desc-line:hover { background: rgba(59, 130, 246, 0.05); }
+    .desc-num {
+        flex-shrink: 0; width: 1.9rem; text-align: right; padding-top: 0.14rem;
+        color: #475569; font-size: 0.72rem; user-select: none;
+    }
+    html.light-theme .desc-num { color: #94a3b8; }
+    .desc-txt { min-width: 0; word-break: break-word; }
+    /* the listing cascades in when the card reveals */
+    .gd-description-wrap.in .desc-line { animation: descIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 45ms); }
+    @keyframes descIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
 
     /* ===== Pricing ===== */
     .pricing-section-title { text-align: center; margin-bottom: 2rem; }
@@ -315,6 +391,13 @@
         padding: 0.12rem 0.5rem; border-radius: 4px;
         flex-shrink: 0;
     }
+    .pkg-step {
+        flex-shrink: 0; font-family: var(--mono); font-size: 0.56rem; font-weight: 700;
+        color: #a5b4fc; background: rgba(99, 102, 241, 0.14);
+        border: 1px solid rgba(99, 102, 241, 0.28);
+        border-radius: 4px; padding: 0.1rem 0.3rem;
+    }
+    html.light-theme .pkg-step { color: #4f46e5; background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.2); }
     .pkg-body { padding: 1.4rem 1.4rem 1.45rem; display: flex; flex-direction: column; flex: 1; position: relative; }
     .pkg-icon {
         width: 42px; height: 42px; margin-bottom: 0.8rem;
@@ -372,6 +455,9 @@
         display: inline-block; transition: transform 0.3s ease;
     }
     .pricing-card:hover .pricing-features li .feat-plus { transform: scale(1.35); }
+    /* features tick in one by one when the card reveals */
+    .pricing-card.in .pricing-features li { animation: featIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 55ms + 0.1s); }
+    @keyframes featIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
     .pricing-features li .feature-text { flex: 1; text-align: left; }
 
     .btn-order {
@@ -483,6 +569,13 @@
     }
     html.light-theme .sc-bar { background: rgba(15, 23, 42, 0.75); color: #e2e8f0; }
     .sc-bar i { color: #818cf8; font-size: 0.68rem; }
+    .sc-index {
+        font-family: var(--mono); font-size: 0.54rem; font-weight: 700;
+        color: #a5b4fc; background: rgba(99, 102, 241, 0.16);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 4px; padding: 0.08rem 0.28rem;
+    }
+    html.light-theme .sc-index { color: #4f46e5; background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.2); }
     .suggested-card .sc-image::after {
         content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
         background: linear-gradient(transparent, rgba(10, 15, 30, 0.95)); pointer-events: none; z-index: 1;
@@ -510,6 +603,13 @@
     .sc-price .sc-arrow { margin-left: auto; transition: transform 0.3s ease; }
     .suggested-card:hover .sc-price .sc-arrow { transform: translateX(3px); }
 
+    /* ===== section title bars draw themselves in ===== */
+    @keyframes gdLineGrow { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+    .pricing-section-title.gd-rv.in .title-line,
+    .suggested-section.gd-rv.in .title-line {
+        animation: gdLineGrow 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 968px) {
         .suggested-grid { gap: 1.2rem; }
@@ -522,6 +622,10 @@
         .gd-file { font-size: 0.66rem; }
         .gd-cmd { font-size: 0.7rem; padding: 0.45rem 0.8rem; min-height: 2rem; }
         .gd-cursor { width: 7px; height: 13px; }
+        .gd-output { font-size: 0.7rem; padding: 0.7rem 0.8rem 0.8rem; }
+        .gd-crumb { display: none; }
+        .desc-line { font-size: 0.82rem; line-height: 1.8; gap: 0.55rem; }
+        .desc-num { width: 1.6rem; font-size: 0.66rem; }
         .gd-inner { padding: 1.1rem; }
         .gd-foot { padding: 0.5rem 0.8rem; }
         .top-bar { margin-bottom: 1.4rem; }
@@ -532,7 +636,6 @@
         .pricing-grid { grid-template-columns: 1fr; gap: 1.3rem; }
         .pricing-card.featured { max-width: 100%; }
         .gd-desc-body { padding: 1.3rem 1.2rem; }
-        .gd-desc-body .desc-text { font-size: 0.84rem; }
         .suggested-section { margin-top: 3rem; }
         .suggested-card { width: 100%; max-width: 400px; }
         .suggested-card .sc-image { height: 200px; }
@@ -548,6 +651,13 @@
         .gd-shell { border-radius: 12px; }
         .gd-file { font-size: 0.6rem; }
         .gd-cmd { font-size: 0.64rem; padding: 0.4rem 0.7rem; }
+        .gd-output { font-size: 0.62rem; padding: 0.6rem 0.7rem 0.65rem; gap: 0.2rem; }
+        .gd-output .gd-out-line:first-child,
+        .gd-output .gd-out-line:last-child { display: none; }
+        .desc-line { font-size: 0.75rem; line-height: 1.75; padding: 0.05rem 0.2rem; }
+        .desc-num { width: 1.35rem; font-size: 0.6rem; }
+        .gd-from { font-size: 0.62rem; padding: 0.26rem 0.6rem; }
+        .gd-branch { display: none; }
         .gd-img-bar { top: 8px; left: 8px; font-size: 0.6rem; padding: 0.28rem 0.65rem; }
         .gd-hero-content h1 { font-size: 1.25rem; }
         .gd-hero-content .hero-meta { gap: 0.45rem; }
@@ -570,22 +680,50 @@
         .gd-desc-body { padding: 1.1rem 1rem; }
         .featured-tag { top: 0.7rem; right: 0.7rem; font-size: 0.56rem; padding: 0.2rem 0.65rem; }
     }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+        .gd-shell::before, .gd-cursor { animation: none; }
+        .gd-rv { opacity: 1 !important; transform: none !important; }
+        .gd-out-line { opacity: 1; transform: none; }
+        .gd-image-wrap.in .gd-scan { display: none; }
+        .gd-description-wrap.in .desc-line,
+        .pricing-card.in .pricing-features li,
+        .title-line { animation: none; }
+    }
 </style>
+
+@php
+    // cheapest package, used by the response payload and the "from" chip
+    $prices = array_filter([(float) $gig->basic_price, (float) $gig->standard_price, (float) $gig->premium_price]);
+    $minPrice = $prices ? min($prices) : 0;
+@endphp
 
 <div class="gig-detail-page">
     <div class="gd-container">
         <div class="gd-shell">
             <div class="gd-bar">
-                <span class="ab-dot red"></span>
-                <span class="ab-dot yellow"></span>
-                <span class="ab-dot green"></span>
-                <span class="gd-file"><i class="bi bi-folder-fill"></i> ~/portfolio/gigs/{{ $gig->id }}</span>
+                <span class="ab-dot red" aria-hidden="true"></span>
+                <span class="ab-dot yellow" aria-hidden="true"></span>
+                <span class="ab-dot green" aria-hidden="true"></span>
+                <span class="gd-file"><i class="bi bi-file-earmark-code-fill"></i> ~/portfolio/gigs/{{ $gig->id }}.json</span>
+                <span class="gd-branch"><i class="bi bi-git"></i> main</span>
             </div>
 
             <div class="gd-cmd">
-                <span class="gd-prompt">&#10095;</span>
+                <span class="gd-prompt" aria-hidden="true">&#10095;</span>
                 <span class="gd-cmd-text" id="gdCmdText" data-text="cat ./gigs/{{ $gig->id }}.json"></span>
-                <span class="gd-cursor"></span>
+                <span class="gd-cursor" aria-hidden="true"></span>
+            </div>
+
+            <!-- response: the payload writes itself in after the command finishes -->
+            <div class="gd-output" id="gdOutput" aria-hidden="true">
+                <div class="gd-out-line" style="--i: 0"><span class="gd-out-brace">{</span></div>
+                <div class="gd-out-line" style="--i: 1"><span class="gd-out-k">"id"</span><span class="gd-out-c">:</span><span class="gd-out-num">{{ $gig->id }}</span><span class="gd-out-p">,</span></div>
+                <div class="gd-out-line" style="--i: 2"><span class="gd-out-k">"type"</span><span class="gd-out-c">:</span><span class="gd-out-v">"service"</span><span class="gd-out-p">,</span></div>
+                <div class="gd-out-line" style="--i: 3"><span class="gd-out-k">"packages"</span><span class="gd-out-c">:</span><span class="gd-out-num">3</span><span class="gd-out-p">,</span></div>
+                <div class="gd-out-line" style="--i: 4"><span class="gd-out-k">"from"</span><span class="gd-out-c">:</span><span class="gd-out-v">"${{ number_format($minPrice, 0) }}"</span></div>
+                <div class="gd-out-line" style="--i: 5"><span class="gd-out-brace">}</span></div>
             </div>
 
             <div class="gd-inner">
@@ -593,6 +731,10 @@
                     <a href="{{ route('home') }}#gigs" class="back-link">
                         <span>{{ __('messages.back_to_gigs') }}</span>
                     </a>
+                    <span class="gd-crumb"><i class="bi bi-signpost-split-fill"></i> ~/gigs/{{ $gig->id }}<span class="gd-crumb-sep">&#8250;</span>{{ $gig->title }}</span>
+                    @if($minPrice > 0)
+                        <span class="gd-from"><i class="bi bi-tag-fill"></i> from ${{ number_format($minPrice, 0) }}</span>
+                    @endif
                 </div>
 
                 <div class="gd-image-wrap gd-rv">
@@ -603,6 +745,7 @@
                             <i class="bi bi-image"></i>
                         </div>
                     @endif
+                    <span class="gd-scan" aria-hidden="true"></span>
                     <div class="gd-img-bar static"><i class="bi bi-image-fill"></i> ./preview.png</div>
                 </div>
 
@@ -621,16 +764,23 @@
                     <div class="gd-description-wrap gd-rv">
                         <div class="gd-description-card">
                             <div class="gd-desc-bar">
-                                <span class="ab-dot red"></span>
-                                <span class="ab-dot yellow"></span>
-                                <span class="ab-dot green"></span>
+                                <span class="ab-dot red" aria-hidden="true"></span>
+                                <span class="ab-dot yellow" aria-hidden="true"></span>
+                                <span class="ab-dot green" aria-hidden="true"></span>
                                 <span class="gd-desc-file"><i class="bi bi-file-earmark-text"></i> DESCRIPTION.md</span>
                             </div>
                             <div class="gd-desc-body">
                                 <div class="desc-label">
                                     <i class="bi bi-info-circle"></i> {{ __('messages.about_this_gig') }}
                                 </div>
-                                <p class="desc-text">{{ $gig->description }}</p>
+                                <div class="desc-code">
+                                    @foreach(preg_split('/\r\n|\r|\n/', trim($gig->description)) as $line)
+                                        <div class="desc-line" style="--i: {{ min($loop->index, 12) }}">
+                                            <span class="desc-num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                            <span class="desc-txt">@if(trim($line) === '')&nbsp;@else{{ $line }}@endif</span>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -645,23 +795,25 @@
                 <div class="pricing-grid">
                     <div class="pricing-card gd-rv">
                         <div class="pkg-bar">
-                            <span class="ab-dot red"></span>
-                            <span class="ab-dot yellow"></span>
-                            <span class="ab-dot green"></span>
+                            <span class="ab-dot red" aria-hidden="true"></span>
+                            <span class="ab-dot yellow" aria-hidden="true"></span>
+                            <span class="ab-dot green" aria-hidden="true"></span>
+                            <span class="pkg-step">01</span>
                             <span class="pkg-file"><i class="bi bi-file-earmark-code"></i> install-basic.sh</span>
+                            <span class="pkg-flag">--basic</span>
                         </div>
                         <div class="pkg-body">
                             <div class="pkg-icon"><i class="bi bi-rocket-takeoff"></i></div>
                             <div class="pkg-name">{{ $gig->basic_name ?: 'Basic' }}</div>
                             <div class="pkg-subtitle">{{ __('messages.starter_package') }}</div>
-                            <div class="pkg-price"><span class="currency">$</span>{{ number_format($gig->basic_price, 0) }}</div>
+                            <div class="pkg-price"><span class="currency">$</span><span class="pkg-num" data-count="{{ (int) round((float) $gig->basic_price) }}">{{ number_format($gig->basic_price, 0) }}</span></div>
                             <div class="pkg-duration">{{ __('messages.one_time') }}</div>
                             <div class="pkg-divider"></div>
                             @if($gig->basic_features)
                                 <ul class="pricing-features">
                                     @foreach(explode("\n", $gig->basic_features) as $feature)
                                         @if(trim($feature))
-                                            <li><span class="feat-plus">+</span><span class="feature-text">{{ trim($feature) }}</span></li>
+                                            <li style="--i: {{ min($loop->index, 8) }}"><span class="feat-plus">+</span><span class="feature-text">{{ trim($feature) }}</span></li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -676,23 +828,25 @@
                     <div class="pricing-card featured gd-rv">
                         <div class="featured-tag"><i class="bi bi-stars me-1"></i>{{ __('messages.popular') }}</div>
                         <div class="pkg-bar">
-                            <span class="ab-dot red"></span>
-                            <span class="ab-dot yellow"></span>
-                            <span class="ab-dot green"></span>
+                            <span class="ab-dot red" aria-hidden="true"></span>
+                            <span class="ab-dot yellow" aria-hidden="true"></span>
+                            <span class="ab-dot green" aria-hidden="true"></span>
+                            <span class="pkg-step">02</span>
                             <span class="pkg-file"><i class="bi bi-file-earmark-code"></i> install-standard.sh</span>
+                            <span class="pkg-flag">--standard</span>
                         </div>
                         <div class="pkg-body">
                             <div class="pkg-icon"><i class="bi bi-stars"></i></div>
                             <div class="pkg-name">{{ $gig->standard_name ?: 'Standard' }}</div>
                             <div class="pkg-subtitle">{{ __('messages.best_value') }}</div>
-                            <div class="pkg-price"><span class="currency">$</span>{{ number_format($gig->standard_price, 0) }}</div>
+                            <div class="pkg-price"><span class="currency">$</span><span class="pkg-num" data-count="{{ (int) round((float) $gig->standard_price) }}">{{ number_format($gig->standard_price, 0) }}</span></div>
                             <div class="pkg-duration">{{ __('messages.one_time') }}</div>
                             <div class="pkg-divider"></div>
                             @if($gig->standard_features)
                                 <ul class="pricing-features">
                                     @foreach(explode("\n", $gig->standard_features) as $feature)
                                         @if(trim($feature))
-                                            <li><span class="feat-plus">+</span><span class="feature-text">{{ trim($feature) }}</span></li>
+                                            <li style="--i: {{ min($loop->index, 8) }}"><span class="feat-plus">+</span><span class="feature-text">{{ trim($feature) }}</span></li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -706,23 +860,25 @@
 
                     <div class="pricing-card gd-rv">
                         <div class="pkg-bar">
-                            <span class="ab-dot red"></span>
-                            <span class="ab-dot yellow"></span>
-                            <span class="ab-dot green"></span>
+                            <span class="ab-dot red" aria-hidden="true"></span>
+                            <span class="ab-dot yellow" aria-hidden="true"></span>
+                            <span class="ab-dot green" aria-hidden="true"></span>
+                            <span class="pkg-step">03</span>
                             <span class="pkg-file"><i class="bi bi-file-earmark-code"></i> install-premium.sh</span>
+                            <span class="pkg-flag">--premium</span>
                         </div>
                         <div class="pkg-body">
                             <div class="pkg-icon"><i class="bi bi-gem"></i></div>
                             <div class="pkg-name">{{ $gig->premium_name ?: 'Premium' }}</div>
                             <div class="pkg-subtitle">{{ __('messages.premium_package') }}</div>
-                            <div class="pkg-price"><span class="currency">$</span>{{ number_format($gig->premium_price, 0) }}</div>
+                            <div class="pkg-price"><span class="currency">$</span><span class="pkg-num" data-count="{{ (int) round((float) $gig->premium_price) }}">{{ number_format($gig->premium_price, 0) }}</span></div>
                             <div class="pkg-duration">{{ __('messages.one_time') }}</div>
                             <div class="pkg-divider"></div>
                             @if($gig->premium_features)
                                 <ul class="pricing-features">
                                     @foreach(explode("\n", $gig->premium_features) as $feature)
                                         @if(trim($feature))
-                                            <li><span class="feat-plus">+</span><span class="feature-text">{{ trim($feature) }}</span></li>
+                                            <li style="--i: {{ min($loop->index, 8) }}"><span class="feat-plus">+</span><span class="feature-text">{{ trim($feature) }}</span></li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -753,7 +909,7 @@
                                                 <i class="bi bi-image"></i>
                                             </div>
                                         @endif
-                                        <div class="sc-bar"><i class="bi bi-folder-fill"></i> ./open.git</div>
+                                        <div class="sc-bar"><span class="sc-index">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span><i class="bi bi-folder-fill"></i> ./open.git</div>
                                     </div>
                                     <div class="sc-body">
                                         <h3>{{ $suggested->title }}</h3>
@@ -805,18 +961,67 @@
         });
     });
 
-    // ===== Typewriter command =====
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ===== Typewriter command, then the payload writes itself in =====
     var cmdEl = document.getElementById('gdCmdText');
+    var outEl = document.getElementById('gdOutput');
+
     if (cmdEl) {
         var text = cmdEl.getAttribute('data-text') || '';
-        var i = 0, speed = 45;
-        function type() {
-            if (i < text.length) {
+
+        if (reduce) {
+            cmdEl.textContent = text;
+            if (outEl) outEl.classList.add('on');
+        } else {
+            var i = 0, speed = 45;
+            var type = function() {
                 cmdEl.textContent = text.slice(0, ++i);
-                setTimeout(type, speed);
-            }
+                if (i < text.length) {
+                    setTimeout(type, speed);
+                } else if (outEl) {
+                    setTimeout(function() { outEl.classList.add('on'); }, 220);
+                }
+            };
+            setTimeout(type, 450);
         }
-        setTimeout(type, 450);
+    } else if (outEl) {
+        outEl.classList.add('on');
+    }
+
+    // ===== Package prices count up the first time they scroll into view =====
+    var counts = [].slice.call(document.querySelectorAll('.pkg-num[data-count]'));
+    if (counts.length) {
+        var runCount = function(el) {
+            if (el.dataset.counted) return;
+            el.dataset.counted = '1';
+
+            var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+            if (reduce || target <= 0) return;
+
+            var started = null, dur = 700;
+            var tick = function(ts) {
+                if (!started) started = ts;
+                var p = Math.min((ts - started) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * eased).toLocaleString('en-US');
+                if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        };
+
+        if ('IntersectionObserver' in window) {
+            var cio = new IntersectionObserver(function(entries) {
+                entries.forEach(function(en) {
+                    if (!en.isIntersecting) return;
+                    runCount(en.target);
+                    cio.unobserve(en.target);
+                });
+            }, { threshold: 0.35 });
+            counts.forEach(function(el) { cio.observe(el); });
+        } else {
+            counts.forEach(runCount);
+        }
     }
 
     // ===== Scroll reveal =====

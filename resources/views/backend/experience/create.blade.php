@@ -2,31 +2,97 @@
 
 @section('content')
 <style>
+.exf { font-size: 0.88rem; }
+.exf .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #94a3b8;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f1f5f9;
+    margin-bottom: 16px;
+}
+.exf .form-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 4px;
+}
+.exf .form-control {
+    font-size: 0.82rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e8f0;
+    transition: all 0.2s;
+}
+.exf .form-control:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+.exf .form-text { font-size: 0.7rem; }
+.exf .invalid-feedback { font-size: 0.72rem; }
+.exf .form-check-input:checked {
+    background-color: #6366f1;
+    border-color: #6366f1;
+}
+.exf .btn-submit {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+    transition: all 0.2s;
+}
+.exf .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99,102,241,0.4);
+    color: #fff;
+}
+.exf .btn-cancel {
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.82rem;
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+.exf .btn-cancel:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
 @media (max-width: 767.98px) {
-    .experience-form-page h4 { font-size: 0.9rem; }
-    .experience-form-page p.text-muted { font-size: 0.75rem; }
-    .experience-form-page h6 { font-size: 0.82rem; }
-    .experience-form-page .form-label { font-size: 0.75rem; }
-    .experience-form-page .form-control { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
-    .experience-form-page .form-text { font-size: 0.7rem; }
-    .experience-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
-    .experience-form-page .card-body { padding: 0.8rem !important; }
-    .experience-form-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .experience-form-page .invalid-feedback { font-size: 0.72rem; }
+    .exf { font-size: 0.8rem; }
+    .exf .section-label { font-size: 0.68rem; }
+    .exf .form-label { font-size: 0.73rem; }
+    .exf .form-control { font-size: 0.76rem; padding: 7px 10px; }
+    .exf .form-text { font-size: 0.65rem; }
+    .exf .btn-submit { padding: 8px 20px; font-size: 0.76rem; }
+    .exf .btn-cancel { padding: 8px 16px; font-size: 0.76rem; }
 }
 </style>
 
-<div class="container-fluid py-3 experience-form-page">
+<div class="container-fluid py-3 exf">
     <div class="row justify-content-center">
-        <div class="col-lg-9 col-md-11">
+        <div class="col-md-11 col-lg-9">
 
             {{-- Header --}}
-            <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
                 <div>
-                    <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add Work Experience</h4>
+                    <h5 class="fw-bold mb-1" style="font-size:0.95rem;">
+                        <i class="bi bi-plus-circle me-2" style="color:#6366f1;"></i>Add Experience
+                    </h5>
                     <p class="text-muted small mb-0">Add a new entry to your career timeline.</p>
                 </div>
-                <a href="{{ route('admin.experiences.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
+                <a href="{{ route('admin.experiences.index') }}" class="btn-cancel text-decoration-none">
                     <i class="bi bi-arrow-left me-1"></i> Back
                 </a>
             </div>
@@ -35,29 +101,27 @@
                 @csrf
 
                 {{-- Company & Position --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-building me-2" style="color:#6366f1;"></i>Company & Position</h6>
-                    </div>
-                    <div class="card-body px-4 pb-4">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-building me-1"></i> Company & Position</div>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Company <span class="text-danger">*</span></label>
-                                <input type="text" name="company"
+                                <label for="company" class="form-label">Company <span class="text-danger">*</span></label>
+                                <input type="text" id="company" name="company"
                                        class="form-control @error('company') is-invalid @enderror"
                                        value="{{ old('company') }}" placeholder="e.g. Google Inc." required>
                                 @error('company')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Position <span class="text-danger">*</span></label>
-                                <input type="text" name="position"
+                                <label for="position" class="form-label">Position <span class="text-danger">*</span></label>
+                                <input type="text" id="position" name="position"
                                        class="form-control @error('position') is-invalid @enderror"
                                        value="{{ old('position') }}" placeholder="e.g. Senior Developer" required>
                                 @error('position')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
-                                <label class="form-label fw-medium">Description</label>
-                                <textarea name="description" rows="4"
+                                <label for="description" class="form-label">Description</label>
+                                <textarea id="description" name="description" rows="5"
                                           class="form-control @error('description') is-invalid @enderror"
                                           placeholder="Describe your responsibilities and achievements...">{{ old('description') }}</textarea>
                                 @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -66,32 +130,31 @@
                     </div>
                 </div>
 
-                {{-- Dates --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-calendar3 me-2" style="color:#6366f1;"></i>Duration</h6>
-                    </div>
-                    <div class="card-body px-4 pb-4">
+                {{-- Duration --}}
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-calendar3 me-1"></i> Duration</div>
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <label class="form-label fw-medium">Start Date <span class="text-danger">*</span></label>
-                                <input type="date" name="start_date"
+                                <label for="start_date" class="form-label">Start Date <span class="text-danger">*</span></label>
+                                <input type="date" id="start_date" name="start_date"
                                        class="form-control @error('start_date') is-invalid @enderror"
                                        value="{{ old('start_date') }}" required>
                                 @error('start_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label fw-medium">End Date</label>
-                                <input type="date" name="end_date" id="end_date"
+                                <label for="end_date" class="form-label">End Date</label>
+                                <input type="date" id="end_date" name="end_date"
                                        class="form-control @error('end_date') is-invalid @enderror"
                                        value="{{ old('end_date') }}">
-                                <div class="form-text mt-1">Leave blank if currently working</div>
                                 @error('end_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                <div class="form-text mt-1">Leave blank if currently working.</div>
                             </div>
                             <div class="col-md-4 d-flex align-items-end pb-1">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="is_current" name="is_current"
-                                           value="1" onchange="toggleEndDate(this)">
+                                           value="1" {{ old('is_current') ? 'checked' : '' }}
+                                           onchange="toggleEndDate(this)">
                                     <label class="form-check-label fw-medium" for="is_current">Currently Working</label>
                                 </div>
                             </div>
@@ -100,29 +163,28 @@
                 </div>
 
                 {{-- Location & Settings --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-sliders me-2" style="color:#6366f1;"></i>Location & Settings</h6>
-                    </div>
-                    <div class="card-body px-4 pb-4">
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                    <div class="card-body px-4 py-3">
+                        <div class="section-label"><i class="bi bi-sliders me-1"></i> Location & Settings</div>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label fw-medium"><i class="bi bi-geo-alt me-1"></i> Location</label>
-                                <input type="text" name="location"
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" id="location" name="location"
                                        class="form-control @error('location') is-invalid @enderror"
                                        value="{{ old('location') }}" placeholder="e.g. Dhaka, Bangladesh">
                                 @error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label fw-medium">Sort Order</label>
-                                <input type="number" name="sort_order" min="0"
+                                <label for="sort_order" class="form-label">Sort Order</label>
+                                <input type="number" id="sort_order" name="sort_order" min="0"
                                        class="form-control @error('sort_order') is-invalid @enderror"
                                        value="{{ old('sort_order', 0) }}">
                                 @error('sort_order')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-3 d-flex align-items-end pb-1">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" checked>
+                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active"
+                                           value="1" {{ old('is_active', true) ? 'checked' : '' }}>
                                     <label class="form-check-label fw-medium" for="is_active">Active</label>
                                 </div>
                             </div>
@@ -132,8 +194,8 @@
 
                 {{-- Submit --}}
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="{{ route('admin.experiences.index') }}" class="btn btn-light border rounded-3 px-4">Cancel</a>
-                    <button type="submit" class="btn btn-primary rounded-3 px-5" style="background:#6366f1; border-color:#6366f1;">
+                    <a href="{{ route('admin.experiences.index') }}" class="btn-cancel text-decoration-none">Cancel</a>
+                    <button type="submit" class="btn-submit">
                         <i class="bi bi-check-circle me-1"></i> Create Experience
                     </button>
                 </div>
@@ -147,8 +209,10 @@
 @section('scripts')
 <script>
 function toggleEndDate(checkbox) {
-    document.getElementById('end_date').disabled = checkbox.checked;
-    if (checkbox.checked) document.getElementById('end_date').value = '';
+    var endDate = document.getElementById('end_date');
+    if (!endDate) return;
+    endDate.disabled = checkbox.checked;
+    if (checkbox.checked) endDate.value = '';
 }
 </script>
 @endsection
