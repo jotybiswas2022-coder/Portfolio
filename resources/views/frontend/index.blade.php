@@ -1912,8 +1912,8 @@
         .timeline-card { padding: 1rem; }
         .timeline-card h3 { font-size: 0.98rem; }
         .timeline-company { font-size: 0.7rem; margin-bottom: 0.55rem; }
-        .timeline-card p { font-size: 0.8rem; }
-        .rel-list li { font-size: 0.79rem; }
+        .timeline-card p { font-size: 0.8rem; display: none !important; }
+        .rel-list, .rel-list li { display: none !important; }
         .timeline-date { font-size: 0.64rem; }
         .current-badge { font-size: 0.54rem; }
     }
