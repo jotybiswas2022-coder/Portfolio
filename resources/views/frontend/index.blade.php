@@ -1736,6 +1736,7 @@
         .coding-grid { gap: 1.25rem; }
         .cs-body { padding: 1rem 0.95rem 1.1rem; }
         .cs-title { font-size: 0.98rem; }
+        .cs-cmd-line, .cs-client, .cs-lines, .cs-tech, .cs-foot { display: none !important; }
     }
     @media (max-width: 480px) {
         .coding-title { display: none; }
