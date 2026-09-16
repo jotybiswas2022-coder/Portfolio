@@ -3555,8 +3555,8 @@
         .ft-cmd { font-size: 0.66rem; padding: 0.35rem 0.7rem; }
         .ft-body { padding: 1rem 0.9rem 1.1rem; }
         .ft-brand h4 { font-size: 0.98rem; }
-        .ft-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.4rem 0.8rem; }
-        .ft-nav a { font-size: 0.75rem; }
+        .ft-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
+        .ft-nav a { font-size: 0.65rem; gap: 0.2rem; padding: 0.1rem 0.1rem; }
         .ft-socials { justify-content: center; }
         .ft-social { font-size: 0.64rem; padding: 0.25rem 0.6rem; }
         .ft-foot { flex-direction: column; align-items: center; gap: 0.45rem; padding: 0.5rem 0.7rem; }
@@ -3595,6 +3595,8 @@
         .hero p { font-size: 0.82rem; }
         .hero-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
         .btn-primary-custom, .btn-outline-custom { font-size: 0.78rem; padding: 0.55rem 1.2rem; }
+        .ft-nav { gap: 0.3rem; }
+        .ft-nav a { font-size: 0.6rem; }
     }
 
     </style>
