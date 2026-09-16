@@ -2,155 +2,311 @@
 
 @section('content')
 <style>
-@media (max-width: 767.98px) {
-    .skills-page h4 { font-size: 0.9rem; }
-    .skills-page p.text-muted { font-size: 0.75rem; }
-    .skills-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
-    .skills-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
-    .skills-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .skills-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .skills-page .small.text-muted { font-size: 0.7rem; }
-    .skills-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .skills-page .card-body { padding: 0.6rem !important; }
+.skills-page h4 { letter-spacing: -0.3px; }
+.skills-page .text-muted { color: var(--admin-text-muted) !important; }
+
+/* ---- Clean card list ---- */
+.skill-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    padding: 1.15rem 1.2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    box-shadow: 0 1px 2px rgba(15,23,42,0.04);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.skill-card:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 10px 28px rgba(99,102,241,0.08);
+    transform: translateY(-2px);
+}
+.min-w-0 { min-width: 0; }
+.skill-tile {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.05rem;
+    color: var(--admin-primary);
+    background: #eef2ff;
+}
+.skill-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--admin-text);
+    line-height: 1.35;
+    margin: 0;
+}
+.skill-meta {
+    font-size: 0.78rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.skill-meta i { color: var(--admin-primary); font-size: 0.85rem; }
+.skill-progress {
+    height: 8px;
+    border-radius: 999px;
+    background: #eef2ff;
+    overflow: hidden;
+}
+.skill-progress > div {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+.order-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--admin-text-muted);
+    background: #f8fafc;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    padding: 4px 9px;
+    flex-shrink: 0;
+}
+.skill-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--admin-border);
+}
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.status-badge:hover { transform: scale(1.04); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.status-active { background: rgba(16,185,129,0.1); color: #059669; border: 1px solid rgba(16,185,129,0.2); }
+.status-inactive { background: #f1f5f9; color: #64748b; border: 1px solid var(--admin-border); }
+.btn-icon {
+    width: 32px; height: 32px;
+    padding: 0;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.86rem;
+    border: 1px solid var(--admin-border);
+    background: #fff;
+    color: var(--admin-text-muted);
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn-icon:active { transform: scale(0.92); }
+.btn-icon-edit:hover { color: var(--admin-primary); border-color: #c7d2fe; background: #eef2ff; }
+.btn-icon-del:hover { color: #dc2626; border-color: #fecaca; background: #fef2f2; }
+
+/* ---- Sticky search ---- */
+.skill-search-wrap {
+    position: sticky;
+    top: calc(var(--admin-topbar-height) + 6px);
+    z-index: 1020;
+}
+.skill-search {
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    box-shadow: 0 4px 18px rgba(15,23,42,0.06);
+    padding: 0.45rem 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.skill-search:focus-within {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.1), 0 4px 18px rgba(15,23,42,0.06);
+}
+.skill-search i { color: var(--admin-text-muted); }
+.skill-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.85rem;
+    color: var(--admin-text);
+    padding: 0.15rem 0;
+    min-width: 0;
+}
+.skill-search input::placeholder { color: #94a3b8; }
+
+/* ---- Mobile floating Add button ---- */
+.skill-fab {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 1051;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-dark));
+    border: none;
+    box-shadow: 0 10px 26px rgba(99,102,241,0.45);
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+.skill-fab:active { transform: scale(0.92); }
+@media (max-width: 575.98px) {
+    .skill-fab { display: flex; }
+    .skill-add-desktop { display: none !important; }
+    .skill-card { padding: 1rem 1.05rem; border-radius: 14px; gap: 0.8rem; }
+    .skill-tile { width: 40px; height: 40px; font-size: 0.98rem; border-radius: 11px; }
+    .skill-name { font-size: 0.85rem; }
+    .skill-meta { font-size: 0.74rem; }
+    .order-badge { font-size: 0.68rem; padding: 3px 8px; }
+    .btn-icon { width: 34px; height: 34px; font-size: 0.9rem; }
+    .skill-search-wrap { top: 60px; }
 }
 </style>
 
 <div class="container-fluid py-3 skills-page">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-11 col-xxl-10">
 
-    {{-- Header --}}
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h4 class="fw-bold mb-1"><i class="bi bi-lightning-charge me-2" style="color:#6366f1;"></i>Skills</h4>
-            <p class="text-muted small mb-0">Manage your technical skills</p>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background:rgba(99,102,241,0.1); color:#6366f1; font-weight:500;" id="countBadge">
-                <i class="bi bi-database me-1"></i> {{ $skills->count() }} Skills
-            </span>
-            <a href="{{ route('admin.skills.create') }}" class="btn btn-primary rounded-3 px-3" style="background:#6366f1; border-color:#6366f1;">
-                <i class="bi bi-plus-lg me-1"></i> Add Skill
-            </a>
-        </div>
-    </div>
-
-    {{-- Live Search Bar --}}
-    <div class="mb-4">
-        <div class="input-group" style="max-width:600px;">
-            <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
-                <i class="bi bi-search text-muted"></i>
-            </span>
-            <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
-                   class="form-control border-start-0 ps-0"
-                   placeholder="Live search by skill name..."
-                   style="border-color:#e2e8f0; box-shadow:none;"
-                   autocomplete="off">
-            <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
-                <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
-            </span>
-        </div>
-        <div class="mt-2" id="searchInfo">
-            @if($query ?? false)
-                <small class="text-muted">
-                    <i class="bi bi-info-circle me-1"></i>
-                    Showing results for "<strong>{{ $query }}</strong>" —
-                    <span id="resultCount">{{ $skills->count() }}</span> skill(s) found
-                </small>
-            @endif
-        </div>
-    </div>
-
-    {{-- Card Grid --}}
-    @if($skills->isEmpty() && !request()->ajax())
-        <div class="text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-lightning-charge" style="display:block; font-size:2rem; color:#94a3b8; margin-bottom:0.5rem;"></i>
-                <div class="fw-semibold mb-2">No Skills Found</div>
-                <p class="text-muted small">Add your technical skills to showcase your expertise!</p>
-                <a href="{{ route('admin.skills.create') }}" class="btn btn-primary rounded-3 px-4" style="background:#6366f1; border-color:#6366f1;">
-                    <i class="bi bi-plus-lg me-1"></i> Add Skill
-                </a>
+            {{-- Header --}}
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                    <h4 class="fw-bold mb-1"><i class="bi bi-lightning-charge me-2" style="color:var(--admin-primary);"></i>Skills</h4>
+                    <p class="text-muted small mb-0">Manage your technical skills</p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge-count" id="countBadge">
+                        <i class="bi bi-database me-1"></i> {{ $skills->count() }} Skills
+                    </span>
+                    <a href="{{ route('admin.skills.create') }}" class="btn btn-admin btn-admin-primary skill-add-desktop">
+                        <i class="bi bi-plus-lg me-1"></i> Add Skill
+                    </a>
+                </div>
             </div>
-        </div>
-    @else
-        <div class="row g-3" id="skillsGrid">
-            @include('backend.skill._table_rows', ['skills' => $skills])
-        </div>
-    @endif
 
+            {{-- Live Search (sticky on scroll) --}}
+            <div class="skill-search-wrap mb-3">
+                <div class="skill-search">
+                    <i class="bi bi-search" style="font-size:0.9rem;"></i>
+                    <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
+                           placeholder="Live search by skill name..."
+                           autocomplete="off">
+                    <span class="d-flex align-items-center">
+                        <span class="spinner-border spinner-border-sm d-none text-primary" role="status" id="searchLoading"></span>
+                        @if(request()->has('q') && request()->q != '')
+                            <a href="{{ route('admin.skills.index') }}" class="text-muted text-decoration-none ms-2"><i class="bi bi-x-lg"></i></a>
+                        @endif
+                    </span>
+                </div>
+                <div class="mt-2" id="searchInfo">
+                    @if($query ?? false)
+                        <small class="text-muted" style="font-size:0.75rem;">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Showing results for "<strong>{{ $query }}</strong>" —
+                            <span id="resultCount">{{ $skills->count() }}</span> skill(s) found
+                        </small>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Card Grid --}}
+            @if($skills->isEmpty() && !request()->ajax())
+                <div class="text-center py-5">
+                    <div class="empty-state">
+                        <i class="bi bi-lightning-charge"></i>
+                        <div class="fw-semibold mb-2">No Skills Found</div>
+                        <p class="text-muted small mb-0">Add your technical skills to showcase your expertise!</p>
+                        <a href="{{ route('admin.skills.create') }}" class="btn btn-admin btn-admin-primary mt-3">
+                            <i class="bi bi-plus-lg me-1"></i> Add Skill
+                        </a>
+                    </div>
+                </div>
+            @else
+                <div id="skillsGrid" class="row g-3">
+                    @include('backend.skill._table_rows', ['skills' => $skills])
+                </div>
+            @endif
+
+        </div>
+    </div>
 </div>
 
-<style>
-.status-badge { transition: all 0.2s; cursor:pointer; }
-.status-badge:hover { transform: scale(1.05); }
-.active-badge { background: rgba(16,185,129,0.12); color: #059669; }
-.inactive-badge { background: #f1f5f9; color: #94a3b8; }
-</style>
+{{-- Mobile Floating Add Button --}}
+<a href="{{ route('admin.skills.create') }}" class="skill-fab" aria-label="Add Skill">
+    <i class="bi bi-plus-lg"></i>
+</a>
 
 @section('scripts')
 <script>
-// ===== DELETE CONFIRMATION & STATUS TOGGLE =====
-(function() {
-    function bindSkillEvents() {
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.dataset.id;
-                const title = this.dataset.title;
-                Swal.fire({
-                    title: 'Delete Skill?',
-                    text: 'Are you sure you want to delete "' + title + '"?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc2626',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-trash me-1"></i> Delete',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete-form-' + id).submit();
-                    }
-                });
-            });
-        });
-
-        document.querySelectorAll('.status-badge').forEach(badge => {
-            badge.addEventListener('click', function (e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                const title = this.dataset.title;
-                const current = this.textContent.trim();
-                Swal.fire({
-                    title: 'Toggle Status?',
-                    text: 'Change "' + title + '" from ' + current + ' to ' + (current === 'Active' ? 'Inactive' : 'Active') + '?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#6366f1',
-                    cancelButtonColor: '#64748b',
-                    confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = href;
-                    }
-                });
-            });
-        });
+@if(session('success'))
+Swal.fire({
+    icon: 'success',
+    title: 'Success!',
+    text: {!! json_encode(session('success')) !!},
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
     }
+});
+@endif
 
-    bindSkillEvents();
-    window.bindSkillEvents = bindSkillEvents;
-})();
+// ===== STATUS TOGGLE (delegated so it survives AJAX re-renders) =====
+document.addEventListener('click', function(e) {
+    var badge = e.target.closest('.status-badge');
+    if (!badge) return;
+    e.preventDefault();
+    var href = badge.getAttribute('href');
+    var title = badge.dataset.title || 'this skill';
+    var currentLabel = badge.textContent.trim();
+    var next = currentLabel === 'Active' ? 'Inactive' : 'Active';
+    Swal.fire({
+        title: 'Toggle Status?',
+        text: 'Change "' + title + '" from ' + currentLabel + ' to ' + next + '?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#6366f1',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            window.location.href = href;
+        }
+    });
+});
 
 // ===== LIVE SEARCH (AJAX) =====
 (function() {
     var searchInput = document.getElementById('liveSearch');
-    var tableBody = document.getElementById('skillsTableBody');
+    var grid = document.getElementById('skillsGrid');
     var searchInfo = document.getElementById('searchInfo');
     var searchLoading = document.getElementById('searchLoading');
 
-    if (!searchInput || !tableBody) return;
-    tableBody = document.getElementById('skillsGrid') || document.getElementById('skillsTableBody');
+    if (!searchInput || !grid) return;
 
     var debounceTimer;
 
@@ -167,8 +323,7 @@
         })
         .then(function(response) { return response.json(); })
         .then(function(data) {
-            var grid = document.getElementById('skillsGrid');
-            grid.innerHTML = data.html.replace(/^<div class="row[\s\S]*?<\/div>\s*$/m) ? data.html : data.html;
+            grid.innerHTML = data.html;
 
             var countBadge = document.getElementById('countBadge');
             if (countBadge) {
@@ -177,13 +332,11 @@
 
             if (searchInfo) {
                 if (query) {
-                    searchInfo.innerHTML = '<small class="text-muted"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' skill(s) found</small>';
+                    searchInfo.innerHTML = '<small class="text-muted" style="font-size:0.75rem;"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' skill(s) found</small>';
                 } else {
                     searchInfo.innerHTML = '';
                 }
             }
-
-            if (window.bindSkillEvents) window.bindSkillEvents();
         })
         .catch(function(error) {
             console.error('Search error:', error);
