@@ -298,7 +298,7 @@
                                 </div>
                             </div>
                             @if($conversation->gig)
-                                <a href="{{ route('admin.gigs.edit', $conversation->gig->id) }}" class="c-pkg-link flex-shrink-0">
+                                <a href="{{ route('gig.detail', $conversation->gig->id) }}" target="_blank" rel="noopener" class="c-pkg-link flex-shrink-0">
                                     <i class="bi bi-box-arrow-up-right me-1"></i>View Gig
                                 </a>
                             @endif
