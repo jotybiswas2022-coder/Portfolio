@@ -3080,6 +3080,48 @@
     html.light-theme .map-container iframe { filter: none !important; }
     html.light-theme .map-container { box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
     html.light-theme .map-container:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    /* Contact responsive */
+    @media (max-width: 768px) {
+        .contact-grid { gap: 2rem; }
+        .ct-term-bar, .ct-editor-bar { padding: 0.5rem 0.8rem; }
+        .ct-term-cmd { padding: 0.45rem 0.85rem; font-size: 0.7rem; }
+        .ct-term-body, .ct-editor-body { padding: 1.05rem 0.9rem 1.15rem; }
+        .ct-term-heading { font-size: 1.05rem; margin-bottom: 0.4rem; }
+        .ct-term-desc { font-size: 0.8rem; margin-bottom: 1rem; }
+        .ct-config-list { gap: 0.5rem; }
+        .ct-config-line { padding: 0.6rem 0.75rem; gap: 0.5rem; }
+        .ct-config-icon { width: 32px; height: 32px; min-width: 32px; font-size: 0.85rem; }
+        .ct-config-key { font-size: 0.58rem; }
+        .ct-config-val { font-size: 0.82rem; }
+        .ct-editor-heading { font-size: 1rem; }
+        .ct-editor-desc { font-size: 0.78rem; margin-bottom: 1rem; }
+        .ct-code-group { margin-bottom: 1rem; }
+        .ct-code-label { font-size: 0.62rem; }
+        .ct-code-line { padding: 0 0.7rem; }
+        .ct-code-ln { font-size: 0.56rem; }
+        .ct-code-input, .ct-code-textarea { font-size: 0.8rem; }
+        .ct-push-btn { font-size: 0.78rem; padding: 0.75rem 1rem; }
+        .map-container { border-radius: 12px; }
+    }
+    @media (max-width: 480px) {
+        .contact-grid { gap: 1.4rem; }
+        .ct-term-body, .ct-editor-body { padding: 0.9rem 0.7rem 1rem; }
+        .ct-term-title { font-size: 0.64rem; }
+        .ct-term-status { font-size: 0.56rem; padding: 0.16rem 0.5rem; }
+        .ct-term-cmd { font-size: 0.66rem; padding: 0.4rem 0.75rem; }
+        .ct-term-heading { font-size: 0.98rem; }
+        .ct-term-desc { font-size: 0.76rem; }
+        .ct-config-line { padding: 0.55rem 0.65rem; gap: 0.45rem; }
+        .ct-config-icon { width: 28px; height: 28px; min-width: 28px; font-size: 0.75rem; border-radius: 8px; }
+        .ct-config-val { font-size: 0.76rem; }
+        .ct-editor-lang { display: none; }
+        .ct-editor-heading { font-size: 0.95rem; }
+        .ct-editor-desc { font-size: 0.74rem; }
+        .ct-code-label i { font-size: 0.7rem; }
+        .ct-code-ln { font-size: 0.54rem; min-width: 1.3rem; }
+        .ct-code-input, .ct-code-textarea { font-size: 0.76rem; padding: 0.6rem 0; }
+        .ct-push-badge { display: none; }
+    }
     /* Footer */
     .footer {
         background: #080b14; position: relative; z-index: 1;
