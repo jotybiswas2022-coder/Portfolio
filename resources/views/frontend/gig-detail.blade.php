@@ -536,6 +536,12 @@
         .suggested-section { margin-top: 3rem; }
         .suggested-card { width: 100%; max-width: 400px; }
         .suggested-card .sc-image { height: 200px; }
+        .pricing-section-title, .suggested-header { margin-bottom: 1.5rem; }
+        .pricing-section-title h2, .suggested-header h2 { font-size: 1.4rem; margin-bottom: 0.3rem; }
+        .pricing-section-title p, .suggested-header p { font-size: 0.82rem; }
+        .pricing-section-title .title-line, .suggested-header .title-line {
+            width: 36px; margin-top: 0.6rem;
+        }
     }
     @media (max-width: 480px) {
         .gd-inner { padding: 0.8rem; }
@@ -553,7 +559,12 @@
         .pkg-price { font-size: 1.9rem; }
         .pricing-features li { font-size: 0.74rem; }
         .btn-order { font-size: 0.82rem; padding: 0.65rem 1.1rem; }
-        .pricing-section-title h2, .suggested-header h2 { font-size: 1.3rem; }
+        .pricing-section-title h2, .suggested-header h2 { font-size: 1.15rem; }
+        .pricing-section-title p, .suggested-header p { font-size: 0.75rem; }
+        .pricing-section-title, .suggested-header { margin-bottom: 1.25rem; }
+        .pricing-section-title .title-line, .suggested-header .title-line {
+            width: 30px; height: 2px; margin-top: 0.5rem;
+        }
         .top-bar { margin-bottom: 1.2rem; }
         .back-link { font-size: 0.7rem; padding: 0.45rem 0.9rem; }
         .gd-desc-body { padding: 1.1rem 1rem; }
