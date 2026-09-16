@@ -3290,10 +3290,12 @@
         
 
         
-        .project-card .card-body { padding: 0.85rem 0.85rem 1rem; }
-        .project-card .card-body h3 { font-size: 1rem; }
-        .pj-artifact { height: 150px; }
-        .project-card .card-body .view-details-btn { font-size: 0.8rem; }
+        .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .project-card .card-body { padding: 0.7rem 0.7rem 0.85rem; }
+        .project-card .card-body h3 { font-size: 0.95rem; }
+        .pj-artifact { height: 130px; margin: 0 0.7rem; }
+        .project-card .card-body .view-details-btn { font-size: 0.7rem; }
+        .pj-bar, .pj-run, .pj-steps, .pj-foot { padding-left: 0.7rem; padding-right: 0.7rem; }
         .pkg-grid { gap: 1.5rem; }
         .pkg-card { flex: 0 0 100%; max-width: 100%; min-width: 0; }
         .term-exit { display: none !important; }
@@ -3364,10 +3366,11 @@
         .timeline-location { font-size: 0.68rem; }
 
 
-        .projects-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-        .pj-artifact { height: 140px; }
-        .project-card .card-body { padding: 0.8rem 0.8rem 0.95rem; }
-        .project-card .card-body h3 { font-size: 1rem; }
+        .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+        .pj-artifact { height: 100px; margin: 0 0.55rem; }
+        .project-card .card-body { padding: 0.6rem 0.6rem 0.7rem; }
+        .project-card .card-body h3 { font-size: 0.85rem; }
+        .pj-bar, .pj-run, .pj-steps, .pj-foot { padding-left: 0.55rem; padding-right: 0.55rem; }
         .pkg-grid { gap: 1rem; }
         .pkg-card { flex: 0 0 100%; max-width: 100%; min-width: 0; display: flex; }
         .term-exit { display: none !important; }
