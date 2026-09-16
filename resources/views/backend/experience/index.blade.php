@@ -22,8 +22,8 @@
     background: currentColor;
 }
 .exp-admin .status-badge:hover { transform: scale(1.05); }
-.exp-admin .active-badge { background: rgba(16,185,129,0.12); color: #059669; }
-.exp-admin .inactive-badge { background: #f1f5f9; color: #94a3b8; }
+.exp-admin .status-active { background: rgba(16,185,129,0.12); color: #059669; }
+.exp-admin .status-inactive { background: #f1f5f9; color: #94a3b8; }
 
 .exp-card {
     background: #fff;
