@@ -71,6 +71,7 @@ return [
     'no_projects_desc'  => 'No projects to display yet. Check back soon!',
     'live_demo'         => 'Live Demo',
     'source'            => 'Source',
+    'project_shipped'   => 'Shipped',
 
     // Testimonials
     'testimonials_title'    => 'What Clients Say',

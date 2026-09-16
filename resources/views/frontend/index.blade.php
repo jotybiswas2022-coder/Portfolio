@@ -1246,12 +1246,10 @@
     .contact-info-card:hover::after,
     .contact-item:hover::after { opacity: 1; }
     /* Ensure content stays above shine */
-    .project-card .pj-artifact,
     .pkg-card .pkg-card-bar,
     .pkg-card .term-body,
     .pkg-card .pkg-action,
     .pkg-card .pkg-foot,
-    .project-card .card-body,
     .testimonial-card .testimonial-stars,
     .testimonial-card .testimonial-text,
     .testimonial-card .testimonial-author,
@@ -2191,147 +2189,297 @@
         color: #fff;
     }
 
-    /* ===== PROJECTS - BUILD PIPELINE CARDS (coding design) ===== */
-    .projects-section { background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.75rem; }
+    /* ===== PROJECTS - IDE WORKSPACE WINDOWS (coding design) ===== */
+    .projects-section {
+        position: relative; overflow: hidden;
+        background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    }
+    .projects-section::before {
+        content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        background-image:
+            linear-gradient(rgba(99, 102, 241, 0.055) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(99, 102, 241, 0.055) 1px, transparent 1px);
+        background-size: 46px 46px;
+        -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 38%, #000 0%, transparent 76%);
+        mask-image: radial-gradient(ellipse 75% 60% at 50% 38%, #000 0%, transparent 76%);
+    }
+    html.light-theme .projects-section::before {
+        background-image:
+            linear-gradient(rgba(59, 130, 246, 0.075) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.075) 1px, transparent 1px);
+    }
+    .projects-section .container { position: relative; z-index: 1; }
 
+    /* ---- pipeline toolbar: filters as CLI flags ---- */
+    .pj-toolbar {
+        display: flex; align-items: center; gap: 0.85rem;
+        padding: 0.5rem 0.7rem 0.5rem 0.95rem;
+        margin-bottom: 1.9rem;
+        border: 1px solid rgba(148, 163, 184, 0.16); border-radius: 12px;
+        background: rgba(8, 14, 28, 0.6);
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    }
+    html.light-theme .pj-toolbar { background: rgba(255, 255, 255, 0.78); border-color: rgba(99, 102, 241, 0.18); }
+    .pj-tb-label {
+        flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; letter-spacing: 0.5px; text-transform: uppercase;
+        color: var(--text-muted);
+    }
+    .pj-tb-label i { color: #818cf8; }
+
+    .pj-toolbar .filter-tabs {
+        flex: 1 1 auto; min-width: 0;
+        flex-wrap: wrap; justify-content: flex-start; gap: 0.4rem; margin: 0;
+    }
+    .pj-toolbar .filter-btn {
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.67rem; font-weight: 500; letter-spacing: 0.2px;
+        padding: 0.28rem 0.7rem; border-radius: 7px; white-space: nowrap;
+        color: #94a3b8; background: rgba(148, 163, 184, 0.08);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    .pj-toolbar .filter-btn::before { content: '--'; margin-right: 1px; opacity: 0.5; }
+    .pj-toolbar .filter-btn:hover { color: #c7d2fe; background: rgba(99, 102, 241, 0.14); border-color: rgba(129, 140, 248, 0.45); }
+    .pj-toolbar .filter-btn.active {
+        color: #fff; border-color: transparent;
+        background: var(--accent-gradient);
+        box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+    }
+    html.light-theme .pj-toolbar .filter-btn { color: #475569; background: rgba(15, 23, 42, 0.04); border-color: rgba(15, 23, 42, 0.1); }
+    html.light-theme .pj-toolbar .filter-btn:hover { color: #3730a3; }
+    html.light-theme .pj-toolbar .filter-btn.active { color: #fff; }
+
+    .pj-tb-count {
+        margin-left: auto; flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        padding-left: 0.85rem;
+        border-left: 1px solid rgba(148, 163, 184, 0.18);
+        font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
+        font-size: 0.66rem; color: var(--text-muted);
+    }
+    .pj-tb-count i { color: #818cf8; }
+    .pj-tb-count b { color: #a5b4fc; font-weight: 700; }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(410px, 1fr)); gap: 1.85rem; }
+
+    /* ---- the window itself ---- */
     .project-card {
         position: relative; display: flex; flex-direction: column;
-        background: linear-gradient(180deg, rgba(15, 25, 45, 0.78) 0%, rgba(10, 18, 35, 0.62) 100%);
-        border: 1px solid rgba(129, 140, 248, 0.24); border-radius: 16px;
-        overflow: hidden; text-decoration: none;
+        border-radius: 15px; overflow: hidden; text-decoration: none;
+        background: linear-gradient(180deg, rgba(13, 22, 42, 0.92) 0%, rgba(8, 15, 30, 0.8) 100%);
+        border: 1px solid rgba(129, 140, 248, 0.2);
         font-family: 'Cascadia Code', ui-monospace, Consolas, Menlo, monospace;
         box-shadow: 0 22px 55px rgba(2, 8, 23, 0.45);
-        transition: box-shadow 0.4s ease, border-color 0.4s ease;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
         will-change: transform;
     }
-    html.light-theme .project-card {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(238, 242, 255, 0.72) 100%);
-        border-color: rgba(99, 102, 241, 0.26);
-        box-shadow: 0 22px 55px rgba(99, 102, 241, 0.16);
-    }
+    html.light-theme .project-card { border-color: rgba(99, 102, 241, 0.22); box-shadow: 0 22px 55px rgba(99, 102, 241, 0.14); }
     .project-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 3;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6, #6366f1);
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 5;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6, #22d3ee, #6366f1);
         background-size: 200% 100%;
-        animation: atSweep 5s linear infinite;
+        animation: atSweep 5.5s linear infinite;
     }
-    .project-card:hover { border-color: rgba(129, 140, 248, 0.5); box-shadow: 0 30px 75px rgba(99, 102, 241, 0.26); }
+    .project-card:hover {
+        border-color: rgba(129, 140, 248, 0.55);
+        box-shadow: 0 30px 78px rgba(99, 102, 241, 0.3);
+        transition-delay: 0s;
+    }
+    /* pointer tilt only needs a short transform transition (see JS) */
+    .project-card.pj-tilting { transition-delay: 0s; transition-duration: 0.3s; transition-timing-function: ease-out; }
 
-    .pj-bar {
-        display: flex; align-items: center; gap: 0.55rem;
-        padding: 0.6rem 0.9rem;
+    /* title bar */
+    .pjc-bar {
+        position: relative; z-index: 3;
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 0.85rem;
         background: rgba(255, 255, 255, 0.035);
         border-bottom: 1px solid rgba(148, 163, 184, 0.14);
     }
-    html.light-theme .pj-bar { background: rgba(15, 23, 42, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
-    .pj-file {
-        display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.3rem;
-        font-size: 0.72rem; color: #cbd5e1;
-        min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    html.light-theme .pjc-bar { background: rgba(15, 23, 42, 0.04); border-bottom-color: rgba(15, 23, 42, 0.08); }
+    .pjc-bar .ab-dot { width: 8px; height: 8px; }
+    .pjc-file {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        flex: 1 1 auto; min-width: 0; margin-left: 0.25rem;
+        font-size: 0.7rem; color: #cbd5e1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .pj-file i { color: #818cf8; }
-    html.light-theme .pj-file { color: #334155; }
-    .pj-status {
-        margin-left: auto; white-space: nowrap;
-        font-size: 0.56rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+    .pjc-file i { flex-shrink: 0; color: #818cf8; }
+    .pjc-file > span { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    html.light-theme .pjc-file { color: #334155; }
+    .pjc-branch {
+        flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-size: 0.6rem; font-weight: 600; color: #93c5fd;
+        background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.26);
+        padding: 0.14rem 0.45rem; border-radius: 6px;
+    }
+    html.light-theme .pjc-branch { color: #2563eb; }
+    .pjc-live {
+        flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
         color: #34d399; background: rgba(52, 211, 153, 0.12);
-        border: 1px solid rgba(52, 211, 153, 0.32);
+        border: 1px solid rgba(52, 211, 153, 0.3);
         padding: 0.16rem 0.5rem; border-radius: 50px;
     }
-    html.light-theme .pj-status { color: #047857; }
-
-    .pj-run {
-        display: flex; align-items: center; gap: 0.5rem;
-        min-height: 2.1rem; padding: 0.5rem 0.9rem 0.3rem;
-        font-size: 0.7rem; color: #cbd5e1;
+    html.light-theme .pjc-live { color: #047857; }
+    .pjc-live i {
+        width: 5px; height: 5px; border-radius: 50%; background: #34d399;
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.9);
+        animation: pjcPulse 1.8s ease-in-out infinite;
     }
-    html.light-theme .pj-run { color: #1e293b; }
-    .pj-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
-    .pj-cmd { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .pj-caret {
-        flex-shrink: 0; width: 7px; height: 0.95em;
-        background: #34d399; border-radius: 1px;
-        box-shadow: 0 0 8px rgba(52, 211, 153, 0.7);
-        animation: glBlink 1s step-end infinite;
+    @keyframes pjcPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.3; transform: scale(0.7); }
     }
-
-    .pj-steps {
-        display: flex; flex-wrap: wrap; gap: 0.3rem 0.65rem;
-        padding: 0 0.9rem 0.6rem;
-        font-size: 0.6rem; color: #64748b;
+    /* compile wipe along the bottom edge of the title bar */
+    .pjc-load {
+        position: absolute; left: 0; bottom: -1px; height: 2px; width: 0;
+        border-radius: 0 2px 2px 0;
+        background: linear-gradient(90deg, #6366f1, #22d3ee, #34d399);
+        box-shadow: 0 0 12px rgba(99, 102, 241, 0.7);
     }
-    .pj-step {
-        display: inline-flex; align-items: center; gap: 0.28rem;
-        opacity: 0; transform: translateY(4px);
-        transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-    .pj-step i { color: #34d399; font-size: 0.7rem; }
-    .project-card.pj-on .pj-step {
-        opacity: 1; transform: translateY(0);
-        transition-delay: calc(var(--s, 0) * 90ms);
+    .project-card.pj-on .pjc-load {
+        width: 100%; opacity: 0;
+        transition: width 1.1s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.5s ease 1.05s;
     }
 
-    .pj-artifact {
-        position: relative; margin: 0 0.9rem;
-        height: 168px; border-radius: 10px; overflow: hidden;
-        border: 1px solid rgba(148, 163, 184, 0.18);
+    /* preview pane */
+    .pjc-preview {
+        position: relative; z-index: 2;
+        height: 172px; overflow: hidden;
         display: flex; align-items: center; justify-content: center;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.14);
     }
-    .pj-artifact::after {
-        content: ''; position: absolute; inset: 0; pointer-events: none;
-        background: linear-gradient(180deg, transparent 45%, rgba(8, 13, 26, 0.75) 100%);
+    .pjc-preview img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    html.light-theme .pj-artifact::after { background: linear-gradient(180deg, transparent 55%, rgba(241, 245, 249, 0.7) 100%); }
-    .pj-artifact img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-    .project-card:hover .pj-artifact img { transform: scale(1.06); }
-    .project-card .project-icon {
-        position: relative; z-index: 1;
-        font-size: 3rem; color: #c7d2fe; opacity: 0.6;
+    .project-card:hover .pjc-preview img { transform: scale(1.07); }
+    .pjc-preview::before {
+        content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+        background: linear-gradient(180deg, rgba(8, 13, 26, 0.06) 40%, rgba(8, 13, 26, 0.72) 100%);
+    }
+    html.light-theme .pjc-preview::before { background: linear-gradient(180deg, rgba(248, 250, 252, 0.04) 42%, rgba(241, 245, 249, 0.72) 100%); }
+    .pjc-preview::after {
+        content: ''; position: absolute; top: -60%; bottom: -60%; left: -60%; width: 45%; z-index: 3;
+        pointer-events: none; opacity: 0; transform: skewX(-14deg);
+        background: linear-gradient(100deg, transparent, rgba(199, 210, 254, 0.3) 45%, rgba(34, 211, 238, 0.22) 55%, transparent);
+    }
+    .project-card.pj-on .pjc-preview::after { animation: pjcSheen 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s 1 both; }
+    @keyframes pjcSheen {
+        0% { left: -60%; opacity: 0; }
+        15% { opacity: 1; }
+        100% { left: 130%; opacity: 0; }
+    }
+    .pjc-glyph {
+        position: relative; z-index: 3;
+        font-size: 3.1rem; color: #c7d2fe; opacity: 0.55;
         transition: transform 0.5s ease, opacity 0.5s ease;
     }
-    .project-card:hover .project-icon { transform: scale(1.15) rotate(-4deg); opacity: 1; }
-    .pj-cat {
-        position: absolute; right: 0.55rem; bottom: 0.55rem; z-index: 2;
-        font-size: 0.56rem; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase;
-        color: #e0e7ff; background: rgba(15, 23, 42, 0.62);
-        border: 1px solid rgba(199, 210, 254, 0.3);
-        padding: 0.18rem 0.5rem; border-radius: 50px;
+    .project-card:hover .pjc-glyph { transform: scale(1.14) rotate(-5deg); opacity: 1; }
+    .pjc-cat {
+        position: absolute; left: 0.6rem; bottom: 0.6rem; z-index: 4;
+        font-size: 0.55rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+        color: #e0e7ff; background: rgba(9, 15, 30, 0.66);
+        border: 1px solid rgba(199, 210, 254, 0.28);
+        padding: 0.16rem 0.5rem; border-radius: 6px;
         -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
-    html.light-theme .pj-cat { color: #312e81; background: rgba(255, 255, 255, 0.8); border-color: rgba(99, 102, 241, 0.3); }
+    html.light-theme .pjc-cat { color: #312e81; background: rgba(255, 255, 255, 0.82); border-color: rgba(99, 102, 241, 0.28); }
+    .pjc-jump {
+        position: absolute; right: 0.6rem; bottom: 0.6rem; z-index: 4;
+        width: 26px; height: 26px; border-radius: 7px;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 0.72rem; color: #fff;
+        background: rgba(99, 102, 241, 0.92);
+        box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+        opacity: 0; transform: translateY(6px) scale(0.85);
+        transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card:hover .pjc-jump { opacity: 1; transform: translateY(0) scale(1); }
 
-    .pj-body { display: flex; flex-direction: column; gap: 0.55rem; flex: 1; padding: 0.9rem 0.9rem 1rem; }
-    .project-card .card-body h3 { margin: 0; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.2px; color: #f8fafc; }
-    html.light-theme .project-card .card-body h3 { color: #0f172a; }
-    .pj-techs { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    /* body: project name + real stack data rendered as code */
+    .pjc-body {
+        position: relative; z-index: 2;
+        flex: 1 1 auto;
+        display: flex; flex-direction: column; gap: 0.6rem;
+        padding: 0.95rem 0.95rem 1.05rem;
+    }
+    .pjc-title {
+        position: relative; margin: 0; padding-bottom: 0.5rem;
+        font-family: var(--font); font-size: 1.06rem; font-weight: 700;
+        letter-spacing: -0.2px; color: #f8fafc;
+    }
+    html.light-theme .pjc-title { color: #0f172a; }
+    .pjc-title::after {
+        content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+        border-radius: 2px; background: linear-gradient(90deg, #6366f1, #22d3ee);
+        transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+    }
+    .project-card.pj-on .pjc-title::after { width: 42px; }
+    .project-card:hover .pjc-title::after { width: 100%; }
+
+    .pjc-stack { display: flex; align-items: flex-start; gap: 0.45rem; min-width: 0; }
+    .pjc-key { flex-shrink: 0; padding-top: 0.16rem; font-size: 0.66rem; color: #64748b; }
+    .pjc-key::after { content: ':'; }
+    html.light-theme .pjc-key { color: #94a3b8; }
+    .pjc-techs { display: flex; flex-wrap: wrap; gap: 0.32rem; min-width: 0; }
     .pj-tech {
-        font-size: 0.58rem; padding: 0.16rem 0.5rem; border-radius: 50px;
+        font-size: 0.58rem; padding: 0.16rem 0.5rem; border-radius: 6px;
         color: #a5b4fc; background: rgba(99, 102, 241, 0.12);
         border: 1px solid rgba(99, 102, 241, 0.26);
+        white-space: nowrap;
+        opacity: 0; transform: translateY(6px);
+        transition: opacity 0.35s ease, transform 0.35s ease, color 0.25s ease, border-color 0.25s ease;
     }
     html.light-theme .pj-tech { color: #4338ca; background: rgba(99, 102, 241, 0.1); }
+    .project-card.pj-on .pj-tech { opacity: 1; transform: translateY(0); transition-delay: calc(var(--i, 0) * 70ms + 0.25s); }
+    .project-card:hover .pj-tech { transition-delay: 0s; color: #e0e7ff; border-color: rgba(129, 140, 248, 0.55); }
+    html.light-theme .project-card:hover .pj-tech { color: #312e81; }
+    .pj-tech-more { color: #94a3b8; background: transparent; border-style: dashed; }
 
-    .pj-foot {
+    /* status strip */
+    .pjc-foot {
+        position: relative; z-index: 2;
         display: flex; align-items: center; gap: 0.5rem;
-        padding: 0.5rem 0.9rem;
+        padding: 0.55rem 0.95rem;
         border-top: 1px solid rgba(148, 163, 184, 0.14);
+        background: rgba(255, 255, 255, 0.02);
         font-size: 0.64rem; color: #64748b;
     }
-    html.light-theme .pj-foot { border-top-color: rgba(15, 23, 42, 0.08); }
-    .pj-exit { display: inline-flex; align-items: center; gap: 0.32rem; color: #34d399; }
-    .project-card .view-details-btn {
+    html.light-theme .pjc-foot { border-top-color: rgba(15, 23, 42, 0.08); background: rgba(15, 23, 42, 0.015); }
+    .pjc-exit { display: inline-flex; align-items: center; gap: 0.32rem; color: #34d399; }
+    .pjc-open {
         margin-left: auto;
         display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.68rem; font-weight: 700; color: #c7d2fe;
-        transition: gap 0.25s ease, color 0.25s ease;
+        font-size: 0.66rem; font-weight: 700; color: #c7d2fe;
+        transition: color 0.25s ease;
     }
-    html.light-theme .project-card .view-details-btn { color: #4338ca; }
-    .project-card:hover .view-details-btn { gap: 0.7rem; color: #fff; }
-    html.light-theme .project-card:hover .view-details-btn { color: #312e81; }
+    .pjc-open i { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    html.light-theme .pjc-open { color: #4338ca; }
+    .project-card:hover .pjc-open { color: #fff; }
+    html.light-theme .project-card:hover .pjc-open { color: #312e81; }
+    .project-card:hover .pjc-open i { transform: translateX(5px); }
+
+    /* window assembles itself once the card scrolls into view */
+    .pjc-bar, .pjc-preview, .pjc-foot {
+        opacity: 0; transform: translateY(10px);
+        transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card.pj-on .pjc-bar { opacity: 1; transform: none; transition-delay: 0.05s; }
+    .project-card.pj-on .pjc-preview { opacity: 1; transform: none; transition-delay: 0.12s; }
+    .project-card.pj-on .pjc-foot { opacity: 1; transform: none; transition-delay: 0.3s; }
+
     @media (prefers-reduced-motion: reduce) {
-        .project-card::before, .pj-caret { animation: none; }
-        .pj-step { opacity: 1; transform: none; }
+        .project-card::before, .pjc-live i { animation: none; }
+        .pjc-bar, .pjc-preview, .pjc-foot, .pj-tech { opacity: 1; transform: none; }
+        .pjc-load, .pjc-preview::after { display: none; }
+        .pjc-title::after { width: 42px; }
     }
 
 /* ===== GIGS � TERMINAL INSTALL CARDS ===== */
@@ -3417,15 +3565,24 @@
         
 
         
-        .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .project-card .card-body { padding: 0.7rem 0.7rem 0.85rem; }
-        .project-card .card-body h3 { font-size: 0.95rem; }
-        .pj-artifact { height: 130px; margin: 0 0.7rem; }
-        .project-card .card-body .view-details-btn { font-size: 0.7rem; }
-        .pj-bar, .pj-run, .pj-steps, .pj-foot { padding-left: 0.7rem; padding-right: 0.7rem; }
-        .pj-bar { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-        .pj-run, .pj-steps, .pj-techs, .pj-foot { display: none !important; }
-        .pj-body { gap: 0.4rem; }
+        /* project IDE windows: single column, only what a phone needs */
+        .projects-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+        .pjc-bar { gap: 0.4rem; padding: 0.45rem 0.65rem; }
+        .pjc-bar .ab-dot { width: 7px; height: 7px; }
+        .pjc-file { font-size: 0.63rem; }
+        .pjc-branch { display: none; }
+        .pjc-preview { height: 148px; }
+        .pjc-body { gap: 0.45rem; padding: 0.7rem 0.75rem 0.8rem; }
+        .pjc-title { font-size: 0.95rem; padding-bottom: 0.4rem; }
+        .pjc-foot { display: none; }
+        .pjc-techs > .pj-tech:nth-child(n + 4) { display: none; }
+
+        /* filter row collapses into one scrollable strip of flags */
+        .pj-toolbar { flex-wrap: nowrap; gap: 0.5rem; padding: 0.4rem 0.5rem; margin-bottom: 1.4rem; }
+        .pj-tb-label, .pj-tb-count { display: none; }
+        .pj-toolbar .filter-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.1rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .pj-toolbar .filter-tabs::-webkit-scrollbar { display: none; }
+        .pj-toolbar .filter-btn { flex-shrink: 0; font-size: 0.63rem; padding: 0.26rem 0.6rem; }
         .pkg-grid { gap: 1.5rem; }
         .pkg-card { flex: 0 0 100%; max-width: 100%; min-width: 0; }
         .term-exit { display: none !important; }
@@ -3433,8 +3590,6 @@
         .term-body { font-size: 0.74rem; }
         .term-price { font-size: 1.45rem; }
         .pkg-action { margin-left: 1rem; margin-right: 1rem; font-size: 0.85rem; }
-        .filter-tabs { gap: 0.4rem; }
-        .filter-btn { font-size: 0.75rem; padding: 0.4rem 1rem; }
         
         .testimonial-text { font-size: 0.9rem; }
         .tst-head { flex-wrap: wrap; }
@@ -3501,11 +3656,13 @@
         .timeline-location { font-size: 0.68rem; }
 
 
-        .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
-        .pj-artifact { height: 100px; margin: 0 0.55rem; }
-        .project-card .card-body { padding: 0.6rem 0.6rem 0.7rem; }
-        .project-card .card-body h3 { font-size: 0.85rem; }
-        .pj-bar, .pj-run, .pj-steps, .pj-foot { padding-left: 0.55rem; padding-right: 0.55rem; }
+        .projects-grid { gap: 0.9rem; }
+        .pjc-preview { height: 136px; }
+        .pjc-title { font-size: 0.9rem; }
+        .pj-tech { font-size: 0.55rem; padding: 0.14rem 0.44rem; }
+        .pjc-techs > .pj-tech:nth-child(n + 3) { display: none; }
+        .pjc-cat { font-size: 0.48rem; padding: 0.12rem 0.38rem; }
+        .pjc-jump { width: 22px; height: 22px; font-size: 0.62rem; }
         .pkg-grid { gap: 1rem; }
         .pkg-card { flex: 0 0 100%; max-width: 100%; min-width: 0; display: flex; }
         .term-exit { display: none !important; }
@@ -3518,10 +3675,8 @@
         .term-items { gap: 0.2rem; }
         .term-items li { font-size: 0.6rem; line-height: 1.2; }
         .term-items li i { font-size: 0.5rem; }
-        .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
-        .filter-tabs::-webkit-scrollbar { height: 2px; }
-        .filter-tabs::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.3); border-radius: 2px; }
-        .filter-btn { flex-shrink: 0; }
+        .pj-toolbar { padding: 0.35rem 0.45rem; }
+        .pj-toolbar .filter-btn { font-size: 0.6rem; padding: 0.24rem 0.55rem; }
         
         .testimonial-text { font-size: 0.84rem; }
         .tst-hash { display: none; }
@@ -4651,21 +4806,25 @@
                 'hRight' => $projects->count() . ' ' . __('messages.projects_title'),
                 'hTests' => [__('messages.projects_subtitle')],
             ])
-            <!-- Filter Buttons -->
-            <div class="filter-tabs reveal">
-                <button class="filter-btn active" data-filter="all">{{ __('messages.all') }}</button>
-                @php
-                    $allTechs = [];
-                    foreach($projects as $p) {
-                        foreach($p->getTechStackArray() as $t) {
-                            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $t));
-                            $allTechs[$slug] = $t;
+            <!-- Pipeline toolbar: tech filters as CLI flags -->
+            <div class="pj-toolbar reveal">
+                <span class="pj-tb-label"><i class="bi bi-funnel-fill"></i> filter</span>
+                <div class="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">{{ __('messages.all') }}</button>
+                    @php
+                        $allTechs = [];
+                        foreach($projects as $p) {
+                            foreach($p->getTechStackArray() as $t) {
+                                $slug = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $t));
+                                $allTechs[$slug] = $t;
+                            }
                         }
-                    }
-                @endphp
-                @foreach($allTechs as $slug => $label)
-                    <button class="filter-btn" data-filter="{{ $slug }}">{{ $label }}</button>
-                @endforeach
+                    @endphp
+                    @foreach($allTechs as $slug => $label)
+                        <button class="filter-btn" data-filter="{{ $slug }}">{{ $label }}</button>
+                    @endforeach
+                </div>
+                <span class="pj-tb-count"><i class="bi bi-files"></i> <b data-pj-count>{{ $projects->count() }}</b></span>
             </div>
 
             <div class="projects-grid">
@@ -4694,52 +4853,56 @@
                             'bi bi-cpu-fill',
                         ];
                         $slug = \Illuminate\Support\Str::slug($project->title) ?: ('project-' . $project->id);
-                        $buildCmd = './build ' . $slug . ' --prod';
+                        $repoPath = '~/' . $slug;
                         $delay = ($index % 4) + 1;
                     @endphp
-                    <a href="{{ route('project.detail', $project->id) }}" class="project-card reveal reveal-delay-{{ $delay }}" data-tech="{{ implode(' ', $techSlugs) }}">
-                        <div class="pj-bar">
-                            <span class="edu-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                            <span class="pj-file"><i class="bi bi-git"></i> {{ $slug }}.build</span>
-                            <span class="pj-status">passed</span>
+                    <a href="{{ route('project.detail', $project->id) }}" class="project-card reveal reveal-delay-{{ $delay }}"
+                       data-tech="{{ implode(' ', $techSlugs) }}" aria-label="{{ $project->title }}">
+                        {{-- editor title bar --}}
+                        <div class="pjc-bar">
+                            <span class="ab-dot red" aria-hidden="true"></span>
+                            <span class="ab-dot yellow" aria-hidden="true"></span>
+                            <span class="ab-dot green" aria-hidden="true"></span>
+                            <span class="pjc-file"><i class="bi bi-folder2-open"></i><span data-pjc-path="{{ $repoPath }}">{{ $repoPath }}</span></span>
+                            <span class="pjc-branch"><i class="bi bi-git"></i> main</span>
+                            <span class="pjc-live"><i aria-hidden="true"></i> {{ __('messages.project_shipped') }}</span>
+                            <span class="pjc-load" aria-hidden="true"></span>
                         </div>
 
-                        <div class="pj-run">
-                            <span class="pj-prompt" aria-hidden="true">&#10095;</span>
-                            <span class="pj-cmd" data-pj-cmd="{{ $buildCmd }}">{{ $buildCmd }}</span>
-                            <span class="pj-caret" aria-hidden="true"></span>
-                        </div>
-
-                        <div class="pj-steps" aria-hidden="true">
-                            @foreach(['install', 'build', 'test', 'deploy'] as $s => $step)
-                                <span class="pj-step" style="--s: {{ $s }}"><i class="bi bi-check2"></i> {{ $step }}</span>
-                            @endforeach
-                        </div>
-
-                        <div class="pj-artifact" style="background: {{ $gradients[$index % count($gradients)] }};">
+                        {{-- preview pane --}}
+                        <div class="pjc-preview" style="background: {{ $gradients[$index % count($gradients)] }};">
                             @if($project->image)
                                 <img src="{{ config('app.storage_url') }}{{ $project->image }}"
-                                     alt="{{ $project->title }} screenshot">
+                                     alt="{{ $project->title }} screenshot" loading="lazy">
                             @else
-                                <span class="project-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
+                                <span class="pjc-glyph"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
                             @endif
-                            @if($project->category)<span class="pj-cat">{{ $project->category }}</span>@endif
+                            @if($project->category)<span class="pjc-cat">{{ $project->category }}</span>@endif
+                            <span class="pjc-jump" aria-hidden="true"><i class="bi bi-arrow-up-right"></i></span>
                         </div>
 
-                        <div class="card-body pj-body">
-                            <h3>{{ $project->title }}</h3>
+                        {{-- name + stack, drawn like source --}}
+                        <div class="pjc-body">
+                            <h3 class="pjc-title">{{ $project->title }}</h3>
                             @if($techLabels)
-                                <div class="pj-techs">
-                                    @foreach(array_slice($techLabels, 0, 5) as $t)
-                                        <span class="pj-tech">{{ $t }}</span>
-                                    @endforeach
+                                <div class="pjc-stack">
+                                    <span class="pjc-key">stack</span>
+                                    <span class="pjc-techs">
+                                        @foreach(array_slice($techLabels, 0, 4) as $t)
+                                            <span class="pj-tech" style="--i: {{ $loop->index }}">{{ $t }}</span>
+                                        @endforeach
+                                        @if(count($techLabels) > 4)
+                                            <span class="pj-tech pj-tech-more">+{{ count($techLabels) - 4 }}</span>
+                                        @endif
+                                    </span>
                                 </div>
                             @endif
                         </div>
 
-                        <div class="pj-foot">
-                            <span class="pj-exit"><i class="bi bi-check-circle"></i> exit code 0</span>
-                            <span class="view-details-btn">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
+                        {{-- status strip --}}
+                        <div class="pjc-foot">
+                            <span class="pjc-exit"><i class="bi bi-check-circle-fill"></i> exit 0</span>
+                            <span class="pjc-open">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
                         </div>
                     </a>
                 @empty
@@ -5499,24 +5662,37 @@
     window.addEventListener('resize', onScroll);
 })();
 
-// ===== PROJECT CARD TILT =====
+// ===== PROJECT CARD TILT (fine pointers only) =====
 (function() {
+    var mq = window.matchMedia;
+    if (!mq || !mq('(hover: hover) and (pointer: fine)').matches) return;
+    if (mq('(prefers-reduced-motion: reduce)').matches) return;
+
     document.querySelectorAll('.project-card').forEach(function(card) {
+        var resetTimer;
+
+        card.addEventListener('mouseenter', function() {
+            clearTimeout(resetTimer);
+            card.classList.add('pj-tilting');
+        });
+
         card.addEventListener('mousemove', function(e) {
             var rect = card.getBoundingClientRect();
             var x = e.clientX - rect.left;
             var y = e.clientY - rect.top;
-            var rotateX = (y - rect.height/2) / 20;
-            var rotateY = (rect.width/2 - x) / 20;
-            card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)';
+            var rotateX = (y - rect.height / 2) / 22;
+            var rotateY = (rect.width / 2 - x) / 22;
+            card.style.transform = 'perspective(1100px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-8px)';
         });
+
         card.addEventListener('mouseleave', function() {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            card.style.transform = '';
+            resetTimer = setTimeout(function() { card.classList.remove('pj-tilting'); }, 340);
         });
     });
 })();
 
-// ===== PROJECT PIPELINE CARDS (typed build command + ticking steps) =====
+// ===== PROJECT IDE WINDOWS (typed repo path + window assembly) =====
 (function() {
     var cards = document.querySelectorAll('.project-card');
     if (!cards.length) return;
@@ -5524,11 +5700,11 @@
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function run(card) {
-        if (card.dataset.pjDone) return;
-        card.dataset.pjDone = '1';
+        if (card.dataset.pjcDone) return;
+        card.dataset.pjcDone = '1';
 
-        var el = card.querySelector('[data-pj-cmd]');
-        var full = el ? (el.getAttribute('data-pj-cmd') || el.textContent || '') : '';
+        var el = card.querySelector('[data-pjc-path]');
+        var full = el ? (el.getAttribute('data-pjc-path') || el.textContent || '') : '';
 
         if (!el || reduce) {
             if (el) el.textContent = full;
@@ -5540,7 +5716,7 @@
         var i = 0;
         (function type() {
             el.textContent = full.slice(0, ++i);
-            if (i < full.length) setTimeout(type, 22 + Math.random() * 22);
+            if (i < full.length) setTimeout(type, 26 + Math.random() * 24);
             else card.classList.add('pj-on');
         })();
     }
@@ -5552,11 +5728,19 @@
                 run(entry.target);
                 io.unobserve(entry.target);
             });
-        }, { threshold: 0.25 });
+        }, { threshold: 0.2 });
         cards.forEach(function(card) { io.observe(card); });
     } else {
         cards.forEach(run);
     }
+
+    // Safety net: if the observer misses a card that is already on screen, arm it anyway.
+    setTimeout(function() {
+        cards.forEach(function(card) {
+            if (card.dataset.pjcDone === '1') return;
+            if (card.getBoundingClientRect().top < window.innerHeight) run(card);
+        });
+    }, 3000);
 
     // Cards hidden by a filter never intersect, so replay them when they come back.
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
@@ -5700,29 +5884,31 @@
     var projectCards = document.querySelectorAll('.project-card');
     if (!filterBtns.length || !projectCards.length) return;
 
+    var countEl = document.querySelector('[data-pj-count]');
+
     filterBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
             filterBtns.forEach(function(b) { b.classList.remove('active'); });
             this.classList.add('active');
             var filter = this.getAttribute('data-filter');
+            var shown = 0;
 
             projectCards.forEach(function(card) {
-                if (filter === 'all') {
-                    card.style.display = '';
-                    card.style.opacity = '1';
-                } else {
-                    var techs = (card.getAttribute('data-tech') || '').toLowerCase().split(' ');
-                    if (techs.indexOf(filter) > -1) {
-                        card.style.display = '';
-                        card.style.opacity = '1';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
-                // Re-trigger reveal animation
+                var visible = filter === 'all' ||
+                    (card.getAttribute('data-tech') || '').toLowerCase().split(' ').indexOf(filter) > -1;
+
+                card.style.display = visible ? '' : 'none';
+                card.style.opacity = '1';
+                if (!visible) return;
+
+                shown++;
+
+                // Re-trigger reveal animation on the cards that stay
                 card.classList.remove('active');
                 setTimeout(function() { card.classList.add('active'); }, 50);
             });
+
+            if (countEl) countEl.textContent = shown;
         });
     });
 })();

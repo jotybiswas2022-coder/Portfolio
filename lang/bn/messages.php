@@ -71,6 +71,7 @@ return [
     'no_projects_desc'  => 'দেখানোর মতো কিছু এখনো নেই। পরে আবার চেক করবেন!',
     'live_demo'         => 'লাইভ ডেমো',
     'source'            => 'সোর্স',
+    'project_shipped'   => 'শিপড',
 
     // Testimonials
     'testimonials_title'    => 'ক্লায়েন্টরা কী বলেন',
