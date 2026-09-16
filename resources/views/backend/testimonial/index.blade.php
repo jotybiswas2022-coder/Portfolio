@@ -283,6 +283,34 @@
     <i class="bi bi-plus-lg"></i>
 </a>
 
+{{-- Shared Review modal (kept at page level so Bootstrap positions it against the viewport) --}}
+<div class="modal fade" id="viewReviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4" style="overflow:hidden;">
+            <div class="modal-header tst-modal-header border-0 text-white">
+                <h5 class="modal-title fw-semibold" style="font-size:0.95rem;" id="tstModalTitle">
+                    <i class="bi bi-chat-quote me-2"></i>Review
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4 py-3">
+                <div class="mb-3 d-flex align-items-center gap-3">
+                    <div class="tst-avatar" style="width:46px; height:46px; min-width:46px;" id="tstModalAvatar"></div>
+                    <div class="min-w-0">
+                        <div class="fw-bold" style="font-size:0.88rem;" id="tstModalName"></div>
+                        <div class="small" style="color:var(--admin-text-muted);" id="tstModalRole"></div>
+                        <div style="color:#f59e0b; font-size:0.82rem;" id="tstModalStars"></div>
+                    </div>
+                </div>
+                <p class="mb-0" style="font-style:italic; line-height:1.75; color:#334155;" id="tstModalMsg"></p>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-3 pt-0">
+                <button type="button" class="btn btn-light border rounded-3 px-4" style="font-size:0.8rem;" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('scripts')
 <script>
 @if(session('success'))
@@ -302,14 +330,29 @@ Swal.fire({
 });
 @endif
 
-// ===== VIEW REVIEW MODAL (delegated so it survives AJAX re-renders) =====
+// ===== VIEW REVIEW MODAL (delegated; single shared modal populated from data-*) =====
 document.addEventListener('click', function(e) {
     var btn = e.target.closest('.view-msg-btn');
-    if (!btn) return;
-    var modalEl = document.getElementById(btn.dataset.modalTarget);
-    if (modalEl && window.bootstrap) {
-        new bootstrap.Modal(modalEl).show();
+    if (!btn || !window.bootstrap) return;
+
+    document.getElementById('tstModalName').textContent = btn.dataset.name || '';
+    document.getElementById('tstModalRole').textContent = btn.dataset.role || '';
+    document.getElementById('tstModalMsg').textContent = '\u201C' + (btn.dataset.message || '') + '\u201D';
+    document.getElementById('tstModalTitle').innerHTML = '<i class="bi bi-chat-quote me-2"></i>' + (btn.dataset.name || '') + "'s Review";
+
+    var avatar = btn.dataset.avatar || '';
+    document.getElementById('tstModalAvatar').innerHTML = avatar
+        ? '<img src="' + avatar + '" alt="' + (btn.dataset.name || '') + '">'
+        : (btn.dataset.initial || '?');
+
+    var rating = parseInt(btn.dataset.rating || 0, 10);
+    var stars = '';
+    for (var i = 1; i <= 5; i++) {
+        stars += '<i class="bi ' + (i <= rating ? 'bi-star-fill' : 'bi-star') + '"></i>';
     }
+    document.getElementById('tstModalStars').innerHTML = stars;
+
+    new bootstrap.Modal(document.getElementById('viewReviewModal')).show();
 });
 
 // ===== STATUS TOGGLE (delegated) =====
