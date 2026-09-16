@@ -2998,12 +2998,15 @@
     .contact-section .container { position: relative; z-index: 1; }
     .contact-grid {
         display: grid; grid-template-columns: 1fr 1.3fr;
-        gap: 3rem; align-items: start;
+        gap: 3rem; align-items: stretch;
     }
 
     /* ===== API CONSOLE — RESPONSE PANEL (contact info) ===== */
+    /* both consoles sit in the same row, so they stretch to one shared height;
+       the bodies below flex so nothing is left dangling in the middle */
     .ap-panel {
-        position: relative; font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
+        position: relative; display: flex; flex-direction: column;
+        font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
         background: linear-gradient(180deg, rgba(13, 23, 43, 0.72) 0%, rgba(8, 15, 32, 0.58) 100%);
         -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
         border: 1px solid rgba(147, 197, 253, 0.2); border-radius: 15px;
@@ -3028,6 +3031,7 @@
 
     /* ---- console request line ---- */
     .ap-bar {
+        flex-shrink: 0;
         display: flex; align-items: center; gap: 0.5rem;
         padding: 0.6rem 0.9rem;
         background: rgba(255,255,255,0.035);
@@ -3067,6 +3071,7 @@
     html.light-theme .ap-status-type { color: #4338ca; }
 
     .ap-cmd {
+        flex-shrink: 0;
         display: flex; align-items: center; gap: 0.5rem;
         min-height: 2.2rem;
         padding: 0.5rem 0.9rem; font-size: 0.72rem;
@@ -3082,7 +3087,8 @@
         animation: glBlink 1s step-end infinite;
     }
 
-    .ap-body { padding: 1.1rem 1.05rem 1.2rem; }
+    .ap-body { display: flex; flex-direction: column; flex: 1 1 auto; padding: 1.1rem 1.05rem 1.2rem; }
+    .ap-body > form { display: flex; flex-direction: column; flex: 1 1 auto; }
     .ap-comment { margin-bottom: 0.85rem; font-size: 0.78rem; color: #6ee7b7; }
     html.light-theme .ap-comment { color: #047857; }
     .ap-sub {
@@ -3124,8 +3130,13 @@
         .ap-panel::before, .ap-status-ok i, .ap-send.is-sending .ap-send-icon, .ap-send.is-sending .ap-send-bar { animation: none; }
     }
 
-    /* ---- connect row ---- */
-    .ap-socials { margin-top: 1.1rem; padding-top: 0.95rem; border-top: 1px dashed rgba(148,163,184,0.22); }
+    /* keep a floor under the payload/form so the pinned rows never touch the content above */
+    .ap-payload { margin-bottom: 1.05rem; }
+    .ap-body > form .ap-json { margin-bottom: 1rem; }
+    .ap-body > form .ap-send { margin-top: auto; }
+
+    /* ---- connect row (pinned to the bottom of the taller/shorter panel) ---- */
+    .ap-socials { margin-top: auto; padding-top: 0.95rem; border-top: 1px dashed rgba(148,163,184,0.22); }
     .ap-socials-label {
         display: flex; align-items: center; gap: 0.4rem;
         margin-bottom: 0.6rem; font-size: 0.68rem; color: #34d399;
@@ -3419,108 +3430,135 @@
         .ap-send-badge { display: none; }
     }
     /* Footer */
-/* ===== FOOTER — TERMINAL SHELL ===== */
+/* ===== FOOTER — REPO MANIFEST (coding design) ===== */
     .footer {
         background: #080b14; position: relative; z-index: 1;
         padding: 3rem 0 0; overflow: hidden;
     }
     .footer::after {
         content: ''; position: absolute; top: -50%; left: 50%; translate: -50% 0;
-        width: 600px; height: 600px;
-        background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+        width: 620px; height: 620px;
+        background: radial-gradient(circle, rgba(99,102,241,0.09) 0%, transparent 70%);
         pointer-events: none;
     }
     html.light-theme .footer { background: linear-gradient(180deg, #f1f5f9, #e2e8f0) !important; }
-    html.light-theme .footer::after { background: radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%); }
+    html.light-theme .footer::after { background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%); }
     .footer-inner { position: relative; z-index: 2; width: 100%; }
 
     .ft-shell {
         position: relative;
         font-family: "Cascadia Code", ui-monospace, Consolas, Menlo, monospace;
-        background: linear-gradient(180deg, rgba(13,23,43,0.6) 0%, rgba(8,15,32,0.45) 100%);
+        background: linear-gradient(180deg, rgba(13,23,43,0.68) 0%, rgba(8,15,32,0.5) 100%);
         -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
-        border: 1px solid rgba(147,197,253,0.22);
+        border: 1px solid rgba(147,197,253,0.2);
         border-left: none; border-right: none;
         border-radius: 0; overflow: hidden;
-        box-shadow: 0 30px 90px rgba(2,8,23,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 60px rgba(34,211,238,0.07);
-        transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 -12px 60px rgba(2,8,23,0.45), 0 0 0 1px rgba(255,255,255,0.04) inset;
     }
-    .ft-shell:hover { border-color: rgba(147,197,253,0.4); box-shadow: 0 30px 90px rgba(2,8,23,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 90px rgba(34,211,238,0.12); }
     html.light-theme .ft-shell {
-        background: linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(232,240,252,0.62) 100%);
-        border-color: rgba(59,130,246,0.28);
-        box-shadow: 0 30px 70px rgba(59,130,246,0.18), 0 0 0 1px rgba(255,255,255,0.7) inset;
+        background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(232,240,252,0.66) 100%);
+        border-color: rgba(59,130,246,0.26);
+        box-shadow: 0 -12px 50px rgba(59,130,246,0.1), 0 0 0 1px rgba(255,255,255,0.7) inset;
     }
-    html.light-theme .ft-shell:hover { box-shadow: 0 30px 70px rgba(59,130,246,0.18), 0 0 0 1px rgba(255,255,255,0.7) inset, 0 0 90px rgba(59,130,246,0.12); }
+    /* animated hairline along the top edge */
+    .ft-shell::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 4;
+        background: linear-gradient(90deg, transparent, #6366f1, #22d3ee, #8b5cf6, transparent);
+        background-size: 200% 100%; animation: atSweep 7s linear infinite;
+    }
 
-    /* shell bar */
+    /* ---- window bar ---- */
     .ft-bar {
-        display: flex; align-items: center; gap: 0.55rem;
-        padding: 0.6rem 0.9rem;
+        position: relative; z-index: 2;
+        display: flex; align-items: center; gap: 0.5rem;
+        padding-top: 0.6rem; padding-bottom: 0.6rem;
         background: rgba(255,255,255,0.035); border-bottom: 1px solid rgba(255,255,255,0.07);
     }
     html.light-theme .ft-bar { background: rgba(15,23,42,0.035); border-bottom-color: rgba(15,23,42,0.08); }
+    .ft-bar .ab-dot { width: 9px; height: 9px; }
     .ft-file {
-        margin-left: 0.35rem; font-size: 0.72rem; color: #cbd5e1;
+        flex: 1 1 auto; min-width: 0; margin-left: 0.3rem;
+        font-size: 0.72rem; color: #cbd5e1;
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
+    .ft-file i { color: #818cf8; }
     html.light-theme .ft-file { color: #334155; }
+    .ft-branch {
+        flex-shrink: 0; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.6rem; font-weight: 700; letter-spacing: 0.4px;
+        color: #93c5fd; background: rgba(59,130,246,0.12);
+        border: 1px solid rgba(59,130,246,0.26);
+        padding: 0.16rem 0.55rem; border-radius: 50px;
+    }
+    html.light-theme .ft-branch { color: #2563eb; }
 
-    /* shell cmd */
+    /* ---- typed log line ---- */
     .ft-cmd {
+        position: relative; z-index: 2;
         display: flex; align-items: center; gap: 0.5rem;
-        padding: 0.45rem 0.9rem; font-size: 0.75rem;
+        min-height: 2.3rem;
+        padding-top: 0.5rem; padding-bottom: 0.5rem; font-size: 0.75rem;
         background: rgba(2,8,23,0.45); border-bottom: 1px solid rgba(148,163,184,0.12);
     }
     html.light-theme .ft-cmd { background: rgba(15,23,42,0.05); border-bottom-color: rgba(15,23,42,0.08); }
-    .ft-prompt { color: #34d399; font-weight: 700; flex-shrink: 0; }
-    .ft-cmd-text { color: #e2e8f0; }
+    .ft-prompt { flex-shrink: 0; color: #34d399; font-weight: 700; }
+    .ft-cmd-text { min-width: 0; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     html.light-theme .ft-cmd-text { color: #1e293b; }
+    .ft-caret {
+        flex-shrink: 0; width: 7px; height: 1em; border-radius: 1px;
+        background: #34d399; box-shadow: 0 0 10px rgba(52,211,153,0.7);
+        animation: glBlink 1s step-end infinite;
+    }
 
-    /* shell body */
+    /* ---- manifest body: maintainer | directory | remotes ---- */
     .ft-body {
-        padding: 1.5rem 1.5rem 1.4rem;
-        display: flex; flex-direction: column; gap: 1rem;
-        align-items: center; text-align: center;
+        position: relative; z-index: 2;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1.15fr;
+        gap: 2.2rem 3rem; align-items: start;
+        padding-top: 2rem; padding-bottom: 1.9rem;
         font-size: 0.78rem; line-height: 1.7; color: #64748b;
     }
     html.light-theme .ft-body { color: #475569; }
-    .ft-brand { margin-bottom: 0.15rem; }
+    .ft-col { min-width: 0; }
+    .ft-k {
+        display: inline-block;
+        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.6px;
+        color: #818cf8; background: rgba(99,102,241,0.1);
+        border: 1px solid rgba(99,102,241,0.22);
+        padding: 0.16rem 0.5rem; border-radius: 5px;
+    }
+    html.light-theme .ft-k { color: #4f46e5; background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.2); }
+    .ft-brand .ft-k { margin-bottom: 0.75rem; }
     .ft-brand h4 {
-        margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px;
+        margin: 0 0 0.4rem; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px;
         font-family: 'Poppins', 'Hind Siliguri', sans-serif;
         background: linear-gradient(135deg, var(--accent-light), #a78bfa);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     html.light-theme .ft-brand h4 { background: none; -webkit-text-fill-color: #1e293b; color: #1e293b; }
-    .ft-brand p { margin: 0.3rem 0 0; color: #64748b; font-size: 0.78rem; }
+    .ft-brand p {
+        margin: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-size: 0.78rem; color: #64748b;
+    }
     html.light-theme .ft-brand p { color: #64748b; }
+    .ft-heart { color: #ef4444; display: inline-block; animation: heartBeat 1.4s ease infinite; }
+    @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
 
-    /* nav */
-    .ft-nav-label {
-        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.6px;
-        text-transform: uppercase; color: #64748b; margin-top: 0.2rem;
-    }
-    html.light-theme .ft-nav-label { color: #64748b; }
-    .ft-k {
-        color: #818cf8; background: rgba(59,130,246,0.1);
-        border: 1px solid rgba(59,130,246,0.2);
-        padding: 0.14rem 0.5rem; border-radius: 4px;
-    }
-    html.light-theme .ft-k { color: #4f46e5; background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.2); }
-    .ft-nav { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; justify-content: center; }
+    .ft-nav-label { margin-bottom: 0.8rem; }
+    .ft-nav { display: flex; flex-direction: column; gap: 0.4rem; }
     .ft-nav a {
-        display: inline-flex; align-items: center; gap: 0.3rem;
+        display: inline-flex; align-items: center; gap: 0.45rem;
         font-size: 0.78rem; color: #93c5fd; text-decoration: none;
         transition: color 0.3s ease, transform 0.3s ease;
     }
     html.light-theme .ft-nav a { color: #2563eb; }
-    .ft-nav a:hover { color: #c4b5fd; transform: translateX(4px); }
+    .ft-nav a:hover { color: #c4b5fd; transform: translateX(5px); }
     html.light-theme .ft-nav a:hover { color: #4338ca; }
     .ft-link-prompt { color: #34d399; font-weight: 700; }
 
-    /* socials */
-    .ft-socials { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+    .ft-socials { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .ft-social {
         display: inline-flex; align-items: center; gap: 0.35rem;
         font-size: 0.68rem; color: #94a3b8; text-decoration: none;
@@ -3534,30 +3572,34 @@
     .ft-social i { font-size: 0.9rem; }
     .ft-social svg { width: 0.9em; height: 0.9em; }
 
-    /* foot bar */
+    /* ---- status bar ---- */
     .ft-foot {
-        display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
-        padding: 0.55rem 1rem;
-        background: rgba(2,8,23,0.28); border-top: 1px solid rgba(255,255,255,0.06);
+        position: relative; z-index: 2;
+        display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
+        padding-top: 0.6rem; padding-bottom: 0.6rem;
+        background: rgba(2,8,23,0.32); border-top: 1px solid rgba(255,255,255,0.06);
         font-size: 0.64rem; color: #64748b;
     }
     html.light-theme .ft-foot { background: rgba(15,23,42,0.04); border-top-color: rgba(15,23,42,0.08); }
     .ft-exit { display: inline-flex; align-items: center; gap: 0.35rem; color: #34d399; }
-    .ft-exit i { font-size: 0.7rem; }
+    .ft-meta { display: inline-flex; align-items: center; gap: 0.4rem; color: #475569; }
+    html.light-theme .ft-meta { color: #64748b; }
     .ft-btt {
+        margin-left: auto;
         display: inline-flex; align-items: center; gap: 0.35rem;
         text-decoration: none; color: #818cf8; font-weight: 600;
-        transition: all 0.3s ease;
+        transition: color 0.3s ease, transform 0.3s ease;
     }
     html.light-theme .ft-btt { color: #4f46e5; }
     .ft-btt:hover { color: #c4b5fd; transform: translateY(-2px); }
     html.light-theme .ft-btt:hover { color: #4338ca; }
-    .ft-copy { margin-left: 0; color: #475569; }
-    html.light-theme .ft-copy { color: #64748b; }
-    .footer-bottom .heart { color: #ef4444; display: inline-block; animation: heartBeat 1.4s ease infinite; }
-    @keyframes heartBeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
     .back-top { display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; }
-    .back-top:hover { color: var(--accent-light); }
+
+    /* keep every row's content on the same centered column while the shell stays full bleed */
+    .ft-bar, .ft-cmd, .ft-body, .ft-foot {
+        padding-left: max(1.35rem, calc((100% - 1180px) / 2 + 1.35rem));
+        padding-right: max(1.35rem, calc((100% - 1180px) / 2 + 1.35rem));
+    }
 
     /* WhatsApp */
     .whatsapp-float {
@@ -3742,16 +3784,15 @@
         
         
         .footer { padding: 2.5rem 0 0; }
-        .footer-inner { max-width: 100%; }
-        .ft-shell { border-radius: 0; }
-        .ft-bar { padding: 0.5rem 0.8rem; }
+        .ft-bar { padding: 0.5rem 0.85rem; }
         .ft-file { font-size: 0.66rem; }
-        .ft-cmd { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
-        .ft-body { padding: 1.2rem 1.1rem 1.3rem; gap: 0.9rem; }
-        .ft-brand h4 { font-size: 1.05rem; }
-        .ft-nav { gap: 0.3rem 0.9rem; }
+        .ft-cmd { font-size: 0.7rem; padding: 0.45rem 0.85rem; }
+        .ft-body { grid-template-columns: 1fr 1fr; gap: 1.6rem 2rem; padding: 1.5rem 0.9rem 1.6rem; }
+        .ft-brand { grid-column: 1 / -1; }
+        .ft-brand h4 { font-size: 1.15rem; }
+        .ft-nav-label { margin-bottom: 0.6rem; }
         .ft-socials { gap: 0.35rem; }
-        .ft-foot { padding: 0.5rem 0.9rem; }
+        .ft-foot { padding: 0.55rem 0.9rem; }
         
         .scroll-indicator { display: none; }
 .toast { padding: 0.8rem 1.5rem; font-size: 0.85rem; max-width: 90%; }
@@ -3841,20 +3882,19 @@
         .map-wrapper { margin-top: 2rem; }
         
         .footer { padding: 2rem 0 0; }
-        .footer-inner { max-width: 100%; }
-        .ft-shell { border-radius: 0; }
-        .ft-bar { padding: 0.45rem 0.7rem; }
+        .ft-bar { padding: 0.45rem 0.75rem; }
         .ft-file { font-size: 0.62rem; }
-        .ft-cmd { font-size: 0.66rem; padding: 0.35rem 0.7rem; }
-        .ft-body { padding: 1rem 0.9rem 1.1rem; }
-        .ft-brand h4 { font-size: 0.98rem; }
-        .ft-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
-        .ft-nav a { font-size: 0.65rem; gap: 0.2rem; padding: 0.1rem 0.1rem; }
-        .ft-socials { justify-content: center; }
-        .ft-social { font-size: 0.64rem; padding: 0.25rem 0.6rem; }
-        .ft-foot { flex-direction: column; align-items: center; gap: 0.45rem; padding: 0.5rem 0.7rem; }
-        .ft-btt, .ft-copy { margin-left: 0; }
-        .back-top { font-size: 0.75rem; }
+        .ft-branch { display: none; }
+        .ft-cmd { font-size: 0.66rem; padding: 0.4rem 0.75rem; }
+        .ft-body { grid-template-columns: 1fr; gap: 1.3rem; padding: 1.25rem 0.9rem 1.35rem; }
+        .ft-brand h4 { font-size: 1.05rem; }
+        .ft-brand p { font-size: 0.72rem; }
+        .ft-nav { flex-direction: row; flex-wrap: wrap; gap: 0.35rem 0.85rem; }
+        .ft-nav a { font-size: 0.68rem; }
+        .ft-social { font-size: 0.62rem; padding: 0.25rem 0.55rem; }
+        .ft-foot { gap: 0.5rem; padding: 0.5rem 0.75rem; }
+        .ft-meta { display: none; }
+        .back-top { font-size: 0.72rem; }
         
         .toast { font-size: 0.8rem; padding: 0.7rem 1.2rem; max-width: 85%; bottom: 1.2rem; }
         .empty-state { padding: 2rem 1rem; }
@@ -3888,8 +3928,8 @@
         .hero p { font-size: 0.82rem; }
         .hero-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
         .btn-primary-custom, .btn-outline-custom { font-size: 0.78rem; padding: 0.55rem 1.2rem; }
-        .ft-nav { gap: 0.3rem; }
-        .ft-nav a { font-size: 0.6rem; }
+        .ft-nav { gap: 0.3rem 0.65rem; }
+        .ft-nav a { font-size: 0.63rem; }
     }
 
     </style>
@@ -5390,41 +5430,47 @@
 
     
 
-    <!-- Footer -->
+    <!-- Footer — repo manifest -->
     <footer class="footer">
         <div class="footer-inner">
             <div class="ft-shell">
                 <div class="ft-bar">
-                    <span class="ab-dot red"></span>
-                    <span class="ab-dot yellow"></span>
-                    <span class="ab-dot green"></span>
-                    <span class="ft-file"><i class="bi bi-folder-fill" style="color:#818cf8"></i> ~/portfolio</span>
+                    <span class="ab-dot red" aria-hidden="true"></span>
+                    <span class="ab-dot yellow" aria-hidden="true"></span>
+                    <span class="ab-dot green" aria-hidden="true"></span>
+                    <span class="ft-file"><i class="bi bi-file-earmark-text-fill"></i> ~/portfolio/README.md</span>
+                    <span class="ft-branch"><i class="bi bi-git"></i> main</span>
                 </div>
 
                 <div class="ft-cmd">
-                    <span class="ft-prompt">&#10095;</span>
-                    <span class="ft-cmd-text">cat README.md</span>
+                    <span class="ft-prompt" aria-hidden="true">&#10095;</span>
+                    <span class="ft-cmd-text" data-ft-cmd="cat README.md">cat README.md</span>
+                    <span class="ft-caret" aria-hidden="true"></span>
                 </div>
 
                 <div class="ft-body">
-                    <div class="ft-brand">
+                    <div class="ft-col ft-brand">
+                        <span class="ft-k">MAINTAINER</span>
                         <h4>{{ optional($account)->name ?? 'Portfolio' }}</h4>
-                        <p>{{ __('messages.copyright') }}</p>
+                        <p>{{ __('messages.made_with') }} <span class="ft-heart">&hearts;</span></p>
                     </div>
 
-                    <div class="ft-nav-label"><span class="ft-k">NAV</span></div>
-                    <div class="ft-nav">
-                        <a href="#about"><span class="ft-link-prompt">$</span> ./about</a>
-                        <a href="#services"><span class="ft-link-prompt">$</span> ./services</a>
-                        <a href="#skills"><span class="ft-link-prompt">$</span> ./skills</a>
-                        <a href="#projects"><span class="ft-link-prompt">$</span> ./projects</a>
-                        <a href="#faq"><span class="ft-link-prompt">$</span> ./faq</a>
-                        <a href="#contact"><span class="ft-link-prompt">$</span> ./contact</a>
-                    </div>
+                    <nav class="ft-col" aria-label="Footer">
+                        <span class="ft-k ft-nav-label">NAV</span>
+                        <div class="ft-nav">
+                            <a href="#about"><span class="ft-link-prompt">$</span> ./about</a>
+                            <a href="#services"><span class="ft-link-prompt">$</span> ./services</a>
+                            <a href="#skills"><span class="ft-link-prompt">$</span> ./skills</a>
+                            <a href="#projects"><span class="ft-link-prompt">$</span> ./projects</a>
+                            <a href="#faq"><span class="ft-link-prompt">$</span> ./faq</a>
+                            <a href="#contact"><span class="ft-link-prompt">$</span> ./contact</a>
+                        </div>
+                    </nav>
 
                     @if(isset($account) && ($account->github || $account->linkedin || $account->facebook || $account->instagram || $account->twitter || $account->youtube || $account->fiverr || $account->upwork || $account->freelancer))
-                    <div class="ft-nav-label"><span class="ft-k">REMOTES</span></div>
-                    <div class="ft-socials">
+                        <div class="ft-col">
+                            <span class="ft-k ft-nav-label">REMOTES</span>
+                            <div class="ft-socials">
                         @if($account->github)
                             <a href="{{ $account->github }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="GitHub"><i class="bi bi-github"></i> github</a>
                         @endif
@@ -5452,14 +5498,15 @@
                         @if($account->freelancer)
                             <a href="{{ $account->freelancer }}" target="_blank" rel="noopener noreferrer" class="ft-social" aria-label="Freelancer"><svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#29B2FE"/><text x="12" y="17" text-anchor="middle" fill="white" font-weight="700" font-size="13" font-family="Arial,sans-serif">Fc</text></svg> freelancer</a>
                         @endif
-                    </div>
+                            </div>
+                        </div>
                     @endif
                 </div>
 
                 <div class="ft-foot">
-                    <span class="ft-exit"><i class="bi bi-check-circle"></i> exit code 0</span>
+                    <span class="ft-exit"><i class="bi bi-check-circle-fill"></i> exit code 0</span>
+                    <span class="ft-meta">&copy; {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}</span>
                     <a href="#" class="ft-btt back-top"><i class="bi bi-arrow-up"></i> cd ..</a>
-                    <span class="ft-copy">&copy; {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}. {{ __('messages.copyright') }}</span>
                 </div>
             </div>
         </div>
@@ -6043,6 +6090,43 @@
             if (panel.getBoundingClientRect().top < window.innerHeight) run(panel);
         });
     }, 3000);
+})();
+
+// ===== FOOTER SHELL (log line types itself in when the shell scrolls into view) =====
+(function() {
+    var el = document.querySelector('[data-ft-cmd]');
+    if (!el) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var full = el.getAttribute('data-ft-cmd') || el.textContent || '';
+    var done = false;
+
+    function type() {
+        if (done) return;
+        done = true;
+
+        if (reduce) { el.textContent = full; return; }
+
+        el.textContent = '';
+        var i = 0;
+        (function step() {
+            el.textContent = full.slice(0, ++i);
+            if (i < full.length) setTimeout(step, 48 + Math.random() * 34);
+        })();
+    }
+
+    if (window.IntersectionObserver) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                type();
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.15 });
+        io.observe(el.closest('.ft-shell') || el);
+    } else {
+        type();
+    }
 })();
 
 // ===== CONTACT FORM AJAX =====
